@@ -1,3 +1,5 @@
+![image](https://github.com/Jredish11/adopt-dont-shop-7/assets/124642113/f397b812-c5fa-4b73-911e-c5561fb4b1f6)
+
 # Adopt, don't Shop
 
 This is a paired project used in Turing School's Backend Program Module 2.
