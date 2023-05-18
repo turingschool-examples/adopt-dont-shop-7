@@ -22,117 +22,117 @@ Return to your DTR any time you come into a team conflict
 
 What are your learning goals for the project?  
 
-- Blaine:
+- Blaine: Strengthen my Rails workflow and reading errors and finding solutions
 - Myles:
 
 What are your strengths and areas of growth?  
 
-- Blaine:
+- Blaine: Strength is proplem solving and research. Communication also is strong. Need more growth in Rails, CRUD and MVC 
 - Myles:
 
 What do I offer the team?  
 
-- Blaine:
+- Blaine: Good attitude, open to ideas, and out-of-the-box thinking.
 - Myles:
 
 What learning do you want to focus on in the project?  
 
-- Blaine:
+- Blaine: Git workflow and project managment, Rails app building, Rubocop
 - Myles:
 
   - How can our team help support one anothers in improving these skills?  
 
-    - Blaine:
+    - Blaine: I can offer some help with Git projects and open be to changing how we approach a problem to focus on a need outlined in learning goals.
     - Myles:
 
 How do you learn best with coding?  
 
-- Blaine:
+- Blaine: Async time to work through a problem on my own, then coming together and seeing how someone else solved a problem/collaborating ideas.
 - Myles:
 
 How do you like to collaborate with others?  
 
-- Blaine:
+- Blaine: Make a plan then work async
 - Myles:
 
 Do you like to work alone first?  
 
-- Blaine:
+- Blaine: Yes, but not a hard and fast rule
 - Myles:
 
 Do you like to speak out loud as you are learning?  
 
-- Blaine:
+- Blaine: Only when a problem gets too complex and needs to be spoken into the light
 - Myles:
 
 What do you need (resources, environment, communication) to do your best work?  
 
-- Blaine:
+- Blaine: Chat over Slack and some Zoom time for sharing code 
 - Myles:
 
 How do you communicate best?  
 
-- Blaine:
+- Blaine: Text/slack
 - Myles:
 
 How do you appreciate receiving communication from others?  
 
-- Blaine:
+- Blaine: Text/slack
 - Myles:
 
 How do you appreciate receiving feedback from others?  
 
-- Blaine:
+- Blaine: Directly
 - Myles:
 
 How do you best give feedback to others?  
 
-- Blaine:
+- Blaine: However they like
 - Myles:
 
 What scheduling restraints do you have?  
 
-- Blaine:
+- Blaine: Meeting 3:30-4:30mt on friday, Saturday I am busy all day
 - Myles:
 
  What are your scheduling preferences?  
 
-- Blaine:
+- Blaine: Evenings
 - Myles:
 
 What tools do you want to use to manage the project?  
 
-- Blaine:
+- Blaine: Git projects
 - Myles:
 
 How do you want the group to solve problems when members run into issues with features of the project?  
 
-- Blaine:
+- Blaine: Post in Slack, meet on Zoom when schedules work
 - Myles:
 
 When will we check in again about our process and progress?  
 
-- Blaine:
+- Blaine: Friday?
 - Myles:
 
 How do you know if a project is successful?  
 
-- Blaine:
+- Blaine: When we achieve the satisfactory points i
 - Myles:
 
 How can we achieve success as a group?  
 
-- Blaine:
+- Blaine: Communicate 
 - Myles:
 
 How can we achieve success as individuals?  
 
-- Blaine:
+- Blaine: take poms and ask questions
 - Myles:
 
 Is there anything else we should know about one another before we start working?  
 
-- Blaine:
+- Blaine: I work and have meetings during the day but will communicate. No suprises. 
 - Myles:
 
 &nbsp;
