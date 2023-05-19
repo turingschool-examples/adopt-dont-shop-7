@@ -9,4 +9,6 @@
 <p>Status: <%= @application.status %></p>
 
 <p>Pets:</p>
-<%  %>
+<% @application.pets.each do |pet| %>
+  <%= link_to pet.name, "/pets/#{pet.id}"  %>
+<% end %>
