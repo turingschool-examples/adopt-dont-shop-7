@@ -5,4 +5,8 @@
 <p>State: <%= @application.state %></p>
 <p>Zip Code: <%= @application.zip %></p>
 <p>Description: <%= @application.description %></p>
+<p>Applying for: </p>
+<% @pets.each do |pet| %>
+<%=link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+<% end %>
 <p>Status: <%= @application.status %></p>
