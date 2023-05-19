@@ -9,7 +9,7 @@ RSpec.describe "application/show" do
       application = pet.applications.create!(applicant: "Sarah", address: "123 Sesame Street, Denver, CO 80212", description: "I am cool", status: "In Progress")
 
       visit "/application/show"
-save_and_open_page
+
       expect(page).to have_content("Sarah")
       expect(page).to have_content("123 Sesame Street, Denver, CO 80212")
       expect(page).to have_content("I am cool")
