@@ -9,9 +9,9 @@ RSpec.describe Application, type: :feature do
   
   let!(:app_1) { pet_1.applications.create!(name: "Max Power", street_address: "456 Main St", city: "Broomfield", state: "CO", zip_code: 80211, description: "Love animals", status: "in progress") }
   
-  let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 4, breed: "mutt", name: "Chaco")}
+  # let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 4, breed: "mutt", name: "Chaco")}
   
-  let!(:application_pets_1) { ApplicationPet.create!(application: app_1, pet: pet_2) }
+  # let!(:application_pets_1) { ApplicationPet.create!(application: app_1, pet: pet_2) }
   
   
   # User Story 1
