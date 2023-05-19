@@ -23,121 +23,121 @@ Return to your DTR any time you come into a team conflict
 What are your learning goals for the project?  
 
 - Blaine:
-- Myles:
+- Myles: Get solid with the rails workflow
 
 What are your strengths and areas of growth?  
 
 - Blaine:
-- Myles:
+- Myles: Confident in Ruby skills, feel pretty good about SQL, working on Rails & database architecture
 
 What do I offer the team?  
 
 - Blaine:
-- Myles:
+- Myles: Technical skills and organization
 
 What learning do you want to focus on in the project?  
 
 - Blaine:
-- Myles:
+- Myles: Rails, Active Record, Github Projects
 
   - How can our team help support one anothers in improving these skills?  
 
     - Blaine:
-    - Myles:
+    - Myles: I can help with the rubocop!
 
 How do you learn best with coding?  
 
 - Blaine:
-- Myles:
+- Myles: I often need to take time to read about new concepts and tools
 
 How do you like to collaborate with others?  
 
 - Blaine:
-- Myles:
+- Myles: Plan synchronously and write code asynchronously, usually
 
 Do you like to work alone first?  
 
 - Blaine:
-- Myles:
+- Myles: Depends on the task
 
 Do you like to speak out loud as you are learning?  
 
 - Blaine:
-- Myles:
+- Myles: No
 
 What do you need (resources, environment, communication) to do your best work?  
 
 - Blaine:
-- Myles:
+- Myles: My office and good communication
 
 How do you communicate best?  
 
 - Blaine:
-- Myles:
+- Myles: DM for smaller issues and video call for larger, more complex, issues
 
 How do you appreciate receiving communication from others?  
 
 - Blaine:
-- Myles:
+- Myles: Early and often
 
 How do you appreciate receiving feedback from others?  
 
 - Blaine:
-- Myles:
+- Myles: Early and often
 
 How do you best give feedback to others?  
 
 - Blaine:
-- Myles:
+- Myles: Video call if anything other than fully positive
 
 What scheduling restraints do you have?  
 
 - Blaine:
-- Myles:
+- Myles: Open 9am - 9pm every day
 
  What are your scheduling preferences?  
 
 - Blaine:
-- Myles:
+- Myles: Open 9am - 9pm every day
 
 What tools do you want to use to manage the project?  
 
 - Blaine:
-- Myles:
+- Myles: Github Projects
 
 How do you want the group to solve problems when members run into issues with features of the project?  
 
 - Blaine:
-- Myles:
+- Myles: Use appropriate communication channel
 
 When will we check in again about our process and progress?  
 
 - Blaine:
-- Myles:
+- Myles: Tomorrow
 
 How do you know if a project is successful?  
 
 - Blaine:
-- Myles:
+- Myles: If we complete it and understand it
 
 How can we achieve success as a group?  
 
 - Blaine:
-- Myles:
+- Myles: Keep effective communication
 
 How can we achieve success as individuals?  
 
 - Blaine:
-- Myles:
+- Myles: Finish the project and contribute meaningfully
 
 Is there anything else we should know about one another before we start working?  
 
 - Blaine:
-- Myles:
+- Myles: Incapable of multitasking and terrible at non-verbal communication.
 
 &nbsp;
 
-## AFTER FIRST WEEK & ONGOING DURING PROJECT
+## MONDAY CHECK-IN / ONGOING DURING PROJECT
 
 ### DTR: Check In
 
