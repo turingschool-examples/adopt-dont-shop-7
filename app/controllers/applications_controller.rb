@@ -5,5 +5,19 @@ class ApplicationsController < ApplicationController
     @pets = PetApplication.where(application: @application.id)
   end
 
+  def new
+  end
+  
+  def create
+    @application = Application.new(application_params)
+    @application.save
+    redirect_to "/applications/#{@application.id}"
+  end
+
+  private
+  def application_params
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+  end
+
 
 end
