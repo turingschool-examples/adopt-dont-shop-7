@@ -1,8 +1,8 @@
 <h1>Adoption Application</h1>
 
-<%= form_with url: "/application/#{@application.id}", method: :post, local: true do |form| %>
-<%= form.label :name %>
-<%= form.text_field :name %><br>
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+<%= form.label :applicant, "Name" %>
+<%= form.text_field :applicant %><br>
 <%= form.label :address %>
 <%= form.text_field :address %><br>
 <%= form.label :description, "Why would you make a good home for this pet?" %>
