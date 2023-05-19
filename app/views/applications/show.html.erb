@@ -1,0 +1,7 @@
+<h1><%=@application.name %></h1>
+<h1><%=@application.address %></h1>
+<h1><%=@application.description %></h1>
+<h1><%=@application.application_status %></h1>
+<% @pets.each do |pa| %>
+  <h1><%=link_to pa.pet.name, "/pets/#{pa.pet.id}" %></h1>
+<% end %>
