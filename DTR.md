@@ -23,121 +23,121 @@ Return to your DTR any time you come into a team conflict
 What are your learning goals for the project?  
 
 - Blaine: Strengthen my Rails workflow and reading errors and finding solutions
-- Myles:
+- Myles: Get solid with the rails workflow
 
 What are your strengths and areas of growth?  
 
 - Blaine: Strength is proplem solving and research. Communication also is strong. Need more growth in Rails, CRUD and MVC 
-- Myles:
+- Myles: Confident in Ruby skills, feel pretty good about SQL, working on Rails & database architecture
 
 What do I offer the team?  
 
 - Blaine: Good attitude, open to ideas, and out-of-the-box thinking.
-- Myles:
+- Myles: Technical skills and organization
 
 What learning do you want to focus on in the project?  
 
 - Blaine: Git workflow and project managment, Rails app building, Rubocop
-- Myles:
+- Myles: Rails, Active Record, Github Projects
 
   - How can our team help support one anothers in improving these skills?  
 
     - Blaine: I can offer some help with Git projects and open be to changing how we approach a problem to focus on a need outlined in learning goals.
-    - Myles:
+    - Myles: I can help with the rubocop!
 
 How do you learn best with coding?  
 
 - Blaine: Async time to work through a problem on my own, then coming together and seeing how someone else solved a problem/collaborating ideas.
-- Myles:
+- Myles: I often need to take time to read about new concepts and tools
 
 How do you like to collaborate with others?  
 
 - Blaine: Make a plan then work async
-- Myles:
+- Myles: Plan synchronously and write code asynchronously, usually
 
 Do you like to work alone first?  
 
 - Blaine: Yes, but not a hard and fast rule
-- Myles:
+- Myles: Depends on the task
 
 Do you like to speak out loud as you are learning?  
 
 - Blaine: Only when a problem gets too complex and needs to be spoken into the light
-- Myles:
+- Myles: No
 
 What do you need (resources, environment, communication) to do your best work?  
 
 - Blaine: Chat over Slack and some Zoom time for sharing code 
-- Myles:
+- Myles: My office and good communication
 
 How do you communicate best?  
 
 - Blaine: Text/slack
-- Myles:
+- Myles: DM for smaller issues and video call for larger, more complex, issues
 
 How do you appreciate receiving communication from others?  
 
 - Blaine: Text/slack
-- Myles:
+- Myles: Early and often
 
 How do you appreciate receiving feedback from others?  
 
 - Blaine: Directly
-- Myles:
+- Myles: Early and often
 
 How do you best give feedback to others?  
 
 - Blaine: However they like
-- Myles:
+- Myles: Video call if anything other than fully positive
 
 What scheduling restraints do you have?  
 
 - Blaine: Meeting 3:30-4:30mt on friday, Saturday I am busy all day
-- Myles:
+- Myles: Open 9am - 9pm every day
 
  What are your scheduling preferences?  
 
 - Blaine: Evenings, Sunday all day
-- Myles:
+- Myles: Open 9am - 9pm every day
 
 What tools do you want to use to manage the project?  
 
 - Blaine: Git projects
-- Myles:
+- Myles: Github Projects
 
 How do you want the group to solve problems when members run into issues with features of the project?  
 
 - Blaine: Post in Slack, meet on Zoom when schedules work
-- Myles:
+- Myles: Use appropriate communication channel
 
 When will we check in again about our process and progress?  
 
 - Blaine: Friday?
-- Myles:
+- Myles: Tomorrow
 
 How do you know if a project is successful?  
 
 - Blaine: When we achieve the satisfactory points and works online.
-- Myles:
+- Myles: If we complete it and understand it
 
 How can we achieve success as a group?  
 
 - Blaine: Communicate 
-- Myles:
+- Myles: Keep effective communication
 
 How can we achieve success as individuals?  
 
 - Blaine: take poms and ask questions
-- Myles:
+- Myles: Finish the project and contribute meaningfully
 
 Is there anything else we should know about one another before we start working?  
 
 - Blaine: I work and have meetings during the day but will communicate. No suprises. 
-- Myles:
+- Myles: Incapable of multitasking and terrible at non-verbal communication.
 
 &nbsp;
 
-## AFTER FIRST WEEK & ONGOING DURING PROJECT
+## MONDAY CHECK-IN / ONGOING DURING PROJECT
 
 ### DTR: Check In
 
