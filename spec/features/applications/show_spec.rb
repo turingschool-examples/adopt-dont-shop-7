@@ -1,11 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Application, type: :feature do
+  # create shelters
+  # create pets that belong to shelters
+  # create application
+  # associates application with pets
   let!(:shelter_1) { Shelter.create!(foster_program: true, name:"Soul Dog Rescue", city:"Ft Lupton", rank:1)}
   
   let!(:pet_1) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Frank")}
 
-  let!(:application_1) { Application.create!(name: "John Smith", street_address: "123 Elm", city: "Denver", state: "CO", zip_code: 80205, description: "Responsible pet owner, fenced yard", status: "pending"  )}
+  # let!(:application_1) { Application.create!(name: "John Smith", street_address: "123 Elm", city: "Denver", state: "CO", zip_code: 80205, description: "Responsible pet owner, fenced yard", status: "pending"  )}
   
   let!(:app_1) { pet_1.applications.create!(name: "Max Power", street_address: "456 Main St", city: "Broomfield", state: "CO", zip_code: 80211, description: "Love animals", status: "in progress") }
   
@@ -21,12 +25,9 @@ RSpec.describe Application, type: :feature do
   # - Name of the Applicant
   # - Full Address of the Applicant including street address, city, state, and zip code
   # - Description of why the applicant says they'd be a good home for this pet(s)
-  # - names of all pets that this application is for (all names of pets should be links to their show page)
   # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected" 
-  # create shelters
-  # create pets that belong to shelters
-  # create application
-  # associates application with pets
+  #***^all this rendering*********
+  # - names of all pets that this application is for (all names of pets should be links to their show page)
   
   describe 'as a visitor, when I open the applications show page' do
     it 'displays application information' do
