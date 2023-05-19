@@ -1,0 +1,3 @@
+class ApplicationPet < ApplicationRecord
+  
+end
