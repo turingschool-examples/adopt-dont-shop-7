@@ -29,7 +29,7 @@ RSpec.describe Application, type: :feature do
   # associates application with pets
   
   describe 'as a visitor, when I open the applications show page' do
-    it 'display a form' do
+    it 'displays application information' do
       visit "/applications/#{app_1.id}"
       save_and_open_page
 
