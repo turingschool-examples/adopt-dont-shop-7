@@ -97,7 +97,7 @@ What scheduling restraints do you have?
 
  What are your scheduling preferences?  
 
-- Blaine: Evenings
+- Blaine: Evenings, Sunday all day
 - Myles:
 
 What tools do you want to use to manage the project?  
@@ -117,7 +117,7 @@ When will we check in again about our process and progress?
 
 How do you know if a project is successful?  
 
-- Blaine: When we achieve the satisfactory points i
+- Blaine: When we achieve the satisfactory points and works online.
 - Myles:
 
 How can we achieve success as a group?  
