@@ -31,10 +31,16 @@ RSpec.describe Application, type: :feature do
   describe 'as a visitor, when I open the applications show page' do
     it 'display a form' do
       visit "/applications/#{app_1.id}"
-      
+      save_and_open_page
 
       within("#application-#{app_1.id}") do
-        expect(page).to have_content()
+        expect(page).to have_content(app_1.name)
+        expect(page).to have_content(app_1.street_address)
+        expect(page).to have_content(app_1.city)
+        expect(page).to have_content(app_1.state)
+        expect(page).to have_content(app_1.zip_code)
+        expect(page).to have_content(app_1.description)
+        expect(page).to have_content(app_1.status)
       end
 
 
