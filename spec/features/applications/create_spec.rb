@@ -56,19 +56,19 @@ RSpec.describe "application creation" do
       end
     end
     
-
-# ### Starting point - MJ
-#     context "given invalid data" do
-#       # User Story 3 - All
-#       xit "re-renders the new form" do
-#         visit "/applications/new"
-#         click_button "Save"
-
-#         fill_in "Name", with: "John Doe"
-
-#         # Ex: expect(page).to have_content("Error: Name can't be blank, Rank can't be blank, Rank is not a number")
-#         expect(page).to have_current_path("/applications/new")
-#       end
-#     end
+    describe "given invalid data" do
+      it "re-renders the new form" do
+        visit "/applications/new"
+        
+        fill_in "Name", with: "John Doe"
+        
+        click_button "Submit"
+        
+        # save_and_open_page
+        
+        # expect(page).to have_content("")
+        expect(page).to have_current_path("/applications/new")
+      end
+    end
   end
 end
