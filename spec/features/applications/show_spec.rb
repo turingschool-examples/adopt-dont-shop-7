@@ -8,14 +8,18 @@ RSpec.describe Application, type: :feature do
   let!(:shelter_1) { Shelter.create!(foster_program: true, name:"Soul Dog Rescue", city:"Ft Lupton", rank:1)}
   
   let!(:pet_1) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Frank")}
+  let!(:pet_2) { shelter_1.pets.create!(adoptable: false, age: 7, breed: "lab", name: "Rex")}
+  let!(:pet_3) { shelter_1.pets.create!(adoptable: true, age: 1, breed: "bulldog", name: "Daisy")}
 
   # let!(:application_1) { Application.create!(name: "John Smith", street_address: "123 Elm", city: "Denver", state: "CO", zip_code: 80205, description: "Responsible pet owner, fenced yard", status: "pending"  )}
   
   let!(:app_1) { pet_1.applications.create!(name: "Max Power", street_address: "456 Main St", city: "Broomfield", state: "CO", zip_code: 80211, description: "Love animals", status: "in progress") }
-  
+  let!(:app_2) { pet_2.applications.create!(name: "Jane Doe", street_address: "444 8th St", city: "Wheatridge", state: "CO", zip_code: 80231, description: "Outdoorsy, responsible", status: "accepted") }
+  let!(:app_3) { pet_3.applications.create!(name: "Clark Kent", street_address: "93428 Washington Ave", city: "Arvada", state: "CO", zip_code: 80411, description: "Family loves animals", status: "pending") }
+
   # let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 4, breed: "mutt", name: "Chaco")}
   
-  # let!(:application_pets_1) { ApplicationPet.create!(application: app_1, pet: pet_2) }
+  let!(:application_pets_1) { ApplicationPet.create!(application: app_1, pet: pet_2) }
   
   
   # User Story 1
@@ -44,6 +48,11 @@ RSpec.describe Application, type: :feature do
         expect(page).to have_content(app_1.status)
       end
 
+      within("#application-#{app_1.id}") do
+        expect(page).to have_link("#{pet_1.name}")
+        click_link("Frank")
+        expect(current_path).to eq "/pets/#{pet_1.id}"
+      end
 
 
       
