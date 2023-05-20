@@ -38,5 +38,17 @@ RSpec.describe "new application form" do
         expect(page).to have_content(Application.all.first.status)
       end
     end
+
+    #user story 3 
+    describe "Failure to fill in form fields" do 
+      it 'redirects back to new application page' do 
+        visit "/applications/new"
+        fill_in("Name", with: "Ricky")
+        click_button "Submit Application"
+        expect(current_path).to eq("/applications/new")
+        save_and_open_page
+        expect(page).to have_content("Please Fill Out Entire Form")
+      end
+    end
   end
 end
