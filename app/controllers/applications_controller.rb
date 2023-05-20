@@ -5,6 +5,6 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @app_petapps = PetApplication.where("application_id = #{@application.id}")
+    @app_petapps = PetApplication.find_applications(@application.id)
   end
 end
