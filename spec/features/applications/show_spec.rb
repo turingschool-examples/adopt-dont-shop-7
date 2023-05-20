@@ -27,7 +27,6 @@ RSpec.describe "Applications", type: :feature do
 
       @app3 = Application.create!(name: "Jeff", street_address: "567 Sideways", city: "Somewhere", state: "DE", zip_code: "34567", description: "We the best -DJ Khaled")
       @petapp6 = PetApplication.create!(application_id: @app3.id, pet_id: @pet5.id, status: "Rejected")
-
     end
 
     # 1. Application Show Page
