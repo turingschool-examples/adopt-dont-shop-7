@@ -23,5 +23,6 @@ RSpec.describe "the veterinarian show" do
 
     expect(page).to have_current_path("/veterinarians")
     expect(page).to_not have_content(vet.name)
+    # require 'pry'; binding.pry
   end
 end
