@@ -25,11 +25,11 @@ RSpec.describe "the application show page" do
     app_1 = ApplicantPet.create!(applicant: applicant_1, pet: pet_1)
 
     visit "applicants/#{applicant_1.id}"
-
+save_and_open_page
     expect(page).to have_content(applicant_1.name)
     expect(page).to have_content("Full Address: #{applicant_1.street_address} #{applicant_1.city} #{applicant_1.state} #{applicant_1.zip_code}")
     expect(page).to have_content(applicant_1.qualification)
-    # expect(page).to have_content(applicant_1.name_pets)
+    expect(page).to have_content("Scooby")
     expect(page).to have_content(applicant_1.application_status)
     expect(page).to have_link("Scooby")
   end
