@@ -21,6 +21,11 @@ class ApplicationsController < ApplicationController
      end
   end
 
+  def search
+    show
+    @query = Pet.where(name: params[:search])
+  end
+
   private
   def application_params
 

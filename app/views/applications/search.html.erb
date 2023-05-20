@@ -10,4 +10,7 @@
 <%= form.text_field :search %>
 <%= form.submit "Search" %>
 <% end %>
-
+<section> <% @query.each do |que| %>
+  <%= que.name %>
+<% end %>
+</section>
