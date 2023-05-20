@@ -1,11 +1,9 @@
-<h1>Applicants</h1>
-<% @application.each do |applicant| %>
-<p>Name: <%= applicant.name %></p>
-<p>Address: <%= applicant.address %></p>
-<p>City: <%= applicant.city %></p>
-<p>State: <%= applicant.state %></p>
-<p>Zip Code: <%= applicant.zip_code %></p>
-<p>Description: <%= applicant.description %></p>
-<p>Status: <%= "In Progress" %></p>
-<% end %>
-
+<ul>
+  <li>Name: <%= @application.name %></li>
+  <li>Street Address: <%= @application.address %></li>
+  <li>City: <%= @application.city %></li>
+  <li>State: <%= @application.state %></li>
+  <li>Zip Code: <%= @application.zip_code%></li>
+  <li>Why I would be a good pet owner: <%= @application.description%></li>
+  <li>Status: <%= @application.status %></li>
+</ul>
