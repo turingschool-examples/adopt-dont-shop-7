@@ -10,7 +10,7 @@ RSpec.describe Application, type: :feature do
   let!(:pet_1) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Frank")}
   let!(:pet_2) { shelter_1.pets.create!(adoptable: false, age: 7, breed: "lab", name: "Rex")}
   let!(:pet_3) { shelter_1.pets.create!(adoptable: true, age: 1, breed: "bulldog", name: "Daisy")}
-
+  let!(:pet_4) { shelter_1.pets.create!(adoptable: true, age: 5, breed: "pitbull", name: "Roxie")}
   # let!(:application_1) { Application.create!(name: "John Smith", street_address: "123 Elm", city: "Denver", state: "CO", zip_code: 80205, description: "Responsible pet owner, fenced yard", status: "pending"  )}
   
   let!(:app_1) { Application.create!(name: "Max Power", street_address: "456 Main St", city: "Broomfield", state: "CO", zip_code: 80211, description: "Love animals", status: "in progress") }
@@ -23,21 +23,11 @@ RSpec.describe Application, type: :feature do
   # let!(:application_pets_2) { ApplicationPet.create!(application_id: app_1.id, pet_id: pet_2.id) }
   
   
-  # User Story 1
-  # As a visitor
-  # When I visit an applications show page
-  # Then I can see the following:
-  # - Name of the Applicant
-  # - Full Address of the Applicant including street address, city, state, and zip code
-  # - Description of why the applicant says they'd be a good home for this pet(s)
-  # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected" 
-  #***^all this rendering*********
-  # - names of all pets that this application is for (all names of pets should be links to their show page)
-  
+  # User Story 1  
   describe 'as a visitor, when I open the applications show page' do
     it 'displays application information' do
       visit "/applications/#{app_1.id}"
-      save_and_open_page
+      # save_and_open_page
 
       within("#application-#{app_1.id}") do
         expect(page).to have_content(app_1.name)
@@ -52,6 +42,36 @@ RSpec.describe Application, type: :feature do
         click_link("Frank")
         expect(current_path).to eq "/pets/#{pet_1.id}"
       end
+    end
+    
+      # 4. Searching for Pets for an Application
+
+      # As a visitor
+      # When I visit an application's show page
+      # And that application has not been submitted,
+      # Then I see a section on the page to "Add a Pet to this Application"
+      # In that section I see an input where I can search for Pets by name
+      # When I fill in this field with a Pet's name
+      # And I click submit,
+      # Then I am taken back to the application show page
+      # And under the search bar I see any Pet whose name matches my search
+      
+    it 'has a field to add a pet to an application' do
+      visit "applications/#{app_1.id}"
+      # save_and_open_page
+      expect(page).to have_content("Add a Pet to this Application")
+    end  
+  
+    it 'allows a visitor to search for pets' do
+      visit "applications/#{app_1.id}"
+      fill_in 'pet_name', with: "Roxie"
+      click_button 'Search'
+      save_and_open_page
+
+      expect(page).to have_text("Roxie")
+      expect(page).to have_no_content("Roksi")
+      expect(page).to have_content(pet_4.breed)
+      expect(page).to have_content(pet_4.age)
     end
   end
 end
