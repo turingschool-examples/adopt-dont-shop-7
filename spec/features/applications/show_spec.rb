@@ -16,17 +16,17 @@ RSpec.describe "Applications", type: :feature do
       @shelter3 = Shelter.create!(foster_program: true, name: "Los Angeles Animal Rescue", city: "Los Angeles", rank: 3)
       @pet6 = @shelter3.pets.create!(adoptable: true, age: 5, breed: "Pitbull", name: "Bully")
 
-      @app1 = Application.create!(name: "Garrett", street_address: "123 Upland", city: "Bishop", state: "CA", zip_code: "12345", description: "I'm the best -DJ Khaled")
-      @petapp1 = PetApplication.create!(application_id: @app1.id, pet_id: @pet1.id, status: "In Progress")
-      @petapp2 = PetApplication.create!(application_id: @app1.id, pet_id: @pet4.id, status: "Pending")
+      @app1 = Application.create!(name: "Garrett", street_address: "123 Upland", city: "Bishop", state: "CA", zip_code: "12345", description: "I'm the best -DJ Khaled", status: "In Progress")
+      @petapp1 = PetApplication.create!(application_id: @app1.id, pet_id: @pet1.id)
+      @petapp2 = PetApplication.create!(application_id: @app1.id, pet_id: @pet4.id)
 
-      @app2 = Application.create!(name: "Andy", street_address: "456 Downtown", city: "Anywhere", state: "HI", zip_code: "23456", description: "Anotha One -DJ Khaled")
-      @petapp3 = PetApplication.create!(application_id: @app2.id, pet_id: @pet1.id, status: "Pending")
-      @petapp4 = PetApplication.create!(application_id: @app2.id, pet_id: @pet3.id, status: "Pending")
-      @petapp5 = PetApplication.create!(application_id: @app2.id, pet_id: @pet6.id, status: "Accepted")
+      @app2 = Application.create!(name: "Andy", street_address: "456 Downtown", city: "Anywhere", state: "HI", zip_code: "23456", description: "Anotha One -DJ Khaled", status: "Pending")
+      @petapp3 = PetApplication.create!(application_id: @app2.id, pet_id: @pet1.id)
+      @petapp4 = PetApplication.create!(application_id: @app2.id, pet_id: @pet3.id)
+      @petapp5 = PetApplication.create!(application_id: @app2.id, pet_id: @pet6.id)
 
-      @app3 = Application.create!(name: "Jeff", street_address: "567 Sideways", city: "Somewhere", state: "DE", zip_code: "34567", description: "We the best -DJ Khaled")
-      @petapp6 = PetApplication.create!(application_id: @app3.id, pet_id: @pet5.id, status: "Rejected")
+      @app3 = Application.create!(name: "Jeff", street_address: "567 Sideways", city: "Somewhere", state: "DE", zip_code: "34567", description: "We the best -DJ Khaled", status: "Rejected")
+      @petapp6 = PetApplication.create!(application_id: @app3.id, pet_id: @pet5.id)
     end
 
     # 1. Application Show Page
@@ -49,12 +49,13 @@ RSpec.describe "Applications", type: :feature do
       expect(page).to have_content("State: #{@app1.state}")
       expect(page).to have_content("Zip Code: #{@app1.zip_code}")
       expect(page).to have_content("Description: #{@app1.description}")
+      expect(page).to have_content("Application Status: #{@app1.status}")
 
       # save_and_open_page
       expect(page).to have_link(@pet1.name, href: "/pets/#{@pet1.id}")
       expect(page).to have_link(@pet4.name, href: "/pets/#{@pet4.id}")
-      expect(page).to have_content(@petapp1.status)
-      expect(page).to have_content(@petapp2.status)
+      # expect(page).to have_content(@app1.status)
+      # expect(page).to have_content(@petapp2.status)
     end
 
     it "shows a specific application" do
@@ -66,14 +67,15 @@ RSpec.describe "Applications", type: :feature do
       expect(page).to have_content("State: #{@app2.state}")
       expect(page).to have_content("Zip Code: #{@app2.zip_code}")
       expect(page).to have_content("Description: #{@app2.description}")
+      expect(page).to have_content("Application Status: #{@app2.status}")
 
       # save_and_open_page
       expect(page).to have_link(@pet1.name, href: "/pets/#{@pet1.id}")
       expect(page).to have_link(@pet3.name, href: "/pets/#{@pet3.id}")
       expect(page).to have_link(@pet6.name, href: "/pets/#{@pet6.id}")
-      expect(page).to have_content(@petapp3.status)
-      expect(page).to have_content(@petapp4.status)
-      expect(page).to have_content(@petapp5.status)
+      # expect(page).to have_content(@petapp3.status)
+      # expect(page).to have_content(@petapp4.status)
+      # expect(page).to have_content(@petapp5.status)
     end
 
     it "shows a specific application" do
@@ -85,10 +87,11 @@ RSpec.describe "Applications", type: :feature do
       expect(page).to have_content("State: #{@app3.state}")
       expect(page).to have_content("Zip Code: #{@app3.zip_code}")
       expect(page).to have_content("Description: #{@app3.description}")
+      expect(page).to have_content("Application Status: #{@app3.status}")
 
       # save_and_open_page
       expect(page).to have_link(@pet5.name, href: "/pets/#{@pet5.id}")
-      expect(page).to have_content(@petapp6.status)
+      # expect(page).to have_content(@petapp6.status)
     end
   end
 end
