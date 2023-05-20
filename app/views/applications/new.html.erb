@@ -1,0 +1,22 @@
+<%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :address, "Street Address" %>
+  <%= form.text_field :address %>
+
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+
+  <%= form.label :state %>
+  <%= form.text_field :state %>
+
+  <%= form.label :zip_code, "Zip Code" %>
+  <%= form.text_field :zip_code %>
+
+  <%= form.label :description, "Why I would be a good pet owner:" %>
+  <%= form.text_field :description %>
+  
+
+  <%= form.submit "Submit Application" %>
+<% end %>
