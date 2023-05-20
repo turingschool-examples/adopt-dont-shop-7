@@ -86,8 +86,8 @@ RSpec.describe "Application Show Page", type: :feature do
         
         click_button("Adopt This Pet")
         
-        expect(page).to have_content(@pet_5.name)
         expect(current_path).to eq("/applications/#{@application_1.id}")
+        expect(page).to have_content(@pet_5.name)
         expect(page).to_not have_button("Adopt This Pet")
       end
     end
