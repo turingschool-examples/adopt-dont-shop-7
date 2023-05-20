@@ -13,17 +13,25 @@ class ApplicationsController < ApplicationController
       #     param.blank?
       # end
       @application = Application.new(application_params)
+      # require 'pry'; binding.pry
       if @application.save
         redirect_to "/applications/#{@application.id}"
-     else
-      
+      else
       redirect_to "/applications/new"
-     end
+      end
   end
 
   def search
     show
     @query = Pet.where(name: params[:search])
+  end
+
+  def update
+    search
+    # require 'pry'; binding.pry
+    @pet_application = PetApplication.create!(application: @application, pet: @query.first)
+    # @query.first might be problematic.
+    redirect_to "/applications/#{@application.id}"
   end
 
   private
