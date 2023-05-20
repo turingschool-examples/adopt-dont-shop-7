@@ -5,9 +5,11 @@
 <% @pets.each do |pa| %>
   <h1>Pets applied for: <%=link_to pa.pet.name, "/pets/#{pa.pet.id}" %></h1>
 <% end %>
+<section> 
+<h1>Add a Pet to this Application</h1>
 <%=form_with url: "/applications/#{@application.id}/search", method: :get do |form| %>
 <%= form.label :search, "pet search:" %>
 <%= form.text_field :search %>
 <%= form.submit "Search" %>
 <% end %>
-
+</section>

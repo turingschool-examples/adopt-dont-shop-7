@@ -50,6 +50,7 @@ RSpec.describe "the application show page" do
       expect(page).to have_content("Address: #{application_1.street_address}, #{application_1.city}, #{application_1.state}, #{application_1.zip_code}")
       expect(page).to have_content("Description: #{application_1.description}")
       expect(page).to have_content("Application Status: #{application_1.application_status}")
+      expect(page).to have_content("Add a Pet to this Application")
     end
 
     # User Story 5
