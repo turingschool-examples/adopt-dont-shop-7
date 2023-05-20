@@ -83,7 +83,7 @@ And I fail to fill in any of the form fields
 And I click submit
 Then I am taken back to the new applications page
 And I see a message that I must fill in those fields.
-[ ] done
+[ x] done
 
 4. Searching for Pets for an Application
 
@@ -96,7 +96,7 @@ When I fill in this field with a Pet's name
 And I click submit,
 Then I am taken back to the application show page
 And under the search bar I see any Pet whose name matches my search
-[ ] done
+[ x] done
 
 5. Add a Pet to an Application
 
