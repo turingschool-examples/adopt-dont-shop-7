@@ -21,17 +21,17 @@ RSpec.describe PetApplication, type: :model do
       @shelter3 = Shelter.create!(foster_program: true, name: "Los Angeles Animal Rescue", city: "Los Angeles", rank: 3)
       @pet6 = @shelter3.pets.create!(adoptable: true, age: 5, breed: "Pitbull", name: "Bully")
 
-      @app1 = Application.create!(name: "Garrett", street_address: "123 Upland", city: "Bishop", state: "CA", zip_code: "12345", description: "I'm the best -DJ Khaled")
-      @petapp1 = PetApplication.create!(application_id: @app1.id, pet_id: @pet1.id, status: "In Progress")
-      @petapp2 = PetApplication.create!(application_id: @app1.id, pet_id: @pet4.id, status: "Pending")
+      @app1 = Application.create!(name: "Garrett", street_address: "123 Upland", city: "Bishop", state: "CA", zip_code: "12345", description: "I'm the best -DJ Khaled", status: "In Progress")
+      @petapp1 = PetApplication.create!(application_id: @app1.id, pet_id: @pet1.id)
+      @petapp2 = PetApplication.create!(application_id: @app1.id, pet_id: @pet4.id)
 
-      @app2 = Application.create!(name: "Andy", street_address: "456 Downtown", city: "Anywhere", state: "HI", zip_code: "23456", description: "Anotha One -DJ Khaled")
-      @petapp3 = PetApplication.create!(application_id: @app2.id, pet_id: @pet1.id, status: "Pending")
-      @petapp4 = PetApplication.create!(application_id: @app2.id, pet_id: @pet3.id, status: "Pending")
-      @petapp5 = PetApplication.create!(application_id: @app2.id, pet_id: @pet6.id, status: "Accepted")
+      @app2 = Application.create!(name: "Andy", street_address: "456 Downtown", city: "Anywhere", state: "HI", zip_code: "23456", description: "Anotha One -DJ Khaled", status: "Pending")
+      @petapp3 = PetApplication.create!(application_id: @app2.id, pet_id: @pet1.id)
+      @petapp4 = PetApplication.create!(application_id: @app2.id, pet_id: @pet3.id)
+      @petapp5 = PetApplication.create!(application_id: @app2.id, pet_id: @pet6.id)
 
-      @app3 = Application.create!(name: "Jeff", street_address: "567 Sideways", city: "Somewhere", state: "DE", zip_code: "34567", description: "We the best -DJ Khaled")
-      @petapp6 = PetApplication.create!(application_id: @app3.id, pet_id: @pet5.id, status: "Rejected")
+      @app3 = Application.create!(name: "Jeff", street_address: "567 Sideways", city: "Somewhere", state: "DE", zip_code: "34567", description: "We the best -DJ Khaled", status: "Rejected")
+      @petapp6 = PetApplication.create!(application_id: @app3.id, pet_id: @pet5.id)
     end
 
     context "#find_applications" do
