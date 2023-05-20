@@ -1,0 +1,18 @@
+<h1>New Applicant Submission</h1>
+
+<%= form_with URL: "/applicants/new", method: :post, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :street_address, "Street Address" %>
+  <%= f.text_field :street_address %>
+  <%= f.label :city %>
+  <%= f.text_field :city %>
+  <%= f.label :state %>
+  <%= f.text_field :state %>
+  <%= f.label :zip_code, "Zip Code" %>
+  <%= f.text_field :zip_code %>
+  <%= f.label :qualification, "Why should the pet come home to you?" %>
+  <%= f.text_area :qualification, rows: 5 %>
+  <%= f.submit "Submit Application" %>
+<% end %>
+

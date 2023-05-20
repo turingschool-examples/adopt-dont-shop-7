@@ -1,11 +1,12 @@
 <h1> Applicant Information </h1>
-<% @applicant.pets.each do |pet| %>
-<p><%=  @applicant.name %> </p>
-<p>Full Address: <%= @applicant.street_address %> <%= @applicant.city %> <%= @applicant.state %> <%= @applicant.zip_code %> </p>
-<p> Reason: <%= @applicant.qualification %> </p>
-<p> App Status: <%= @applicant.application_status %> </p>
-<p> Pet Name(s): <%= "#{@applicant.pets.name}" %> </p>
 
+  <p><%=  @applicant.name %> </p>
+  <p>Full Address: <%= @applicant.street_address %> <%= @applicant.city %> <%= @applicant.state %> <%= @applicant.zip_code %> </p>
+  <p> Reason: <%= @applicant.qualification %> </p>
+  <p> App Status: <%= @applicant.application_status %> </p>
+  
+  <% @applicant.pets.each do |pet| %>
+  <p> Pet Name(s): <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
+  
 
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %>

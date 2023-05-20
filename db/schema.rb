@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_211613) do
     t.string "qualification"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "application_status"
+    t.string "application_status", default: "In Progress"
   end
 
   create_table "pets", force: :cascade do |t|
