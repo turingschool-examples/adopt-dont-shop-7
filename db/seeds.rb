@@ -9,7 +9,8 @@ Pet.destroy_all
 Shelter.destroy_all
 Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
-
+Application.destroy_all
+ApplicationPet.destroy_all
 
 
 shelter_1 = Shelter.create!(foster_program: true, name:"Soul Dog Rescue", city:"Ft Lupton", rank:1)
