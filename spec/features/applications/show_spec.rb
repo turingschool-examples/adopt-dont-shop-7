@@ -81,7 +81,7 @@ RSpec.describe '/applications/:id', type: :feature do
 
     it 'displays a link to each pet show page' do 
       visit "/applications/#{@susie.id}"
-      expect(page).to have_link("#{@pet_1.name}", :href => "/pets/#{@pet_1.id}" )
+      expect(page).to have_link("#{@pet_1.name}", :href => "/pets/#{@pet_1.id}")
       expect(page).to have_link("#{@pet_2.name}", :href => "/pets/#{@pet_2.id}")
       
       click_link("#{@pet_2.name}")
