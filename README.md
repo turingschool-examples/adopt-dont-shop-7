@@ -53,7 +53,7 @@ Then I can see the following:
 - Description of why the applicant says they'd be a good home for this pet(s)
 - names of all pets that this application is for (all names of pets should be links to their show page)
 - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-[ ] done
+[x] done
 
 2. Starting an Application
 
@@ -73,7 +73,7 @@ And I click submit
 Then I am taken to the new application's show page
 And I see my Name, address information, and description of why I would make a good home
 And I see an indicator that this application is "In Progress"
-[ ] done
+[x] done
 
 3. Starting an Application, Form not Completed
 
