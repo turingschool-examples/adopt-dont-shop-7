@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "new application form" do
   describe "as a visitor" do
     describe "when I visit the new application form" do
+      # User Story 2
       # am taken to the new application page where I see a form When I fill in this form with my:
 
       # Name
@@ -31,8 +32,10 @@ RSpec.describe "new application form" do
         expect(page).to have_content(Application.all.first.state)
         expect(page).to have_content(Application.all.first.zip_code)
         expect(page).to have_content(Application.all.first.description)
-        expect(page).to have_content("Status: In Progress")
-        save_and_open_page
+
+        Application.all.first.update(status: "In Progress")
+        visit "/applications/#{Application.all.first.id}"
+        expect(page).to have_content(Application.all.first.status)
       end
     end
   end
