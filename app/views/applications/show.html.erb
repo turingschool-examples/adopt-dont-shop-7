@@ -7,6 +7,13 @@
 <p>Zip Code: <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
 
-#application status
-#through pet application
+<h3>Pet Applications</h3>
+<% @app_petapps.each do |petapp| %>
+  <ul>
+    <li>Pet Name: <%= link_to "#{petapp.pet.name}", "/pets/#{petapp.pet.id}"  %></li>
+      <ul>
+          <li>Application Status: <%= petapp.status %></li>
+      </ul>
+  </ul>
+<% end %>
 
