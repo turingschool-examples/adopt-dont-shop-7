@@ -3,10 +3,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
-  def show
-    @application = Application.find(params[:id])
-  end
-
 private
 
   def application_params
