@@ -5,7 +5,6 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-
   end
 
   def create
@@ -18,8 +17,13 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  private
+  def update
+    @application = Application.find(params[:id])
+    @application.update(app_params)
+    redirect_to("/applications/#{@application.id}")
+  end
 
+  private
   def app_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description, :pets, :status, :shelter)
   end
