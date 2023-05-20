@@ -21,4 +21,14 @@ RSpec.describe "new application", type: :feature do
     expect(page).to have_content("Description: #{Application.last.description}")
     expect(page).to have_content("Application Status: #{Application.last.status}")
   end
+
+  context "given invalid data" do
+    it "re-renders the new form" do
+      visit "/applications/new"
+      click_button("Submit")
+
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank")
+    end
+  end
 end
