@@ -37,7 +37,7 @@ RSpec.describe "new application page" do
       fill_in("Street Address", with: "28475 W. North St.")
       fill_in("City", with: "Lebanon")
       fill_in("State", with: "IN")
-      fill_in("Zip Code", with: 03746)
+      fill_in("Zip Code", with: 13746)
       click_button("Submit")
 
       expect(current_path).to eq("/applications/new")
