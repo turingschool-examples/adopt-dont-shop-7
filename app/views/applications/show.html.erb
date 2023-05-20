@@ -6,8 +6,24 @@
 <p>Zip Code: <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
-</br>
+<br>
+
 <h2>Pets Applying For</h2>
   <% @application.pets.each do |pet| %>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
+
+<section id="pet_search">
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label :search_pet, "Search Pet" %>
+    <%= form.text_field :search_pet, :required => true %>
+    <%= form.submit "Search" %>
+  <% end %>
+
+<% if params[:search_pet] %>
+  <% @searched_pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end %>
+</section>
