@@ -12,7 +12,7 @@ def test_data
 
   @application_1 = Application.create!(name: "Bob", street_address: "1234 Southeast St",
     city: "San Francisco", state: "CA", zip_code: 12345,
-    description: "Wants a dog", status: "Pending")
+    description: "Wants a dog", status: "In Progress")
   @application_2 = Application.create!(name: "Sally", street_address: "4321 Bridge Way",
     city: "San Francisco", state: "CA", zip_code: 54321,
     description: "Would like a siamese cat", status: "In Progress")
