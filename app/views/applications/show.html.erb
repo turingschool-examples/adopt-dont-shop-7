@@ -3,7 +3,7 @@
 <h1>Description: <%=@application.description %></h1>
 <h1>Application Status: <%=@application.application_status %></h1>
 <% @pets.each do |pa| %>
-  <h1><%=link_to pa.pet.name, "/pets/#{pa.pet.id}" %></h1>
+  <h1>Pets applied for: <%=link_to pa.pet.name, "/pets/#{pa.pet.id}" %></h1>
 <% end %>
 <%=form_with url: "/applications/#{@application.id}/search", method: :get do |form| %>
 <%= form.label :search, "pet search:" %>
