@@ -8,13 +8,13 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.new(application_params)
-      if application.save
+      if application.valid?
         application.update(status: 'In Progress')
         redirect_to "/applications/#{application.id}"
 
       else
-        redirect_to "/applications/new"
         flash[:alert] = "Error: #{error_message(application.errors)}"
+        redirect_to "/applications/new"
       end
   end
   
