@@ -12,12 +12,20 @@ class ApplicationsController < ApplicationController
   def create
     application = Application.new(application_params)
       if application.valid?
-        application.update(status: 'In Progress')
+        application.status = "In Progress"
+        application.save 
         redirect_to "/applications/#{application.id}"
       else
         flash[:alert] = "Error: #{error_message(application.errors)}"
         redirect_to "/applications/new"
       end
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @adopt_pet = Pet.find(params[:pet_id]) if params[:pet_id].present?
+
+    # if @application
   end
 
   private
