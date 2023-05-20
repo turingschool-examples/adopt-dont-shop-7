@@ -32,3 +32,13 @@
     <% end %>
   <% end %>
 </section>
+
+<% if @application.status == "In Progress" %>
+  <h4>Why would you make a good pet owner?</h4>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :status, value: "Pending" %>
+      <%= form.label :description, "Description" %>
+      <%= form.text_field :description, :required => true %>
+      <%= form.submit "Submit Application" %>
+    <% end %>
+<% end %>
