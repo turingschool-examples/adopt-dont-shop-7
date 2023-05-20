@@ -82,7 +82,7 @@ RSpec.describe "the pets index" do
     expect(page).to_not have_content(pet_3.name)
   end
 
-  # User Story 2
+  # User Story 2 (part 1)
   it "displays a link to start an application" do
     visit "/pets"
 
