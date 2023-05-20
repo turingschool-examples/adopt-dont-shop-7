@@ -23,9 +23,12 @@
   <% end %>
 </div>
 
+<div>
 <% if @pets_search.present? %>
   <% @pets_search.each do |pet| %>
     <p>(Name:) <%= pet.name %>, (Breed:) <%= pet.breed %>, (Age:) <%= pet.age %></p>
+    <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch %>
   <% end %>
 <% end %>
+</div>
 
