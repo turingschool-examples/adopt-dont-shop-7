@@ -7,8 +7,8 @@
 <p>Zipcode: <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
-
 <p>Pets:</p>
 <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}"  %>
+</section>
 <% end %>
