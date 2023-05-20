@@ -91,5 +91,27 @@ RSpec.describe "Application Show Page", type: :feature do
         expect(page).to_not have_button("Adopt This Pet")
       end
     end
+    
+    describe "Submitting an Application" do
+      it "can enter description on why they would be a good owner and submit" do
+        visit "/applications/#{@application_1.id}"
+        
+        within "#submit_app" do          
+          fill_in("Search Pet", with: "Pepper")
+          click_button("Search")
+          click_button("Adopt This Pet")
+          
+          expect(page).to have_content(@pet_5.name)
+          expect(page).to have_button("Submit Application")
+          expect(page).to have_field("Description")
+          
+          fill_in("Description", with: "Taxidermy Project")
+          click_button("Submit Application")
+
+          expect(current_path).to eq("/applications/#{@application_1.id}")
+          expect(page).to have_content("Taxidermy Project")
+        end
+      end
+    end
   end
 end
