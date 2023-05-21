@@ -1,18 +1,23 @@
 <h1>New Applicant Submission</h1>
 
 <%= form_with URL: "/applicants/new", method: :post, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :street_address, "Street Address" %>
-  <%= f.text_field :street_address %>
-  <%= f.label :city %>
-  <%= f.text_field :city %>
-  <%= f.label :state %>
-  <%= f.text_field :state %>
-  <%= f.label :zip_code, "Zip Code" %>
-  <%= f.text_field :zip_code %>
+  <p>
+
+  <%= f.label :name, "Name (ex. Jeff Nelson)" %>
+  <%= f.text_field :name %><br>
+  <%= f.label :street_address, "Street Address (ex. 225 Lincoln Hills Dr.)" %>
+  <%= f.text_field :street_address %><br>
+  <%= f.label :city, "City (ex. Valparaiso)"%>
+  <%= f.text_field :city %><br>
+  <%= f.label :state, "State (ex. IN, ID, NJ)" %>
+  <%= f.text_field :state %><br>
+  <%= f.label :zip_code, "Zip Code (ex. 46385)" %> 
+  <%= f.text_field :zip_code %><br>
+  <br>
+  <br>
   <%= f.label :qualification, "Why should the pet come home to you?" %>
-  <%= f.text_area :qualification, rows: 5 %>
+  <%= f.text_area :qualification, rows: 5 %><br>
   <%= f.submit "Submit Application" %>
+  <br>
 <% end %>
 
