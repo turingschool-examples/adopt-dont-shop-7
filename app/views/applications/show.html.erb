@@ -33,7 +33,15 @@
     <% end %>
   <% end %>
 <% end %>
-
 </div>
 
-
+<div>
+<% if @application.pets.present? %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <h3>Why Would You Make a Good Pet Owner?</h3>
+    <p><%= form.label :description %></p>
+    <p><%= form.text_field :description %></p>
+    <p><%= form.submit "Submit Application" %></p>
+  <% end %>
+<% end %>
+</div>

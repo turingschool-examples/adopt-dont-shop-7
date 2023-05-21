@@ -2,7 +2,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-    @application.status = 'In Progress' if params[:commit] == 'Submit'
+    @application.status = 'Pending' if params[:commit] == 'Submit Application'
     @pets_search = Pet.search(params[:pet_name]) if params[:pet_name].present?
   end
 
