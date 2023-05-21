@@ -22,10 +22,16 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    @application = Application.find(params[:id])
-    @adopt_pet = Pet.find(params[:pet_id]) if params[:pet_id].present?
+    application = Application.find(params[:id])
+    adopt_pet = Pet.find(params[:pet_id])
+    if adopt_pet.nil?
+      flash[:alert] = "Error: Pet not found"
+    else
+      # require 'pry'; binding.pry
+      app_pet = ApplicationPet.create!(application_id: application.id, pet_id: adopt_pet.id)
+    end
 
-    # if @application
+    redirect_to "/applications/#{application.id}"
   end
 
   private
