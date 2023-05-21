@@ -27,8 +27,12 @@
 <% if @pets_search.present? %>
   <% @pets_search.each do |pet| %>
     <p>(Name:) <%= pet.name %>, (Breed:) <%= pet.breed %>, (Age:) <%= pet.age %></p>
-    <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch %>
+    <%= form_with(url: "/applications/#{@application.id}", method: :patch) do |form| %>
+        <%= form.hidden_field :pet_id, value: pet.id %>
+        <%= form.submit "Adopt this Pet" %>
+    <% end %>
   <% end %>
 <% end %>
+
 </div>
 
