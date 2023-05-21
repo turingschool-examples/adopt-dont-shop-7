@@ -15,7 +15,7 @@ RSpec.describe '/applications/:id', type: :feature do
       state: 'MI', 
       zip: '45896', 
       description: 'Loves alligators.', 
-      status: 'Pending'
+      status: 'Accepted'
     )
 
     @tom = Application.create!(
@@ -86,6 +86,20 @@ RSpec.describe '/applications/:id', type: :feature do
       
       click_link("#{@pet_2.name}")
       expect(current_path).to eq("/pets/#{@pet_2.id}")
+
+    end
+  end
+
+  # User Story 4
+  describe "Searching for Pets for an Applicatioin" do
+    it "displays an 'Add a Pet' section if the application has not been submitted (status = 'In Progress')" do 
+      visit "/applications/#{@tom.id}"
+      expect(page).to have_content("Status: In Progress")
+      expect(page).to have_content("Add a Pet to this Application")
+
+      visit "/applications/#{@susie.id}"
+      expect(page).to have_content("Status: Accepted")
+      expect(page).to_not have_content("Add a Pet to this Application")
     end
   end
 end
