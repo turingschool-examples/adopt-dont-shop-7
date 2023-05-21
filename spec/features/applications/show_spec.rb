@@ -129,4 +129,24 @@ RSpec.describe '/applications/:id', type: :feature do
       expect(page).to_not have_content("Spot")
     end
   end
+
+  #User Story 5
+  describe 'Add a Pet to an Application' do 
+    it 'pets searched for and returned can be added to application' do 
+      visit "/applications/#{@susie.id}" do 
+      expect(page).to_not have_content("Fluffy")
+      expect(page).to_not have_button("Adopt this Pet")
+
+      fill_in('Search', with: 'Fluffy') 
+      click_button('Search')
+
+      expect(page).to have_content("Fluffy")
+      expect(page).to have_button('Adopt this Pet')
+      click_button('Adopt this Pet')
+
+      expect(current_path).to eq("/applications/#{@susie.id}")
+      expect(page).to have_content(@pet_4.name)
+      end
+    end
+  end
 end
