@@ -45,16 +45,6 @@ RSpec.describe Application, type: :feature do
     end
     
       # 4. Searching for Pets for an Application
-
-      # As a visitor
-      # When I visit an application's show page
-      # And that application has not been submitted,
-      # Then I see a section on the page to "Add a Pet to this Application"
-      # In that section I see an input where I can search for Pets by name
-      # When I fill in this field with a Pet's name
-      # And I click submit,
-      # Then I am taken back to the application show page
-      # And under the search bar I see any Pet whose name matches my search
       
     it 'has a field to add a pet to an application' do
       visit "applications/#{app_1.id}"
@@ -66,12 +56,43 @@ RSpec.describe Application, type: :feature do
       visit "applications/#{app_1.id}"
       fill_in 'pet_name', with: "Roxie"
       click_button 'Search'
-      save_and_open_page
 
       expect(page).to have_text("Roxie")
       expect(page).to have_no_content("Roksi")
       expect(page).to have_content(pet_4.breed)
       expect(page).to have_content(pet_4.age)
+    end
+    # User Story 6. Submit an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And I have added one or more pets to the application
+    # Then I see a section to submit my application
+    # And in that section I see an input to enter why I would make a good owner for these pet(s)
+    # When I fill in that input
+    # And I click a button to submit this application
+    # Then I am taken back to the application's show page
+    # And I see an indicator that the application is "Pending"
+    # And I see all the pets that I want to adopt
+    # And I do not see a section to add more pets to this application
+  
+    xit 'can submit an application' do
+      # page has no submit button until pets have been added
+      visit "applications/#{app_2.id}"
+      expect(page).to have_no_content('Submit Application')
+      
+      fill_in 'pet_name', with: "Pringle"
+      click_on "Search"
+      click_on "Adopt this Pet"
+
+      expect(page).to have_content "Submit Application"
+      fill_in 'description', with: "I have treats and give belly rubs"
+
+      click_on 'Submit'
+
+      expect(page).to have_content('Pending')
+      expect(page).to have_content('Pringle')
+      expect(page).to have_no_content('Submit Application')
     end
   end
 end
