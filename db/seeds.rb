@@ -26,4 +26,4 @@ app_3 = Application.create!(name: "Clark Kent", street_address: "93428 Washingto
 
 
 
-application_pets_1 = ApplicationPet.create!(application_id: app_1.id, pet_id: pet_2.id) 
+application_pets_1 = ApplicationPet.create!(application_id: app_1.id, pet_id: pet_1.id) 

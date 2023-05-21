@@ -20,7 +20,7 @@ RSpec.describe Application, type: :feature do
   # let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 4, breed: "mutt", name: "Chaco")}
   
   let!(:application_pets_1) { ApplicationPet.create!(application_id: app_1.id, pet_id: pet_1.id) }
-  # let!(:application_pets_2) { ApplicationPet.create!(application_id: app_1.id, pet_id: pet_2.id) }
+  let!(:application_pets_2) { ApplicationPet.create!(application_id: app_1.id, pet_id: pet_2.id) }
   
   
   # User Story 1  
@@ -47,20 +47,41 @@ RSpec.describe Application, type: :feature do
       # 4. Searching for Pets for an Application
       
     it 'has a field to add a pet to an application' do
-      visit "applications/#{app_1.id}"
+      visit "/applications/#{app_1.id}"
       # save_and_open_page
       expect(page).to have_content("Add a Pet to this Application")
     end  
   
     it 'allows a visitor to search for pets' do
-      visit "applications/#{app_1.id}"
+      visit "/applications/#{app_1.id}"
       fill_in 'pet_name', with: "Roxie"
-      click_button 'Search'
+      click_button("Search")
+      # save_and_open_page
 
       expect(page).to have_text("Roxie")
       expect(page).to have_no_content("Roksi")
       expect(page).to have_content(pet_4.breed)
       expect(page).to have_content(pet_4.age)
+    end
+
+#     5. Add a Pet to an Application
+
+# As a visitor
+# When I visit an application's show page
+# And I search for a Pet by name
+# And I see the names Pets that match my search
+# Then next to each Pet's name I see a button to "Adopt this Pet"
+# When I click one of these buttons
+# Then I am taken back to the application show page
+# And I see the Pet I want to adopt listed on this application
+    it "displays button 'Adopt this Pet' button next to each searched for pet's name" do
+      visit "/applications/#{app_1.id}"
+      fill_in "pet_name", with: "Roxie"
+      click_button("Search")
+
+      expect(page).to have_button("Adopt this Pet")
+      click_button "Adopt this Pet"
+      expect(current_path).to eq("/applications/#{app_1.id}")
     end
     # User Story 6. Submit an Application
 
