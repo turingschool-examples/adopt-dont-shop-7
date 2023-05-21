@@ -28,10 +28,3 @@
     <p>(Name:) <%= pet.name %>, (Breed:) <%= pet.breed %>, (Age:) <%= pet.age %></p>
   <% end %>
 <% end %>
-
-<% if @application.pets.present? %>
-  <h3>Submit Application</h3>
-  <%= form_with url: "/applications/#{@application.id}", method: :post do |form| %>
-    <%= form.submit "Submit" %>
-  <% end %>
-<% end %>

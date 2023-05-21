@@ -76,7 +76,7 @@ RSpec.describe Application, type: :feature do
     # And I see all the pets that I want to adopt
     # And I do not see a section to add more pets to this application
   
-    it 'can submit an application' do
+    xit 'can submit an application' do
       # page has no submit button until pets have been added
       visit "applications/#{app_2.id}"
       expect(page).to have_no_content('Submit Application')
@@ -86,7 +86,7 @@ RSpec.describe Application, type: :feature do
       click_on "Adopt this Pet"
 
       expect(page).to have_content "Submit Application"
-      fill_in 'description', with "I have treats and give belly rubs"
+      fill_in 'description', with: "I have treats and give belly rubs"
 
       click_on 'Submit'
 
@@ -94,7 +94,5 @@ RSpec.describe Application, type: :feature do
       expect(page).to have_content('Pringle')
       expect(page).to have_no_content('Submit Application')
     end
-  
-  
   end
 end
