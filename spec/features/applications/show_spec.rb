@@ -97,23 +97,36 @@ RSpec.describe Application, type: :feature do
     # And I see all the pets that I want to adopt
     # And I do not see a section to add more pets to this application
   
-    xit 'can submit an application' do
+    it 'can not submit an application until pets are added' do
       # page has no submit button until pets have been added
-      visit "applications/#{app_2.id}"
+      visit "/applications/#{app_2.id}"
       expect(page).to have_no_content('Submit Application')
-      
-      fill_in 'pet_name', with: "Pringle"
-      click_on "Search"
-      click_on "Adopt this Pet"
+    end
 
-      expect(page).to have_content "Submit Application"
+
+    it 'can submit an application when there are pets' do
+      visit "/applications/#{app_2.id}"
+      
+      fill_in "pet_name", with: "Roxie"
+      click_button ("Search")
+      click_button ("Adopt this Pet")
+    
+      expect(page).to have_button("Submit Application")
       fill_in 'description', with: "I have treats and give belly rubs"
 
-      click_on 'Submit'
-
+      click_button('Submit')
+      save_and_open_page
+      
       expect(page).to have_content('Pending')
-      expect(page).to have_content('Pringle')
+      expect(page).to have_content('Roxie')
       expect(page).to have_no_content('Submit Application')
     end
   end
 end
+
+# if @application.pets are not nil?
+# then Submit button
+# => Form with description:text field and submit button
+# show page refreshed with updated status
+# Pet names
+# Submit Application gone
