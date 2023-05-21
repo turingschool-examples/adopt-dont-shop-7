@@ -7,6 +7,7 @@ RSpec.describe '/applications/:id', type: :feature do
     @pet_1 = @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
+    @pet_4 = @shelter_1.pets.create!(name: "Fluffy", breed: "british shorthair", age: 1, adoptable: true)
 
     @susie = Application.create!(
       name: 'Susie', 
@@ -15,7 +16,7 @@ RSpec.describe '/applications/:id', type: :feature do
       state: 'MI', 
       zip: '45896', 
       description: 'Loves alligators.', 
-      status: 'Pending'
+      status: 'Accepted'
     )
 
     @tom = Application.create!(
@@ -86,6 +87,46 @@ RSpec.describe '/applications/:id', type: :feature do
       
       click_link("#{@pet_2.name}")
       expect(current_path).to eq("/pets/#{@pet_2.id}")
+
+    end
+  end
+
+  # User Story 4
+  describe "Searching for Pets for an Applicatioin" do
+    it "displays an 'Add a Pet' section if the application has not been submitted (status = 'In Progress')" do 
+      visit "/applications/#{@tom.id}"
+      expect(page).to have_content("Status: In Progress")
+      expect(page).to have_content("Add a Pet to this Application")
+
+      visit "/applications/#{@susie.id}"
+      expect(page).to have_content("Status: Accepted")
+      expect(page).to_not have_content("Add a Pet to this Application")
+    end
+
+    it "successfully searches for a pet by name and display it below search bar" do
+      visit "/applications/#{@tom.id}"
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_button("Search")
+      expect(page).to_not have_content(@pet_4.name)
+      
+      fill_in("Search", with: @pet_4.name)
+      click_button("Search")
+
+      expect(current_path).to eq("/applications/#{@tom.id}")
+      expect(page).to have_content(@pet_4.name)
+    end
+
+    it "unsuccessfully searches for a pet by name and does not display it" do
+      visit "/applications/#{@tom.id}"
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_button("Search")
+      expect(page).to_not have_content("Spot")
+      
+      fill_in("Search", with: "Spot")
+      click_button("Search")
+
+      expect(current_path).to eq("/applications/#{@tom.id}")
+      expect(page).to_not have_content("Spot")
     end
   end
 end
