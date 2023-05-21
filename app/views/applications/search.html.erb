@@ -2,7 +2,7 @@
 <h1>Address: <%=@application.street_address %>, <%=@application.city %>, <%=@application.state %>, <%=@application.zip_code %></h1>
 <h1>Description: <%=@application.description %></h1>
 <h1>Application Status: <%=@application.application_status %></h1>
-<% @pets.each do |pa| %>
+<% @pet_applications.each do |pa| %>
   <h1><%=link_to pa.pet.name, "/pets/#{pa.pet.id}" %></h1>
 <% end %>
 <section>
@@ -15,6 +15,6 @@
 </section>
 <section> <% @query.each do |que| %>
     <%= "#{que.name}" %>
-  <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch, params: {search: que.name}  %>
+  <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets", method: :post, params: {search: que.name}  %>
 <% end %>
 </section>
