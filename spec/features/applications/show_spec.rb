@@ -123,19 +123,19 @@ RSpec.describe "Applications", type: :feature do
     # And I see the Pet I want to adopt listed on this application
     it "can add pets to an application" do
       visit "/applications/#{@app1.id}/?search=#{@pet2.name}"
-      # save_and_open_page
 
-      within "#application-#{@app1.id}" do
+      within "#pets-#{@app1.id}" do
         expect(page).to_not have_content("Name: #{@pet2.name}")
       end
 
       visit "/applications/#{@app1.id}/?search=#{@pet2.name}"
 
       expect(page).to have_content("Add a Pet to this Application")
-      # save_and_open_page
 
       click_button("Adopt this Pet")
 
+      expect(current_path).to eq("/applications/#{@app1.id}")
+      
       within "#application-#{@app1.id}" do
         expect(page).to have_content("Name: #{@pet2.name}")
       end

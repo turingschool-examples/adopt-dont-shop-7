@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "application update", type: :feature do
-  describe "application#update" do
+RSpec.describe "pet application create", type: :feature do
+  describe "pet_applications#create" do
     before(:each) do
       @shelter1 = Shelter.create!(foster_program: true, name: "Bishop Animal Rescue", city: "Bishop", rank: 5)
       @pet1 = @shelter1.pets.create!(adoptable: true, age: 3, breed: "Samoyed", name: "Fluffy")
@@ -28,5 +28,36 @@ RSpec.describe "application update", type: :feature do
       @app3 = Application.create!(name: "Jeff", street_address: "567 Sideways", city: "Somewhere", state: "DE", zip_code: "34567", description: "We the best -DJ Khaled", status: "Rejected")
       @petapp6 = PetApplication.create!(application_id: @app3.id, pet_id: @pet5.id)
     end
+
+    it "updates a Pet application with pet id and application id" do
+      # 5. Add a Pet to an Application
+
+      # As a visitor
+      # When I visit an application's show page
+      # And I search for a Pet by name
+      # And I see the names Pets that match my search
+      # Then next to each Pet's name I see a button to "Adopt this Pet"
+      # When I click one of these buttons
+      # Then I am taken back to the application show page
+      # And I see the Pet I want to adopt listed on this application
+      visit "/applications/#{@app1.id}/?search=#{@pet2.name}"
+
+      within "#pets-#{@app1.id}" do
+        expect(page).to_not have_content("Name: #{@pet2.name}")
+      end
+
+      visit "/applications/#{@app1.id}/?search=#{@pet2.name}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+
+      click_button("Adopt this Pet")
+
+      within "#pets-#{@app1.id}" do
+        expect(page).to have_content("Name: #{@pet1.name}")
+        expect(page).to have_content("Name: #{@pet2.name}")
+        expect(page).to have_content("Name: #{@pet4.name}")
+      end
+    end
   end
+
 end
