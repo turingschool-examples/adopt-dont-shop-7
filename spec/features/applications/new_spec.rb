@@ -17,7 +17,7 @@ RSpec.describe "new application page" do
   describe "new application" do
     it "creates new application" do
       visit "/applications/new"
-      
+
       fill_in("Name", with: "Nick")
       fill_in("Street Address", with: "4530 32nd Street")
       fill_in("City", with: "San Diego")
@@ -25,14 +25,14 @@ RSpec.describe "new application page" do
       fill_in("Zip Code", with: 81503)
       fill_in("Description", with: "I like animals")
       click_button("Submit")
-      
+
       expected_id = Application.last.id
       expect(current_path).to eq("/applications/#{expected_id}")
     end
-    
+
     it "Requires an application to be filled out completely" do
       visit "/applications/new"
-      
+
       fill_in("Name", with: "Javen")
       fill_in("Street Address", with: "28475 W. North St.")
       fill_in("City", with: "Lebanon")
