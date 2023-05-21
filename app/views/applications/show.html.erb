@@ -2,14 +2,31 @@
 <h1>Address: <%=@application.street_address %>, <%=@application.city %>, <%=@application.state %>, <%=@application.zip_code %></h1>
 <h1>Description: <%=@application.description %></h1>
 <h1>Application Status: <%=@application.application_status %></h1>
-<% @pets.each do |pa| %>
-  <h1>Pets applied for: <%=link_to pa.pet.name, "/pets/#{pa.pet.id}" %></h1>
+<h1>Pets applied for: </h1>
+<% @pet_applications.each do |pa| %>
+   <%=link_to pa.pet.name, "/pets/#{pa.pet.id}" %>
 <% end %>
-<section> 
-<h1>Add a Pet to this Application</h1>
-<%=form_with url: "/applications/#{@application.id}/search", method: :get do |form| %>
-<%= form.label :search, "pet search:" %>
-<%= form.text_field :search %>
-<%= form.submit "Search" %>
+
+<% if @application.application_status == "In Progress"%>
+  <section> 
+  <h1>Add a Pet to this Application</h1>
+  <%=form_with url: "/applications/#{@application.id}/search", method: :get do |form| %>
+    <%= form.label :search, "pet search:" %>
+    <%= form.text_field :search %>
+    <%= form.submit "Search" %>
+  <% end %>
+  </section>
 <% end %>
-</section>
+
+<% if @pet_applications.count > 0 && @application.application_status == "In Progress"%>
+  <section> 
+    <h1>Submit my Application</h1>
+    <form>
+      <label for="pet_answer">Why would you be a good owner for this pet(s)?</label><br>
+      <input type="text" id="pet_answer" name="pet_answer"><br>
+      <%= button_to "Submit", "/applications/#{@application.id}", method: :patch %>
+    </form>
+  </section>
+<% end %>
+
+
