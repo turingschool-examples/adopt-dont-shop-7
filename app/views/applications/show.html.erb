@@ -13,27 +13,23 @@
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 
-<section id="pet_search">
-  <h3>Add a Pet to this Application</h3>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-    <%= form.label :search_pet, "Search Pet" %>
-    <%= form.text_field :search_pet, :required => true %>
-    <%= form.submit "Search" %>
-  <% end %>
+<% if @application.status == "In Progress" %>
+  <%= render "search_pet" %>
+<% end %>
 
-  <% if params[:search_pet] %>
-    <% @searched_pets.each do |searched_pet| %>
-      <%= searched_pet.name %>
-      <%= form_with model: PetApplication.new, url: "/pet_applications", method: :post, local: true do |form| %>
-        <%= form.hidden_field :pet_id, value: searched_pet.id %>
-        <%= form.hidden_field :application_id, value: @application.id %>
-        <%= form.submit "Adopt This Pet" %>
-      <% end %>
+<% if params[:search_pet] %>
+  <% @searched_pets.each do |searched_pet| %>
+    <%= searched_pet.name %>
+    <%= form_with model: PetApplication.new, url: "/pet_applications", method: :post, local: true do |form| %>
+      <%= form.hidden_field :pet_id, value: searched_pet.id %>
+      <%= form.hidden_field :application_id, value: @application.id %>
+      <%= form.submit "Adopt This Pet" %>
     <% end %>
   <% end %>
-</section>
+<% end %>
 
-<% if @application.status == "In Progress" %>
+
+<% if @application.pets.any? && @application.status == "In Progress" %>
   <h4>Why would you make a good pet owner?</h4>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
       <%= form.hidden_field :status, value: "Pending" %>
