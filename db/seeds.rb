@@ -38,6 +38,10 @@ Shelter.destroy_all
   city: "NYC", state: "NY", zip_code: 84930,
   description: "I want a big ol dog", status: "In Progress")
 
+@application_6 = Application.create!(name: "New Dude", street_address: "9375 Down Under St.",
+  city: "Upper Jabib", state: "PA", zip_code: 74625,
+  description: "Do you have any alligators?", status: "In Progress")
+
 PetApplication.create!(pet: @pet_1, application: @application_2)
 PetApplication.create!(pet: @pet_2, application: @application_1)
 
