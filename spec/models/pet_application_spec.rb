@@ -10,5 +10,7 @@ RSpec.describe PetApplication, type: :model do
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:pet_id) }
     it { should validate_presence_of(:application_id) }
+    it { should validate_numericality_of(:pet_id) }
+    it { should validate_numericality_of(:application_id) }
   end
 end
