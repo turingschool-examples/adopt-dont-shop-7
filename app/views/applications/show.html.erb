@@ -8,12 +8,14 @@
 <p>Description: <%= @application.description %></p>
 <p>Application Status: <%= @application.status %></p>
 
-<h3>Pet Applications</h3>
-<% @app_petapps.each do |petapp| %>
-  <ul>
-    <li>Pet Name: <%= link_to "#{petapp.pet.name}", "/pets/#{petapp.pet.id}"  %></li>
-  </ul>
-<% end %>
+<div id="pets-<%= @application.id %>">
+  <h3>Pet Applications</h3>
+  <% @app_petapps.each do |petapp| %>
+    <ul>
+      <li>Pet Name: <%= link_to "#{petapp.pet.name}", "/pets/#{petapp.pet.id}"  %></li>
+    </ul>
+  <% end %>
+</div>
 
 <div id="application-<%= @application.id %>">
   <h4>Add a Pet to this Application</h4>
@@ -23,6 +25,11 @@
     <%= f.submit "Search" %>
     <% @pets.each do |pet| %>
       <p>Name: <%= pet.name %></p>
+      <%= form_with url: "/pet_applications", method: :post, local: true do |f| %>
+        <%= f.hidden_field :application_id, value: @application.id %>
+        <%= f.hidden_field :pet_id, value: pet.id %>
+        <%= f.submit "Adopt this Pet" %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
