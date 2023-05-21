@@ -23,7 +23,7 @@ class ApplicationsController < ApplicationController
 
   def search
     show
-    @query = Pet.where("name like ?", "%#{params[:search]}%")
+    @query = Pet.where("lower(name) ILIKE ?", ("%#{params[:search]}%").downcase)
   end
 
   def update
@@ -39,5 +39,5 @@ class ApplicationsController < ApplicationController
     params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
 
-
 end
+
