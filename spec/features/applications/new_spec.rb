@@ -19,12 +19,12 @@ RSpec.describe "/applications/new", type: :feature do
     it "can fill out form and successfully submit to applicantion's show page" do
       visit "/applications/new"
 
-      fill_in("Name", with: "Kim Jong Un")
-      fill_in("Street Address", with: "123 Peoples Square")
-      fill_in("City", with: "Pyongyang")
-      fill_in("State", with: "Florida")
-      fill_in("Zip", with: "12345")
-      fill_in("Description", with: "very good applicant")
+      fill_in("Name", with: "John Smith")
+      fill_in("Street Address", with: "123 Main Street")
+      fill_in("City", with: "Wellington")
+      fill_in("State", with: "Nebraska")
+      fill_in("Zip", with: "48226")
+      fill_in("Description", with: "great pet owner")
       click_button("Submit")
 
       expect(page).to have_current_path("/applications/#{Application.last.id}")
