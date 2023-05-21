@@ -2,11 +2,12 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets_app = PetsApplication.where(application: @application.id)
+    if params[:search].present? 
+      @pets = Pet.search(params[:search])
+    end
   end
 
   def new
-    @application = Application.new
   end
 
   def create
@@ -14,21 +15,20 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
-      flash[:error] = "Please Fill Out Entire Form"
       redirect_to "/applications/new"
+      flash[:error] = "Please Fill Out Entire Form"
     end
   end
 
-  def search
-    show
-    @query = Pet.where(name: params[:search])
-  end
-
   def update
-    search
-    @pet = search.first
-    @application = Application.find(params[:id])
-    redirect_to "/applications/#{params[:id]}"
+    application = Application.find(params[:id])
+    if params[:good_owner] == nil
+      pet = Pet.find(params[:pet_id])
+    else 
+      application.update(status: "Pending")
+      application.save
+    end
+    redirect_to "/applications/#{application.id}"
   end
 
   private

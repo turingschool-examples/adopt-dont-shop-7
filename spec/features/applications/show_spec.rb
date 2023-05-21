@@ -50,11 +50,9 @@ RSpec.describe "Application show page" do
 
         visit "/applications/#{@joey.id}"
         expect(page).to have_content("Add a Pet to this Application")
-
         fill_in :search, with: "Francesco Zappa"
         click_button "Search"
         expect(page).to have_content("Francesco Zappa")
-        click_button "Adopt This Pet"
         expect(current_path).to eq("/applications/#{@joey.id}")
       end
 
@@ -66,8 +64,9 @@ RSpec.describe "Application show page" do
         visit "/applications/#{@joey.id}"
         fill_in :search, with: "Francesco Zappa"
         click_button "Search"
-        click_button "Adopt This Pet"
         expect(page).to have_content("Francesco Zappa")
+        click_button "Adopt this Pet"
+        expect(current_path).to eq("/applications/#{@joey.id}")
       end
     end
   end

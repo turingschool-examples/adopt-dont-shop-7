@@ -1,4 +1,0 @@
-<% @query.each do |querant| %>
-<%= "#{querant.name}" %>
-<%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: :patch, params: {search: querant.name} %>
-<% end %>
