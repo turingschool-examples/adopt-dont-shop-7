@@ -125,5 +125,35 @@ RSpec.describe "Application Show Page", type: :feature do
         expect(page).to_not have_button("Submit Application")
       end
     end
+
+    describe "Partial Matches for Pet Names" do
+      it "can find pets based on a partial search" do
+        visit "applications/#{@application_6.id}"
+        fill_in("Search Pet", with: "Marsh")
+        click_button("Search")
+        
+        expect(page).to have_content("Marshall")
+        
+        fill_in("Search Pet", with: "Be")
+        click_button("Search")
+
+        expect(page).to have_content("Beethoven")
+      end
+    end
+
+    describe "Case Insensitive Matches for Pet Names" do
+      it "can find pets regardless of case" do
+        visit "applications/#{@application_6.id}"
+        fill_in("Search Pet", with: "mArS")
+        click_button("Search")
+        
+        expect(page).to have_content("Marshall")
+        
+        fill_in("Search Pet", with: "BeeTH")
+        click_button("Search")
+
+        expect(page).to have_content("Beethoven")
+      end
+    end
   end
 end
