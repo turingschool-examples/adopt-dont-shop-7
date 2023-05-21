@@ -2,7 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    # @application.search 
+    @pets_app = PetsApplication.where(application: @application.id)
   end
 
   def new
@@ -13,20 +13,22 @@ class ApplicationsController < ApplicationController
     @application = Application.new(application_params)
     if @application.save
       redirect_to "/applications/#{@application.id}"
-    else  
+    else
       flash[:error] = "Please Fill Out Entire Form"
       redirect_to "/applications/new"
     end
   end
 
-  def search 
-    show 
+  def search
+    show
     @query = Pet.where(name: params[:search])
   end
 
-  def update 
-    search 
-    # redirect_to "/applications/:id"
+  def update
+    search
+    @pet = search.first
+    @application = Application.find(params[:id])
+    redirect_to "/applications/#{params[:id]}"
   end
 
   private
