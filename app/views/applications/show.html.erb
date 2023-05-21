@@ -25,7 +25,11 @@
     <%= f.submit "Search" %>
     <% @pets.each do |pet| %>
       <p>Name: <%= pet.name %></p>
-      <%= button_to "Adopt this Pet", "/pet_applications", method: :post, local: true %>
+      <%= form_with url: "/pet_applications", method: :post, local: true do |f| %>
+        <%= f.hidden_field :application_id, value: @application.id %>
+        <%= f.hidden_field :pet_id, value: pet.id %>
+        <%= f.submit "Adopt this Pet" %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
