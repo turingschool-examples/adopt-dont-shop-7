@@ -32,10 +32,11 @@ RSpec.describe "/applications/new" do
       expect(page).to have_content("Zip code")
       expect(page).to have_content("Why would you make a good home?")
       expect(page).to have_button("Save")
+      expect(page).to have_no_content("In Progress")
     end
 
     it 'saves when completed and redirects to show page' do
-      visit "applications/new"
+      visit "/applications/new"
 
       fill_in "Name", with: "Colin"
       fill_in "Street address", with: "245 33rd St"
@@ -44,8 +45,8 @@ RSpec.describe "/applications/new" do
       fill_in "Zip code", with: 87502
       fill_in :description, with: "I am awesome"
       click_button "Save"
-      
-      
+
+  
       expect(page).to have_content("Colin")
       expect(page).to have_content("245 33rd St")
       expect(page).to have_content("Los Alamos")
@@ -68,4 +69,4 @@ RSpec.describe "/applications/new" do
       end
     end
   end
-end
+end    
