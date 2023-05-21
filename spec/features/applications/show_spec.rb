@@ -55,19 +55,14 @@ RSpec.describe Application, type: :feature do
     it 'allows a visitor to search for pets' do
       visit "/applications/#{app_1.id}"
       fill_in 'pet_name', with: "Roxie"
-<<<<<<< HEAD
       click_button("Search")
       # save_and_open_page
-=======
-      click_button 'Search'
->>>>>>> main
 
       expect(page).to have_text("Roxie")
       expect(page).to have_no_content("Roksi")
       expect(page).to have_content(pet_4.breed)
       expect(page).to have_content(pet_4.age)
     end
-<<<<<<< HEAD
 
 #     5. Add a Pet to an Application
 
@@ -87,7 +82,7 @@ RSpec.describe Application, type: :feature do
       expect(page).to have_button("Adopt this Pet")
       click_button "Adopt this Pet"
       expect(current_path).to eq("/applications/#{app_1.id}")
-=======
+    end
     # User Story 6. Submit an Application
 
     # As a visitor
@@ -119,7 +114,6 @@ RSpec.describe Application, type: :feature do
       expect(page).to have_content('Pending')
       expect(page).to have_content('Pringle')
       expect(page).to have_no_content('Submit Application')
->>>>>>> main
     end
   end
 end
