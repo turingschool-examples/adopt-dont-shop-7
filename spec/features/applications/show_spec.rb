@@ -20,7 +20,7 @@ RSpec.describe Application, type: :feature do
   # let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 4, breed: "mutt", name: "Chaco")}
   
   let!(:application_pets_1) { ApplicationPet.create!(application_id: app_1.id, pet_id: pet_1.id) }
-  let!(:application_pets_2) { ApplicationPet.create!(application_id: app_1.id, pet_id: pet_2.id) }
+  # let!(:application_pets_2) { ApplicationPet.create!(application_id: app_1.id, pet_id: pet_2.id) }
   
   
   # User Story 1  

@@ -45,8 +45,8 @@ RSpec.describe "/applications/new" do
       fill_in "Zip code", with: 87502
       fill_in :description, with: "I am awesome"
       click_button "Save"
-      # save_and_open_page
-      
+
+  
       expect(page).to have_content("Colin")
       expect(page).to have_content("245 33rd St")
       expect(page).to have_content("Los Alamos")
@@ -54,6 +54,19 @@ RSpec.describe "/applications/new" do
       expect(page).to have_content("87502")
       expect(page).to have_content("I am awesome")
       expect(page).to have_content("In Progress")
+    end
+
+    describe "when form fields are incomplete" do
+      it 'displays error message and takes visitor back to new applications page' do
+      visit "/applications/new"
+
+      click_button "Save"
+      save_and_open_page
+
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank\nPets\nShelters\nVeterinarians\nVeterinary Offices\nNew Application\nName\nStreet address\nCity\nState\nZip code\nWhy would you make a good home?")
+      end
     end
   end
 end    
