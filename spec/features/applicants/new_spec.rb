@@ -34,7 +34,7 @@ RSpec.describe "Applicant New Page" do
     
     click_button("Submit Application")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
     
   end
@@ -50,7 +50,7 @@ RSpec.describe "Applicant New Page" do
     
     click_button("Submit Application")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
   end
 
@@ -66,7 +66,7 @@ RSpec.describe "Applicant New Page" do
 
     click_button("Submit Application")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
 
     fill_in(:name, with: "Jeff Nelson")
@@ -76,7 +76,7 @@ RSpec.describe "Applicant New Page" do
     fill_in(:zip_code, with: "42894")
     fill_in(:qualification, with: "Love All PETS!")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
   end
 
@@ -91,7 +91,7 @@ RSpec.describe "Applicant New Page" do
     
     click_button("Submit Application")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
 
     fill_in(:name, with: "Jeff Nelson")
@@ -101,7 +101,7 @@ RSpec.describe "Applicant New Page" do
     fill_in(:zip_code, with: "42894")
     fill_in(:qualification, with: "Love All PETS!")
     
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
   end
 
@@ -116,7 +116,7 @@ RSpec.describe "Applicant New Page" do
 
     click_button("Submit Application")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
 
     fill_in(:name, with: "Jeff Nelson")
@@ -126,7 +126,7 @@ RSpec.describe "Applicant New Page" do
     fill_in(:zip_code, with: "Lake City City")
     fill_in(:qualification, with: "Love All PETS!")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
 
     fill_in(:name, with: "Jeff Nelson")
@@ -136,7 +136,7 @@ RSpec.describe "Applicant New Page" do
     fill_in(:zip_code, with: "463")
     fill_in(:qualification, with: "Love All PETS!")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
 
     fill_in(:name, with: "Jeff Nelson")
@@ -146,7 +146,7 @@ RSpec.describe "Applicant New Page" do
     fill_in(:zip_code, with: "463856598")
     fill_in(:qualification, with: "Love All PETS!")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
   end
 
@@ -161,7 +161,7 @@ RSpec.describe "Applicant New Page" do
     
     click_button("Submit Application")
 
-    expect(current_path).to eq("/applicants/#{Applicant.all.last.id}")
+    expect(current_path).to eq("/applicants/new")
     expect(page).to have_content("Please see examples and enter a valid response with no empty fields")
   end
 end

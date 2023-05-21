@@ -1,15 +1,15 @@
 class Applicant < ApplicationRecord
   validates :name, presence: true
-  validates :street_address, presence: true, 
+  validates :street_address, presence: true
   validates :city, presence: true, numericality: false
   validates :state, presence: true, length: { is: 2 }, numericality: false
   validates :zip_code, presence: true, length: { is: 5}, numericality: true
   validates :qualification, presence: true
 
-  numericality: true
   has_many :applicant_pets
   has_many :pets, through: :applicant_pets
 
+  
 # def status_update
 #   if admin updates application status to "rejected"
 #     return application_status = "Rejected"

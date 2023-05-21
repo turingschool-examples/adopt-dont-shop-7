@@ -9,9 +9,14 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-    @applicant = Applicant.create!(app_params)
+    applicant = Applicant.new(app_params)
 
-    redirect_to "/applicants/#{@applicant.id}"
+    if applicant.save
+      redirect_to "/applicants/#{applicant.id}"
+    else
+      redirect_to "/applicants/new"
+      flash[:alert] = "Please see examples and enter a valid response with no empty fields"
+    end
   end
 
   private
