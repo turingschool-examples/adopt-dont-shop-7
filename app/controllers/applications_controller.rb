@@ -2,7 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = PetApplication.where(application: @application.id)
+    @pet_applications = PetApplication.where(application: @application.id)
   end
 
   def new
@@ -27,9 +27,8 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    search
-    # require 'pry'; binding.pry
-    @pet_application = PetApplication.create!(application: @application, pet: @query.first)
+    show
+    @application.update(application_status: "Pending")
     # @query.first might be problematic.
     redirect_to "/applications/#{@application.id}"
   end
