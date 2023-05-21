@@ -140,5 +140,20 @@ RSpec.describe "Application Show Page", type: :feature do
         expect(page).to have_content("Beethoven")
       end
     end
+
+    describe "Case Insensitive Matches for Pet Names" do
+      it "can find pets regardless of case" do
+        visit "applications/#{@application_6.id}"
+        fill_in("Search Pet", with: "mArS")
+        click_button("Search")
+        
+        expect(page).to have_content("Marshall")
+        
+        fill_in("Search Pet", with: "BeeTH")
+        click_button("Search")
+
+        expect(page).to have_content("Beethoven")
+      end
+    end
   end
 end
