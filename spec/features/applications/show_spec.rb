@@ -51,11 +51,8 @@ RSpec.describe "Applications", type: :feature do
       expect(page).to have_content("Description: #{@app1.description}")
       expect(page).to have_content("Application Status: #{@app1.status}")
 
-      # save_and_open_page
       expect(page).to have_link(@pet1.name, href: "/pets/#{@pet1.id}")
       expect(page).to have_link(@pet4.name, href: "/pets/#{@pet4.id}")
-      # expect(page).to have_content(@app1.status)
-      # expect(page).to have_content(@petapp2.status)
     end
 
     it "shows a specific application" do
@@ -69,13 +66,9 @@ RSpec.describe "Applications", type: :feature do
       expect(page).to have_content("Description: #{@app2.description}")
       expect(page).to have_content("Application Status: #{@app2.status}")
 
-      # save_and_open_page
       expect(page).to have_link(@pet1.name, href: "/pets/#{@pet1.id}")
       expect(page).to have_link(@pet3.name, href: "/pets/#{@pet3.id}")
       expect(page).to have_link(@pet6.name, href: "/pets/#{@pet6.id}")
-      # expect(page).to have_content(@petapp3.status)
-      # expect(page).to have_content(@petapp4.status)
-      # expect(page).to have_content(@petapp5.status)
     end
 
     it "shows a specific application" do
@@ -89,9 +82,33 @@ RSpec.describe "Applications", type: :feature do
       expect(page).to have_content("Description: #{@app3.description}")
       expect(page).to have_content("Application Status: #{@app3.status}")
 
-      # save_and_open_page
       expect(page).to have_link(@pet5.name, href: "/pets/#{@pet5.id}")
-      # expect(page).to have_content(@petapp6.status)
+    end
+
+    # 4. Searching for Pets for an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And that application has not been submitted,
+    # Then I see a section on the page to "Add a Pet to this Application"
+    # In that section I see an input where I can search for Pets by name
+    # When I fill in this field with a Pet's name
+    # And I click submit,
+    # Then I am taken back to the application show page
+    # And under the search bar I see any Pet whose name matches my search
+    it "can search to add pets for an application" do
+      visit "/applications/#{@app1.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+
+      within "#application-#{@app1.id}" do
+        fill_in(:search, with: "Hubert")
+
+        click_on("Search")
+
+        expect(page).to have_content("Name: #{@pet2.name}")
+        expect(page).to_not have_content("Name: #{@pet5.name}")
+      end
     end
   end
 end
