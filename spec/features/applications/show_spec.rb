@@ -84,22 +84,8 @@ RSpec.describe Application, type: :feature do
       click_button "Adopt this Pet"
       expect(current_path).to eq("/applications/#{app_1.id}")
     end
-    # User Story 6. Submit an Application
 
-    # As a visitor
-    # When I visit an application's show page
-    # And I have added one or more pets to the application
-    # Then I see a section to submit my application
-    # And in that section I see an input to enter why I would make a good owner for these pet(s)
-    # When I fill in that input
-    # And I click a button to submit this application
-    # Then I am taken back to the application's show page
-    # And I see an indicator that the application is "Pending"
-    # And I see all the pets that I want to adopt
-    # And I do not see a section to add more pets to this application
-  
     it 'can not submit an application until pets are added' do
-      # page has no submit button until pets have been added
       visit "/applications/#{app_2.id}"
       expect(page).to have_no_content('Submit Application')
     end
@@ -116,7 +102,7 @@ RSpec.describe Application, type: :feature do
       fill_in 'description', with: "I have treats and give belly rubs"
 
       click_button('Submit')
-      # save_and_open_page
+      
       
       expect(page).to have_content('Pending')
       expect(page).to have_content('Roxie')
@@ -124,14 +110,6 @@ RSpec.describe Application, type: :feature do
     end
   end
 
-    # As a visitor
-    # When I visit an application's show page
-    # And I have not added any pets to the application
-    # Then I do not see a section to submit my application
-    #User Story 7
-    
-    
- 
   describe "User Story 7" do
     let!(:shelter_1) { Shelter.create!(foster_program: true, name:"Soul Dog Rescue", city:"Ft Lupton", rank:1)}
     let!(:pet_1) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Frank")}
@@ -146,10 +124,32 @@ RSpec.describe Application, type: :feature do
       expect(page).to_not have_button("Submit Application")
 
       visit "/applications/#{app_2.id}"
-      save_and_open_page
-
+      
       expect(page).to_not have_content("Frank")
       expect(page).to_not have_button("Submit Application")      
+    end
+  end
+  
+  #luff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+  describe "User Story 8" do 
+    let!(:shelter_1) { Shelter.create!(foster_program: true, name:"Soul Dog Rescue", city:"Ft Lupton", rank:1)}
+    let!(:pet_1) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Frankenstein")}
+    let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Francis")}
+    let!(:pet_3) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Mr. Francona")}
+    let!(:app_1) { Application.create!(name: "Max Power", street_address: "456 Main St", city: "Broomfield", state: "CO", zip_code: 80211, description: "Love animals", status: "in progress") }
+    let!(:app_2) { Application.create!(name: "Jane Doe", street_address: "444 8th St", city: "Wheatridge", state: "CO", zip_code: 80231, description: "Outdoorsy, responsible", status: "accepted") }
+    it "will display all the pets whose name partially matches the search" do
+      visit "/applications/#{app_2.id}"
+      
+      fill_in "pet_name", with: "Fra"
+      click_button("Search")
+      save_and_open_page
+
+      expect(page).to have_content("Frankenstein")
+      expect(page).to have_content("Francis")
+      expect(page).to have_content("Mr. Francona")
+      expect(page).to_not have_content("Frankie")
+      expect(page).to_not have_content("fra")
     end
   end
 end
