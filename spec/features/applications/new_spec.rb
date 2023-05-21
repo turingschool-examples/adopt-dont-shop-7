@@ -16,7 +16,7 @@ RSpec.describe "/applications/new", type: :feature do
       expect(page).to have_button("Submit")
     end
 
-    it "can fill out form and successfully submit to applicantion's show page" do
+    it "can successfully fill out form and submit to application's show page" do
       visit "/applications/new"
 
       fill_in("Name", with: "John Smith")
