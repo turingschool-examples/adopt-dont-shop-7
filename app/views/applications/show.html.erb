@@ -5,8 +5,14 @@
 <p>State: <%= @application.state %></p>
 <p>Zip Code: <%= @application.zip %></p>
 <p>Description: <%= @application.description %></p>
+
 <p>Applying for: </p>
 <% @pets.each do |pet| %>
 <%=link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
+
+<% if @application.status == "In Progress" %>
+  <h3>Add a Pet to this Application</h3
+<% end%>
+
 <p>Status: <%= @application.status %></p>
