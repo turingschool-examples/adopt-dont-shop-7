@@ -56,9 +56,8 @@ RSpec.describe "Application Show Page", type: :feature do
           click_button("Search")
           
           expect(current_path).to eq("/applications/#{@application_1.id}")
-          
-          expect(page).to have_content("#{@pet_5.name}")
         end
+        expect(page).to have_content("#{@pet_5.name}")
         
         visit "/applications/#{@application_2.id}"
         within "#pet_search" do
@@ -69,9 +68,8 @@ RSpec.describe "Application Show Page", type: :feature do
           click_button("Search")
           
           expect(current_path).to eq("/applications/#{@application_2.id}")
-          
-          expect(page).to have_content("#{@pet_4.name}")
         end
+        expect(page).to have_content("#{@pet_4.name}")
       end
     end
     
