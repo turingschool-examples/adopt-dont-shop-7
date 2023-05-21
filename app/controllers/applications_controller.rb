@@ -23,7 +23,7 @@ class ApplicationsController < ApplicationController
 
   def search
     show
-    @query = Pet.where(name: params[:search])
+    @query = Pet.where("name like ?", "%#{params[:search]}%")
   end
 
   def update
