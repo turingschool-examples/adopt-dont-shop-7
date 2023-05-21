@@ -1,7 +1,7 @@
 def test_data
-  @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-  @shelter_2 = Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
-  @shelter_3 = Shelter.create!(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
+  @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: true, rank: 9)
+  @shelter_2 = Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: true, rank: 5)
+  @shelter_3 = Shelter.create!(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: false, rank: 10)
 
   @pet_1 = @shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
   @pet_2 = @shelter_1.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster")
@@ -12,7 +12,7 @@ def test_data
 
   @application_1 = Application.create!(name: "Bob", street_address: "1234 Southeast St",
     city: "San Francisco", state: "CA", zip_code: 12345,
-    description: "Wants a dog", status: "In Progress")
+    description: "Wants a dog", status: "Pending")
   @application_2 = Application.create!(name: "Sally", street_address: "4321 Bridge Way",
     city: "San Francisco", state: "CA", zip_code: 54321,
     description: "Would like a siamese cat", status: "In Progress")
