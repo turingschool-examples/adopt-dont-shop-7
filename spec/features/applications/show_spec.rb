@@ -110,5 +110,35 @@ RSpec.describe "Applications", type: :feature do
         expect(page).to_not have_content("Name: #{@pet5.name}")
       end
     end
+
+    # 5. Add a Pet to an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And I search for a Pet by name
+    # And I see the names Pets that match my search
+    # Then next to each Pet's name I see a button to "Adopt this Pet"
+    # When I click one of these buttons
+    # Then I am taken back to the application show page
+    # And I see the Pet I want to adopt listed on this application
+    it "can add pets to an application" do
+      visit "/applications/#{@app1.id}/?search=#{@pet2.name}"
+      # save_and_open_page
+
+      within "#application-#{@app1.id}" do
+        expect(page).to_not have_content("Name: #{@pet2.name}")
+      end
+
+      visit "/applications/#{@app1.id}/?search=#{@pet2.name}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+      # save_and_open_page
+
+      click_button("Adopt this Pet")
+
+      within "#application-#{@app1.id}" do
+        expect(page).to have_content("Name: #{@pet2.name}")
+      end
+    end
   end
 end

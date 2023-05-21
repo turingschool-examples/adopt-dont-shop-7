@@ -1,3 +1,5 @@
-class PetApplication < ApplicationController
-  
+class PetApplications < ApplicationController
+  # def create
+  #   require 'pry'; binding.pry
+  # end
 end

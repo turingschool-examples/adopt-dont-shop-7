@@ -30,6 +30,22 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  # def update
+  #   # find pet id
+  #   require 'pry'; binding.pry
+  #   if params[:search].present?
+  #     @pet = Pet.search(params[:search])
+  #     @application = Application.find(params[:id])
+  #     # @app_petapps = PetApplication.find_applications(@application.id)
+  #     PetApplication.create!(application_id: @application.id, pet_id: @pet.id)
+  #   end
+
+  #   # @pet = Pet.find(params[:id])
+  #   # @application = Application.find(params{:id})
+  #   # find application id
+  #   # update petapplication with pet id and application id
+  # end
+
   private
 
   def application_params
