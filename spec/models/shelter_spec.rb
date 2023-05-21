@@ -49,6 +49,12 @@ RSpec.describe Shelter, type: :model do
     end
   end
 
+  describe "#pending_apps" do
+    it "lists applications with status pending only" do
+      expect(Shelter.pending_apps).to eq([@shelter_1])
+    end
+  end
+
   describe "instance methods" do
     describe ".adoptable_pets" do
       it "only returns pets that are adoptable" do
