@@ -155,7 +155,7 @@ RSpec.describe "/applications/:id", type: :feature do
 
       expect(page).to have_content(@pet_5.name)
       expect(page).to have_content("Flabbergast")
-      expect(page).to have_button
+      expect(page).to have_button('Adopt this Pet')
       click_button('Adopt this Pet')
 
       expect(current_path).to eq("/applications/#{@jeremicah.id}")
