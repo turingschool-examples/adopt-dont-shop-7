@@ -46,7 +46,6 @@ RSpec.describe "admin index page" do
       visit "/admin/shelters"
 
       within "#pending_apps" do
-      save_and_open_page
         expect(page).to have_content("Shelters with Pending Applications")
         expect(page).to have_content("Aurora shelter")
         expect(page).to have_content("RGV animal shelter")
