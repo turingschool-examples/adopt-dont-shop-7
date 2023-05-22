@@ -33,4 +33,22 @@ RSpec.describe "the application show page" do
     expect(page).to have_content(applicant_1.application_status)
     expect(page).to have_link("Scooby")
   end
+
+  it "lists matches as search results" do
+    shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet_1 = shelter.pets.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+    pet_2 = shelter.pets.create!(name: "Scrappy", age: 3, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+    applicant_1 = Applicant.create!(name: "Jimmy", street_address: "1234 road test", city: "Boca Raton", state: "FL", zip_code: "33498", qualification: "I love pets", application_status: "In Progress")
+
+    visit "/applicants/#{applicant_1.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+
+    fill_in :search, with: "Scooby"
+    click_on("Search")
+
+    expect(current_path).to eq("/applicants/#{applicant_1.id}")
+    expect(page).to have_content(pet_1.name)
+    expect(page).to_not have_content(pet_2.name)
+  end
 end
