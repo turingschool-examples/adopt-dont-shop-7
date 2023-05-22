@@ -238,4 +238,22 @@ RSpec.describe "/applications/:id", type: :feature do
       expect(page).to_not have_content("Submit Application")
     end
   end
+
+  # User Story 8
+  describe "Partial Matches for Pet Names" do 
+    it "search returns results for partial matches" do 
+      visit "/applications/#{@jeremicah.id}" 
+      expect(page).to_not have_content(@pet_2.name)
+      fill_in('Search', with: 'aw')
+      click_button('Search')
+
+      expect(page).to have_content(@pet_2.name)
+
+      fill_in('Search', with: 'fl')
+      click_button('Search')
+
+      expect(page).to have_content(@pet_4.name)
+      expect(page).to have_content(@pet_5.name)
+    end
+  end
 end
