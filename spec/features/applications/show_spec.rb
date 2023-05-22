@@ -45,6 +45,8 @@ RSpec.describe '/applications/:id', type: :feature do
     ApplicationPet.create!(pet: @pet_1, application: @tom)
     ApplicationPet.create!(pet: @pet_2, application: @tom)
     ApplicationPet.create!(pet: @pet_3, application: @tom)
+
+    ApplicationPet.create!(pet: @pet_1, application: @jeremicah)
   end
 
   #User story 1
