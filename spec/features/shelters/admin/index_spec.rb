@@ -39,7 +39,6 @@ RSpec.describe "admin shelter index" do
         expect(page).to_not have_content("Public Shelter")
         expect(page).to_not have_content("Safe Shelter")
         expect(page).to_not have_content("Mystery Building")
-        save_and_open_page
       end
     end
   end
