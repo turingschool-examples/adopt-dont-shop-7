@@ -8,6 +8,7 @@ RSpec.describe '/applications/:id', type: :feature do
     @pet_2 = @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
     @pet_4 = @shelter_1.pets.create!(name: "Fluffy", breed: "british shorthair", age: 1, adoptable: true)
+    @pet_5 = @shelter_1.pets.create!(name: "Flabbergast", breed: "anybody's guess", age: 4, adoptable: true)
 
     @susie = Application.create!(
       name: 'Susie', 
@@ -149,10 +150,11 @@ RSpec.describe '/applications/:id', type: :feature do
       expect(page).to_not have_content("Fluffy")
       expect(page).to_not have_button("Adopt this Pet")
 
-      fill_in('Search', with: @pet_4.name) 
+      fill_in('Search', with: @pet_5.name) 
       click_button('Search')
 
-      expect(page).to have_content(@pet_4.name)
+      expect(page).to have_content(@pet_5.name)
+      expect(page).to have_content("Flabbergast")
       expect(page).to have_button('Adopt this Pet')
       click_button('Adopt this Pet')
 
