@@ -35,7 +35,7 @@ class ApplicationsController < ApplicationController
 
   def admin_patch
     @application = Application.find(params[:id])
-    @application.update(application_status: "Approved")
+    @application.update(application_status: params[:status])
     redirect_to "/admin/applications/#{@application.id}"
   end
 
