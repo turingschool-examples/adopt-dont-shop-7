@@ -2,19 +2,19 @@
 
 <%= form_with url: '/applications', method: :post, data: {turbo: false}, local: true do |form| %>
   <%= form.label :name %>
-  <%= form.text_field :name %><br/><br/>
+  <%= form.text_field :name, required: true %><br/><br/>
   <section>
     <%= form.label :address , "Street Address" %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, required: true %>
     <%= form.label :city %>
-    <%= form.text_field :city %>
+    <%= form.text_field :city, required: true %>
     <%= form.label :state %>
-    <%= form.text_field :state %>
+    <%= form.text_field :state, required: true %>
     <%= form.label :zip , "Zip Code" %>
-    <%= form.text_field :zip %>
+    <%= form.text_field :zip, required: true %>
   </section><br/>
   <%= form.label :description_why , "Why would you make a good home?" %><br/>
-  <%= form.text_area :description_why , size: '60x10' %><br/><br/>
+  <%= form.text_area :description_why, required: true, size: '60x10' %><br/><br/>
 
   <%= form.submit "Submit Application" %>
 <% end %>
