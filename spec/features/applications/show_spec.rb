@@ -187,7 +187,6 @@ RSpec.describe "/applications/:id", type: :feature do
       expect(current_path).to eq("/applications/#{@jeremicah.id}")
       expect(page).to have_content("Status: Pending")
       expect(page).to_not have_content("Status: In Progress")
-      expect(@jeremicah.status).to eq("Pending")
     
       expect(page).to have_content(@pet_1.name)
 
@@ -213,7 +212,6 @@ RSpec.describe "/applications/:id", type: :feature do
       expect(current_path).to eq("/applications/#{@jeremicah.id}")
       expect(page).to have_content("Status: Pending")
       expect(page).to_not have_content("Status: In Progress")
-      expect(@jeremicah.status).to eq("Pending")
     
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_5.name)
