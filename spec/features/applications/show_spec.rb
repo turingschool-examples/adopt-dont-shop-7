@@ -149,10 +149,10 @@ RSpec.describe '/applications/:id', type: :feature do
       expect(page).to_not have_content("Fluffy")
       expect(page).to_not have_button("Adopt this Pet")
 
-      fill_in('Search', with: 'Fluffy') 
+      fill_in('Search', with: @pet_4.name) 
       click_button('Search')
 
-      expect(page).to have_content("Fluffy")
+      expect(page).to have_content(@pet_4.name)
       expect(page).to have_button('Adopt this Pet')
       click_button('Adopt this Pet')
 
