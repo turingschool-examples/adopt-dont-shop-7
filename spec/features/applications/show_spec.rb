@@ -256,4 +256,31 @@ RSpec.describe "/applications/:id", type: :feature do
       expect(page).to have_content(@pet_5.name)
     end
   end
+
+  #User Story 9
+  describe "Case Insensitive Matches for Pet Names" do 
+    it 'search returns relevant results regardless of case' do 
+      visit "/applications/#{@jeremicah.id}" 
+      expect(page).to_not have_content("Clawdia")
+      expect(page).to_not have_content(@pet_2.name)
+      fill_in('Search', with: 'clawdia')
+      click_button('Search')
+      
+      expect(page).to have_content("Clawdia")
+      expect(page).to have_content(@pet_2.name)
+      
+      
+      expect(page).to_not have_content("Fluffy")
+      expect(page).to_not have_content(@pet_4.name)
+      expect(page).to_not have_content("Flabbergast")
+      expect(page).to_not have_content(@pet_5.name)
+      fill_in('Search', with: 'fL')
+      click_button('Search')
+
+      expect(page).to have_content("Fluffy")
+      expect(page).to have_content(@pet_4.name)
+      expect(page).to have_content("Flabbergast")
+      expect(page).to have_content(@pet_5.name)
+    end
+  end
 end
