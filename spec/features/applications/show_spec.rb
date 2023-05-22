@@ -5,7 +5,7 @@ RSpec.describe "the application show" do
     application = Application.create!(name: "Fredrich Longbottom", address: "1234 1st St", city: "Denver", state: "CO", zip: "80202", description_why: "I love creatures.")
 
     visit "/applications/#{application.id}"
-    save_and_open_page
+    
     expect(page).to have_content(application.name)
     expect(page).to have_content("Application status: #{application.status}")
     expect(page).to have_content("Address: #{application.address}, #{application.city}, #{application.state} #{application.zip}")
