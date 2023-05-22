@@ -221,4 +221,21 @@ RSpec.describe "/applications/:id", type: :feature do
       expect(page).to_not have_button("Adopt this Pet")
     end
   end
+
+  #User Story 7
+  describe 'No Pets on an Application ' do 
+    it 'if an application has no pets, cannot submit application' do 
+      samanthony = Application.create!(
+        name: "Samanthony", 
+        street_address: "5234 S Jupiter", 
+        city: "Fort Collins", 
+        state: "CO", 
+        zip: "80524", 
+        description: "Exceptionally quirky", 
+      )
+      visit "/applications/#{samanthony.id}"
+      expect(page).to_not have_field(:reason)
+      expect(page).to_not have_content("Submit Application")
+    end
+  end
 end
