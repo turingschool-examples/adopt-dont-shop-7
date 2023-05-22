@@ -1,8 +1,14 @@
 <h1><%= @application.name %>'s Application</h1>
 
 <h3>Pending Pets:</h3>
-<ul>
-  <% @application.pets.each do |pet| %>
-    <li><%= pet.name %> <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}" %></li>
-  <% end %>
-</ul>
+<% if @pa_status.pet_app_status == "Pending" %>
+  <ul>
+    <% @application.pets.each do |pet| %>
+      <li><%= pet.name %>
+        <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
+          <%= form.hidden_field :pet_app_status, value: "Approved" %>
+          <%= form.submit "Approve #{pet.name}" %></li>
+        <% end %>
+    <% end %>
+  </ul>
+<% end %>
