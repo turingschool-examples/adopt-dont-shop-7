@@ -39,7 +39,7 @@ RSpec.describe "/applications/:id", type: :feature do
       description: "A little quirky", 
       status: "In Progress"
     )
-
+    
     ApplicationPet.create!(pet: @pet_1, application: @susie)
     ApplicationPet.create!(pet: @pet_2, application: @susie)
     
@@ -159,6 +159,67 @@ RSpec.describe "/applications/:id", type: :feature do
       click_button('Adopt this Pet')
       expect(current_path).to eq("/applications/#{@jeremicah.id}")
       expect(page).to have_content(@pet_5.name)
+    end
+  end
+
+#   #User Story 6
+  describe "submit application" do 
+    it "if conditions not met, cannot submit application with justification for ownership" do 
+      visit "/applications/#{@susie.id}"
+
+      expect(page).to have_content("Status: Accepted")
+      expect(page).to_not have_field("Reason for Adoption")
+      expect(page).to_not have_button("Submit Application")
+    end
+
+    it "if conditions met (1 pet), can submit application with justification for ownership" do 
+      visit "/applications/#{@jeremicah.id}"
+
+      expect(page).to have_content("Status: In Progress")
+      expect(page).to_not have_content("Status: Pending")
+      expect(page).to have_field("Reason for Adoption")
+      expect(page).to have_button("Submit Application")
+
+      fill_in("Reason for Adoption", with: "I love this animal. It reminds me of me.")
+      click_button("Submit Application")
+
+      expect(current_path).to eq("/applications/#{@jeremicah.id}")
+      expect(page).to have_content("Status: Pending")
+      expect(page).to_not have_content("Status: In Progress")
+      expect(@jeremicah.status).to eq("Pending")
+    
+      expect(page).to have_content(@pet_1.name)
+
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_field(:search)
+      expect(page).to_not have_button("Adopt this Pet")
+    end
+
+    it "if conditions met (>1 pet), can submit application with justification for ownership" do 
+      visit "/applications/#{@jeremicah.id}"
+      fill_in('Search', with: @pet_5.name) 
+      click_button('Search')
+      click_button('Adopt this Pet')
+
+      expect(page).to have_content("Status: In Progress")
+      expect(page).to_not have_content("Status: Pending")
+      expect(page).to have_field("Reason for Adoption")
+      expect(page).to have_button("Submit Application")
+
+      fill_in("Reason for Adoption", with: "I love this animal. It reminds me of me.")
+      click_button("Submit Application")
+
+      expect(current_path).to eq("/applications/#{@jeremicah.id}")
+      expect(page).to have_content("Status: Pending")
+      expect(page).to_not have_content("Status: In Progress")
+      expect(@jeremicah.status).to eq("Pending")
+    
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_5.name)
+
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_field(:search)
+      expect(page).to_not have_button("Adopt this Pet")
     end
   end
 end
