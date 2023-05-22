@@ -7,6 +7,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 Application.destroy_all
+Shelter.destroy_all
+Pet.destroy_all
 
 application = Application.create!(
   name: "Fredrich Longbottom",
@@ -15,4 +17,19 @@ application = Application.create!(
   state: "CO",
   zip: "80202",
   description_why: "I love creatures."
+)
+
+shelter_1 = Shelter.create!(
+  foster_program: false,
+  name: "Denver Animal Shelter",
+  city: "Denver",
+  rank: 1
+)
+
+pet_1 = shelter_1.pets.create!(
+  adoptable: true,
+  age: 3,
+  breed: "Jack Russell Terrier",
+  name: "Alphonso",
+  shelter_id: 1
 )
