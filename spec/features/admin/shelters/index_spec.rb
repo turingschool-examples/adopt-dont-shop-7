@@ -7,7 +7,7 @@ RSpec.describe "/admin/shelters" do
     @shelter_3 = Shelter.create!(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
   end
 
-  #User Story 9
+  #User Story 10
   describe "Admin Shelters Index" do 
     it "displays all shelters in the system in reverse alphabetical order by name" do
       visit "/admin/shelters" 
