@@ -21,6 +21,8 @@ RSpec.describe "Admin Application Show Page", type: :feature do
         expect(current_path).to eq("admin/applications/#{@application_1.id}")
         expect(page).to_not have_button("Approve #{@pet_2.name}")
         expect(page).to have_content("Approved")
+        ## If pet_app status is approved hide the button, then display "approved" next to the pet
+        ## Else - display button still.
       end
     end
   end
