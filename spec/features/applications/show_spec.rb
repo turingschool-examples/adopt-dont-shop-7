@@ -29,6 +29,16 @@ RSpec.describe '/applications/:id', type: :feature do
       status: 'In Progress'
     )
 
+    @jeremicah = Application.create!(
+      name: 'Jeremicah', 
+      street_address: '9876 W Holburn Ave', 
+      city: 'Gertrude', 
+      state: 'NY', 
+      zip: '10092', 
+      description: 'A little quirky', 
+      status: 'In Progress'
+    )
+
     ApplicationPet.create!(pet: @pet_1, application: @susie)
     ApplicationPet.create!(pet: @pet_2, application: @susie)
     
@@ -133,7 +143,7 @@ RSpec.describe '/applications/:id', type: :feature do
   #User Story 5
   describe 'Add a Pet to an Application' do 
     it 'pets searched for and returned can be added to application' do 
-      visit "/applications/#{@susie.id}" do 
+      visit "/applications/#{@jeremicah.id}" do 
       expect(page).to_not have_content("Fluffy")
       expect(page).to_not have_button("Adopt this Pet")
 
@@ -144,7 +154,7 @@ RSpec.describe '/applications/:id', type: :feature do
       expect(page).to have_button('Adopt this Pet')
       click_button('Adopt this Pet')
 
-      expect(current_path).to eq("/applications/#{@susie.id}")
+      expect(current_path).to eq("/applications/#{@jeremicah.id}")
       expect(page).to have_content(@pet_4.name)
       end
     end
