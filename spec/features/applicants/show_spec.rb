@@ -43,7 +43,6 @@ RSpec.describe "the application show page" do
     visit "/applicants/#{applicant_1.id}"
 
     expect(page).to have_content("Add a Pet to this Application")
-    save_and_open_page
 
     fill_in :search, with: "Scooby"
     click_on("Search")
@@ -51,5 +50,28 @@ RSpec.describe "the application show page" do
     expect(current_path).to eq("/applicants/#{applicant_1.id}")
     expect(page).to have_content(pet_1.name)
     expect(page).to_not have_content(pet_2.name)
+  end
+
+  it "Add a Pet to an Application" do
+    shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet_1 = shelter.pets.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+    pet_2 = shelter.pets.create!(name: "Scrappy", age: 3, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+    applicant_1 = Applicant.create!(name: "Jimmy", street_address: "1234 road test", city: "Boca Raton", state: "FL", zip_code: "33498", qualification: "I love pets")
+
+    visit "/applicants/#{applicant_1.id}"
+
+    expect(page).to have_content("Add a Pet to this Application")
+
+    fill_in :search, with: "Scooby"
+    click_on("Search")
+
+    expect(current_path).to eq("/applicants/#{applicant_1.id}")
+    expect(page).to have_button("Adopt this Pet")
+
+    click_on("Adopt this Pet")
+
+    expect(current_path).to eq("/applicants/#{applicant_1.id}")
+
+    expect(page).to have_content("Your future pet(s) list: #{pet_1.name}")
   end
 end
