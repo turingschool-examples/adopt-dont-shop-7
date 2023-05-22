@@ -59,6 +59,10 @@ class SheltersController < ApplicationController
     redirect_to "/shelters"
   end
 
+  def admin_show
+    @shelters = Shelter.find_by_sql "SELECT * FROM shelters ORDER BY name DESC;"
+  end
+
   private
 
   def shelter_params
