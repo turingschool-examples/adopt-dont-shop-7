@@ -1,0 +1,15 @@
+<h1>Name: <%=@application.name %></h1>
+<h1>Address: <%=@application.street_address %>, <%=@application.city %>, <%=@application.state %>, <%=@application.zip_code %></h1>
+<h1>Description: <%=@application.description %></h1>
+<h1>Application Status: <%=@application.application_status %></h1>
+<% @pet_applications.each do |pa| %>
+ <h1>Pets applied for: <%= pa.pet.name %> </h1>
+ <% if @application.application_status == "Pending"%>
+  <section> 
+  <%= button_to "Approve this Pet", "/admin/applications/#{@application.id}", :method => :patch  %> 
+  </section>
+  <% end %>
+<% end %>
+
+
+

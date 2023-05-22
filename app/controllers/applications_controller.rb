@@ -9,28 +9,34 @@ class ApplicationsController < ApplicationController
   end
   
   def create
-      # if !application_params.each do |param|
-      #     param.blank?
-      # end
       @application = Application.new(application_params)
-      # require 'pry'; binding.pry
       if @application.save
         redirect_to "/applications/#{@application.id}"
       else
-      redirect_to "/applications/new"
+        redirect_to "/applications/new"
       end
   end
 
   def search
     show
-    @query = Pet.where("lower(name) ILIKE ?", ("%#{params[:search]}%").downcase)
+    @query = Pet.query(params[:search])
   end
 
   def update
     show
     @application.update(application_status: "Pending")
-    # @query.first might be problematic.
     redirect_to "/applications/#{@application.id}"
+  end
+
+  def admin_show
+    @application = Application.find(params[:id])
+    @pet_applications = PetApplication.where(application: @application.id)
+  end
+
+  def admin_patch
+    @application = Application.find(params[:id])
+    @application.update(application_status: "Approved")
+    redirect_to "/admin/applications/#{@application.id}"
   end
 
   private

@@ -59,7 +59,7 @@ class SheltersController < ApplicationController
     redirect_to "/shelters"
   end
 
-  def admin_show
+  def admin_index
     @shelters = Shelter.find_by_sql "SELECT * FROM shelters ORDER BY name DESC;"
     @shelter_applications = PetApplication.all.map do |pa|
       pa.pet.shelter

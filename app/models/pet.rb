@@ -12,4 +12,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.query(search)
+    where("lower(name) ILIKE ?", ("%#{search}%").downcase)
+  end
 end
