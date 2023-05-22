@@ -61,6 +61,9 @@ class SheltersController < ApplicationController
 
   def admin_show
     @shelters = Shelter.find_by_sql "SELECT * FROM shelters ORDER BY name DESC;"
+    @shelter_applications = PetApplication.all.map do |pa|
+      pa.pet.shelter
+    end
   end
 
   private
