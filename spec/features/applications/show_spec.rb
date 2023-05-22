@@ -177,10 +177,11 @@ RSpec.describe "/applications/:id", type: :feature do
 
       expect(page).to have_content("Status: In Progress")
       expect(page).to_not have_content("Status: Pending")
-      expect(page).to have_field("Reason for Adoption")
+      expect(page).to have_content("Reason for Adoption")
+      expect(page).to have_field(:reason)
       expect(page).to have_button("Submit Application")
 
-      fill_in("Reason for Adoption", with: "I love this animal. It reminds me of me.")
+      fill_in(:reason, with: "I love this animal. It reminds me of me.")
       click_button("Submit Application")
 
       expect(current_path).to eq("/applications/#{@jeremicah.id}")
@@ -203,10 +204,10 @@ RSpec.describe "/applications/:id", type: :feature do
 
       expect(page).to have_content("Status: In Progress")
       expect(page).to_not have_content("Status: Pending")
-      expect(page).to have_field("Reason for Adoption")
+      expect(page).to have_field(:reason)
       expect(page).to have_button("Submit Application")
 
-      fill_in("Reason for Adoption", with: "I love this animal. It reminds me of me.")
+      fill_in(:reason, with: "I love this animal. It reminds me of me.")
       click_button("Submit Application")
 
       expect(current_path).to eq("/applications/#{@jeremicah.id}")
