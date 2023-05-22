@@ -155,30 +155,33 @@ RSpec.describe "Applications", type: :feature do
     # And I see all the pets that I want to adopt
     # And I do not see a section to add more pets to this application
     it "can add pets to an application" do
-      visit "/applications/#{@app1.id}/?search=#{@pet2.name}"
-      # There should be no option to submit application
-      click_button("Adopt this Pet")
-      expect(current_path).to eq("/applications/#{@app1.id}")
-      save_and_open_page
+      applicant = Application.create!(name: "g", street_address: "g", city: "g", state: "g", zip_code: "g", description: "g", status: "In Progress")
 
-      # There should an option to submit application
-      within "#application-submit-#{@app1.id}" do
+      visit "/applications/#{applicant.id}/?search=#{@pet2.name}"
+      
+      expect(page).to_not have_selector("#application-submit-#{applicant.id}")
+      expect(page).to have_content("In Progress")
+
+      click_button("Adopt this Pet")
+      expect(current_path).to eq("/applications/#{applicant.id}")
+
+      within "#application-submit-#{applicant.id}" do
         fill_in(:description, with: "Because I love puppies")
 
         click_button("Submit Application")
-        expect(current_path).to eq("/applications/#{@app1.id}")
+        expect(current_path).to eq("/applications/#{applicant.id}")
       end
 
-      # There should be no option to submit application
       expect(page).to have_content("Pending")
 
-      within "#pets-#{@app1.id}" do
-        expect(page).to have_content("#{@pet1.name}")
-        expect(page).to have_content("#{@pet4.name}")
+      expect(page).to_not have_selector("#application-submit-#{applicant.id}")
+
+      within "#pets-#{applicant.id}" do
         expect(page).to have_content("#{@pet2.name}")
       end
 
-      expect(page).to_not have_content("Adopt this Pet")
+      expect(page).to have_selector("#pets-#{applicant.id}")
+      expect(page).to_not have_selector("#application-submit-#{applicant.id}")
     end
   end
 end
