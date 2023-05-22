@@ -33,3 +33,27 @@ pet_1 = shelter_1.pets.create!(
   name: "Alphonso",
   shelter_id: 1
 )
+
+pet_2 = shelter_1.pets.create!(
+  adoptable: true,
+  age: 4,
+  breed: "Husky",
+  name: "Bailey",
+  shelter_id: 1
+)
+
+pet_3 = shelter_1.pets.create!(
+  adoptable: true,
+  age: 2,
+  breed: "Great Dane",
+  name: "Charlie",
+  shelter_id: 1
+)
+
+pet_4 = shelter_1.pets.create!(
+  adoptable: true,
+  age: 5,
+  breed: "Golden",
+  name: "Doug",
+  shelter_id: 1
+)

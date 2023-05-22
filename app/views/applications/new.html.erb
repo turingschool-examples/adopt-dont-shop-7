@@ -13,13 +13,15 @@
     <%= form.label :zip , "Zip Code" %>
     <%= form.text_field :zip %>
   </section><br/><br/>
+
   <section>
   <h3>Add a Pet to this Application</h3>
   <%= form_with url: "/pets", method: :get, local: true do |f| %>
     <%= f.label :search%>
     <%= f.text_field :search %>
-    <%= f.submit "Search" %>
+    <%= f.submit "Add" %>
   <% end %>
+
   </section><br/><br/>
   <%= form.label :description_why , "Why would you make a good home?" %><br/>
   <%= form.text_area :description_why , size: '60x10' %><br/><br/>
