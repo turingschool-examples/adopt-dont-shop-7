@@ -183,5 +183,20 @@ RSpec.describe "Applications", type: :feature do
       expect(page).to have_selector("#pets-#{applicant.id}")
       expect(page).to_not have_selector("#application-submit-#{applicant.id}")
     end
+
+    # 7. No Pets on an Application
+
+    # As a visitor
+    # When I visit an application's show page
+    # And I have not added any pets to the application
+    # Then I do not see a section to submit my application
+
+    it "cannot submit application without adding pets" do
+      applicant = Application.create!(name: "g", street_address: "g", city: "g", state: "g", zip_code: "g", description: "g", status: "In Progress")
+
+      visit "/applications/#{applicant.id}"
+
+      expect(page).to_not have_selector("#application-submit-#{applicant.id}")
+    end
   end
 end
