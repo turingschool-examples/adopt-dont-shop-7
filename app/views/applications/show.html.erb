@@ -33,4 +33,17 @@
     <% end %>
   <% end %>
 </div>
+<%# do we need hidden fields? update_all? %>
+<% if !params[:pet_id].nil? && !params[:application_id].nil? %>
+  <div id="application-submit-<%= @application.id %>">
+    <h4>Why you would make a good Pet Parent?</h4>
+    <%= form_with url: "/applications/#{@application.id}/", method: :patch, local: true do |f| %>
+      <%= f.label "Because..." %>
+      <br>
+      <%= f.text_area :description, size: "50x5" %>
+      <br>
+      <%= f.submit "Submit Application" %>
+    <% end %>
+  </div>
+<% end %>
 

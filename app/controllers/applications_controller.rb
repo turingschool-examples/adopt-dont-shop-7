@@ -19,6 +19,12 @@ class ApplicationsController < ApplicationController
 
   end
 
+  def update
+    application = Application.find(params[:id])
+    application.update(description: params[:description], status: "Pending")
+    redirect_to "/applications/#{application.id}"
+  end
+
   def create
     new_app = Application.new(application_params)
     if new_app.save
@@ -27,6 +33,7 @@ class ApplicationsController < ApplicationController
     else
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(new_app.errors)}"
+      # render :new plus some other syntax to keep form data
     end
   end
 
