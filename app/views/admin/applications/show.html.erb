@@ -1,0 +1,8 @@
+<h1><%= @application.name %>'s Application</h1>
+
+<h3>Pending Pets:</h3>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><% pet.name %></li>
+  <% end %>
+</ul>
