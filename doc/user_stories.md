@@ -3,7 +3,7 @@
 ## Deploy
 
 ```
-[ ] done
+[x] done
 
 0: Deploy your application to the internet
 
@@ -14,7 +14,7 @@ Localhost is fine for development, but
 the application must be hosted on the internet.
 
 As a team, choose either Render or Heroku to deploy your project.
-Use these guides: 
+Use these guides:
 
 Heroku: https://devcenter.heroku.com/articles/getting-started-with-rails7
 Render: https://backend.turing.edu/module2/misc/deploying_with_render
@@ -27,7 +27,7 @@ Continuous Integration / Deployment is not allowed for this project.
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[ ] done
+[x] done
 
 1. Application Show Page
 
@@ -405,7 +405,7 @@ Then next to each pet's name I see a link to the admin application show page whe
 
 ## Extensions
 
-_Note: It is recommended that these extensions only be attempted after ALL user stories above are 100% completed, and your project is satisfactorily refactored._ 
+_Note: It is recommended that these extensions only be attempted after ALL user stories above are 100% completed, and your project is satisfactorily refactored._
 
 ### ActiveRecord Extensions
 
