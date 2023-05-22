@@ -3,6 +3,6 @@
 <h3>Pending Pets:</h3>
 <ul>
   <% @application.pets.each do |pet| %>
-    <li><% pet.name %></li>
+    <li><%= pet.name %> <%= button_to "Approve #{pet.name}" %></li>
   <% end %>
 </ul>
