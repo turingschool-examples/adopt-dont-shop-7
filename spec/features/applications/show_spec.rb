@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe '/applications/:id', type: :feature do 
+RSpec.describe "/applications/:id", type: :feature do 
   before(:each) do 
     @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
@@ -8,25 +8,36 @@ RSpec.describe '/applications/:id', type: :feature do
     @pet_2 = @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
     @pet_4 = @shelter_1.pets.create!(name: "Fluffy", breed: "british shorthair", age: 1, adoptable: true)
+    @pet_5 = @shelter_1.pets.create!(name: "Flabbergast", breed: "anybody's guess", age: 4, adoptable: true)
 
     @susie = Application.create!(
-      name: 'Susie', 
-      street_address: '5234 S Jamaica', 
-      city: 'Fargo', 
-      state: 'MI', 
-      zip: '45896', 
-      description: 'Loves alligators.', 
-      status: 'Accepted'
+      name: "Susie", 
+      street_address: "5234 S Jamaica", 
+      city: "Fargo", 
+      state: "MI", 
+      zip: "45896", 
+      description: "Loves alligators.", 
+      status: "Accepted"
     )
 
     @tom = Application.create!(
-      name: 'Thomas', 
-      street_address: '5234 S Jefferson', 
-      city: 'Julian', 
-      state: 'AL', 
-      zip: '43896', 
-      description: 'Has owned a pet.', 
-      status: 'In Progress'
+      name: "Thomas", 
+      street_address: "5234 S Jefferson", 
+      city: "Julian", 
+      state: "AL", 
+      zip: "43896", 
+      description: "Has owned a pet.", 
+      status: "In Progress"
+    )
+
+    @jeremicah = Application.create!(
+      name: "Jeremicah", 
+      street_address: "9876 W Holburn Ave", 
+      city: "Gertrude", 
+      state: "NY", 
+      zip: "10092", 
+      description: "A little quirky", 
+      status: "In Progress"
     )
 
     ApplicationPet.create!(pet: @pet_1, application: @susie)
@@ -35,11 +46,13 @@ RSpec.describe '/applications/:id', type: :feature do
     ApplicationPet.create!(pet: @pet_1, application: @tom)
     ApplicationPet.create!(pet: @pet_2, application: @tom)
     ApplicationPet.create!(pet: @pet_3, application: @tom)
+
+    ApplicationPet.create!(pet: @pet_1, application: @jeremicah)
   end
 
   #User story 1
-  describe 'Application Show Page' do
-    it 'shows applicant information' do 
+  describe "Application Show Page" do
+    it "shows applicant information" do 
       visit "/applications/#{@susie.id}"
       expect(page).to have_content(@susie.name)
       expect(page).to have_content("Street Address: #{@susie.street_address}")
@@ -127,6 +140,25 @@ RSpec.describe '/applications/:id', type: :feature do
 
       expect(current_path).to eq("/applications/#{@tom.id}")
       expect(page).to_not have_content("Spot")
+    end
+  end
+
+  #User Story 5
+  describe 'Add a Pet to an Application' do 
+    it 'pets searched for and returned can be added to application' do 
+      visit "/applications/#{@jeremicah.id}" 
+      expect(page).to_not have_content("Flabbergast")
+      expect(page).to_not have_button("Adopt this Pet")
+      
+      fill_in('Search', with: @pet_5.name) 
+      click_button('Search')
+      
+      expect(page).to have_content(@pet_5.name)
+      expect(page).to have_content("Flabbergast")
+      expect(page).to have_button('Adopt this Pet')
+      click_button('Adopt this Pet')
+      expect(current_path).to eq("/applications/#{@jeremicah.id}")
+      expect(page).to have_content(@pet_5.name)
     end
   end
 end
