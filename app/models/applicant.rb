@@ -9,7 +9,10 @@ class Applicant < ApplicationRecord
   has_many :applicant_pets
   has_many :pets, through: :applicant_pets
 
-  
+  # def search_pet
+  #   Pet.where("name = ?", params[:search])
+  # end
+
 # def status_update
 #   if admin updates application status to "rejected"
 #     return application_status = "Rejected"
