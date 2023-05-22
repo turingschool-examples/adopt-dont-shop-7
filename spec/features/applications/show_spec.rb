@@ -198,5 +198,35 @@ RSpec.describe "Applications", type: :feature do
 
       expect(page).to_not have_selector("#application-submit-#{applicant.id}")
     end
+
+    # 8. Partial Matches for Pet Names
+
+    # As a visitor
+    # When I visit an application show page
+    # And I search for Pets by name
+    # Then I see any pet whose name PARTIALLY matches my search
+    # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+
+    it "searches for pets with partial name matches" do
+      applicant = Application.create!(name: "g", street_address: "g", city: "g", state: "g", zip_code: "g", description: "g", status: "In Progress")
+
+      visit "/applications/#{applicant.id}"
+
+      within "#application-#{applicant.id}" do
+        fill_in(:search, with: "H")
+
+        click_on("Search")
+
+        expect(page).to have_content("Name: #{@pet2.name}")
+        expect(page).to have_content("Name: #{@pet3.name}")
+        expect(page).to have_content("Name: #{@pet5.name}")
+
+        fill_in(:search, with: "Hub")
+
+        click_on("Search")
+
+        expect(page).to have_content("Name: #{@pet2.name}")
+      end
+    end
   end
 end
