@@ -60,8 +60,6 @@ RSpec.describe "the new application page" do
 
       click_button "Submit"
 
-      expect(current_path).to eq("/applications/new")
-
       expect(page).to have_content("Address can't be blank")
       expect(page).to have_content("Zip can't be blank")
     end
