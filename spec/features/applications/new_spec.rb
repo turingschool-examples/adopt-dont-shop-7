@@ -20,6 +20,7 @@ RSpec.describe "the new application page" do
       expect(page).to have_content("State")
       expect(page).to have_content("Zip Code")
       expect(page).to have_content("Why would you make a good home?")
+      expect(page).to have_content("Add a Pet to this Application")
     end
 
     it "can create a new application" do
