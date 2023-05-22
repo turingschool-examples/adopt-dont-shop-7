@@ -6,7 +6,8 @@
  <h1>Pets applied for: <%= pa.pet.name %> </h1>
  <% if @application.application_status == "Pending"%>
   <section> 
-  <%= button_to "Approve this Pet", "/admin/applications/#{@application.id}", :method => :patch  %> 
+  <%= button_to "Approve this Pet", "/admin/applications/#{@application.id}", :method => :patch, name: "status", value: "Approved" %>
+  <%= button_to "Reject this Pet", "/admin/applications/#{@application.id}", :method => :patch, name: "status", value: "Rejected"  %>
   </section>
   <% end %>
 <% end %>
