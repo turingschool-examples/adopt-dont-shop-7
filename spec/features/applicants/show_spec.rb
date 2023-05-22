@@ -43,6 +43,7 @@ RSpec.describe "the application show page" do
     visit "/applicants/#{applicant_1.id}"
 
     expect(page).to have_content("Add a Pet to this Application")
+    save_and_open_page
 
     fill_in :search, with: "Scooby"
     click_on("Search")
