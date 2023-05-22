@@ -11,6 +11,7 @@ RSpec.describe "the application show" do
     expect(page).to have_content("Address: #{application.address}, #{application.city}, #{application.state} #{application.zip}")
     expect(page).to have_content("Description of why I would make a good home:")
     expect(page).to have_content(application.description_why)
+    expect(page).to have_content("Add a Pet to this Application")
     expect(page).to have_content("Pets on this application:")
   end
 end
