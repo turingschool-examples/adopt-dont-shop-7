@@ -68,7 +68,7 @@ RSpec.describe Shelter, type: :model do
 
   describe "#pending_apps" do
     it "lists applications with status pending only" do
-      expect(Shelter.pending_apps).to eq([@shelter_1])
+      expect(Shelter.pending_apps).to eq([@shelter_1, @shelter_3])
     end
   end
 
