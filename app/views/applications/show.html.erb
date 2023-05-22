@@ -34,4 +34,15 @@
   <% end %>
 <% end %><br>
 
+<% if @application.status == "In Progress" && @pets.size > 0 %>
+ <h3>Reason for Adoption</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+    <%= form.label :reason %>
+    <%= form.text_field :reason %>
+    <%= form.hidden_field :status, value: "Pending" %>
+    <%= form.submit "Submit Application" %>
+  <% end %>
+<% end %>
+
+
 <h3>Status: <%= @application.status %></h3>
