@@ -40,6 +40,7 @@ RSpec.describe "/admin/applications/:id" do
     ApplicationPet.create!(pet: @pet_3, application: @tom)
   end
 
+  #User Story 12
   describe "Approving a Pet for Adoption" do 
     it "displays admin applications show page" do 
       visit "/admin/applications/#{@susie.id}"
@@ -75,6 +76,31 @@ RSpec.describe "/admin/applications/:id" do
         expect(current_path).to eq("/admin/applications/#{@susie.id}")
         expect(page).to_not have_button ("Approve #{@pet_1.name} for Adoption")
         expect(page).to have_content("#{@pet_1.name}: Approved for Adoption")
+      end
+    end
+  end
+
+  #User Story 13
+  describe "Rejecting a Pet for Adoption" do 
+    it "displays a button to reject application for each specific pet" do 
+      visit "/admin/applications/#{@susie.id}"
+      within("#pets-on-application") do 
+        expect(page).to have_button("Reject #{@pet_1.name} for Adoption")
+        expect(page).to have_button("Reject #{@pet_2.name} for Adoption")
+        expect(page).to_not have_button("Reject #{@pet_3.name} for Adoption")
+      end
+    end
+
+    it "when approved, redirects to show page, and removes approve button/adds indicator for specific pet" do 
+      visit "/admin/applications/#{@susie.id}"
+      within("#pets-on-application") do 
+        expect(page).to have_button("Reject #{@pet_1.name} for Adoption")
+
+        click_button("Reject #{@pet_1.name} for Adoption")
+        
+        expect(current_path).to eq("/admin/applications/#{@susie.id}")
+        expect(page).to_not have_button ("Reject #{@pet_1.name} for Adoption")
+        expect(page).to have_content("#{@pet_1.name}: Rejected for Adoption")
       end
     end
   end
