@@ -74,15 +74,8 @@ RSpec.describe "/admin/applications/:id" do
 
         expect(current_path).to eq("/admin/applications/#{@susie.id}")
         expect(page).to_not have_button ("Approve #{@pet_1.name} for Adoption")
-        expect(page).to have_content("Approved #{@pet_1.name} for Adoption")
+        expect(page).to have_content("#{@pet_1.name}: Approved for Adoption")
       end
     end
   end
 end
-# As a visitor
-# When I visit an admin application show page ('/admin/applications/:id')
-# For every pet that the application is for, I see a button to approve the application for that specific pet
-# When I click that button
-# Then I'm taken back to the admin application show page
-# And next to the pet that I approved, I do not see a button to approve this pet
-# And instead I see an indicator next to the pet that they have been approved
