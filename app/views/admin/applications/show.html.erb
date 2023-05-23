@@ -1,0 +1,15 @@
+<h1>Applicant Information</h1>
+<h3><%= @application.name %></h3>
+<p>Street Address: <%= @application.street_address %></p>
+<p>City: <%= @application.city %></p>
+<p>State: <%= @application.state %></p>
+<p>Zip Code: <%= @application.zip %></p>
+<p>Applicant Description: <%= @application.description %></p>
+<p>Reason for Adoption: <%= @application.reason %></p>
+
+<section id="#pets-on-application">
+  <h2>Pets Applied for:</h2>
+    <% @pets.each do |pet| %>
+      <%=link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+    <% end %><br>
+</section>
