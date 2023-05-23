@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.describe "the application show" do
   before(:each) do
-    @application = Application.create!(name: "Fredrich Longbottom", 
-                                       address: "1234 1st St", 
-                                       city: "Denver", 
-                                       state: "CO", 
-                                       zip: "80202", 
+    @application = Application.create!(name: "Fredrich Longbottom",
+                                       address: "1234 1st St",
+                                       city: "Denver",
+                                       state: "CO",
+                                       zip: "80202",
                                        description_why: "I love creatures."
                                        )
     @shelter_1 = Shelter.create!(
@@ -17,15 +17,34 @@ RSpec.describe "the application show" do
     )
     @pet_1 = @shelter_1.pets.create!(
       adoptable: true,
+      age: 3,
+      breed: "Jack Russell Terrier",
+      name: "Alphonso",
+      shelter_id: 1
+    )
+
+    @pet_2 = @shelter_1.pets.create!(
+      adoptable: true,
       age: 4,
       breed: "Husky",
-      name: "Bailey"
+      name: "Bailey",
+      shelter_id: 1
     )
-    @pet_2 = @shelter_1.pets.create!(
+
+    @pet_3 = @shelter_1.pets.create!(
       adoptable: true,
       age: 2,
       breed: "Great Dane",
-      name: "Charlie"
+      name: "Charlie",
+      shelter_id: 1
+    )
+
+    @pet_4 = @shelter_1.pets.create!(
+      adoptable: true,
+      age: 5,
+      breed: "Golden",
+      name: "Doug",
+      shelter_id: 1
     )
 
     visit "/applications/#{@application.id}"
@@ -43,17 +62,39 @@ RSpec.describe "the application show" do
 
   it "can search for pets and filter by name" do
     fill_in "search", with: "Bailey"
-    expect(page).to_not have_content("Charlie")
+    expect(page).to_not have_content("Bailey")
     click_on "Search"
     expect(page).to have_content("Bailey")
+    expect(page).to_not have_content("Alphonso")
+    expect(page).to_not have_content("Charlie")
+    expect(page).to_not have_content("Doug")
+  end
+
+  it "can search for pets and filter by incomplete name" do
+    fill_in "search", with: "Bail"
+    expect(page).to_not have_content("Bailey")
+    click_on "Search"
+    expect(page).to have_content("Bailey")
+    expect(page).to_not have_content("Alphonso")
+    expect(page).to_not have_content("Charlie")
+    expect(page).to_not have_content("Doug")
+  end
+
+  it "can search for pets and filter by incomplete name, case insensitive" do
+    fill_in "search", with: "d"
+    expect(page).to_not have_content("Charlie")
+    click_on "Search"
+    expect(page).to have_content("Doug")
+    expect(page).to_not have_content("Alphonso")
+    expect(page).to_not have_content("Bailey")
     expect(page).to_not have_content("Charlie")
   end
 
   it "does not render search if application is submitted" do
-    submitted = Application.create!(name: "Karl Crabs", 
-                                    address: "1234 4th ave", 
-                                    city: "Seattle", state: "Wa", 
-                                    zip: "80202", 
+    submitted = Application.create!(name: "Karl Crabs",
+                                    address: "1234 4th ave",
+                                    city: "Seattle", state: "Wa",
+                                    zip: "80202",
                                     description_why: "I love creatures."
                                     )
     submitted.update!(status: "Submitted")
