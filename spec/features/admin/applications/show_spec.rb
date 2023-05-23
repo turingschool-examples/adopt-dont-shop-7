@@ -18,9 +18,9 @@ RSpec.describe "Admin Application Show Page", type: :feature do
         
         click_button("Approve #{@pet_2.name}")
         
-        expect(current_path).to eq("admin/applications/#{@application_1.id}")
+        expect(current_path).to eq("/admin/applications/#{@application_1.id}")
         expect(page).to_not have_button("Approve #{@pet_2.name}")
-        expect(page).to have_content("Approved")
+        expect(page).to have_content("Pet Status: Approved")
       end
     end
   end
