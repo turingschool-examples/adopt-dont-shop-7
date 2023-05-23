@@ -35,5 +35,29 @@ RSpec.describe "/admin/shelters", type: :feature do
       expect(@shelter3.name).to appear_before(@shelter2.name)
       expect(@shelter2.name).to appear_before(@shelter1.name)
     end
+
+    it "has a section for shelters with pending applications" do
+      # For this story, you should fully leverage ActiveRecord methods in your query.
+
+      # 11. Shelters with Pending Applications
+
+      # As a visitor
+      # When I visit the admin shelter index ('/admin/shelters')
+      # Then I see a section for "Shelters with Pending Applications"
+      # And in this section I see the name of every shelter that has a pending application
+
+      visit "/admin/shelters"
+
+      # See All Shelters plus pending?
+      save_and_open_page
+      within "#pending" do
+        # See only pet1>shelter1, pet3>shelter1, pet6>shelter3
+        expect(page).to have_content("Shelters with Pending Applications")
+        expect(page).to have_content(@shelter1.name)
+        expect(page).to have_content(@shelter3.name)
+        expect(page).to_not have_content(@shelter2.name)
+        # Assert the presence of text "pending"
+      end
+    end
   end
 end
