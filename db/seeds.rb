@@ -52,6 +52,16 @@ Veterinarian.destroy_all
   status: 'In Progress'
 )
 
+@jeremicah = Application.create!(
+  name: "Jeremicah", 
+  street_address: "9876 W Holburn Ave", 
+  city: "Gertrude", 
+  state: "NY", 
+  zip: "10092", 
+  description: "A little quirky", 
+  status: "In Progress"
+  )
+
 ApplicationPet.create!(pet: @pet_1, application: @susie)
 ApplicationPet.create!(pet: @pet_5, application: @susie)
 
