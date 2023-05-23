@@ -104,4 +104,39 @@ RSpec.describe "/admin/applications/:id" do
       end
     end
   end
+
+  # User Story 14
+  describe "Approved/Rejected Pets on one Application do not affect other Applications" do 
+    it "pet approval or rejection for one applicant does not affect the admin/application show page for another applicant" do 
+      visit "/admin/applications/#{@susie.id}"
+      
+      within("#pets-on-application") do 
+        expect(page).to have_button("Reject #{@pet_1.name} for Adoption")
+        expect(page).to have_button("Approve #{@pet_1.name} for Adoption")
+        expect(page).to have_button("Reject #{@pet_2.name} for Adoption")
+        expect(page).to have_button("Approve #{@pet_2.name} for Adoption")
+        
+        click_button("Approve #{@pet_1.name} for Adoption")
+        
+        expect(page).to_not have_button ("Approve #{@pet_1.name} for Adoption")
+        expect(page).to have_content("#{@pet_1.name}: Approved for Adoption")
+
+        click_button("Reject #{@pet_2.name} for Adoption")
+
+        expect(page).to_not have_button ("Reject #{@pet_2.name} for Adoption")
+        expect(page).to have_content("#{@pet_2.name}: Rejected for Adoption")
+      end
+
+      visit "/admin/applications/#{@tom.id}"
+
+      within("#pets-on-application") do 
+        expect(page).to have_button("Reject #{@pet_1.name} for Adoption")
+        expect(page).to have_button("Approve #{@pet_1.name} for Adoption")
+        expect(page).to have_button("Reject #{@pet_2.name} for Adoption")
+        expect(page).to have_button("Approve #{@pet_2.name} for Adoption")
+        expect(page).to have_button("Reject #{@pet_3.name} for Adoption")
+        expect(page).to have_button("Approve #{@pet_3.name} for Adoption")
+      end
+    end
+  end
 end
