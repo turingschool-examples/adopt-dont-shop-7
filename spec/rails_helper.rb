@@ -68,6 +68,7 @@ def admin_test_data
 
   PetApplication.create!(pet: @pet_2, application: @application_1)
   PetApplication.create!(pet: @pet_4, application: @application_1)
+  PetApplication.create!(pet: @pet_1, application: @application_1)
 
   PetApplication.create!(pet: @pet_1, application: @application_2)
 
