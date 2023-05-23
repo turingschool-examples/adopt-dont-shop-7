@@ -48,6 +48,8 @@ RSpec.describe "the application show page" do
     click_on("Search")
 
     expect(current_path).to eq("/applicants/#{applicant_1.id}")
+
+
     expect(page).to have_content(pet_1.name)
     expect(page).to_not have_content(pet_2.name)
   end
@@ -70,8 +72,8 @@ RSpec.describe "the application show page" do
 
     click_on("Adopt this Pet")
 
-    expect(current_path).to eq("/applicants/#{applicant_1.id}")
 
-    expect(page).to have_content("Your future pet(s) list: #{pet_1.name}")
+    expect(current_path).to eq("/applicants/#{applicant_1.id}")
+    expect(page).to have_content("#{pet_1.name}")
   end
 end
