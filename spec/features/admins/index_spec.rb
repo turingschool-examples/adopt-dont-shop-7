@@ -48,15 +48,11 @@ RSpec.describe "/admin/shelters", type: :feature do
 
       visit "/admin/shelters"
 
-      # See All Shelters plus pending?
-      save_and_open_page
       within "#pending" do
-        # See only pet1>shelter1, pet3>shelter1, pet6>shelter3
         expect(page).to have_content("Shelters with Pending Applications")
         expect(page).to have_content(@shelter1.name)
         expect(page).to have_content(@shelter3.name)
         expect(page).to_not have_content(@shelter2.name)
-        # Assert the presence of text "pending"
       end
     end
   end
