@@ -44,12 +44,13 @@ RSpec.describe "/admin/applications/:id" do
     it "displays admin applications show page" do 
       visit "/admin/applications/#{@susie.id}"
       expect(page).to have_content(@susie.name)
-      expect(page).to have_content(@susie.street_address)
-      expect(page).to have_content(@susie.city)
-      expect(page).to have_content(@susie.state)
-      expect(page).to have_content(@susie.zip)
-      expect(page).to have_content(@susie.description)
-      expect(page).to have_content(@susie.reason)
+      expect(page).to have_content("Street Address: #{@susie.street_address}")
+      expect(page).to have_content("City: #{@susie.city}")
+      expect(page).to have_content("State: #{@susie.state}")
+      expect(page).to have_content("Zip Code: #{@susie.zip}")
+      expect(page).to have_content("Applicant Description: #{@susie.description}")
+      expect(page).to have_content("Reason for Adoption: #{@susie.reason}")
+      expect(page).to have_content("Status of All Pet Applications: #{@susie.status}")
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       expect(page).to_not have_content(@pet_3.name)
@@ -64,8 +65,17 @@ RSpec.describe "/admin/applications/:id" do
       end
     end
 
-    xit "when approved, redirects to show page, and removes approve button/adds indicator for specific pet" do 
+    it "when approved, redirects to show page, and removes approve button/adds indicator for specific pet" do 
+      visit "/admin/applications/#{@susie.id}"
+      within("#pets-on-application") do 
+        expect(page).to have_button("Approve #{@pet_1.name} for Adoption")
 
+        click_button("Approve #{@pet_1.name} for Adoption")
+
+        expect(current_path).to eq("/admin/applications/#{@susie.id}")
+        expect(page).to_not have_button ("Approve #{@pet_1.name} for Adoption")
+        expect(page).to have_content("Approved #{@pet_1.name} for Adoption")
+      end
     end
   end
 end
