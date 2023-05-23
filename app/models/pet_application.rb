@@ -5,4 +5,9 @@ class PetApplication < ApplicationRecord
 
   belongs_to :pet
   belongs_to :application
+
+  def initialize(params)
+    super(params)
+    self.status = "Pending"
+  end
 end

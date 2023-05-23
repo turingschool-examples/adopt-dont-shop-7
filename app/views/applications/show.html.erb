@@ -3,4 +3,28 @@
 <p>Address: <%= "#{@application.address}, #{@application.city}, #{@application.state} #{@application.zip}" %></p>
 <p>Description of why I would make a good home:</p>
 <p><%= @application.description_why %></p><br/>
-<h3>Pets on this application: <%=  %></h3>
+
+<% if @application.status.downcase != "submitted" %>
+  <section>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+
+  <ul id="pets-list">
+    <% @pets.each do |pet| %>
+      <li id="adoptable-pet-<%=pet.id%>"><%= pet.name %>
+      <%= button_to "Adopt this pet", "/pet_applications", method: :post, params: {pet_id: "#{pet.id}", application_id: "#{@application.id}"} %> </li>
+    <% end %>
+  </ul>
+  </section><br/><br/>
+<% end %>
+
+<h3>Pets on this application: </h3>
+<ul id="pets-on-application">
+<% @application.pets.each do |pet|  %>
+  <li><%= pet.name %></li></br>
+<% end %>
+</ul>

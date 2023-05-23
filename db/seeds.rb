@@ -26,10 +26,55 @@ shelter_1 = Shelter.create!(
   rank: 1
 )
 
+shelter_2 = Shelter.create!(
+  foster_program: true,
+  name: "Seattle Animal Shelter",
+  city: "Seattle",
+  rank: 2
+)
+
+shelter_3 = Shelter.create!(
+  foster_program: false,
+  name: "Portland Animal Shelter",
+  city: "Portland",
+  rank: 3
+)
+
+shelter_4 = Shelter.create!(
+  foster_program: true,
+  name: "Dallas Animal Shelter",
+  city: "Dallas",
+  rank: 4
+)
+
 pet_1 = shelter_1.pets.create!(
   adoptable: true,
   age: 3,
   breed: "Jack Russell Terrier",
   name: "Alphonso",
+  shelter_id: 1
+)
+
+pet_2 = shelter_1.pets.create!(
+  adoptable: true,
+  age: 4,
+  breed: "Husky",
+  name: "Bailey",
+  shelter_id: 1
+)
+
+pet_3 = shelter_1.pets.create!(
+  adoptable: true,
+  age: 2,
+  breed: "Great Dane",
+  name: "Charlie",
+  shelter_id: 1
+)
+
+pet_4 = shelter_1.pets.create!(
+  adoptable: true,
+  age: 5,
+  breed: "Golden",
+  name: "Doug",
   shelter_id: 1
 )
