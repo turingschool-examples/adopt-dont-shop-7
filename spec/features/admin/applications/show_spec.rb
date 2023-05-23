@@ -55,8 +55,13 @@ RSpec.describe "/admin/applications/:id" do
       expect(page).to_not have_content(@pet_3.name)
     end
 
-    xit "displays a button to approve application for each specific pet" do 
-
+    it "displays a button to approve application for each specific pet" do 
+      visit "/admin/applications/#{@susie.id}"
+      within("#pets-on-application") do 
+        expect(page).to have_button("Approve #{@pet_1.name} for Adoption")
+        expect(page).to have_button("Approve #{@pet_2.name} for Adoption")
+        expect(page).to_not have_button("Approve #{@pet_3.name} for Adoption")
+      end
     end
 
     xit "when approved, redirects to show page, and removes approve button/adds indicator for specific pet" do 
