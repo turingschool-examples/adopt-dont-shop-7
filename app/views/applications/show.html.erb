@@ -4,15 +4,22 @@
 <p>Description of why I would make a good home:</p>
 <p><%= @application.description_why %></p><br/>
 
-<section>
-<h3>Add a Pet to this Application</h3>
-<%= form_with model: @pets do |form| %>
-  <%= form.text_field :title %>
-  <%= form.text_area :body, size: "60x10" %>
-  <%= form.submit %>
-<% end %>
+<% if @application.status.downcase != "submitted" %>
+  <section>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
 
-</section><br/><br/>
+  <ul id="pets-list">
+    <% @pets.each do |pet| %>
+      <li id="adoptable-pet-<%=pet.id%>"><%= pet.name %>  </li>
+    <% end %>
+  </ul>
+  </section><br/><br/>
+<% end %>
 
 <h3>Pets on this application: <%=  %></h3>
 
