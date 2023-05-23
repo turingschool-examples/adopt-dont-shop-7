@@ -22,7 +22,6 @@ class Shelter < ApplicationRecord
 
   def self.pending_apps
     Shelter.joins(pets: :applications).where("status = 'Pending'").distinct
-    ###shelter has many apps through pets. Build out that association first
   end
 
   def pet_count
