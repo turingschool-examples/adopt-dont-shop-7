@@ -7,9 +7,13 @@
 <p>Applicant Description: <%= @application.description %></p>
 <p>Reason for Adoption: <%= @application.reason %></p>
 
-<section id="#pets-on-application">
+<section id="pets-on-application">
   <h2>Pets Applied for:</h2>
     <% @pets.each do |pet| %>
-      <%=link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+      <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
+        <p><%= pet.name %>
+        <%= form.submit  "Approve #{pet.name} for Adoption"%></p>
+      <% end %>
     <% end %><br>
+
 </section>
