@@ -11,20 +11,17 @@
 <section id="pets-on-application">
   <h2>Pets Applied for:</h2>
     <% @pets.each do |pet| %>
-    <% application_pet = ApplicationPet.find_application_pet(pet.id, @application.id) %>
-    <% if application_pet == "Pending" %>
-      <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
-        <p><%= pet.name %>
-        <%= form.hidden_field(:pet_id, value: pet.id) %>
-        <%= form.hidden_field(:application_id, value: @application.id) %>
-        <%= form.hidden_field(:status, value: "Approved") %>
-        <%= form.submit  "Approve #{pet.name} for Adoption"%></p>
+      <% if pet.application_pet_status(@application.id) == "Pending" %>
+        <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
+          <p><%= pet.name %>
+          <%= form.hidden_field(:pet_id, value: pet.id) %>
+          <%= form.hidden_field(:application_id, value: @application.id) %>
+          <%= form.hidden_field(:status, value: "Approved") %>
+          <%= form.submit  "Approve #{pet.name} for Adoption"%></p>
+        <% end %>
+      <% else %>
+        <p style="color: green;"><%= pet.name %>: Approved for Adoption</p>
       <% end %>
-    <% elsif pet.status_of_applicationpet(@application) == "Rejected" %>
-    <% elsif pet.status_of_applicationpet(@application) == "Accepted" %>
-    <% else %>
-      <p>We not ready for that buckwild flow</p>
-    <% end %>
     <% end %><br>
 
 </section>
