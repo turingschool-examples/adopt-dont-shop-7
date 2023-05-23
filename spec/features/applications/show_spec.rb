@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.describe "the application show" do
   before(:each) do
-    @application = Application.create!(name: "Fredrich Longbottom", 
-                                       address: "1234 1st St", 
-                                       city: "Denver", 
-                                       state: "CO", 
-                                       zip: "80202", 
+    @application = Application.create!(name: "Fredrich Longbottom",
+                                       address: "1234 1st St",
+                                       city: "Denver",
+                                       state: "CO",
+                                       zip: "80202",
                                        description_why: "I love creatures."
                                        )
     @shelter_1 = Shelter.create!(
@@ -50,10 +50,10 @@ RSpec.describe "the application show" do
   end
 
   it "does not render search if application is submitted" do
-    submitted = Application.create!(name: "Karl Crabs", 
-                                    address: "1234 4th ave", 
-                                    city: "Seattle", state: "Wa", 
-                                    zip: "80202", 
+    submitted = Application.create!(name: "Karl Crabs",
+                                    address: "1234 4th ave",
+                                    city: "Seattle", state: "Wa",
+                                    zip: "80202",
                                     description_why: "I love creatures."
                                     )
     submitted.update!(status: "Submitted")
@@ -75,6 +75,23 @@ RSpec.describe "the application show" do
 
     within "#pets-on-application" do
       expect(page).to have_content(@pet_1.name)
+    end
+  end
+
+  describe "can submit applicaiton" do
+    it "has a submit application buttion" do
+      visit "/applications/#{@application.id}"
+      fill_in :search, with: "#{@pet_1.name}"
+      click_on "Search"
+      within "#adoptable-pet-#{@pet_1.id}" do
+        click_on "Adopt this pet"
+        expect(current_path).to eq("/applications/#{@application.id}")
+      end
+      expect(page).to have_content("Why I would make a good home for these pets")
+      expect(page).to have_content("Submit Application")
+      click_on "Submit Application"
+      expect(current_path).to eq("/applications/#{@application.id}")
+
     end
   end
 end
