@@ -15,12 +15,14 @@ Veterinarian.destroy_all
 
 @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 @shelter_2 = Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
+@shelter_3 = Shelter.create!(name: "Exotic Cast-offs", city: "Junebug Tenessee", foster_program: false, rank: 3)
 
 @pet_1 = @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
 @pet_2 = @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
 @pet_3 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
 @pet_4 = @shelter_2.pets.create!(name: "Potatoe", breed: "Lab", age: 7, adoptable: true)
 @pet_5 = @shelter_2.pets.create!(name: "Duncan", breed: "Golden Retriever", age: 1, adoptable: true)
+@pet_6 = @shelter_3.pets.create!(name: "Jeremiah", breed: "Bull Frog", age: 1, adoptable: true)
 
 @susie = Application.create!(
   name: 'Susie', 
