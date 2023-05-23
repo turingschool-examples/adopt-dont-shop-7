@@ -2,8 +2,13 @@ require "rails_helper"
 
 RSpec.describe "the application show" do
   before(:each) do
-    @application = Application.create!(name: "Fredrich Longbottom", address: "1234 1st St", city: "Denver",
-                                       state: "CO", zip: "80202", description_why: "I love creatures.")
+    @application = Application.create!(name: "Fredrich Longbottom", 
+                                       address: "1234 1st St", 
+                                       city: "Denver", 
+                                       state: "CO", 
+                                       zip: "80202", 
+                                       description_why: "I love creatures."
+                                       )
     @shelter_1 = Shelter.create!(
       foster_program: false,
       name: "Denver Animal Shelter",
@@ -45,8 +50,12 @@ RSpec.describe "the application show" do
   end
 
   it "does not render search if application is submitted" do
-    submitted = Application.create!(name: "Karl Crabs", address: "1234 4th ave", city: "Seattle", state: "Wa",
-                                    zip: "80202", description_why: "I love creatures.")
+    submitted = Application.create!(name: "Karl Crabs", 
+                                    address: "1234 4th ave", 
+                                    city: "Seattle", state: "Wa", 
+                                    zip: "80202", 
+                                    description_why: "I love creatures."
+                                    )
     submitted.update!(status: "Submitted")
     visit "/applications/#{submitted.id}"
     expect(page).to_not have_content("Search")
