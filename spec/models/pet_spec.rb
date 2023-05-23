@@ -40,5 +40,12 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe ".pa_status(app_id)" do
+      it "can find status of a pet application" do
+        admin_test_data
+        expect(@pet_1.pa_status(@application_2.id)).to eq("Pending")
+      end
+    end
   end
 end

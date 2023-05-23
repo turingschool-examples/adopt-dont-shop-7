@@ -17,18 +17,6 @@
   <%= render "search_pet" %>
 <% end %>
 
-<% if params[:search_pet] %>
-  <% @searched_pets.each do |searched_pet| %>
-    <%= searched_pet.name %>
-    <%= form_with model: PetApplication.new, url: "/pet_applications", method: :post, local: true do |form| %>
-      <%= form.hidden_field :pet_id, value: searched_pet.id %>
-      <%= form.hidden_field :application_id, value: @application.id %>
-      <%= form.submit "Adopt This Pet" %>
-    <% end %>
-  <% end %>
-<% end %>
-
-
 <% if @application.pets.any? && @application.status == "In Progress" %>
   <h4>Why would you make a good pet owner?</h4>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
