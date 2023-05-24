@@ -26,7 +26,7 @@ RSpec.describe "Admin Shelters Show Page", type: :feature do
       @petapp5 = PetApplication.create!(application_id: @app2.id, pet_id: @pet6.id)
 
       @app3 = Application.create!(name: "Jeff", street_address: "567 Sideways", city: "Somewhere", state: "DE", zip_code: "34567", description: "We the best -DJ Khaled", status: "Rejected")
-      @petapp6 = PetApplication.create!(application_id: @app3.id, pet_id: @pet5.id, pet_applications_status: "In Progress")
+      @petapp6 = PetApplication.create!(application_id: @app3.id, pet_id: @pet5.id, pet_applications_status: "Pending")
     end
 
     it "can approve pet applications" do
@@ -41,11 +41,10 @@ RSpec.describe "Admin Shelters Show Page", type: :feature do
       # And instead I see an indicator next to the pet that they have been approved
 
       visit "/admin/applications/#{@app3.id}"
-      save_and_open_page
-      require 'pry'; binding.pry
-      within "#application-#{@app3.id}" do
+    
+      within "#pet_application-#{@pet5.id}" do
         expect(page).to have_content(@pet5.name)
-        expect(page).to have_content("Status: In Progress")
+        expect(page).to have_content("Status: Pending")
         expect(page).to have_button("Approve Pet Application")
       end
 
