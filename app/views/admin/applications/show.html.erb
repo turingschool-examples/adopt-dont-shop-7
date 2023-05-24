@@ -13,22 +13,24 @@
     <% @pets.each do |pet| %>
 
       <% if pet.application_pet_status(@application.id) == "Pending" %>
+        <%= pet.name %>
+        <%= render partial: "form", locals:{
+                                            path: "/admin/applications/#{@application.id}", 
+                                            method: :patch, 
+                                            pet_id: pet.id,
+                                            application_id: @application.id,
+                                            application_status: "Approved",
+                                            button_text: "Approve #{pet.name} for Adoption"
+                                            }%>
 
-        <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
-          <%= pet.name %>
-          <%= form.hidden_field(:pet_id, value: pet.id) %>
-          <%= form.hidden_field(:application_id, value: @application.id) %>
-          <%= form.hidden_field(:status, value: "Approved") %>
-          <%= form.submit  "Approve #{pet.name} for Adoption"%>
-        <% end %>
-
-        <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
-          <%= form.hidden_field(:pet_id, value: pet.id) %>
-          <%= form.hidden_field(:application_id, value: @application.id) %>
-          <%= form.hidden_field(:status, value: "Rejected") %>
-          <%= form.submit  "Reject #{pet.name} for Adoption"%>
-        <% end %>
-
+        <%= render partial: "form", locals:{
+                                            path: "/admin/applications/#{@application.id}", 
+                                            method: :patch, 
+                                            pet_id: pet.id,
+                                            application_id: @application.id,
+                                            application_status: "Rejected",
+                                            button_text: "Reject #{pet.name} for Adoption"
+                                            }%>
       <% else %>
           <% if pet.application_pet_status(@application.id) == "Approved" %>
             <p style="color: green;"><%= "#{pet.name}: #{pet.application_pet_status(@application.id)}" %> for Adoption</p>
