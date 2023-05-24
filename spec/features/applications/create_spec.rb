@@ -44,12 +44,6 @@ RSpec.describe "application creation" do
         
         expect(page).to have_content("Description: #{new_application.description}")
         expect(page).to have_content("Description: I have lots of money.")
-
-        # I think the code we have below works but ...
-        # Not sure this is technically an indicator per the last line in  user story 2:
-          #  "And I see an indicator that this application is 'In Progress'"
-        # We might want to check with Chris & Erin about what "indicator" refers to,
-        # let me know what you think. - MJ
         expect(page).to have_content("Application Status: #{new_application.application_status}")
         expect(page).to have_content("Application Status: In Progress")
         
@@ -58,16 +52,16 @@ RSpec.describe "application creation" do
     
     describe "given invalid data" do
       it "re-renders the new form" do
+
         visit "/applications/new"
-        
         fill_in "Name", with: "John Doe"
-        
         click_button "Submit"
         
-        # save_and_open_page
-        
-        # expect(page).to have_content("")
         expect(page).to have_current_path("/applications/new")
+
+        within ("div") do
+          expect(page).to have_content("Error: Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank")
+        end
       end
     end
   end
