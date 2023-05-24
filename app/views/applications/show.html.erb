@@ -4,15 +4,17 @@
 <p>Description of why I would make a good home:</p>
 <p><%= @application.description_why %></p><br/>
 
-<% if @application.status.downcase != "submitted" %>
-  <section>
-  <h3>Add a Pet to this Application</h3>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-    <%= f.label :search %>
-    <%= f.text_field :search %>
-    <%= f.submit "Search" %>
-  <% end %>
 
+<% if @application.status.downcase != "submitted" && @application.status.downcase != "pending" %>
+  <div id="pet_search">
+    <section>
+    <h3>Add a Pet to this Application</h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
+  </div>
+  <% end %>
   <ul id="pets-list">
     <% @pets.each do |pet| %>
       <li id="adoptable-pet-<%=pet.id%>"><%= pet.name %>
@@ -20,6 +22,15 @@
     <% end %>
   </ul>
   </section><br/><br/>
+<% end %>
+
+<% if @application.pets != [] %>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <%= f.label :reason_why %>
+  <%= f.text_field :reason_why%>
+
+  <%= f.submit "Submit Application"%>
+<% end %>
 <% end %>
 
 <h3>Pets on this application: </h3>
