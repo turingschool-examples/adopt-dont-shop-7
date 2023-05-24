@@ -53,11 +53,12 @@ RSpec.describe "Admin Application Show Page" do
     visit "/admin/applications/#{@application.id}"
   end
 
-  it "can show all the applications" do
+  it "can approve a pet" do
     @application.pets.each do |pet|
       within "#pending_pets-#{pet.id}" do
         expect(page).to have_content(pet.name)
         expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
       end
     end
     within "#pending_pets-#{@pet_1.id}" do
@@ -67,7 +68,27 @@ RSpec.describe "Admin Application Show Page" do
     # save_and_open_page
     within "#pending_pets-#{@pet_1.id}" do
       expect(page).to_not have_button("Approve")
+      expect(page).to_not have_button("Reject")
       expect(page).to have_content("Approved")
+    end
+  end
+
+  it "can reject a pet" do
+    @application.pets.each do |pet|
+      within "#pending_pets-#{pet.id}" do
+        expect(page).to have_content(pet.name)
+        expect(page).to have_button("Reject")
+        expect(page).to have_button("Approve")
+      end
+    end
+    within "#pending_pets-#{@pet_1.id}" do
+      click_button "Reject"
+      expect(current_path).to eq("/admin/applications/#{@application.id}")
+    end
+    within "#pending_pets-#{@pet_1.id}" do
+      expect(page).to_not have_button("Approve")
+      expect(page).to_not have_button("Reject")
+      expect(page).to have_content("Rejected")
     end
   end
 end

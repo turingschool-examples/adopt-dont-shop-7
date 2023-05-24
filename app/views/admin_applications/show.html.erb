@@ -8,8 +8,9 @@
 <% @application.pets.each do |pet| %>
   <div id="pending_pets-<%= pet.id %>">
   <%= pet.name %>
-  <% if pet.find_pet_app(@application.id).status != "Approved" %>
-    <%= button_to "Approve", "/pet_applications/#{pet.find_pet_app_id(@application.id)}", method: :patch, params: {pet_id: "#{pet.id}", application_id: "#{@application.id}"} %>
+  <% if pet.find_pet_app(@application.id).status != "Approved" && pet.find_pet_app(@application.id).status != "Rejected" %>
+    <%= button_to "Approve", "/pet_applications/#{pet.find_pet_app_id(@application.id)}", method: :patch, params: {pet_id: "#{pet.id}", application_id: "#{@application.id}", status: "Approved"} %>
+    <%= button_to "Reject", "/pet_applications/#{pet.find_pet_app_id(@application.id)}", method: :patch, params: {pet_id: "#{pet.id}", application_id: "#{@application.id}", status: "Rejected"} %>
   <% else %>
     <%= pet.find_pet_app(@application.id).status %>
   <% end %>

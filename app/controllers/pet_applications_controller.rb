@@ -6,12 +6,15 @@ class PetApplicationsController < ApplicationController
 
   def update
     pet_application = PetApplication.find(params[:id])
-    pet_application.status = "Approved"
-    pet_application.save
+    pet_application.update(status)
     redirect_to "/admin/applications/#{params[:application_id]}"
   end
 
   private
+
+  def status
+    params.permit(:status)
+  end
 
   def pet_application_params
     params.permit(:application_id, :pet_id)
