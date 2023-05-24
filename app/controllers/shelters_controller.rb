@@ -61,11 +61,7 @@ class SheltersController < ApplicationController
 
   def admin_index
     @shelters = Shelter.sort_desc
-    @shelter_applications = PetApplication.find_shelter_applications
-    require 'pry'; binding.pry
-    # PetApplication.all.map do |pa|
-    #   pa.pet.shelter
-    # end
+    @shelter_applications = Shelter.find_pending_apps
   end
 
   private
