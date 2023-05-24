@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_20_201323) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_23_203409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,9 +28,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_201323) do
 
   create_table "pet_applications", force: :cascade do |t|
     t.bigint "application_id", null: false
-    t.bigint "pet_id"
+    t.integer "pet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "pet_applications_status"
     t.index ["application_id"], name: "index_pet_applications_on_application_id"
     t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
   end
