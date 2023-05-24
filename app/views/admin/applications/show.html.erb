@@ -1,0 +1,14 @@
+<h1><%= @application.name %></h1>
+
+
+<div id="#application-<%=@application.id%>">
+  <% @application_pets.each do |pet|%>
+    <p>Pet Name: <%= pet.name %></p>
+    <% @app_petapp.each do |app| %>
+      <p>Status: <%= app.pet_applications_status %></p>
+    <%end%>
+  <%end%> 
+</div>
+
+
+
