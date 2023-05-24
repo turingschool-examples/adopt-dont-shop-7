@@ -54,53 +54,64 @@ RSpec.describe "/applications/:id", type: :feature do
   describe "Application Show Page" do
     it "shows applicant information" do 
       visit "/applications/#{@susie.id}"
-      expect(page).to have_content(@susie.name)
-      expect(page).to have_content("Street Address: #{@susie.street_address}")
-      expect(page).to have_content("City: #{@susie.city}")
-      expect(page).to have_content("State: #{@susie.state}")
-      expect(page).to have_content("Zip Code: #{@susie.zip}")
-      expect(page).to have_content("Description: #{@susie.description}")
-      expect(page).to have_content("Status: #{@susie.status}")
       
-      expect(page).to_not have_content(@tom.name)
-      expect(page).to_not have_content("Street Address: #{@tom.street_address}")
-      expect(page).to_not have_content("City: #{@tom.city}")
-      expect(page).to_not have_content("State: #{@tom.state}")
-      expect(page).to_not have_content("Zip Code: #{@tom.zip}")
-      expect(page).to_not have_content("Description: #{@tom.description}")
+      within("#applicant-info") do 
+        expect(page).to have_content(@susie.name)
+        expect(page).to have_content("Street Address: #{@susie.street_address}")
+        expect(page).to have_content("City: #{@susie.city}")
+        expect(page).to have_content("State: #{@susie.state}")
+        expect(page).to have_content("Zip Code: #{@susie.zip}")
+        expect(page).to have_content("Description: #{@susie.description}")
+        
+        expect(page).to_not have_content(@tom.name)
+        expect(page).to_not have_content("Street Address: #{@tom.street_address}")
+        expect(page).to_not have_content("City: #{@tom.city}")
+        expect(page).to_not have_content("State: #{@tom.state}")
+        expect(page).to_not have_content("Zip Code: #{@tom.zip}")
+        expect(page).to_not have_content("Description: #{@tom.description}")
+      end
+
+      expect(page).to have_content("Status: #{@susie.status}")
       expect(page).to_not have_content("Status :#{@tom.status}")
     end
     
     it 'shows different applicant information' do 
       visit "/applications/#{@tom.id}"
-      expect(page).to have_content(@tom.name)
-      expect(page).to have_content("Street Address: #{@tom.street_address}")
-      expect(page).to have_content("City: #{@tom.city}")
-      expect(page).to have_content("State: #{@tom.state}")
-      expect(page).to have_content("Zip Code: #{@tom.zip}")
-      expect(page).to have_content("Description: #{@tom.description}")
-      expect(page).to have_content("Status: #{@tom.status}")
-      expect(page).to have_content(@pet_1.name)
-      expect(page).to have_content(@pet_2.name)
-      expect(page).to have_content(@pet_3.name)
+      within("#applicant-info") do 
+        expect(page).to have_content(@tom.name)
+        expect(page).to have_content("Street Address: #{@tom.street_address}")
+        expect(page).to have_content("City: #{@tom.city}")
+        expect(page).to have_content("State: #{@tom.state}")
+        expect(page).to have_content("Zip Code: #{@tom.zip}")
+        expect(page).to have_content("Description: #{@tom.description}")
+        
+        expect(page).to_not have_content(@susie.name)
+        expect(page).to_not have_content("Street Address: #{@susie.street_address}")
+        expect(page).to_not have_content("City: #{@susie.city}")
+        expect(page).to_not have_content("State: #{@susie.state}")
+        expect(page).to_not have_content("Zip Code: #{@susie.zip}")
+        expect(page).to_not have_content("Description:#{@susie.description}")
+      end 
+
+      within("#pets-links") do 
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content(@pet_3.name)
+      end
       
-      expect(page).to_not have_content(@susie.name)
-      expect(page).to_not have_content("Street Address: #{@susie.street_address}")
-      expect(page).to_not have_content("City: #{@susie.city}")
-      expect(page).to_not have_content("State: #{@susie.state}")
-      expect(page).to_not have_content("Zip Code: #{@susie.zip}")
-      expect(page).to_not have_content("Description:#{@susie.description}")
+      expect(page).to have_content("Status: #{@tom.status}")
       expect(page).to_not have_content("Status:#{@susie.status}")
     end
 
     it 'displays a link to each pet show page' do 
       visit "/applications/#{@susie.id}"
-      expect(page).to have_link("#{@pet_1.name}", :href => "/pets/#{@pet_1.id}")
-      expect(page).to have_link("#{@pet_2.name}", :href => "/pets/#{@pet_2.id}")
-      
-      click_link("#{@pet_2.name}")
-      expect(current_path).to eq("/pets/#{@pet_2.id}")
-
+      within("#pets-links") do 
+        expect(page).to have_link("#{@pet_1.name}", :href => "/pets/#{@pet_1.id}")
+        expect(page).to have_link("#{@pet_2.name}", :href => "/pets/#{@pet_2.id}")
+        
+        click_link("#{@pet_2.name}")
+        expect(current_path).to eq("/pets/#{@pet_2.id}")
+      end
     end
   end
 

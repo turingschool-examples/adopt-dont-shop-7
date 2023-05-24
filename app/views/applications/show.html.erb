@@ -1,15 +1,19 @@
-<h1>Applicant Information</h1>
-<h3><%= @application.name %></h3>
-<p>Street Address: <%= @application.street_address %></p>
-<p>City: <%= @application.city %></p>
-<p>State: <%= @application.state %></p>
-<p>Zip Code: <%= @application.zip %></p>
-<p>Description: <%= @application.description %></p>
+<section id="applicant-info">
+  <h1>Applicant Information</h1>
+  <h3><%= @application.name %></h3>
+  <p>Street Address: <%= @application.street_address %></p>
+  <p>City: <%= @application.city %></p>
+  <p>State: <%= @application.state %></p>
+  <p>Zip Code: <%= @application.zip %></p>
+  <p>Description: <%= @application.description %></p>
+</section>
 
-<p>Applying for: </p>
-<% @pets.each do |pet| %>
-<%=link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-<% end %><br>
+<section id="pets-links">
+  <p>Applying for: </p>
+  <% @pets.each do |pet| %>
+    <%=link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+  <% end %><br>
+</section>
 
 <% if @application.status == "In Progress" %>
   <h3>Add a Pet to this Application</h3>
