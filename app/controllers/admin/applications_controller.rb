@@ -6,8 +6,16 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def update
-    application = PetApplication.find(params[:application_id])
-    application.update(pet_applications_status: params[:pet_applications_status])
-    redirect_to "/admin/applications/#{application.application_id}"
+    if params[:pet_applications_status] == "Approved"
+      application = PetApplication.find(params[:application_id])
+      application.update(pet_applications_status: params[:pet_applications_status])
+      redirect_to "/admin/applications/#{application.application_id}"
+      # render :show
+    elsif params[:pet_applications_status] == "Rejected"
+      application = PetApplication.find(params[:application_id])
+      application.update(pet_applications_status: params[:pet_applications_status])
+      redirect_to "/admin/applications/#{application.application_id}"
+      # render :show
+    end
   end
 end

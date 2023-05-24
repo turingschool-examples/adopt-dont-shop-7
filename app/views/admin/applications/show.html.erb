@@ -7,16 +7,24 @@
     <% @app_petapp.each do |app| %>
       <p>Status: <%= app.pet_applications_status %></p>
       <% if app.pet_applications_status == "Pending" %>
+        <%#= form_with url: { action: "approve" }, method: :patch, local: true do |f| %>
+        <%#= ^this means that we have to update adminapplicationscontroller to non restful approve method/action %>
         <%= form_with url: "/admin/applications/#{app.id}", method: :patch, local: true do |f| %>
           <%= f.hidden_field :application_id, value: app.id %>
           <%= f.hidden_field :pet_id, value: app.pet_id %>
-          <%= f.hidden_field :pet_applications_status, value: "Approved" %>
+          <%= f.hidden_field :pa, value: "Approved" %>
           <%= f.submit "Approve Pet Application" %>
+        <% end %>
+        <%= form_with url: "/admin/applications/#{app.id}", method: :patch, local: true do |f| %>
+          <%= f.hidden_field :application_id, value: app.id %>
+          <%= f.hidden_field :pet_id, value: app.pet_id %>
+          <%= f.hidden_field :pa, value: "Rejected" %>
+          <%= f.submit "Reject Pet Application" %>
         <% end %>
       <% end %>
     <%end%>
   </div>
-<%end%> 
+<%end%>
 
 
 
