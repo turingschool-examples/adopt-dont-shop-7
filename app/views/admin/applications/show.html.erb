@@ -1,0 +1,22 @@
+<h1><%= @application.name %></h1>
+
+
+<% @application_pets.each do |pet|%>
+  <div id="pet_application-<%=pet.id%>">
+    <p>Pet Name: <%= pet.name %></p>
+    <% @app_petapp.each do |app| %>
+      <p>Status: <%= app.pet_applications_status %></p>
+      <% if app.pet_applications_status == "Pending" %>
+        <%= form_with url: "/admin/applications/#{app.id}", method: :patch, local: true do |f| %>
+          <%= f.hidden_field :application_id, value: app.id %>
+          <%= f.hidden_field :pet_id, value: app.pet_id %>
+          <%= f.hidden_field :pet_applications_status, value: "Approved" %>
+          <%= f.submit "Approve Pet Application" %>
+        <% end %>
+      <% end %>
+    <%end%>
+  </div>
+<%end%> 
+
+
+

@@ -35,7 +35,7 @@
     <% end %>
   </div>
 <% end %>
-<%# do we need hidden fields? update_all? %>
+
 <% if @application.status == "In Progress" && !@application.pets.empty? %>
   <div id="application-submit-<%= @application.id %>">
     <h4>Why you would make a good Pet Parent?</h4>
