@@ -2,7 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pet_applications = PetApplication.where(application: @application.id)
+    @pet_applications = PetApplication.matching_applications(@application)
   end
 
   def new
@@ -31,7 +31,7 @@ class ApplicationsController < ApplicationController
 
   def admin_show
     @application = Application.find(params[:id])
-    @pet_applications = PetApplication.where(application: @application.id)
+    @pet_applications = PetApplication.matching_applications(@application)
   end
 
   def admin_patch

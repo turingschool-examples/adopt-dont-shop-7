@@ -6,4 +6,7 @@ RSpec.describe PetApplication, type: :model do
     it {should belong_to :pet}
   end
   
+  describe ""
+  it "checks for matching applications" do 
+  
 end
