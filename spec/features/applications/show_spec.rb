@@ -2,19 +2,22 @@ require "rails_helper"
 
 RSpec.describe "the application show" do
   before(:each) do
-    @application = Application.create!(name: "Fredrich Longbottom",
-                                       address: "1234 1st St",
-                                       city: "Denver",
-                                       state: "CO",
-                                       zip: "80202",
-                                       description_why: "I love creatures."
-                                       )
+    @application = Application.create!(
+      name: "Fredrich Longbottom",
+      address: "1234 1st St",
+      city: "Denver",
+      state: "CO",
+      zip: "80202",
+      description_why: "I love creatures."
+    )
+
     @shelter_1 = Shelter.create!(
       foster_program: false,
       name: "Denver Animal Shelter",
       city: "Denver",
       rank: 1
     )
+
     @pet_1 = @shelter_1.pets.create!(
       adoptable: true,
       age: 3,
@@ -53,7 +56,9 @@ RSpec.describe "the application show" do
   it "shows the application and all it's attributes" do
     expect(page).to have_content(@application.name)
     expect(page).to have_content("Application status: #{@application.status}")
-    expect(page).to have_content("Address: #{@application.address}, #{@application.city}, #{@application.state} #{@application.zip}")
+    expect(page).to have_content(
+      "Address: #{@application.address}, #{@application.city}, #{@application.state} #{@application.zip}"
+    )
     expect(page).to have_content("Description of why I would make a good home:")
     expect(page).to have_content(@application.description_why)
     expect(page).to have_content("Add a Pet to this Application")
@@ -91,12 +96,13 @@ RSpec.describe "the application show" do
   end
 
   it "does not render search if application is submitted" do
-    submitted = Application.create!(name: "Karl Crabs",
-                                    address: "1234 4th ave",
-                                    city: "Seattle", state: "Wa",
-                                    zip: "80202",
-                                    description_why: "I love creatures."
-                                    )
+    submitted = Application.create!(
+      name: "Karl Crabs",
+      address: "1234 4th ave",
+      city: "Seattle", state: "Wa",
+      zip: "80202",
+      description_why: "I love creatures."
+    )
     submitted.update!(status: "Submitted")
     visit "/applications/#{submitted.id}"
     expect(page).to_not have_content("Search")
@@ -107,7 +113,7 @@ RSpec.describe "the application show" do
       expect(page).to_not have_content(@pet_1.name)
     end
 
-    fill_in :search, with: "#{@pet_1.name}"
+    fill_in :search, with: @pet_1.name
     click_on "Search"
     within "#adoptable-pet-#{@pet_1.id}" do
       click_on "Adopt this pet"

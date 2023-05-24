@@ -24,6 +24,7 @@ RSpec.describe "the veterinarians index" do
 
     visit "/veterinarians"
 
+    expect(page).to have_content(vet_2.name)
     expect(page).to_not have_content(vet_1.name)
   end
 

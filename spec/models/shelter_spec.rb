@@ -13,6 +13,23 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
+    @application_1 = Application.create!(
+      name: "Fredrich Longbottom",
+      address: "1234 1st St",
+      city: "Denver",
+      state: "CO",
+      zip: "80202",
+      description_why: "I love creatures."
+    )
+    @application_2 = Application.create!(
+      name: "Mike Tyson",
+      address: "5678 2nd St",
+      city: "Los Angeles",
+      state: "CA",
+      zip: "90210",
+      description_why: "I love animalths."
+    )
+
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
@@ -21,6 +38,16 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+
+    @pet_app_1 = PetApplication.create!(
+      pet_id: @pet_1.id,
+      application_id: @application_1.id
+    )
+    @pet_app_2 = PetApplication.create!(
+      pet_id: @pet_3.id,
+      application_id: @application_2.id
+    )
+    @pet_app_2.update(status: "Approved")
   end
 
   describe "class methods" do
@@ -39,6 +66,18 @@ RSpec.describe Shelter, type: :model do
     describe "#order_by_number_of_pets" do
       it "orders the shelters by number of pets they have, descending" do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
+
+    describe "#order_by_name_reversed" do
+      it "orders the shelters by name in reverse alphabetical order" do
+        expect(Shelter.order_by_name_reversed).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#with_pending_apps" do
+      it "returns shelters with pending applications" do
+        expect(Shelter.with_pending_apps).to eq([@shelter_1])
       end
     end
   end

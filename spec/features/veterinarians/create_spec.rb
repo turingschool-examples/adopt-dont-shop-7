@@ -40,7 +40,9 @@ RSpec.describe "veterinarian creation" do
         expect(page).to have_current_path(
           "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
         )
-        expect(page).to have_content("Error: Name can't be blank, Review rating can't be blank, Review rating is not a number")
+        expect(page).to have_content(
+          "Error: Name can't be blank, Review rating can't be blank, Review rating is not a number"
+        )
       end
     end
   end

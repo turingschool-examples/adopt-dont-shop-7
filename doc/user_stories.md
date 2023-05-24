@@ -166,7 +166,7 @@ For example, if I search for "fluff", my search would match pets with names "Flu
 ```
 
 ```
-[ ] done
+[x] done
 
 SQL Only Story
 
@@ -180,7 +180,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
-[ ] done
+[x] done
 
 For this story, you should fully leverage ActiveRecord methods in your query.
 
