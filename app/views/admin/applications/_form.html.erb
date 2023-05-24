@@ -1,0 +1,6 @@
+<%= form_with url: path, method: method, local: true do |form| %>
+          <%= form.hidden_field(:pet_id, value: pet_id) %>
+          <%= form.hidden_field(:application_id, value: application_id) %>
+          <%= form.hidden_field(:status, value: application_status ) %>
+          <%= form.submit button_text %>
+        <% end %>
