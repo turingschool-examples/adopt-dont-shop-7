@@ -44,17 +44,22 @@ RSpec.describe "/admin/applications/:id" do
   describe "Approving a Pet for Adoption" do 
     it "displays admin applications show page" do 
       visit "/admin/applications/#{@susie.id}"
-      expect(page).to have_content(@susie.name)
-      expect(page).to have_content("Street Address: #{@susie.street_address}")
-      expect(page).to have_content("City: #{@susie.city}")
-      expect(page).to have_content("State: #{@susie.state}")
-      expect(page).to have_content("Zip Code: #{@susie.zip}")
-      expect(page).to have_content("Applicant Description: #{@susie.description}")
-      expect(page).to have_content("Reason for Adoption: #{@susie.reason}")
-      expect(page).to have_content("Status of All Pet Applications: #{@susie.status}")
-      expect(page).to have_content(@pet_1.name)
-      expect(page).to have_content(@pet_2.name)
-      expect(page).to_not have_content(@pet_3.name)
+      within("#applicant-info") do 
+        expect(page).to have_content(@susie.name)
+        expect(page).to have_content("Street Address: #{@susie.street_address}")
+        expect(page).to have_content("City: #{@susie.city}")
+        expect(page).to have_content("State: #{@susie.state}")
+        expect(page).to have_content("Zip Code: #{@susie.zip}")
+        expect(page).to have_content("Applicant Description: #{@susie.description}")
+        expect(page).to have_content("Reason for Adoption: #{@susie.reason}")
+        expect(page).to have_content("Status of All Pet Applications: #{@susie.status}")
+      end
+      
+      within("#pets-on-application") do 
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to_not have_content(@pet_3.name)
+      end
     end
 
     it "displays a button to approve application for each specific pet" do 
