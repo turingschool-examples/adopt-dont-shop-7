@@ -1,11 +1,11 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    @pets = if params[:search].present?
-              Pet.search(params[:search])
-            else
-              []
-            end
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    else
+      @pets = []
+    end
   end
 
   def new; end
@@ -19,6 +19,13 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: #{error_message(application.errors)}"
       render :new
     end
+  end
+
+  def update
+    application = Application.find(params[:id])
+      application.status = "Pending"
+      application.save
+      redirect_to "/applications/#{application.id}"
   end
 
   private

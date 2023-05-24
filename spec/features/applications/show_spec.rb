@@ -118,4 +118,30 @@ RSpec.describe "the application show" do
       expect(page).to have_content(@pet_1.name)
     end
   end
+
+  describe "can submit applicaiton" do
+    it "has a submit application button" do
+      visit "/applications/#{@application.id}"
+      expect(page).to have_css("#pet_search")
+      expect(page).to_not have_button("Submit Application")
+      fill_in :search, with: "#{@pet_1.name}"
+      click_on "Search"
+      within "#adoptable-pet-#{@pet_1.id}" do
+        click_on "Adopt this pet"
+      end
+      expect(page).to have_field(:reason_why)
+      fill_in :reason_why, with: "I have a large yard"
+      expect(page).to have_button("Submit Application")
+      click_on "Submit Application"
+      expect(current_path).to eq("/applications/#{@application.id}")
+      expect(page).to have_content("Application status: Pending")
+      within "#pets-on-application"do
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to_not have_content(@pet_2.name)
+        expect(page).to_not have_content(@pet_3.name)
+        expect(page).to_not have_content(@pet_4.name)
+      end
+      expect(page).to_not have_css("#pet_search")
+    end
+  end
 end
