@@ -6,9 +6,9 @@ RSpec.describe "admin shelter index" do
       shelter1 = Shelter.create(name: "Public Shelter", city: "Irvine CA", foster_program: false, rank: 9)
       shelter2 = Shelter.create(name: "Safe Shelter", city: "Irvine CA", foster_program: false, rank: 8)
       shelter3 = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 7)
-     
-     visit "/admin/shelters"
-
+      
+      visit "/admin/shelters"
+      save_and_open_page
       expect(shelter2.name).to appear_before(shelter1.name)
       expect(shelter2.name).to appear_before(shelter3.name)
       expect(shelter1.name).to appear_before(shelter3.name)
@@ -22,7 +22,7 @@ RSpec.describe "admin shelter index" do
       shelter1 = Shelter.create(name: "Public Shelter", city: "Irvine CA", foster_program: false, rank: 9)
       shelter2 = Shelter.create(name: "Safe Shelter", city: "Irvine CA", foster_program: false, rank: 8)
       shelter3 = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 7)
-   
+
       application_1 = Application.create!(name: "John Doe", street_address: "123 Sesame St", city: "Denver", state: "CO", zip_code: "80202", description: "I have big hands.", application_status: "Pending")
 
       shelter = Shelter.create!(foster_program: true, name: "Home Shelter", city: "Denver", rank: 1)
