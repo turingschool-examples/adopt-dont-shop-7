@@ -1,26 +1,24 @@
 <h1><%= @application.name %></h1>
 
-
-<% @application_pets.each do |pet|%>
-  <div id="pet_application-<%=pet.id%>">
-    <p>Pet Name: <%= pet.name %></p>
-    <% @app_petapp.each do |app| %>
-      <p>Status: <%= app.pet_applications_status %></p>
-      <% if app.pet_applications_status == "Pending" %>
-        <%#= form_with url: { action: "approve" }, method: :patch, local: true do |f| %>
-        <%#= ^this means that we have to update adminapplicationscontroller to non restful approve method/action %>
-        <%= form_with url: "/admin/applications/#{app.id}", method: :patch, local: true do |f| %>
-          <%= f.hidden_field :application_id, value: app.id %>
-          <%= f.hidden_field :pet_id, value: app.pet_id %>
-          <%= f.hidden_field :pa, value: "Approved" %>
-          <%= f.submit "Approve Pet Application" %>
-        <% end %>
-        <%= form_with url: "/admin/applications/#{app.id}", method: :patch, local: true do |f| %>
-          <%= f.hidden_field :application_id, value: app.id %>
-          <%= f.hidden_field :pet_id, value: app.pet_id %>
-          <%= f.hidden_field :pa, value: "Rejected" %>
-          <%= f.submit "Reject Pet Application" %>
-        <% end %>
+<% @pet_applications.each do |pet_application| %>
+  <div id="pet_application-<%=pet_application.pet_id %>">
+    <p>Pet Name: <%= pet_application.pet.name %> Status: <%= pet_application.pet_applications_status %></p>
+    <% if pet_application.pet_applications_status == "Pending" %>
+      <%#= form_with url: { action: "approve" }, method: :patch, local: true do |f| %>
+      <%#= ^this means that we have to update adminapplicationscontroller to non restful approve method/action %>
+      <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <%= f.hidden_field :application_id, value: @application.id %>
+        <%= f.hidden_field :pet_id, value: pet_application.pet_id %>
+        <%= f.hidden_field :pet_application_id, value: pet_application.id %>
+        <%= f.hidden_field :updated_status, value: "Approved" %>
+        <%= f.submit "Approve Pet Application" %>
+      <% end %>
+      <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <%= f.hidden_field :application_id, value: @application.id %>
+        <%= f.hidden_field :pet_id, value: pet_application.pet_id %>
+        <%= f.hidden_field :pet_application_id, value: pet_application.id %>
+        <%= f.hidden_field :updated_status, value: "Rejected" %>
+        <%= f.submit "Reject Pet Application" %>
       <% end %>
     <%end%>
   </div>
