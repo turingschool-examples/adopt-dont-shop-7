@@ -48,14 +48,20 @@ RSpec.describe "Admin Shelters Show Page", type: :feature do
         expect(page).to have_button("Approve Pet Application")
       end
 
+      expect(@petapp6.pet_applications_status).to eq("Pending")
+
       click_button("Approve Pet Application")
       expect(current_path).to eq("/admin/applications/#{@app3.id}")
 
+      @pet5.reload
+      
       within "#pet_application-#{@pet5.id}" do
         expect(page).to have_content(@pet5.name)
         expect(page).to have_content("Status: Approved")
         expect(page).to_not have_button("Approve Pet Application")
       end
+
+      expect(@petapp6.reload.pet_applications_status).to eq("Approved")
     end
 
     it "can deny pet applications" do
@@ -77,9 +83,11 @@ RSpec.describe "Admin Shelters Show Page", type: :feature do
         expect(page).to have_button("Approve Pet Application")
         expect(page).to have_button("Reject Pet Application")
       end
-      save_and_open_page
+
+      expect(@petapp6.pet_applications_status).to eq("Pending")
+
       click_button("Reject Pet Application")
-      expect(current_path).to eq("/admin/applications/#{@petapp6.id}")
+      expect(current_path).to eq("/admin/applications/#{@app3.id}")
 
       within "#pet_application-#{@pet5.id}" do
         expect(page).to have_content(@pet5.name)
@@ -87,6 +95,8 @@ RSpec.describe "Admin Shelters Show Page", type: :feature do
         expect(page).to_not have_button("Approve Pet Application")
         expect(page).to_not have_button("Reject Pet Application")
       end
+
+      expect(@petapp6.reload.pet_applications_status).to eq("Rejected")
     end
   end
 end
