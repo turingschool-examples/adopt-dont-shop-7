@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+PetApplication.destroy_all
 Application.destroy_all
 Shelter.destroy_all
 Pet.destroy_all
@@ -56,27 +57,33 @@ pet_1 = shelter_1.pets.create!(
   adoptable: true,
   age: 3,
   breed: "Jack Russell Terrier",
-  name: "Alphonso",
-  shelter_id: 1
+  name: "Alphonso"
 )
 pet_2 = shelter_1.pets.create!(
   adoptable: true,
   age: 4,
   breed: "Husky",
-  name: "Bailey",
-  shelter_id: 1
+  name: "Bailey"
 )
 pet_3 = shelter_1.pets.create!(
   adoptable: true,
   age: 2,
   breed: "Great Dane",
-  name: "Charlie",
-  shelter_id: 1
+  name: "Charlie"
 )
-pet_4 = shelter_1.pets.create!(
+pet_4 = shelter_4.pets.create!(
   adoptable: true,
   age: 5,
   breed: "Golden",
-  name: "Doug",
-  shelter_id: 1
+  name: "Doug"
 )
+
+pet_app_1 = PetApplication.create!(
+  pet_id: pet_1.id,
+  application_id: application_1.id
+)
+pet_app_2 = PetApplication.create!(
+  pet_id: pet_4.id,
+  application_id: application_2.id
+)
+pet_app_2.update(status: "Approved")
