@@ -79,7 +79,6 @@ RSpec.describe "the admin shelters index" do
     )
     @pet_app_2.update(status: "Approved")
 
-
     visit "admin/shelters"
   end
 

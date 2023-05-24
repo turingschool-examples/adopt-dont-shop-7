@@ -56,7 +56,9 @@ RSpec.describe "the application show" do
   it "shows the application and all it's attributes" do
     expect(page).to have_content(@application.name)
     expect(page).to have_content("Application status: #{@application.status}")
-    expect(page).to have_content("Address: #{@application.address}, #{@application.city}, #{@application.state} #{@application.zip}")
+    expect(page).to have_content(
+      "Address: #{@application.address}, #{@application.city}, #{@application.state} #{@application.zip}"
+    )
     expect(page).to have_content("Description of why I would make a good home:")
     expect(page).to have_content(@application.description_why)
     expect(page).to have_content("Add a Pet to this Application")
@@ -111,7 +113,7 @@ RSpec.describe "the application show" do
       expect(page).to_not have_content(@pet_1.name)
     end
 
-    fill_in :search, with: "#{@pet_1.name}"
+    fill_in :search, with: @pet_1.name
     click_on "Search"
     within "#adoptable-pet-#{@pet_1.id}" do
       click_on "Adopt this pet"
