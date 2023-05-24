@@ -120,37 +120,51 @@ RSpec.describe "/applications/:id", type: :feature do
     it "displays an 'Add a Pet' section if the application has not been submitted (status = 'In Progress')" do 
       visit "/applications/#{@tom.id}"
       expect(page).to have_content("Status: In Progress")
-      expect(page).to have_content("Add a Pet to this Application")
-
+      within("#add-a-pet") do 
+        expect(page).to have_content("Add a Pet to this Application")
+      end
+      
       visit "/applications/#{@susie.id}"
       expect(page).to have_content("Status: Accepted")
-      expect(page).to_not have_content("Add a Pet to this Application")
+     
+      within("#add-a-pet") do 
+        expect(page).to_not have_content("Add a Pet to this Application")
+      end
     end
 
     it "successfully searches for a pet by name and display it below search bar" do
       visit "/applications/#{@tom.id}"
-      expect(page).to have_content("Add a Pet to this Application")
-      expect(page).to have_button("Search")
-      expect(page).to_not have_content(@pet_4.name)
-      
-      fill_in("Search", with: @pet_4.name)
-      click_button("Search")
+      within("#add-a-pet") do 
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to have_button("Search")
+        expect(page).to_not have_content(@pet_4.name)
+        
+        fill_in("Search", with: @pet_4.name)
+        click_button("Search")
+      end
 
       expect(current_path).to eq("/applications/#{@tom.id}")
-      expect(page).to have_content(@pet_4.name)
-    end
 
+      within("#search-pets") do
+        expect(page).to have_content(@pet_4.name)
+      end
+    end
+    
     it "unsuccessfully searches for a pet by name and does not display it" do
       visit "/applications/#{@tom.id}"
-      expect(page).to have_content("Add a Pet to this Application")
-      expect(page).to have_button("Search")
-      expect(page).to_not have_content("Spot")
+      within("#add-a-pet") do 
+        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to have_button("Search")
+        expect(page).to_not have_content("Spot")
+        
+        fill_in("Search", with: "Spot")
+        click_button("Search")
+      end
       
-      fill_in("Search", with: "Spot")
-      click_button("Search")
-
       expect(current_path).to eq("/applications/#{@tom.id}")
-      expect(page).to_not have_content("Spot")
+      within("#search-pets") do
+        expect(page).to_not have_content("Spot")
+      end
     end
   end
 
@@ -179,8 +193,10 @@ RSpec.describe "/applications/:id", type: :feature do
       visit "/applications/#{@susie.id}"
 
       expect(page).to have_content("Status: Accepted")
-      expect(page).to_not have_field("Reason for Adoption")
-      expect(page).to_not have_button("Submit Application")
+      within("#application-submission") do 
+        expect(page).to_not have_field("Reason for Adoption")
+        expect(page).to_not have_button("Submit Application")
+      end
     end
 
     it "if conditions met (1 pet), can submit application with justification for ownership" do 
@@ -188,48 +204,68 @@ RSpec.describe "/applications/:id", type: :feature do
 
       expect(page).to have_content("Status: In Progress")
       expect(page).to_not have_content("Status: Pending")
-      expect(page).to have_content("Reason for Adoption")
-      expect(page).to have_field(:reason)
-      expect(page).to have_button("Submit Application")
 
-      fill_in(:reason, with: "I love this animal. It reminds me of me.")
-      click_button("Submit Application")
+      within("#application-submission") do 
+        expect(page).to have_content("Reason for Adoption")
+        expect(page).to have_field(:reason)
+        expect(page).to have_button("Submit Application")
+
+        fill_in(:reason, with: "I love this animal. It reminds me of me.")
+        click_button("Submit Application")
+      end
 
       expect(current_path).to eq("/applications/#{@jeremicah.id}")
       expect(page).to have_content("Status: Pending")
       expect(page).to_not have_content("Status: In Progress")
-    
-      expect(page).to have_content(@pet_1.name)
+      
+      within("#pets-links") do 
+        expect(page).to have_content(@pet_1.name)
+      end
 
-      expect(page).to_not have_button("Search")
-      expect(page).to_not have_field(:search)
-      expect(page).to_not have_button("Adopt this Pet")
+      within("#search-pets") do
+        expect(page).to_not have_button("Search")
+        expect(page).to_not have_field(:search)
+        expect(page).to_not have_button("Adopt this Pet")
+      end
     end
 
     it "if conditions met (>1 pet), can submit application with justification for ownership" do 
       visit "/applications/#{@jeremicah.id}"
-      fill_in('Search', with: @pet_5.name) 
-      click_button('Search')
-      click_button('Adopt this Pet')
+
+      within("#add-a-pet") do
+        fill_in('Search', with: @pet_5.name) 
+        click_button('Search')
+      end
+
+      within("#search-pets") do 
+        click_button('Adopt this Pet')
+      end
 
       expect(page).to have_content("Status: In Progress")
       expect(page).to_not have_content("Status: Pending")
-      expect(page).to have_field(:reason)
-      expect(page).to have_button("Submit Application")
 
-      fill_in(:reason, with: "I love this animal. It reminds me of me.")
-      click_button("Submit Application")
+      within("#application-submission") do 
+        expect(page).to have_field(:reason)
+        expect(page).to have_button("Submit Application")
+    
+        fill_in(:reason, with: "I love this animal. It reminds me of me.")
+        click_button("Submit Application")
+      end
 
       expect(current_path).to eq("/applications/#{@jeremicah.id}")
       expect(page).to have_content("Status: Pending")
       expect(page).to_not have_content("Status: In Progress")
     
-      expect(page).to have_content(@pet_1.name)
-      expect(page).to have_content(@pet_5.name)
+      within("#pets-links") do 
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_content(@pet_5.name)
+      end
 
-      expect(page).to_not have_button("Search")
-      expect(page).to_not have_field(:search)
-      expect(page).to_not have_button("Adopt this Pet")
+      within("#search-pets") do
+        expect(page).to_not have_button("Search")
+        expect(page).to_not have_field(:search)
+        expect(page).to_not have_button("Adopt this Pet")
+      end
     end
   end
 
@@ -245,8 +281,11 @@ RSpec.describe "/applications/:id", type: :feature do
         description: "Exceptionally quirky", 
       )
       visit "/applications/#{samanthony.id}"
-      expect(page).to_not have_field(:reason)
-      expect(page).to_not have_content("Submit Application")
+
+      within("#application-submission") do
+        expect(page).to_not have_field(:reason)
+        expect(page).to_not have_content("Submit Application")
+      end
     end
   end
 
@@ -254,17 +293,29 @@ RSpec.describe "/applications/:id", type: :feature do
   describe "Partial Matches for Pet Names" do 
     it "search returns results for partial matches" do 
       visit "/applications/#{@jeremicah.id}" 
-      expect(page).to_not have_content(@pet_2.name)
-      fill_in('Search', with: 'aw')
-      click_button('Search')
 
-      expect(page).to have_content(@pet_2.name)
+      within("#search-pets") do 
+        expect(page).to_not have_content(@pet_2.name)
+      end
+      
+      within("#add-a-pet") do 
+        fill_in('Search', with: 'aw')
+        click_button('Search')
+      end
 
-      fill_in('Search', with: 'fl')
-      click_button('Search')
+      within("#search-pets") do 
+        expect(page).to have_content(@pet_2.name)
+      end
 
-      expect(page).to have_content(@pet_4.name)
-      expect(page).to have_content(@pet_5.name)
+      within("#add-a-pet") do
+        fill_in('Search', with: 'fl')
+        click_button('Search')
+      end
+
+      within("#search-pets") do
+        expect(page).to have_content(@pet_4.name)
+        expect(page).to have_content(@pet_5.name)
+      end
     end
   end
 
@@ -272,26 +323,40 @@ RSpec.describe "/applications/:id", type: :feature do
   describe "Case Insensitive Matches for Pet Names" do 
     it 'search returns relevant results regardless of case' do 
       visit "/applications/#{@jeremicah.id}" 
-      expect(page).to_not have_content("Clawdia")
-      expect(page).to_not have_content(@pet_2.name)
-      fill_in('Search', with: 'clawdia')
-      click_button('Search')
-      
-      expect(page).to have_content("Clawdia")
-      expect(page).to have_content(@pet_2.name)
-      
-      
-      expect(page).to_not have_content("Fluffy")
-      expect(page).to_not have_content(@pet_4.name)
-      expect(page).to_not have_content("Flabbergast")
-      expect(page).to_not have_content(@pet_5.name)
-      fill_in('Search', with: 'fL')
-      click_button('Search')
 
-      expect(page).to have_content("Fluffy")
-      expect(page).to have_content(@pet_4.name)
-      expect(page).to have_content("Flabbergast")
-      expect(page).to have_content(@pet_5.name)
+      within("#search-pets") do   
+        expect(page).to_not have_content("Clawdia")
+        expect(page).to_not have_content(@pet_2.name)
+      end
+
+      within("#add-a-pet") do 
+        fill_in('Search', with: 'clawdia')
+        click_button('Search')
+      end
+
+      within("#search-pets") do
+        expect(page).to have_content("Clawdia")
+        expect(page).to have_content(@pet_2.name)
+      end  
+      
+      within("#search-pets") do 
+        expect(page).to_not have_content("Fluffy")
+        expect(page).to_not have_content(@pet_4.name)
+        expect(page).to_not have_content("Flabbergast")
+        expect(page).to_not have_content(@pet_5.name)
+      end
+
+      within("#add-a-pet") do
+        fill_in('Search', with: 'fL')
+        click_button('Search')
+      end
+
+      within("#search-pets") do 
+        expect(page).to have_content("Fluffy")
+        expect(page).to have_content(@pet_4.name)
+        expect(page).to have_content("Flabbergast")
+        expect(page).to have_content(@pet_5.name)
+      end
     end
   end
 end
