@@ -5,4 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-{Model}.destroy_all
+Pet.destroy_all
+Shelter.destroy_all
+Veterinarian.destroy_all
+VeterinaryOffice.destroy_all
