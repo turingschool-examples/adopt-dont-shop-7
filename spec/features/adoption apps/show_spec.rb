@@ -13,16 +13,16 @@ RSpec.describe "The Adoption Application", type: :feature do
     it "displays an application on the show page" do
       adoption_app = AdoptionApp.create!(name: "Suzie", street_address: "1234 Elmo Road", city: "Hoboken", state: "New Jersey", zip_code: "85790", description: "I will spoil all the pets", pet_names: "Wilmur", status: "Pending")
 
-      visit "/adoption_apps"
-
-      expect(page).to have_content("Applicant Name")
-      expect(page).to have_content("Street Address")
-      expect(page).to have_content("City")
-      expect(page).to have_content("State")
-      expect(page).to have_content("Zip Code")
-      expect(page).to have_content("Explain Yourself")
-      expect(page).to have_content("Pet Names")
-      expect(page).to have_content("Status")
+      visit "/adoption_apps/#{adoption_app.id}"
+      
+      expect(page).to have_content(adoption_app.name)
+      expect(page).to have_content(adoption_app.street_address)
+      expect(page).to have_content(adoption_app.city)
+      expect(page).to have_content(adoption_app.state)
+      expect(page).to have_content(adoption_app.zip_code)
+      expect(page).to have_content(adoption_app.description)
+      expect(page).to have_content(adoption_app.pet_names)
+      expect(page).to have_content(adoption_app.status)
     end
   end
 end
