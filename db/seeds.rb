@@ -22,8 +22,8 @@ copper = sunnyside.pets.create!(name: "Copper", adoptable: false, age: 5, breed:
 willow = sunnyside.pets.create!(name: "Willow", adoptable: true, age: 1, breed: "Labrador")
 roxy = sunnyside.pets.create!(name: "Roxy", adoptable: true, age: 6, breed: "Labrador")
 
-mountainside = VeterinaryOffice.create!(name: "Mountainside", bording_services: true, max_patient_capacity: 10)
-pawhealth = VeterinaryOffice.create!(name: "Paw Health", bording_services: false, max_patient_capacity: 5)
+mountainside = VeterinaryOffice.create!(name: "Mountainside", boarding_services: true, max_patient_capacity: 10)
+pawhealth = VeterinaryOffice.create!(name: "Paw Health", boarding_services: false, max_patient_capacity: 5)
 
 kelly = mountainside.veterinarians.create!(name: "Kelly", on_call: false, review_rating: 1)
 melissa = mountainside.veterinarians.create!(name: "Melissa", on_call: true, review_rating: 5)
