@@ -1,0 +1,7 @@
+<%= @applicant.name %>
+<%= @applicant.address %>
+<%= @applicant.description %>
+<%= @applicant.status %>
+<% @pets.each do |pet| %>
+    <a href="/pets/<%= "#{pet.id}"%>"> <%= pet.name %> </a>
+<% end %>
