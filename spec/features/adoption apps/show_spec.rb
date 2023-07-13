@@ -11,7 +11,8 @@ RSpec.describe "The Adoption Application", type: :feature do
   # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
   describe "#show page" do
     it "displays an application on the show page" do
-      adoption_app = AdoptionApp.create!()
+      adoption_app = AdoptionApp.create!(name: "Suzie", street_address: "1234 Elmo Road", city: "Hoboken", state: "New Jersey", zip_code: "85790", description: "I will spoil all the pets", pet_names: "Wilmur", status: "Pending")
+
       visit "/adoption_apps"
 
       expect(page).to have_content("Applicant Name")
