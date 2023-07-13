@@ -15,11 +15,13 @@ RSpec.describe "application show page" do
 
   describe "when I visit the application show page" do
     it "displays the name of the applicant" do
-      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly")
-
-      visit "/applications/#{applicant_1}"
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+      
+      visit "/applications/#{application_1.id}"
 
       expect(page).to have_content(application_1.name)
     end
+
+    
   end
 end
