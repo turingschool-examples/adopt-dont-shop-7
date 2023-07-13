@@ -1,4 +1,4 @@
 class Application < ApplicationRecord
-  has_many :pets_applications
-  has_many :pets, through: :pets_applications
+  has_many :application_pets
+  has_many :pets, through: :application_pets
 end
