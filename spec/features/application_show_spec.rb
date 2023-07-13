@@ -18,10 +18,19 @@ RSpec.describe "application show page" do
       application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
       
       visit "/applications/#{application_1.id}"
-
+      
       expect(page).to have_content(application_1.name)
     end
-
     
+    it " displays full address of applicant" do
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to have_content(application_1.street_address)
+      expect(page).to have_content(application_1.city)
+      expect(page).to have_content(application_1.state)
+      expect(page).to have_content(application_1.zipcode)
+    end
   end
 end
