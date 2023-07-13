@@ -24,13 +24,33 @@ RSpec.describe "application show page" do
     
     it " displays full address of applicant" do
       application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
-
+      
       visit "/applications/#{application_1.id}"
-
+      
       expect(page).to have_content(application_1.street_address)
       expect(page).to have_content(application_1.city)
       expect(page).to have_content(application_1.state)
       expect(page).to have_content(application_1.zipcode)
+    end
+    
+    it "description of why applicant is deserving of pet" do
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      pet = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to have_content(application_1.description)
+    end
+
+    it "displays the names of all the pets on the application" do
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      pet = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to have_content(pet.name)
     end
   end
 end
