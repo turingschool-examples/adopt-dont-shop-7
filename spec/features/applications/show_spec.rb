@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "The Application", type: :feature do
+RSpec.describe "The Adoption Application", type: :feature do
   # As a visitor
   # When I visit an applications show page
   # Then I can see the following:
@@ -11,7 +11,8 @@ RSpec.describe "The Application", type: :feature do
   # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
   describe "#show page" do
     it "displays an application on the show page" do
-      visit "/applications"
+      adoption_app = AdoptionApp.create!()
+      visit "/adoption_apps"
 
       expect(page).to have_content("Applicant Name")
       expect(page).to have_content("Street Address")

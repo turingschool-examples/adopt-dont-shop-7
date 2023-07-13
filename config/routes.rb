@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "/", to: "application#welcome"
-  get "/applications", to: 
+  get "/adoption_apps", to: "adoption_apps#show"
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
