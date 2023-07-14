@@ -15,9 +15,9 @@ before :each do
   @application_2 = Application.create!(name: 'Jane Doe', street_address: '5678 Wannabe Road', city: 'Boulder', state: 'CO', zip_code: 80301, description: 'I love cats!', status: 'In Progress')
   @application_3 = Application.create!(name: 'Joe Schmoe', street_address: '90210 Round Drive', city: 'Dallas', state: 'TX', zip_code: 75214, description: 'I like Turtles!', status: 'In Progress')
 
-  @pet_application_1 = ApplicationPet.create!(application: @application_1, pet: @pet_1)
-  @pet_application_2 = ApplicationPet.create!(application: @application_2, pet: @pet_2)
-  @pet_application_3 = ApplicationPet.create!(application: @application_3, pet: @pet_3)
+  @application_pets_1 = ApplicationPet.create!(application: @application_1, pet: @pet_1)
+  @application_pets_2 = ApplicationPet.create!(application: @application_2, pet: @pet_2)
+  @application_pets_3 = ApplicationPet.create!(application: @application_3, pet: @pet_3)
 end
 
   # US_1 Application Show Page
@@ -32,7 +32,7 @@ end
       expect(page).to have_content(@application_1.zip_code)
       expect(page).to have_content(@application_1.description)
       expect(page).to have_content(@application_1.status)
-      expect(page).to have_content(@pet_application_1.pet.name)
+      expect(page).to have_link(@pet_1.name)
     end
   end
 end
