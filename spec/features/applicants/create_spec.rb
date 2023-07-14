@@ -26,16 +26,17 @@ RSpec.describe 'applicant form' do
         fill_in 'State', with: 'CO'
         fill_in 'Zip code', with: 80_202
         fill_in 'Description', with: 'I love dogs'
+        fill_in 'Status', with: 'In Progress'
         click_button 'Save'
 
-        expect(current_path).to eq("/applicants/#{Applicant.last.id}")
+        expect(current_path).to eq(applicant_path(Applicant.last))
         expect(page).to have_content('John Doe')
         expect(page).to have_content('123 Main St')
         expect(page).to have_content('Denver')
         expect(page).to have_content('CO')
         expect(page).to have_content(80_202)
         expect(page).to have_content('I love dogs')
-        expect(page).to have_content('In Progress')
+        expect(page).to have_text('In Progress')
       end
     end
   end
