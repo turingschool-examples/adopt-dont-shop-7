@@ -1,4 +1,8 @@
 class ApplicantsController < ApplicationController
+  def index
+    @applicants = Applicant.all
+  end
+
   def new; end
 
   def create
@@ -17,5 +21,4 @@ class ApplicantsController < ApplicationController
   def applicant_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
-
 end
