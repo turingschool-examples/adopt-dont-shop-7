@@ -3,8 +3,11 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    
+    @application = Application.find(params[:id])
+    @pet = Pet.find(@application.pet_applications[0].pet_id)
+    # require 'pry'; binding.pry
   end
+
   private
 
     def error_message(errors)
