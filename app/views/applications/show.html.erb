@@ -1,0 +1,20 @@
+<h1>Application For <%= @application.name %></h1>
+
+<%= @application.street_address %><br>
+<%= @application.city %>, 
+<%= @application.state %> 
+<%= @application.zipcode %><br>
+
+<h3>Reason <%= @application.name %> would be a good home</h3>
+<%= @application.reason_for_adoption %>
+
+<h4>Application Status</h4>
+<%= @application.status %>
+
+
+<h4>Pets Applied For</h4>
+<% @pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <p>Approval Status: <%= pet.application_status(@application) %></p>
+<% end %>
+
