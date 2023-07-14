@@ -106,6 +106,14 @@ RSpec.describe "the pets index" do
       visit "/pets"
       expect(page).to have_link("Start an Application", href: "/applications/new")
     end
+    
+    it "takes user to new application page where there is a form" do
+      visit "/pets"
+
+      click_link "Start an Application"
+      
+      expect(page).to have_current_path("/applications/new")
+    end
   end
 
 
