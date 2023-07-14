@@ -42,9 +42,26 @@ RSpec.describe "application creation" do
       expect(bob.status).to eq("In Progress")
     end
 
+    it "takes us to the new application's show page" do
+      visit "/applications/new"
+
+      fill_in "Name", with: "Bob"
+      fill_in "Street", with: "123 Fake St."
+      fill_in "City", with: "Ogdenville"
+      fill_in "State", with: "UT"
+      fill_in "Zip", with: "12345"
+      fill_in "Description", with: "I love dogs"
+      click_on "Submit"
+
+      expect(page).to have_current_path("/applications/#{Application.last.id}")
+      expect(page).to have_content("Bob")
+      expect(page).to have_content("123 Fake St.")
+      expect(page).to have_content("Ogdenville")
+      expect(page).to have_content("UT")
+      expect(page).to have_content("12345")
+      expect(page).to have_content("I love dogs")
+      expect(page).to have_content("In Progress")
+    end
+
   end
-
-
-
-
 end
