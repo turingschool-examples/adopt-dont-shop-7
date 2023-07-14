@@ -8,6 +8,7 @@ class AdoptionAppsController < ApplicationController
   end
 
   def create
+    created = "In Progress"
     new_app = AdoptionApp.new({
       name: params[:name],
       street_address: params[:street_address],
@@ -15,7 +16,12 @@ class AdoptionAppsController < ApplicationController
       state: params[:state],
       zip_code: params[:zip_code],
       description: params[:description],
-      status: params[:status]
+      pet_names: params[:pet_names],
+      status: created
     })
+
+    new_app.save    
+
+    redirect_to "/adoption_apps/#{new_app.id}"
   end
 end
