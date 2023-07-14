@@ -105,15 +105,16 @@ RSpec.describe "the pets index" do
 
       click_on "Submit Application"
 
-      expect(current_path).to eq("/adoption_apps/#{@adoption_app_1.id}")
+      expect(current_path).to eq("/adoption_apps/#{AdoptionApp.all.last.id}")
 
-      expect(page).to have_content(@adoption_app_1.name)
-      expect(page).to have_content(@adoption_app_1.street_address)
-      expect(page).to have_content(@adoption_app_1.city)
-      expect(page).to have_content(@adoption_app_1.state)
-      expect(page).to have_content(@adoption_app_1.zip_code)
-      expect(page).to have_content(@adoption_app_1.description)
-      expect(page).to have_content("In Progress")
+      expect(page).to have_content(AdoptionApp.all.last.name)
+      expect(page).to have_content(AdoptionApp.all.last.street_address)
+      expect(page).to have_content(AdoptionApp.all.last.city)
+      expect(page).to have_content(AdoptionApp.all.last.state)
+      expect(page).to have_content(AdoptionApp.all.last.zip_code)
+      expect(page).to have_content(AdoptionApp.all.last.description)
+      expect(page).to have_content(AdoptionApp.all.last.pet_names)
+      expect(AdoptionApp.all.last.status).to eq("In Progress")
     end
   end
 end
