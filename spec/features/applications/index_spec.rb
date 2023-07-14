@@ -13,7 +13,8 @@ RSpec.describe "applications index page" do
         expect(page).to have_link("Applications")
         click_link("Applications")
         expect(page).to have_current_path("/applications")
-        expect(current_path).to have_content(@application.name)
+        click_link(@application.name)
+        expect(page).to have_content("Mr. Ape")
       end
     end
   end
