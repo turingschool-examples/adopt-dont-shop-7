@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe "New Applicant" do
   before(:each) do
     @applicant_1 = Applicant.create(name: "Ian", street_address: "4130 cleveland ave", city: "New Orleans", state: "louisiana", zip_code: "70119", description: "I wanna have cat", status: "In Progress")
-    
   end
+
   it "should display a new applicant form" do
     visit "/applicants/new"
 
@@ -26,6 +26,21 @@ RSpec.describe "New Applicant" do
     expect(page).to have_content(@applicant_1.zip_code)
     expect(page).to have_content(@applicant_1.description)
   end
+  
+  it "should have a redirect with a warning if applicant form is not filled out" do
+    visit "/applicants/new"
+
+    fill_in(:name, with: "Ian")
+    fill_in(:street_address, with: "4130 cleveland ave")
+    fill_in(:city, with: "New Orleans")
+    fill_in(:state, with: "louisiana")
+    fill_in(:zip_code, with: "70119")
+    
+
+    click_button "Submit"
+    expect(current_path).to eq("/applicants/new")
+    expect(page).to have_content("ERROR: Form incomplete, please fill out missing information")
+  end
 end
 
 
@@ -33,21 +48,11 @@ end
 
 
 
-# 2. Starting an Application
+# 3. Starting an Application, Form not Completed
 
 # As a visitor
-# When I visit the pet index page
-# Then I see a link to "Start an Application"
-# When I click this link
-# Then I am taken to the new application page where I see a form
-# When I fill in this form with my:
-#   - Name
-#   - Street Address
-#   - City
-#   - State
-#   - Zip Code
-#   - Description of why I would make a good home
+# When I visit the new application page
+# And I fail to fill in any of the form fields
 # And I click submit
-# Then I am taken to the new application's show page
-# And I see my Name, address information, and description of why I would make a good home
-# And I see an indicator that this application is "In Progress"
+# Then I am taken back to the new applications page
+# And I see a message that I must fill in those fields.

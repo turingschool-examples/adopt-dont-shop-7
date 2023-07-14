@@ -12,6 +12,9 @@ class ApplicantsController < ApplicationController
         @applicant = Applicant.new(applicant_params)
         if @applicant.save
             redirect_to "/applicants/#{@applicant.id}"
+        else
+            redirect_to "/applicants/new"
+            flash[:alert] = "ERROR: Form incomplete, please fill out missing information"
         end
     end
 
