@@ -8,9 +8,14 @@ class ApplicantsController < ApplicationController
     redirect_to "/applicants/#{applicant_params[:id]}"
   end
 
+  def show
+    @applicant = Applicant.find(params[:id])
+  end
+
   private
 
   def applicant_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
+
 end
