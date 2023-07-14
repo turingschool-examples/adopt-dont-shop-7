@@ -44,4 +44,20 @@ RSpec.describe "application" do
     expect(page).to have_link("Veterinarians")
     expect(page).to have_link("Veterinary Offices")
   end
+
+  describe "application show page" do
+    it "displays an applicant's name and other attributes" do
+      visit "/applications/:id"
+
+      expect(page).to have_content(@applicant_1.name)
+      expect(page).to have_content(@applicant_1.street_address)
+      expect(page).to have_content(@applicant_1.city)
+      expect(page).to have_content(@applicant_1.state)
+      expect(page).to have_content(@applicant_1.zip)
+      expect(page).to have_content(@applicant_1.description)
+      expect(page).to have_content(@applicant_1.pets)
+      expect(page).to have_content(@applicant_1.status)
+
+    end
+  end
 end
