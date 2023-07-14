@@ -3,19 +3,21 @@ require "rails_helper"
 RSpec.describe "The Adoption Application", type: :feature do
   #user story 1
   describe "#show page" do
+    before(:each) do
+      test_data
+    end
     it "displays an application on the show page" do
-      adoption_app = AdoptionApp.create!(name: "Suzie", street_address: "1234 Elmo Road", city: "Hoboken", state: "New Jersey", zip_code: "85790", description: "I will spoil all the pets", pet_names: "Wilmur", status: "Pending")
 
-      visit "/adoption_apps/#{adoption_app.id}"
+      visit "/adoption_apps/#{@adoption_app_1.id}"
 
-      expect(page).to have_content(adoption_app.name)
-      expect(page).to have_content(adoption_app.street_address)
-      expect(page).to have_content(adoption_app.city)
-      expect(page).to have_content(adoption_app.state)
-      expect(page).to have_content(adoption_app.zip_code)
-      expect(page).to have_content(adoption_app.description)
-      expect(page).to have_content(adoption_app.pet_names)
-      expect(page).to have_content(adoption_app.status)
+      expect(page).to have_content(@adoption_app_1.name)
+      expect(page).to have_content(@adoption_app_1.street_address)
+      expect(page).to have_content(@adoption_app_1.city)
+      expect(page).to have_content(@adoption_app_1.state)
+      expect(page).to have_content(@adoption_app_1.zip_code)
+      expect(page).to have_content(@adoption_app_1.description)
+      expect(page).to have_content(@adoption_app_1.pet_names)
+      expect(page).to have_content(@adoption_app_1.status)
     end
   end
 end
