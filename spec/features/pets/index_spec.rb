@@ -97,10 +97,10 @@ RSpec.describe "the pets index" do
       expect(current_path).to eq("/adoption_apps/new")
 
       fill_in "Name", with: "Suzie"
-      fill_in "Street Address", with: "1234 Elmo Road"
+      fill_in "Street address", with: "1234 Elmo Road"
       fill_in "City", with: "Hoboken"
       fill_in "State", with: "New Jersey"
-      fill_in "Zip Code", with: "85790"
+      fill_in "Zip code", with: "85790"
       fill_in "Description", with: "I will spoil all the pets"
 
       click_on "Submit Application"
@@ -113,7 +113,7 @@ RSpec.describe "the pets index" do
       expect(page).to have_content(@adoption_app_1.state)
       expect(page).to have_content(@adoption_app_1.zip_code)
       expect(page).to have_content(@adoption_app_1.description)
-      expect(page).to have_content("Application In Progress")
+      expect(page).to have_content("In Progress")
     end
   end
 end
