@@ -6,10 +6,9 @@ RSpec.describe "Application Show Page" do
         @fluffy = @sunnyside.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "Sphynx")
         @copper = @sunnyside.pets.create!(name: "Copper", adoptable: false, age: 5, breed: "German Shephard")
         @willow = @sunnyside.pets.create!(name: "Willow", adoptable: true, age: 1, breed: "Labrador")
-        @applicant_1 = @fluffy.applications.create!(name: "Phylis", street_address: "1234 main circle", city: "Littleton", state: "CO", zipcode: "80241", reason_for_adoption: "I have a huge yard", status: "In Progress")
-            # fluffy.petapplications?
-            # pet.petapplications.create(status)
-            # 
+        @applicant_1 = Application.create!(name: "Phylis", street_address: "1234 main circle", city: "Littleton", state: "CO", zipcode: "80241", reason_for_adoption: "I have a huge yard", status: "In Progress")
+        PetApplication.create!(pet: @willow, application: @applicant_1, status: "Pending")
+        PetApplication.create!(pet: @copper, application: @applicant_1, status: "Pending")
     end
 
     it "show information for the applicant" do
@@ -27,6 +26,7 @@ RSpec.describe "Application Show Page" do
         visit "/applications/#{@applicant_1.id}"
         expect(page).to have_link("Copper", href: "/pets/#{@copper.id}")
         expect(page).to have_link("Willow", href: "/pets/#{@willow.id}")
-
+        expect(page).to have_content("Pending")
+        save_and_open_page
     end
 end
