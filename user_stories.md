@@ -3,8 +3,7 @@
 ## Deploy
 
 ```
-[ ] done
-
+[✓]
 0: Deploy your application to the internet
 
 As a visitor of the site
