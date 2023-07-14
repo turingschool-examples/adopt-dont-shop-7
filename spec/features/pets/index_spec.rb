@@ -81,4 +81,40 @@ RSpec.describe "the pets index" do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+  
+  describe "starting an adoption application" do
+    before(:each) do
+      test_data
+    end
+    #user story 2
+    it "can view and fill out an adoption form" do
+      visit "/pets"
+
+      expect(page).to have_link("Start an Application")
+
+      click_link("Start an Application")
+
+      expect(current_path).to eq("/adoption_apps/new")
+
+      fill_in "Name", with: "Suzie"
+      fill_in "Street address", with: "1234 Elmo Road"
+      fill_in "City", with: "Hoboken"
+      fill_in "State", with: "New Jersey"
+      fill_in "Zip code", with: "85790"
+      fill_in "Description", with: "I will spoil all the pets"
+
+      click_on "Submit Application"
+
+      expect(current_path).to eq("/adoption_apps/#{AdoptionApp.all.last.id}")
+
+      expect(page).to have_content(AdoptionApp.all.last.name)
+      expect(page).to have_content(AdoptionApp.all.last.street_address)
+      expect(page).to have_content(AdoptionApp.all.last.city)
+      expect(page).to have_content(AdoptionApp.all.last.state)
+      expect(page).to have_content(AdoptionApp.all.last.zip_code)
+      expect(page).to have_content(AdoptionApp.all.last.description)
+      expect(page).to have_content(AdoptionApp.all.last.pet_names)
+      expect(AdoptionApp.all.last.status).to eq("In Progress")
+    end
+  end
 end

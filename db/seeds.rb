@@ -28,6 +28,6 @@ AdoptionApp.destroy_all
 @vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: @vet_office_1.id)
 @vet_3 = Veterinarian.create(name: 'Sarah', review_rating: 9, on_call: true, veterinary_office_id: @vet_office_2.id)
 
-@adoption_app_1 = AdoptionApp.create!(name: "Suzie", street_address: "1234 Elmo Road", city: "Hoboken", state: "New Jersey", zip_code: "85790", description: "I will spoil all the pets", pet_names: "Wilmur", status: "Pending")
-@adoption_app_2 = AdoptionApp.create!(name: "Fred", street_address: "4567 Grover Ave", city: "Tillamook", state: "Montana", zip_code: "45627", description: "I eat cats and honestly I am a terrible person", pet_names: "Pillbus", status: "Rejected")
-@adoption_app_3 = AdoptionApp.create!(name: "Liam", street_address: "8910 Oscar Blvd", city: "Denver", state: "Colorado", zip_code: "80211", description: "Animals are awesome, adopt DONT shop!", pet_names: "Limb, Toulouse", status: "Approved")
+@adoption_app_1 = AdoptionApp.create!(name: "Suzie", street_address: "1234 Elmo Road", city: "Hoboken", state: "New Jersey", zip_code: "85790", description: "I will spoil all the pets", pet_names: "Wilmur", status: nil)
+@adoption_app_2 = AdoptionApp.create!(name: "Fred", street_address: "4567 Grover Ave", city: "Tillamook", state: "Montana", zip_code: "45627", description: "I eat cats and honestly I am a terrible person", pet_names: "Pillbus", status: nil)
+@adoption_app_3 = AdoptionApp.create!(name: "Liam", street_address: "8910 Oscar Blvd", city: "Denver", state: "Colorado", zip_code: "80211", description: "Animals are awesome, adopt DONT shop!", pet_names: "Limb, Toulouse", status: nil)
