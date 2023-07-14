@@ -19,9 +19,28 @@ RSpec.describe "application creation" do
       expect(find("form")).to have_content("State")
       expect(find("form")).to have_content("Zip")
       expect(find("form")).to have_content("Description")
-      expect(find("form")).to have_content("Status")
     end
 
+    it "creates a new application in the database" do
+      visit "/applications/new"
+
+      fill_in "Name", with: "Bob"
+      fill_in "Street", with: "123 Fake St."
+      fill_in "City", with: "Ogdenville"
+      fill_in "State", with: "UT"
+      fill_in "Zip", with: "12345"
+      fill_in "Description", with: "I love dogs"
+      click_on "Submit"
+
+      bob = Application.last
+      expect(bob.name).to eq("Bob")
+      expect(bob.street).to eq("123 Fake St.")
+      expect(bob.city).to eq("Ogdenville")
+      expect(bob.state).to eq("UT")
+      expect(bob.zip).to eq("12345")
+      expect(bob.description).to eq("I love dogs")
+      expect(bob.status).to eq("In Progress")
+    end
 
   end
 
