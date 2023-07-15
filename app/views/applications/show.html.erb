@@ -40,6 +40,9 @@
   <% else %>
     <p>No results found</p>
   <% end %>
+  <% if !@application.pets.empty? %>
+    <%= button_to "Submit", "/applications/#{@application.id}", method: :patch %>
+  <% end %>
 <% end %>
 
 
