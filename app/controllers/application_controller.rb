@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def new
+    # @application = Application.new
   end
 
   def create
