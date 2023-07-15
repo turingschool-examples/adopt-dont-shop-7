@@ -24,10 +24,10 @@ RSpec.describe "The Adoption Application", type: :feature do
 
       visit "/adoption_apps/#{@adoption_app_1.id}"
 
-      fill_in "Search Pet", with: "Limb"
+      fill_in "Search", with: "Limb"
       click_button "Submit"
 
-      expect(page).to have_content(pet.name)
+      expect(page).to have_content(@adopt_pets.name)
     end
   end
 end
