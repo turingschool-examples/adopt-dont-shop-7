@@ -5,4 +5,5 @@
   <p>state: <%= application.state %></p>
   <pZip: <%= application.zip_code %></p>
   <p>reason for request: <%= application.description %></p>
+  <li><%= link_to "#{application.name_of_applicant}", "applications/#{application.id}" %></li>
 <% end %>
