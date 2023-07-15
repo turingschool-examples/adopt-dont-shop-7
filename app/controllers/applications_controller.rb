@@ -2,6 +2,8 @@ class ApplicationsController < ApplicationController
 
   def show 
     @application = Application.find(params[:id])
+    # @search_pets = Pet.where(name: params[:pet_name])
+    @search_pets = Pet.where("name like ?", "%#{params[:pet_name]}%")
   end
 
   def new
