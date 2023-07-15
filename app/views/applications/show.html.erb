@@ -9,6 +9,7 @@
 <h4>Status: <%= @application.status %></h4>
 
 <h4>Add a Pet to this Application:</h4>
+<%# <section id="playlist-<%= playlist.id %>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :pet_name, "Search by Pet Name:" %>
   <%= f.text_field :pet_name %>
@@ -16,10 +17,12 @@
 <% end %>
 
 <% @search_pets.each do |pet| %>
-  <li><%= pet.name %> </li>
+  <li><%= pet.name %><%= button_to "Adopt #{pet.name}", {controller: :application_pets, pet_id: pet.id, application_id: @application.id, action: :create} %></li>
 <% end %>
 
 
 <% @application.pets.each do |pet| %>
+<div id ="pet-<%= pet.id %>">
   <li> <%= link_to pet.name, pets_path(pet) %></li>
+  </div>
 <% end %>
