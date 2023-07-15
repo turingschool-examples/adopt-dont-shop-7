@@ -45,4 +45,32 @@ RSpec.describe "the applications index page" do
       expect(page).to have_content("Status: In Progress")
     end
   end
+
+
+#   [ ] done
+
+# 3. Starting an Application, Form not Completed
+
+# As a visitor
+# When I visit the new application page
+# And I fail to fill in any of the form fields
+# And I click submit
+# Then I am taken back to the new applications page
+# And I see a message that I must fill in those fields.
+  describe "When I fail to fill in any of the form fields" do
+    it "redirects me back to the applications page and I see a message that I must fill in those fields" do
+      visit applications_new_path
+
+      fill_in :name, with: "John Doe"
+      fill_in :street_address, with: "123 Main St"
+      fill_in :city, with: "Denver"
+      fill_in :state, with: "CO"
+      fill_in :zip_code, with: "80202"
+      fill_in :description, with: ""
+      click_button("Submit")
+      save_and_open_page
+      expect(current_path).to eq(applications_new_path)
+      expect(page).to have_content("Error: Please fill in all fields")
+    end
+  end
 end
