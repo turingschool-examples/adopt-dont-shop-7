@@ -1,5 +1,4 @@
 class Application < ApplicationRecord
-  belongs_to :shelter
-  has_many :pets, through: :shelter
-  
+  has_many :pet_applications
+  has_many :pets, through: :pet_applications
 end

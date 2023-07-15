@@ -6,7 +6,12 @@
 <p>zip_code <%= application.zip_code %></p>
 <p>application_status <%= application.application_status %></p>
 <p>reason_for_applying <%= application.description %></p>
-
+<p>Pets:</p>
+<ul>
+<% @application.pets.each do |pet| %>
+<li><%= link_to pet.name, pets_path(pet) %></li>
+<% end %>
+</ul>
 <br>
 
 <% end %>

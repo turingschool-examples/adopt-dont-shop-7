@@ -21,3 +21,11 @@ application_1 = Application.create!(name_of_applicant: "Matt Lim", street_addres
 application_2 = Application.create!(name_of_applicant: "Jorja Fleming", street_address: "5678 Sample St", city: "Denver", state: "CO", zip_code: 80202, description: "I am lonely and need cats", pet_names:"Fido", application_status: "Pending", shelter_id: shelter_1.id)
 application_3 = Application.create!(name_of_applicant: "Tim Nordloh", street_address: "9012 Test St", city: "Denver", state: "CO", zip_code: 80202, description: "I am starting Noahs's Ark", pet_names: "Sven", application_status: "Pending", shelter_id: shelter_2.id)
 application_4 = Application.create!(name_of_applicant: "Eric Coats", street_address: "3456 Try St", city: "Denver", state: "CO", zip_code: 80202, description: "doggies woof woof", pet_names: "Sir Maximus", application_status: "Pending", shelter_id: shelter_2.id)
+
+application_1.pets << pet_1
+
+
+@shelter = Shelter.create!(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+@pet = Pet.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: @shelter.id)
+@application_1 = Application.create!(name: "Topher C.", address: "123 sesame st. New York, NY 10001", description: "I want dog", status: "Accepted")
+@application_1.pets << @pet
