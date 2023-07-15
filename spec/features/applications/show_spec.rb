@@ -85,9 +85,8 @@ RSpec.describe "Application Show Page" do
           expect(page).to have_content(pet_1.name)
           expect(page).to have_content(pet_2.name)
           expect(page).to_not have_content(pet_3.name)
-          save_and_open_page
-        end
-    end
+          end    end
+
 
     describe 'User Story 5' do
         it "shows the visitor an option to 'Adopt this Pet' next to each pet's name" do
