@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'application show page' do 
-before :each do 
+before :each do   
   @shelter_1 = Shelter.create!(name: 'Denver Animal Shelter', city: 'Denver', foster_program: false, rank: 9)
   @shelter_2 = Shelter.create!(name: 'Boulder Animal Shelter', city: 'Boulder', foster_program: false, rank: 7)
   @shelter_3 = Shelter.create!(name: 'Dallas Animal Shelter', city: 'Dallas', foster_program: false, rank: 2)
@@ -73,5 +73,48 @@ end
         expect(page).to have_content("Spud")
         expect(page).to have_content("SpuddyBuddy")
       end
+      # [ ] done
+
+      # 5. Add a Pet to an Application
+      
+      # As a visitor
+      # When I visit an application's show page
+      # And I search for a Pet by name
+      # And I see the names Pets that match my search
+      # Then next to each Pet's name I see a button to "Adopt this Pet"
+
+      # When I click one of these buttons
+      # Then I am taken back to the application show page
+      # And I see the Pet I want to adopt listed on this application
+    describe "When I search for a pets name" do
+      describe "I see the names of pets that match my search" do
+        it "Then I see a button to adopt this pet" do
+          visit "/applications/#{@application_3.id}"
+
+          fill_in :pet_name, with: "Spud"
+          
+          click_button "Submit"
+          expect(page).to have_button("Adopt #{@pet_4.name}")
+        end
+        
+        describe "clicking the button takes me back to the application show page" do
+          it "displays the pet I want to adopt on the application" do
+            visit "/applications/#{@application_3.id}"
+            
+            fill_in :pet_name, with: "Spud"
+            
+            click_button "Submit"
+            
+            expect(current_path).to eq("/applications/#{Application.last.id}")
+
+            click_button "Adopt Spud"
+
+            within "#pet-#{@pet_4.id}" do 
+              expect(page).to have_content("Spud")
+            end
+          end
+        end
+      end
+    end
   end
 end
