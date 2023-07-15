@@ -3,12 +3,13 @@
   <h3>
     <p><%= applicant.id %></p>
   </h3>
-  <p>Name: <%= applicant.name %></p>
-  <p>Application Status <%= applicant.status  %> </p>
-  <p>Street Address <%= applicant.street_address %> </p>
-  <p>Zip <%= applicant.zip_code %> </p>
-  <p>City <%= applicant.city %> </p>
-  <p>State <%= applicant.state  %> </p>
-  <p>Description <%= applicant.description  %> </p>
-  <p>Pets </p>
+  <a href="<%= applicant_path(applicant) %>"><%= applicant.name %></a></h3>
+<p>Name: <%= applicant.name %></p>
+<p>Application Status <%= applicant.status  %> </p>
+<p>Street Address <%= applicant.street_address %> </p>
+<p>Zip <%= applicant.zip_code %> </p>
+<p>City <%= applicant.city %> </p>
+<p>State <%= applicant.state  %> </p>
+<p>Description <%= applicant.description  %> </p>
+<p>Pets </p>
 <% end %>
