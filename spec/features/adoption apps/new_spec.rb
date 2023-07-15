@@ -13,7 +13,7 @@ RSpec.describe "The Adoption Application", type: :feature do
 
         expect(page).to have_content("Application not created: Required information missing.")
         expect(page).to have_button("Submit Application")
-        
+
         fill_in "Name", with: "Suzie"
         click_on "Submit Application"
         expect(page).to have_content("Application not created: Required information missing.")

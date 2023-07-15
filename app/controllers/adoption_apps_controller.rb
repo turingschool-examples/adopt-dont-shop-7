@@ -21,15 +21,28 @@ class AdoptionAppsController < ApplicationController
     })
 
     if new_app.save    
-    redirect_to "/adoption_apps/#{new_app.id}"
+
+      redirect_to "/adoption_apps/#{new_app.id}"
     else
       flash[:notice] = "Application not created: Required information missing."
       render :new
     end
   end
-
+  
+  def search_pets
+    @adoption_app = AdoptionApp.find(params[:id])
+    search_query = params[:search]
+    
+    @adopt_pets = Pet.where("name LIKE ?", "%#{search_query}%")
+  
+    render 'show', adopt_pets: @adopt_pets
+  end
+  
   private
+
   def adoption_app_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
+
+
 end
