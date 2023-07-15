@@ -10,3 +10,17 @@
 <h3>Description: <%= @adoption_app.description %></h3>
 <h3>Pet Names: <%= @adoption_app.pet_names %></h3>
 <h3>Status: <%= @adoption_app.status %></h3>
+
+<%= form_with url: search_pets_adoption_app_path(@adoption_app), method: :get do |form| %>
+  <%= form.text_field :search, placeholder: "Search Pets by Name" %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @matching_pets.present? %>
+  <h2>Matching Pets</h2>
+  <ul>
+    <% @matching_pets.each do |pet| %>
+      <li><%= pet.name %></li>
+    <% end %>
+  </ul>
+<% end %>
