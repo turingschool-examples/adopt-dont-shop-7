@@ -11,4 +11,19 @@
     <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <% end %>
 
+<% if @application.status == "In Progress" %>
+  <h3><%= "Add a Pet to this Application" %></h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get do %>
+    <%= label_tag(:search, "Search for pets by name:") %>
+    <%= text_field_tag :pet_name, params[:pet_name] %>
+    <%= submit_tag("Search Pets", name: nil) %>
+  <% end %>
+<% end %>
+
+<% if @pets %>
+  <% @pets.each do |pet| %>
+  <%= pet.name %>
+  <% end %>
+<% end %>
+
 <p><%= @application.status %></p>

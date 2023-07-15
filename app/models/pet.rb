@@ -15,5 +15,6 @@ class Pet < ApplicationRecord
 
   def self.search(keyword)
     where(name: keyword)
+    
   end
 end

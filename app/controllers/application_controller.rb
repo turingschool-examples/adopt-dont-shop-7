@@ -7,8 +7,12 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    @application = Application.find(params[:id])
-    # @pet = Pet.find(@application.pet_applications[0].pet_id)
+    if params[:pet_name].present?
+      @application = Application.find(params[:id])
+      @pets = Pet.search(params[:pet_name])
+    else
+      @application = Application.find(params[:id])
+    end
   end
 
   def new
