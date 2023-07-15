@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "application show page", type: :feature do
   before(:each) do
     @application = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
+    @application_2 = Application.create!(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "England", zip: "48", description: "I still believe love is all you need.  I don't know a better message than that.", status: "Pending")
     
     @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
@@ -44,6 +45,29 @@ RSpec.describe "application show page", type: :feature do
         expect(page).to have_link(@pet_2.name)
         click_link @pet_2.name
         expect(current_path).to eq("/pets/#{@pet_2.id}")
+      end
+
+      describe "when the application has not been submitted" do
+        it "has a section that says 'Add a Pet to this Application'" do
+          visit "/applications/#{@application.id}"
+          
+          expect(page).to have_content("Add a Pet to this Application")
+          expect(page).to have_field("Pet Search")
+        end
+        
+        it "redirects_to the application show page after filling in Pet's name" do
+          visit "/applications/#{@application.id}"
+          
+          fill_in "Pet Search", with: @pet_1
+          click_button "Submit"
+          # missing something here, when i click submit with the pet name it should return the pet name
+          expect(current_path).to eq("/applications/#{@application.id}")
+        end
+
+        it "under the search bar on application show page it shows any Pet whose name matches the search" do
+          visit "/applications/#{@application.id}"
+          expect(page).to have_content("Lucille Bald")
+        end
       end
     end
   end

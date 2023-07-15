@@ -42,7 +42,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[x] done
 
 2. Starting an Application
 

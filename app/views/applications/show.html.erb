@@ -10,3 +10,12 @@
 <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}"  %>
 <% end %>
+
+<% if @application.status == "In Progress" || @application.status == "Pending" %>
+  <h3>Add a Pet to this Application</h3>
+
+  <%= form_tag("/applications/#{@application.id}", method: :get) do %>
+    <%= text_field_tag(:search, params[:search], placeholder: "Pet Search") %>
+    <%= submit_tag ("Submit") %>
+    <% end %>
+<% end %>
