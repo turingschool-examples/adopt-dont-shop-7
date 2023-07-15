@@ -70,6 +70,23 @@ RSpec.describe "application show page", type: :feature do
           expect(page).to have_content(@pet_3.name)
         end
       end
+
+      # User Story 6: Submit an Applicaiton
+      describe "and I have added one or more pets to the application" do
+        it "then I see a section to submit my application"
+
+        it "I see an input in the submission section to enter why I would make a good owner for these pet(s)"
+
+        describe "when I fill in that input and click a button to submit the application" do
+          it "then I am taken back to the application's show page"
+
+          it "and I see indicator that the application is 'Pending'"
+
+          it "and I see all the pets that I want to adopt"
+
+          it "and I do not see a section to add more pets to this application"
+        end
+      end
     end
   end
 end
