@@ -70,6 +70,22 @@ RSpec.describe "application show page", type: :feature do
           expect(page).to have_content(@pet_3.name)
         end
       end
+
+      describe "Adopt this Pet" do
+        it "has an 'Adopt this Pet' button next to each Pet name that links back to the application show page" do
+          visit "/applications/#{@application.id}"
+          
+          expect(page).to_not have_content(@pet_3.name)
+          fill_in "Pet Search", with: @pet_3.name
+          click_button "Submit"
+          
+          expect(page).to have_button("Adopt this Pet")
+          click_button "Adopt this Pet"
+      
+          expect(page).to have_content(@pet_3.name)
+          expect(current_path).to eq("/applications/#{@application.id}")
+        end
+      end
     end
   end
 end

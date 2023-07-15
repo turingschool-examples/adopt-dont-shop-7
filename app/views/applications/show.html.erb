@@ -22,6 +22,7 @@
 
   <% @search_results.each do |result| %>
     <%= result.name %>
+    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{result.id}", method: :post, params: { application_id: @application.id, pet_id: result.id } %>
   <% end %>
 
 <% end %>
