@@ -27,7 +27,7 @@ RSpec.describe "The Adoption Application", type: :feature do
       fill_in "Search", with: "Limb"
       click_button "Submit"
 
-      expect(page).to have_content("Limb")
+      expect(page).to have_content(@adopt_pets.name)
     end
   end
 end
