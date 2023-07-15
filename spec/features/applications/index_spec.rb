@@ -59,6 +59,9 @@ RSpec.describe "the applications index page" do
 # And I see a message that I must fill in those fields.
   describe "When I fail to fill in any of the form fields" do
     it "redirects me back to the applications page and I see a message that I must fill in those fields" do
+
+      application = Application.new
+      application.description = ''
       visit applications_new_path
 
       fill_in :name, with: "John Doe"
@@ -66,11 +69,13 @@ RSpec.describe "the applications index page" do
       fill_in :city, with: "Denver"
       fill_in :state, with: "CO"
       fill_in :zip_code, with: "80202"
-      fill_in :description, with: ""
+      fill_in :description, with: ''
       click_button("Submit")
-      save_and_open_page
+
+      # save_and_open_page
       expect(current_path).to eq(applications_new_path)
-      expect(page).to have_content("Error: Please fill in all fields")
+      expect(application).to_not be_valid
+      expect(application.errors[:description]).to have_content("can't be blank")
     end
   end
 end

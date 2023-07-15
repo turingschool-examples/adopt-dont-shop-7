@@ -9,18 +9,13 @@ class ApplicationsController < ApplicationController
 
   def create 
     application = Application.new(application_params)
-    if application.save && application_params[:name] != "" && 
-      application_params[:street_address] != "" && 
-      application_params[:city] != "" && 
-      application_params[:state] != "" && 
-      application_params[:zip_code] != "" && 
-      application_params[:description] != ""
+    if application.save
       redirect_to "/applications/#{application.id}"
+      application.update(status: "In Progress")
     else 
       redirect_to "/applications/new"
-      flash[:notice] = "Error: Please fill in all fields"
+      flash[:error] = "cant be blank"
     end
-      application.update(status: "In Progress")
     # redirect_to "/applications/#{application.id}"
   end
 
