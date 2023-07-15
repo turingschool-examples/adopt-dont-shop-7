@@ -20,8 +20,16 @@ class AdoptionAppsController < ApplicationController
       status: created
     })
 
-    new_app.save    
-
+    if new_app.save    
     redirect_to "/adoption_apps/#{new_app.id}"
+    else
+      flash[:notice] = "Application not created: Required information missing."
+      render :new
+    end
+  end
+
+  private
+  def adoption_app_params
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
 end
