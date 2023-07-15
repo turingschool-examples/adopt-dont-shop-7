@@ -24,4 +24,12 @@ class AdoptionAppsController < ApplicationController
 
     redirect_to "/adoption_apps/#{new_app.id}"
   end
+
+  def search_pets
+    @adoption_app = AdoptionApp.find(params[:id])
+    search_query = params[:search]
+
+    @adopt_pet = Pet.where("name LIKE ?", "%#{search_query}%")
+  end
+
 end
