@@ -9,6 +9,7 @@ RSpec.describe "application show page", type: :feature do
 
     @pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
+    @pet_3 = Pet.create(adoptable: true, age: 4, breed: "chiwawa", name: "Bamby", shelter_id: @shelter.id)
 
     @app_pet_1 = ApplicationPet.create!(application_id: @application.id, pet_id: @pet_1.id)
     @app_pet_2 = ApplicationPet.create!(application_id: @application.id, pet_id: @pet_2.id)
@@ -58,15 +59,14 @@ RSpec.describe "application show page", type: :feature do
         it "redirects_to the application show page after filling in Pet's name" do
           visit "/applications/#{@application.id}"
           
-          fill_in "Pet Search", with: @pet_1
+          fill_in "Pet Search", with: @pet_1.name
           click_button "Submit"
-          # missing something here, when i click submit with the pet name it should return the pet name
-          expect(current_path).to eq("/applications/#{@application.id}")
-        end
 
-        it "under the search bar on application show page it shows any Pet whose name matches the search" do
-          visit "/applications/#{@application.id}"
-          expect(page).to have_content("Lucille Bald")
+          expect(current_path).to eq("/applications/#{@application.id}")
+          expect(page).to have_content(@pet_1.name)
+
+          # fill_in "Pet Search", with: "Bam"
+          # expect(page).to have_content("Bamby")
         end
       end
     end
