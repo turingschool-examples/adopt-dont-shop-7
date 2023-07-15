@@ -43,4 +43,10 @@ class ApplicationsController < ApplicationController
   # def error_message(errors)
   #   errors.full_messages.join(', ')
   # end
+
+  def update
+    application = Application.find(params[:id])
+    application.update(status: "Pending")
+    redirect_to "/applications/#{application.id}"
+  end
 end
