@@ -1,0 +1,24 @@
+<%= form_with url: '/applications', method: :post, local: true do |form| %>
+  <% if @application && @application.errors.any? %>
+    <h2>This application has <%= pluralize(@application.errors.count, "error") %>:</h2>
+    <ul>
+      <% @application.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <p>Please fix these errors and try again.</p>
+  <% end %>
+ <p> <%= form.label :name %> </p>
+  <%= form.text_field :name %>
+ <p> <%= form.label :street_address %> </p>
+  <%= form.text_field :street_address %>
+ <p> <%= form.label :city %> </p>
+  <%= form.text_field :city %>
+ <p> <%= form.label :state %> </p>
+  <%= form.text_field :state %>
+<p> <%= form.label :zip %> </p>
+  <%= form.number_field :zip %>
+<p> <%= form.label :description %> </p>
+  <%= form.text_field :description %>
+<p> <%= form.submit "Start Application" %> </p>
+<% end %>
