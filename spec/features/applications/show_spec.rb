@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "application" do
   before(:each) do
     @shelter_1 = Shelter.create!(foster_program: true, name: "County Pet Shelter", city: "Denver", rank: 1)
-    @app_1 = Application.create!(name: "John Smith", address: "123 Main, Anytown, CO, 80000", description: "Because I have a house", application_status: "In Progress")
+    @app_1 = Application.create!(name: "John Smith", address: "123 Main", city: "Anytown", state: "CO", zip_code: "80000", description: "Because I have a house", application_status: "In Progress")
     @pet_1 = Pet.create!(adoptable: true, age: 2, breed: "Golden Retriever", name: "Rover", shelter_id: @shelter_1.id)
     @pet_2 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "Kitty", shelter_id: @shelter_1.id)
     @app_1_pet_1 = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @app_1.id)
@@ -58,6 +58,9 @@ RSpec.describe "application" do
       save_and_open_page
       expect(page).to have_content("#{@app_1.name}")
       expect(page).to have_content("#{@app_1.address}")
+      expect(page).to have_content("#{@app_1.city}")
+      expect(page).to have_content("#{@app_1.state}")
+      expect(page).to have_content("#{@app_1.zip_code}")
       expect(page).to have_content("#{@app_1.description}")
       expect(page).to have_content("#{@app_1.application_status}")
       expect(page).to have_link("#{@pet_1.name}", href: "/pets/#{@pet_1.id}")

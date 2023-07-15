@@ -81,4 +81,40 @@ RSpec.describe "the pets index" do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  describe "As a visitor when I visit the pet index page" do
+    it "I see a link to 'Start an Application'" do
+      visit "/pets"
+
+      expect(page).to have_link("Start an Application", href: "/applications/new")
+    end
+
+    it "When I click this link I am taken to the new application page where I see a form" do
+      visit "/pets"
+      click_on("Start an Application")
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_css("#new_application")
+    end
+
+    it "When I fill in this form and click submit then I am taken to the new applications show page. I see my information and an indicator that this application is 'In Progress" do
+      visit "/pets"
+      click_on("Start an Application")
+      fill_in "name", with: "John Smith"
+      fill_in "address", with: "123 Any Street"
+      fill_in "city", with: "Any Town"
+      fill_in "state", with: "FL"
+      fill_in "zip_code", with: "12345"
+      fill_in "description", with: "Friendly"
+      click_button("Submit")
+      save_and_open_page
+      expect(page).to have_content("John Smith")
+      expect(page).to have_content("123 Any Street")
+      expect(page).to have_content("Any Town")
+      expect(page).to have_content("FL")
+      expect(page).to have_content("12345")
+      expect(page).to have_content("Friendly")
+      expect(page).to have_content("In Progress")
+    end
+  end
 end
