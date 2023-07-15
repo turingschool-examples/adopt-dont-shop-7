@@ -64,9 +64,6 @@ RSpec.describe "application show page", type: :feature do
 
           expect(current_path).to eq("/applications/#{@application.id}")
           expect(page).to have_content(@pet_1.name)
-
-          # fill_in "Pet Search", with: "Bam"
-          # expect(page).to have_content("Bamby")
         end
       end
     end
