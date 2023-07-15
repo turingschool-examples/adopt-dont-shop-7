@@ -18,7 +18,6 @@ RSpec.describe "application show page", type: :feature do
   describe "as a visitor" do
     describe "when visiting applicaiton show page" do
       it "I can see applicant details" do
-        
         visit "/applications/#{@application.id}"
 
         expect(page).to have_content(@application.name)
@@ -31,7 +30,6 @@ RSpec.describe "application show page", type: :feature do
       end
 
       it "I can see the names of all pets this application is for with links to their show page" do
-
         visit "/applications/#{@application.id}"
 
         expect(page).to have_content(@pet_1.name)
@@ -54,16 +52,22 @@ RSpec.describe "application show page", type: :feature do
           
           expect(page).to have_content("Add a Pet to this Application")
           expect(page).to have_field("Pet Search")
+
+          visit "/applications/#{@application_2.id}"
+          
+          expect(page).to_not have_content("Add a Pet to this Application")
+          expect(page).to_not have_field("Pet Search")
         end
         
         it "redirects_to the application show page after filling in Pet's name" do
           visit "/applications/#{@application.id}"
-          
-          fill_in "Pet Search", with: @pet_1.name
+
+          expect(page).to_not have_content(@pet_3.name)
+          fill_in "Pet Search", with: "Ba"
           click_button "Submit"
 
           expect(current_path).to eq("/applications/#{@application.id}")
-          expect(page).to have_content(@pet_1.name)
+          expect(page).to have_content(@pet_3.name)
         end
       end
     end
