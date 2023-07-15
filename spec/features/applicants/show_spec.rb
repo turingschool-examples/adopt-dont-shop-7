@@ -28,5 +28,22 @@ RSpec.describe "Applicants Show" do
 
             expect(current_path).to eq("/pets/#{@pet_1.id}")
         end
+
+        it 'has a search bar for pets that returns the searched pet' do
+            visit "applicants/#{@applicant_1.id}"
+
+            fill_in(:pet_search, with: "Mr.Pirate")
+            
+            click_button("Submit")
+
+            expect(current_path).to eq("applicants/#{@applicant_1.id}")
+
+            expect(page).to have_content("Mr.Pirate")
+
+        end
+
+        it 'Has a button to select a pet for the application.' do
+
+        end
     end
 end
