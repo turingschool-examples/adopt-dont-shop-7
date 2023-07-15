@@ -81,4 +81,68 @@ RSpec.describe "the pets index" do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  # [ ] done
+  # 2. Starting an Application
+  describe "As a visitor" do
+    describe "When I visit the pet index page" do
+      it "Then I see a link to Start an Application" do
+
+        visit "/pets"
+
+        expect(page).to have_link("Start an Application")
+
+      end
+    end
+  end
+
+  describe "When I click this link" do
+    it "Then I am taken to the new application page where I see a form" do
+
+      visit "/pets"
+
+      click_link "Start an Application"
+
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_text("Name of applicant")
+      expect(page).to have_button("Submit Application")
+
+    end
+  end
+
+  describe "When I fill in this form with my: Name, Street Address, City, State, Zip Code, Description of why I would make a good home" do
+    describe "And I click submit" do
+      describe "Then I am taken to the new applications show page" do
+        describe "And I see my Name, address information, and description of why I would make a good home" do
+          it "And I see an indicator that this application is In Progress" do
+
+            shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+            
+            visit "/applications"
+            click_link "Start an Application"
+
+            expect(current_path).to eq("/applications/new")
+
+            fill_in "Name of applicant", with: "Jerry"
+            fill_in "Street address", with: "1234 Fake street"
+            fill_in "City", with: "Portland"
+            fill_in "State", with: "OR"
+            fill_in "Zip code", with: "97210"
+            fill_in "Description", with: "I want to get another cat so my other cat is happy."
+
+            click_button "Submit Application"
+
+            expect(current_path).to eq("/applications")
+            expect(page).to have_content("Jerry")
+            expect(page).to have_content("1234 Fake street")
+            expect(page).to have_content("Portland")
+            expect(page).to have_content("OR")
+            expect(page).to have_content("97210")
+
+          end
+        end
+      end
+    end
+  end
 end
