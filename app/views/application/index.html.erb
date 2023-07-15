@@ -1,9 +1,10 @@
 <% @applications.each do |application| %>
   <h3><%= application.name_of_applicant %></h3>
+  <p>Application status: <%= application.application_status%></p>
   <p>Address: <%= application.street_address %></p>
   <p>City: <%= application.city %></p>
-  <p>state: <%= application.state %></p>
-  <pZip: <%= application.zip_code %></p>
-  <p>reason for request: <%= application.description %></p>
+  <p>State: <%= application.state %></p>
+  <p>Zip: <%= application.zip_code %></p>
+  <p>Reason for request: <%= application.description %></p>
   <li><%= link_to "#{application.name_of_applicant}", "applications/#{application.id}" %></li>
 <% end %>
