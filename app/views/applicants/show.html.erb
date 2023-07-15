@@ -9,9 +9,12 @@
     <br>
     <%= form.text_field :search %>
     <%= form.submit "Search" %>
+
+<%= form_with url: "/applicants/#{@applicant.id}", method: :post, local: true do |form| %>
+    <br>
+    <%= form.hidden_field :pet_id, value: "#{@pet_search}" %>
+    <%= form.submit "Adopt this Pet" %>
 <% end %>
-<% @pet_search.each do |pet| %>
-    <p><%= pet.name %></p>
 <% end %>
 <% @pets.each do |pet| %>
     <a href="/pets/<%= "#{pet.id}"%>"> <%= pet.name %> </a>
