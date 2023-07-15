@@ -134,5 +134,21 @@ RSpec.describe "application" do
       expect(page).to have_content(new_application.description)
       expect(page).to have_content("In Progress")
     end
+
+    it 'will return a form not completed error if all forms arent filled out' do
+      visit "/applications/new"
+
+      fill_in('Name', with: 'Jeremiah')
+      fill_in('Street address', with: "467 Corn Lane")
+      fill_in('State', with: "Nebraska")
+      fill_in('Zip', with: 68501)
+
+      click_button('Submit Application')
+
+      save_and_open_page
+
+      expect(page).to have_content("Description can't be blank")
+      expect(page).to have_content("City can't be blank")
+    end
   end
 end
