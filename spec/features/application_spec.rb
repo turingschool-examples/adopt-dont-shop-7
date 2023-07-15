@@ -94,4 +94,27 @@ RSpec.describe "application" do
       expect(current_path).to eq("/pets/#{@pet_2.id}")
     end
   end
+
+  describe "/application/new page" do
+    it 'has fields to create new application' do
+      visit "/applications/new"
+      fill_in('application[name]', with: 'Jeremiah')
+      fill_in('application[street_address]', with: "467 Corn Lane")
+      fill_in('application[city]', with: "Lincoln")
+      fill_in('application[state]', with: "Nebraska")
+      fill_in('application[zip]', with: 68501)
+      fill_in('application[description]', with: "I have a farm and lots of open space for them to play")
+      fill_in('application[status]', with: "In Progress")
+      click_button('submit')
+      new_application = Application.last
+      expect(current_path).to eq("/applications/#{new_application.id}")
+      expect(page).to have_content(new_application.name)
+      expect(page).to have_content(new_application.street_address)
+      expect(page).to have_content(new_application.city)
+      expect(page).to have_content(new_application.state)
+      expect(page).to have_content(new_application.zip)
+      expect(page).to have_content(new_application.description)
+      expect(page).to have_content(new_application.status)
+    end
+  end
 end
