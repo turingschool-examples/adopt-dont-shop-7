@@ -1,12 +1,12 @@
 <h1>Application Show Page</h1>
 
-<h4><%= @application.name  %></h4>
-<h4><%= @application.street_address  %></h4>
-<h4><%= @application.city  %></h4>
-<h4><%= @application.state  %></h4>
-<h4><%= @application.zip_code %></h4>
-<h4><%= @application.description %></h4>
-<h4><%= @application.status %></h4>
+<h4>Name: <%= @application.name  %></h4>
+<h4>Street Address: <%= @application.street_address  %></h4>
+<h4>City: <%= @application.city  %></h4>
+<h4>State: <%= @application.state  %></h4>
+<h4>Zip Code: <%= @application.zip_code %></h4>
+<h4>Description: <%= @application.description %></h4>
+<h4>Status: <%= @application.status %></h4>
 
 <% @application.pets.each do |pet| %>
   <li> <%= link_to pet.name, pets_path(pet) %></li>
