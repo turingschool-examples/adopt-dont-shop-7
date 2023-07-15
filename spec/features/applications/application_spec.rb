@@ -55,10 +55,31 @@ RSpec.describe "application" do
     visit "/applications/#{@application_1.id}"
 
     expect(page).to have_content("Matt Lim")
-   
+  
     click_link 'Lucille Bald'
     expect(page).to have_current_path("/applications/pets/#{@pet_1.id}")
   end
 
+  # [ ] done
+  # 3. Starting an Application, Form not Completed
+  describe "As a visitor" do
+    describe "When I visit the new application page" do
+      describe "And I fail to fill in any of the form fields" do
+        describe "And I click submit" do
+          describe "Then I am taken back to the new applications page" do
+            it "And I see a message that I must fill in those fields" do
+              @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
+              
+              visit "/applications"
+              click_link "Start an Application"
+              click_button "Submit Application"
 
+              expect(current_path).to eq("/applications/new")
+              expect(page).to have_content("Error all fields must be filled in")          
+            end
+          end
+        end
+      end
+    end
+  end
 end
