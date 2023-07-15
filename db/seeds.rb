@@ -8,24 +8,51 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-# Applicants
-@mr_ape = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
-@penny_lane = Application.create!(name: "Penny Lane", street: "555 McCartney", city: "Hollywood", state: "California", zip: "90210", description: "Strawberry Fields Forever", status: "Accepted")
-@paul = Application.create!(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "England", zip: "48", description: "I still believe love is all you need.  I don't know a better message than that.", status: "Pending")
-
-# Pets
-@pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
-@pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id)
-@pet_3 = Pet.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+ApplicationPet.destroy_all
+Pet.destroy_all
+Shelter.destroy_all
+Application.destroy_all
+Veterinarian.destroy_all
+VeterinaryOffice.destroy_all
 
 # Shelters
-@shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-@shelter_2 = Shelter.create!(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+shelter_2 = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+shelter_3 = Shelter.create(name: "Dumb Friends League", city: "Denver CO", foster_program: true, rank: 10)
+
+# Pets
+lucille = shelter_1.pets.create(adoptable: true, age: 1, breed: "Sphynx", name: "Lucille Bald")
+whiskers = shelter_1.pets.create(adoptable: true, age: 5, breed: "Kitty", name: "Whiskers")
+cheeto = shelter_1.pets.create(adoptable: true, age: 2, breed: "Corgi", name: "Cheeto")
+
+triumph = shelter_2.pets.create(adoptable: true, age: 3, breed: "Insult Dog", name: "Triumph")
+clifford = shelter_2.pets.create(adoptable: true, age: 2, breed: "Big Red Dog", name: "Clifford")
+scrappy = shelter_2.pets.create(adoptable: true, age: 5, breed: "Puntable", name: "Scrappy")
+
+scooby = shelter_3.pets.create(adoptable: true, age: 2, breed: "Great Dane", name: "Scooby")
+santas_lil_helper = shelter_3.pets.create(adoptable: true, age: 1, breed: "Mutt", name: "Santa's Little Helper")
+brian = shelter_3.pets.create(adoptable: true, age: 7, breed: "TV Pooch", name: "Brian Griffin")
+
+# Applications
+mr_ape = Application.create(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
+penny_lane = Application.create(name: "Penny Lane", street: "555 McCartney", city: "Hollywood", state: "California", zip: "90210", description: "Strawberry Fields Forever", status: "In Progress")
+paul = Application.create(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "England", zip: "48", description: "I still believe love is all you need.  I don't know a better message than that.", status: "In Progress")
+
+# ApplicationPets
+
+mr_ape.application_pets.create(pet_id: lucille.id)
+mr_ape.application_pets.create(pet_id: scooby.id)
+mr_ape.application_pets.create(pet_id: santas_lil_helper.id)
+
+penny_lane.application_pets.create(pet_id: whiskers.id)
+penny_lane.application_pets.create(pet_id: clifford.id)
+
+paul.application_pets.create(pet_id: cheeto.id)
 
 # Vet Office
-@vet_office_1 = VeterinaryOffice.create!(name: "Best Vets", boarding_services: true, max_patient_capacity: 20)
-@vet_office_2 = VeterinaryOffice.create!(name: "Put a bird on it", boarding_services: true, max_patient_capacity: 5)
+vet_office_1 = VeterinaryOffice.create(name: "Best Vets", boarding_services: true, max_patient_capacity: 20)
+vet_office_2 = VeterinaryOffice.create(name: "Put a bird on it", boarding_services: true, max_patient_capacity: 5)
 
 # Veterinarians
-@vet_1 = Veterinarian.create!(name: "Taylor", review_rating: 10, on_call: true, veterinary_office_id: vet_office.id)
-@vet_2 = Veterinarian.create!(name: "Jim", review_rating: 8, on_call: true, veterinary_office_id: vet_office.id)
+vet_office_1.veterinarians.create(name: "Taylor", review_rating: 10, on_call: true)
+vet_office_2.veterinarians.create(name: "Jim", review_rating: 8, on_call: true)
