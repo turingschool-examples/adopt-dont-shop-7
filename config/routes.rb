@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "/adoption_apps/new", to: "adoption_apps#new"
   post "/adoption_apps", to: "adoption_apps#create"
   get "/adoption_apps/:id", to: "adoption_apps#show"
+  get "/adoption_apps/:id/search_pets", to: "adoption_apps#search_pets", as: "search_pets_adoption_app"
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
