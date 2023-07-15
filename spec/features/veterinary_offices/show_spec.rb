@@ -41,4 +41,5 @@ RSpec.describe "the vet office show" do
 
     expect(page).to have_current_path("/veterinary_offices/#{vet_office.id}/veterinarians")
   end
+
 end
