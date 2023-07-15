@@ -85,7 +85,8 @@ RSpec.describe "Application Show Page" do
           expect(page).to have_content(pet_1.name)
           expect(page).to have_content(pet_2.name)
           expect(page).to_not have_content(pet_3.name)
-          end    end
+        end
+    end
 
 
     describe 'User Story 5' do
@@ -126,7 +127,7 @@ RSpec.describe "Application Show Page" do
     
           visit "/applications/#{applicant_1.id}"
     
-          fill_in 'Search', with: "Ba"
+          fill_in 'Search', with: "Ha"
           click_on("Search")
     
           click_button("Adopt this Pet")
@@ -153,6 +154,7 @@ RSpec.describe "Application Show Page" do
           
           click_button("Adopt this Pet")
           expect(applicant_1.pets).to eq([pet_1])
+          expect(page).to have_content("Harvey")
         end
     end
 end
