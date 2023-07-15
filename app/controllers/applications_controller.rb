@@ -4,18 +4,16 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    if params[:id] == "new"
-      @application = Application.new
-    else
-      @application = Application.find(params[:id])
-    end
+    @application = Application.find(params[:id])
   end
 
   def new
+    @application = Application.new
   end
 
   def create
-    @application = Application.new(application_params)
+    @application = Application.create(application_params)
+    redirect_to "/applications/#{@application.id}"
   end
 
   private
