@@ -25,6 +25,10 @@ RSpec.describe Application, type: :model do
       it "returns a booleans if an application has any pets" do
         expect(@application_1.pets?).to be true
         expect(@application_2.pets?).to be false
+
+        app2_pet = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_1.id)
+        @application_2.reload
+        expect(@application_2.pets?).to be true
       end
     end
   end
