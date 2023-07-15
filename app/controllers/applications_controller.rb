@@ -17,13 +17,9 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.new(application_params)
-    if application.save
-      redirect_to "/applications/#{application.id}"
-    else
-      flash[:notice] = "Add a Pet to this Application"
-      render :new
-    end
+    application = Application.create(application_params)
+    
+    redirect_to "/applications/#{application.id}"
   end
 
   private 
