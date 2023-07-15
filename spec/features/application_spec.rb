@@ -3,13 +3,13 @@ require "rails_helper"
 RSpec.describe "application" do
   before :each do
     @application_1 = Application.create!(
-        name: "Bob",
-        street_address: "123 Fake St",
-        city: "Lander",
-        state: "WY",
-        zip: 82520,
-        description: "I am loving and attentive.",
-        status: "In Progress")
+      name: "Bob",
+      street_address: "123 Fake St",
+      city: "Lander",
+      state: "WY",
+      zip: 82520,
+      description: "I am loving and attentive.",
+      status: "In Progress")
     @application_2 = Application.create!(
       name: "Sarah",
       street_address: "321 Faux Ln",
@@ -77,9 +77,7 @@ RSpec.describe "application" do
 
   describe "application show page" do
     it "displays an applicant's name and other attributes" do
-      
       visit "/applications/#{@application_1.id}"
-
       expect(page).to have_content(@application_1.name)
       expect(page).to have_content(@application_1.street_address)
       expect(page).to have_content(@application_1.city)
@@ -106,6 +104,7 @@ RSpec.describe "application" do
   describe "/application index page" do
     it "shows each application and when it was created" do
       visit "/applications"
+
       expect(page).to have_content(@application_1.name)
       expect(page).to have_content(@application_1.created_at)
       expect(page).to have_content(@application_2.name)
@@ -114,25 +113,26 @@ RSpec.describe "application" do
   end
 
   describe "/application/new page" do
-    xit 'has fields to create new application' do
+   it 'has fields to create new application' do
       visit "/applications/new"
-      fill_in('application[name]', with: 'Jeremiah')
-      fill_in('application[street_address]', with: "467 Corn Lane")
-      fill_in('application[city]', with: "Lincoln")
-      fill_in('application[state]', with: "Nebraska")
-      fill_in('application[zip]', with: 68501)
-      fill_in('application[description]', with: "I have a farm and lots of open space for them to play")
-      fill_in('application[status]', with: "In Progress")
-      click_button('submit')
+
+      fill_in('Name', with: 'Jeremiah')
+      fill_in('Street address', with: "467 Corn Lane")
+      fill_in('City', with: "Lincoln")
+      fill_in('State', with: "Nebraska")
+      fill_in('Zip', with: 68501)
+      fill_in('Description', with: "I have a farm and lots of open space for them to play")
+      click_button('Submit Application')
       new_application = Application.last
       expect(current_path).to eq("/applications/#{new_application.id}")
+
       expect(page).to have_content(new_application.name)
       expect(page).to have_content(new_application.street_address)
       expect(page).to have_content(new_application.city)
       expect(page).to have_content(new_application.state)
       expect(page).to have_content(new_application.zip)
       expect(page).to have_content(new_application.description)
-      expect(page).to have_content(new_application.status)
+      expect(page).to have_content("In Progress")
     end
   end
 end

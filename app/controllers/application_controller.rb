@@ -25,5 +25,9 @@ class ApplicationController < ActionController::Base
     def error_message(errors)
       errors.full_messages.join(', ')
     end
+
+    def application_params
+      params.permit(:name, :street_address, :city, :state, :zip, :description).merge(status: "In Progress")
+    end
 end
 
