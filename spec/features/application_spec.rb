@@ -9,7 +9,7 @@ RSpec.describe "application" do
       state: "WY",
       zip: 82520,
       description: "I am loving and attentive.",
-      status: "In Progress")
+      status: "Accepted")
     @application_2 = Application.create!(
       name: "Sarah",
       street_address: "321 Faux Ln",
@@ -99,6 +99,20 @@ RSpec.describe "application" do
       click_on(@pet_2.name)
       expect(current_path).to eq("/pets/#{@pet_2.id}")
     end
+
+    it "has a means to search for pets to add to an application if unsubmitted" do
+      visit "/applications/#{@application_2.id}"
+      expect(page).to_not have_content("Ann")
+
+      fill_in('Pet name', with: 'Ann')
+      click_button('Search Pets')
+
+      expect(current_path).to eq("/applications/#{@application_2.id}")
+      expect(page).to have_content("Ann")
+
+      visit "/applications/#{@application_1.id}"
+      expect(page).to_not have_content("Search Pets")
+    end
   end
 
   describe "/application index page" do
@@ -144,8 +158,6 @@ RSpec.describe "application" do
       fill_in('Zip', with: 68501)
 
       click_button('Start Application')
-
-      save_and_open_page
 
       expect(page).to have_content("Description can't be blank")
       expect(page).to have_content("City can't be blank")
