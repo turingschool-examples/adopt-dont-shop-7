@@ -1,7 +1,7 @@
 class AdoptionApp < ApplicationRecord
 
-  validates :name, presence: true, uniqueness: {case_sensitive: false}
-
+  validates :name, :street_address, :city, :state, :zip_code, :description, presence: true
+  
   def adoption_status
     params[:status] = "In Progress"
     #if the application is submitted, it changes status to "In Progress"/defaults to "In Progress"
