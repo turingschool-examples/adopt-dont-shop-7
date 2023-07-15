@@ -189,5 +189,23 @@ RSpec.describe "Application Show Page" do
       expect(page).to_not have_content("Add a Pet to this Application")
       expect(page).to_not have_button("Submit")
     end
+    # 7. No Pets on an Application
+    
+    # As a visitor
+    # When I visit an application's show page
+    # And I have not added any pets to the application
+    # Then I do not see a section to submit my application
+
+    it "has no option to submit without pets" do
+      PetApplication.destroy_all
+      visit "/applications/#{@applicant_1.id}"
+
+      expect(page).to_not have_content("Willow")
+      expect(page).to_not have_content("Copper")
+
+      expect(page).to_not have_button("Submit")
+    end
   end
+
+
 end
