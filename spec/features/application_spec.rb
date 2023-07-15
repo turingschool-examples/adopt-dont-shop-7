@@ -21,6 +21,7 @@ RSpec.describe "application" do
     @pet_4 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
 
     @pet_application_1 = PetApplication.create!(pet: @pet_1, application: @application_1)
+    @pet_application_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
   end
   it "displays a link to all pets" do
     visit "/"
@@ -78,8 +79,19 @@ RSpec.describe "application" do
       expect(page).to have_content(@application_1.zip)
       expect(page).to have_content(@application_1.description)
       expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@application_1.status)
 
+    end
+
+    it "has a link to each pets show page if you click their name" do
+      visit "/applications/#{@application_1.id}"
+
+      click_on(@pet_1.name)
+      expect(current_path).to eq("/pets/#{@pet_1.id}")
+      visit "/applications/#{@application_1.id}"
+      click_on(@pet_2.name)
+      expect(current_path).to eq("/pets/#{@pet_2.id}")
     end
   end
 end
