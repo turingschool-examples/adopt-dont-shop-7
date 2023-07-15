@@ -30,15 +30,15 @@ RSpec.describe "Applicants Show" do
         end
 
         it 'has a search bar for pets that returns the searched pet' do
-            visit "applicants/#{@applicant_1.id}"
+            visit "/applicants/#{@applicant_1.id}"
 
-            fill_in(:pet_search, with: "Mr.Pirate")
-            
-            click_button("Submit")
+            fill_in(:search, with: "Clawdia")
 
-            expect(current_path).to eq("applicants/#{@applicant_1.id}")
+            click_button("Search")
 
-            expect(page).to have_content("Mr.Pirate")
+            expect(current_path).to eq("/applicants/#{@applicant_1.id}")
+
+            expect(page).to have_content("Clawdia")
 
         end
 
