@@ -99,12 +99,12 @@ RSpec.describe "application" do
       click_on(@pet_2.name)
       expect(current_path).to eq("/pets/#{@pet_2.id}")
     end
-
+# CURRENTLY WORKING ON THIS ONE
     it "has a means to search for pets to add to an application if unsubmitted" do
       visit "/applications/#{@application_2.id}"
       expect(page).to_not have_content("Ann")
 
-      fill_in('Pet name', with: 'Ann')
+      fill_in(:pet_name, with: 'Ann')
       click_button('Search Pets')
 
       expect(current_path).to eq("/applications/#{@application_2.id}")
