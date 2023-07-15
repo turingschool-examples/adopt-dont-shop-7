@@ -25,7 +25,3 @@ application_4 = Application.create!(name_of_applicant: "Eric Coats", street_addr
 application_1.pets << pet_1
 
 
-@shelter = Shelter.create!(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
-@pet = Pet.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: @shelter.id)
-@application_1 = Application.create!(name: "Topher C.", address: "123 sesame st. New York, NY 10001", description: "I want dog", status: "Accepted")
-@application_1.pets << @pet
