@@ -9,6 +9,8 @@ RSpec.describe "Admin Shelter Index page", type: :feature do
 
   describe "As a visitor" do
     describe "When I visit the admin shelter index ('/admin/shelters')" do
+
+      # 10. Admin Shelters Index
       it "Then I see all Shelters in the system listed in reverse alphabetical order by name" do
         visit "/admin/shelters"
 
