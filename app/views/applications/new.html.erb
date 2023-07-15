@@ -1,0 +1,23 @@
+<h1>Please fill out your information below</h1>
+
+<%= form_with url: "/applications", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br>
+
+  <%= form.label :street_address %>
+  <%= form.text_field :street_address %><br>
+
+  <%= form.label :city %>
+  <%= form.text_field :city %><br>
+
+  <%= form.label :state %>
+  <%= form.text_field :state %><br>
+
+  <%= form.label :zipcode %>
+  <%= form.text_field :zipcode %><br>
+
+  <%= form.label :reason_for_adoption, "Please explain why you would be a good home" %>
+  <%= form.text_area :reason_for_adoption %><br>
+
+  <%= form.submit "Submit" %>
+<% end %>

@@ -27,6 +27,5 @@ RSpec.describe "Application Show Page" do
         expect(page).to have_link("Copper", href: "/pets/#{@copper.id}")
         expect(page).to have_link("Willow", href: "/pets/#{@willow.id}")
         expect(page).to have_content("Pending")
-        save_and_open_page
     end
 end
