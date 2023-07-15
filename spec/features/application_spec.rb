@@ -122,7 +122,7 @@ RSpec.describe "application" do
       fill_in('State', with: "Nebraska")
       fill_in('Zip', with: 68501)
       fill_in('Description', with: "I have a farm and lots of open space for them to play")
-      click_button('Submit Application')
+      click_button('Start Application')
       new_application = Application.last
       expect(current_path).to eq("/applications/#{new_application.id}")
 
@@ -143,7 +143,7 @@ RSpec.describe "application" do
       fill_in('State', with: "Nebraska")
       fill_in('Zip', with: 68501)
 
-      click_button('Submit Application')
+      click_button('Start Application')
 
       save_and_open_page
 
