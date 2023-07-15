@@ -12,4 +12,21 @@
   </ul>
 <% end %>
 
+<h4> Add a Pet to this Application</h4>
+
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if @pets %>
+  <h4>Pets Matching Your Search:</h4>
+  <% @pets.each do |pet| %>
+    <ul>
+      <li><%= link_to "#{pet.name}", "pets/#{pet.id}" %></li>
+    </ul>
+  <% end %>
+<% end %>
+
 <h3>Application Status: <%= @application.status %></h3>
