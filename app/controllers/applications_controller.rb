@@ -47,7 +47,6 @@ class ApplicationsController < ApplicationController
   def update
     application = Application.find(params[:id])
     application.update(status: "Pending")
-    require 'pry'; binding.pry
     redirect_to "/applications/#{application.id}"
   end
 end
