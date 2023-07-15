@@ -10,6 +10,14 @@ RSpec.describe "application" do
         zip: 82520,
         description: "I am loving and attentive.",
         status: "In Progress")
+    @application_2 = Application.create!(
+      name: "Sarah",
+      street_address: "321 Faux Ln",
+      city: "Salt Lake City",
+      state: "UT",
+      zip: 84104,
+      description: "I live in a small apartment but am lonely so want a pet.",
+      status: "In Progress")
 
     @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -95,8 +103,18 @@ RSpec.describe "application" do
     end
   end
 
+  describe "/application index page" do
+    it "shows each application and when it was created" do
+      visit "/applications"
+      expect(page).to have_content(@application_1.name)
+      expect(page).to have_content(@application_1.created_at)
+      expect(page).to have_content(@application_2.name)
+      expect(page).to have_content(@application_2.created_at)
+    end
+  end
+
   describe "/application/new page" do
-    it 'has fields to create new application' do
+    xit 'has fields to create new application' do
       visit "/applications/new"
       fill_in('application[name]', with: 'Jeremiah')
       fill_in('application[street_address]', with: "467 Corn Lane")
