@@ -40,4 +40,5 @@ Rails.application.routes.draw do
   get "/applicants/new", to: "applicants#new"
   post "/applicants", to: "applicants#create"
   get "/applicants/:id", to: "applicants#show"
+  post "/applicants/:id", to: "applicant_pets#create"
 end
