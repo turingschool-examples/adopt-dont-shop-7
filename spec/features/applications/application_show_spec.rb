@@ -46,13 +46,30 @@ RSpec.describe "application show page" do
     it "displays the names of all the pets on the application" do
       shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
       scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
       application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
       
       application_1.pets << scrappy
+      application_1.pets << scooby
 
       visit "/applications/#{application_1.id}"
-      
+
       expect(page).to have_content(scrappy.name)
+      expect(page).to have_content(scooby.name)
+
+      click_link("#{scrappy.name}")
+      expect(page).to have_link("Scrappy", href: "/pets/#{scrappy.id}")
+    end
+
+    it "display the status of the application" do
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to have_content(application_1.status)
     end
   end
 end
