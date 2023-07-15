@@ -14,16 +14,16 @@ RSpec.describe "Admin Shelter Index page", type: :feature do
       it "Then I see all Shelters in the system listed in reverse alphabetical order by name" do
         visit "/admin/shelters"
 
-        save_and_open_page
-
-        expect(page).to have_content(@shelter_1.name)
-        expect(page).to have_content(@shelter_2.name)
-        expect(page).to have_content(@shelter_3.name)
-
-        expect(@shelter_2.name).to appear_before(@shelter_1.name)
-        expect(@shelter_2.name).to appear_before(@shelter_1.name)
-
-        expect(@shelter_3.name).to appear_before(@shelter_1.name)
+        within ("#all-shelters") do
+          expect(page).to have_content(@shelter_1.name)
+          expect(page).to have_content(@shelter_2.name)
+          expect(page).to have_content(@shelter_3.name)
+  
+          expect(@shelter_2.name).to appear_before(@shelter_1.name)
+          expect(@shelter_2.name).to appear_before(@shelter_1.name)
+  
+          expect(@shelter_3.name).to appear_before(@shelter_1.name)
+        end
       end
     end
   end
