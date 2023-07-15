@@ -48,9 +48,22 @@ RSpec.describe "new application form page" do
       click_button "Submit"
 
       expect(page).to have_content("Test")
+    end
+  end
+  describe "when I dont finish filling out the form i get an error" do 
+    it "has a form to fill out but is not fully filled out" do
+      visit "/applications/new"
 
+      click_button "Submit"
 
-      
+      # expect(page).to have_content("Please Fill Out Required Fields")
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Name can't be blank")
+      expect(page).to have_content("Street address can't be blank")
+      expect(page).to have_content("City can't be blank")
+      expect(page).to have_content("State can't be blank")
+      expect(page).to have_content("Zipcode can't be blank")
+      expect(page).to have_content("Description can't be blank")
     end
   end
 end
