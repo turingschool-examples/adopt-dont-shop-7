@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get '/applicants', to: 'applicants#index'
   get '/applicants/new', to: 'applicants#new', as: 'new_applicant'
-  get '/applicants/:id', to: 'applicants#show'
+  get '/applicants/:id', to: 'applicants#show', as: 'applicant'
   post '/applicants', to: 'applicants#create'
   get '/applicants/:id/edit', to: 'applicants#edit'
   patch '/applicants/:id', to: 'applicants#update'

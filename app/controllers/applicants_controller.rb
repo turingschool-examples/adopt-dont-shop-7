@@ -6,10 +6,12 @@ class ApplicantsController < ApplicationController
   def new; end
 
   def create
-    applicant = Applicant.new(applicant_params)
-    applicant.save
-
-    redirect_to "/applicants/#{applicant_params[:id]}"
+    @applicant = Applicant.new(applicant_params)
+    if @applicant.save
+      redirect_to applicant_path(@applicant)
+    else
+      render :new
+    end
   end
 
   def show
