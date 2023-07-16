@@ -22,7 +22,7 @@ class SheltersController < ApplicationController
   end
 
   def show
-    @shelter = Shelter.find(params[:id])
+    @shelter = Shelter.includes(:applications).find(params[:id])
   end
 
   def new
