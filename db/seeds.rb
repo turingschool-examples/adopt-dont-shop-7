@@ -32,5 +32,8 @@ melissa = mountainside.veterinarians.create!(name: "Melissa", on_call: true, rev
 jen = pawhealth.veterinarians.create!(name: "Jen", on_call: false, review_rating: 4)
 moss = pawhealth.veterinarians.create!(name: "Moss", on_call: true, review_rating: 3)
 
+johnny = Application.create!(name: 'Johnny', street_address: '1234 main st.', city: 'Westminster', state: 'CO', zipcode: '80241',  reason_for_adoption: "I love animals", status: "In Progress" )
+phylis = Application.create!(name: "Phylis", street_address: "1234 main circle", city: "Littleton", state: "CO", zipcode: "80241", reason_for_adoption: "I have a huge yard", status: "In Progress")
+
 
 
