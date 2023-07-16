@@ -82,4 +82,33 @@ RSpec.describe "application" do
       end
     end
   end
+
+  describe "Searching for Pets for an Application" do
+    describe "As a visitor" do
+      describe "When I visit an application's show page" do
+        describe "And that application has not been submitted" do
+        # add a button to add a pet to an application before the submit button
+          describe "Then I see a section on the page to Add a Pet to this Application" do
+            describe "In that section I see an input where I can search for Pets by name" do
+              # add an input to serch for pets by name
+              describe "When I fill in this field with a Pet's name" do
+                describe "And I click submit" do
+                  describe "Then I am taken back to the application show page" do
+                    it "And under the search bar I see any Pet whose name matches my search" do
+                    # now there should be a list of pets that match the search
+                      
+                      @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
+                      @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter_1.id)
+                      @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: @shelter_1.id)
+                      @application_1.pets << @pet_1
+
+                      visit "/applications/#{@application_1.id}"
+                      expect(serch_bar).to have_content("Add a Pet to this Application")  
+
+
+                    end
+                  end
+                end
+              end
+
 end
