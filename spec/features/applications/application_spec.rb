@@ -86,29 +86,29 @@ RSpec.describe "application" do
   # [ ] done
   # 4. Searching for Pets for an Application
 
-  describe "As a visitor" do
-    describe "When I visit an applications show page" do
-      describe "And that application has not been submitted," do
-        describe "Then I see a section on the page to Add a Pet to this Application" do
-          describe "In that section I see an input where I can search for Pets by name" do
-            describe "When I fill in this field with a Pets name" do
-              describe "And I click submit," do
-                describe "Then I am taken back to the application show page" do
-                  it "And under the search bar I see any Pet whose name matches my search" do
-                    @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
-                    @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: @shelter_1.id)
+  # describe "As a visitor" do
+  #   describe "When I visit an applications show page" do
+  #     describe "And that application has not been submitted," do
+  #       describe "Then I see a section on the page to Add a Pet to this Application" do
+  #         describe "In that section I see an input where I can search for Pets by name" do
+  #           describe "When I fill in this field with a Pets name" do
+  #             describe "And I click submit," do
+  #               describe "Then I am taken back to the application show page" do
+  #                 it "And under the search bar I see any Pet whose name matches my search" do
+  #                   @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
+  #                   @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: @shelter_1.id)
 
-                    visit "/applications/#{@application_1.id}"
+  #                   visit "/applications/#{@application_1.id}"
 
-                    # expect(page).to have_cont
+  #                   # expect(page).to have_cont
 
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-    end
-  end
+  #                 end
+  #               end
+  #             end
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 end
