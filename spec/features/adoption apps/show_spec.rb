@@ -31,7 +31,7 @@ RSpec.describe "The Adoption Application", type: :feature do
     end
 
     #user story 5
-    xit "displays a button called Adopt this Pet that adds the pet to the application" do
+    it "displays a button called Adopt this Pet that adds the pet to the application" do
 
       visit "/adoption_apps/#{@adoption_app_2.id}"
 
@@ -42,7 +42,7 @@ RSpec.describe "The Adoption Application", type: :feature do
       
       click_button "Adopt this Pet"
 
-      expect(@adoption_app_2.pet_names).to eq("Limb")
+      expect(page).to have_content("Pet Names: Limb")
     end
   end
 end
