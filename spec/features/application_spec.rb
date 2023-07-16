@@ -96,6 +96,7 @@ RSpec.describe "application" do
       click_on(@pet_1.name)
       expect(current_path).to eq("/pets/#{@pet_1.id}")
       visit "/applications/#{@application_1.id}"
+      
       click_on(@pet_2.name)
       expect(current_path).to eq("/pets/#{@pet_2.id}")
     end
@@ -113,21 +114,21 @@ RSpec.describe "application" do
       visit "/applications/#{@application_1.id}"
       expect(page).to_not have_content("Search Pets")
     end
-    
+    # CURRENTLY ON THIS TEST ~~~~~~~~~~~~~~~~~~~~
     it "has a button next to each search result which adds pet to application" do
       visit "/applications/#{@application_2.id}"
       expect(page).to_not have_content("Ann")
       
       fill_in(:pet_name, with: 'Ann')
       click_button('Search Pets')
-      
       expect(current_path).to eq("/applications/#{@application_2.id}")
       expect("Ann").to_not appear_before("Add a Pet to this Application")
       click_button("Adopt this Pet")
-
+      
       expect(current_path).to eq("/applications/#{@application_2.id}")
       expect(@application_2.pets[0].name).to eq("Ann")
       expect("Ann").to appear_before("Add a Pet to this Application")
+      save_and_open_page
       
     end
   end
@@ -144,7 +145,7 @@ RSpec.describe "application" do
   end
 
   describe "/application/new page" do
-   it 'has fields to create new application' do
+    it 'has fields to create new application' do
       visit "/applications/new"
 
       fill_in('Name', with: 'Jeremiah')
