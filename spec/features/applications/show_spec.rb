@@ -82,7 +82,7 @@ RSpec.describe "application" do
 
         visit ("/applications/#{@app_1.id}")
 
-        expect(find("form")).to have_content("Search for pet")
+        expect(find("#pet_search")).to have_content("Search for pet")
         fill_in "Name", with: "Charlie"
         click_button "Submit"
         expect(current_path).to eq("/applications/#{@app_1.id}")
@@ -119,7 +119,7 @@ RSpec.describe "application" do
         fill_in "Name", with: "Charlie"
         click_button "Submit"
         click_button "Adopt this Pet"
-
+        
         expect(current_path).to eq("/applications/#{@app_1.id}")
         expect(page).to have_content("#{@pet_1.name}")
         expect(page).to have_content("#{@pet.name}")

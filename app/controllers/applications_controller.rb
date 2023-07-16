@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
       @found_pet = Pet.find_by(name: params[:search_for_pet])
       @show_results = true
     end
-    # @found_pet = Pet.where("name like ?", "%#{params[:search_for_pet]}%") 
+    
   end
 
   def new

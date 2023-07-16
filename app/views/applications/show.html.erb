@@ -9,7 +9,7 @@
 </p>
 <h3>Pets:</h3>
 <% @application.pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br />
 <% end %>
 <section>
   <h3>Add a Pet to this Application</h3>
@@ -18,9 +18,11 @@
     <%= form.text_field :search_for_pet, placeholder: "Name" %>
     <%= form.submit "Submit" %>
   <% end %>
+
+
   <ol>
-  <% if @show_results == true %>
-    <li><%= @found_pet.name %></li>
-  <% end %>
+    <% if @show_results == true %>
+      <li><%= @found_pet.name %> <%= button_to "Adopt this Pet", {controller: :application_pets, pet_id: @found_pet.id, application_id: @application.id, action: :create} %></li>
+    <% end %>
   </ol>
 </section>
