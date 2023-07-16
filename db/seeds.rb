@@ -17,10 +17,10 @@ pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Fido", sh
 pet_3 = Pet.create!(adoptable: true, age: 5, breed: "lab", name: "Sir Maximus", shelter_id: shelter_2.id)
 pet_4 = Pet.create!(adoptable: true, age: 7, breed: "norwegian forest cat", name: "Sven", shelter_id: shelter_2.id)
 
-application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: shelter_1.id)
-application_2 = Application.create!(name_of_applicant: "Jorja Fleming", street_address: "5678 Sample St", city: "Denver", state: "CO", zip_code: 80202, description: "I am lonely and need cats", application_status: "Pending", shelter_id: shelter_1.id)
-application_3 = Application.create!(name_of_applicant: "Tim Nordloh", street_address: "9012 Test St", city: "Denver", state: "CO", zip_code: 80202, description: "I am starting Noahs's Ark", application_status: "Pending", shelter_id: shelter_2.id)
-application_4 = Application.create!(name_of_applicant: "Eric Coats", street_address: "3456 Try St", city: "Denver", state: "CO", zip_code: 80202, description: "doggies woof woof", application_status: "Pending", shelter_id: shelter_2.id)
+application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending")
+application_2 = Application.create!(name_of_applicant: "Jorja Fleming", street_address: "5678 Sample St", city: "Denver", state: "CO", zip_code: 80202, description: "I am lonely and need cats", application_status: "Pending")
+application_3 = Application.create!(name_of_applicant: "Tim Nordloh", street_address: "9012 Test St", city: "Denver", state: "CO", zip_code: 80202, description: "I am starting Noahs's Ark", application_status: "Pending")
+application_4 = Application.create!(name_of_applicant: "Eric Coats", street_address: "3456 Try St", city: "Denver", state: "CO", zip_code: 80202, description: "doggies woof woof", application_status: "Pending")
 
 application_1.pets << pet_1
 

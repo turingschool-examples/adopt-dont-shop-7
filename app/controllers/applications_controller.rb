@@ -12,13 +12,8 @@ class ApplicationsController < ApplicationController
     @application = Application.new
   end
 
-  def choose_shelter_id
-    Shelter.first.id
-  end
-
   def create
     @application = Application.new(post_params)
-    @application.shelter_id = choose_shelter_id
     @application.application_status = "In Progress"
     if @application.save
       redirect_to action: 'index'
