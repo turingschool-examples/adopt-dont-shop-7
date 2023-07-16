@@ -13,7 +13,7 @@
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :pet_name, "Search by Pet Name:" %>
     <%= f.text_field :pet_name %>
-    <%= f.submit "Submit" %>
+    <%= f.submit "Search Pets" %>
   <% end %>
 
   <% @search_pets.each do |pet| %>
@@ -29,10 +29,14 @@
 
 <%# update application status to pending %>
 
-<h4>Submit Application:</h4><hr>
+  <h4>Why would you make a good pet owner?</h4><hr>
 
-  <%= form_with url: "/applications/#{params[:id]}", method: :patch, local: true do |f| %>
-    <%= f.label :description, "Why would you make a good pet owner?" %><br>
-    <%= f.text_area :description %><br>
-    <%= f.submit "Submit Application" %>
-  <% end %>
+    <%= form_with url: "/applications/#{params[:id]}", method: :patch, local: true do |f| %>
+      <%= f.label :description, "Why would you make a good pet owner?" %><br>
+      <%= f.text_area :description %><br>
+      <%= f.submit "Submit" %>
+    <% end %><br><br>
+
+<% if @application.pets.present? %>
+<%= button_to "Submit Application", "/applications/#{params[:id]}", method: :patch, params: { status: "Pending"}%>
+<% end %>
