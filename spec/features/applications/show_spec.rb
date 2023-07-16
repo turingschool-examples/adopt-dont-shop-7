@@ -108,6 +108,7 @@ end
   # When I fill in that input
   # And I click a button to submit this application
   # Then I am taken back to the application's show page
+
   # And I see an indicator that the application is "Pending"
 
   # And I see all the pets that I want to adopt
@@ -118,10 +119,11 @@ end
       describe "then I see a section to submit my application" do 
         it 'displays an input to enter why I would make a good owner for these pet(s)' do 
           visit "/applications/#{Application.last.id}"
-          
+
           click_on "Adopt Spud"
           click_on "Adopt SpuddyBuddy"
-          
+        
+          expect(page).to have_content("In Progress")
           expect(page).to have_field(:description)
           expect(page).to have_button("Submit Application")
 
@@ -130,7 +132,8 @@ end
 
           expect(current_path).to eq("/applications/#{Application.last.id}")
           expect(page).to have_content("I like african bullfrogs!")
-          expect(page).to have_content("In Progress")
+
+          
           
           within "#pet-#{@pet_4.id}" do 
             expect(page).to have_content("Spud")
@@ -139,9 +142,11 @@ end
           within "#pet-#{@pet_5.id}" do 
             expect(page).to have_content("SpuddyBuddy")
           end
-
+          expect(page).to have_content("Pending")
+          
           #use partials for the removal of the add a pet section
-          # expect(page).to_not have_content("Add a Pet to this Application")
+          expect(page).to_not have_content("Add a Pet to this Application")
+          save_and_open_page
         end
       end
     end
