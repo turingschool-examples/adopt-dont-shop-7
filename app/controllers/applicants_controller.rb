@@ -1,8 +1,9 @@
 class ApplicantsController < ApplicationController
     def show
         @applicant = Applicant.find(params[:id])
-        @pets = @applicant.pets
+        @pets = Applicant.pets
         @pet_search = Pet.adoptable.where(name: params[:search])
+        
     end
 
     def new

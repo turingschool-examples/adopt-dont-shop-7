@@ -4,7 +4,7 @@ RSpec.describe "Applicants Show" do
 
     before(:each) do
         @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-        @applicant_1 = Applicant.create(name: "Ian", street_address: "4130 cleveland ave", city: "New Orleans", state: "louisiana", zip_code: 70119, description: "I wanna have cat", status: "In Progress")
+        @applicant_1 = Applicant.create(name: "Ian", street_address: "4130 cleveland ave", city: "New Orleans", state: "louisiana", zip_code: 70119, description: "I wanna have cat")
         @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
         @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
         @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
@@ -59,5 +59,31 @@ RSpec.describe "Applicants Show" do
             expect(current_path).to eq("/applicants/#{@applicant_1.id}")
             
         end
+    end
+
+    describe 'After an applicant has added one or more pets to the application' do
+        it 'allows you to sumbit the application' do
+            visit "/applicants/#{@applicant_1.id}"
+
+            expect(page).to have_content("Add a Pet to this Application!")
+
+            within "#pet_search" do
+                fill_in(:search, with: "Clawdia")
+                click_button("Search")
+            end
+            
+
+            within "#pet_submit" do
+                click_button("Adopt this Pet")
+            end
+
+            within "#application_submit" do
+                click_button("Submit Application")
+            end
+
+            expect(page).to have_content("Clawdia")
+            expect(page).to have_content("Pending")
+            expect(page).to_not have_button("Submit")
+        end               
     end
 end
