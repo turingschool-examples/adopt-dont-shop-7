@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Application 'show' Page", type: :feature do
   before(:each) do
-    @application = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
-    @application_2 = Application.create!(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "England", zip: "48", description: "I still believe love is all you need.  I don't know a better message than that.", status: "Pending")
+    @application = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "CO", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
+    @application_2 = Application.create!(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "EN", zip: "48J47", description: "I still believe love is all you need.  I don't know a better message than that.", status: "Pending")
     
     @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
@@ -75,14 +75,6 @@ RSpec.describe "Application 'show' Page", type: :feature do
       # ====START TESTS====
       describe "and I have added one or more pets to the application" do
         it "then I see a section to submit my application" do
-          petless = Application.create!(name: "Petless Tester", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I do not want any pets and have not added any to my application", status: "In Progress")
-
-          # Make sure an in-progress application without pets DOES not have the "application-submission" div element
-          visit "/applications/#{petless.id}"
-          expect(petless.pets).to be_empty
-          expect(petless.status).to eq("In Progress")
-          expect(page).to_not have_selector("#application-submission")
-
           # Make sure an in-progress application with pets DOES have the "application-submission" div element
           visit "/applications/#{@application.id}"
           expect(@application.pets).to_not be_empty
@@ -131,6 +123,30 @@ RSpec.describe "Application 'show' Page", type: :feature do
         end
       end
       # ====END USER STORY 6 TESTS====
+
+      # User Story 7: No Pets on an Application 
+      # ====START TESTS====
+      describe "and I have not added any pets to the application" do
+        it "Then I do not see a section to submit my application" do
+          petless = Application.create!(name: "Petless Tester", street: "123 Turing Lane", city: "Boulder", state: "CO", zip: "80301", description: "I do not want any pets and have not added any to my application", status: "In Progress")
+
+          # Make sure an in-progress application without pets DOES not have the "application-submission" div element
+          visit "/applications/#{petless.id}"
+          expect(petless.pets).to be_empty
+          expect(petless.status).to eq("In Progress")
+          expect(page).to_not have_selector("#application-submission")
+
+          # #application-submission div shows up when you add a pet to the application
+          app_pet_3 = ApplicationPet.create!(application_id: petless.id, pet_id: @pet_1.id)
+          petless.reload
+          visit "/applications/#{petless.id}"
+
+          expect(petless.pets).to_not be_empty
+          expect(page).to have_selector("#application_submission") 
+        end       
+      end
+      # ====END USER STORY 7 TESTS====
+
     end
   end
 end
