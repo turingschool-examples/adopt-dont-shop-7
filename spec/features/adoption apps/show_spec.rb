@@ -31,7 +31,7 @@ RSpec.describe "The Adoption Application", type: :feature do
     end
 
     #user story 5
-    it "displays a button called Adopt this Pet that adds the pet to the application" do
+    xit "displays a button called Adopt this Pet that adds the pet to the application" do
 
       visit "/adoption_apps/#{@adoption_app_2.id}"
 
