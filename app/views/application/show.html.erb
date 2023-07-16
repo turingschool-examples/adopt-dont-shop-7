@@ -1,4 +1,3 @@
-
 <p>Name of Applicant: <%= @application.name_of_applicant %></p>
 <p>Street Address: <%= @application.street_address %></p>
 <p>City: <%= @application.city %></p>
@@ -6,6 +5,9 @@
 <p>Zip code: <%= @application.zip_code %></p>
 <p>Application Status: <%= @application.application_status %></p>
 <p>Reason for Applying: <%= @application.description %></p>
+<%= form_with model: @pets do |f| %>
+  <%= f.search_field :name %>
+<% end %>
 <p>Pets:</p>
 <ul>
 <% @application.pets.each do |pet| %>
