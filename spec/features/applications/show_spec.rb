@@ -109,10 +109,56 @@ RSpec.describe "application show page" do
 
       expect(page).to have_content(scrappy.name)
       expect(page).to have_button("Adopt this Pet")
-
+      
       click_button "Adopt this Pet"
-
+      
       expect(scrappy.name).to appear_before("Add a Pet to this Application")
+    end
+    
+    it "finds partial matches when searching for pets by name" do
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      scooby = Pet.create(name: "Mr. Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+      
+      visit "applications/#{application_1.id}"
+      
+      fill_in "Search", with: "Scrap"
+      click_button
+      
+      expect(page).to have_content(scrappy.name)
+    end
+
+    it "finds any mathcing consecutive characters in search results" do
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      scooby = Pet.create(name: "Mr. Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+    
+      visit "applications/#{application_1.id}"
+    
+      fill_in "Search", with: "Sc"
+      click_button
+
+      expect(page).to have_content(scrappy.name)
+      expect(page).to have_content(scooby.name)
+    end
+
+    it "searches for any case insensitive matches " do
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      scrappy1 = Pet.create(name: "scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      scrappy2 = Pet.create(name: "SCRAPPY", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      scrappy3 = Pet.create(name: "Mr. Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+    
+      visit "applications/#{application_1.id}"
+    
+      fill_in "Search", with: "sC"
+      click_button
+
+      expect(page).to have_content(scrappy1.name)
+      expect(page).to have_content(scrappy2.name)
+      expect(page).to have_content(scrappy3.name)
     end
   end
 
