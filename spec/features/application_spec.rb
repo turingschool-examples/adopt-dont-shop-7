@@ -158,7 +158,7 @@ RSpec.describe "application" do
       fill_in('Zip', with: 68501)
 
       click_button('Start Application')
-
+      save_and_open_page
       expect(page).to have_content("Description can't be blank")
       expect(page).to have_content("City can't be blank")
     end
