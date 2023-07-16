@@ -3,7 +3,9 @@ require "rails_helper"
 RSpec.describe "application" do
   before(:each) do
     @shelter_1 = Shelter.create!(foster_program: true, name: "County Pet Shelter", city: "Denver", rank: 1)
+    @shelter = Shelter.create!(name: "Heavenly pets", city: "Aurora, CO", foster_program: true, rank: 7)
     @app_1 = Application.create!(name: "John Smith", address: "123 Main", city: "Anytown", state: "CO", zip_code: "80000", description: "Because I have a house", application_status: "In Progress")
+    @pet = Pet.create!(adoptable: true, age: 3, breed: "GSD", name: "Charlie", shelter_id: @shelter.id)
     @pet_1 = Pet.create!(adoptable: true, age: 2, breed: "Golden Retriever", name: "Rover", shelter_id: @shelter_1.id)
     @pet_2 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "Kitty", shelter_id: @shelter_1.id)
     @app_1_pet_1 = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @app_1.id)
@@ -77,16 +79,14 @@ RSpec.describe "application" do
       end
 
       it "I see an input where I can search for Pets by name When I fill in this field with a Pet's name And I click submit, Then I am taken back to the application show page And under the search bar I see any Pet whose name matches my search" do
-        shelter = Shelter.create!(name: "Heavenly pets", city: "Aurora, CO", foster_program: true, rank: 7)
-        pet = Pet.create!(adoptable: true, age: 3, breed: "GSD", name: "Charlie", shelter_id: shelter.id)
 
         visit ("/applications/#{@app_1.id}")
+        save_and_open_page
 
-        expect(find("form")).to have_content("Search for Pet")
+        expect(find("form")).to have_content("Search for pet")
         fill_in "Name", with: "Charlie"
-
         click_button "Submit"
-
+        save_and_open_page
         expect(current_path).to eq("/applications/#{@app_1.id}")
         expect(page).to have_content("Charlie")
       end
