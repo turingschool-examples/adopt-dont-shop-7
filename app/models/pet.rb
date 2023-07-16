@@ -9,6 +9,10 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def self.search(search)
+    Pet.where("name ILIKE ?", "%#{search}%")
+  end
+
   def self.adoptable
     where(adoptable: true)
   end

@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   get "/applications", to: "applications#index"
   get "/applications/new", to: "applications#new"
   post "/applications", to: "applications#create"
+  
+  post "/application_search", to: "applications#show"
   get "/applications/:id", to: "applications#show"
   get "/applications/pets/:id", to: "pets#show"
-
+  
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
