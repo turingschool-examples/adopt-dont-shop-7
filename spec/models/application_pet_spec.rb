@@ -17,6 +17,7 @@ RSpec.describe ApplicationPet, type: :model do
       duplicate_pet_data = ApplicationPet.new(application: mr_ape, pet: scooby)
       duplicate_pet_data.valid?
 
+      expect(duplicate_pet_data).not_to be_valid
       expect(duplicate_pet_data.errors.full_messages).to include("Application already has that pet.")
     end
   end
