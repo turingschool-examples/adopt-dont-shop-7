@@ -31,4 +31,30 @@ RSpec.describe "Admin view of shelters index" do
   # so not really in our best interest at the moment, for the purposes of this project
   # but is something to consider
 
+  # For this story, you should fully leverage ActiveRecord methods in your query.
+
+  # 11. Shelters with Pending Applications
+  
+  # As a visitor
+  # When I visit the admin shelter index ('/admin/shelters')
+  # Then I see a section for "Shelters with Pending Applications"
+  # And in this section I see the name of every shelter that has a pending application
+
+  it "show a section with shelters with Pending Applications" do
+    sparky = @happy_tails.pets.create!(name: "Sparky", adoptable: true, age: 2, breed: "Beagle")
+    phylis = Application.create!(name: "Phylis", street_address: "1234 main circle", city: "Littleton", state: "CO", zipcode: "80241", reason_for_adoption: "I have a huge yard", status: "Pending")
+    fluffy = @sunnyside.pets.create!(name: "Fluffy", adoptable: true, age: 3, breed: "Sphynx")
+    PetApplication.create!(application: phylis, pet: sparky, status: "Pending")
+    PetApplication.create!(application: phylis, pet: fluffy, status: "Pending")
+    visit "/admin/shelters"
+
+    expect(page).to have_content("Shelters with Pending Applications")
+
+    within("#Pending_Applications") do
+       expect(page).to have_content("Happy Tails")
+       expect(page).to have_content("Sunnyside")
+       expect(page).to_not have_content("Apple of My Eye")
+    end
+  end
+
 end
