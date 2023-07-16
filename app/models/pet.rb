@@ -3,6 +3,8 @@ class Pet < ApplicationRecord
   validates :age, presence: true, numericality: true
   belongs_to :shelter
 
+  has_and_belongs_to_many :adoption_apps
+
   def shelter_name
     shelter.name
   end

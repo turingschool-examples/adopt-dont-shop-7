@@ -22,6 +22,8 @@
   <ul>
     <% @adopt_pets.each do |pet| %>
       <li><%= pet.name %></li>
+      <li> <%= button_to 'Adopt this Pet', {:action => "update",:pet_id => pet.id, :id=> @adoption_app.id}, method: "put", class:"button"%></li>
     <% end %>
   </ul>
 <% end %>
+
