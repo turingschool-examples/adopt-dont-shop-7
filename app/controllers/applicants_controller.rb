@@ -19,7 +19,6 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
-    #@pets = applicants.pets
     @pet_search = Pet.search(params[:pet_name])
   end
 

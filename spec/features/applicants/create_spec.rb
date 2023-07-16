@@ -26,7 +26,6 @@ RSpec.describe 'applicant form' do
         fill_in 'State', with: 'CO'
         fill_in 'Zip code', with: 80_202
         fill_in 'Description', with: 'I love dogs'
-        fill_in 'Status', with: 'In Progress'
         click_button 'Save'
 
         expect(current_path).to eq(applicant_path(Applicant.last))
@@ -49,7 +48,6 @@ RSpec.describe 'applicant form' do
             fill_in 'State', with: 'CO'
             fill_in 'Zip code', with: 'Denver'
             fill_in 'Description', with: 'I love dogs'
-            fill_in 'Status', with: 'In Progress'
             click_button 'Save'
     
             expect(current_path).to eq('/applicants/new')
