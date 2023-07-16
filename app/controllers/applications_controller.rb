@@ -2,7 +2,6 @@ class ApplicationsController < ApplicationController
 
   def show 
     @application = Application.find(params[:id])
-  
     @search_pets = Pet.where("name like ?", "%#{params[:pet_name]}%")
   end
 
@@ -23,6 +22,8 @@ class ApplicationsController < ApplicationController
   def update 
     application = Application.find(params[:id])
     application.update(application_params)
+    application.update(status: "Pending")
+    redirect_to "/applications/#{application.id}"
   end
 
   def index 
