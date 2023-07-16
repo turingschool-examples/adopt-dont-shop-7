@@ -34,10 +34,10 @@ santas_lil_helper = shelter_3.pets.create(adoptable: true, age: 1, breed: "Mutt"
 brian = shelter_3.pets.create(adoptable: true, age: 7, breed: "TV Pooch", name: "Brian Griffin")
 
 # Applications
-mr_ape = Application.create(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
-penny_lane = Application.create(name: "Penny Lane", street: "555 McCartney", city: "Hollywood", state: "California", zip: "90210", description: "Strawberry Fields Forever", status: "Pending")
-paul = Application.create(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "England", zip: "48", description: "I still believe love is all you need.  I don't know a better message than that.", status: "Accepted")
-ringo = Application.create(name: "Ringo", street: "235 River Ferry", city: "Liverpool", state: "England", zip: "45", description: "I get by with a little help from my friends", status: "Rejected")
+mr_ape = Application.create(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "CO", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
+penny_lane = Application.create(name: "Penny Lane", street: "555 McCartney", city: "Hollywood", state: "CA", zip: "90210", description: "Strawberry Fields Forever", status: "Pending")
+paul = Application.create(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "UK", zip: "48J77", description: "I still believe love is all you need.  I don't know a better message than that.", status: "Accepted")
+ringo = Application.create(name: "Ringo", street: "235 River Ferry", city: "Liverpool", state: "UK", zip: "45J83", description: "I get by with a little help from my friends", status: "Rejected")
 
 
 # ApplicationPets
