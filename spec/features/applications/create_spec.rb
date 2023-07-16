@@ -68,7 +68,7 @@ RSpec.describe "application creation" do
       click_on "Submit"
 
       expect(page).to have_current_path("/applications/new")
-      expect(page).to have_content("Error: Name can't be blank, Street can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Description can't be blank, Zip is the wrong length (should be 5 characters), State Please use 2 capital letters for the state abbreviation")
+      expect(page).to have_content("Error: Name can't be blank, Street can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Description can't be blank, Zip is the wrong length (should be 5 characters), State must be an abbreviation of two capital letters")
     end
 
     it "if form is missing a single field, will display an error and re-render the form" do
@@ -97,7 +97,7 @@ RSpec.describe "application creation" do
       click_on "Submit"
 
       expect(page).to have_current_path("/applications/new")
-      expect(page).to have_content("Error: Zip is the wrong length (should be 5 characters), State Please use 2 capital letters for the state abbreviation")
+      expect(page).to have_content("Error: Zip is the wrong length (should be 5 characters), State must be an abbreviation of two capital letters")
     end
   end
 end
