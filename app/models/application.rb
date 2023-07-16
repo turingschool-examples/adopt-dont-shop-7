@@ -6,3 +6,4 @@ class Application < ApplicationRecord
   validates :zip, length: { is: 5 }
   validates :state, format: { with: /[A-Z]{2}/, message: "Please use 2 capital letters for the state abbreviation" }
 end
+

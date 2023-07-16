@@ -42,7 +42,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[x] done
 
 2. Starting an Application
 
@@ -78,7 +78,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+[x] done
 
 4. Searching for Pets for an Application
 
