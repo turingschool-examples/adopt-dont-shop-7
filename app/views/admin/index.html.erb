@@ -1,7 +1,12 @@
-<h1>Applications</h1>
+<h1>Shelters</h1>
 <% @shelters.each do |shelter| %>
   <h3><%= shelter.name %></h3>
   <p><%= shelter.city %></p>
   <p><%= shelter.foster_program %></p>
   <p><%= shelter.rank %></p>
 <% end %>
+
+<h3>Shelters With Pending Applications</h3>
+    <%@shelters_with_pending_applications.each do |shelter| %>
+        <h5><%= shelter.name %></h5>
+    <% end %>

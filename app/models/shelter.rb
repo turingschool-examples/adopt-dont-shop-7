@@ -5,6 +5,9 @@ class Shelter < ApplicationRecord
 
   has_many :pets, dependent: :destroy
 
+  has_many :shelter_applications
+  has_many :applications, through: :shelter_applications
+
   def self.order_by_recently_created
     order(created_at: :desc)
   end
@@ -16,9 +19,14 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
-def self.reverse_alpha
-    find_by_sql("SELECT * FROM shelters ORDER BY shelters.name DESC")
-end
+  def self.reverse_alpha
+      find_by_sql("SELECT * FROM shelters ORDER BY shelters.name DESC")
+  end
+
+  def self.pending_applications
+    # Application.where(status: "Pending")
+      Shelter.joins(:pets, :applications).where(applications: { status: 'pending' })
+  end
 
   def pet_count
     pets.count

@@ -13,5 +13,39 @@ RSpec.describe "Admin shelters index" do
       expect(shelter_3.name).to appear_before(shelter_1.name)
 
     end
+
+    it "has a section for shelters with pending applications" do
+      visit "/admin/shelters"
+
+      expect(page).to have_content("Shelters With Pending Applications")
+    end
+
+    it "displays the name of every shelter that has a pending application" do 
+      shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
+      shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
+
+      scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
+      scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "Pending")
+      
+      # visit "/applications/#{application_1.id}"
+      # fill_in "search", with: "Scrappy"
+      # click_button "Search"
+      # click_button "Adopt this Pet"
+      # fill_in "application_description", with: "I love dogs"
+      # click_button "Submit"
+      # save_and_open_page
+      
+      visit "/admin/shelters"
+      shelter_1.applications << application_1
+      
+      expect(shelter_1.applications.first).to eql(application_1)
+      expect(application_1.status).to eql("Pending")
+      save_and_open_page
+      expect(shelter_1.applications)
+      # expect(shelter_1.name).to appear_after("Shelters With Pending Applications")
+
+    end
   end
 end

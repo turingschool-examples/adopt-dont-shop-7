@@ -9,6 +9,7 @@ class Application < ApplicationRecord
   
   has_many :application_pets
   has_many :pets, through: :application_pets
-
+  has_many :shelter_applications
+  has_many :shelters, through: :shelter_applications
 
 end
