@@ -55,7 +55,7 @@ RSpec.describe "application" do
     visit "/applications/#{@application_1.id}"
 
     expect(page).to have_content("Matt Lim")
-  
+
     click_link 'Lucille Bald'
     expect(page).to have_current_path("/applications/pets/#{@pet_1.id}")
   end
@@ -69,13 +69,13 @@ RSpec.describe "application" do
           describe "Then I am taken back to the new applications page" do
             it "And I see a message that I must fill in those fields" do
               @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
-              
+              # require 'pry'; binding.pry
               visit "/applications"
               click_link "Start an Application"
               click_button "Submit Application"
 
               expect(current_path).to eq("/applications/new")
-              expect(page).to have_content("Error all fields must be filled in")          
+              expect(page).to have_content("Error: Name of applicant can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank, Name of applicant Please provide the name of the applicant., Street address Please provide the street address., City Please provide the city., State Please provide the state., Zip code Please provide the zip code., Description Please provide a description.")
             end
           end
         end

@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
   def create
     @application = Application.new(post_params)
+    @application.shelter_id = choose_shelter_id
     if @application.save
       redirect_to action: 'index'
     else
@@ -28,7 +29,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  
   private
 
   def post_params
