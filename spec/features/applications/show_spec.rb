@@ -72,16 +72,15 @@ RSpec.describe "application" do
   end
 
   describe "When I visit an application's show page" do
+    before (:each) do
+      visit ("/applications/#{@app_1.id}")
+    end
     describe "And that application has not been submitted" do
       it "Then I see a section on the page to 'Add a Pet to this Application'" do
-        visit ("/applications/#{@app_1.id}")
         expect(page).to have_content("Add a Pet to this Application")
       end
 
       it "I see an input where I can search for Pets by name When I fill in this field with a Pet's name And I click submit, Then I am taken back to the application show page And under the search bar I see any Pet whose name matches my search" do
-
-        visit ("/applications/#{@app_1.id}")
-
         expect(find("#pet_search")).to have_content("Search for pet")
         fill_in "Name", with: "Charlie"
         click_button "Submit"
@@ -92,8 +91,6 @@ RSpec.describe "application" do
 
     describe "And I search for a Pet by name" do
       it "And I see the names Pets that match my search" do
-        visit ("/applications/#{@app_1.id}")
-
         expect(page).to have_content("#{@pet_1.name}")
         expect(page).to_not have_content("#{@pet_2.name}")
 
@@ -105,8 +102,6 @@ RSpec.describe "application" do
       end
 
       it "Then next to each Pet's name I see a button to 'Adopt this Pet'" do
-        visit ("/applications/#{@app_1.id}")
-
         fill_in "Name", with: "Charlie"
         click_button "Submit"
 
@@ -114,8 +109,6 @@ RSpec.describe "application" do
       end
 
       it "When I click one of these buttons Then I am taken back to the application show page And I see the Pet I want to adopt listed on this application" do
-        visit ("/applications/#{@app_1.id}")
-
         fill_in "Name", with: "Charlie"
         click_button "Submit"
         click_button "Adopt this Pet"
@@ -124,6 +117,27 @@ RSpec.describe "application" do
         expect(page).to have_content("#{@pet_1.name}")
         expect(page).to have_content("#{@pet.name}")
         expect(page).to_not have_content("#{@pet_2.name}")
+      end
+    end
+
+    describe "And I have added one or more pets to the application" do
+      it "I see a section to submit my application And in that section I see an input to enter why I would make a good owner for these pet(s)" do
+        expect(page).to have_content("Submit my application")
+        expect(find("#submit_application")).to have_field("Submit my application", type: "textarea")
+      end
+
+      it "When I fill in that input And I click a button to submit this application
+      Then I am taken back to the application's show page
+      And I see an indicator that the application is 'Pending'
+      And I see all the pets that I want to adopt
+      And I do not see a section to add more pets to this application" do
+        fill_in "Description", with: "I can afford food"
+        click_button "Submit my application"
+
+        expect(current_path).to eq("/applications/#{@app_1.id}")
+        expect(page).to have_content("Application Status: Pending")
+        expect(page).to have_content("Rover")
+        expect(page).to_not have_content("Add a Pet to this Application")
       end
     end
   end
