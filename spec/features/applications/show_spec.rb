@@ -71,6 +71,23 @@ RSpec.describe "Application 'show' Page", type: :feature do
         end
       end
 
+<<<<<<< HEAD
+      describe "Adopt this Pet" do
+        it "has an 'Adopt this Pet' button next to each Pet name that links back to the application show page" do
+          visit "/applications/#{@application.id}"
+          
+          expect(page).to_not have_content(@pet_3.name)
+          fill_in "Pet Search", with: @pet_3.name
+          click_button "Submit"
+          
+          expect(page).to have_button("Adopt this Pet")
+          click_button "Adopt this Pet"
+      
+          expect(page).to have_content(@pet_3.name)
+          expect(current_path).to eq("/applications/#{@application.id}")
+        end
+      end
+=======
       # User Story 6: Submit an Applicaiton 
       # ====START TESTS====
       describe "and I have added one or more pets to the application" do
@@ -147,6 +164,7 @@ RSpec.describe "Application 'show' Page", type: :feature do
       end
       # ====END USER STORY 7 TESTS====
 
+>>>>>>> ad3cb39eacf4886389e38a5445a6aafd41c81e62
     end
   end
 end
