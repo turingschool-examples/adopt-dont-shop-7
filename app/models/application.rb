@@ -5,5 +5,10 @@ class Application < ApplicationRecord
   def pets?
     pets.present?
   end
+
+  def can_submit?
+    status == "In Progress" and
+    pets?
+  end
 end
 
