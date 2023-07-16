@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "application show page" do
 
-#[ ] done
 # 1. Application Show Page
 # As a visitor
 # When I visit an applications show page
@@ -117,10 +116,8 @@ RSpec.describe "application show page" do
     end
   end
 
-# [ ] done
 
 # 6. Submit an Application
-
 # As a visitor
 # When I visit an application's show page
 # And I have added one or more pets to the application
@@ -185,6 +182,26 @@ RSpec.describe "application show page" do
         expect(page).to_not have_content("Add a Pet to this Application")
         expect(page).to_not have_button("Search")
       end
+    end
+  end
+
+# 7. No Pets on an Application
+# As a visitor
+# When I visit an application's show page
+# And I have not added any pets to the application
+# Then I do not see a section to submit my application
+
+  describe "when i visit an application show page" do
+    it "does not display a section to submit an application if no pets are added to the application" do
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+
+      visit "/applications/#{application_1.id}"
+
+      expect(page).to_not have_content("Submit Application")
+      expect(page).to_not have_button("Submit")
+      expect(page).to_not have_content("Application description")
+      expect(page).to have_content("Application Status: In Progress")
     end
   end
 
