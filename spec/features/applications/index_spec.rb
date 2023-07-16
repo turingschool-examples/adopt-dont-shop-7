@@ -10,8 +10,8 @@ RSpec.describe "applications index page" do
       it "has a link to the applications show page" do
         visit "/"
     
-        expect(page).to have_link("Applications")
-        click_link("Applications")
+        expect(page).to have_link("View Applications")
+        click_link("View Applications")
         expect(page).to have_current_path("/applications")
         click_link(@application.name)
         expect(page).to have_content("Mr. Ape")
