@@ -8,11 +8,11 @@
 
 <h3>Pets</h3>
 <% if @application.pets? %>
-  <ul>
-    <% @application.pets.each do |pet| %>
-      <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
-    <% end %>
-  </ul>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+  <% end %>
+</ul>
 <% else %>
   <p>Please add a pet to this application.</p>
 <% end %>
