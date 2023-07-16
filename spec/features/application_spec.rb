@@ -122,11 +122,12 @@ RSpec.describe "application" do
       click_button('Search Pets')
       
       expect(current_path).to eq("/applications/#{@application_2.id}")
-      expect(page).to have_content("Ann")
+      expect("Ann").to_not appear_before("Add a Pet to this Application")
       click_button("Adopt this Pet")
 
       expect(current_path).to eq("/applications/#{@application_2.id}")
       expect(@application_2.pets[0].name).to eq("Ann")
+      expect("Ann").to appear_before("Add a Pet to this Application")
       
     end
   end
