@@ -22,6 +22,7 @@
   <ul>
     <% @adopt_pets.each do |pet| %>
       <li><%= pet.name %></li>
+      <li><%= button_to "Adopt this Pet", "/adoption_apps/#{@adoption_app.id}", method: :patch %></li>
     <% end %>
   </ul>
 <% end %>

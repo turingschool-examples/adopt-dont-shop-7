@@ -37,6 +37,17 @@ class AdoptionAppsController < ApplicationController
   
     render 'show', adopt_pets: @adopt_pets
   end
+
+  def update
+    require 'pry'; binding.pry
+    pet = Pet.find(params[:id])
+    adopted_pet = AdoptionApp.update({
+      pet_names: search_pets
+    })
+    adopted_pet.save
+    redirect_to "/adoption_apps/#{adopted_pet.id}"
+
+  end
   
   private
 

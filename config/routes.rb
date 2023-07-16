@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post "/adoption_apps", to: "adoption_apps#create"
   get "/adoption_apps/:id", to: "adoption_apps#show"
   get "/adoption_apps/:id/search_pets", to: "adoption_apps#search_pets"
+  patch "/adoption_apps/:id", to: "adoption_apps#update"
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
