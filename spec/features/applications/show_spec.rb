@@ -15,15 +15,12 @@ before :each do
   @application_1 = Application.create!(name: 'John Smith', street_address: '1234 Fake Street', city: 'Denver', state: 'CO', zip_code: 80202, description: 'Big Yak guy, but a dog will do', status: 'In Progress')
   @application_2 = Application.create!(name: 'Jane Doe', street_address: '5678 Wannabe Road', city: 'Boulder', state: 'CO', zip_code: 80301, description: 'I love cats!', status: 'In Progress')
   @application_3 = Application.create!(name: 'Joe Schmoe', street_address: '90210 Round Drive', city: 'Dallas', state: 'TX', zip_code: 75214, description: 'I like Turtles!', status: 'In Progress')
-
-  @application_pets_1 = ApplicationPet.create!(application: @application_1, pet: @pet_1)
-  @application_pets_2 = ApplicationPet.create!(application: @application_2, pet: @pet_2)
-  @application_pets_3 = ApplicationPet.create!(application: @application_3, pet: @pet_3)
 end
 
   # US_1 Application Show Page
   describe 'when I visit the applications show page' do 
     it 'displays the application form' do 
+      @application_1.pets << @pet_1
       visit "/applications/#{@application_1.id}"
 
       expect(page).to have_content(@application_1.name)
