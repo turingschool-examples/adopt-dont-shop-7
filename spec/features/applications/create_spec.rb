@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "application creation" do
   before(:each) do
-    @mr_ape = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
-    @penny_lane = Application.create!(name: "Penny Lane", street: "555 McCartney", city: "Hollywood", state: "California", zip: "90210", description: "Strawberry Fields Forever", status: "In Progress")
+    @mr_ape = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "CO", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
+    @penny_lane = Application.create!(name: "Penny Lane", street: "555 McCartney", city: "Hollywood", state: "CA", zip: "90210", description: "Strawberry Fields Forever", status: "In Progress")
   end
 
   describe "new application" do
@@ -63,5 +63,41 @@ RSpec.describe "application creation" do
       expect(page).to have_content("In Progress")
     end
 
+    it "if form is not filled in, will display an error and re-render the form" do
+      visit "/applications/new"
+      click_on "Submit"
+
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank, Street can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Description can't be blank, Zip is the wrong length (should be 5 characters), State must be an abbreviation of two capital letters")
+    end
+
+    it "if form is missing a single field, will display an error and re-render the form" do
+      visit "/applications/new"
+
+      fill_in "Name", with: "Jill"
+      fill_in "Street", with: "99 Memory Ln."
+      fill_in "State", with: "UT"
+      fill_in "Zip", with: "12345"
+      fill_in "Description", with: "The liger is my fav animal"
+      click_on "Submit"
+
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Error: City can't be blank")
+    end
+
+    it "if :state ro :zip are incorrecly formatted, will display an error and re-render the form" do
+      visit "/applications/new"
+
+      fill_in "Name", with: "Jill"
+      fill_in "Street", with: "99 Memory Ln."
+      fill_in "city", with: "Townsville"
+      fill_in "State", with: "az"
+      fill_in "Zip", with: "1234"
+      fill_in "Description", with: "The liger is my fav animal"
+      click_on "Submit"
+
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Error: Zip is the wrong length (should be 5 characters), State must be an abbreviation of two capital letters")
+    end
   end
 end

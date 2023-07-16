@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "applications index page" do
   before(:each) do
-    @application = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
+    @application = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "CO", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
   end
 
   describe "as a visitor" do
