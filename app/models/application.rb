@@ -4,6 +4,6 @@ class Application < ApplicationRecord
 
   validates :name, :street, :city, :state, :zip, :description, presence: true
   validates :zip, length: { is: 5 }
-  validates :state, format: { with: /[A-Z]{2}/, message: "Please use 2 capital letters for the state abbreviation" }
+  validates :state, format: { with: /[A-Z]{2}/, message: "must be an abbreviation of two capital letters" }
 end
 
