@@ -8,20 +8,31 @@
 <h4>Description: <%= @application.description %></h4>
 <h4>Status: <%= @application.status %></h4>
 
-<h4>Add a Pet to this Application:</h4>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :pet_name, "Search by Pet Name:" %>
-  <%= f.text_field :pet_name %>
-  <%= f.submit "Submit" %>
-<% end %>
+<% if @application.status != "Pending" %>
+  <h4>Add a Pet to this Application:</h4>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :pet_name, "Search by Pet Name:" %>
+    <%= f.text_field :pet_name %>
+    <%= f.submit "Submit" %>
+  <% end %>
 
-<% @search_pets.each do |pet| %>
-  <li><%= pet.name %><%= button_to "Adopt #{pet.name}", {controller: :application_pets, pet_id: pet.id, application_id: @application.id, action: :create} %></li>
+  <% @search_pets.each do |pet| %>
+    <li><%= pet.name %><br><%= button_to "Adopt #{pet.name}", {controller: :application_pets, pet_id: pet.id, application_id: @application.id, action: :create} %></li>
+  <% end %>
 <% end %>
-
 
 <% @application.pets.each do |pet| %>
 <div id ="pet-<%= pet.id %>">
   <li> <%= link_to pet.name, pets_path(pet) %></li>
   </div>
 <% end %>
+
+<%# update application status to pending %>
+
+<h4>Submit Application:</h4><hr>
+
+  <%= form_with url: "/applications/#{params[:id]}", method: :patch, local: true do |f| %>
+    <%= f.label :description, "Why would you make a good pet owner?" %><br>
+    <%= f.text_area :description %><br>
+    <%= f.submit "Submit Application" %>
+  <% end %>

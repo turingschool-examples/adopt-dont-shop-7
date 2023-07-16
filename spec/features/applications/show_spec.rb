@@ -37,19 +37,7 @@ end
     end
   end
 
-  # 4. Searching for Pets for an Application
-
-  # As a visitor
-  # When I visit an application's show page
-  # And that application has not been submitted,
-  # Then I see a section on the page to "Add a Pet to this Application"
-
-  # In that section I see an input where I can search for Pets by name
-
-  # When I fill in this field with a Pet's name
-  # And I click submit,
-  # Then I am taken back to the application show page
-  # And under the search bar I see any Pet whose name matches my search
+  # US_4. Searching for Pets for an Application
 
   describe 'when I visit an applications show page' do
     describe 'then I see a section on the page to "Add a Pet to this Application"' do
@@ -75,17 +63,8 @@ end
       end
       # [ ] done
 
-      # 5. Add a Pet to an Application
+      # US_5. Add a Pet to an Application
       
-      # As a visitor
-      # When I visit an application's show page
-      # And I search for a Pet by name
-      # And I see the names Pets that match my search
-      # Then next to each Pet's name I see a button to "Adopt this Pet"
-
-      # When I click one of these buttons
-      # Then I am taken back to the application show page
-      # And I see the Pet I want to adopt listed on this application
     describe "When I search for a pets name" do
       describe "I see the names of pets that match my search" do
         it "Then I see a button to adopt this pet" do
@@ -113,6 +92,61 @@ end
               expect(page).to have_content("Spud")
             end
           end
+        end
+      end
+    end
+  end
+
+  # US_6. Submit an Application
+
+  # As a visitor
+  # When I visit an application's show page
+  # And I have added one or more pets to the application
+  # Then I see a section to submit my application
+  # And in that section I see an input to enter why I would make a good owner for these pet(s)
+
+  # When I fill in that input
+  # And I click a button to submit this application
+  # Then I am taken back to the application's show page
+
+  # And I see an indicator that the application is "Pending"
+
+  # And I see all the pets that I want to adopt
+  # And I do not see a section to add more pets to this application
+
+  describe "When I visit an application show page" do 
+    describe "and I have added one or more pets to the application" do 
+      describe "then I see a section to submit my application" do 
+        it 'displays an input to enter why I would make a good owner for these pet(s)' do 
+          visit "/applications/#{Application.last.id}"
+
+          click_on "Adopt Spud"
+          click_on "Adopt SpuddyBuddy"
+        
+          expect(page).to have_content("In Progress")
+          expect(page).to have_field(:description)
+          expect(page).to have_button("Submit Application")
+
+          fill_in :description, with: "I like african bullfrogs!"
+          click_on "Submit Application"
+
+          expect(current_path).to eq("/applications/#{Application.last.id}")
+          expect(page).to have_content("I like african bullfrogs!")
+
+          
+          
+          within "#pet-#{@pet_4.id}" do 
+            expect(page).to have_content("Spud")
+          end
+
+          within "#pet-#{@pet_5.id}" do 
+            expect(page).to have_content("SpuddyBuddy")
+          end
+          expect(page).to have_content("Pending")
+          
+          #use partials for the removal of the add a pet section
+          expect(page).to_not have_content("Add a Pet to this Application")
+          save_and_open_page
         end
       end
     end
