@@ -6,9 +6,15 @@
 <p><strong>Description: </strong><%= @application.description %></p>
 <p><strong>Status: </strong><%= @application.status %></p>
 
-<h3>Pets</h3><br>
-<% @application.pets.each do |pet| %>
-  <%= link_to pet.name, "/pets/#{pet.id}"  %>
+<h3>Pets</h3>
+<% if @application.pets? %>
+  <ul>
+    <% @application.pets.each do |pet| %>
+      <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Please add a pet to this application.</p>
 <% end %>
 
 <% if @application.status == "In Progress" %>
