@@ -37,14 +37,16 @@ RSpec.describe "Admin shelters index" do
       # click_button "Submit"
       # save_and_open_page
       
-      visit "/admin/shelters"
       shelter_1.applications << application_1
+      visit "/admin/shelters"
+
+      save_and_open_page
       
       expect(shelter_1.applications.first).to eql(application_1)
       expect(application_1.status).to eql("Pending")
-      save_and_open_page
-      expect(shelter_1.applications)
-      # expect(shelter_1.name).to appear_after("Shelters With Pending Applications")
+      expect(page).to have_content(shelter_1.name)
+      # expect(page).not_to have_content(shelter_2.name)
+      # expect(page).not_to have_content(shelter_3.name)
 
     end
   end
