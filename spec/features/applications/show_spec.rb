@@ -81,14 +81,49 @@ RSpec.describe "application" do
       it "I see an input where I can search for Pets by name When I fill in this field with a Pet's name And I click submit, Then I am taken back to the application show page And under the search bar I see any Pet whose name matches my search" do
 
         visit ("/applications/#{@app_1.id}")
-        save_and_open_page
 
         expect(find("form")).to have_content("Search for pet")
         fill_in "Name", with: "Charlie"
         click_button "Submit"
-        save_and_open_page
         expect(current_path).to eq("/applications/#{@app_1.id}")
         expect(page).to have_content("Charlie")
+      end
+    end
+
+    describe "And I search for a Pet by name" do
+      it "And I see the names Pets that match my search" do
+        visit ("/applications/#{@app_1.id}")
+
+        expect(page).to have_content("#{@pet_1.name}")
+        expect(page).to_not have_content("#{@pet_2.name}")
+
+        fill_in "Name", with: "Charlie"
+        click_button "Submit"
+
+        expect(current_path).to eq("/applications/#{@app_1.id}")
+        expect(page).to have_content("Charlie")
+      end
+
+      it "Then next to each Pet's name I see a button to 'Adopt this Pet'" do
+        visit ("/applications/#{@app_1.id}")
+
+        fill_in "Name", with: "Charlie"
+        click_button "Submit"
+
+        expect(page).to have_button("Adopt this Pet")
+      end
+
+      it "When I click one of these buttons Then I am taken back to the application show page And I see the Pet I want to adopt listed on this application" do
+        visit ("/applications/#{@app_1.id}")
+
+        fill_in "Name", with: "Charlie"
+        click_button "Submit"
+        click_button "Adopt this Pet"
+
+        expect(current_path).to eq("/applications/#{@app_1.id}")
+        expect(page).to have_content("#{@pet_1.name}")
+        expect(page).to have_content("#{@pet.name}")
+        expect(page).to_not have_content("#{@pet_2.name}")
       end
     end
   end

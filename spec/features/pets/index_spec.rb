@@ -107,7 +107,6 @@ RSpec.describe "the pets index" do
       fill_in "zip_code", with: "12345"
       fill_in "description", with: "Friendly"
       click_button("Submit")
-      save_and_open_page
       expect(page).to have_content("John Smith")
       expect(page).to have_content("123 Any Street")
       expect(page).to have_content("Any Town")
