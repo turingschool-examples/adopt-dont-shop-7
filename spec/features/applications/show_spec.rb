@@ -71,7 +71,8 @@ RSpec.describe "Application 'show' Page", type: :feature do
         end
       end
 
-      # User Story 6: Submit an Applicaiton
+      # User Story 6: Submit an Applicaiton 
+      # ====START TESTS====
       describe "and I have added one or more pets to the application" do
         it "then I see a section to submit my application" do
           petless = Application.create!(name: "Petless Tester", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I do not want any pets and have not added any to my application", status: "In Progress")
@@ -106,6 +107,7 @@ RSpec.describe "Application 'show' Page", type: :feature do
             within("#application_submission") do
               fill_in "description_owner", with: "I would make a good owner because I am really, really, really good with dogs"
               click_button "Submit Application"
+              @application.reload
             end            
           end
 
@@ -113,14 +115,22 @@ RSpec.describe "Application 'show' Page", type: :feature do
             expect(current_path).to eq ("/applications/#{@application.id}")
           end
 
+          it "and I see indicator that the application is 'Pending'" do
+            expect(@application.status).to eq("Pending")
+            expect(page).to have_content("Status: Pending")
+          end
 
-          it "and I see indicator that the application is 'Pending'"
+          it "and I see all the pets that I want to adopt" do
+            expect(page).to have_content(@pet_1.name)
+            expect(page).to have_content(@pet_2.name)
+          end
 
-          it "and I see all the pets that I want to adopt"
-
-          it "and I do not see a section to add more pets to this application"
+          it "and I do not see a section to add more pets to this application" do
+            expect(page).to_not have_selector("#add-pets")
+          end
         end
       end
+      # ====END USER STORY 6 TESTS====
     end
   end
 end
