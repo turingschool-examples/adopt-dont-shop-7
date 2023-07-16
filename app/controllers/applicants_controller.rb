@@ -7,15 +7,20 @@ class ApplicantsController < ApplicationController
 
   def create
     @applicant = Applicant.new(applicant_params)
-    if @applicant.save
+    if @applicant.valid?
+      @applicant.save
       redirect_to applicant_path(@applicant)
     else
-      render :new
+      flash[:error] = "ERROR invalid data. Please fill out feilds correctly"
+      redirect_to "/applicants/new"
+      #render :new 
     end
   end
 
   def show
     @applicant = Applicant.find(params[:id])
+    #@pets = applicants.pets
+    @pet_search = Pet.search(params[:pet_name])
   end
 
   private
