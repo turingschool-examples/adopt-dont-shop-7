@@ -97,7 +97,7 @@ RSpec.describe "application creation" do
       click_on "Submit"
 
       expect(page).to have_current_path("/applications/new")
-      expect(page).to have_content("Error: Zip is the wrong length (should be 5 characters), State Please use 2 capital letters for the state abbreviation")
+      expect(page).to have_content("Error: Zip is the wrong length (should be 5 characters), State must be an abbreviation of two capital letters")
     end
   end
 end
