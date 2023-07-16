@@ -21,8 +21,9 @@
   <h2>Matching Pets</h2>
   <ul>
     <% @adopt_pets.each do |pet| %>
-      <p><%= pet.name %></p>
-      <%= button_to "Adopt this Pet", "/adoption_apps/#{@adoption_app.id}", :method => "put" %>
+      <li><%= pet.name %></li>
+      <li> <%= button_to 'Adopt this Pet', {:action => "update",:pet_id => pet.id, :id=> @adoption_app.id}, method: "put", class:"button"%></li>
     <% end %>
   </ul>
 <% end %>
+
