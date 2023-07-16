@@ -5,11 +5,8 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.includes(:pets).find(params[:id])
-    # @pets = Pet.search(params[:search]) if params[:search].present?
     if params[:search].present?
       @pets = Pet.search(params[:search])
-    # else
-    #   @pets = Pet.adoptable
     end
   end
 

@@ -116,4 +116,76 @@ RSpec.describe "application show page" do
       expect(scrappy.name).to appear_before("Add a Pet to this Application")
     end
   end
+
+# [ ] done
+
+# 6. Submit an Application
+
+# As a visitor
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this 
+
+  describe "submitting an application" do
+    describe "when i visit an application show page" do
+      it "has one or more pets on the application" do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+        scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+        application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+
+        visit "/applications/#{application_1.id}"
+
+        fill_in "search", with: "Scrappy"
+        click_button "Search"
+        click_button "Adopt this Pet"
+
+        expect(application_1.pets).to eq([scrappy])
+      end
+
+      it "displays a section to submit my application and fill out a description of why i would be a good pet owner" do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+        scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+        application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+
+        visit "/applications/#{application_1.id}"
+
+        fill_in "search", with: "Scrappy"
+        click_button "Search"
+        click_button "Adopt this Pet"
+
+        expect(page).to have_selector("form")
+      end
+
+      it " fills in form and clicks the submit button and redirects user to application show page where, there is no longer a field to add more pets and the application status changes to pending" do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+        scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+        application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
+
+        visit "/applications/#{application_1.id}"
+
+        fill_in "search", with: "Scrappy"
+        click_button "Search"
+        click_button "Adopt this Pet"
+
+        fill_in "application_description", with: "I love dogs"
+
+        click_button "Submit"
+
+        expect(page).to have_content("Pending")
+        expect(page).to_not have_content("Add a Pet to this Application")
+        expect(page).to_not have_button("Search")
+      end
+    end
+  end
+
 end

@@ -12,25 +12,38 @@
   </ul>
 <% end %>
 
+<% if @application.status != "Pending" %>
 <h4> Add a Pet to this Application</h4>
 
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
-
-<% if @pets %>
-  <h4>Pets Matching Your Search:</h4>
-  <% @pets.each do |pet| %>
-    <ul>
-      <li><%= link_to "#{pet.name}", "pets/#{pet.id}" %></li>
-    </ul>
-    <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
-    <%= f.hidden_field :pet_id, value: pet.id %>
-    <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :post, params: {application_id: @application.id, pet_id: pet.id} %>  
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
     <% end %>
-  <% end %>
-<% end %>
-
-<h3>Application Status: <%= @application.status %></h3>
+    
+    <% if @pets %>
+    <h4>Pets Matching Your Search:</h4>
+    <% @pets.each do |pet| %>
+      <ul>
+      <li><%= link_to "#{pet.name}", "pets/#{pet.id}" %></li>
+      </ul>
+      <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
+      <%= f.hidden_field :pet_id, value: pet.id %>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :post, params: {application_id: @application.id, pet_id: pet.id} %>  
+      <% end %>
+      <% end %>
+      <% end %>
+      
+      <br></br>
+      <% if @application.pets.count >= 1%>  
+      <h4>Submit Application:</h4>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label :application_description %>
+      <%= f.text_area :application_description %>
+      <%= f.submit "Submit" %>
+      <% end %>
+      <% end %>
+      
+      
+      <% end %>
+      <h3>Application Status: <%= @application.status %></h3>

@@ -6,10 +6,12 @@ class ApplicationPetsController < ApplicationController
     @application.pets << @pet
 
     redirect_to "/applications/#{@application.id}"
-
-    # @pet_application = ApplicationPet.new(pet_application_params)
-    # @pet_application.save
-    # redirect_to "/applications/#{@application.id}"
+  end
+  
+  def submit_application
+    @application = Application.find(params[:id])
+    @application.update(status: "Pending")
+    redirect_to "/applications/#{@application.id}"
     
   end
 end
