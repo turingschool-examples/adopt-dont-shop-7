@@ -93,16 +93,26 @@ RSpec.describe "Application 'show' Page", type: :feature do
           visit "/applications/#{@application.id}"
 
           within("#application_submission") do
-            expect(page).to have_field(:description_pets, type: 
+            expect(page).to have_field(:description_owner, type: 
             "textarea")
             expect(page).to have_field(:status, type: :hidden)
           end
         end
 
         describe "When I fill in that input and click a button to submit the application" do
-          it "then I am taken back to the application's show page" do
+          before(:each) do
+            visit "/applications/#{@application.id}"
 
-          visit "/applications/#{@application.id}"
+            within("#application_submission") do
+              fill_in "description_owner", with: "I would make a good owner because I am really, really, really good with dogs"
+              click_button "Submit Application"
+            end            
+          end
+
+          it "then I am taken back to the application's show page" do
+            expect(current_path).to eq ("/applications/#{@application.id}")
+          end
+
 
           it "and I see indicator that the application is 'Pending'"
 
