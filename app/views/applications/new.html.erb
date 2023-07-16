@@ -1,17 +1,18 @@
 <h1>New Application</h1>
-<%= form_with url: "/applications", method: :post, local: true, id: "new_application" do |form|%>
+<h3>Please complete all fields</h3>
+<%= form_with url: "/applications", method: :post, data: {turbo: false}, local: true, id: "new_application" do |form|%>
   <%= form.label :name %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name %></br>
   <%= form.label :address %>
-  <%= form.text_field :address %>
+  <%= form.text_field :address %></br>
   <%= form.label :city %>
-  <%= form.text_field :city %>
+  <%= form.text_field :city %></br>
   <%= form.label :state %>
-  <%= form.text_field :state %>
+  <%= form.text_field :state %></br>
   <%= form.label :zip_code %>
-  <%= form.text_field :zip_code %>
+  <%= form.text_field :zip_code %></br>
   <%= form.label :description %>
-  <%= form.text_field :description %>
+  <%= form.text_field :description %></br>
   <%= hidden_field_tag :application_status, "In Progress" %>
   <%= form.submit "Submit" %>
 <% end %>
