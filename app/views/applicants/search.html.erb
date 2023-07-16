@@ -1,0 +1,10 @@
+<h2> Search Results </h2>
+<% if @pets.any? %>
+<ul> 
+<% @pets.each do |pet| %>
+<li> <%= pet.name %> </li>
+<% end %>
+</ul>
+<% else %>
+<p> no matching pets found </p>
+<% end %>

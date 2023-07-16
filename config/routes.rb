@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get '/', to: 'application#welcome'
 
   get '/applicants', to: 'applicants#index', as: 'applicants'
+  get '/applicants/:id/search', to: 'applicants#search', as: 'applicant_search'
   get '/applicants/new', to: 'applicants#new', as: 'new_applicant'
   get '/applicants/:id', to: 'applicants#show', as: 'applicant'
   post '/applicants', to: 'applicants#create', as: 'create_applicant'
