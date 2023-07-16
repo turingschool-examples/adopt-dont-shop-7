@@ -60,4 +60,29 @@ RSpec.describe "Applicants Show" do
             
         end
     end
+
+    describe 'After an applicant has added one or more pets to the application' do
+        it 'allows you to sumbit the application' do
+            visit "/applicants/#{@applicant_1.id}"
+
+            expect(page).to have_button("Add a Pet to this Application!")
+
+            within "#search" do
+                fill_in(:search, with: "Clawdia")
+                click_button("Search")
+            end
+            
+            click_button("Adopt this Pet")
+
+            within "#submit" do
+                fill_in(:description, with: "I want cat")
+                click_button("Submit")
+            end
+
+            expect(page).to have_content("Clawdia")
+            expect(page).to have_content("Pending")
+            expect(page).to_not have_button("Submit")
+
+        end               
+    end
 end
