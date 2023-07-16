@@ -7,15 +7,11 @@
 <p><strong>Status: </strong><%= @application.status %></p>
 
 <h3>Pets</h3>
-<% if @application.pets? %>
 <ul>
   <% @application.pets.each do |pet| %>
     <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
   <% end %>
 </ul>
-<% else %>
-  <p>Please add a pet to this application.</p>
-<% end %>
 
 <% if @application.status == "In Progress" %>
   <h3>Add a Pet to this Application</h3>
@@ -29,5 +25,16 @@
   <% @search_results.each do |result| %>
     <%= result.name %>
   <% end %>
+<% end %>
 
+<% if @application.can_submit? %>
+  <div id="application_submission">
+    <h3>Submit Application</h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <p>Please describe why you would make a good owner for these pet(s)</p>
+      <%= f.text_area :description_pets, size: "60x5" %><br>
+      <%= f.hidden_field :status, value: "Pending" %>
+      <%= f.submit "Submit Application" %>
+    <% end %>
+  </div>  
 <% end %>
