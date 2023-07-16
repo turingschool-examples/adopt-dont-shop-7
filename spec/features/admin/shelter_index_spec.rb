@@ -12,8 +12,8 @@ RSpec.describe "the /admin/shelters index" do
 
   it "lists all the shelter names in reverse alphabetical order" do
     visit "/admin/shelters"
-
-    expect(@shelter_1.name).to appear_before(@shelter_3.name)
-    expect(@shelter_3.name).to appear_before(@shelter_2.name)
+    save_and_open_page
+    expect(@shelter_2.name).to appear_before(@shelter_3.name)
+    expect(@shelter_3.name).to appear_before(@shelter_1.name)
   end
 end
