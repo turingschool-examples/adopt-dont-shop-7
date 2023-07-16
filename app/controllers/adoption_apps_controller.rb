@@ -21,7 +21,6 @@ class AdoptionAppsController < ApplicationController
     })
 
     if new_app.save    
-
       redirect_to "/adoption_apps/#{new_app.id}"
     else
       flash[:notice] = "Application not created: Required information missing."
@@ -38,21 +37,29 @@ class AdoptionAppsController < ApplicationController
   end
 
   def update
-    require 'pry'; binding.pry
-    pet = Pet.find(params[:id])
-    adopted_pet = AdoptionApp.update({
-      pet_names: search_pets
-    })
-    adopted_pet.save
-    redirect_to "/adoption_apps/#{adopted_pet.id}"
-
+    created = "In Progress"
+    updated_app = AdoptionApp.find(params[:id])
+    added_pet = Pet.find(params[:pet_id])
+    if updated_app.pet_names == nil
+      updated_app.update(pet_names: added_pet.name)
+      updated_app.save
+    end
+    # updated_app.update({
+    #   name: params[:name],
+    #   street_address: params[:street_address],
+    #   city: params[:city],
+    #   state: params[:state],
+    #   zip_code: params[:zip_code],
+    #   description: params[:description],
+    #   pet_names: params[:pet_names],
+    #   status: created
+    # })
+    redirect_to "/adoption_apps/#{updated_app.id}"
   end
   
   private
-
   def adoption_app_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
-
-
 end
+
