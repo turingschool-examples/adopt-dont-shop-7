@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def new
-
+    @application = Application.new
   end
 
   def choose_shelter_id
@@ -20,18 +20,15 @@ class ApplicationController < ActionController::Base
 
   def create
     @application = Application.new(post_params)
-    @application.application_status = 'In Progress'
-    @application.created_at = Time.now
-    @application.updated_at = Time.now
-    @application.shelter_id = choose_shelter_id
-
     if @application.save
-    redirect_to "/applications", notice: "Applications submission success!"
+      redirect_to action: 'index'
     else
-      render :index
+      flash[:error] = "Error: #{error_message(@application.errors)}"
+      redirect_to "/applications/new"
     end
   end
 
+  
   private
 
   def post_params
