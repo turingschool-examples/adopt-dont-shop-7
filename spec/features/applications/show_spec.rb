@@ -130,7 +130,7 @@ end
 
           expect(current_path).to eq("/applications/#{Application.last.id}")
           expect(page).to have_content("I like african bullfrogs!")
-          expect(page).to have_content("Pending")
+          expect(page).to have_content("In Progress")
           
           within "#pet-#{@pet_4.id}" do 
             expect(page).to have_content("Spud")
