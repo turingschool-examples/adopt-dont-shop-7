@@ -6,6 +6,7 @@
 <p>Description: <%= @applicant.description %></p>
 <p>Status: <%= @applicant.status %></p>
 
+
 <div class="search"> 
   <%= form_with url: "/applicants/#{@applicant.id}", local: true do |f| %>
     <h3> Add a Pet to this Application </h3>
@@ -14,3 +15,6 @@
     <p><%= f.submit "submit"%></p>
   <% end %>
 </div>
+
+<p>Pets: </p>
+
