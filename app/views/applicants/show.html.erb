@@ -13,8 +13,13 @@
     <p><%= f.submit "submit"%></p>
   <% end %>
 </div>
-<h3> Show Search Results </h3>
 <% @matching_pets.each do |pet| %>
   <p> name: <%= pet.name %> </p>
+  <% if pet.adoptable? %>
+    <%= button_to 'Add Pet', create_applicant_pet_path(applicant_id: @applicant.id, pet_id: pet.id), method: :post %>
+  <% end %>
 <% end %>
-<p>Pets: </p>
+<h3>Associated Pets</h3>
+<% @associated_pets.each do |pet| %>
+  <p>Pet Name: <%= link_to pet.name, pet_path(pet) %></p>
+<% end %>
