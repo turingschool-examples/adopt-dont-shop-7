@@ -1,16 +1,18 @@
 class AdminController < ApplicationController
   def index
-    # @shelter = Shelter.find(params[:shelter_id])
     @shelters = Shelter.reverse_alpha
     @shelters_with_pending_applications = Shelter.pending_applications
-    # require 'pry'; binding.pry
   end
   
-  # def show
-  #   @application = Application.find(params[:application_id])
-  
-  #   @shelters.applications << @application
+  def show
+    @application = Application.includes(:pets).find(params[:id])
+    # @application_pets = ApplicationPet.includes(:pet).where(params[:application_pet_id])
+    @application_pets = @application.application_pets.includes(:pet)
+  end
 
-  #   redirect "admin/shelters"
-  # end
+  def update
+    application_pet = ApplicationPet.find(params[:application_pet_id])
+    application_pet.update(status: "Approved")
+    redirect_to "/admin/applications/#{application_pet.application.id}"
+  end
 end
