@@ -65,7 +65,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[x] done
 
 3. Starting an Application, Form not Completed
 
@@ -94,7 +94,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done
+[x] done
 
 5. Add a Pet to an Application
 
@@ -109,7 +109,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done
+[x] done
 
 6. Submit an Application
 
@@ -127,7 +127,7 @@ And I do not see a section to add more pets to this application
 ```
 
 ```
-[ ] done
+[x] done
 
 7. No Pets on an Application
 
@@ -142,7 +142,7 @@ Then I do not see a section to submit my application
 These stories emphasize key database concepts.
 
 ```
-[ ] done
+[x] done
 
 8. Partial Matches for Pet Names
 
@@ -180,7 +180,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
-[ ] done
+[x] done
 
 For this story, you should fully leverage ActiveRecord methods in your query.
 
@@ -199,7 +199,7 @@ Pets on an application can either be accepted or rejected.
 For this set of stories, we will be making routes that begin with '/admin'. This is to indicate that only a user with special privileges should be able to accept or reject pets on an application. Normally, we would want to make sure that a user is logged into an admin account before being able complete any of this workflow, but we will not add any log in or authorization functionality to this project.
 
 ```
-[ ] done
+[x] done
 
 12. Approving a Pet for Adoption
 
