@@ -1,18 +1,16 @@
-<h1> Applications </h1>
+<h1> Applicant #<%= @applicant.id %></h1>
 <br>
-
 <ul>Applicant name: <%= @applicant.name %> </ul>
-<ul>Applicant Street: <%= @applicant.street_address%> </ul>
-<ul>Applicant City: <%= @applicant.city%></ul>
-<ul>Applicant State: <%= @applicant.state%></ul>
-<ul>Applicant Zip Code: <%= @applicant.zip_code%></ul>
+<ul>Applicant Address: <%= @applicant.street_address + ", " + @applicant.city + " " + @applicant.state + ", " + @applicant.zip_code.to_s %> </ul>
 <ul>Why you want to adopt: <%= @applicant.description %></ul>
 <ul>Application Status: <%= @applicant.status %></ul>
-<h1>Add a Pet to this Application!</h1>
 <section id="pet_search">
-<%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
-    <%= form.text_field :search %>
-    <%= form.submit "Search" %>
+<% if @applicant.status == "In progress" %>
+    <h1>Add a Pet to this Application!</h1>
+    <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |form| %>
+        <%= form.text_field :search %>
+        <%= form.submit "Search" %>
+    <% end %>
 <% end %>
 </section>
 <% @pets.each do |pet| %>
