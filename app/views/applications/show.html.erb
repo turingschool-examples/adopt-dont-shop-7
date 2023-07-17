@@ -26,7 +26,9 @@
 <% if @found_pet %>
   <section>
     <ol>
-      <li><%= @found_pet.name %> <%= button_to "Adopt this Pet", {controller: :application_pets, pet_id: @found_pet.id, application_id: @application.id, action: :create} %></li>
+      <% @found_pet.each do |pet| %>
+        <li><%= pet.name %><%= button_to "Adopt this Pet", {controller: :application_pets, pet_id: pet.id, application_id: @application.id, action: :create} %></li>
+      <% end %>
     </ol>
   </section>
 <% end %>

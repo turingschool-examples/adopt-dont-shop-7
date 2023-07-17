@@ -141,6 +141,21 @@ RSpec.describe "application" do
         expect(page).to_not have_content("Add a Pet to this Application")
       end
     end
+
+    describe "And I search for Pets by name" do
+      it "Then I see any pet whose name PARTIALLY matches my search" do
+        @pet_3 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "fluffy", shelter_id: @shelter_1.id)
+        @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "fluff", shelter_id: @shelter_1.id)
+        @pet_5 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "mr. fluff", shelter_id: @shelter_1.id)
+
+        fill_in "Name", with: "fluff"
+        click_button "Submit"
+        save_and_open_page
+        expect(page).to have_content("#{@pet_3.name}")
+        expect(page).to have_content("#{@pet_4.name}")
+        expect(page).to have_content("#{@pet_5.name}")
+      end
+    end
   end
   describe "When I visit application 2's show page" do
     before (:each) do
