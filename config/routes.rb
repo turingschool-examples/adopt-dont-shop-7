@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   delete "/shelters/:id", to: "shelters#destroy"
 
   get "/admin/shelters", to: "admin#index"
+  get "/admin/applications/:id", to: "admin#show"
 
   get "/pets", to: "pets#index"
   get "/pets/:id", to: "pets#show"

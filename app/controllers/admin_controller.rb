@@ -6,11 +6,7 @@ class AdminController < ApplicationController
     # require 'pry'; binding.pry
   end
   
-  # def show
-  #   @application = Application.find(params[:application_id])
-  
-  #   @shelters.applications << @application
-
-  #   redirect "admin/shelters"
-  # end
+  def show
+    @application = Application.includes(:pets).find(params[:id])
+  end
 end
