@@ -6,7 +6,7 @@
 <p><%= @application.zip %></p>
 <p><%= @application.description %></p>
 
-<h2>Pets Applied For:</h2>
+<h2>Pet(s) Applied For:</h2>
 <% @application.pets.each do |pet| %>
     <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <% end %>
@@ -27,4 +27,13 @@
   <% end %>
 <% end %>
 
-<p><%= @application.status %></p>
+<% if @application.status == "In Progress" && @application.pets.any? %>
+  <h2>Application Submission</h2>
+  <%= form_with url: "/applications/#{@application.id}/submit", method: :patch do |form| %>
+    <%= form.label :reason, "Why would I make a good owner for these pet(s)" %>
+    <%= form.text_area :reason %>
+    <%= form.submit "Submit Application" %>
+  <% end %>
+<% end %>
+
+<p>Application Status: <%= @application.status %></p>

@@ -114,13 +114,14 @@ RSpec.describe "application" do
       visit "/applications/#{@application_1.id}"
       expect(page).to_not have_content("Search Pets")
     end
-    # CURRENTLY ON THIS TEST ~~~~~~~~~~~~~~~~~~~~
+
     it "has a button next to each search result which adds pet to application" do
       visit "/applications/#{@application_2.id}"
       expect(page).to_not have_content("Ann")
-      
+
       fill_in(:pet_name, with: 'Ann')
       click_button('Search Pets')
+
       expect(current_path).to eq("/applications/#{@application_2.id}")
       expect("Ann").to_not appear_before("Add a Pet to this Application")
       click_button("Adopt this Pet")
@@ -128,10 +129,102 @@ RSpec.describe "application" do
       expect(current_path).to eq("/applications/#{@application_2.id}")
       expect(@application_2.pets[0].name).to eq("Ann")
       expect("Ann").to appear_before("Add a Pet to this Application")
-      save_and_open_page
-      
     end
+
+    it "has a field to provide reason for wanting pet(s) and button to submit the application" do
+      visit "/applications/#{@application_2.id}"
+      expect(page).to_not have_content("Application Submission")
+
+      fill_in(:pet_name, with: 'Ann')
+      click_button('Search Pets')
+      click_button("Adopt this Pet")
+
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_content("Search for pets by name:")
+      expect(page).to have_content("Application Submission")
+      
+      fill_in(:reason, with: 'I think Ann is just the cutest!')
+      click_button('Submit Application')
+      expect(current_path).to eq("/applications/#{@application_2.id}")
+
+      expect(page).to_not have_content("Application Submission")
+      expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to_not have_content("Search for pets by name:")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content("Ann")
+    end
+
+    it "can submit an application for multiple pets" do
+      visit "/applications/#{@application_2.id}"
+      expect(page).to_not have_content("Application Submission")
+      expect(page).to_not have_content("Ann")
+      expect(page).to_not have_content("Clawdia")
+
+      fill_in(:pet_name, with: 'Ann')
+      click_button('Search Pets')
+      click_button("Adopt this Pet")
+
+      fill_in(:pet_name, with: 'Clawdia')
+      click_button('Search Pets')
+      click_button("Adopt this Pet")
+
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_content("Search for pets by name:")
+      expect(page).to have_content("Application Submission")
+      
+      fill_in(:reason, with: 'I think Ann and Clawdia would live happily together in my home!')
+      click_button('Submit Application')
+      expect(current_path).to eq("/applications/#{@application_2.id}")
+
+      expect(page).to_not have_content("Application Submission")
+      expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to_not have_content("Search for pets by name:")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content("Ann")
+      expect(page).to have_content("Clawdia")
+    end
+    
+    it "can not be submitted if no pets have been added to application" do
+      visit "/applications/#{@application_2.id}"
+      
+      expect(@application_2.pets).to eq([])
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to_not have_content("Application Submission")
+    end
+    
+    it "will display results that partially match pet search terms" do
+      visit "/applications/#{@application_2.id}"
+      
+      fill_in(:pet_name, with: 'An')
+      click_button('Search Pets')
+      
+      expect(page).to have_content("Ann")
+      
+      fill_in(:pet_name, with: 'Claw')
+      click_button('Search Pets')
+      
+      expect(page).to have_content("Clawdia")
+    end
+    
+    it "has a case insensitive pet search" do
+    visit "/applications/#{@application_2.id}"
+
+      fill_in(:pet_name, with: 'ANN')
+      click_button('Search Pets')
+
+      expect(page).to have_content("Ann")
+      
+      fill_in(:pet_name, with: 'cLaWDIa')
+      click_button('Search Pets')
+
+      expect(page).to have_content("Clawdia")
+      
+      fill_in(:pet_name, with: 'pirate')
+      click_button('Search Pets')
+
+      expect(page).to have_content("Mr. Pirate")
   end
+end
 
   describe "/application index page" do
     it "shows each application and when it was created" do
