@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   get "/adoption_apps/:id", to: "adoption_apps#show"
   get "/adoption_apps/:id/search_pets", to: "adoption_apps#search_pets"
   put "/adoption_apps/:id", to: "adoption_apps#update"
-
+  put "/adoption_apps/:id/submit_application", to: "adoption_apps#submit_application"
+  
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
   get "/shelters/:id", to: "shelters#show"

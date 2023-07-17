@@ -11,10 +11,12 @@
 <h3>Pet Names: <%= @adoption_app.pet_names %></h3>
 <h3>Status: <%= @adoption_app.status %></h3>
 
-<%= form_with url: "/adoption_apps/#{@adoption_app.id}/search_pets", method: :get do |form| %>
-  <%= form.label :search, "Search Pets by Name" %>
-  <%= form.text_field :search, placeholder: "Search Pets by Name" %>
-  <%= form.submit "Submit" %>
+<% if @adoption_app.status != "Pending" %>
+  <%= form_with url: "/adoption_apps/#{@adoption_app.id}/search_pets", method: :get do |form| %>
+    <%= form.label :search, "Search Pets by Name" %>
+    <%= form.text_field :search, placeholder: "Search Pets by Name" %>
+    <%= form.submit "Submit" %>
+  <% end %>
 <% end %>
 
 <% if @adopt_pets.present? %>
@@ -27,3 +29,8 @@
   </ul>
 <% end %>
 
+<%= form_with url: "/adoption_apps/#{@adoption_app.id}/submit_application", method: "put" do |form| %>
+  <%= form.label :good_owner_expl, "Why would you be a good owner?" %>
+  <%= form.text_field :good_owner_expl, placeholder: "Type here" %>
+  <%= form.submit "Submit Application" %>
+<% end %>
