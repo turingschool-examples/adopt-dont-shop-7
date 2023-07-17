@@ -13,8 +13,7 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def self.search(keyword)
-    where(name: keyword)
-    
-  end
+  # def self.search(keyword)
+  #   where(name: keyword)
+  # end
 end
