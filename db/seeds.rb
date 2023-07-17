@@ -57,5 +57,10 @@ applicants = Applicant.create([
                                   description: 'Description 3', status: 'In Progress' }
                               ])
 
+# Create associations between applicants and pets
+applicants.first.applicants_pets.create(pet: pets.first)
+applicants.second.applicants_pets.create(pet: pets.second)
+applicants.third.applicants_pets.create(pet: pets.third)
+
 # Output a success message
 puts 'Sample rows created successfully!'
