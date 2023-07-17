@@ -23,16 +23,19 @@ RSpec.describe "Admin shelter index" do
         it "Shows the list of shelters in reverse alphabetical order" do
             visit "/admin/shelters" 
 
+            within '#ordered_shelters' do
             expect(@shelter_2.name).to appear_before(@shelter_3.name)
             expect(@shelter_3.name).to appear_before(@shelter_1.name)
+            end
             
         end
         
         it 'Shows a list of shelters with pending applications' do
             visit "/admin/shelters" 
-            
-            within "#pending_apps" do
-                expect(page).to have_content(@shelter_1.name, @shelter_3.name)
+
+            within '#pending_apps' do
+                expect(page).to have_content(@shelter_1.name)
+                expect(page).to have_content(@shelter_3.name)
             end
         end
     end
