@@ -191,6 +191,20 @@ RSpec.describe "application" do
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to_not have_content("Application Submission")
     end
+    
+    it "will display results that partially match pet search terms" do
+      visit "/applications/#{@application_2.id}"
+
+      fill_in(:pet_name, with: 'An')
+      click_button('Search Pets')
+
+      expect(page).to have_content("Ann")
+      
+      fill_in(:pet_name, with: 'Claw')
+      click_button('Search Pets')
+
+      expect(page).to have_content("Clawdia")
+    end
   end
 
   describe "/application index page" do
