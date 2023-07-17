@@ -11,21 +11,21 @@ class ApplicantsController < ApplicationController
       @applicant.save
       redirect_to applicant_path(@applicant)
     else
-      flash[:error] = "ERROR invalid data. Please fill out feilds correctly"
-      redirect_to "/applicants/new"
-      #render :new 
+      flash[:error] = 'ERROR invalid data. Please fill out feilds correctly'
+      redirect_to '/applicants/new'
+      # render :new
     end
   end
 
   def show
     @applicant = Applicant.find(params[:id])
-    @pets = Pet.where(name: params[:pet_name])
+    @matching_pets = params[:pet_name].present? ? Pet.where('name LIKE ?', "%#{params[:pet_name]}%") : []
   end
 
   def search
     @applicant = Applicant.find(params[:id])
     @matching_pets = Pet.where('name LIKE ?', "%#{params[:pet_name]}%")
-    render 'search'  
+    render 'search'
   end
 
   private

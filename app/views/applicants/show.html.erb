@@ -5,21 +5,16 @@
 <p>Zip Code: <%= @applicant.zip_code %></p>
 <p>Description: <%= @applicant.description %></p>
 <p>Status: <%= @applicant.status %></p>
-
-
-<div class="search"> 
-  <%= form_with(url: applicant_search_path(@applicant), local: true) do |f| %>
+<div class="search">
+  <%= form_with(url: applicant_path(@applicant), local: true, method: :get) do |f| %>
     <h3> Add a Pet to this Application </h3>
     <p>Pet: <% f.label :pet_name %></p>
     <p><%= f.text_field :pet_name%></p>
     <p><%= f.submit "submit"%></p>
   <% end %>
 </div>
-
 <h3> Show Search Results </h3>
-<% @pets.each do |pet| %>
- <p> name: <%= pet.name %> </p> 
- <% end %>
-
+<% @matching_pets.each do |pet| %>
+  <p> name: <%= pet.name %> </p>
+<% end %>
 <p>Pets: </p>
-
