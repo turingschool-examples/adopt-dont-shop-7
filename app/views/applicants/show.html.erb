@@ -1,3 +1,6 @@
+<h1> Applications </h1>
+<br>
+
 <ul>Applicant name: <%= @applicant.name %> </ul>
 <ul>Applicant Street: <%= @applicant.street_address%> </ul>
 <ul>Applicant City: <%= @applicant.city%></ul>
@@ -28,12 +31,15 @@
     <% end %>
 <% end %>
 </section>
+<% if @applicant.status == "In progress" && !@pets.empty? %>
+
+<h1> Why Is Your Home Peferct For This Pet? </h1>
 <section id="application_submit">
-<% if @applicant.status == "In Progress" && !@pets.empty? %>
-    <%= form_with url: "applicants/#{@applicant.id}", method: :patch, local: true do |form| %>
-        <%= form.label :description, value: "Why is your home a good fit?" %>
+    <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, local: true do |form| %>
+        <%= form.label :description, "Why is your home a good fit?" %>
         <%= form.text_field :description %>
         <%= form.hidden_field :status, value: "Pending" %>
+
         <%= form.button "Submit Application" %>
     <% end %>
 <% end %>

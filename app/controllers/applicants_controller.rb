@@ -1,8 +1,8 @@
 class ApplicantsController < ApplicationController
     def show
         @applicant = Applicant.find(params[:id])
-        @pets = Applicant.pets
-        @pet_search = Pet.adoptable.where(name: params[:search])
+        @pets = @applicant.pets
+        @pet_search = Pet.search(params[:search]).adoptable
         
     end
 
@@ -18,6 +18,12 @@ class ApplicantsController < ApplicationController
             redirect_to "/applicants/new"
             flash[:alert] = "ERROR: Form incomplete, please fill out missing information"
         end
+    end
+
+    def update
+        applicant = Applicant.find(params[:id])
+        applicant.update(status: params[:status])
+        redirect_to "/applicants/#{applicant.id}"
     end
 
 
