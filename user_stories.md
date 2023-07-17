@@ -77,7 +77,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+[✓] done
 
 4. Searching for Pets for an Application
 
