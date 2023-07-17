@@ -2,3 +2,8 @@
 <br>
 <%= shelter.name %>
 <% end %>
+<section id="pending_apps">
+<% Shelter.pending_applications.eachs do |shelter| %>
+<%= shelter.name %>
+<% end %>
+</section>
