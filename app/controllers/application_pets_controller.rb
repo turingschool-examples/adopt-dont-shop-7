@@ -3,14 +3,12 @@ class ApplicationPetsController < ApplicationController
   end
 
   def create
-    application = Application.find(params[:application_id])
-    pet = Pet.find(params[:pet_id])
-    application_pet = ApplicationPet.new(application_id: params[:application_id], pet_id: params[:pet_id])
+    application_pet = ApplicationPet.new(application_id: params[:application_id], pet_id: params[:pet_id], status: "In Progress")
    
     if application_pet.save
-      redirect_to "/applications/#{application.id}"
+      redirect_to "/applications/#{params[:application_id]}"
     else 
-      redirect_to "/applications/#{application.id}"
+      redirect_to "/applications/#{params[:application_id]}"
       flash[:alert] = "Error: #{error_message(application_pet.errors)}"
     end
   end
