@@ -194,18 +194,37 @@ RSpec.describe "application" do
     
     it "will display results that partially match pet search terms" do
       visit "/applications/#{@application_2.id}"
-
+      
       fill_in(:pet_name, with: 'An')
       click_button('Search Pets')
-
+      
       expect(page).to have_content("Ann")
       
       fill_in(:pet_name, with: 'Claw')
       click_button('Search Pets')
-
+      
       expect(page).to have_content("Clawdia")
     end
+    
+    it "has a case insensitive pet search" do
+    visit "/applications/#{@application_2.id}"
+
+      fill_in(:pet_name, with: 'ANN')
+      click_button('Search Pets')
+
+      expect(page).to have_content("Ann")
+      
+      fill_in(:pet_name, with: 'cLaWDIa')
+      click_button('Search Pets')
+
+      expect(page).to have_content("Clawdia")
+      
+      fill_in(:pet_name, with: 'pirate')
+      click_button('Search Pets')
+
+      expect(page).to have_content("Mr. Pirate")
   end
+end
 
   describe "/application index page" do
     it "shows each application and when it was created" do
