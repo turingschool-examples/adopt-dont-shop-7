@@ -3,7 +3,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:search_for_pet]
       @found_pet = Pet.find_by(name: params[:search_for_pet])
-      @show_results = true
     end
     
   end
@@ -19,6 +18,13 @@ class ApplicationsController < ApplicationController
       flash[:notice] = "Application not saved. Please fill in all fields."
       redirect_to "/applications/new"
     end
+  end
+
+  def submit
+    application = Application.find(params[:id])
+    application.update(application_status: "Pending", description: params[:description])
+    application.save
+    redirect_to "/applications/#{application.id}"
   end
 
   private
