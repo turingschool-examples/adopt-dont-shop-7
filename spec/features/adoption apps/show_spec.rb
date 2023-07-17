@@ -47,7 +47,7 @@ RSpec.describe "The Adoption Application", type: :feature do
 
     #user story 6
     it "displays a submit application button once one(or more) pets have been added" do
-      
+
         visit "/adoption_apps/#{@adoption_app_2.id}"
         fill_in "Search", with: "Limb"
         click_button "Submit"
@@ -56,9 +56,12 @@ RSpec.describe "The Adoption Application", type: :feature do
         fill_in :good_owner_expl, with: "I got some therapy and now I understand the true godliness of animals"
         click_button "Submit Application"
 
-        expect(@adoption_app_2.status).to eq("Pending")
-        expect(@adoption_app_2.pet_names).to eq("Limb")
+        @adoption_app_2.reload
 
+        expect(@adoption_app_2.status).to eq("Pending")
+        expect(page).to_not have_content("Search")
+        expect(@adoption_app_2.pet_names).to eq("Limb")
+        expect(@adoption_app_2.description).to eq("I got some therapy and now I understand the true godliness of animals")
     end
   end
 end
