@@ -64,7 +64,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[✓] done
 
 3. Starting an Application, Form not Completed
 
