@@ -1,7 +1,8 @@
 class AdoptionApp < ApplicationRecord
   validates :name, :street_address, :city, :state, :zip_code, :description, presence: true
 
-  has_and_belongs_to_many :pets
+  has_many :adoption_app_pets
+  has_many :pets, through: :adoption_app_pets
 
   def adoption_status
     params[:status] = "In Progress"

@@ -47,7 +47,7 @@ RSpec.describe "The Adoption Application", type: :feature do
 
     #user story 6
     it "displays a submit application button once one(or more) pets have been added" do
-      # require 'pry'; binding.pry
+      
         visit "/adoption_apps/#{@adoption_app_2.id}"
         fill_in "Search", with: "Limb"
         click_button "Submit"

@@ -51,7 +51,7 @@ class AdoptionAppsController < ApplicationController
     submit_app = AdoptionApp.find(params[:id])
 
     submit_app.update(adoption_app_params.merge(status: "Pending"))
-    submit_app.update(description: params[:adoption_app][:good_owner_expl])
+    submit_app.update(description: params[:good_owner_expl])
     # cant seem to connect this form for the description to the description param.. idk
     submit_app.save
 
