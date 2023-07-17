@@ -9,6 +9,7 @@ RSpec.describe "application" do
     @pet = Pet.create!(adoptable: true, age: 3, breed: "GSD", name: "Charlie", shelter_id: @shelter.id)
     @pet_1 = Pet.create!(adoptable: true, age: 2, breed: "Golden Retriever", name: "Rover", shelter_id: @shelter_1.id)
     @pet_2 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "Kitty", shelter_id: @shelter_1.id)
+    @pet_3 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "Grover", shelter_id: @shelter_1.id)
     @app_1_pet_1 = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @app_1.id)
   end
   it "displays a link to all pets" do
@@ -139,6 +140,16 @@ RSpec.describe "application" do
         expect(page).to have_content("Rover")
         expect(page).to have_content("I can afford food")
         expect(page).to_not have_content("Add a Pet to this Application")
+      end
+    end
+
+    describe "And I search for Pets by name" do
+      it "Then I see any pet whose name PARTIALLY matches my search" do
+        fill_in "Name", with: "rove"
+        click_button "Submit"
+        save_and_open_page
+        expect(page).to have_content("Grover")
+        expect(page).to have_content("Rover")
       end
     end
   end
