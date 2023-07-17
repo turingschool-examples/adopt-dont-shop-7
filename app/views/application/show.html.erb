@@ -27,3 +27,8 @@
   </ul>
 <% end %>
 
+<%= form_with url: "/adoption_apps/#{@adoption_app.id}/submit_application", method: "put" do |form| %>
+  <%= form.label :good_owner_expl, "Why would you be a good owner?" %>
+  <%= form.text_field :good_owner_expl, placeholder: "Type here", name: "adoption_app[description]" %>
+  <%= form.submit "Submit Application" %>
+<% end %>
