@@ -27,10 +27,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def update
-  #   @application = Application.find(params[:id])
-  # 
-  # end
+  def submit
+    @application = Application.find(params[:id])
+    @application.update(status: "Pending")
+    redirect_to "/applications/#{@application.id}"
+  end
 
   private
 
