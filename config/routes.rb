@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   # Add a pet to an applicant
   post '/applicants/:applicant_id/pets/:pet_id', to: 'applicants_pets#create', as: 'create_applicant_pet'
-  patch '/applicants/:id/update_adoption_description', to: 'applicants#update_adoption_description', as: 'update_adoption_description_applicant'
+  patch '/applicants_pets/:id/update_adoption_description', to: 'applicants_pets#update_adoption_description',
+                                                            as: 'update_adoption_description_applicants_pet'
+
   get '/shelters', to: 'shelters#index', as: 'shelters'
   get '/shelters/new', to: 'shelters#new', as: 'new_shelter'
   get '/shelters/:id', to: 'shelters#show', as: 'shelter'
