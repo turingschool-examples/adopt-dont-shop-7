@@ -150,7 +150,27 @@ RSpec.describe "application" do
 
         fill_in "Name", with: "fluff"
         click_button "Submit"
-        save_and_open_page
+
+        expect(page).to have_content("#{@pet_3.name}")
+        expect(page).to have_content("#{@pet_4.name}")
+        expect(page).to have_content("#{@pet_5.name}")
+      end
+
+      it "Then my search is case insensitive" do
+        @pet_3 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "Fluffy", shelter_id: @shelter_1.id)
+        @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "FLUFF", shelter_id: @shelter_1.id)
+        @pet_5 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "Mr. FlUfF", shelter_id: @shelter_1.id)
+
+        fill_in "Name", with: "Fluff"
+        click_button "Submit"
+
+        expect(page).to have_content("#{@pet_3.name}")
+        expect(page).to have_content("#{@pet_4.name}")
+        expect(page).to have_content("#{@pet_5.name}")
+
+        fill_in "Name", with: "fluff"
+        click_button "Submit"
+        
         expect(page).to have_content("#{@pet_3.name}")
         expect(page).to have_content("#{@pet_4.name}")
         expect(page).to have_content("#{@pet_5.name}")
