@@ -84,6 +84,22 @@ RSpec.describe "Application 'show' Page", type: :feature do
       
           expect(page).to have_content(@pet_3.name)
           expect(current_path).to eq("/applications/#{@application.id}")
+
+          expect(@application.pets).to include(@pet_3)
+        end
+
+        it "will throw an error when trying to add a pet that already exists on the application" do
+          visit "/applications/#{@application.id}"
+
+          expect(page).to have_content(@pet_1.name)
+          fill_in "Pet Search", with: @pet_1.name
+          click_button "Search"
+
+          expect(page).to have_button("Adopt this Pet")
+          click_button "Adopt this Pet"
+
+          expect(current_path).to eq("/applications/#{@application.id}")
+          expect(page).to have_content("Error: Application already has that pet.")
         end
       end
       # User Story 6: Submit an Applicaiton 
