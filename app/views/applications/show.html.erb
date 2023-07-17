@@ -29,7 +29,7 @@
 
 <% if @application.status == "In Progress" && @application.pets.any? %>
   <h2>Application Submission</h2>
-  <%= form_with url: "/applications/#{@application.id}/submit", method: :patch do |form| %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch do |form| %>
    <p> <%= form.label :reason, "Why would I make a good owner for these pet(s)" %> </p>
    <p> <%= form.text_area :reason %> </p>
    <p> <%= form.submit "Submit Application" %> </p>

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "application" do
+RSpec.describe "applications" do
   before :each do
     @application_1 = Application.create!(
       name: "Bob",
@@ -32,49 +32,14 @@ RSpec.describe "application" do
     @pet_application_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
   end
 
-  describe '/welcome' do 
-    it "displays a link to all pets" do
-      visit "/"
-      expect(page).to have_content("Adopt, don't shop!")
-      expect(page).to have_link("Pets")
-      click_link("Pets")
-      expect(page).to have_current_path("/pets")
-    end
+  describe "index page" do
+    it "shows each application and when it was created" do
+      visit "/applications"
 
-    it "displays a link to all shelters" do
-      visit "/"
-
-      expect(page).to have_link("Shelters")
-      click_link("Shelters")
-      expect(page).to have_current_path("/shelters")
-      expect(page).to have_link("Shelters")
-      expect(page).to have_link("Pets")
-      expect(page).to have_link("Veterinarians")
-      expect(page).to have_link("Veterinary Offices")
-    end
-
-    it "displays a link to all veterinary offices" do
-      visit "/"
-
-      expect(page).to have_link("Veterinary Offices")
-      click_link("Veterinary Offices")
-      expect(page).to have_current_path("/veterinary_offices")
-      expect(page).to have_link("Shelters")
-      expect(page).to have_link("Pets")
-      expect(page).to have_link("Veterinarians")
-      expect(page).to have_link("Veterinary Offices")
-    end
-
-    it "displays a link to all veterinarians" do
-      visit "/"
-
-      expect(page).to have_link("Veterinarians")
-      click_link("Veterinarians")
-      expect(page).to have_current_path("/veterinarians")
-      expect(page).to have_link("Shelters")
-      expect(page).to have_link("Pets")
-      expect(page).to have_link("Veterinarians")
-      expect(page).to have_link("Veterinary Offices")
+      expect(page).to have_content(@application_1.name)
+      expect(page).to have_content(@application_1.created_at)
+      expect(page).to have_content(@application_2.name)
+      expect(page).to have_content(@application_2.created_at)
     end
   end
 end
