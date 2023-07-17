@@ -162,7 +162,7 @@ end
       describe "my search is case insensitive" do 
         it "returns results regardless of case" do 
           visit "/applications/#{@application_2.id}"
-      
+          save_and_open_page
           fill_in :pet_name, with: "spud" 
           click_button "Search Pets"
           
