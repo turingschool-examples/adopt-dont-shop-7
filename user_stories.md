@@ -64,7 +64,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[✓] done
 
 3. Starting an Application, Form not Completed
 
@@ -77,7 +77,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+[✓] done
 
 4. Searching for Pets for an Application
 
