@@ -11,18 +11,32 @@
 <% @application.pets.each do |pet| %>
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br />
 <% end %>
-<section>
-  <h3>Add a Pet to this Application</h3>
-  <%= form_with url: "/applications/#{@application.id}?pet_search=true", method: :get, data: {turbo: false}, local: true, id: "pet_search" do |form| %>
-    <%= form.label :search_for_pet %>: 
-    <%= form.text_field :search_for_pet, placeholder: "Name" %>
-    <%= form.submit "Submit" %>
-  <% end %>
 
-
-  <ol>
-    <% if @show_results == true %>
-      <li><%= @found_pet.name %> <%= button_to "Adopt this Pet", {controller: :application_pets, pet_id: @found_pet.id, application_id: @application.id, action: :create} %></li>
+<% if @display != "application_submitted" %>
+  <section>
+    <h3>Add a Pet to this Application</h3>
+    <%= form_with url: "/applications/#{@application.id}?pet_search=true", method: :get, data: {turbo: false}, local: true, id: "pet_search" do |form| %>
+      <%= form.label :search_for_pet %>: 
+      <%= form.text_field :search_for_pet, placeholder: "Name" %>
+      <%= form.submit "Submit" %>
     <% end %>
-  </ol>
-</section>
+  </section>
+<% end %>
+
+<% if @display == "search_results" %>
+  <section>
+    <ol>
+      <li><%= @found_pet.name %> <%= button_to "Adopt this Pet", {controller: :application_pets, pet_id: @found_pet.id, application_id: @application.id, action: :create} %></li>
+    </ol>
+  </section>
+<% end %>
+
+<% if @display != "application_submitted" %>
+  <section>
+    <h3>Submit my application</h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, data: {turbo: false}, local: true, id: "submit_application" do |form| %>
+      <%= form.text_area :description, rows: 4, cols:40 %><br />
+      <%= form.submit "Submit my application" %>
+    <% end %>
+  </section>
+<% end %>

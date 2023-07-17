@@ -123,7 +123,7 @@ RSpec.describe "application" do
     describe "And I have added one or more pets to the application" do
       it "I see a section to submit my application And in that section I see an input to enter why I would make a good owner for these pet(s)" do
         expect(page).to have_content("Submit my application")
-        expect(find("#submit_application")).to have_field("Submit my application", type: "textarea")
+        expect(find("#submit_application")).to have_field("description", type: "textarea")
       end
 
       it "When I fill in that input And I click a button to submit this application
@@ -131,12 +131,14 @@ RSpec.describe "application" do
       And I see an indicator that the application is 'Pending'
       And I see all the pets that I want to adopt
       And I do not see a section to add more pets to this application" do
-        fill_in "Description", with: "I can afford food"
+        require 'pry'; binding.pry
+        fill_in "description", with: "I can afford food"
         click_button "Submit my application"
-
+require 'pry'; binding.pry
         expect(current_path).to eq("/applications/#{@app_1.id}")
         expect(page).to have_content("Application Status: Pending")
         expect(page).to have_content("Rover")
+        save_and_open_page
         expect(page).to_not have_content("Add a Pet to this Application")
       end
     end
