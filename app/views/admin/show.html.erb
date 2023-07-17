@@ -1,8 +1,12 @@
 <h2> Applications </h2>
 
-<% @application.pets.each do |pet| %>
+<% @application_pets.each do |application_pet| %>
   <ul>
-    <li><%= pet.name %> </li>
-    <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {application_id: @application.id, pet_id: pet.id} %>
+  <li><%= application_pet.pet.name %> </li>
+    <% if application_pet.status != "Approved" %>
+    <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {application_pet_id: application_pet.id} %>
+    <% else %>
+    <p> ***Approved*** </p>
+    <% end %>
   </ul>
-<% end %>
+  <% end %>

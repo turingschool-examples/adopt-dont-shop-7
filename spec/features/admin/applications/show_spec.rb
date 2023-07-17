@@ -19,9 +19,9 @@ RSpec.describe "admin application show page" do
         scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
         scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
         application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "Pending")
-
+        
         application_1.pets << scrappy
-
+        
         visit "admin/applications/#{application_1.id}"
         
         expect(page).to have_button("Approve")
@@ -30,12 +30,14 @@ RSpec.describe "admin application show page" do
       it "removes the 'Approve' button when clicked and shows the pet has been approved" do
         shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
-        application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "Pending")
+        scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
+        application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "In Progress")
         
         application_1.pets << scrappy
         visit "admin/applications/#{application_1.id}"
-        save_and_open_page
+
         click_button "Approve"
+
 
         expect(page).to_not have_button("Approve")
         expect(page).to have_content("Approved")
