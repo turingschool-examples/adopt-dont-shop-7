@@ -12,7 +12,7 @@
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br />
 <% end %>
 
-<% if @display != "application_submitted" %>
+<% if @application.application_status != "Pending" %>
   <section>
     <h3>Add a Pet to this Application</h3>
     <%= form_with url: "/applications/#{@application.id}?pet_search=true", method: :get, data: {turbo: false}, local: true, id: "pet_search" do |form| %>
@@ -23,7 +23,7 @@
   </section>
 <% end %>
 
-<% if @display == "search_results" %>
+<% if @found_pet %>
   <section>
     <ol>
       <li><%= @found_pet.name %> <%= button_to "Adopt this Pet", {controller: :application_pets, pet_id: @found_pet.id, application_id: @application.id, action: :create} %></li>
@@ -31,7 +31,7 @@
   </section>
 <% end %>
 
-<% if @display != "application_submitted" %>
+<% if @application.application_status != "Pending" %>
   <section>
     <h3>Submit my application</h3>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, data: {turbo: false}, local: true, id: "submit_application" do |form| %>

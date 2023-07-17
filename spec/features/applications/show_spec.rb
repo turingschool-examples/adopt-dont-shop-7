@@ -125,21 +125,20 @@ RSpec.describe "application" do
         expect(page).to have_content("Submit my application")
         expect(find("#submit_application")).to have_field("description", type: "textarea")
       end
-
+      
       it "When I fill in that input And I click a button to submit this application
       Then I am taken back to the application's show page
       And I see an indicator that the application is 'Pending'
       And I see all the pets that I want to adopt
       And I do not see a section to add more pets to this application" do
-        require 'pry'; binding.pry
         fill_in "description", with: "I can afford food"
         click_button "Submit my application"
-require 'pry'; binding.pry
         expect(current_path).to eq("/applications/#{@app_1.id}")
         expect(page).to have_content("Application Status: Pending")
         expect(page).to have_content("Rover")
-        save_and_open_page
+        expect(page).to have_content("I can afford food")
         expect(page).to_not have_content("Add a Pet to this Application")
+        save_and_open_page
       end
     end
   end

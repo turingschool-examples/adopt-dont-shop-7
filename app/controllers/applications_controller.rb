@@ -3,11 +3,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:search_for_pet]
       @found_pet = Pet.find_by(name: params[:search_for_pet])
-      @display = "search_results"
-    elsif params[:application_submitted]
-      @display = "application_submitted"
-    else
-      @display = ""
     end
     
   end
@@ -27,7 +22,8 @@ class ApplicationsController < ApplicationController
 
   def submit
     application = Application.find(params[:id])
-    application.update(application_status: "Pending")
+    application.update(application_status: "Pending", description: params[:description])
+    application.save
     redirect_to "/applications/#{application.id}"
   end
 
