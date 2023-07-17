@@ -12,4 +12,16 @@ class ApplicantsPetsController < ApplicationController
 
     redirect_to applicant_path(@applicant)
   end
+  def update_adoption_description
+    @applicants_pet = ApplicantsPets.find(params[:id])
+    if @applicants_pet.update(applicants_pet_params)
+      redirect_to @applicants_pet.applicant, notice: "description successfully updated"
+    else 
+      render :edit  
+    end
+  end
+private 
+def applicants_pet_params
+  params.require(:applicants_pet).permit(:adoption_description)
+end
 end

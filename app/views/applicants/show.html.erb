@@ -27,3 +27,11 @@
 <% @associated_pets.each do |pet| %>
   <p>Pet Name: <%= link_to pet.name, pet_path(pet) %></p>
 <% end %>
+<div "adoption description">
+  <%= form_with(url: applicant_path(@applicant), method: :patch) do |f| %>
+    <h3>Submit My Application </h3>
+    <p>Description: <% f.label :description %></p>
+    <p><%= f.text_area :adoption_description %></p>
+    <p><%= f.submit "submit description" %></p>
+  <% end %>
+</div>
