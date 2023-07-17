@@ -183,6 +183,14 @@ RSpec.describe "application" do
       expect(page).to have_content("Ann")
       expect(page).to have_content("Clawdia")
     end
+    
+    it "can not be submitted if no pets have been added to application" do
+      visit "/applications/#{@application_2.id}"
+      
+      expect(@application_2.pets).to eq([])
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to_not have_content("Application Submission")
+    end
   end
 
   describe "/application index page" do
