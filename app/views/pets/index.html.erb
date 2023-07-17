@@ -4,14 +4,16 @@
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
+<br>
 <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: <%= pet.adoptable %></p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+  <a href="<%= pet_path(pet) %>"><%= pet.name %></a></h3>
+<p>Age: <%= pet.age %></p>
+<p>Breed: <%= pet.breed %></p>
+<p>Adoptable: <%= pet.adoptable %></p>
+<p>You can find <%= pet.name %> at <a href="<%= shelter_path(pet.shelter.id) %>"><%= pet.shelter.name %></a></p>
+<%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
+<%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>
+<br>
 <br>
 <div><%= link_to "Start an Application", new_applicant_path %></div>
