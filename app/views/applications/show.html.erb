@@ -31,7 +31,7 @@
   </section>
 <% end %>
 
-<% if @application.application_status != "Pending" %>
+<% if @application.application_status != "Pending" && @application.pets.present?%>
   <section>
     <h3>Submit my application</h3>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, data: {turbo: false}, local: true, id: "submit_application" do |form| %>
