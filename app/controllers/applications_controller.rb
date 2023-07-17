@@ -2,8 +2,8 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     if params[:search_for_pet]
-      @found_pet = Pet.find_by(name: params[:search_for_pet])
-      #@found_pet = Pet.where("name LIKE ?", "%#{params[:search_for_pet]}%")
+      #@found_pet = Pet.find_by(name: params[:search_for_pet])
+      @found_pet = Pet.where("name LIKE ?", "%#{params[:search_for_pet]}%")
     end
     
   end
