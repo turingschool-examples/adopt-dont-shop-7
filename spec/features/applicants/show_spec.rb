@@ -5,6 +5,7 @@ RSpec.describe "Applicants Show" do
     before(:each) do
         @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         @applicant_1 = Applicant.create(name: "Ian", street_address: "4130 cleveland ave", city: "New Orleans", state: "louisiana", zip_code: 70119, description: "I wanna have cat")
+        @applicant_2 = Applicant.create(name: "Ian", street_address: "850 utica", city: "Denver", state: "Colorado", zip_code: 80204, description: "I need cat")
         @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
         @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
         @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
@@ -85,5 +86,15 @@ RSpec.describe "Applicants Show" do
             expect(page).to have_content("Pending")
             expect(page).to_not have_button("Submit")
         end               
+    end
+
+    describe "If a application dosent have pets" do
+        it "Dosent allow you to submit" do
+            visit "/applicants/#{@applicant_2.id}"
+
+            within "#application_submit" do
+                expect(page).to_not have_button("Submit")
+            end
+        end
     end
 end
