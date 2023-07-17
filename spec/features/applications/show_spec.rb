@@ -5,6 +5,7 @@ RSpec.describe "application" do
     @shelter_1 = Shelter.create!(foster_program: true, name: "County Pet Shelter", city: "Denver", rank: 1)
     @shelter = Shelter.create!(name: "Heavenly pets", city: "Aurora, CO", foster_program: true, rank: 7)
     @app_1 = Application.create!(name: "John Smith", address: "123 Main", city: "Anytown", state: "CO", zip_code: "80000", description: "Because I have a house", application_status: "In Progress")
+    @app_2 = Application.create!(name: "Dan Smith", address: "321 South", city: "Everytown", state: "FL", zip_code: "12345", description: "Because I love animals", application_status: "In Progress")
     @pet = Pet.create!(adoptable: true, age: 3, breed: "GSD", name: "Charlie", shelter_id: @shelter.id)
     @pet_1 = Pet.create!(adoptable: true, age: 2, breed: "Golden Retriever", name: "Rover", shelter_id: @shelter_1.id)
     @pet_2 = Pet.create!(adoptable: true, age: 1, breed: "Maine Coon", name: "Kitty", shelter_id: @shelter_1.id)
@@ -138,7 +139,16 @@ RSpec.describe "application" do
         expect(page).to have_content("Rover")
         expect(page).to have_content("I can afford food")
         expect(page).to_not have_content("Add a Pet to this Application")
-        save_and_open_page
+      end
+    end
+  end
+  describe "When I visit application 2's show page" do
+    before (:each) do
+      visit ("/applications/#{@app_2.id}")
+    end
+    describe "And I have not added any pets to the application" do
+      it "I do not see a section to submit my application" do
+        expect(page).to_not have_content("Submit my application")
       end
     end
   end
