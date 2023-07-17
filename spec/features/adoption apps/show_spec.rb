@@ -79,16 +79,14 @@ RSpec.describe "The Adoption Application", type: :feature do
       
     end
 
-    #user_story 8
-    it "matches partial searches" do
+    #user_story 8 & 9
+    it "matches partial and case insensitive searches" do
       visit "/adoption_apps/#{@adoption_app_3.id}"
 
       fill_in "Search", with: "lIm"
       click_button "Submit"
       
       expect(page).to have_content("Limb")
-
     end
-    
   end
 end
