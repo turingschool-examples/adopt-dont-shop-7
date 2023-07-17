@@ -8,9 +8,9 @@ RSpec.describe Application, type: :model do
   end
 
   before(:each) do
-    @mr_ape = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "Colorado", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
-    @paul = Application.create!(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "England", zip: "48", description: "I still believe love is all you need.  I don't know a better message than that.", status: "In Progress")
-    @penny_lane = Application.create(name: "Penny Lane", street: "555 McCartney", city: "Hollywood", state: "California", zip: "90210", description: "Strawberry Fields Forever", status: "Pending")
+    @mr_ape = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "CO", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
+    @paul = Application.create!(name: "Paul", street: "1960 Penny Lane", city: "Bedfordshire", state: "UK", zip: "48J32", description: "I still believe love is all you need.  I don't know a better message than that.", status: "In Progress")
+    @penny_lane = Application.create(name: "Penny Lane", street: "555 McCartney", city: "Hollywood", state: "CA", zip: "90210", description: "Strawberry Fields Forever", status: "Pending")
     
     @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
