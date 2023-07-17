@@ -20,6 +20,7 @@ class ApplicantsController < ApplicationController
   def show
     @applicant = Applicant.find(params[:id])
     @matching_pets = params[:pet_name].present? ? Pet.where('name LIKE ?', "%#{params[:pet_name]}%") : []
+    @associated_pets = @applicant.pets
   end
 
   def search
