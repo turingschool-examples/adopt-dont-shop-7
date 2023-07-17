@@ -27,6 +27,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # def update
+  #   @application = Application.find(params[:id])
+  # 
+  # end
+
   private
 
     def error_message(errors)
