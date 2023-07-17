@@ -63,5 +63,21 @@ RSpec.describe "The Adoption Application", type: :feature do
         expect(@adoption_app_2.pet_names).to eq("Limb")
         expect(@adoption_app_2.description).to eq("I got some therapy and now I understand the true godliness of animals")
     end
+
+    #user story 7
+    it "will not display the submit application if I have not added any pets yet" do
+
+      visit "/adoption_apps/#{@adoption_app_3.id}"
+
+      expect(page).to_not have_button("Submit Application")
+
+      fill_in "Search", with: "Limb"
+      click_button "Submit"
+      click_button "Adopt this Pet"
+      
+        expect(page).to have_button("Submit Application")
+      
+    end
+    
   end
 end
