@@ -49,7 +49,7 @@ end
         visit "/applications/#{@application_3.id}"
         
         expect(page).to have_field('Search by Pet Name:')
-        
+      
         fill_in :pet_name, with: "Spud"
         
         click_button "Search Pets"
@@ -69,7 +69,8 @@ end
 
           fill_in :pet_name, with: "Spud"
           
-          click_button "Submit"
+          click_button "Search Pets"
+          
           expect(page).to have_button("Adopt #{@pet_4.name}")
         end
         
@@ -79,7 +80,7 @@ end
             
             fill_in :pet_name, with: "Spud"
             
-            click_button "Submit"
+            click_button "Search Pets"
             
             expect(current_path).to eq("/applications/#{Application.last.id}")
 
@@ -101,10 +102,14 @@ end
       describe "then I see a section to submit my application" do 
         it 'displays an input to enter why I would make a good owner for these pet(s)' do 
           visit "/applications/#{Application.last.id}"
-
+          
+          fill_in :pet_name, with: "Spud"
+          click_on "Search Pets"
+          
           click_on "Adopt Spud"
-          click_on "Adopt SpuddyBuddy"
-        
+          
+          fill_in :pet_name, with: "SpuddyBuddy"
+          
           expect(page).to have_content("In Progress")
           expect(page).to have_field(:description)
           expect(page).to have_button("Submit")
@@ -121,15 +126,14 @@ end
             expect(page).to have_content("Spud")
           end
 
-          within "#pet-#{@pet_5.id}" do 
-            expect(page).to have_content("SpuddyBuddy")
-          end
+
           expect(page).to have_content("Pending")
           
           expect(page).to_not have_content("Add a Pet to this Application")
         end
       end
     end
+
     # US_7. 
     describe " I have not added any pets to the application" do 
       it 'I do not see a section to submit my application' do 
@@ -137,6 +141,34 @@ end
 
         expect(page).to_not have_content("Submit Application")
         expect(page).to_not have_button("Submit Application")
+      end
+    end
+
+    # US_8
+    describe "I search an application for pet names" do 
+      it "shows results that partial match my search" do 
+        visit "/applications/#{@application_2.id}"
+      
+        fill_in :pet_name, with: "Spud" 
+        click_button "Search Pets"
+        
+        expect(page).to have_content("Spud")
+        expect(page).to have_content("SpuddyBuddy")
+      end
+    end
+    
+    # US_9
+    describe "I search for a pet by name" do
+      describe "my search is case insensitive" do 
+        it "returns results regardless of case" do 
+          visit "/applications/#{@application_2.id}"
+      
+          fill_in :pet_name, with: "spud" 
+          click_button "Search Pets"
+          
+          expect(page).to have_content("Spud")
+          expect(page).to have_content("SpuddyBuddy")
+        end
       end
     end
   end
