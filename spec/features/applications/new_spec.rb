@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "application" do
+RSpec.describe "applications" do
   before :each do
     @application_1 = Application.create!(
       name: "Bob",
@@ -32,49 +32,40 @@ RSpec.describe "application" do
     @pet_application_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
   end
 
-  describe '/welcome' do 
-    it "displays a link to all pets" do
-      visit "/"
-      expect(page).to have_content("Adopt, don't shop!")
-      expect(page).to have_link("Pets")
-      click_link("Pets")
-      expect(page).to have_current_path("/pets")
+  describe "new page" do
+    it 'has fields to create new application' do
+      visit "/applications/new"
+
+      fill_in('Name', with: 'Jeremiah')
+      fill_in('Street address', with: "467 Corn Lane")
+      fill_in('City', with: "Lincoln")
+      fill_in('State', with: "Nebraska")
+      fill_in('Zip', with: 68501)
+      fill_in('Description', with: "I have a farm and lots of open space for them to play")
+      click_button('Start Application')
+      new_application = Application.last
+      expect(current_path).to eq("/applications/#{new_application.id}")
+
+      expect(page).to have_content(new_application.name)
+      expect(page).to have_content(new_application.street_address)
+      expect(page).to have_content(new_application.city)
+      expect(page).to have_content(new_application.state)
+      expect(page).to have_content(new_application.zip)
+      expect(page).to have_content(new_application.description)
+      expect(page).to have_content("In Progress")
     end
 
-    it "displays a link to all shelters" do
-      visit "/"
+    it 'will return a form not completed error if all forms arent filled out' do
+      visit "/applications/new"
 
-      expect(page).to have_link("Shelters")
-      click_link("Shelters")
-      expect(page).to have_current_path("/shelters")
-      expect(page).to have_link("Shelters")
-      expect(page).to have_link("Pets")
-      expect(page).to have_link("Veterinarians")
-      expect(page).to have_link("Veterinary Offices")
-    end
+      fill_in('Name', with: 'Jeremiah')
+      fill_in('Street address', with: "467 Corn Lane")
+      fill_in('State', with: "Nebraska")
+      fill_in('Zip', with: 68501)
 
-    it "displays a link to all veterinary offices" do
-      visit "/"
-
-      expect(page).to have_link("Veterinary Offices")
-      click_link("Veterinary Offices")
-      expect(page).to have_current_path("/veterinary_offices")
-      expect(page).to have_link("Shelters")
-      expect(page).to have_link("Pets")
-      expect(page).to have_link("Veterinarians")
-      expect(page).to have_link("Veterinary Offices")
-    end
-
-    it "displays a link to all veterinarians" do
-      visit "/"
-
-      expect(page).to have_link("Veterinarians")
-      click_link("Veterinarians")
-      expect(page).to have_current_path("/veterinarians")
-      expect(page).to have_link("Shelters")
-      expect(page).to have_link("Pets")
-      expect(page).to have_link("Veterinarians")
-      expect(page).to have_link("Veterinary Offices")
+      click_button('Start Application')
+      expect(page).to have_content("Description can't be blank")
+      expect(page).to have_content("City can't be blank")
     end
   end
 end
