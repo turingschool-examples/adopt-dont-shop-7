@@ -5,8 +5,8 @@ class Shelter < ApplicationRecord
 
   has_many :pets, dependent: :destroy
 
-  has_many :shelter_applications
-  has_many :applications, through: :shelter_applications
+  # has_many :shelter_applications
+  has_many :applications, through: :pets
 
   def self.order_by_recently_created
     order(created_at: :desc)
@@ -24,8 +24,8 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_applications
-    joins(shelter_applications: { application: :pets })
-    .where(applications: { status: 'Pending' }).distinct
+    Shelter.joins( :applications )
+    .where(applications: { status: 'Pending' }).distinct.pluck(:name)
   end
 
   def pet_count

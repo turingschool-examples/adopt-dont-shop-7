@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
   def index
+    # @shelter = Shelter.find(params[:shelter_id])
     @shelters = Shelter.reverse_alpha
     @shelters_with_pending_applications = Shelter.pending_applications
     # require 'pry'; binding.pry
@@ -7,7 +8,6 @@ class AdminController < ApplicationController
   
   # def show
   #   @application = Application.find(params[:application_id])
-  #   @shelter = Shelter.find(params[:shelter_id])
   
   #   @shelters.applications << @application
 
