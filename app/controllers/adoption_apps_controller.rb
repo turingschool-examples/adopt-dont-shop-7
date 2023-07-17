@@ -31,7 +31,7 @@ class AdoptionAppsController < ApplicationController
   def search_pets
     @adoption_app = AdoptionApp.find(params[:id])
     search_query = params[:search]
-    @adopt_pets = Pet.where("name LIKE ?", "%#{search_query}%")
+    @adopt_pets = Pet.where("LOWER(name) LIKE ?", "%#{search_query.downcase}%")
   
     render 'show', adopt_pets: @adopt_pets
   end

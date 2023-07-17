@@ -78,6 +78,17 @@ RSpec.describe "The Adoption Application", type: :feature do
         expect(page).to have_button("Submit Application")
       
     end
+
+    #user_story 8
+    it "matches partial searches" do
+      visit "/adoption_apps/#{@adoption_app_3.id}"
+
+      fill_in "Search", with: "lIm"
+      click_button "Submit"
+      
+      expect(page).to have_content("Limb")
+
+    end
     
   end
 end
