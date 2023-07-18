@@ -179,7 +179,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
-[ ] done
+[✓] done
 
 For this story, you should fully leverage ActiveRecord methods in your query.
 
