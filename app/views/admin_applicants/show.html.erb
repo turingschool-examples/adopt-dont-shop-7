@@ -10,11 +10,12 @@
 <% @applicant.pets.each do |pet| %>
     <section id="pending_pet_<%=pet.id%>">
     <%= pet.name %>
-    <%= form_with url: "admin/applicants/#{@applicant.id}", method: :patch, local: true do |form| %>
-        <%= form.hidden_field :accepted %>
-        <%= form.submit "Accept" %>
-        <%= form.hidden_field :rejected %>
-        <%= form.submit "Reject" %>
+    <%= @applicant.pet_app_status(pet.id).status %>
+    <% if @applicant.pet_app_status(pet.id).status == "Pending" %>
+        <%= form_with url: "#{@applicant.id}", method: :patch, local: true do |form| %>
+            <%= form.submit "Accepted" %>
+            <%= form.submit "Rejected" %>
+        <% end %>
     <% end %>
     </section>
 <% end %>

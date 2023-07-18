@@ -30,28 +30,30 @@ end
 
       within "#pending_pets" do
         expect(page).to have_content(@pet_1.name)
-        # expect(page).to have_content(@pet_1.status)
+        expect(page).to have_content("Pending")
         expect(page).to have_content(@pet_2.name)
-        # expect(page).to have_content(@pet_2.status)
+        expect(page).to have_content("Pending")
 
         expect(page).to have_button("Accept")     
         expect(page).to have_button("Reject")  
-        # expect(page).to have_content(@pet_1.status)
       end
 
       within "#pending_pet_#{@pet_1.id}" do
         expect(page).to have_button("Accept")
         expect(page).to have_button("Reject")
-        # expect(page).to have_content(@pet_1.status)
+        expect(page).to have_content("Pending")
         click_button "Accept"
       end
 
       expect(current_path).to eq("/admin/applicants/#{@applicant_1.id}")
 
+      visit "admin/applicants/#{@applicant_1.id}"
+      
+
       within "#pending_pet_#{@pet_1.id}" do
         expect(page).to_not have_button("Accept")
         expect(page).to_not have_button("Reject")
-        # expect(page).to have_content(@pet_1.status)
+        expect(page).to have_content("Accepted")
       end
     end
   end
