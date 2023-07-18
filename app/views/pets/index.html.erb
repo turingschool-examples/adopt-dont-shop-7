@@ -6,6 +6,7 @@
 <% end %>
 <br>
 <% @pets.each do |pet| %>
+  <br>
   <a href="<%= pet_path(pet) %>"><%= pet.name %></a></h3>
 <p>Age: <%= pet.age %></p>
 <p>Breed: <%= pet.breed %></p>
@@ -13,6 +14,9 @@
 <p>You can find <%= pet.name %> at <a href="<%= shelter_path(pet.shelter.id) %>"><%= pet.shelter.name %></a></p>
 <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
 <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+<br>
+<br>
+<br>
 <% end %>
 <br>
 <br>

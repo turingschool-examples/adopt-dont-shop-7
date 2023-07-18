@@ -6,9 +6,17 @@
 <p>Description: <%= @applicant.description %></p>
 <p>Status: <%= @applicant.status %></p>
 <br>
+<% if @applicant.pets.present? %>
+  <h3>Pets Assigned to this Application</h3>
+  <ul>
+    <% @applicant.pets.each do |pet| %>
+      <li><%= pet.name %></li>
+    <% end %>
+  </ul>
+<% end %>
 <div class="search">
   <%= form_with(url: applicant_path(@applicant), local: true, method: :get, id: 'search-pet-form') do |f| %>
-    <h3> Add a Pet to this Application </h3>
+    <h3>Add a Pet to this Application</h3>
     <p>Pet: <%= f.label :pet_name %></p>
     <p><%= f.text_field :pet_name %></p>
     <p><%= f.submit "Search for Pet" %></p>

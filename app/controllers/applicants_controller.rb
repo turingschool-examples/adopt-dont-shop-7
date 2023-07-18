@@ -30,6 +30,11 @@ class ApplicantsController < ApplicationController
 
     @associated_pets = @applicant.pets
     @applicants_pet = ApplicantsPet.find_or_initialize_by(applicant: @applicant)
+
+    # Check if any pets are added to the applicant and update the status if necessary
+    return unless @applicant.pets.present? && @applicant.status == 'In Progress'
+
+    @applicant.update(status: 'Pending')
   end
 
   def search
