@@ -5,7 +5,13 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    @application = Application.find(params[:id])
+    @application = Application.find(params[:id] || params[:application_id])
+    @pets = Pet.search(params[:name]) if params[:name]
+    if params[:pet_id]
+      @application.pets << Pet.find(params[:pet_id])
+      @application.save
+      redirect_to "/applications/#{@application.id}"
+    end
   end
 
   def new
@@ -26,6 +32,6 @@ class ApplicationsController < ApplicationController
   private
 
   def post_params
-    params.permit(:name_of_applicant, :street_address, :city, :state, :zip_code, :description, :shelter_id)
+    params.permit(:name_of_applicant, :street_address, :city, :state, :zip_code, :description, :shelter_id, :application_id, :name)
   end
 end

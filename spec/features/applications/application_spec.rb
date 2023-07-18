@@ -86,29 +86,68 @@ RSpec.describe "application" do
   # [ ] done
   # 4. Searching for Pets for an Application
 
-  # describe "As a visitor" do
-  #   describe "When I visit an applications show page" do
-  #     describe "And that application has not been submitted," do
-  #       describe "Then I see a section on the page to Add a Pet to this Application" do
-  #         describe "In that section I see an input where I can search for Pets by name" do
-  #           describe "When I fill in this field with a Pets name" do
-  #             describe "And I click submit," do
-  #               describe "Then I am taken back to the application show page" do
-  #                 it "And under the search bar I see any Pet whose name matches my search" do
-  #                   @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
-  #                   @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: @shelter_1.id)
+  describe "As a visitor" do
+    describe "When I visit an applications show page" do
+      describe "And that application has not been submitted," do
+        describe "Then I see a section on the page to Add a Pet to this Application" do
+          describe "In that section I see an input where I can search for Pets by name" do
+            describe "When I fill in this field with a Pets name" do
+              describe "And I click submit," do
+                describe "Then I am taken back to the application show page" do
+                  it "And under the search bar I see any Pet whose name matches my search" do
+                    @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
+                    @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: @shelter_1.id)
+                    @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter_1.id)
+                    @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Max", shelter_id: @shelter_1.id)
+                    @pet_3 = Pet.create!(adoptable: true, age: 2, breed: "labrador", name: "Molly", shelter_id: @shelter_1.id)
+                    visit "/applications/#{@application_1.id}"
 
-  #                   visit "/applications/#{@application_1.id}"
+                    expect(page).to have_content('Add a Pet to this Application')
 
-  #                   # expect(page).to have_cont
+                    # within('#search-pets-form') do
+                      fill_in 'name', with: 'Lucille'
+                      click_button 'Search'
+                    
+                  expect(page).to have_content(@pet_1.name)
+                  expect(page).not_to have_content(@pet_2.name)
+                  expect(page).not_to have_content(@pet_3.name)
+                  
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
 
-  #                 end
-  #               end
-  #             end
-  #           end
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+# 5. Add a Pet to an Application
+
+# As a visitor
+# When I visit an application's show page
+# And I search for a Pet by name
+# And I see the names Pets that match my search
+# Then next to each Pet's name I see a button to "Adopt this Pet"
+# When I click one of these buttons
+# Then I am taken back to the application show page
+# And I see the Pet I want to adopt listed on this application
+  it "can add a pet to an application" do
+    @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
+    @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: @shelter_1.id)
+    @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter_1.id)
+    @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Max", shelter_id: @shelter_1.id)
+    @pet_3 = Pet.create!(adoptable: true, age: 2, breed: "labrador", name: "Molly", shelter_id: @shelter_1.id)
+      visit "/applications/#{@application_1.id}"
+        
+        fill_in 'name', with: 'Lucille'
+        click_button 'Search'
+    
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_button('Adopt this Pet')
+
+      click_button 'Adopt this Pet'
+    expect(page).to have_current_path("/applications/#{@application_1.id}")
+    expect(page).to have_content(@pet_1.name)
+  end
 end
