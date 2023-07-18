@@ -55,6 +55,21 @@ end
         expect(page).to_not have_button("Reject")
         expect(page).to have_content("Accepted")
       end
+
+      within "#pending_pet_#{@pet_2.id}" do
+        expect(page).to have_button("Accept")
+        expect(page).to have_button("Reject")
+        expect(page).to have_content("Pending")
+        click_button "Reject"
+      end
+
+      visit "admin/applicants/#{@applicant_1.id}"
+
+      within "#pending_pet_#{@pet_2.id}" do
+        expect(page).to_not have_button("Accept")
+        expect(page).to_not have_button("Reject")
+        expect(page).to have_content("Rejected")
+      end
     end
   end
 end
