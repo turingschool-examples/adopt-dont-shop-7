@@ -7,6 +7,11 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id] || params[:application_id])
     @pets = Pet.search(params[:name]) if params[:name]
+    if params[:pet_id]
+      @application.pets << Pet.find(params[:pet_id])
+      @application.save
+      redirect_to "/applications/#{@application.id}"
+    end
   end
 
   def new

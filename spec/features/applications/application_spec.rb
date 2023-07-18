@@ -121,4 +121,33 @@ RSpec.describe "application" do
       end
     end
   end
+
+# 5. Add a Pet to an Application
+
+# As a visitor
+# When I visit an application's show page
+# And I search for a Pet by name
+# And I see the names Pets that match my search
+# Then next to each Pet's name I see a button to "Adopt this Pet"
+# When I click one of these buttons
+# Then I am taken back to the application show page
+# And I see the Pet I want to adopt listed on this application
+  it "can add a pet to an application" do
+    @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
+    @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: @shelter_1.id)
+    @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter_1.id)
+    @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Max", shelter_id: @shelter_1.id)
+    @pet_3 = Pet.create!(adoptable: true, age: 2, breed: "labrador", name: "Molly", shelter_id: @shelter_1.id)
+      visit "/applications/#{@application_1.id}"
+        
+        fill_in 'name', with: 'Lucille'
+        click_button 'Search'
+    
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_button('Adopt this Pet')
+
+      click_button 'Adopt this Pet'
+    expect(page).to have_current_path("/applications/#{@application_1.id}")
+    expect(page).to have_content(@pet_1.name)
+  end
 end
