@@ -9,21 +9,23 @@
 <div class="search">
   <%= form_with(url: applicant_path(@applicant), local: true, method: :get, id: 'search-pet-form') do |f| %>
     <h3> Add a Pet to this Application </h3>
-    <p>Pet: <% f.label :pet_name %></p>
+    <p>Pet: <%= f.label :pet_name %></p>
     <p><%= f.text_field :pet_name %></p>
     <p><%= f.submit "Search for Pet" %></p>
-    <% if @matching_pets.any? %>
-      <h3>Matching Pets</h3>
-      <ul>
+  <% end %>
+  <% if params[:pet_name].present? %>
+    <% if @matching_pets.present? %>
+      <h3 id="matching-pets-heading">Matching Pets</h3>
+      <ul id="matching-pets-list">
         <% @matching_pets.each do |pet| %>
-          <% if pet.adoptable? && @applicant.status == "In Progress" %>
-            <li>
-              <span class="pet-name"><%= pet.name %></span>
+          <li>
+            <span class="pet-name"><%= pet.name %></span>
+            <% if pet.adoptable? && @applicant.status == "In Progress" %>
               <%= button_to 'Add Pet', create_applicant_pet_path(applicant_id: @applicant.id, pet_id: pet.id), method: :post %>
-            </li>
-          <% else %>
-            <li><%= pet.name %> - Not available for adoption</li>
-          <% end %>
+            <% else %>
+              <%= pet.name %> - Not available for adoption
+            <% end %>
+          </li>
         <% end %>
       </ul>
     <% else %>
