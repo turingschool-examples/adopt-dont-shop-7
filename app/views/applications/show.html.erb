@@ -11,7 +11,7 @@ Add a Pet to this Application
   <% end %>
   </ul>
 <br>
-  <%= form_with url: "/application_search", method: :post, local: true do |form| %>
+  <%= form_with url: "/application_search", data:{turbo: false}, method: :post, local: true do |form| %>
 
   <%= form.label :name %>
   <%= form.text_field :name %>
@@ -29,11 +29,11 @@ Add a Pet to this Application
     <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
   <% end %>
 
-<% if @pets.name.present? %>
+<% if @pets.first.name.present? %>
 
   <h2>Search Results:</h2>
   <ul>
-    <li><%= @pets.name %></li>
+    <li><%= @pets.first.name %></li>
   </ul>
 <% end %>
 <% end %>
