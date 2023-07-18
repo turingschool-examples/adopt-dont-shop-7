@@ -12,7 +12,11 @@ class AdminController < ApplicationController
 
   def update
     application_pet = ApplicationPet.find(params[:application_pet_id])
-    application_pet.update(status: "Approved")
-    redirect_to "/admin/applications/#{application_pet.application.id}"
+    if params[:reject].to_s == "true"
+      application_pet.update(status: "Rejected")
+    else
+      application_pet.update(status: "Approved")
+    end
+      redirect_to "/admin/applications/#{application_pet.application.id}"
   end
 end
