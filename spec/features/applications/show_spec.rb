@@ -116,6 +116,7 @@ end
 
           fill_in :description, with: "I like african bullfrogs!"
           click_on "Submit"
+          click_on "Submit Application"
 
           expect(current_path).to eq("/applications/#{Application.last.id}")
           expect(page).to have_content("I like african bullfrogs!")
