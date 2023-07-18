@@ -11,10 +11,13 @@
 <% @application.application_pets.each do |application_pet| %>
   <% pet = application_pet.pet %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <% if application_pet.approved %>
+  <% if application_pet.approved == "approved" %>
     - Pet Approved
-  <% else %>
-    <%= button_to "Approve application", { controller: "/admin/applications", action: :update, pet_id: pet.id }, method: :patch %>
+  <% elsif application_pet.approved == "rejected"%>
+    - Pet Rejected
+  <% elsif application_pet.approved == "pending" %>
+    <%= button_to "Approve application", { controller: "/admin/applications", action: :update, pet_id: pet.id, confirm: "approve" }, method: :patch %>
+    <%= button_to "Reject application", { controller: "/admin/applications", action: :update, pet_id: pet.id, confirm: "reject" }, method: :patch %>
   <% end %>
   <br />
 <% end %>
