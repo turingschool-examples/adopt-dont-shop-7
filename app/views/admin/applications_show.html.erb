@@ -1,0 +1,6 @@
+<h1>Pets applied for by <%="#{@application.name}"%></h1>
+
+<% @application.pets.each do |pet| %>
+<%= pet.name %>
+<%= button_to "Approve Adoption of #{pet.name}", "/admin/applications/#{@application.id}", method: :patch, params: {application_id: @application.id, pet_id: pet.id} %>
+<% end %>
