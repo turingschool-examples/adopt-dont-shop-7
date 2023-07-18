@@ -14,11 +14,7 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def self.pending_applications?
-    if Pet.joins(:applicants) != []
-      true
-    else
-      false
-    end
+  def self.pending_applications
+    Pet.joins(:applicants).where('applicants.status = ?', "Pending")
   end
 end

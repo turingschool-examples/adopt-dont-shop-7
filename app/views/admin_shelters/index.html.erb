@@ -6,7 +6,7 @@
 </section>
 <section id="pending_apps">
 <% Shelter.all.each do |shelter| %>
-    <% if shelter.pets.pending_applications? %>
+    <% if shelter.pets.pending_applications != [] %>
         <br>
         <%= shelter.name %>
     <% end %>
