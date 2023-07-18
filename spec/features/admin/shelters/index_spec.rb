@@ -17,7 +17,7 @@ describe "Admin/index page:" do
   describe "When I visit the admin shelter index ('/admin/shelters')" do
     it "Then I see all Shelters in the system listed in reverse alphabetical order by name" do
       visit "/admin/shelters"
-      
+      save_and_open_page
       expect(@shelter_2.name).to appear_before(@shelter.name)
       expect(@shelter.name).to appear_before(@shelter_1.name)
     end
