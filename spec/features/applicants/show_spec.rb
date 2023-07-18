@@ -20,12 +20,12 @@ RSpec.describe 'the applicant shows page' do
     @shelter1.pets << @pet1
 
     visit applicant_path(@applicant1)
-    expect(find('form')).to have_content('Add a Pet to this Application')
-    expect(find('form')).to have_content('Pet:')
-    expect(find('form')).to have_selector('input[name="pet_name"]')
+    expect(find('#search-pet-form')).to have_content('Add a Pet to this Application')
+    expect(find('#search-pet-form')).to have_content('Pet:')
+    expect(find('#search-pet-form')).to have_selector('input[name="pet_name"]')
 
     fill_in 'pet_name', with: 'Lucille Bald'
-    click_button 'submit'
+    click_button 'Search for Pet'
 
     expect(current_path).to eq(applicant_path(@applicant1))
     expect(page).to have_content('Lucille Bald')
@@ -43,12 +43,10 @@ RSpec.describe 'the applicant shows page' do
 
     visit applicant_path(@applicant1)
     fill_in 'pet_name', with: 'Lucille Bald'
-    click_button 'submit'
-    click_button 'Add Pet'
+    click_button 'Search for Pet'
 
-    # Looks for the pet name in the associated pets section
-    associated_pets_heading = page.find('h3', text: 'Associated Pets')
-    pet_name_paragraph = associated_pets_heading.sibling('p', text: 'Pet Name: Lucille Bald')
-    expect(pet_name_paragraph).to be_present
+    expect(current_path).to eq(applicant_path(@applicant1))
+    expect(page).to have_content('Matching Pets')
+    expect(page).to have_css('.pet-name', text: 'Lucille Bald')
   end
 end

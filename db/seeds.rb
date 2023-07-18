@@ -42,9 +42,9 @@ veterinarians = Veterinarian.create([
 
 # Create pets
 pets = Pet.create([
-                    { name: 'Pet 1', age: 2, breed: 'Breed 1', shelter: shelters.first, adoptable: true },
-                    { name: 'Pet 2', age: 3, breed: 'Breed 2', shelter: shelters.second, adoptable: false },
-                    { name: 'Pet 3', age: 4, breed: 'Breed 3', shelter: shelters.third, adoptable: true }
+                    { name: 'Fluffy', age: 2, breed: 'Breed 1', shelter: shelters.first, adoptable: true },
+                    { name: 'Spike', age: 3, breed: 'Breed 2', shelter: shelters.second, adoptable: false },
+                    { name: 'Rex', age: 4, breed: 'Breed 3', shelter: shelters.third, adoptable: true }
                   ])
 
 # Create applicants

@@ -6,19 +6,14 @@ class ApplicantsController < ApplicationController
   def new; end
 
   def create
+    puts "Received params: #{params.inspect}"
     @applicant = Applicant.new(applicant_params)
-    if @applicant.valid?
-      # Check if the pet is already associated with an applicant
-      if @applicant.pet_id && ApplicantsPet.exists?(pet_id: @applicant.pet_id)
-        flash[:error] = 'Pet is already associated with an applicant.'
-        redirect_to '/applicants/new'
-      else
-        @applicant.save
-        redirect_to applicant_path(@applicant)
-      end
+
+    if @applicant.save
+      redirect_to applicant_path(@applicant)
     else
       flash[:error] = 'Invalid data. Please fill out fields correctly.'
-      redirect_to '/applicants/new'
+      redirect_to new_applicant_path
     end
   end
 
@@ -38,6 +33,6 @@ class ApplicantsController < ApplicationController
   private
 
   def applicant_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+    params.require(:applicant).permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
 end

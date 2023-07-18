@@ -5,35 +5,29 @@
 <p>Zip Code: <%= @applicant.zip_code %></p>
 <p>Description: <%= @applicant.description %></p>
 <p>Status: <%= @applicant.status %></p>
+<br>
 <div class="search">
-  <%= form_with(url: applicant_path(@applicant), local: true, method: :get) do |f| %>
+  <%= form_with(url: applicant_path(@applicant), local: true, method: :get, id: 'search-pet-form') do |f| %>
     <h3> Add a Pet to this Application </h3>
     <p>Pet: <% f.label :pet_name %></p>
     <p><%= f.text_field :pet_name %></p>
-    <p><%= f.submit "submit" %></p>
-  <% end %>
-</div>
-<% @matching_pets.each do |pet| %>
-  <p> name: <%= pet.name %> </p>
-  <% if pet.adoptable? && @applicant.status == "In Progress" %>
-    <% if @applicant.pets.exists?(pet.id) %>
-      <p>Pet is already associated with the applicant.</p>
+    <p><%= f.submit "Search for Pet" %></p>
+    <% if @matching_pets.any? %>
+      <h3>Matching Pets</h3>
+      <ul>
+        <% @matching_pets.each do |pet| %>
+          <% if pet.adoptable? && @applicant.status == "In Progress" %>
+            <li>
+              <span class="pet-name"><%= pet.name %></span>
+              <%= button_to 'Add Pet', create_applicant_pet_path(applicant_id: @applicant.id, pet_id: pet.id), method: :post %>
+            </li>
+          <% else %>
+            <li><%= pet.name %> - Not available for adoption</li>
+          <% end %>
+        <% end %>
+      </ul>
     <% else %>
-      <%= button_to 'Add Pet', create_applicant_pet_path(applicant_id: @applicant.id, pet_id: pet.id), method: :post %>
-    <% end %>
-  <% end %>
-<% end %>
-<h3>Associated Pets</h3>
-<% @associated_pets.each do |pet| %>
-  <p>Pet Name: <%= link_to pet.name, pet_path(pet) %></p>
-<% end %>
-<% if @applicant.status == "In Progress" %>
-  <div "adoption_description">
-    <%= form_with(model: @applicants_pet, url: update_adoption_description_applicants_pet_path(@applicants_pet), method: :patch) do |f| %>
-      <h3>Submit My Application</h3>
-      <p>Description: <%= f.label :adoption_description %></p>
-      <p><%= f.text_area :adoption_description %></p>
-      <p><%= f.submit "Submit Description" %></p>
+      <p>No pets found.</p>
     <% end %>
   <% end %>
 </div>
