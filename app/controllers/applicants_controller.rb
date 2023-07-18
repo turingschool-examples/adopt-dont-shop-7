@@ -17,9 +17,17 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  # User Story 9 and 10
   def show
     @applicant = Applicant.find(params[:id])
-    @matching_pets = Pet.where('name LIKE ?', "%#{params[:pet_name]}%")
+    pet_name = params[:pet_name]&.downcase
+
+    @matching_pets = if pet_name.present?
+                       Pet.where('lower(name) ILIKE ?', "%#{pet_name}%")
+                     else
+                       []
+                     end
+
     @associated_pets = @applicant.pets
     @applicants_pet = ApplicantsPet.find_or_initialize_by(applicant: @applicant)
   end
