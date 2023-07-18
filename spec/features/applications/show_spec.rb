@@ -10,6 +10,7 @@ RSpec.describe "Application 'show' Page", type: :feature do
     @pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
     @pet_3 = Pet.create(adoptable: true, age: 4, breed: "chiwawa", name: "Bamby", shelter_id: @shelter.id)
+    @pet_4 = Pet.create(adoptable: true, age: 3, breed: "doberdoodle", name: "Bobster", shelter_id: @shelter.id)
 
     @app_pet_1 = ApplicationPet.create!(application_id: @application.id, pet_id: @pet_1.id)
     @app_pet_2 = ApplicationPet.create!(application_id: @application.id, pet_id: @pet_2.id)
@@ -161,6 +162,49 @@ RSpec.describe "Application 'show' Page", type: :feature do
         end       
       end
       # ====END USER STORY 7 TESTS====
+      
+      # User Story 8: Partial Matches for Pet Names 
+      # ====START TESTS====
+      describe "and I visit an application show page" do
+        it "when I use a search term that includes multiple pets" do
+          visit "/applications/#{@application.id}"
+          
+          fill_in "Pet Search", with: "ster"
+          click_button "Submit"
+          expect(page).to have_content(@pet_2.name)
+          expect(page).to have_content(@pet_4.name)
+        end
+        
+        it "a very close match will still return no results" do
+          visit "/applications/#{@application.id}"
+          
+          fill_in "Pet Search", with: "ambie"
+          click_button "Submit"
+          
+          expect(page).to_not have_content(@pet_3.name)
+          expect(page).to_not have_content(@pet_4.name)
+        end
+        
+        it "an empty search will return no results" do
+          visit "/applications/#{@application.id}"
+          
+          fill_in "Pet Search", with: ""
+          click_button "Submit"
+          
+          expect(page).to_not have_content(@pet_3.name)
+          expect(page).to_not have_content(@pet_4.name)
+        end
+        
+        it "an exact search still returns exact result" do
+          visit "/applications/#{@application.id}"
+          
+          fill_in "Pet Search", with: "Bamby"
+          click_button "Submit"
+          
+          expect(page).to have_content(@pet_3.name)
+        end
+      end
+      # ====END USER STORY 8 TESTS====
 
     end
   end
