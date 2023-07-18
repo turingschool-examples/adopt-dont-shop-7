@@ -2,7 +2,8 @@
 <% if @pets.any? %>
 <ul> 
 <% @pets.each do |pet| %>
-<li> <%= pet.name %> </li>
+<li> <%= pet.name %>  </li>
+<% form.submit "Adopt this Pet" %>
 <% end %>
 </ul>
 <% else %>
