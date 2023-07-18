@@ -42,14 +42,14 @@ ringo = Application.create(name: "Ringo", street: "235 River Ferry", city: "Live
 
 # ApplicationPets
 
-mr_ape.application_pets.create(pet_id: lucille.id)
-mr_ape.application_pets.create(pet_id: scooby.id)
-mr_ape.application_pets.create(pet_id: santas_lil_helper.id)
+mr_ape.application_pets.create(pet_id: lucille.id, status: "Pending")
+mr_ape.application_pets.create(pet_id: scooby.id, status: "In Progress")
+mr_ape.application_pets.create(pet_id: santas_lil_helper.id, status: "Accepted")
 
-penny_lane.application_pets.create(pet_id: whiskers.id)
-penny_lane.application_pets.create(pet_id: clifford.id)
+penny_lane.application_pets.create(pet_id: whiskers.id, status: "Rejected")
+penny_lane.application_pets.create(pet_id: clifford.id, status: "Pending")
 
-paul.application_pets.create(pet_id: cheeto.id)
+paul.application_pets.create(pet_id: cheeto.id, status: "In Progress")
 
 # Vet Office
 vet_office_1 = VeterinaryOffice.create(name: "Best Vets", boarding_services: true, max_patient_capacity: 20)
