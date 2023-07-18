@@ -1,29 +1,32 @@
 <h1>New Applicant</h1>
-<%= form_with url: '/applicants', local: true do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :street_address %>
-    <%= f.text_field :street_address %>
-  </div>
-  <div>
-    <%= f.label :city %>
-    <%= f.text_field :city %>
-  </div>
-  <div>
-    <%= f.label :state %>
-    <%= f.text_field :state %>
-  </div>
-  <div>
-    <%= f.label :zip_code %>
-    <%= f.text_field :zip_code %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
+<%= form_with(model: @applicant, url: create_applicant_path, local: true) do |f| %>
+  <%= f.fields_for :applicant do |applicant_fields| %>
+    <div>
+      <%= applicant_fields.label :name %>
+      <%= applicant_fields.text_field :name %>
+    </div>
+    <div>
+      <%= applicant_fields.label :street_address %>
+      <%= applicant_fields.text_field :street_address %>
+    </div>
+    <div>
+      <%= applicant_fields.label :city %>
+      <%= applicant_fields.text_field :city %>
+    </div>
+    <div>
+      <%= applicant_fields.label :state %>
+      <%= applicant_fields.text_field :state %>
+    </div>
+    <div>
+      <%= applicant_fields.label :zip_code %>
+      <%= applicant_fields.number_field :zip_code %>
+    </div>
+    <div>
+      <%= applicant_fields.label :description %>
+      <%= applicant_fields.text_area :description %>
+    </div>
+  <% end %>
+  <%= f.hidden_field :authenticity_token, value: form_authenticity_token %>
   <div>
     <%= f.submit %>
   </div>

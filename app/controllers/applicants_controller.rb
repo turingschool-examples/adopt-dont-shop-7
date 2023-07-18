@@ -6,25 +6,28 @@ class ApplicantsController < ApplicationController
   def new; end
 
   def create
+    puts "Received params: #{params.inspect}"
     @applicant = Applicant.new(applicant_params)
-    if @applicant.valid?
-      # Check if the pet is already associated with an applicant
-      if @applicant.pet_id && ApplicantsPet.exists?(pet_id: @applicant.pet_id)
-        flash[:error] = 'Pet is already associated with an applicant.'
-        redirect_to '/applicants/new'
-      else
-        @applicant.save
-        redirect_to applicant_path(@applicant)
-      end
+
+    if @applicant.save
+      redirect_to applicant_path(@applicant)
     else
       flash[:error] = 'Invalid data. Please fill out fields correctly.'
-      redirect_to '/applicants/new'
+      redirect_to new_applicant_path
     end
   end
 
+  # User Story 9 and 10
   def show
     @applicant = Applicant.find(params[:id])
-    @matching_pets = Pet.where('name LIKE ?', "%#{params[:pet_name]}%")
+    pet_name = params[:pet_name]&.downcase
+
+    @matching_pets = if pet_name.present?
+                       Pet.where('lower(name) ILIKE ?', "%#{pet_name}%")
+                     else
+                       []
+                     end
+
     @associated_pets = @applicant.pets
     @applicants_pet = ApplicantsPet.find_or_initialize_by(applicant: @applicant)
   end
@@ -38,6 +41,6 @@ class ApplicantsController < ApplicationController
   private
 
   def applicant_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+    params.require(:applicant).permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
 end

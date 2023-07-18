@@ -38,22 +38,22 @@ RSpec.describe 'applicant form' do
         expect(page).to have_text('In Progress')
       end
 
-        context 'given invalid data' do
-          it 'creates the applicant' do
-            visit '/applicants/new'
-    
-            fill_in 'Name', with: 'John Doe'
-            fill_in 'Street address', with: '123 Main St'
-            fill_in 'City', with: 'Denver'
-            fill_in 'State', with: 'CO'
-            fill_in 'Zip code', with: 'Denver'
-            fill_in 'Description', with: 'I love dogs'
-            click_button 'Save'
-    
-            expect(current_path).to eq('/applicants/new')
-            expect(page).to have_content("ERROR invalid data. Please fill out feilds correctly")
-          end
+      context 'given invalid data' do
+        it 'creates the applicant' do
+          visit '/applicants/new'
+
+          fill_in 'Name', with: 'John Doe'
+          fill_in 'Street address', with: '123 Main St'
+          fill_in 'City', with: 'Denver'
+          fill_in 'State', with: 'CO'
+          fill_in 'Zip code', with: 'Denver'
+          fill_in 'Description', with: 'I love dogs'
+          click_button 'Save'
+
+          expect(current_path).to eq('/applicants/new')
+          expect(page).to have_content('Invalid data. Please fill out fields correctly')
         end
+      end
     end
   end
 end
