@@ -8,11 +8,17 @@
   Application Status: <%= @application.application_status %>
 </p>
 <h3>Pets:</h3>
-<% @application.pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-    <%= button_to "Approve application", {controller: "/admin/applications", action: :update, pet_id: pet.id, id: @application.id}, method: :patch %>
+<% @application.application_pets.each do |application_pet| %>
+  <% pet = application_pet.pet %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% if application_pet.approved %>
+    - Pet Approved
+  <% else %>
+    <%= button_to "Approve application", { controller: "/admin/applications", action: :update, pet_id: pet.id }, method: :patch %>
+  <% end %>
   <br />
 <% end %>
+
 
 <% if @application.application_status != "Pending" %>
   <section>
