@@ -4,9 +4,8 @@ class ApplicationsController < ApplicationController
     if params[:search_for_pet]
       #@found_pet = Pet.find_by(name: params[:search_for_pet]) obsolete at user story 8
       # @found_pet = Pet.where("name LIKE ?", "%#{params[:search_for_pet]}%") obsolete at user story 9
-      @found_pet = Pet.where("lower(name) LIKE ?", "%#{params[:search_for_pet].downcase}%")
+      @found_pet = Pet.where("lower(name) LIKE ?", "%#{params[:search_for_pet].downcase}%") 
     end
-    
   end
 
   def new
