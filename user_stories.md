@@ -4,13 +4,13 @@
 
 ```
 [✓]
-0: Deploy your application to the internet
+0: Deploy your applicant to the internet
 
 As a visitor of the site
 I will perform all user stories
-By visiting the application on the internet.
+By visiting the applicant on the internet.
 Localhost is fine for development, but
-the application must be hosted on the internet.
+the applicant must be hosted on the internet.
 
 As a team, choose either Render or Heroku to deploy your project.
 Use these guides:
@@ -23,33 +23,33 @@ Continuous Integration / Deployment is not allowed for this project.
 
 ## Apply for Pet(s)
 
-Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
+Visitors to the site will be able to create applicants to adopt pets. An applicant has many pets. Pets can have many applicants.
 
 ```
 [✓] done
 
-1. Application Show Page
+1. Applicant Show Page
 
 As a visitor
-When I visit an applications show page
+When I visit an applicants show page
 Then I can see the following:
 - Name of the Applicant
 - Full Address of the Applicant including street address, city, state, and zip code
 - Description of why the applicant says they'd be a good home for this pet(s)
-- names of all pets that this application is for (all names of pets should be links to their show page)
-- The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
+- names of all pets that this applicant is for (all names of pets should be links to their show page)
+- The Applicant's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 ```
 
 ```
 [✓] done
 
-2. Starting an Application
+2. Starting an Applicant
 
 As a visitor
 When I visit the pet index page
-Then I see a link to "Start an Application"
+Then I see a link to "Start an Applicant"
 When I click this link
-Then I am taken to the new application page where I see a form
+Then I am taken to the new applicant page where I see a form
 When I fill in this form with my:
   - Name
   - Street Address
@@ -58,82 +58,82 @@ When I fill in this form with my:
   - Zip Code
   - Description of why I would make a good home
 And I click submit
-Then I am taken to the new application's show page
+Then I am taken to the new applicant's show page
 And I see my Name, address information, and description of why I would make a good home
-And I see an indicator that this application is "In Progress"
+And I see an indicator that this applicant is "In Progress"
 ```
 
 ```
 [✓] done
 
-3. Starting an Application, Form not Completed
+3. Starting an Applicant, Form not Completed
 
 As a visitor
-When I visit the new application page
+When I visit the new applicant page
 And I fail to fill in any of the form fields
 And I click submit
-Then I am taken back to the new applications page
+Then I am taken back to the new applicants page
 And I see a message that I must fill in those fields.
 ```
 
 ```
 [✓] done
 
-4. Searching for Pets for an Application
+4. Searching for Pets for an Applicant
 
 As a visitor
-When I visit an application's show page
-And that application has not been submitted,
-Then I see a section on the page to "Add a Pet to this Application"
+When I visit an applicant's show page
+And that applicant has not been submitted,
+Then I see a section on the page to "Add a Pet to this Applicant"
 In that section I see an input where I can search for Pets by name
 When I fill in this field with a Pet's name
 And I click submit,
-Then I am taken back to the application show page
+Then I am taken back to the applicant show page
 And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
 [✓] done
 
-5. Add a Pet to an Application
+5. Add a Pet to an Applicant
 
 As a visitor
-When I visit an application's show page
+When I visit an applicant's show page
 And I search for a Pet by name
 And I see the names Pets that match my search
 Then next to each Pet's name I see a button to "Adopt this Pet"
 When I click one of these buttons
-Then I am taken back to the application show page
-And I see the Pet I want to adopt listed on this application
+Then I am taken back to the applicant show page
+And I see the Pet I want to adopt listed on this applicant
 ```
 
 ```
 [ ] done
 
-6. Submit an Application
+6. Submit an Applicant
 
 As a visitor
-When I visit an application's show page
-And I have added one or more pets to the application
-Then I see a section to submit my application
+When I visit an applicant's show page
+And I have added one or more pets to the applicant
+Then I see a section to submit my applicant
 And in that section I see an input to enter why I would make a good owner for these pet(s)
 When I fill in that input
-And I click a button to submit this application
-Then I am taken back to the application's show page
-And I see an indicator that the application is "Pending"
+And I click a button to submit this applicant
+Then I am taken back to the applicant's show page
+And I see an indicator that the applicant is "Pending"
 And I see all the pets that I want to adopt
-And I do not see a section to add more pets to this application
+And I do not see a section to add more pets to this applicant
 ```
 
 ```
 [ ] done
 
-7. No Pets on an Application
+7. No Pets on an Applicant
 
 As a visitor
-When I visit an application's show page
-And I have not added any pets to the application
-Then I do not see a section to submit my application
+When I visit an applicant's show page
+And I have not added any pets to the applicant
+Then I do not see a section to submit my applicant
 ```
 
 ## Database Logic Part 1
@@ -146,7 +146,7 @@ These stories emphasize key database concepts.
 8. Partial Matches for Pet Names
 
 As a visitor
-When I visit an application show page
+When I visit an applicant show page
 And I search for Pets by name
 Then I see any pet whose name PARTIALLY matches my search
 For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
@@ -158,14 +158,14 @@ For example, if I search for "fluff", my search would match pets with names "flu
 9. Case Insensitive Matches for Pet Names
 
 As a visitor
-When I visit an application show page
+When I visit an applicant show page
 And I search for Pets by name
 Then my search is case insensitive
 For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
 ```
 
 ```
-[ ] done
+[✓] done
 
 SQL Only Story
 
@@ -179,23 +179,23 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
-[ ] done
+[✓] done
 
 For this story, you should fully leverage ActiveRecord methods in your query.
 
-11. Shelters with Pending Applications
+11. Shelters with Pending Applicants
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
-Then I see a section for "Shelters with Pending Applications"
-And in this section I see the name of every shelter that has a pending application
+Then I see a section for "Shelters with Pending Applicants"
+And in this section I see the name of every shelter that has a pending applicant
 ```
 
-## Approving Applications
+## Approving Applicants
 
-Pets on an application can either be accepted or rejected.
+Pets on an applicant can either be accepted or rejected.
 
-For this set of stories, we will be making routes that begin with '/admin'. This is to indicate that only a user with special privileges should be able to accept or reject pets on an application. Normally, we would want to make sure that a user is logged into an admin account before being able complete any of this workflow, but we will not add any log in or authorization functionality to this project.
+For this set of stories, we will be making routes that begin with '/admin'. This is to indicate that only a user with special privileges should be able to accept or reject pets on an applicant. Normally, we would want to make sure that a user is logged into an admin account before being able complete any of this workflow, but we will not add any log in or authorization functionality to this project.
 
 ```
 [ ] done
@@ -203,10 +203,10 @@ For this set of stories, we will be making routes that begin with '/admin'. This
 12. Approving a Pet for Adoption
 
 As a visitor
-When I visit an admin application show page ('/admin/applications/:id')
-For every pet that the application is for, I see a button to approve the application for that specific pet
+When I visit an admin applicant show page ('/admin/applicants/:id')
+For every pet that the applicant is for, I see a button to approve the applicant for that specific pet
 When I click that button
-Then I'm taken back to the admin application show page
+Then I'm taken back to the admin applicant show page
 And next to the pet that I approved, I do not see a button to approve this pet
 And instead I see an indicator next to the pet that they have been approved
 ```
@@ -217,10 +217,10 @@ And instead I see an indicator next to the pet that they have been approved
 13. Rejecting a Pet for Adoption
 
 As a visitor
-When I visit an admin application show page ('/admin/applications/:id')
-For every pet that the application is for, I see a button to reject the application for that specific pet
+When I visit an admin applicant show page ('/admin/applicants/:id')
+For every pet that the applicant is for, I see a button to reject the applicant for that specific pet
 When I click that button
-Then I'm taken back to the admin application show page
+Then I'm taken back to the admin applicant show page
 And next to the pet that I rejected, I do not see a button to approve or reject this pet
 And instead I see an indicator next to the pet that they have been rejected
 ```
@@ -228,56 +228,56 @@ And instead I see an indicator next to the pet that they have been rejected
 ```
 [ ] done
 
-14. Approved/Rejected Pets on one Application do not affect other Applications
+14. Approved/Rejected Pets on one Applicant do not affect other Applicants
 
 As a visitor
-When there are two applications in the system for the same pet
-When I visit the admin application show page for one of the applications
-And I approve or reject the pet for that application
-When I visit the other application's admin show page
-Then I do not see that the pet has been accepted or rejected for that application
-And instead I see buttons to approve or reject the pet for this specific application
+When there are two applicants in the system for the same pet
+When I visit the admin applicant show page for one of the applicants
+And I approve or reject the pet for that applicant
+When I visit the other applicant's admin show page
+Then I do not see that the pet has been accepted or rejected for that applicant
+And instead I see buttons to approve or reject the pet for this specific applicant
 ```
 
 ---
 
-## Completed Applications
+## Completed Applicants
 
-Once all pets on an application have been marked either accepted or rejected, then the application is no longer "Pending". If all the pets were accepted, then the application is "Accepted". If one or more pets on the application is rejected, then the entire application is "Rejected".
-
-```
-[ ] done
-
-15. All Pets Accepted on an Application
-
-As a visitor
-When I visit an admin application show page
-And I approve all pets for an application
-Then I am taken back to the admin application show page
-And I see the application's status has changed to "Approved"
-```
+Once all pets on an applicant have been marked either accepted or rejected, then the applicant is no longer "Pending". If all the pets were accepted, then the applicant is "Accepted". If one or more pets on the applicant is rejected, then the entire applicant is "Rejected".
 
 ```
 [ ] done
 
-16. One or More Pets Rejected on an Application
+15. All Pets Accepted on an Applicant
 
 As a visitor
-When I visit an admin application show page
-And I reject one or more pets for the application
-And I approve all other pets on the application
-Then I am taken back to the admin application show page
-And I see the application's status has changed to "Rejected"
+When I visit an admin applicant show page
+And I approve all pets for an applicant
+Then I am taken back to the admin applicant show page
+And I see the applicant's status has changed to "Approved"
 ```
 
 ```
 [ ] done
 
-17. Application Approval makes Pets not adoptable
+16. One or More Pets Rejected on an Applicant
 
 As a visitor
-When I visit an admin application show page
-And I approve all pets on the application
+When I visit an admin applicant show page
+And I reject one or more pets for the applicant
+And I approve all other pets on the applicant
+Then I am taken back to the admin applicant show page
+And I see the applicant's status has changed to "Rejected"
+```
+
+```
+[ ] done
+
+17. Applicant Approval makes Pets not adoptable
+
+As a visitor
+When I visit an admin applicant show page
+And I approve all pets on the applicant
 And when I visit the show pages for those pets
 Then I see that those pets are no longer "adoptable"
 ```
@@ -285,12 +285,12 @@ Then I see that those pets are no longer "adoptable"
 ```
 [ ] done
 
-18. Pets can only have one approved application on them at any time
+18. Pets can only have one approved applicant on them at any time
 
 As a visitor
-When a pet has an "Approved" application on them
-And when the pet has a "Pending" application on them
-And I visit the admin application show page for the pending application
+When a pet has an "Approved" applicant on them
+And when the pet has a "Pending" applicant on them
+And I visit the admin applicant show page for the pending applicant
 Then next to the pet I do not see a button to approve them
 And instead I see a message that this pet has been approved for adoption
 And I do see a button to reject them
@@ -323,11 +323,11 @@ For the following stories, you should fully leverage ActiveRecord methods in you
 ```
 [ ] done
 
-20. Shelters with Pending Applications Listed Alphabetically
+20. Shelters with Pending Applicants Listed Alphabetically
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
-And I look in the section for shelters with pending applications
+And I look in the section for shelters with pending applicants
 Then I see all those shelters are listed alphabetically
 ```
 
@@ -375,7 +375,7 @@ When I visit an admin shelter show page
 Then I see a section for statistics
 And in that section I see the number of pets that have been adopted from that shelter
 
-Note: A Pet has been adopted from a shelter if they are part of an approved application
+Note: A Pet has been adopted from a shelter if they are part of an approved applicant
 ```
 
 ```
@@ -386,18 +386,18 @@ Note: A Pet has been adopted from a shelter if they are part of an approved appl
 As a visitor
 When I visit an admin shelter show page
 Then I see a section titled "Action Required"
-In that section, I see a list of all pets for this shelter that have a pending application and have not yet been marked "approved" or "rejected"
+In that section, I see a list of all pets for this shelter that have a pending applicant and have not yet been marked "approved" or "rejected"
 ```
 
 ```
 [ ] done
 
-26. Action Required Links to Application Show Page
+26. Action Required Links to Applicant Show Page
 
 As a visitor
 When I visit an admin shelter show page
 And I look in the "Action Required" section
-Then next to each pet's name I see a link to the admin application show page where I can accept or reject the pet.
+Then next to each pet's name I see a link to the admin applicant show page where I can accept or reject the pet.
 ```
 
 ---

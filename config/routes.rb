@@ -54,4 +54,6 @@ Rails.application.routes.draw do
                                                                      as: 'new_veterinary_office_veterinarian'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create',
                                                                   as: 'create_veterinary_office_veterinarian'
+  get '/admin', to: 'admin/admin#welcome', as: 'admin_root'
+  get '/admin/shelters', to: 'admin/shelters#index', as: 'admin_shelters'
 end

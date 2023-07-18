@@ -1,0 +1,15 @@
+<h1>Admin Shelters Index</h1>
+<% @shelters.each do |shelter| %>
+  <p>Shelter Name: <%= link_to shelter.name, shelter_path(shelter) %></p>
+  <p>Shelter City: <%= shelter.city %></p>
+  <p>Shelter Rank: <%= shelter.rank %></p>
+  <p>Shelter Foster Program: <%= shelter.foster_program %></p>
+  <br>
+<% end %>
+<h2 id="pending-applications-title">Shelters with Pending Applications</h2>
+<% @shelters_with_pending_applicants.each do |shelter| %>
+  <p>Shelter Name: <%= link_to shelter.name, shelter_path(shelter) %></p>
+  <p>Shelter City: <%= shelter.city %></p>
+  <p>Shelter Rank: <%= shelter.rank %></p>
+  <br>
+<% end %>
