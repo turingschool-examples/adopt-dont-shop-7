@@ -185,7 +185,6 @@ RSpec.describe "Application 'show' Page", type: :feature do
         it "when I use a search term that includes multiple pets" do
           visit "/applications/#{@application.id}"
           
-          save_and_open_page
           fill_in "Pet Search", with: "ster"
           click_button "Search"
           

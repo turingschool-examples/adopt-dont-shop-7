@@ -12,12 +12,12 @@ RSpec.describe "application pets creation" do
       visit "/applications/#{@mr_ape.id}"
 
       fill_in "Pet Search", with: "Mr. Pirate"
-      click_button "Submit"
+      click_button "Search"
 
       click_on "Adopt this Pet"
       
       fill_in "Pet Search", with: "Mr. Pirate"
-      click_button "Submit"
+      click_button "Search"
 
       click_on "Adopt this Pet"
 
