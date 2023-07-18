@@ -1,1 +1,16 @@
+<h1>Applications</h1>
+
+<h2>Application Name: <%= @application.name %></h2>
+
+<h3>Pets</h3>
+<% @application.pets.each do |pet| %>
+  <p>Pet Name: <%= pet.name %></p>
+  <% if @application.status == "Approved" %>
+      <p>Approved</p>
+    <% else %>
+      <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch %>
+  <% end %>
+<% end %>
+
+
 
