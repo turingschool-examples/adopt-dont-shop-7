@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Admin/index page:" do
+describe "Admin/application/:id page:" do
   before(:each) do
     @shelter = Shelter.create!(name: "Heavenly pets", city: "Aurora, CO", foster_program: true, rank: 7)
     @shelter_1 = Shelter.create!(foster_program: true, name: "County Pet Shelter", city: "Denver", rank: 1)
@@ -14,20 +14,21 @@ describe "Admin/index page:" do
     @app_1_pet_1 = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @app_1.id)
     @app_3_pet = ApplicationPet.create!(pet_id: @pet.id, application_id: @app_3.id)
   end
-  describe "When I visit the admin shelter index ('/admin/shelters')" do
-    it "Then I see all Shelters in the system listed in reverse alphabetical order by name" do
-      visit "/admin/shelters"
-      expect(@shelter_2.name).to appear_before(@shelter.name)
-      expect(@shelter.name).to appear_before(@shelter_1.name)
+  describe "When I visit an admin application show page ('/admin/applications/:id')" do
+    it "For every pet that the application is for, I see a button to approve the application for that specific pet" do
+      visit "/admin/applications/#{@app_1.id}"
+      expect(page).to have_button("Approve application")
     end
-
-    it "I see a section for 'Shelters with Pending Applications' and in this section I see the name of every shelter that has a pending application" do
-      visit "/admin/shelters"
-      expect(page).to have_content("Shelters with Pending Applications")
-
-        within "#pending_applications" do
-          expect("Shelters with Pending Applications").to appear_before(@shelter.name)
-        end
+    it "When I click that button
+    Then I'm taken back to the admin application show page
+    And next to the pet that I approved, I do not see a button to approve this pet
+      And instead I see an indicator next to the pet that they have been approved" do
+      visit "/admin/applications/#{@app_1.id}"
+      click_button("Approve application")
+      
+      expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+      expect(page).to_not have_button("Approve application")
+      expect(page).to have_content("Pet Approved")
     end
   end
 end
