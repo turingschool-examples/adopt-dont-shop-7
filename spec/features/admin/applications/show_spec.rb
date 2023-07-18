@@ -19,6 +19,7 @@ describe "Admin/application/:id page:" do
       visit "/admin/applications/#{@app_1.id}"
       expect(page).to have_button("Approve application")
     end
+
     it "When I click that button
     Then I'm taken back to the admin application show page
     And next to the pet that I approved, I do not see a button to approve this pet
@@ -29,6 +30,24 @@ describe "Admin/application/:id page:" do
       expect(current_path).to eq("/admin/applications/#{@app_1.id}")
       expect(page).to_not have_button("Approve application")
       expect(page).to have_content("Pet Approved")
+    end
+
+    it "For every pet that the application is for, I see a button to reject the application for that specific pet" do
+      visit "/admin/applications/#{@app_1.id}"
+      
+      expect(page).to have_button("Reject application")
+    end
+
+    it "When I click that button
+    Then I'm taken back to the admin application show page
+    And next to the pet that I rejected, I do not see a button to approve or reject this pet
+    And instead I see an indicator next to the pet that they have been rejected" do
+    visit "/admin/applications/#{@app_1.id}"
+    click_button("Reject application")
+    expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+    expect(page).to_not have_button("Reject application")
+    expect(page).to_not have_button("Approve application")
+    expect(page).to have_content("Pet Rejected")
     end
   end
 end
