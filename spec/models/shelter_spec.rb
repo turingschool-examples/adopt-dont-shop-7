@@ -43,18 +43,13 @@ RSpec.describe Shelter, type: :model do
     end
 
     describe ".pending_applications" do
-      context "with pending applications" do
-        before(:each) do
-          mr_ape = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "CO", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
-          mr_ape.application_pets.create!(pet_id: @pet_1.id, status: "Pending")
-          mr_ape.application_pets.create!(pet_id: @pet_3.id, status: "In Progress")
-        end
-        
-        it "finds pending application pet applications" do
-     
-          expect(Shelter.pending_applications).to include(@shelter_1)
-          expect(Shelter.pending_applications).to_not include(@shelter_3)
-        end
+      it "finds pending application pet applications" do
+        mr_ape = Application.create!(name: "Mr. Ape", street: "123 Turing Lane", city: "Boulder", state: "CO", zip: "80301", description: "I really want a dog because I love dogs", status: "In Progress")
+        mr_ape.application_pets.create!(pet_id: @pet_1.id, status: "Pending")
+        mr_ape.application_pets.create!(pet_id: @pet_3.id, status: "In Progress")
+      
+        expect(Shelter.pending_applications).to include(@shelter_1)
+        expect(Shelter.pending_applications).to_not include(@shelter_3)
       end
     end
   end
