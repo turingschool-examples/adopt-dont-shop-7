@@ -54,24 +54,5 @@ RSpec.describe "Admin Applications Show Page" do
         end
       end
     end
-
-    # context "rejected applications" do
-    #   describe "when I visit an admin application show page" do
-    #     xit "for every pet that the application is for, I see a button to reject the applicaiton for that specific pet" do
-    #       visit "/admin/applications/#{@paul_app_2.id}"
-        
-    #     end
-        
-    #     xit "when I click that button it links back to the admin application show page" do
-    #       visit "/admin/applications/#{@penny_lane_app_2.id}"
-
-    #     end
- 
-    #     xit "and next to the pet that I rejected, I do not see a button to approve this pet but do see an indicator that they have been approved" do
-    #       visit "/admin/applications/#{@paul_app_2.id}"
-
-    #     end
-    #   end
-    # end
   end
 end
