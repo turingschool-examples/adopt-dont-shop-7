@@ -4,6 +4,8 @@
 <%= shelter.name %>
 <% end %>
 </section>
+
+<h2> Shelters with Pending Applications </h2>
 <section id="pending_apps">
 <% Shelter.all.each do |shelter| %>
     <% if shelter.pets.pending_applications != [] %>
