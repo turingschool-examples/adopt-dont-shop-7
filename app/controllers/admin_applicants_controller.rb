@@ -8,10 +8,10 @@ class AdminApplicantsController < ApplicationController
         @applicant = Applicant.find(params[:id])
         applicant_pet = @applicant.pet_app_status(params[:pet_id])
         if params[:commit] == "Accept"
-            applicant_pet.update(status: params[:commit])
+            applicant_pet.update(status: "Accepted")
             redirect_to "/admin/applicants/#{@applicant.id}"
         elsif params[:commit] == "Reject"
-            applicant_pet.update(status: params[:commit])
+            applicant_pet.update(status: "Rejected")
             redirect_to "/admin/applicants/#{@applicant.id}"
         end
     end
