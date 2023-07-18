@@ -18,19 +18,19 @@ shelters = Shelter.create([
                             {
                               name: 'Happy Tails Shelter',
                               city: 'City 1',
-                              foster_program: true,
+                              foster_program: false,
                               rank: 1
                             },
                             {
                               name: 'Caturdays are for the Boys',
                               city: 'City 2',
-                              foster_program: false,
+                              foster_program: true,
                               rank: 2
                             },
                             {
                               name: 'Barking Lot',
                               city: 'City 3',
-                              foster_program: false,
+                              foster_program: true,
                               rank: 3
                             }
                           ])
@@ -128,14 +128,19 @@ applicants = Applicant.create([
                                   state: 'State 3',
                                   zip_code: 90_123,
                                   description: 'Description 3',
-                                  status: 'In Progress'
+                                  status: 'Pending'
                                 }
                               ])
 
-# Create associations between applicants and pets
-applicants.first.applicants_pets.create(pet: pets.first)
-applicants.second.applicants_pets.create(pet: pets.second)
-applicants.third.applicants_pets.create(pet: pets.third)
+# Assign 'Rex' to 'Caturdays are for the Boys' if it's not already assigned to a shelter
+rex = Pet.find_by(name: 'Rex')
+caturdays_shelter = Shelter.find_by(name: 'Caturdays are for the Boys')
+rex.update(shelter: caturdays_shelter) unless rex.shelter.present?
+
+# Assign 'Rex' to 'Jane Fonda' if the association doesn't already exist
+rex = Pet.find_by(name: 'Rex')
+jane_fonda = Applicant.find_by(name: 'Jane Fonda')
+jane_fonda.applicants_pets.create(pet: rex) unless rex.applicants.include?(jane_fonda)
 
 # Output a success message
 puts 'Sample rows created successfully!'
