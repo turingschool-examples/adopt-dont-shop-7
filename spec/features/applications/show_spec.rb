@@ -206,6 +206,40 @@ RSpec.describe "Application 'show' Page", type: :feature do
       end
       # ====END USER STORY 8 TESTS====
 
+      # User Story 9: Partial Matches for Pet Names 
+      # ====START TESTS====
+      describe "and I visit an application show page" do
+        it "when I search for a pet using mixed case" do
+          visit "/applications/#{@application.id}"
+          
+          fill_in "Pet Search", with: "boBstEr"
+          click_button "Submit"
+
+          expect(page).to have_content(@pet_4.name)
+        end
+        
+        it "an empty search will return no results" do
+          visit "/applications/#{@application.id}"
+          
+          fill_in "Pet Search", with: ""
+          click_button "Submit"
+          
+          expect(page).to_not have_content(@pet_3.name)
+          expect(page).to_not have_content(@pet_4.name)
+        end
+        
+        it "a lose match works with mixed case" do
+          visit "/applications/#{@application.id}"
+          
+          fill_in "Pet Search", with: "bA"
+          click_button "Submit"
+          
+          expect(page).to have_content(@pet_1.name)
+          expect(page).to have_content(@pet_3.name)
+        end
+      end
+      # ====END USER STORY 9 TESTS====
+
     end
   end
 end
