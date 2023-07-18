@@ -49,11 +49,11 @@ pets = Pet.create([
 
 # Create applicants
 applicants = Applicant.create([
-                                { name: 'Applicant 1', street_address: '123 Main St', city: 'City 1', state: 'State 1', zip_code: 12_345,
+                                { name: 'Mike Wood', street_address: '123 Main St', city: 'City 1', state: 'State 1', zip_code: 12_345,
                                   description: 'Description 1', status: 'In Progress' },
-                                { name: 'Applicant 2', street_address: '456 Elm St', city: 'City 2', state: 'State 2', zip_code: 67_890,
+                                { name: 'John Clay O\'Leary', street_address: '456 Elm St', city: 'City 2', state: 'State 2', zip_code: 67_890,
                                   description: 'Description 2', status: 'In Progress' },
-                                { name: 'Applicant 3', street_address: '789 Oak St', city: 'City 3', state: 'State 3', zip_code: 90_123,
+                                { name: 'Jane Fonda', street_address: '789 Oak St', city: 'City 3', state: 'State 3', zip_code: 90_123,
                                   description: 'Description 3', status: 'In Progress' }
                               ])
 
