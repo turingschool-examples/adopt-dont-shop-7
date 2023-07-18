@@ -40,8 +40,6 @@ RSpec.describe "Admin shelters index" do
       application_1.pets << scrappy
       visit "/admin/shelters"
 
-      save_and_open_page
-
       expect(application_1.status).to eql("Pending")
       within(".Shelters_With_Pending_Applications") do
         expect(page).to have_content(shelter_1.name)

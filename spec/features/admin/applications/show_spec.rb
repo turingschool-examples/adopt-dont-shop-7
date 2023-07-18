@@ -38,13 +38,41 @@ RSpec.describe "admin application show page" do
 
         click_button "Approve"
 
-
         expect(page).to_not have_button("Approve")
         expect(page).to have_content("Approved")
 
+      end
 
+      it "displays a button to reject the application for that specific pet" do
+        shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
+        scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
+        application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "Pending")
+        
+        application_1.pets << scrappy
+        
+        visit "admin/applications/#{application_1.id}"
+        
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+      end
+
+      it "displays a button to reject the application for that specific pet and it gets rejected" do
+        shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        scrappy = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
+        scooby = Pet.create(name: "Scooby", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
+        application_1 = Application.create!(name: "Corey Chavez", street_address: "123 Happy Ln", city: "Eugene", state: "OR", zipcode: "12735", description: "Friendly", status: "Pending")
+        
+        application_1.pets << scrappy
+        
+        visit "admin/applications/#{application_1.id}"
+        
+        click_button "Reject"
+
+        expect(page).to_not have_button("Reject")
+        expect(page).to_not have_button("Approve")
+        expect(page).to have_content("Rejected")
       end
     end
   end
-
 end
