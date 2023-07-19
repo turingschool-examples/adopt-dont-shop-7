@@ -278,9 +278,9 @@ RSpec.describe "the /admin/application show" do
     end
 
     within "#Clawdia" do 
-    expect(page).to_not have_content("This pet is no longer available for adoption.")
-    expect(page).to have_button("Approve Adoption of Clawdia")
-    expect(page).to have_button("Reject Adoption of Clawdia")
+      expect(page).to_not have_content("This pet is no longer available for adoption.")
+      expect(page).to have_button("Approve Adoption of Clawdia")
+      expect(page).to have_button("Reject Adoption of Clawdia")
     end
   end
 end

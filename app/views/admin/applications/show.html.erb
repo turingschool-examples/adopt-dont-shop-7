@@ -2,7 +2,7 @@
 <p>Application status: <%= @application.status %></p>
 
 <% @pet_applications.each do |pet_application| %>
-<div id="<%= pet_application.pet.name %>" >
+<div id="<%= pet_application.pet.name %>">
 <h3><%= pet_application.pet.name %></h3>
 <p>Status: <%= pet_application.status %> </p>
 <% if pet_application.status == "Pending" %>
