@@ -71,6 +71,8 @@ RSpec.describe Application, type: :model do
       expect(@pet_6.adoptable).to eq(true)
       expect(@pet_5.adoptable).to eq(true)
       @application_4.adopt_all_pets
+      @pet_6.reload
+      @pet_5.reload
       expect(@pet_6.adoptable).to eq(false)
       expect(@pet_5.adoptable).to eq(false)
     end

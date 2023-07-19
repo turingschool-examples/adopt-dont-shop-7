@@ -10,4 +10,11 @@ class Application < ApplicationRecord
   def all_pets_have_status?
     pet_applications.all? { |pet_application| pet_application.status != "Pending" }
   end
+
+  def adopt_all_pets
+    pets.each do |pet|
+      pet.update(adoptable: false)
+      pet.reload
+    end
+  end
 end
