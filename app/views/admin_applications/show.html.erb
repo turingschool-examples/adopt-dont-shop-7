@@ -1,17 +1,20 @@
 <h1>Applications</h1>
 
-<h2>Application Name: <%= @application.name %></h2>
+<h2>Applicant Name: <%= @application.name %></h2>
 
 <h3>Pets</h3>
 <% @application.application_pets.each do |app_pet| %>
   <p>Pet Name: <%= app_pet.pet.name %></p>
-  
+
   <% if app_pet.status == "Approved" %>
     <p>Approved</p>
+  <% elsif app_pet.status == "Rejected" %>
+    <p>Rejected</p>
   <% else %>
-    <% if app_pet.status != "Approved" %>
-      <%= button_to "Approve", "/admin/applications/#{@application.id}/#{app_pet.id}", method: :patch %>    
-    <% end %>
+    <div class="button-group">
+      <%= button_to "Approve", "/admin/applications/#{app_pet.application.id}/#{app_pet.id}", method: :patch, data: { turbo: false }, name: "commit", value: "Approve" %>
+      <%= button_to "Reject", "/admin/applications/#{app_pet.application.id}/#{app_pet.id}", method: :patch, data: { turbo: false }, name: "commit", value: "Reject" %>
+    </div>
   <% end %>
 <% end %>
 
