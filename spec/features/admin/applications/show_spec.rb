@@ -54,24 +54,18 @@ RSpec.describe "the /admin/application show" do
   it "has a button which approves the application for that specific pet and makes the pet no longer be adoptable" do
     visit "/admin/applications/#{@application_4.id}"
     expect(@pet_application_4.status).to eq("Pending")
-    expect(@pet_6.adoptable).to eq(true)
 
     click_button("Approve Adoption of #{@pet_6.name}")
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
     @pet_application_4.reload
-    @pet_6.reload
     expect(@pet_application_4.status).to eq("Approved")
-    expect(@pet_6.adoptable).to eq(false)
 
     expect(@pet_application_5.status).to eq("Pending")
-    expect(@pet_5.adoptable).to eq(true)
     click_button("Approve Adoption of Luca")
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
 
     @pet_application_5.reload
-    @pet_5.reload
     expect(@pet_application_5.status).to eq("Approved")
-    expect(@pet_5.adoptable).to eq(false)
   end
 
   it "displays a status indicator and no button once approved" do
@@ -101,24 +95,18 @@ RSpec.describe "the /admin/application show" do
   it "has a button which rejects the application for that specific pet and the remains adoptable" do
     visit "/admin/applications/#{@application_4.id}"
     expect(@pet_application_4.status).to eq("Pending")
-    expect(@pet_6.adoptable).to eq(true)
 
     click_button("Reject Adoption of #{@pet_6.name}")
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
     @pet_application_4.reload
-    @pet_6.reload
     expect(@pet_application_4.status).to eq("Rejected")
-    expect(@pet_6.adoptable).to eq(true)
 
     expect(@pet_application_5.status).to eq("Pending")
-    expect(@pet_5.adoptable).to eq(true)
     click_button("Reject Adoption of #{@pet_5.name}")
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
 
     @pet_application_5.reload
-    @pet_5.reload
     expect(@pet_application_5.status).to eq("Rejected")
-    expect(@pet_5.adoptable).to eq(true)
   end
   
   it "displays a status indicator and no button once rejected" do
@@ -231,5 +219,20 @@ RSpec.describe "the /admin/application show" do
     expect(page).to have_content("Application status: Rejected")
     expect(page).to_not have_content("Application status: Approved")
     expect(page).to_not have_content("Application status: Pending")
+  end
+
+  it 'makes all pets from an application no longer adoptable once the application has been approved' do
+    visit "/admin/applications/#{@application_4.id}"
+    expect(@pet_5.adoptable).to eq(true)
+    expect(@pet_6.adoptable).to eq(true)
+    expect(page).to have_content("Application status: Pending")
+    expect(page).to_not have_content("Application status: Approved")
+    click_button("Approve Adoption of Enzo")
+    click_button("Approve Adoption of Luca")
+    expect(page).to have_content("Application status: Approved")
+    @pet_5.reload
+    @pet_6.reload
+    expect(@pet_5.adoptable).to eq(false)
+    expect(@pet_6.adoptable).to eq(false)
   end
 end
