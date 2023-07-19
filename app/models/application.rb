@@ -7,4 +7,8 @@ class Application < ApplicationRecord
   def pet_app_find(pet_id)
     application_pets.where(pet_id: pet_id).first
   end
+  
+  def self.pending_shelters_application
+      @applications = Application.where(status: "Pending")
+  end
 end

@@ -3,6 +3,7 @@ class Admin::SheltersController < ApplicationController
     @shelters_all = Shelter.all
     @shelters = Shelter.reverse_alphabetical_order
     @shelters_with_pending_apps = Shelter.pending_applications
-    @applications = Application.where(status: "Pending")
+   @applications = Application.pending_shelters_application
+  
   end
 end
