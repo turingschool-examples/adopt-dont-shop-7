@@ -3,14 +3,17 @@
 <h2>Application Name: <%= @application.name %></h2>
 
 <h3>Pets</h3>
-<% @application.pets.each do |pet| %>
-  <p>Pet Name: <%= pet.name %></p>
-  <% if @application.status == "Approved" %>
-      <p>Approved</p>
-    <% else %>
-      <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch %>
+<% @application_pets.each do |application_pet| %>
+  <p>Pet Name: <%= application_pet.pet.name %></p>
+  <% if application_pet.status == "Approved" %>
+    <p>Approved</p>
+  <% else %>
+    <% if application_pet.status != "Approved" %>
+      <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, data: {turbo: false } %>
+    <% end %>
   <% end %>
 <% end %>
+
 
 
 
