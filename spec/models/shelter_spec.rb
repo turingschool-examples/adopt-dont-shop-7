@@ -41,7 +41,23 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe "#order_by_shelter_name" do
+      it "returns all shelter names in descending order" do
+        expect(Shelter.order_by_shelter_name).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#with_pending_applications" do
+      it "returns all shelters with pending applications" do
+        @app_3 = Application.create!(name: "Jim Smith", address: "31 North", city: "Everytown", state: "FL", zip_code: "12345", description: "Dogs are cute", application_status: "Pending")  
+        @app_3_pet_2 = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @app_3.id)
+
+        expect(Shelter.with_pending_applications).to eq([@shelter_1])
+      end
+    end
   end
+  
 
   describe "instance methods" do
     describe ".adoptable_pets" do
@@ -67,5 +83,6 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
   end
 end
