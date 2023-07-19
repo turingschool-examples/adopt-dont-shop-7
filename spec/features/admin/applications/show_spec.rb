@@ -209,4 +209,27 @@ RSpec.describe "the /admin/application show" do
     expect(page).to have_content("Application status: Approved")
     expect(page).to_not have_content("Application status: Pending")
   end
+
+  it "assigns the application's status as rejected if all animals have status other than pending but one or more is rejected" do
+    visit "/admin/applications/#{@application_4.id}"
+    expect(@application_4.status).to eq("Pending")
+    click_button("Reject Adoption of #{@pet_6.name}")
+    @application_4.reload
+    expect(@application_4.status).to eq("Pending")
+    click_button("Approve Adoption of Luca")
+    @application_4.reload
+    expect(@application_4.status).to eq("Rejected")
+  end
+
+  it "displays the application status as rejected if all animals have status other than pending but one or more is rejected" do
+    visit "/admin/applications/#{@application_4.id}"
+    expect(page).to have_content("Application status: Pending")
+    expect(page).to_not have_content("Application status: Approved")
+    expect(page).to_not have_content("Application status: Rejected")
+    click_button("Reject Adoption of Enzo")
+    click_button("Approve Adoption of Luca")
+    expect(page).to have_content("Application status: Rejected")
+    expect(page).to_not have_content("Application status: Approved")
+    expect(page).to_not have_content("Application status: Pending")
+  end
 end
