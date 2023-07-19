@@ -1,4 +1,4 @@
-<h1> <%= @application.name %>'s Application</h1>
+<%= render partial: '/partials/application_show' %>
 <h2>Pets with Pending Applications</h2>
   <% @application.pets.each do |pet| %>
     <% application_pet = @application.pet_app_find(pet.id) %>
