@@ -1,15 +1,25 @@
 <h1> All Shelters </h1>
 
 <% @shelters.each do |shelter| %>
-<div id="shelter-<%=shelter.id%>">
-  <h3> <%= shelter.name %> </h3>
-</div> 
-<% end %> <br><hr><br>
-
-
-<div id="pending_applications">
-  <h3> Shelters with Pending Applications  </h3>
+  <div id="shelter-<%= shelter.id %>">
+    <h3> <%= shelter.name %> </h3>
+  </div> 
+<% end %>
+<br><hr><br>
+<div id="pending_applications_section">
+  <h3>Shelters with Pending Applications</h3>
+  
   <% @shelters_with_pending_apps.each do |pending| %>
-  <%= pending.name %> <br><br>
+    <ul>
+      <li><%= pending.name %></li>
+      
+      <% @applications.each do |application| %>
+        <ul>  
+          <li> <%= link_to application.name, "/admin/applications/#{application.id}" %> </li> 
+        </ul>
+      <% end %>
+    </ul>
   <% end %>
 </div>
+
+

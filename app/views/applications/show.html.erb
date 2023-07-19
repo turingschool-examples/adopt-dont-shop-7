@@ -1,4 +1,4 @@
-<h1>Application Show Page</h1>
+<h1>Your Application</h1>
 
 <h4>Name: <%= @application.name  %></h4>
 <h4>Street Address: <%= @application.street_address  %></h4>
@@ -31,14 +31,17 @@
 
 <%# update application status to pending %>
 
-  <h4>Why would you make a good pet owner?</h4><hr>
-
-    <%= form_with url: "/applications/#{params[:id]}", method: :patch, local: true do |f| %>
-      <%= f.label :description, "Why would you make a good pet owner?" %><br>
-      <%= f.text_area :description %><br>
-      <%= f.submit "Submit" %>
-    <% end %><br><br>
-
-<% if @application.pets.present? %>
-<%= button_to "Submit Application", "/applications/#{params[:id]}", method: :patch, params: { status: "Pending"}%>
-<% end %>
+ <% if @application.status == 'In Progress' && @application.pets != [] %>
+    <% if !@application.pets.nil? %>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+        <p><h3><%= form.label "Description of why You would make a Good Home:" %> </h3></p>
+        <%= form.text_field :pet_description, size: "50x5" %>
+        <%= form.submit "Submit Application" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <% if @application.status == "Pending" %>
+    <h3>Description of why You would make a Good Home:</h3>
+    <p><%= @application.pet_description %></p>
+    <% end %>
