@@ -96,7 +96,7 @@ RSpec.describe "application" do
                 describe "Then I am taken back to the application show page" do
                   it "And under the search bar, I see any Pet whose name matches my search" do
                     @shelter_1 = Shelter.create!(foster_program: true, name: "Denver Animal Shelter", city: "Denver", rank: 1)
-                    @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "Pending", shelter_id: @shelter_1.id)
+                    @application_1 = Application.create!(name_of_applicant: "Matt Lim", street_address: "1234 Example St", city: "Denver", state: "CO", zip_code: 80202, description: "I love animals", application_status: "In Progress", shelter_id: @shelter_1.id)
                     @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter_1.id)
                     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Max", shelter_id: @shelter_1.id)
                     @pet_3 = Pet.create!(adoptable: true, age: 2, breed: "labrador", name: "Molly", shelter_id: @shelter_1.id)
@@ -106,6 +106,7 @@ RSpec.describe "application" do
 
                     fill_in 'name', with: 'Lucille'
                     click_button 'Search'
+                    click_button 'Adopt this Pet'
 
                     expect(page).to have_content(@pet_1.name)
                     expect(page).not_to have_content(@pet_2.name)
@@ -143,7 +144,6 @@ RSpec.describe "application" do
 
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_button('Adopt this Pet')
-    save_and_open_page
 
     click_button 'Adopt this Pet'
     expect(page).to have_current_path("/applications/#{@application_1.id}")
