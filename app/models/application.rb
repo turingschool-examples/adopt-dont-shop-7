@@ -8,6 +8,6 @@ class Application < ApplicationRecord
   end
 
   def all_pets_have_status?
-    
+    pet_applications.all? { |pet_application| pet_application.status != "Pending" }
   end
 end
