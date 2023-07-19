@@ -36,7 +36,7 @@ RSpec.describe "the applications index page" do
       click_button("Submit")
     
       expect(current_path).to eq("/applications/#{Application.last.id}")
-      expect(page).to have_content("Name: John Doe")
+      expect(page).to have_content("John Doe's Application")
       expect(page).to have_content("Street Address: 123 Main St")
       expect(page).to have_content("City: Denver")
       expect(page).to have_content("State: CO")
