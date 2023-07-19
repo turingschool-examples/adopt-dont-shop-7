@@ -55,8 +55,13 @@ RSpec.describe "the /admin/application show" do
     
     expect(@pet_application_4.status).to eq("Pending")
     expect(@pet_6.adoptable).to eq(true)
+
+    
+
     click_button("Approve Adoption of Enzo")
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+    
+    
     expect(@pet_application_4.status).to eq("Approved")
     expect(@pet_6.adoptable).to eq(false)
 
