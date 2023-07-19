@@ -11,6 +11,10 @@ class ApplicationsController < ApplicationController
       @application.pets << Pet.find(params[:pet_id])
       @application.save
       redirect_to "/applications/#{@application.id}"
+    elsif request.post?
+      @application.update(description: params[:description], application_status: "Pending")
+      @application.save
+      redirect_to "/applications/#{@application.id}"
     end
   end
 

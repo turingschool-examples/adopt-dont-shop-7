@@ -5,37 +5,51 @@
 <p>Zip code: <%= @application.zip_code %></p>
 <p>Application Status: <%= @application.application_status %></p>
 <p>Reason for Applying: <%= @application.description %></p>
-Add a Pet to this Application
-<% @application.pets.each do |pet| %>
-  <li><%= link_to "#{pet.name}", "pets/#{pet.id}" %></li>
-  <% end %>
-  </ul>
-<br>
-  <%= form_with url: "/applications/#{@application.id}", data:{turbo: false}, method: :post, local: true do |form| %>
 
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-  <%= form.hidden_field :application_id, :value => @application.id %>
-  
-  <%= form.submit "Search for pets" %>
+<% if @application.application_status != "Pending" %>
+<p>Add a Pet to this Application</p>
+<% end %>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><%= link_to "#{pet.name}", "pets/#{pet.id}" %></li>
   <% end %>
+</ul>
+
+<br>
+<% if @application.application_status != "Pending" %>
+  <%= form_with url: "/applications/#{@application.id}", data: { turbo: false }, method: :post, local: true do |form| %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <%= form.hidden_field :application_id, value: @application.id %>
+    <%= form.submit "Search for pets" %>
+  <% end %>
+<% end %>
+
+<br>
+
+<% if @application.application_status != "Pending" %>
+  <% if Pet.present? %>
+    <%= form_with url: "/applications/#{@application.id}", data: { turbo: false }, method: :post, local: true do |form|  %>
+      <%= form.label :description %>
+      <%= form.text_area :description, rows: 5, required: true %>
+      <%= form.submit "Submit Application" %>
+    <% end %>
+<% end %>
 
 <p>Pets:</p>
 <% if @pets %>
-
-<% @pets.each do |pet| %>
-  <br>
+  <% @pets.each do |pet| %>
+    <br>
     <h3><%= pet.name %></h3>
     <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
     <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}" %>
   <% end %>
 
-<% if @pets.first.name.present? %>
-
-  <h2>Search Results:</h2>
-  <ul>
-    <li><%= @pets.first.name %></li>
-  </ul>
+  <% if @pets.first.name.present? %>
+    <h2>Search Results:</h2>
+    <ul>
+      <li><%= @pets.first.name %></li>
+    </ul>
   <% end %>
-
+<% end %>
 <% end %>
