@@ -5,7 +5,11 @@ class ApplicationsController < ApplicationController
     if params[:pet_name] != nil
       @search_pets = Pet.where("lower(name) ilike ?", "%#{params[:pet_name]}%")
     end
+    if @application.pet_description != "n/a"
+      @application.status = "Pending"
+        
   end
+end
 
   def new
   end
@@ -14,7 +18,7 @@ class ApplicationsController < ApplicationController
     application = Application.new(application_params)
     if application.save
       redirect_to "/applications/#{application.id}"
-      application.update(status: "In Progress")
+      # application.update(status: "Pending")
     else 
       redirect_to "/applications/new"
       flash[:error] = "cant be blank"
@@ -35,6 +39,6 @@ class ApplicationsController < ApplicationController
   private 
 
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status, :pet_description)
   end
 end
