@@ -71,7 +71,7 @@ RSpec.describe "Admin Applications Show Page" do
           expect(page).to have_button("Reject")
         end
         
-        xit "when I click that button it links back to the admin application show page" do
+        it "when I click that button it links back to the admin application show page" do
           visit "/admin/applications/#{@paul_app.id}"
           
           click_button "Reject" 
@@ -84,7 +84,7 @@ RSpec.describe "Admin Applications Show Page" do
 
         end
  
-        xit "and next to the pet that I rejected, I do not see a button to reject this pet but do see an indicator that they have been approved" do
+        it "and next to the pet that I rejected, I do not see a button to reject this pet but do see an indicator that they have been approved" do
           visit "/admin/applications/#{@paul_app.id}"
           
           click_button "Reject" 
