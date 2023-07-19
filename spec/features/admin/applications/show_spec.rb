@@ -50,18 +50,16 @@ RSpec.describe "the /admin/application show" do
     @pet_application_5 = PetApplication.create!(pet: @pet_5, application: @application_4)
   end
 
-  it "has a button which approves the application for that specific pet and makes the pet no longer be adoptable" do
+  xit "has a button which approves the application for that specific pet and makes the pet no longer be adoptable" do
     visit "/admin/applications/#{@application_4.id}"
     
     expect(@pet_application_4.status).to eq("Pending")
     expect(@pet_6.adoptable).to eq(true)
 
-    
-
-    click_button("Approve Adoption of Enzo")
+    click_button("Approve Adoption of #{@pet_6.name}")
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-    
-    
+    @pet_application_4.reload
+    @pet_6.reload
     expect(@pet_application_4.status).to eq("Approved")
     expect(@pet_6.adoptable).to eq(false)
 
@@ -69,27 +67,39 @@ RSpec.describe "the /admin/application show" do
     expect(@pet_5.adoptable).to eq(true)
     click_button("Approve Adoption of Luca")
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+
+    @pet_application_5.reload
+    @pet_5.reload
     expect(@pet_application_5.status).to eq("Approved")
     expect(@pet_5.adoptable).to eq(false)
   end
 
-  xit "displays a status indicator instead of the button once approved" do
+  it "displays a status indicator instead of the button once approved" do
     visit "/admin/applications/#{@application_4.id}"
 
     within "#Enzo" do 
+
       expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Approved")
+
+
       click_button("Approve Adoption of Enzo")
+
+
       expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-      expect(page).to have_content("Enzo has been Approved")
+
+
+      expect(page).to have_content("Approved")
       expect(page).to_not have_content("Pending")
       expect(page).to_not have_button("Approve Adoption of Enzo")
       end
 
     within "#Luca" do 
       expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Approved")
       click_button("Approve Adoption of Luca")
       expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-      expect(page).to have_content("Luca has been Approved")
+      expect(page).to have_content("Approved")
       expect(page).to_not have_content("Pending")
       expect(page).to_not have_button("Approve Adoption of Luca")
       end

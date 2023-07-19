@@ -2,8 +2,10 @@
 
 <% @pet_applications.each do |pet_application| %>
 <div id="<%= pet_application.pet.name %>" >
-<%= pet_application.pet.name %>
-<%= pet_application.status %>
-<%= button_to "Approve Adoption of #{pet_application.pet.name}", "/admin/applications/#{@application.id}", method: :patch, params: {pet_application_id: pet_application.id, pet_id: pet_application.pet.id} %>
+<h3><%= pet_application.pet.name %></h3>
+<p>Status: <%= pet_application.status %> </p>
+<% if pet_application.status == "Pending" %>
+<p> <%= button_to "Approve Adoption of #{pet_application.pet.name}", "/admin/applications/#{@application.id}", method: :patch, params: {pet_application_id: pet_application.id, pet_id: pet_application.pet.id} %> </p>
+<% end %>
 </div>
 <% end %>
