@@ -5,27 +5,9 @@ class Admin::ApplicantsController < ApplicationController
 
   def new; end
 
-  def create
-    puts "Received params: #{params.inspect}"
-    @applicant = Applicant.new(applicant_params)
-
-    if @applicant.save
-      redirect_to applicant_path(@applicant)
-    else
-      flash[:error] = 'Invalid data. Please fill out fields correctly.'
-      redirect_to new_applicant_path
-    end
-  end
-
   def show
     @applicant = Applicant.find(params[:id])
     pet_name = params[:pet_name]&.downcase
-
-    @matching_pets = if pet_name.present?
-                       Pet.where('lower(name) ILIKE ?', "%#{pet_name}%")
-                     else
-                       []
-                     end
 
     @associated_pets = @applicant.pets
     @applicants_pet = ApplicantsPet.find_or_initialize_by(applicant: @applicant)
