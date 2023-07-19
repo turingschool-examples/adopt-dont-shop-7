@@ -1,0 +1,23 @@
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+
+  <%= form.label :name_of_applicant %>
+  <%= form.text_field :name_of_applicant %>
+  
+  <%= form.label :street_address %>
+  <%= form.text_field :street_address %>
+  
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+  
+  <%= form.label :state %>
+  <%= form.text_field :state %>
+  
+  <%= form.label :zip_code %>
+  <%= form.number_field :zip_code %>
+  
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+  
+  <%= form.submit "Submit Application" %>
+  <% end %>
+  
