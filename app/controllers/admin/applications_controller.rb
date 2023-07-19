@@ -6,7 +6,6 @@ class Admin::ApplicationsController < ApplicationController
   end
   
   def update
-    require 'pry'; binding.pry
     if params[:status] == "Approved"
       @application = Application.find(params[:id])
       @pet_application = PetApplication.find(params[:pet_application_id])
@@ -21,6 +20,7 @@ class Admin::ApplicationsController < ApplicationController
       @pet_application = PetApplication.find(params[:pet_application_id])
       @pet_application.update(status: "Rejected")
       @pet_application.reload
+      redirect_to "/admin/applications/#{@application.id}"
     end
   end
 end

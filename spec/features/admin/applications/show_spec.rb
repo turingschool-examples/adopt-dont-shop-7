@@ -122,7 +122,7 @@ RSpec.describe "the /admin/application show" do
       expect(@pet_5.adoptable).to eq(true)
     end
   
-    xit "displays a status indicator and no button once rejected" do
+    it "displays a status indicator and no button once rejected" do
       visit "/admin/applications/#{@application_4.id}"
   
       within "#Enzo" do 
