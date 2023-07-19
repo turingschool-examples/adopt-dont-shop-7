@@ -57,7 +57,6 @@ RSpec.describe Application, type: :model do
     @pet_application_6 = PetApplication.create!(pet: @pet_6, application: @application_3)
   end
     it "can check an application to see if all pets have been approved" do
-      require 'pry'; binding.pry
       expect(@application_4.all_pets_approved?).to eq(true)
       expect(@application_2.all_pets_approved?).to eq(false)
     end
