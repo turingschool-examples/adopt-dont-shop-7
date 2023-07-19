@@ -26,27 +26,52 @@ RSpec.describe "admin index page", type: :feature do
       # When I visit the admin shelter index ('/admin/shelters')
       # Then I see a section for "Shelters with Pending Applications"
       # And in this section I see the name of every shelter that has a pending application
-    describe "I see a section for shelters that have pending applications" do 
-      it "in this section I see a name of every shelter that has a pending application" do 
-        
-        application_1 = Application.create!(name: "Jon Jones", street_address: "4201 UFC Way", city: "Las Vegas", state: "NV", zip_code: 99999, description: "I'm a fighter but not a dog fighter", status: "Pending")
-        application_2 = Application.create!(name: "Derek Lewis", street_address: "777 Beast Lane", city: "Houston", state: "TX", zip_code: 76543, description: "I really need a friend", status: "Pending")
-  
-        pet_1 = @shelter_1.pets.create(name: "Mr. Bill", breed: "German Shepherd", age: 10, adoptable: true)
-        pet_2 = @shelter_2.pets.create(name: "Karen", breed: "Pit Bull", age: 10, adoptable: false)
-  
-        ApplicationPet.create!(application: application_1, pet: pet_1, status: "Pending")
-        ApplicationPet.create!(application: application_2, pet: pet_2, status: "Pending")
-        
-        visit "/admin/shelters"
-  
-        expect(page).to have_content("Shelters with Pending Applications")
 
-        within "#pending_applications" do
-          expect(page).to have_content(@shelter_1.name)
-          expect(page).to have_content(@shelter_2.name)
+
+      describe "I see a section for shelters that have pending applications" do 
+        it "displays the name of every shelter that has a pending application" do 
+          application_1 = Application.create!(name: "Jon Jones", street_address: "4201 UFC Way", city: "Las Vegas", state: "NV", zip_code: 99999, description: "I'm a fighter but not a dog fighter", status: "Pending")
+          application_2 = Application.create!(name: "Derek Lewis", street_address: "777 Beast Lane", city: "Houston", state: "TX", zip_code: 76543, description: "I really need a friend", status: "Pending")
+      
+          pet_1 = @shelter_1.pets.create(name: "Mr. Bill", breed: "German Shepherd", age: 10, adoptable: true)
+          pet_2 = @shelter_2.pets.create(name: "Karen", breed: "Pit Bull", age: 10, adoptable: false)
+      
+          ApplicationPet.create!(application: application_1, pet: pet_1, status: "Pending")
+          ApplicationPet.create!(application: application_2, pet: pet_2, status: "Pending")
+          
+          visit "/admin/shelters"
+      
+          expect(page).to have_content("Shelters with Pending Applications")
+      
+          within "#pending_applications_section" do
+            expect(page).to have_content(@shelter_1.name)
+            expect(page).to have_content(@shelter_2.name)
+          end
         end
       end
+      
     end
-  end
+  #   describe "I see a section for shelters that have pending applications" do 
+  #     it "in this section I see a name of every shelter that has a pending application" do 
+        
+  #       application_1 = Application.create!(name: "Jon Jones", street_address: "4201 UFC Way", city: "Las Vegas", state: "NV", zip_code: 99999, description: "I'm a fighter but not a dog fighter", status: "Pending")
+  #       application_2 = Application.create!(name: "Derek Lewis", street_address: "777 Beast Lane", city: "Houston", state: "TX", zip_code: 76543, description: "I really need a friend", status: "Pending")
+  
+  #       pet_1 = @shelter_1.pets.create(name: "Mr. Bill", breed: "German Shepherd", age: 10, adoptable: true)
+  #       pet_2 = @shelter_2.pets.create(name: "Karen", breed: "Pit Bull", age: 10, adoptable: false)
+  
+  #       ApplicationPet.create!(application: application_1, pet: pet_1, status: "Pending")
+  #       ApplicationPet.create!(application: application_2, pet: pet_2, status: "Pending")
+        
+  #       visit "/admin/shelters"
+  
+  #       expect(page).to have_content("Shelters with Pending Applications")
+
+  #       within "#pending_applications" do
+  #         expect(page).to have_content(@shelter_1.name)
+  #         expect(page).to have_content(@shelter_2.name)
+  #       end
+  #     end
+  #   end
+  # end
 end

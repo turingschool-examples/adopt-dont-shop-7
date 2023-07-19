@@ -102,38 +102,35 @@ end
       describe "then I see a section to submit my application" do 
         it 'displays an input to enter why I would make a good owner for these pet(s)' do 
           visit "/applications/#{Application.last.id}"
-          
+  
           fill_in :pet_name, with: "Spud"
           click_on "Search Pets"
-          
+  
           click_on "Adopt Spud"
-          
+  
           fill_in :pet_name, with: "SpuddyBuddy"
-          
+  
           expect(page).to have_content("In Progress")
-          expect(page).to have_field(:description)
-          expect(page).to have_button("Submit")
-
-          fill_in :description, with: "I like african bullfrogs!"
-          click_on "Submit"
+          expect(page).to have_field(:pet_description)
+          expect(page).to have_button("Submit Application")
+  
+          fill_in :pet_description, with: "I like african bullfrogs!"
           click_on "Submit Application"
-
+  
           expect(current_path).to eq("/applications/#{Application.last.id}")
           expect(page).to have_content("I like african bullfrogs!")
-
-          
-          
+  
           within "#pet-#{@pet_4.id}" do 
             expect(page).to have_content("Spud")
           end
-
-
+  
           expect(page).to have_content("Pending")
-          
           expect(page).to_not have_content("Add a Pet to this Application")
         end
       end
     end
+
+  
 
     # US_7. 
     describe " I have not added any pets to the application" do 

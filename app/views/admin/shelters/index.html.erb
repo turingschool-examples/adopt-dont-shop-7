@@ -6,21 +6,20 @@
   </div> 
 <% end %>
 <br><hr><br>
-<div id="pending_applications">
- <div id="pending_applications">
-  <h3> Shelters with Pending Applications </h3>
+<div id="pending_applications_section">
+  <h3>Shelters with Pending Applications</h3>
   
   <% @shelters_with_pending_apps.each do |pending| %>
     <ul>
-      <li> <%= pending.name %> </li>
+      <li><%= pending.name %></li>
       
       <% @applications.each do |application| %>
         <ul>  
           <li> <%= link_to application.name, "/admin/applications/#{application.id}" %> </li> 
         </ul>
-    
-    <% end %>
-   
+      <% end %>
+    </ul>
   <% end %>
-  </ul>
 </div>
+
+
