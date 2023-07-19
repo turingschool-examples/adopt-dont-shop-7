@@ -43,10 +43,10 @@ ringo = Application.create(name: "Ringo", street: "235 River Ferry", city: "Live
 # ApplicationPets
 
 mr_ape.application_pets.create(pet_id: lucille.id, status: "Pending")
-mr_ape.application_pets.create(pet_id: scooby.id, status: "In Progress")
-mr_ape.application_pets.create(pet_id: santas_lil_helper.id, status: "Accepted")
+mr_ape.application_pets.create(pet_id: scooby.id, status: "Pending")
+mr_ape.application_pets.create(pet_id: santas_lil_helper.id, status: "Pending")
 
-penny_lane.application_pets.create(pet_id: whiskers.id, status: "Rejected")
+penny_lane.application_pets.create(pet_id: whiskers.id, status: "Pending")
 penny_lane.application_pets.create(pet_id: clifford.id, status: "Pending")
 
 paul.application_pets.create(pet_id: cheeto.id, status: "In Progress")
