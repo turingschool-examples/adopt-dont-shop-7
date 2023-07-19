@@ -1,12 +1,4 @@
-<h1><%= @application.name %></h1>
-<p>
-  Address: <%= @application.address %><br />
-  City: <%= @application.city %><br />
-  State: <%= @application.state %><br />
-  Zip Code: <%= @application.zip_code %><br />
-  Description: <%= @application.description %><br />
-  Application Status: <%= @application.application_status %>
-</p>
+<%= render partial: 'partials/application' %>
 <h3>Pets:</h3>
 <% @application.application_pets.each do |application_pet| %>
   <% pet = application_pet.pet %>
@@ -24,32 +16,13 @@
 
 
 <% if @application.application_status != "Pending" %>
-  <section>
-    <h3>Add a Pet to this Application</h3>
-    <%= form_with url: "/applications/#{@application.id}?pet_search=true", method: :get, data: {turbo: false}, local: true, id: "pet_search" do |form| %>
-      <%= form.label :search_for_pet %>: 
-      <%= form.text_field :search_for_pet, placeholder: "Name" %>
-      <%= form.submit "Submit" %>
-    <% end %>
-  </section>
+  <%= render partial: 'partials/search', locals: { path: "app/views/admin/applications", method: :get } %>
 <% end %>
 
 <% if @found_pet %>
-  <section>
-    <ol>
-      <% @found_pet.each do |pet| %>
-        <li><%= pet.name %><%= button_to "Adopt this Pet", {controller: :application_pets, pet_id: pet.id, application_id: @application.id, action: :create} %></li>
-      <% end %>
-    </ol>
-  </section>
+  <%= render partial: 'partials/adopt', locals: { path: "app/views/admin/applications", method: :get } %>
 <% end %>
 
 <% if @application.application_status != "Pending" && @application.pets.present?%>
-  <section>
-    <h3>Submit my application</h3>
-    <%= form_with url: "/applications/#{@application.id}", method: :patch, data: {turbo: false}, local: true, id: "submit_application" do |form| %>
-      <%= form.text_area :description, rows: 4, cols:40 %><br />
-      <%= form.submit "Submit my application" %>
-    <% end %>
-  </section>
+  <%= render partial: 'partials/submit', locals: { path: "app/views/admin/applications", method: :get } %>
 <% end %>

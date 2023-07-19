@@ -1,0 +1,8 @@
+<section>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}?pet_search=true", method: :get, data: {turbo: false}, local: true, id: "pet_search" do |form| %>
+    <%= form.label :search_for_pet %>: 
+    <%= form.text_field :search_for_pet, placeholder: "Name" %>
+    <%= form.submit "Submit" %>
+  <% end %>
+</section>
