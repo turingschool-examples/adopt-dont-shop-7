@@ -49,6 +49,7 @@ RSpec.describe "the /admin/application show" do
     @pet_application_4 = PetApplication.create!(pet: @pet_6, application: @application_4)
     @pet_application_5 = PetApplication.create!(pet: @pet_5, application: @application_4)
     @pet_application_6 = PetApplication.create!(pet: @pet_6, application: @application_3)
+    @pet_application_7 = PetApplication.create!(pet: @pet_2, application: @application_3)
   end
 
   it "has a button which approves the application for that specific pet and makes the pet no longer be adoptable" do
@@ -253,5 +254,33 @@ RSpec.describe "the /admin/application show" do
     expect(page).to have_content(false)
     visit "pets/#{@pet_5.id}"
     expect(page).to have_content(false)
+  end
+
+  it "no longer shows an option to adopt on a pending application once that pet has been adopted via an approved application" do
+    visit "/admin/applications/#{@application_4.id}"
+    click_button("Approve Adoption of Enzo")
+    click_button("Approve Adoption of Luca")
+    @pet_5.reload
+    @pet_6.reload
+
+    visit "/admin/applications/#{@application_3.id}"
+
+    within "#Enzo" do 
+      expect(page).to have_content("This pet is no longer available for adoption.")
+      expect(page).to_not have_button("Approve Adoption of Enzo")
+      expect(page).to have_button("Reject Adoption of Enzo")
+    end
+
+    within "#Luca" do 
+      expect(page).to have_content("This pet is no longer available for adoption.")
+      expect(page).to_not have_button("Approve Adoption of Luca")
+      expect(page).to have_button("Reject Adoption of Luca")
+    end
+
+    within "#Clawdia" do 
+    expect(page).to_not have_content("This pet is no longer available for adoption.")
+    expect(page).to have_button("Approve Adoption of Clawdia")
+    expect(page).to have_button("Reject Adoption of Clawdia")
+    end
   end
 end
