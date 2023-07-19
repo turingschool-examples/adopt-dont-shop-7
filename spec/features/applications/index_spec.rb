@@ -71,8 +71,7 @@ RSpec.describe "the applications index page" do
       fill_in :zip_code, with: "80202"
       fill_in :description, with: ''
       click_button("Submit")
-
-      # save_and_open_page
+      
       expect(current_path).to eq(applications_new_path)
       expect(application).to_not be_valid
       expect(application.errors[:description]).to have_content("can't be blank")
