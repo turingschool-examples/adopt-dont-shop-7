@@ -7,6 +7,7 @@
         <li>
           Pet Name: <%= pet.name %>
           <%= button_to 'Approve Adoption', approve_applicant_pet_path(applicant_id: @applicant.id, pet_id: pet.id), method: :patch, class: 'approve-button' %>
+          <%= button_to 'Reject Adoption', reject_applicant_pet_path(applicant_id: @applicant.id, pet_id: pet.id), method: :patch, class: 'reject-button' %>
         </li>
       <% else %>
         <li>Pet Name: <%= pet.name %></li>

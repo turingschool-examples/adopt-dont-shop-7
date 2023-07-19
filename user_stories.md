@@ -212,7 +212,7 @@ And instead I see an indicator next to the pet that they have been approved
 ```
 
 ```
-[ ] done
+[✓] done
 
 13. Rejecting a Pet for Adoption
 

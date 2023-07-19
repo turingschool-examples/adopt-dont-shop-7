@@ -39,11 +39,24 @@ class Admin::ApplicantsController < ApplicationController
     pet = Pet.find(params[:pet_id])
     applicants_pet = ApplicantsPet.find_by(applicant: @applicant, pet:)
     applicants_pet&.update(status: 'Approved')
+
+    # Handle rejecting the pet
+    return unless params[:reject_pet_id].present?
+
+    pet = Pet.find(params[:reject_pet_id])
+    applicants_pet = ApplicantsPet.find_by(applicant: @applicant, pet:)
+    applicants_pet&.update(status: 'Rejected')
   end
 
   def approve_pet
     @applicant = Applicant.find(params[:applicant_id])
     @applicant.update(status: 'Approved')
+    redirect_to admin_applicant_path(@applicant)
+  end
+
+  def reject_pet
+    @applicant = Applicant.find(params[:applicant_id])
+    @applicant.update(status: 'Rejected')
     redirect_to admin_applicant_path(@applicant)
   end
 
