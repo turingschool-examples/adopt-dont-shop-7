@@ -200,9 +200,8 @@ RSpec.describe "the /admin/application show" do
     expect(@application_4.status).to eq("Approved")
   end
 
-  it "displays a status indicator and no button once approved" do
+  it "displays the application status as approved once all pets are approved" do
     visit "/admin/applications/#{@application_4.id}"
-    
     expect(page).to have_content("Application status: Pending")
     expect(page).to_not have_content("Application status: Approved")
     click_button("Approve Adoption of Enzo")

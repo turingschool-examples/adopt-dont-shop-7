@@ -58,7 +58,7 @@ RSpec.describe Application, type: :model do
   end
     it "can check an application to see if all pets have been approved" do
       expect(@application_4.all_pets_approved?).to eq(true)
-      expect(@application_2.all_pets_approved?).to eq(false)
+      expect(@application_1.all_pets_approved?).to eq(false)
     end
   end
 end
