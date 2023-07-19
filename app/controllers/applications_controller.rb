@@ -25,7 +25,7 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def submit
+  def update
     application = Application.find(params[:id])
     application.update(application_status: "Pending", description: params[:description])
     application.save
