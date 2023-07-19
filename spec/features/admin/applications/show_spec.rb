@@ -48,11 +48,11 @@ RSpec.describe "the /admin/application show" do
     @pet_application_3 = PetApplication.create!(pet: @pet_5, application: @application_3)
     @pet_application_4 = PetApplication.create!(pet: @pet_6, application: @application_4)
     @pet_application_5 = PetApplication.create!(pet: @pet_5, application: @application_4)
+    @pet_application_6 = PetApplication.create!(pet: @pet_6, application: @application_3)
   end
 
   it "has a button which approves the application for that specific pet and makes the pet no longer be adoptable" do
     visit "/admin/applications/#{@application_4.id}"
-    
     expect(@pet_application_4.status).to eq("Pending")
     expect(@pet_6.adoptable).to eq(true)
 
@@ -98,51 +98,96 @@ RSpec.describe "the /admin/application show" do
       end
     end
 
-    it "has a button which rejects the application for that specific pet and the remains adoptable" do
-      visit "/admin/applications/#{@application_4.id}"
+  it "has a button which rejects the application for that specific pet and the remains adoptable" do
+    visit "/admin/applications/#{@application_4.id}"
+    expect(@pet_application_4.status).to eq("Pending")
+    expect(@pet_6.adoptable).to eq(true)
 
-      expect(@pet_application_4.status).to eq("Pending")
-      expect(@pet_6.adoptable).to eq(true)
-  
-      click_button("Reject Adoption of #{@pet_6.name}")
-      expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-      @pet_application_4.reload
-      @pet_6.reload
-      expect(@pet_application_4.status).to eq("Rejected")
-      expect(@pet_6.adoptable).to eq(true)
-  
-      expect(@pet_application_5.status).to eq("Pending")
-      expect(@pet_5.adoptable).to eq(true)
-      click_button("Reject Adoption of #{@pet_5.name}")
-      expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-  
-      @pet_application_5.reload
-      @pet_5.reload
-      expect(@pet_application_5.status).to eq("Rejected")
-      expect(@pet_5.adoptable).to eq(true)
-    end
-  
-    it "displays a status indicator and no button once rejected" do
-      visit "/admin/applications/#{@application_4.id}"
-  
-      within "#Enzo" do 
-        expect(page).to have_content("Pending")
-        expect(page).to_not have_content("Rejected")
-        click_button("Reject Adoption of Enzo")
-        expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-        expect(page).to have_content("Rejected")
-        expect(page).to_not have_content("Pending")
-        expect(page).to_not have_button("Reject Adoption of Enzo")
-        end
-  
-      within "#Luca" do 
-        expect(page).to have_content("Pending")
-        expect(page).to_not have_content("Rejected")
-        click_button("Reject Adoption of Luca")
-        expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-        expect(page).to have_content("Rejected")
-        expect(page).to_not have_content("Pending")
-        expect(page).to_not have_button("Reject Adoption of Luca")
-        end
-      end
+    click_button("Reject Adoption of #{@pet_6.name}")
+    expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+    @pet_application_4.reload
+    @pet_6.reload
+    expect(@pet_application_4.status).to eq("Rejected")
+    expect(@pet_6.adoptable).to eq(true)
+
+    expect(@pet_application_5.status).to eq("Pending")
+    expect(@pet_5.adoptable).to eq(true)
+    click_button("Reject Adoption of #{@pet_5.name}")
+    expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+
+    @pet_application_5.reload
+    @pet_5.reload
+    expect(@pet_application_5.status).to eq("Rejected")
+    expect(@pet_5.adoptable).to eq(true)
   end
+  
+  it "displays a status indicator and no button once rejected" do
+    visit "/admin/applications/#{@application_4.id}"
+
+    within "#Enzo" do 
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Rejected")
+      click_button("Reject Adoption of Enzo")
+      expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+      expect(page).to have_content("Rejected")
+      expect(page).to_not have_content("Pending")
+      expect(page).to_not have_button("Reject Adoption of Enzo")
+    end
+
+    within "#Luca" do 
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Rejected")
+      click_button("Reject Adoption of Luca")
+      expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+      expect(page).to have_content("Rejected")
+      expect(page).to_not have_content("Pending")
+      expect(page).to_not have_button("Reject Adoption of Luca")
+    end
+  end
+
+  it "doesnt affect pets on other applications to approve or reject" do
+    visit "/admin/applications/#{@application_4.id}"
+
+    within "#Enzo" do 
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Approved")
+      click_button("Approve Adoption of Enzo")
+      expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+      expect(page).to have_content("Approved")
+      expect(page).to_not have_content("Pending")
+      expect(page).to_not have_button("Approve Adoption of Enzo")
+    end
+
+    within "#Luca" do 
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Rejected")
+      click_button("Reject Adoption of Luca")
+      expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+      expect(page).to have_content("Rejected")
+      expect(page).to_not have_content("Pending")
+      expect(page).to_not have_button("Reject Adoption of Luca")
+    end
+
+    visit "/admin/applications/#{@application_3.id}"
+
+    within "#Enzo" do 
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Approved")
+      click_button("Approve Adoption of Enzo")
+      expect(current_path).to eq("/admin/applications/#{@application_3.id}")
+      expect(page).to have_content("Approved")
+      expect(page).to_not have_content("Pending")
+      expect(page).to_not have_button("Approve Adoption of Enzo")
+    end
+
+    within "#Luca" do 
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Rejected")
+      click_button("Reject Adoption of Luca")
+      expect(current_path).to eq("/admin/applications/#{@application_3.id}")
+      expect(page).to have_content("Rejected")
+      expect(page).to_not have_content("Pending")
+      expect(page).to_not have_button("Reject Adoption of Luca")
+    end
+  end
+end
