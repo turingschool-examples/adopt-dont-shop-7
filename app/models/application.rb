@@ -6,4 +6,8 @@ class Application < ApplicationRecord
   def all_pets_approved?
     pet_applications.all? { |pet_application| pet_application.status == "Approved" }
   end
+
+  def all_pets_have_status?
+    
+  end
 end

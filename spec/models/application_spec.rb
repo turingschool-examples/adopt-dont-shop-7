@@ -51,14 +51,20 @@ RSpec.describe Application, type: :model do
       status: "Pending")
     @pet_application_1 = PetApplication.create!(pet: @pet_1, application: @application_1)
     @pet_application_2 = PetApplication.create!(pet: @pet_2, application: @application_1)
-    @pet_application_3 = PetApplication.create!(pet: @pet_5, application: @application_3)
+    @pet_application_3 = PetApplication.create!(pet: @pet_5, application: @application_3, status: "Approved")
     @pet_application_4 = PetApplication.create!(pet: @pet_6, application: @application_4, status: "Approved")
     @pet_application_5 = PetApplication.create!(pet: @pet_5, application: @application_4, status: "Approved")
-    @pet_application_6 = PetApplication.create!(pet: @pet_6, application: @application_3)
+    @pet_application_6 = PetApplication.create!(pet: @pet_6, application: @application_3, status: "Rejected")
   end
     it "can check an application to see if all pets have been approved" do
       expect(@application_4.all_pets_approved?).to eq(true)
       expect(@application_1.all_pets_approved?).to eq(false)
+    end
+
+    it "can check an application to see if all pets have been assigned a status other than pending" do
+      expect(@application_4.all_pets_have_status?).to eq(true)
+      expect(@application_3.all_pets_have_status?).to eq(true)
+      expect(@application_1.all_pets_have_status?).to eq(false)
     end
   end
 end
