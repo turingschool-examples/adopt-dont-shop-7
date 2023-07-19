@@ -15,7 +15,7 @@
       <li> <%= pending.name %> </li>
       
       <% @applications.each do |application| %>
-        <ul>
+        <ul>  
           <li> <%= link_to application.name, "/admin/applications/#{application.id}" %> </li> 
         </ul>
     
