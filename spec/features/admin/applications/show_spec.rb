@@ -147,7 +147,6 @@ RSpec.describe "the /admin/application show" do
 
   it "doesnt affect pets on other applications to approve or reject" do
     visit "/admin/applications/#{@application_4.id}"
-
     within "#Enzo" do 
       expect(page).to have_content("Pending")
       expect(page).to_not have_content("Approved")
@@ -169,7 +168,6 @@ RSpec.describe "the /admin/application show" do
     end
 
     visit "/admin/applications/#{@application_3.id}"
-
     within "#Enzo" do 
       expect(page).to have_content("Pending")
       expect(page).to_not have_content("Approved")
