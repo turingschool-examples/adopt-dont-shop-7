@@ -27,10 +27,6 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{application.id}"
   end
 
-  def index 
-    @applications = Application.all
-  end
-
 
   private 
 
