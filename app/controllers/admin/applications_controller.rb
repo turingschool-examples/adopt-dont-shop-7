@@ -6,13 +6,21 @@ class Admin::ApplicationsController < ApplicationController
   end
   
   def update
-    @application = Application.find(params[:id])
-    @pet_application = PetApplication.find(params[:pet_application_id])
-    @pet = Pet.find(params[:pet_id])
-    @pet.update(adoptable: false)
-    @pet_application.update(status: "Approved")
-    @pet_application.reload
-    @pet.reload
-    redirect_to "/admin/applications/#{@application.id}"
+    require 'pry'; binding.pry
+    if params[:status] == "Approved"
+      @application = Application.find(params[:id])
+      @pet_application = PetApplication.find(params[:pet_application_id])
+      @pet = Pet.find(params[:pet_id])
+      @pet.update(adoptable: false)
+      @pet_application.update(status: "Approved")
+      @pet_application.reload
+      @pet.reload
+      redirect_to "/admin/applications/#{@application.id}"
+    elsif params[:status] == "Rejected"
+      @application = Application.find(params[:id])
+      @pet_application = PetApplication.find(params[:pet_application_id])
+      @pet_application.update(status: "Rejected")
+      @pet_application.reload
+    end
   end
 end
