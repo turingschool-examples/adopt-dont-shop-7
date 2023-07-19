@@ -8,6 +8,4 @@ class Application < ApplicationRecord
   validates :state, presence: { message: "Please provide the state." }
   validates :zip_code, presence: { message: "Please provide the zip code." }
   validates :description, presence: { message: "Please provide a description." }
-
-
 end
