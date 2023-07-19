@@ -66,5 +66,13 @@ RSpec.describe Application, type: :model do
       expect(@application_3.all_pets_have_status?).to eq(true)
       expect(@application_1.all_pets_have_status?).to eq(false)
     end
+
+    it 'can change all pets in an application from adoptable true to false' do
+      expect(@pet_6.adoptable).to eq(true)
+      expect(@pet_5.adoptable).to eq(true)
+      @application_4.adopt_all_pets
+      expect(@pet_6.adoptable).to eq(false)
+      expect(@pet_5.adoptable).to eq(false)
+    end
   end
 end
