@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
   def show 
     @application = Application.find(params[:id])
     if params[:pet_name] != nil
-      @search_pets = Pet.where("lower(name) ilike ?", "%#{params[:pet_name]}%")
+      @search_pets = Pet.search_by_name(params[:pet_name]) if params[:pet_name].present?
     end
     if @application.pet_description != "n/a"
       @application.status = "Pending"
