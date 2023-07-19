@@ -16,12 +16,12 @@ class Admin::ApplicationsController < ApplicationController
       @pet_application.update(status: "Rejected")
     end
     @application.update(status: "Rejected") if @application.all_pets_have_status?
-    @application.update(status: "Approved") if @application.all_pets_approved?
+    @application.update(status: "Approved") && @application.adopt_all_pets if @application.all_pets_approved?
 
     @pet.reload
     @application.reload
     @pet_application.reload
-    
+
     redirect_to "/admin/applications/#{@application.id}"
   end
 end

@@ -221,18 +221,37 @@ RSpec.describe "the /admin/application show" do
     expect(page).to_not have_content("Application status: Pending")
   end
 
-  it 'makes all pets from an application no longer adoptable once the application has been approved' do
+  it 'makes all pets from an application no longer adoptable once the application has been approved and that is evidenced on their show page' do
+    visit "pets/#{@pet_6.id}"
+    expect(page).to have_content(true)
+    visit "pets/#{@pet_5.id}"
+    expect(page).to have_content(true)
+
     visit "/admin/applications/#{@application_4.id}"
     expect(@pet_5.adoptable).to eq(true)
     expect(@pet_6.adoptable).to eq(true)
     expect(page).to have_content("Application status: Pending")
     expect(page).to_not have_content("Application status: Approved")
     click_button("Approve Adoption of Enzo")
+    @pet_5.reload
+    @pet_6.reload
+    expect(@pet_5.adoptable).to eq(true)
+    expect(@pet_6.adoptable).to eq(true)
+    visit "pets/#{@pet_6.id}"
+    expect(page).to have_content(true)
+    visit "pets/#{@pet_5.id}"
+    expect(page).to have_content(true)
+    visit "/admin/applications/#{@application_4.id}"
     click_button("Approve Adoption of Luca")
     expect(page).to have_content("Application status: Approved")
     @pet_5.reload
     @pet_6.reload
     expect(@pet_5.adoptable).to eq(false)
     expect(@pet_6.adoptable).to eq(false)
+
+    visit "pets/#{@pet_6.id}"
+    expect(page).to have_content(false)
+    visit "pets/#{@pet_5.id}"
+    expect(page).to have_content(false)
   end
 end
