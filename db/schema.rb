@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_212451) do
   enable_extension "plpgsql"
 
   create_table "application_pets", force: :cascade do |t|
-    t.bigint "pet_id", null: false
+    t.bigint "pet_id"
     t.bigint "application_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_212451) do
     t.bigint "shelter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "application_id", null: false
+    t.bigint "application_id"
     t.index ["application_id"], name: "index_pets_on_application_id"
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
   end
