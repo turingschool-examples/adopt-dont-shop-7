@@ -241,8 +241,11 @@ And instead I see buttons to approve or reject the pet for this specific applica
 ```
 
 ---
+## Extensions
 
 ## Completed Applications
+
+_Note: It is recommended that these extensions only be attempted after ALL user stories above are 100% completed, and your project is satisfactorily refactored._ 
 
 Once all pets on an application have been marked either accepted or rejected, then the application is no longer "Pending". If all the pets were accepted, then the application is "Accepted". If one or more pets on the application is rejected, then the entire application is "Rejected".
 
@@ -403,7 +406,7 @@ Then next to each pet's name I see a link to the admin application show page whe
 
 ---
 
-## Extensions
+## More Extensions
 
 _Note: It is recommended that these extensions only be attempted after ALL user stories above are 100% completed, and your project is satisfactorily refactored._ 
 
