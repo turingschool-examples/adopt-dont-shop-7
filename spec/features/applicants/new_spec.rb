@@ -6,11 +6,13 @@ RSpec.describe "application creation" do
 
     visit "/applicants/new"
 
-    expect(page).to have_content("New Pet")
+    expect(page).to have_content("New Adoption Application")
     expect(find("form")).to have_content("Name")
-    expect(find("form")).to have_content("Breed")
-    expect(find("form")).to have_content("Age")
-    expect(find("form")).to have_content("Adoptable")
+    expect(find("form")).to have_content("Street Address")
+    expect(find("form")).to have_content("City")
+    expect(find("form")).to have_content("State")
+    expect(find("form")).to have_content("Zip Code")
+    expect(find("form")).to have_content("Description")
     end
   end
   describe "the application form" do
@@ -24,7 +26,7 @@ RSpec.describe "application creation" do
       fill_in "State", with: "Texas"
       fill_in "Zip Code", with: "75248"
       fill_in "Description", with: "I love animals!"
-      click_button "Submit"
+      click_button "Submit Application"
       # expect(page).to have_current_path("/applicants/#{@shelter.id}/pets")
       expect(page).to have_content("James")
       expect(page).to have_content("11234 Jane Street")
