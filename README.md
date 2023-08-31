@@ -1,3 +1,8 @@
+https://github.com/williamfchen/adopt-dont-shop-7
+https://github.com/users/williamfchen/projects/2
+https://dbdesigner.page.link/jh7dzCmYApjt1sXAA
+https://docs.google.com/document/d/1Ou8M-uulfUCsrCZcCpr1KvHPpUgPiPC3FDc6vQMpgE0/edit
+
 # Adopt, don't Shop
 
 This is a paired project used in Turing School's Backend Program Module 2.
