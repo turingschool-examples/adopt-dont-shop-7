@@ -34,3 +34,7 @@ In this project, students will build upon the code in this repo to create a Pet 
 
 This project will have one Check In. During your Check In, you should be prepared to review your database schema for the many to many relationship, your deployment to the internet, and your GitHub Projects board.
 
+## Project Documents
+[Database schema](https://erd.dbdesigner.net/designer/schema/1693514690-adopt_dont_shop)
+[DTR](https://docs.google.com/document/d/1bt8hrE2qSD9FLLe56inBho_DDstlvSUaVyQm2IfL5bc/edit)
+
