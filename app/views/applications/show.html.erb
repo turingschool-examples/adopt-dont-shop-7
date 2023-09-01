@@ -7,7 +7,18 @@
 <h3><%= @application.status %></h3>
 
 <h4>Search for pet </h4>
-  <%= form_with url:  "/pets", method: :get, local: true do |f|%>
+  <%= form_with url:  "/pets/#{@application.id}", method: :get, local: true do |f|%>
     <%= f.label :search %>
     <%= f.text_field :search %>
+    <%= f.submit "Search" %>
     <% end %>
+
+<% if @searched_pet %>
+  <h3><%= @searched_pet.name %></h3>
+  <h5><%= @searched_pet.age %> years old</h5>
+  <h5><%= @searched_pet.breed %></h5>
+  <h5><%= @searched_pet.adoptable %></h5>
+  <h5><%= @searched_pet.shelter_name %></h5>
+<% else>
+  <p>No pets found</p>
+  <% end %>

@@ -1,15 +1,15 @@
 class ApplicationsController < ApplicationController
   def index
-    if 
-      params[:search].present?
-    else
-      "That pet does not exist"
-    end
   end
   
   
   def show
     @application = Application.find(params[:app_id])
+    @searched_pet = nil
+
+    if params[:search].present?
+      @searched_pet = Pet.find_by(name: params[:search])
+    end
   end
 
   def new
