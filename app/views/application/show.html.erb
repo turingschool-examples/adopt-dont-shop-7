@@ -1,9 +1,13 @@
 <h1> Application: </h1>
-<h3>Applicant's name: <%= @application.applicant_name %></h3>
-<h3>Applicant's address: <%= @application.full_address %></h3>
-<h3>Applicant's reason for adoption: <%= @application.description %></h3>
-<h3>Pet to be adopted: </h3>
+<h3> Applicant's name: </h3>
+  <p><%= @application.applicant_name %></p>
+<h3> Applicant's address: </h3>
+  <p><%= @application.full_address %></p>
+<h3> Applicant's reason for adoption: </h3>
+  <p><%= @application.description %></p>
+<h3> Pet to be adopted: </h3>
 <% @application.pets.each do |pet| %>
-  <%= pet.name %>
+  <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <%end%>
-<h3>Application status: <%= @application.application_status %></h3>
+<h3>Application status: </h3>
+<p><%= @application.application_status %></p>
