@@ -58,6 +58,7 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "simplecov"
   gem "orderly"
+  gem "standard", "~> 1.31"
 end
 
 group :development do

@@ -1,0 +1,17 @@
+<h1><%= @application.name %></h1>
+
+<p>Address: <%= @application.address %></p>
+
+<p>Description: <%= @application.description %></p>
+
+<p>Pets: 
+  <% @application.pets.each do |pet| %>
+    <% if @application.pets.length == 1 %> 
+      <%= pet.name %>
+    <% else %>
+      <%= "#{pet.name}, " %>
+    <% end %>
+  <% end %>
+</p>
+
+<p>Status: <%= @application.status %></p>
