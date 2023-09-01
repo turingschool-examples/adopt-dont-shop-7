@@ -2,5 +2,8 @@
 <h3>Applicant's name: <%= @application.applicant_name %></h3>
 <h3>Applicant's address: <%= @application.full_address %></h3>
 <h3>Applicant's reason for adoption: <%= @application.description %></h3>
-<h3>Pet to be adopted: <%= @application.pet_id %></h3>
+<h3>Pet to be adopted: </h3>
+<% @application.pets.each do |pet| %>
+  <%= pet.name %>
+<%end%>
 <h3>Application status: <%= @application.application_status %></h3>
