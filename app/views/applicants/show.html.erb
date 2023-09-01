@@ -5,6 +5,10 @@
 <h3><%= @applicant.zip_code %></h3>
 <h3><%= @applicant.description %></h3>
 
+<% @pets.each do |pet| %>
+  <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
+<% end %>
+
 <h4>In Progress</h4>
 
 

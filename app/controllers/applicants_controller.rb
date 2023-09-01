@@ -4,7 +4,8 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
-    @pets = PetsApplication.where('applicant_id = ?', @applicant.id)
+    @pets = list_pets(@applicant)
+    require 'pry';binding.pry
   end
 
   def create
@@ -25,6 +26,17 @@ class ApplicantsController < ApplicationController
     end
 
 
+  end
+
+  private 
+
+  def list_pets(applicant)
+    pets = []
+    applications = PetsApplication.where('applicant_id = ?', @applicant.id)
+    applications.each do |application|
+      pets << Pet.find(application.pet_id)
+    end
+    pets
   end
   
 end
