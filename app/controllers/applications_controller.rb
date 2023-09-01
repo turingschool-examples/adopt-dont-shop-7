@@ -5,11 +5,7 @@ class ApplicationsController < ApplicationController
   
   def show
     @application = Application.find(params[:app_id])
-    @searched_pet = nil
-
-    if params[:search].present?
-      @searched_pet = Pet.find_by(name: params[:search])
-    end
+    @searched_pets = Pet.where(name: params[:search]) if params[:search].present?
   end
 
   def new
@@ -27,7 +23,6 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: #{error_message(@application.errors)}"
     end
   end
-  
 
   private 
     def application_params
