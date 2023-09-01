@@ -81,4 +81,37 @@ RSpec.describe "the pets index" do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  it "I see a link to start a new application" do
+    shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: "sphynx", name: "Bare-y Manilow", shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe", shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 4, breed: "chihuahua", name: "Elle", shelter_id: shelter.id)
+
+    visit "/pets"
+
+    click_link "Start an Application"
+
+    expect(current_path).to eq("/applications/new")
+
+    fill_in "name", with: "Billy"
+    fill_in "street_address", with: "123 Main St"
+    fill_in "city", with: "Denver"
+    fill_in "state", with: "CO"
+    fill_in "zip_code", with: "88888"
+    fill_in "reason_for_adoption", with: "I want dog"
+
+    click_on "Submit"
+
+    @application = Application.first
+
+    expect(current_path).to eq("/applications/#{@application.id}")
+
+    expect(page).to have_content(@application.name)
+    expect(page).to have_content(@application.reason_for_adoption)
+    expect(page).to have_content(@application.status)
+    expect(page).to have_content("#{@application.street_address}, #{@application.city}, #{@application.state} #{@application.zip_code}")
+    expect(page).to have_content(@application.name)
+    expect(page).to have_content(@application.name)
+  end
 end

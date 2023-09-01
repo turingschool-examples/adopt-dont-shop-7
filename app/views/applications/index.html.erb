@@ -1,0 +1,8 @@
+<h1>Applications</h1>
+
+<%= @application.each do |app| %>
+  <%= app.name %>
+  <%= "#{app.street_address}, #{app.city}, #{app.state} #{app.zip_code}" %>
+  <%= app.reason %>
+  <%= app.status %>
+<% end %>
