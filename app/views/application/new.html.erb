@@ -1,24 +1,24 @@
 <h1>New Application</h1>
-<%= form_with url: "/application", method: :post, data: { turbo: false} do |f| %>
-  <% f.label :name %>
-  <% f.text_field :name %>
+<%= form_with url: "/applications", method: :post, data: { turbo: false} do |f| %>
+  <%= f.label :applicant_name, "Name" %></br>
+  <%= f.text_field :applicant_name %></br></br>
 
-  <% f.label :street_address%>
-  <% f.text_field :street_address %>
+  <%= f.label :street_address, "Street Address "%></br>
+  <%= f.text_field :street_address %> </br></br>
 
-  <% f.label :city %>
-  <% f.text_field :city %>
+  <%= f.label :city %></br>
+  <%= f.text_field :city %></br></br>
 
-  <% f.label :state %>
-  <% f.text_field :state %>
+  <%= f.label :state %></br>
+  <%= f.text_field :state %></br></br>
 
-  <% f.label :zip_code %>
-  <% f.text_field :zip_code %>
+  <%= f.label :zip_code, "Zip Code" %></br>
+  <%= f.text_field :zip_code %></br></br>
 
-  <% f.label :description, "Description of why I would make a good home" %>
-  <% f.text_block :description %>
+  <%= f.label :description, "Description of why I would make a good home" %></br>
+  <%= f.text_area :description %></br></br>
 
-  <%= f.submit %>
+  <%= f.submit "Submit" %>
 <% end %>
 
 
