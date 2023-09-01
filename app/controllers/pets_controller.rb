@@ -1,4 +1,4 @@
-class PetsController < ApplicationController
+
   def index
     if params[:search].present?
       @pets = Pet.search(params[:search])
