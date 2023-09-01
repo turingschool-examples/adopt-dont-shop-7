@@ -6,12 +6,15 @@ RSpec.describe "the application show" do
     pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
     application = Application.create(name: "John Dwayne", address: "1010 W 50th Ave, Denver, CO, 80020", description: "Background as a dog sitter", status: "Pending")
 
+    application.pets << pet
+
     visit "/applications/#{application.id}"
 
     expect(page).to have_content(application.name)
     expect(page).to have_content(application.address)
     expect(page).to have_content(application.description)
     expect(page).to have_content(application.status)
-    #expect(page).to have_content(application_1.pet_id)
+    expect(page).to have_content(pet.name)
+    save_and_open_page
   end
 end
