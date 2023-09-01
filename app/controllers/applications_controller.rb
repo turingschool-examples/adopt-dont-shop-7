@@ -23,7 +23,8 @@ class ApplicationsController < ApplicationController
     })
 
     if applicant.save
-      redirect_to "/applications/#{applicant.id}"
+      application = PetsApplication.create!(applicant: applicant)
+      redirect_to "/applications/#{application.id}"
     else
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(applicant.errors)}"
@@ -38,7 +39,9 @@ class ApplicationsController < ApplicationController
     pets = []
     applications = PetsApplication.where('applicant_id = ?', @applicant.id)
     applications.each do |application|
-      pets << Pet.find(application.pet_id)
+      if !application.pet_id.nil?
+        pets << Pet.find(application.pet_id)
+      end
     end
     pets
   end
