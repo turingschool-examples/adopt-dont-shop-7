@@ -10,4 +10,8 @@ class Applicant < ApplicationRecord
   has_many :pets_applications
   has_many :pets, through: :pets_applications
 
+  def self.retrieve_applicant(application_id)
+    Applicant.find(PetsApplication.find(application_id).applicant_id)
+  end
+
 end

@@ -1,0 +1,25 @@
+<h1><%= @applicant.name %></h1>
+<h3><%= @applicant.street_address %> years old</h3>
+<h3><%= @applicant.city %></h3>
+<h3><%= @applicant.state %></h3>
+<h3><%= @applicant.zip_code %></h3>
+<h3><%= @applicant.description %></h3>
+
+<% @pets.each do |pet| %>
+  <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
+<% end %>
+
+<section>
+<h2>Add a Pet to this Application</h2>
+<%= form_with url: "/applications/#{@applicant.id}", method: :get, data: { turbo: false } do |form| %>
+  <%= form.label :search %>
+  <%= form.text_field :search %>
+  <%= form.submit "Search" %>
+<% end %>
+</section>
+<% @searched_pets.each do |pet| %>
+  <%=  pet.name %>
+<% end %>
+<h4>In Progress</h4>
+
+
