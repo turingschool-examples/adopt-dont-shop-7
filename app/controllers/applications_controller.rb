@@ -9,7 +9,8 @@ class ApplicationsController < ApplicationController
       @searched_pets = []
     end
     @applicant = Applicant.retrieve_applicant(params[:id])
-    @pets = list_pets(@applicant)
+    # @pets = list_pets(@applicant)
+    @pets = @applicant.pets
   end
 
   def create
