@@ -5,7 +5,6 @@ class ApplicantsController < ApplicationController
   def show
     @applicant = Applicant.find(params[:id])
     @pets = list_pets(@applicant)
-    require 'pry';binding.pry
   end
 
   def create
