@@ -17,5 +17,20 @@ RSpec.describe "Application Show Page" do
         expect(page).to have_content("I love animals!")
       end
     end
+
+    it "I see links to all pets on this application" do
+      dude = Applicant.create(name: "James", street_address: "11234 Jane Street", city: "Dallas", 
+      state: "Texas", zip_code: "75248", description: "I love animals!")
+      shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      pet_1 = shelter.pets.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
+      pet_2 = shelter.pets.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe")
+      PetsApplication.create!(applicant: dude, pet: pet_1)
+      PetsApplication.create!(applicant: dude, pet: pet_2)
+
+      visit "/applications/#{dude.id}"
+
+      expect(page).to have_link(href: "/pets/#{pet_1.id}")
+      expect(page).to have_link(href: "/pets/#{pet_2.id}")
+    end
   end
 end

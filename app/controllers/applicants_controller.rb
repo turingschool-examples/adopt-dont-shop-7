@@ -4,6 +4,7 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
+    @pets = PetsApplication.where('applicant_id = ?', @applicant.id)
   end
 
   def create
