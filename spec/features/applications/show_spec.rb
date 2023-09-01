@@ -22,17 +22,17 @@ RSpec.describe "Application Show",type: :feature do
           name: "John Smith",
           address: "1234 Lane Street, Happy City, CO, 80111",
           description: "I want an animal",
-          pets: "#{pet_1.name}",
+          pets: [pet_1],
           status: "Accepted"
         )
 
         visit "/applications/#{application.id}"
 
         expect(page).to have_content("#{application.name}")
-        expect(page).to have_content("#{application.address}")
-        expect(page).to have_content("#{application.description}")
-        expect(page).to have_content("#{application.pets}")
-        expect(page).to have_content("#{application.status}")
+        expect(page).to have_content("Address: #{application.address}")
+        expect(page).to have_content("Description: #{application.description}")
+        expect(page).to have_content("Pets: #{application.pets.first.name}") 
+        expect(page).to have_content("Status: #{application.status}")
       end
     end
   end
