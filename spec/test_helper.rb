@@ -1,6 +1,6 @@
 def load_test_data 
   @shelter_1 = Shelter.create!(name: 'Duck Pond', city: "Denver", rank: 5, foster_program: true)
-  @shelter_2 = Shelter.create!(name: 'Bear Den', city: "Fort Collins", rank: 3, foster_program: false)
+  @shelter_2 = Shel ter.create!(name: 'Bear Den', city: "Fort Collins", rank: 3, foster_program: false)
   @shelter_3 = Shelter.create!(name: 'Flamingo Flamboyance', city: "San Francisco", rank: 3, foster_program: false)
   @shelter_4 = Shelter.create!(name: 'Koala Colony', city: "Sydney", rank: 4, foster_program: false)
   @shelter_5 = Shelter.create!(name: 'Dog Park', city: "Paris", rank: 3, foster_program: true)
