@@ -23,7 +23,7 @@ RSpec.describe "Create Application" do
     expect(find("form")).to have_content("Description of why I would make a good home")
   end
   
-  context "given valid date" do
+  context "given complete data" do
     it "creates an application and redirects to the show page" do
       visit "/applications/new"
 
@@ -34,12 +34,39 @@ RSpec.describe "Create Application" do
       fill_in "Zip Code", with: "06660"
       fill_in "Description of why I would make a good home", with: "I want to move there salivatory glands to the outside of there face so I can measure the response to a bell"
       click_button "Submit"
-      # binding.pry
-      # expect(current_path).to eq("/applications/#{@application.id}")
+
       expect(page).to have_content("Pavlov")
-      # save_and_open_page
       expect(page).to have_content("In Progress")
 
+    end
+  end
+  
+  context "given incomplete data" do
+    it "will return you to form" do
+      visit "/applications/new"
+
+      fill_in "Street Address", with: "666 Burning Ave"
+      fill_in "City", with: "Layer 2"
+      fill_in "State", with: "HL"
+      fill_in "Zip Code", with: "06660"
+      fill_in "Description of why I would make a good home", with: "I want to move there salivatory glands to the outside of there face so I can measure the response to a bell"
+      click_button "Submit"
+
+      expect(page).to have_content("Error: Applicant name can't be blank")
+    end
+
+    it "to include a partial address, will return to form" do
+      visit "/applications/new"
+
+      fill_in "Name", with: "Pavlov"
+      fill_in "Street Address", with: "666 Burning Ave"
+      fill_in "City", with: "Layer 2"
+      # fill_in "State", with: "HL"
+      fill_in "Zip Code", with: "06660"
+      fill_in "Description of why I would make a good home", with: "I want to move there salivatory glands to the outside of there face so I can measure the response to a bell"
+      click_button "Submit"
+
+      expect(page).to have_content("Error:")
     end
   end
 
