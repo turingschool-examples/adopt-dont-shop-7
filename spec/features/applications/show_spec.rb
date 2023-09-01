@@ -7,7 +7,8 @@ RSpec.describe "the Application show page", type: :feature do
         @shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         @pet = Pet.create!(adoptable: true, age: 1, breed: "doberman", name: "Spot", shelter_id: @shelter.id)
         @application = Application.create!(name: "John Smith", street_address: "123 Main st", city: "Boulder", state: "CO", zip_code: "12345", description: "I'm rich.", status: "Pending")
-        visit "/applications/:id"
+        PetApplication.create!(pet: @pet, application: @application)
+        visit "/applications/#{@application.id}"
       end
 
       it "I see applicants attributes" do
