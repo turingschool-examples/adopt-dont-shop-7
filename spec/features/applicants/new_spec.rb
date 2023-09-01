@@ -27,13 +27,13 @@ RSpec.describe "application creation" do
       fill_in "Zip Code", with: "75248"
       fill_in "Description", with: "I love animals!"
       click_button "Submit Application"
-      # expect(page).to have_current_path("/applicants/#{@shelter.id})
-      # expect(page).to have_content("James")
-      # expect(page).to have_content("11234 Jane Street")
-      # expect(page).to have_content("Dallas")
-      # expect(page).to have_content("Texas")
-      # expect(page).to have_content("75248")
-      # expect(page).to have_content("I love animals!")
+      # expect(page).to have_current_path("/applicants/#{@applicant.id}")
+      expect(page).to have_content("James")
+      expect(page).to have_content("11234 Jane Street")
+      expect(page).to have_content("Dallas")
+      expect(page).to have_content("Texas")
+      expect(page).to have_content("75248")
+      expect(page).to have_content("I love animals!")
     end
   end
 end
