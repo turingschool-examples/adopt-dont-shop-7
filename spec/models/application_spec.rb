@@ -7,6 +7,9 @@ RSpec.describe Application, type: :model do
   end
 
   describe "validations" do
-
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :address }
+    it { should validate_presence_of :description }
+    it { should validate_inclusion_of(:status).in_array(["In Progress", "Pending", "Accepted", "Rejected"]) }
   end
 end
