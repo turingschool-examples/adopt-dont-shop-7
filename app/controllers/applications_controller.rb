@@ -3,7 +3,12 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    @applicant = Applicant.find(params[:id])
+    if params[:search].present?
+      @searched_pets = Pet.search(params[:search])
+    else
+      @searched_pets = []
+    end
+    @applicant = Applicant.retrieve_applicant(params[:id])
     @pets = list_pets(@applicant)
   end
 
