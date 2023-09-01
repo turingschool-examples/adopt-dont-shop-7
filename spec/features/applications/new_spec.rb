@@ -36,4 +36,24 @@ RSpec.describe "application creation" do
       expect(page).to have_content("I love animals!")
     end
   end
+
+  describe "the application form" do
+    it "if part of the application does not have an input, an error message will display" do
+
+      visit "/applications/new"
+
+      fill_in "Name", with: "James"
+      fill_in "Street Address", with: "11234 Jane Street"
+      fill_in "State", with: "Texas"
+      fill_in "Description", with: "I love animals!"
+      click_button "Submit Application"
+
+      expect(page).to have_content("Error: City can't be blank, Zip code can't be blank")
+      click_button "Submit Application"
+      expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank")
+
+
+      
+    end
+  end
 end
