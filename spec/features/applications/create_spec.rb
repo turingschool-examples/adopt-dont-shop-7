@@ -39,5 +39,7 @@ RSpec.describe "application creation" do
     expect(page).not_to have_content("John")
 
     expect(current_path).to eq("/applications/new")
+
+    expect(page).to have_content("Zip can't be blank")
   end
 end
