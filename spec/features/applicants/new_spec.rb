@@ -4,7 +4,7 @@ RSpec.describe "application creation" do
   describe "new applicant" do
     it "renders the new applicant form" do
 
-    visit "/applicants/new"
+    visit "/applications/new"
 
     expect(page).to have_content("New Adoption Application")
     expect(find("form")).to have_content("Name")
@@ -18,7 +18,7 @@ RSpec.describe "application creation" do
   describe "the application form" do
     it "fills out the form and is redirected to the show page" do
 
-      visit "/applicants/new"
+      visit "/applications/new"
 
       fill_in "Name", with: "James"
       fill_in "Street Address", with: "11234 Jane Street"

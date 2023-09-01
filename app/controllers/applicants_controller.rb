@@ -17,9 +17,9 @@ class ApplicantsController < ApplicationController
     })
 
     if applicant.save
-      redirect_to "/applicants/#{applicant.id}"
+      redirect_to "/applications/#{applicant.id}"
     else
-      redirect_to "/applicants/new"
+      redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(applicant.errors)}"
     end
 
