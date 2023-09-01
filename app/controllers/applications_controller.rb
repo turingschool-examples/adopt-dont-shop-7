@@ -7,9 +7,13 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application = Application.create(application_params)
-    # binding.pry
-    redirect_to "/applications/#{@application.id}"
+    application = Application.create(application_params)
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
   end
 
 
@@ -21,7 +25,18 @@ private
   end
   
   def format_addy_params
-    params[:full_address] = params[:street_address] + "; " + params[:city] + ", " + params[:state] + " " + params[:zip_code]
+    if params[:street_address] != "" &&  
+      params[:city] != "" && 
+      params[:state] != "" && 
+      params[:zip_code] != ""
+      
+      params[:full_address] = 
+      params[:street_address] +"; " + 
+      params[:city] + ", " + 
+      params[:state] +" " + 
+      params[:zip_code]
+    end
+
     params[:application_status] = "In Progress"
   end
 end
