@@ -10,7 +10,11 @@ RSpec.describe Pet, type: :model do
   describe "validations" do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:age) }
+    it { should validate_presence_of(:breed) }
+    it { should allow_value(true).for(:adoptable) }
+    it { should allow_value(false).for(:adoptable) }
     it { should validate_numericality_of(:age) }
+
   end
 
   before(:each) do
