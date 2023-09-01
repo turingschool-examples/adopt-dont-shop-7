@@ -8,7 +8,7 @@ RSpec.describe "Applications show", type: :feature do
         pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille  Bald", shelter_id: shelter_1.id)
         pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter_1.id)
         application_1 = Application.create(applicant_name: "Charlie Brown", full_address: "123 Peanuts Rd, Lansing MI, 48864", description: "Charlie has been looking forward to picking out a friend", pet_id: pet_1.id, application_status: "Pending")
-        visit "/application"
+        visit "/applications/#{application_1.id}"
 
         expect(page).to have_content(application_1.applicant_name)
         expect(page).to have_content(application_1.full_address)
