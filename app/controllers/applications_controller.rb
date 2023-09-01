@@ -16,8 +16,12 @@ class ApplicationsController < ApplicationController
 private
 
   def application_params
+    format_addy_params
+    params.permit(:applicant_name, :full_address, :application_status, :description)
+  end
+  
+  def format_addy_params
     params[:full_address] = params[:street_address] + "; " + params[:city] + ", " + params[:state] + " " + params[:zip_code]
     params[:application_status] = "In Progress"
-    params.permit(:applicant_name, :full_address, :application_status, :description)
   end
 end
