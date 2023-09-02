@@ -5,11 +5,7 @@ class AdminController < ActionController::Base
 
   def show
     @application = PetsApplication.find(params[:id])
-    @pets = Pet.joins(applicants: :pets_applications)
-            .where('pets_applications.applicant_id = ?', @application.applicant_id)
-            .select("pets_applications.status", "pets.name", "pets.id")
-            .distinct
-    # @pets = Applicant.find(@application.applicant_id).pets
+    @pets = Pet.pets_with_app_status(@application)
   end
 
   def approve_reject
