@@ -5,13 +5,16 @@ RSpec.feature "the application show" do
     scenario 'displays all application info' do
 
 
-      application = Application.create!(applicant_name: "Thomas Jefferson", address: "123 Main St., Boston, MA, 12345", description: "I'm on a fiver", pet_names: "Zeus, Demeter", status: "In Progress")
+      application = Application.create!(applicant_name: "Thomas Jefferson", street_address: "123 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm on a fiver", pet_names: "Zeus, Demeter", status: "In Progress")
 
       visit "/applications/#{application.id}"
       save_and_open_page
 
       expect(page).to have_content(application.applicant_name)
-      expect(page).to have_content(application.address)
+      expect(page).to have_content(application.street_address)
+      expect(page).to have_content(application.city)
+      expect(page).to have_content(application.state)
+      expect(page).to have_content(application.zip_code)
       expect(page).to have_content(application.description)
       expect(page).to have_content(application.pet_names)
       expect(page).to have_content(application.status)
