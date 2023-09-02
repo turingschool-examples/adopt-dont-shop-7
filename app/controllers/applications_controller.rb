@@ -38,17 +38,21 @@ class ApplicationsController < ApplicationController
 
   def update
     application = PetsApplication.find(params[:id])
-    application.update({
-      pet_id: params[:pet]
-    })
-    redirect_to "/applications/#{application.id}"
+    if application.pet_id == nil
+      application.update({
+        pet_id: params[:pet]
+        })
+    else
+      new_app = PetsApplication.create!(applicant_id: application.applicant_id, pet_id: params[:pet])
+      redirect_to "/applications/#{application.id}"
 
+    end
   end
-
-
-
+  
+  
+  
   private 
-
+  
   def list_pets(applicant)
     pets = []
     applications = PetsApplication.where('applicant_id = ?', @applicant.id)
@@ -59,5 +63,4 @@ class ApplicationsController < ApplicationController
     end
     pets
   end
-  
 end
