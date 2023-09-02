@@ -7,7 +7,7 @@ RSpec.describe "applicant show page", type: :feature do
 
   it "shows the name of the applicant and all of its attributes" do 
     visit "/applications/#{@applicant1.id}"
-      save_and_open_page
+
       expect(page).to have_content(@applicant1.name)
       expect(page).to have_content(@applicant1.street_address)
       expect(page).to have_content(@applicant1.city)
