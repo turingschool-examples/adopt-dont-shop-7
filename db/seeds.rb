@@ -30,3 +30,7 @@ Shelter.destroy_all
 #applications
 @cory = Application.create!(name:"Cory", street_address: "385 N Billups st.", city: "Athen", state: "GA", zipcode:"30606", description:"Extremely normal and can be trusted", status:"In Progress" )
 @antoine = Application.create!(name:"Antoine", street_address: "1244 Windsor Street", city: "Salt Lake City", state: "UT", zipcode:"84105", description:"need to strengthen fingers through petting", status:"In Progress" )
+
+
+#PetApplications
+@pet_applications_1 = PetApplication.create!(pet_id: "#{@pet_1.id}", application_id: "#{@cory.id}", status: "Pending" )
