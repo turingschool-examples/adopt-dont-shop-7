@@ -22,6 +22,21 @@ RSpec.describe "the New application page", type: :feature do
         expect(page).to have_content("I'm rich.")
         expect(page).to have_content("In Progress")
       end
+
+      it "reroutes with flash message of incomplete application" do
+        visit "/applications/new"
+
+        fill_in "Name", with: "Spot"
+        fill_in "Street Address", with: "123 Main st"
+        fill_in "City", with: "Boulder"
+        fill_in "State", with: "CO"
+        fill_in "Zip Code", with: ""
+        fill_in "Description of why I would make a good home", with: "I'm rich."
+        click_button "Submit"
+
+        expect(current_path).to eq("/applications/new")
+        expect(page).to have_content("All Fields Must be Filled")
+      end
     end
   end
 end

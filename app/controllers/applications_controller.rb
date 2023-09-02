@@ -18,6 +18,11 @@ class ApplicationsController < ApplicationController
       status: "In Progress"
     })
 
-    redirect_to "/applications/#{application.id}"
+    if application.new_record? == true
+      flash.alert = "All Fields Must be Filled"
+      redirect_to "/applications/new"
+    else
+      redirect_to "/applications/#{application.id}"
+    end
   end
 end
