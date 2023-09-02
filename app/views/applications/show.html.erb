@@ -27,6 +27,14 @@
   <p>No results input to search</p>
 <% end %>
 
+<% if @application.pets != [] %>
+  <%= form_with url: "applications/#{@application.id}", method: :patch, local: true, data: {turbo: false} do |f| %>
+    <%= f.label :adoption_reason, "Why would you make a good owner for these pet(s)?" %>
+    <%= f.text_area :adoption_reason, size: "70x5" %>
+    <%= f.submit "Submit this Application" %>
+  <% end %>
+<% end %>
+
 
 
 
