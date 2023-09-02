@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   get "/pets/:id/edit", to: "pets#edit"
   patch "/pets/:id", to: "pets#update"
   delete "/pets/:id", to: "pets#destroy"
-
+  
+  # get "/pets", to: "pets#index"
+  get "/applications/:id", to: "applications#show"
+  
   get "/veterinary_offices", to: "veterinary_offices#index"
   get "/veterinary_offices/new", to: "veterinary_offices#new"
   get "/veterinary_offices/:id", to: "veterinary_offices#show"
