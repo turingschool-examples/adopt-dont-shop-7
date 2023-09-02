@@ -29,23 +29,27 @@ RSpec.describe "Application Show Page" do
       pet_1 = shelter.pets.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
       pet_2 = shelter.pets.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe")
       application = PetsApplication.create!(applicant: dude)
-      # PetsApplication.create!(applicant: dude, pet: pet_2)
-
 
       visit "/applications/#{application.id}"
       fill_in('search', with: "Lucille Bald")
-      # click_button("Search")
-      visit "/applications/#{application.id}?search=Lucille+Bald&commit=Search"
-
+      click_button("Search")
+      expect(page).to have_current_path("/applications/#{application.id}?search=Lucille+Bald&commit=Search")
       expect(page).to have_content("Lucille Bald")
-      # click_button("Adopt this pet?")
-      visit "/applications/#{application.id}?pet=#{pet_1.id}"
-      visit "/applications/#{application.id}"
+      click_button("Adopt this pet?")
+      expect(page).to have_current_path("/applications/#{application.id}")
+      expect(page).to have_content("Lucille Bald")
+      
+      fill_in('search', with: "Babe")
+      click_button("Search")
 
-      # expect(page).to have_content("Lucille Bald")
+      expect(page).to have_current_path("/applications/#{application.id}?search=Babe&commit=Search")
+      expect(page).to have_content("Babe")
+      click_button("Adopt this pet?")
+      expect(page).to have_current_path("/applications/#{application.id}")
+      expect(page).to have_content("Lucille Bald")
 
-      # expect(page).to have_link(href: "/pets/#{pet_1.id}")
-      # expect(page).to have_link(href: "/pets/#{pet_2.id}")
+      expect(page).to have_link(href: "/pets/#{pet_1.id}")
+      expect(page).to have_link(href: "/pets/#{pet_2.id}")
     end
   
 
