@@ -5,6 +5,7 @@
 <h3><%= @applicant.zip_code %></h3>
 <h3><%= @applicant.description %></h3>
 
+<h3>Pet you would like to adopt:</h3>
 <% @pets.each do |pet| %>
   <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
 <% end %>
@@ -18,8 +19,12 @@
 <% end %>
 </section>
 <% @searched_pets.each do |pet| %>
-  <%=  pet.name %>
+  <%= pet.name %><%= form_with url: "/applications/#{@applicant.id}?pet=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>  
+
+    <%= form.submit "Adopt this pet?" %>
+  <% end %>
+  
 <% end %>
+
+
 <h4>In Progress</h4>
-
-
