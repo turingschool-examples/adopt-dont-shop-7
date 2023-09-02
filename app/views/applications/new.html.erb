@@ -1,5 +1,7 @@
 <h1>New Application</h1>
-<%= form_with url: "/applications", method: :post, local: true do |f| %>
+
+
+<%= form_with model: @application, url: applications_path , method: :post, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -20,3 +22,4 @@
 
   <%= f.submit "Submit" %>
 <% end %>
+

@@ -8,11 +8,11 @@ RSpec.describe "application creation" do
     #act
     visit("/pets")
     click_link('Start an Application')
-    fill_in('name', with: 'John')
-    fill_in('address', with: "New Street")
-    fill_in('city', with: 'Somewhere')
-    fill_in('state', with: "Colorado")
-    fill_in('zip', with: '01234')
+    fill_in('Name', with: 'John')
+    fill_in('Address', with: "New Street")
+    fill_in('City', with: 'Somewhere')
+    fill_in('State', with: "Colorado")
+    fill_in('Zip', with: '01234')
     click_button('Submit')
     #assert
     expect(page).to have_content("John")
@@ -22,5 +22,24 @@ RSpec.describe "application creation" do
     expect(page).to have_content("01234")
     # expect(page).to have_content(application.pet_names)
     expect(page).to have_content("In Progress")
+  end
+
+  it "denies the application if the form is not filled out correctly" do
+    #arrange
+                        
+    #act
+    visit("/pets")
+    click_link('Start an Application')
+    fill_in('Name', with: 'John')
+    fill_in('Address', with: "New Street")
+    fill_in('City', with: 'Somewhere')
+    fill_in('State', with: "Colorado")
+    click_button('Submit')
+    #assert
+    expect(page).not_to have_content("John")
+
+    expect(current_path).to eq("/applications/new")
+
+    expect(page).to have_content("Zip can't be blank")
   end
 end
