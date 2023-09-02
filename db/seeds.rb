@@ -6,6 +6,16 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+application = Application.create!(
+  name: "John Smith",
+  street_address: "1234 Lane Street",
+  city: "Happy City", 
+  state: "CO", 
+  zip_code: "80111",
+  description: "I want an animal",
+  status: "Accepted"
+)
+
 shelter = Shelter.create!(
   foster_program: true,
   name: "The Shelter",
@@ -20,10 +30,4 @@ pet_1 = shelter.pets.create!(
   name: "Cheesecake"
 )
 
-application = Application.create!(
-  name: "John Smith",
-  address: "1234 Lane Street, Happy City, CO, 80111",
-  description: "I want an animal",
-  pets: [pet_1],
-  status: "Accepted"
-)
+ApplicationPet.create!(pet: pet_1, application: application)
