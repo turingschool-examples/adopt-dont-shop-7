@@ -39,7 +39,7 @@ RSpec.describe "Application creation" do
 
     it "will save the information to the database" do
       visit "/applications/new"
-
+      
       fill_in "Name", with: "Bob Johnson"
       fill_in "Street", with: "321 Memory Lane"
       fill_in "City", with: "Ogdenville"
@@ -47,7 +47,7 @@ RSpec.describe "Application creation" do
       fill_in "Zip code", with: "72534"
       fill_in "Description", with: "I loves me some critters fo sure."
       click_button "Submit"
-
+      
       bob = Application.last
       expect(bob.name).to eq("Bob Johnson")
       expect(bob.street).to eq("321 Memory Lane")
@@ -57,7 +57,31 @@ RSpec.describe "Application creation" do
       expect(bob.description).to eq("I loves me some critters fo sure.")
       expect(bob.status).to eq("In Progress")
     end
+  end
 
+  describe "When I fail to fill in any of the form fields" do
+    it "displays an error when a blank form is submitted" do
+      visit "/applications/new"
+      click_button "Submit"
+      
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank, Street can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank\nPets\nShelters\nVeterinarians\nVeterinary Offices\nNew Application\nName Street City State Zip code Description")
+    end
+    
+    it "displays an error if any field is left blank" do
+      visit "/applications/new"
+      
+      fill_in "Name", with: ""
+      fill_in "Street", with: "321 Memory Lane"
+      fill_in "City", with: "Ogdenville"
+      fill_in "State", with: "OR"
+      fill_in "Zip code", with: "72534"
+      fill_in "Description", with: "I loves me some critters fo sure."
+      click_button "Submit"
+
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank")
+    end
   end
 
 
