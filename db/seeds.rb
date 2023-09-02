@@ -11,7 +11,22 @@
 Pet.destroy_all
 Shelter.destroy_all
 
-@shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-@pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
-@pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
-@pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
+#shelters
+@shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+@shelter_2 = Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
+@shelter_3 = Shelter.create!(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
+
+#pets
+@pet_1 = @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+@pet_2 = @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+@pet_3 = @shelter_1.pets.create!(name: "Snoopy", breed: "beagle", age: 11, adoptable: false)
+@pet_4 = @shelter_2.pets.create!(name: "Tiger", breed: "Labradoodle", age: 4, adoptable: true)
+@pet_5 = @shelter_2.pets.create!(name: "Mr. T", breed: "Great Dane", age: 5, adoptable: true)
+@pet_6 = @shelter_2.pets.create!(name: "Speckles", breed: "Mutt", age: 2, adoptable: false)
+@pet_7 = @shelter_3.pets.create!(name: "Beckett", breed: "Lab Mix", age: 13, adoptable: true)
+@pet_8 = @shelter_3.pets.create!(name: "Pistachio", breed: "French BullDog", age: 3, adoptable: true)
+@pet_9 = @shelter_3.pets.create!(name: "ButtCheek", breed: "Bulldog", age: 6, adoptable: false)
+
+#applications
+@cory = Application.create!(name:"Cory", street_address: "385 N Billups st.", city: "Athen", state: "GA", zipcode:"30606", description:"Extremely normal and can be trusted", status:"In Progress" )
+@antoine = Application.create!(name:"Antoine", street_address: "1244 Windsor Street", city: "Salt Lake City", state: "UT", zipcode:"84105", description:"need to strengthen fingers through petting", status:"In Progress" )
