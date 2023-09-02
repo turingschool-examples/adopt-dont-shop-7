@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "the Application show page", type: :feature do
   describe "As a visitor" do
-    describe "when i visit an application show page" do
+    describe "when I visit an application show page" do
       before :each do
         @shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         @pet = Pet.create!(adoptable: true, age: 1, breed: "doberman", name: "Spot", shelter_id: @shelter.id)
