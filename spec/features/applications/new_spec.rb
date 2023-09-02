@@ -10,7 +10,7 @@ RSpec.describe "the applications new page" do
     expect(page).to have_field("state")
     expect(page).to have_field("zip")
     expect(page).to have_field("description")
-    expect(page).to have_button("submit")
+    expect(page).to have_button("Submit")
   end
 
   it "creates a new application and redirects to the application show page when submitted" do
@@ -24,7 +24,9 @@ RSpec.describe "the applications new page" do
     fill_in("description", with: "I have a really good description so you should let me have a pet!")
     click_button("Submit")
 
-    expect(page).to have_current_path("/applications/:id")
+    new_app = Application.all.first
+
+    expect(page).to have_current_path("/applications/#{new_app.id}")
     expect(page).to have_content("Tyler Blackmon")
     expect(page).to have_content("1234 Street Address, Colorado Springs, CO, 80922")
     expect(page).to have_content("I have a really good description so you should let me have a pet!")

@@ -1,0 +1,30 @@
+<h1>Start an Application</h1>
+
+<%= form_with url: "/applications", method: :post, data: { turbo: false } do |form| %>
+  <table>
+    <tr>
+      <td><%= form.label :name, "Name:" %></td>
+      <td><%= form.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :addr, "Street Address:" %></td>
+      <td><%= form.text_field :addr %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :city, "City:" %></td>
+      <td><%= form.text_field :city %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :state, "State:" %></td>
+      <td><%= form.text_field :state %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :zip, "Zip Code:" %></td>
+      <td><%= form.text_field :zip %></td>
+    </tr>
+  </table>
+  <br>
+  <%= form.label :description, "Why would you make a good home?:" %><br>
+  <%= form.text_area :description, size: "70x5" %><br>
+  <%= form.submit "Submit" %>
+<% end %>

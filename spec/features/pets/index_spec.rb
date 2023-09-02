@@ -85,10 +85,10 @@ RSpec.describe "the pets index" do
   it "has a link to create a new application" do
     visit "/pets"
 
-    expect(page).to have_link("Start an Application", href: "/application/new")
+    expect(page).to have_link("Start an Application", href: "/applications/new")
 
     click_link("Start an Application")
 
-    expect(page).to have_current_path("/application/new")
+    expect(page).to have_current_path("/applications/new")
   end
 end
