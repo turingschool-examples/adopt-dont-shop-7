@@ -9,7 +9,8 @@ class ApplicationsController < ApplicationController
       @searched_pets = []
     end
     @applicant = Applicant.retrieve_applicant(params[:id])
-    @pets = list_pets(@applicant)
+    # @pets = list_pets(@applicant)
+    @pets = @applicant.pets
   end
 
   def create
@@ -29,8 +30,18 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(applicant.errors)}"
     end
+  end
 
-
+  def update
+    application = PetsApplication.find(params[:id])
+    if application.pet_id == nil
+      application.update ({
+        pet_id: params[:pet]
+      })
+    else
+      PetsApplication.create!(applicant_id: application.applicant_id, pet_id: params[:pet])
+      redirect_to "/applications/#{application.applicant_id}"
+    end
   end
 
   private 
