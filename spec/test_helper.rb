@@ -24,5 +24,5 @@ def load_test_data
   @stinky = @shelter_6.pets.create!(name: 'Stinky', breed: "australian shepard", age: 1, adoptable: false)
   @bob = @shelter_6.pets.create!(name: 'Bob', breed: "blue heeler", age: 1, adoptable: false)
 
-  @applicant1 = Applicant.create!(name: "P Sherman", street_address: "42 Wallaby Way", city: "Sydney", state: "NSW", zipcode: "2307", description: "best pet parent duh")
+  @applicant1 = Applicant.create!(name: "P Sherman", street_address: "42 Wallaby Way", city: "Sydney", state: "NSW", zipcode: "2307", description: "best pet parent duh", pets: "Drake, Portia, Stinky")
 end

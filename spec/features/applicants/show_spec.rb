@@ -14,5 +14,8 @@ RSpec.describe "applicant show page", type: :feature do
       expect(page).to have_content(@applicant1.state)
       expect(page).to have_content(@applicant1.zipcode)
       expect(page).to have_content(@applicant1.description)
+      expect(page).to have_link("Drake", href: pet_path(@drake))
+      expect(page).to have_link("Portia", href: pet_path(@portia))
+      expect(page).to have_link("Stinky", href: pet_path(@stinky))
   end
 end
