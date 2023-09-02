@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "Application creation" do
+  describe "When I visit the pet index page I see a link to start an application" do
+    it "has a link to start a new application" do
+      visit "/pets"
+      
+      expect(page).to have_link("Start an Application")
+      click_link("Start an Application")
+      expect(page).to have_current_path("/applications/new")
+    end
+  end
   describe "I see a form for a new application" do
     it "renders the new form" do
       visit "/applications/new"
@@ -10,7 +19,7 @@ RSpec.describe "Application creation" do
       expect(find("form")).to have_content("Street")
       expect(find("form")).to have_content("City")
       expect(find("form")).to have_content("State")
-      expect(find("form")).to have_content("Zip Code")
+      expect(find("form")).to have_content("Zip code")
       expect(find("form")).to have_content("Description")
     end
     
@@ -21,7 +30,7 @@ RSpec.describe "Application creation" do
       fill_in "Street", with: "321 Memory Lane"
       fill_in "City", with: "Ogdenville"
       fill_in "State", with: "OR"
-      fill_in "Zip Code", with: "72534"
+      fill_in "Zip code", with: "72534"
       fill_in "Description", with: "I loves me some critters fo sure."
       click_button "Submit"
 
@@ -35,7 +44,7 @@ RSpec.describe "Application creation" do
       fill_in "Street", with: "321 Memory Lane"
       fill_in "City", with: "Ogdenville"
       fill_in "State", with: "OR"
-      fill_in "Zip Code", with: "72534"
+      fill_in "Zip code", with: "72534"
       fill_in "Description", with: "I loves me some critters fo sure."
       click_button "Submit"
 
