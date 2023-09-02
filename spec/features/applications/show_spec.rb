@@ -20,5 +20,16 @@ RSpec.describe "applications#show" do
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Mr. Pirate")
     end
+
+    it "returns a message when no search results are input" do 
+      visit "/applications/#{@application_1.id}"
+
+      fill_in(:search, with: "")
+
+      click_button("Search")
+
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content("No results input to search")
+    end
   end
 end
