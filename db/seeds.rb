@@ -28,7 +28,7 @@ clifford = shelter_2.pets.create(adoptable: true, age: 2, breed: "Big Red Dog", 
 scrappy = shelter_2.pets.create(adoptable: true, age: 5, breed: "Fluffadoodle", name: "Poof")
 
 scooby = shelter_3.pets.create(adoptable: true, age: 2, breed: "Great Dane", name: "Scooby")
-Zula = shelter_3.pets.create(adoptable: true, age: 1, breed: "Serengeti", name: "Zula")
+zula = shelter_3.pets.create(adoptable: true, age: 1, breed: "Serengeti", name: "Zula")
 brian = shelter_3.pets.create(adoptable: true, age: 7, breed: "TV Pooch", name: "Brian Griffin")
 
 # Applications
