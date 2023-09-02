@@ -41,6 +41,27 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe "order_by_name_alphabetical" do
+      it "returns a list of shelters in reverse desc order by name" do
+        expect(Shelter.order_by_name_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#with_pending_applications" do
+      it "shows shelters that have pending pet applications" do
+        applicant_1 = Applicant.create!(name: "George", street_address: "2343", city: "Dd", state: "sd", zip_code: "132", description: "34safljj")
+        shelter_4 = Shelter.create(name: "Breeds of Texas", city: "Denver, CO", foster_program: true, rank: 10)
+        pet_4 = shelter_4.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+
+        PetsApplication.create(applicant: applicant_1, pet: @pet_1)
+        PetsApplication.create(applicant: applicant_1, pet: @pet_3)
+        PetsApplication.create(applicant: applicant_1, pet: pet_4)
+        PetsApplication.create(applicant: applicant_1, pet: @pet_2)
+
+        expect(Shelter.with_pending_applications).to eq(["Aurora shelter", "Breeds of Texas", "Fancy pets of Colorado"])
+      end
+    end
   end
 
   describe "instance methods" do
