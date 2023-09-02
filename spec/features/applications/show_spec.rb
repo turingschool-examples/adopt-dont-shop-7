@@ -31,7 +31,7 @@ RSpec.describe "the application show" do
 
     it "shows the names of all pets that this application is for" do
       visit "/applications/#{@application_1.id}"
-      save_and_open_page
+      # save_and_open_page
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       
@@ -43,6 +43,26 @@ RSpec.describe "the application show" do
       expect(page).to have_link(@pet_2.name)
       click_link("#{@pet_2.name}")
       expect(current_path).to eq("/pets/#{@pet_2.id}")
+    end
+  end
+
+  describe "When I visit an application's show page" do
+    it "I see a section on the page to 'Add a Pet to this Application'" do
+      visit "/applications/#{@application_1.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_field("Search by Name")
+      expect(page).to have_button("Search")
+    end
+
+    it "should return searched pet results" do
+      visit "/applications/#{@application_1.id}"
+      fill_in "Search by Name", with: "Lasagna"
+      click_button("Search")
+      save_and_open_page
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content(@pet_4.name) # Lasagna
+      expect(page).to_not have_content(@pet_3.name) # Sylvester
     end
   end
 end
