@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "applicant show page", type: :feature do 
-  before(:each) do 
+  before (:each) do 
     load_test_data
   end
 
