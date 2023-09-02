@@ -10,6 +10,8 @@ RSpec.describe "the application show" do
     @pet_4 = Pet.create(adoptable: true, age: 1, breed: "orange tabby shorthair", name: "Lasagna", shelter_id: @shelter.id)
     @application_1 = Application.create!(name: "Peter Griffin", street: "200 Park Road", city: "Quahog", state: "MA", zip_code: "09876", description: "I like animals", status: "In Progress")
     @application_2 = Application.create!(name: "Quagmire", street: "300 Crest Lane", city: "Lowell", state: "NY", zip_code: "12345", description: "Giggity", status: "Pending")
+    @apply_1 = PetApplication.create!(application_id: @application_1.id, pet_id: @pet_1.id)
+    @apply_2 = PetApplication.create!(application_id: @application_1.id, pet_id: @pet_2.id)
   end
 
   describe "When I visit an applications show page" do
@@ -29,17 +31,18 @@ RSpec.describe "the application show" do
 
     it "shows the names of all pets that this application is for" do
       visit "/applications/#{@application_1.id}"
-
+      save_and_open_page
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
-
+      
       expect(page).to have_link(@pet_1.name)
       click_link("#{@pet_1.name}")
-      expect(have_current_path).to eq("/pets/#{@pet_1.id}")
-
+      expect(current_path).to eq("/pets/#{@pet_1.id}")
+      
+      visit "/applications/#{@application_1.id}"
       expect(page).to have_link(@pet_2.name)
       click_link("#{@pet_2.name}")
-      expect(have_current_path).to eq("/pets/#{@pet_2.id}")
+      expect(current_path).to eq("/pets/#{@pet_2.id}")
     end
   end
 end
