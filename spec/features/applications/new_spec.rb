@@ -32,4 +32,16 @@ RSpec.describe "the applications new page" do
     expect(page).to have_content("I have a really good description so you should let me have a pet!")
     expect(page).to have_content("In Progress")
   end
+
+  it "sends an error message if any form fields are not filled in" do
+    visit "/applications/new"
+    fill_in("name", with: "Tyler Blackmon")
+    fill_in("addr", with: "1234 Street Address")
+    fill_in("city", with: "Colorado Springs")
+    fill_in("state", with: "CO")
+    fill_in("zip", with: "80922")
+    click_button("Submit")
+
+    expect(page).to have_content("Please fill in all fields.")
+  end
 end
