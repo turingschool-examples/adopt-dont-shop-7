@@ -7,7 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # ApplicationPet.destroy_all
-# Application.destroy_all
+Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
 
