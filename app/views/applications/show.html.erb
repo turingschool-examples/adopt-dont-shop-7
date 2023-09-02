@@ -4,9 +4,25 @@
 <br>
 <h3>Status: <%= @application.status %></h3>
 
-
 <h3>Pets Applied For</h3>
 <% @pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end  %>
+
+<h3>Add a pet this application</h3>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true, data: {turbo: false} do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if params[:search] != nil %>
+  <h3>Search Results</h3>
+  <% @results.each do |result| %>
+    <%= result.name %>
+  <% end %>
+<% end %>
+
+
+
 
