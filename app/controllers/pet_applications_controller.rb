@@ -7,7 +7,7 @@ class PetApplicationsController < ApplicationController
     application_id: params[:id],
     status: "Pending",
     })
-    require 'pry';binding.pry
+  
     redirect_to "/applications/#{applicant.id}"
   end
 
