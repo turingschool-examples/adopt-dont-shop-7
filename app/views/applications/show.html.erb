@@ -4,9 +4,18 @@
 <h3><%= @application.state %></h3>
 <h3><%= @application.zip_code %></h3>
 <h3><%= @application.description %></h3>
-<h3><%= @application.pet_names %></h3>
+<h3>Pets on this Application:</h3>
+<% @application.pets.each do |pet| %>
+    <li><%= pet.name %></li>
+  <% end %>
 <h3><%= @application.status %></h3>
 
-<!- asdfjhhaaojskdhfklajshdfo; ->
+<h2>Add a Pet to this Application</h2>
+<%= form_tag "/applications/#{@application.id}/add_pet", method: :patch, data: { turbo: false } do %>
+  <label for="pet_name">Search for Pets by Name:</label>
+  <%= text_field_tag 'pet_name' %>
+  <%= submit_tag 'Submit' %>
+<% end %>
+
 
 
