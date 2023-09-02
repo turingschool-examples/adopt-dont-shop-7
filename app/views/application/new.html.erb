@@ -1,0 +1,16 @@
+<%=form_with url:"/applications", method: :post, data: { turbo: false} do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.label :street_address, "Street Address" %>
+  <%= form.text_field :street_address %>
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+  <%= form.label :state %>
+  <%= form.text_field :state %>
+  <%= form.label :zip_code, "Zip Code" %>
+  <%= form.text_field :zip_code %>
+  <%= form.label :description,  "Description of why I would make a good home"%>
+  <%= form.text_field :description %>
+  <%= form.submit "Submit"%>
+<% end %>
+  
