@@ -8,6 +8,7 @@ class ApplicationsController < ApplicationController
     else
       @searched_pets = []
     end
+    @application = PetsApplication.find(params[:id])
     @applicant = Applicant.retrieve_applicant(params[:id])
     # @pets = list_pets(@applicant)
     @pets = @applicant.pets

@@ -12,7 +12,7 @@
 
 <section>
 <h2>Add a Pet to this Application</h2>
-<%= form_with url: "/applications/#{@applicant.id}", method: :get, data: { turbo: false } do |form| %>
+<%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
   <%= form.label :search %>
   <%= form.text_field :search %>
   <%= form.submit "Search" %>
