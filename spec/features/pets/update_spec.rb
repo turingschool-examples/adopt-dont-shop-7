@@ -21,11 +21,12 @@ RSpec.describe "the veterinarian update" do
       visit "/pets/#{pet.id}/edit"
 
       fill_in "Name", with: "Itchy"
+      fill_in "Breed", with: "Schnowzer"
       uncheck "Adoptable"
       fill_in "Age", with: 1
       click_button "Save"
 
-      expect(page).to have_current_path("/pets/#{pet.id}")
+      expect(current_path).to eq("/pets/#{pet.id}")
       expect(page).to have_content("Itchy")
       expect(page).to_not have_content("Charlie")
     end
