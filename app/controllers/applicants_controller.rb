@@ -10,7 +10,6 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Applicant.find(params[:id])
-    @pets = Applicant.pets.split(" ")
+    # @pets = Pet.find(params[:id])
   end
-
 end

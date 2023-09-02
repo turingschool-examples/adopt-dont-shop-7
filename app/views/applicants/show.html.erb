@@ -4,6 +4,11 @@
 <p>Description: <%= @applicant.description %></p>
 
 <h2>Pets of Interest:</h2>
+<ul>
+  <% @applicant.pets.each do |pet| %>
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+  <% end %>
+</ul>
 
   
   
