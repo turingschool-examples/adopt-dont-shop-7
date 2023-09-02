@@ -30,9 +30,22 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(applicant.errors)}"
     end
+  end
 
+  def edit
+    @application = PetsApplication.find(params[:id])
+  end
+
+  def update
+    application = PetsApplication.find(params[:id])
+    application.update({
+      pet_id: params[:pet]
+    })
+    redirect_to "/applications/#{application.id}"
 
   end
+
+
 
   private 
 
