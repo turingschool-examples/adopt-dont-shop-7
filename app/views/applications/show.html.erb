@@ -16,11 +16,14 @@
   <%= f.submit "Search" %>
 <% end %>
 
-<% if params[:search] != nil %>
+<% if @search %>
   <h3>Search Results</h3>
   <% @results.each do |result| %>
     <%= result.name %>
   <% end %>
+
+  <% else %>
+  <p>No results input to search</p>
 <% end %>
 
 

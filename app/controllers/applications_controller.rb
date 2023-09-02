@@ -5,6 +5,7 @@ class ApplicationsController < ApplicationController
     @pets = @application.pets
     if params[:search].present?
       @results = Pet.search(params[:search])
+      @search = params[:search]
     end 
   end
 
