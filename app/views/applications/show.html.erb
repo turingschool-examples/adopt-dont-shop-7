@@ -1,0 +1,12 @@
+<h1><%= @application.name %></h1>
+<h3>Address: <%= @application.address %></h3>
+<h3>Description: <%= @application.description %></h3>
+
+<h3>Requested pet(s):</h3>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><%= link_to "#{pet.name}", "pets/#{pet.id}" %></li>
+  <% end %>
+</ul>
+
+<h3>Status: <%= @application.status %></h3>
