@@ -19,7 +19,7 @@
 <% end %>
 </section>
 <% @searched_pets.each do |pet| %>
-  <%= pet.name %><%= form_with url: "/applications/#{@applicant.id}?pet=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>  
+  <%= pet.name %><%= form_with url: "/applications/#{@application.id}?pet=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>  
 
     <%= form.submit "Adopt this pet?" %>
   <% end %>

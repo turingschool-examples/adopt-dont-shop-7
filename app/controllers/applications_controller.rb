@@ -41,7 +41,7 @@ class ApplicationsController < ApplicationController
       })
     else
       PetsApplication.create!(applicant_id: application.applicant_id, pet_id: params[:pet])
-      redirect_to "/applications/#{application.applicant_id}"
+      redirect_to "/applications/#{application.id}"
     end
   end
 
