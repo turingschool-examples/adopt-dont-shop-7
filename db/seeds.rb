@@ -6,12 +6,16 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 Veterinarian.destroy_all
+PetsApplication.destroy_all
+Applicant.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
 
 
 shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-shelter_2 = Shelter.create(name: "Boulder shelter", city: "Boulder, CO", foster_program: false, rank: 9)
+shelter_1 = Shelter.create(name: "Boulder shelter", city: "Boulder, CO", foster_program: false, rank: 9)
+shelter_2 = Shelter.create(name: "Golden Shelter", city: "Golden, CO", foster_program: false, rank: 9)
+shelter_3 = Shelter.create(name: "Fort Collins Shelter", city: "Fort Collins, CO", foster_program: false, rank: 9)
 
 pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Bare-y Manilow", shelter_id: "#{shelter.id}")
 pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: "#{shelter.id}")
@@ -23,3 +27,9 @@ vet_office = VeterinaryOffice.create(name: "Best Vets", boarding_services: true,
 
 vet_1 = Veterinarian.create(name: "Taylor", review_rating: 10, on_call: true, veterinary_office_id: "#{vet_office.id}")
 vet_2 = Veterinarian.create(name: "Jim", review_rating: 8, on_call: true, veterinary_office_id: "#{vet_office.id}")
+
+applicant_1 = Applicant.create(name: "George", street_address: "1421 W Mockingbird Ln", city: "Boulder", state: "Texas", zip_code: "23452", description: "I love animals!")
+applicant_2 = Applicant.create(name: "Jasmine", street_address: "1421 W Mockingbird Ln", city: "Boulder", state: "Texas", zip_code: "23452", description: "I love animals!")
+
+PetsApplication.create!(applicant: applicant_1, pet: pet_1 )
+PetsApplication.create!(applicant: applicant_1, pet: pet_3 )
