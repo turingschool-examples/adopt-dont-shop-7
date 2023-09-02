@@ -29,11 +29,11 @@ RSpec.describe "applications#new" do
       fill_in(:state, with: "BA")
       fill_in(:zipcode, with: "123456")
       fill_in(:description, with: "My name's rappin Jeff and I'm here to say")
-
+      
       click_button("Submit")
-
+      
       application = Application.last
-
+      
       expect(current_path).to eq("/applications/#{application.id}")
       expect(page).to have_content("Jeff")
       expect(page).to have_content("123 Fake St")
@@ -41,6 +41,25 @@ RSpec.describe "applications#new" do
       expect(page).to have_content("BA")
       expect(page).to have_content("123456")
       expect(page).to have_content("My name's rappin Jeff and I'm here to say")
+    end
+  end
+  
+  describe "incomplete application" do 
+    it "renders an error message when any field in the new application is not filled out" do 
+      visit "/applications/new"
+
+      fill_in(:name, with: "")
+      fill_in(:street_address, with: "123 Fake St")
+      fill_in(:city, with: "Coolsville")
+      fill_in(:state, with: "BA")
+      fill_in(:zipcode, with: "123456")
+      fill_in(:description, with: "My name's rappin Jeff and I'm here to say")
+
+      click_button("Submit")
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank")
+
     end
   end
 end
