@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-ApplicationPet.destroy_all
-Application.destroy_all
-Review.destroy_all
+# ApplicationPet.destroy_all
+# Application.destroy_all
+# Review.destroy_all
 
 Pet.destroy_all
 Shelter.destroy_all
@@ -37,3 +37,5 @@ portia = shelter_5.pets.create!(name: 'Portia', breed: "chow chow", age: 1, adop
 
 stinky = shelter_6.pets.create!(name: 'Stinky', breed: "australian shepard", age: 1, adoptable: false)
 bob = shelter_6.pets.create!(name: 'Bob', breed: "blue heeler", age: 1, adoptable: false)
+
+applicant1 = Applicant.create!(name: "P Sherman", street_address: "42 Wallaby Way", city: "Sydney", state: "NSW", zipcode: "2307", description: "best pet parent duh")
