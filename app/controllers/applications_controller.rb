@@ -39,23 +39,14 @@ class ApplicationsController < ApplicationController
       application.update ({
         pet_id: params[:pet]
       })
-    else
+    elsif params[:status].nil?
       PetsApplication.create!(applicant_id: application.applicant_id, pet_id: params[:pet])
+    else
+      all_apps = PetsApplication.where('applicant_id = ?', application.applicant_id)
+      all_apps.each { |app| app.update(status: "Pending")}
     end
     redirect_to "/applications/#{application.id}"
   end
 
   private 
-
-  def list_pets(applicant)
-    pets = []
-    applications = PetsApplication.where('applicant_id = ?', @applicant.id)
-    applications.each do |application|
-      if !application.pet_id.nil?
-        pets << Pet.find(application.pet_id)
-      end
-    end
-    pets
-  end
-  
 end
