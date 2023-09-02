@@ -6,8 +6,9 @@
 <h2>Pets of Interest:</h2>
   <ul>
     <% @pets.each do |pet| %>
-      <li><%= link_to pet, pet_path(pet) %></li>
+      <li><a <a href="/pets/#{pet.id}"><%= pet.name %></a></li>
       <% end %>
   </ul>
   
   
+  # <%= link_to pet, pet_path(pet) %>
