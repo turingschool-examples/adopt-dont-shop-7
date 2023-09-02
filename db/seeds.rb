@@ -23,8 +23,3 @@ vet_office = VeterinaryOffice.create(name: "Best Vets", boarding_services: true,
 
 vet_1 = Veterinarian.create(name: "Taylor", review_rating: 10, on_call: true, veterinary_office_id: "#{vet_office.id}")
 vet_2 = Veterinarian.create(name: "Jim", review_rating: 8, on_call: true, veterinary_office_id: "#{vet_office.id}")
-
-dude = Applicant.create(name: "James", street_address: "11234 Jane Street", city: "Dallas", 
-state: "Texas", zip_code: "75248", description: "I love animals!")
-
-PetsApplication.create!(applicant: dude, pet: pet_2)

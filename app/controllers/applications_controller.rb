@@ -9,8 +9,7 @@ class ApplicationsController < ApplicationController
       @searched_pets = []
     end
     @applicant = Applicant.retrieve_applicant(params[:id])
-    # @pets = list_pets(@applicant)
-    @pets = @applicant.pets
+    @pets = list_pets(@applicant)
   end
 
   def create
@@ -30,29 +29,12 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(applicant.errors)}"
     end
+
+
   end
 
-  def edit
-    @application = PetsApplication.find(params[:id])
-  end
-
-  def update
-    application = PetsApplication.find(params[:id])
-    if application.pet_id == nil
-      application.update({
-        pet_id: params[:pet]
-        })
-    else
-      new_app = PetsApplication.create!(applicant_id: application.applicant_id, pet_id: params[:pet])
-      redirect_to "/applications/#{application.id}"
-
-    end
-  end
-  
-  
-  
   private 
-  
+
   def list_pets(applicant)
     pets = []
     applications = PetsApplication.where('applicant_id = ?', @applicant.id)
@@ -63,4 +45,5 @@ class ApplicationsController < ApplicationController
     end
     pets
   end
+  
 end
