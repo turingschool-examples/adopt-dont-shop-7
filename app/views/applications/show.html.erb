@@ -11,11 +11,18 @@
 <h3><%= @application.status %></h3>
 
 <h2>Add a Pet to this Application</h2>
-<%= form_tag "/applications/#{@application.id}/add_pet", method: :patch, data: { turbo: false } do %>
-  <label for="pet_name">Search for Pets by Name:</label>
-  <%= text_field_tag 'pet_name' %>
-  <%= submit_tag 'Submit' %>
+<%= form_tag show_application_path, method: :get do %>
+  <%= text_field_tag 'pet_name', params[:pet_name], placeholder: 'Enter pet name' %>
+  <%= submit_tag 'Search' %>
 <% end %>
 
+<h2>Matching Pets:</h2>
+<% if @matching_pets == nil %>
+  <p>No pets match your search criteria.</p>
+<% else %>
+  <% @matching_pets.each do |pet| %>
+      <%= pet.name %><%= button_to 'Adopt this Pet', adopt_pet_path(@application, pet), method: :post %>
+  <% end %>
+<% end %>
 
 

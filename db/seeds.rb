@@ -10,3 +10,5 @@ application1 = Application.create!(applicant_name: "Thomas Jefferson", street_ad
 shelter1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 pet1 = shelter1.pets.create!(name: "Zeus", breed: "Great Dane", age: 3, adoptable: true)
 pet2 = shelter1.pets.create!(name: "Demeter", breed: "Golden Retriever", age: 4, adoptable: true)
+pet3 = shelter1.pets.create!(name: "Hades", breed: "Doberman", age: 3, adoptable: true)
+pet4 = shelter1.pets.create!(name: "Apollo", breed: "German Shepherd", age: 2, adoptable: true)
