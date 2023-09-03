@@ -1,4 +1,4 @@
-<section id="applicant_info-<%= @application.id%>">
+<section id="applicant_info-<%= @application.id %>">
   <h1>Application For: <%= @application.name %></h1>
   <h3>Address: <%= "#{@application.street_address} #{@application.city} #{@application.state} #{@application.zipcode} " %></h1>
   <h3>Applicant Description: <%= @application.description %></h3>
@@ -24,8 +24,10 @@
   <% if @search %>
     <h3>Search Results</h3>
     <% @results.each do |result| %>
+  <section id="pet_search_results-<%= result.id %>">
       <%= result.name %>
       <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", params: {pet_id: result.id} %>
+  </section>
     <% end %>
 
     <% else %>

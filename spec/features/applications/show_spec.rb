@@ -14,14 +14,14 @@ RSpec.describe "applications#show" do
       visit "/applications/#{@application_1.id}"
 
       within("#applicant_info-#{@application_1.id}") do 
-      expect(page).to have_content(@application_1.name)
-      expect(page).to have_content(@application_1.street_address)
-      expect(page).to have_content(@application_1.city)
-      expect(page).to have_content(@application_1.state)
-      expect(page).to have_content(@application_1.zipcode)
-      expect(page).to have_content(@application_1.description)
-      expect(page).to have_content(@application_1.adoption_reason)
-      expect(page).to have_content(@application_1.status)
+        expect(page).to have_content(@application_1.name)
+        expect(page).to have_content(@application_1.street_address)
+        expect(page).to have_content(@application_1.city)
+        expect(page).to have_content(@application_1.state)
+        expect(page).to have_content(@application_1.zipcode)
+        expect(page).to have_content(@application_1.description)
+        expect(page).to have_content(@application_1.adoption_reason)
+        expect(page).to have_content(@application_1.status)
       end 
     end
   end
@@ -35,7 +35,10 @@ RSpec.describe "applications#show" do
       click_button("Search")
 
       expect(current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content("Mr. Pirate")
+      
+      within("#pet_search_results-#{@pet_1.id}") do
+        expect(page).to have_content("Mr. Pirate")
+      end
     end
 
     it "returns a message when no search results are input" do 
@@ -57,11 +60,14 @@ RSpec.describe "applications#show" do
       fill_in(:search, with: "Mr. Pirate")
 
       click_button("Search")
+
+      within("#pet_search_results-#{@pet_1.id}") do
+        expect(page).to have_content("Mr. Pirate")
+      end
+      
       click_button("Adopt this Pet")
 
       expect(@application_1.pets).to eq([@pet_1])
-      expect(page).to have_content("Mr. Pirate")
-
     end
   end
   
