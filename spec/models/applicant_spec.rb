@@ -12,6 +12,6 @@ RSpec.describe Applicant, type: :model do
     it { should validate_presence_of(:state) }
     it { should validate_presence_of(:zipcode) }
     it { should validate_presence_of(:description) }
-
+    it { should validate_inclusion_of(:status).in_array(['In Progress', 'Pending', 'Accepted', 'Rejected']) }
   end
 end

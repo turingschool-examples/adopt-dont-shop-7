@@ -38,9 +38,9 @@ Shelter.destroy_all
 @pet_11 = @shelter_6.pets.create!(name: 'Stinky', breed: "australian shepard", age: 1, adoptable: false)
 @pet_12 = @shelter_6.pets.create!(name: 'Bob', breed: "blue heeler", age: 1, adoptable: false)
 
-@applicant_1 = Applicant.create!(name: "P Sherman", street_address: "42 Wallaby Way", city: "Sydney", state: "NSW", zipcode: "2307", description: "best pet parent duh")
+@applicant_1 = Applicant.create!(name: "P Sherman", street_address: "42 Wallaby Way", city: "Sydney", state: "NSW", zipcode: "2307", description: "best pet parent duh", status: "In Progress")
 
-@applicant_2 = Applicant.create!(name: "Clifford Red", street_address: "123 Greenwich", city: "New York City", state: "NY", zipcode: "10001", description: "10/10 pet parent duh")
+@applicant_2 = Applicant.create!(name: "Clifford Red", street_address: "123 Greenwich", city: "New York City", state: "NY", zipcode: "10001", description: "10/10 pet parent duh", status: "Pending")
 
 PetApplicant.create!(applicant: @applicant_1, pet: @pet_1)
 PetApplicant.create!(applicant: @applicant_1, pet: @pet_2)
