@@ -19,5 +19,12 @@ class Pet < ApplicationRecord
     .select("pets_applications.status", "pets.name", "pets.id")
     .distinct
   end
+
+  def self.pets_with_app_status_by_sql(application)
+    find_by_sql("SELECT pets.name, pets.id, pets_applications.status FROM pets 
+    JOIN pets_applications on pets.id = pets_applications.pet_id 
+    JOIN applicants on applicants.id = pets_applications.applicant_id 
+    WHERE pets_applications.applicant_id = #{application.applicant_id}")
+  end
 end
 # update

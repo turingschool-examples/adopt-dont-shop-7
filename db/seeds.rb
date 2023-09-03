@@ -28,8 +28,10 @@ vet_office = VeterinaryOffice.create(name: "Best Vets", boarding_services: true,
 vet_1 = Veterinarian.create(name: "Taylor", review_rating: 10, on_call: true, veterinary_office_id: "#{vet_office.id}")
 vet_2 = Veterinarian.create(name: "Jim", review_rating: 8, on_call: true, veterinary_office_id: "#{vet_office.id}")
 
-applicant_1 = Applicant.create(name: "George", street_address: "1421 W Mockingbird Ln", city: "Boulder", state: "Texas", zip_code: "23452", description: "I love animals!")
-applicant_2 = Applicant.create(name: "Jasmine", street_address: "1421 W Mockingbird Ln", city: "Boulder", state: "Texas", zip_code: "23452", description: "I love animals!")
+# applicant_1 = Applicant.create(name: "George", street_address: "1421 W Mockingbird Ln", city: "Boulder", state: "Texas", zip_code: "23452", description: "I love animals!")
+# PetsApplication.create!(applicant: applicant_1)
+# applicant_2 = Applicant.create(name: "Jasmine", street_address: "1421 W Mockingbird Ln", city: "Boulder", state: "Texas", zip_code: "23452", description: "I love animals!")
+# PetsApplication.create!(applicant: applicant_2)
 
-PetsApplication.create!(applicant: applicant_1, pet: pet_1 )
-PetsApplication.create!(applicant: applicant_1, pet: pet_3 )
+# PetsApplication.create!(applicant: applicant_1, pet: pet_1 )
+# PetsApplication.create!(applicant: applicant_1, pet: pet_3 )
