@@ -40,7 +40,7 @@ class ApplicationsController < ApplicationController
       adoption_reason: params[:adoption_reason],
       status: "Pending"
     })
-
+    
     redirect_to "/applications/#{application.id}"
   end
 end
