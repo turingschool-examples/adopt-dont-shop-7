@@ -4,8 +4,8 @@
 
 <h3>Requested pet(s):</h3>
 <ul>
-  <% @application.pets.each do |pet| %>
-    <li><%= link_to "#{pet.name}", "pets/#{pet.id}" %></li>
+  <% @application.pet_names.each do |pet_name| %>
+    <li><%= link_to pet_name, @application.pet_link(pet_name) %></li>
   <% end %>
 </ul>
 
