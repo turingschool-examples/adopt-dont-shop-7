@@ -4,7 +4,14 @@ class AdminController < ActionController::Base
     @pending_apps = Shelter.with_pending_applications
   end
 
-  def applications_show
-    
+  def show
+    @application = PetsApplication.find(params[:id])
+    @pets = Pet.pets_with_app_status(@application)
+  end
+
+  def approve_reject
+    @application = PetsApplication.where('pet_id = ?', params[:pet_id])
+    @application.update(status: params[:status])
+    redirect_to "/admin/applications/#{params[:id]}"
   end
 end

@@ -1,0 +1,13 @@
+<% @pets.each do |pet| %>
+  <h3><%= pet.name %></h3>
+  <% if pet.status == "Pending" %>
+    <%= form_with url:"/admin/applications/#{@application.id}?status=Accepted&pet_id=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>
+      <%= form.submit "Approve" %>
+    <% end %>
+    <%= form_with url:"/admin/applications/#{@application.id}?status=Rejected&pet_id=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>
+      <%= form.submit "Reject" %>
+    <% end %>
+  <% else %>
+    <h3><%= pet.status %></h3>
+  <% end %>
+<% end %>
