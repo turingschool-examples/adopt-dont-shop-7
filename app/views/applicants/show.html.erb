@@ -5,6 +5,15 @@
 <p><%= @applicant.zip_code %></p>
 <p><%= @applicant.description %></p>
 <p><%= @applicant.application_status %></p>
+<h3>Pets being applied for:</h3>
+<ul>
+  <% @applicant_pets.each do |pet| %>
+    <li><h3><%= pet.name %></h3></li>
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Adoptable: <%= pet.adoptable %></p>
+  <% end %>
+</ul>
 <div>
   <h2>Add a Pet to this Application</h2>
   <%= form_with url: "/applicants/#{@applicant.id}", method: :get, data: { turbo: false } do |form| %>
@@ -14,7 +23,7 @@
   <% end %>
 </div>
 <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
+  <h3><%= pet.name %></h3><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}/#{pet.id}", method: :patch %>
   <p>Age: <%= pet.age %></p>
   <p>Breed: <%= pet.breed %></p>
   <p>Adoptable: <%= pet.adoptable %></p>
