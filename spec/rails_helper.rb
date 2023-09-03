@@ -1,5 +1,8 @@
 require "simplecov"
-SimpleCov.start
+SimpleCov.start do 
+  add_filter 'test_helper.rb'
+  add_filter 'application_record.rb'
+end
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'

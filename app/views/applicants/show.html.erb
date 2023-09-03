@@ -1,0 +1,14 @@
+<h1>Name of Applicant: <%= @applicant.name %></h1>
+<p>Full Adress: <%= "#{@applicant.street_address}" %></p>
+<p><%= "#{@applicant.city}, #{@applicant.state} #{@applicant.zipcode}" %></p> 
+<p>Description: <%= @applicant.description %></p>
+
+<h2>Pets of Interest:</h2>
+<ul>
+  <% @applicant.pets.each do |pet| %>
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+  <% end %>
+</ul>
+
+  
+  
