@@ -30,9 +30,14 @@
   </div>
 <% end %>
 
-<h3> Submit Application </h3>
-  <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |form| %>
-  <%= form.label :description, "Description" %>
-  <%= form.text_area :description, size: "70x5" %>
-  <%= form.submit "Submit Application" %>
+<% if @application.pets.present? && @application.status == "In Progress" %>
+  <div id="submit_application">
+    <h3> Submit Application </h3>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |form| %>
+      <%= form.label :description, "Description" %>
+      <%= form.text_area :description, size: "70x5" %>
+      <%= form.submit "Submit Application" %>
+      <%= form.hidden_field :status, value: "Pending" %>
+    <% end %>
+  </div>
 <% end %>

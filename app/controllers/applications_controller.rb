@@ -29,14 +29,16 @@ class ApplicationsController < ApplicationController
 
     if application.update(application_params)
       redirect_to "/applications/#{application.id}"
-  else
-    redirect_to "/applications/#{application.id}"
-    flash[:alert] = "Error: #{error_message(application.errors)}"
+    else
+      redirect_to "/applications/#{application.id}"
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
   end
 
   private
   def application_params
     params.permit(:id, :name, :street, :city, :state, :zip_code, :status, :description)
   end
+  
 
 end

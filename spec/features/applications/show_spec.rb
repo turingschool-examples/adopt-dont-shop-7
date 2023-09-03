@@ -98,6 +98,7 @@ RSpec.describe "the application show" do
       within("#submit_application") do
         fill_in "Description", with: "I like aminals!"
         click_button("Submit Application")
+        @application_1.reload
       end
       
       expect(current_path).to eq("/applications/#{@application_1.id}")
