@@ -1,7 +1,7 @@
 
   class Admin::SheltersController < ApplicationController
     def index
-      @shelters = Shelter.all
+      @shelters = Shelter.reverse_alphabetical
       # require 'pry';binding.pry
     end 
   end
