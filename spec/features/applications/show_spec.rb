@@ -6,6 +6,7 @@ RSpec.describe "the Application show page", type: :feature do
       before :each do
         @shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         @pet = Pet.create!(adoptable: true, age: 1, breed: "doberman", name: "Spot", shelter_id: @shelter.id)
+        @pet1 = Pet.create!(adoptable: true, age: 6, breed: "pug", name: "Adonis", shelter_id: @shelter.id)
         @application = Application.create!(name: "John Smith", street_address: "123 Main st", city: "Boulder", state: "CO", zip_code: "12345", description: "I'm rich.", status: "Pending")
         PetApplication.create!(pet: @pet, application: @application)
         visit "/applications/#{@application.id}"
@@ -29,6 +30,20 @@ RSpec.describe "the Application show page", type: :feature do
 
       it "I see the applications status" do
         expect(page).to have_content(@application.status)
+      end
+      
+      # US 4
+      it "I see a section to Add a pet to the application" do
+        expect(page).to have_content("Add a Pet to this Application")
+        
+        fill_in "search", with: "Adonis"
+
+        click_button "Submit"
+
+        expect(current_path).to eq("/applications/#{@application.id}")
+        expect(page).to have_content(@pet1.name)
+        expect(page).to have_content(@pet1.breed)
+        expect(page).to have_content(@pet1.age)
       end
     end
   end
