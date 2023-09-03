@@ -1,1 +1,28 @@
 <h1> <%= "Application for #{@application.applicant_name} (admin view)" %> </h1>
+
+<% @pets.each do |pet| %>
+  <section id="pet-<%= pet.id%>">
+  <% pet_status = @status.where(pet_id:"#{pet.id}")[0]%>
+  </br>
+  <%= pet.name %> | 
+  Age: <%= pet.age %> |
+  Breed: <%= pet.breed %> |
+  Adoptable: <%= pet.adoptable %> |
+  You can find <%= pet.name %> at <%= pet.shelter_name %>! |
+  <% if pet_status.app_pet_status == nil %>
+
+    <%= form_with url: "/application_pets/#{pet_status.id}", method: :patch, data: { turbo: false} do |f| %>
+      <%= f.hidden_field :app_pet_status, :value=>"approved" %>
+        <%= f.submit "Approved" %>
+    <% end %>
+
+    <%= form_with url: "/application_pets/#{pet_status.id}", method: :patch, data: { turbo: false} do |f| %>
+      <%= f.hidden_field :app_pet_status, :value=>"rejected" %>
+      <%= f.submit "Rejected" %>
+    <% end %>
+
+  <% else %>
+    <%= pet_status.app_pet_status.upcase %>
+  <%end%>
+    </section>
+<% end %>
