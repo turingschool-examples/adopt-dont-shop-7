@@ -35,7 +35,7 @@ RSpec.describe "applications#show" do
       click_button("Search")
 
       expect(current_path).to eq("/applications/#{@application_1.id}")
-      
+
       within("#pet_search_results-#{@pet_1.id}") do
         expect(page).to have_content("Mr. Pirate")
       end
@@ -50,6 +50,30 @@ RSpec.describe "applications#show" do
 
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("No results input to search")
+    end
+
+    it "returns a pet with case insensitive search" do 
+      visit "/applications/#{@application_1.id}"
+
+      fill_in(:search, with: "mr. pirate")
+
+      click_button("Search")
+
+      within("#pet_search_results-#{@pet_1.id}") do
+        expect(page).to have_content("Mr. Pirate")
+      end
+    end
+
+    it "returns a pet with partial search" do 
+      visit "/applications/#{@application_1.id}"
+
+      fill_in(:search, with: "Mr.")
+
+      click_button("Search")
+
+      within("#pet_search_results-#{@pet_1.id}") do
+        expect(page).to have_content("Mr. Pirate")
+      end
     end
   end
 
