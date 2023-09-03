@@ -11,15 +11,18 @@
 
 <p>Adoption Status: <%= @application.status %></p>
 
-<h3>Add a Pet to this Application</h3>
-<%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
-<%= form.label :search, "Search by Name" %>
-<%= form.text_field :search %>
-<%= form.submit "Search" %>
-<% end %>
+<div id="pet_adoption">
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
+  <%= form.label :search, "Search by Name" %>
+  <%= form.text_field :search %>
+  <%= form.submit "Search" %>
+  <% end %>
 
-<div>
-<% @pet_search_results.each do |result| %>
-  <p>Result: <%= result.name %></p>
-<% end %>
+  <div>
+  <% @pet_search_results.each do |result| %>
+    <p>Result: <%= result.name %></p>
+    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{result.id}", method: :post, params: { application_id: @application.id, pet_id: result.id } %>
+  <% end %>
+  </div>
 </div>
