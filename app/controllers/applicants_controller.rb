@@ -7,6 +7,7 @@ class ApplicantsController < ApplicationController
     else
       @pets = []
     end
+    
   end
 
   def new
@@ -23,11 +24,10 @@ class ApplicantsController < ApplicationController
   end
 
   def update
-    applicant = Applicant.find(params[:applicant_id])
-    pet = Pet.find(params[:pet_id])
-    applicant.pets << pet
-
-    redirect_to "/applicants/#{params[:applicant_id]}"
+    applicant = Applicant.find(params[:id])
+    applicant.update(applicant_params)
+    applicant.update(application_status: "Pending")
+    redirect_to "/applicants/#{applicant.id}"
   end
 
   private

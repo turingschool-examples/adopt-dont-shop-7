@@ -9,4 +9,9 @@ class Applicant < ApplicationRecord
 
   has_many :applicants_pets
   has_many :pets, through: :applicants_pets
+
+  def descript 
+    self.description.blank? && self.pets.count > 0
+  end
+
 end
