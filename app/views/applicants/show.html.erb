@@ -14,6 +14,22 @@
     <p>Adoptable: <%= pet.adoptable %></p>
   <% end %>
 </ul>
+<%if @applicant.descript %>
+<div>
+  <h2>Add a Description</h2>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
+    <div>
+      <%= form.label :description %>
+    </div>
+    <div>
+      <%= form.text_area :description %>
+    </div>  
+    <div>
+      <%= form.submit "Submit Application" %>
+    </div>
+  <% end %>
+</div>
+<% end %>
 <div>
   <h2>Add a Pet to this Application</h2>
   <%= form_with url: "/applicants/#{@applicant.id}", method: :get, data: { turbo: false } do |form| %>
