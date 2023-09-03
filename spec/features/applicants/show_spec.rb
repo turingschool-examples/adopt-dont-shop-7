@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe "Applicants Show Page", type: :feature do
   before(:each) do
     @bob = Applicant.create!(name: "Bob", street_address: "1234 Bob's Street", city: "Fudgeville", state: "AK", zip_code: 27772, description: "", application_status: "In Progress")
-    @rex = Pet.create!(adoptable: true, age: 2, breed: "dog", name: "rex" )
+    @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    @rex = @shelter.pets.create!(adoptable: true, age: 2, breed: "dog", name: "Rex" )
   end
 
   describe "As a visitor" do
@@ -26,8 +27,8 @@ RSpec.describe "Applicants Show Page", type: :feature do
 
           expect(page).to have_content("Add a Pet to this Application")
           expect(page).to have_field("pet_name")
-          #fill_in "pet_name", with: "rex"
-          
+
+          fill_in "pet_name", with: "rex"
 
           click_button "Submit"
         end
