@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe "Applicants Show Page", type: :feature do
   before(:each) do
     @bob = Applicant.create!(name: "Bob", street_address: "1234 Bob's Street", city: "Fudgeville", state: "AK", zip_code: 27772, description: "", application_status: "In Progress")
-    @rex = Pet.create!(adoptable: true, age: 2, breed: "dog", name: "rex" )
+    @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    @rex = @shelter.pets.create!(adoptable: true, age: 2, breed: "Dog", name: "Rex" )
   end
 
   describe "As a visitor" do
@@ -26,10 +27,41 @@ RSpec.describe "Applicants Show Page", type: :feature do
 
           expect(page).to have_content("Add a Pet to this Application")
           expect(page).to have_field("pet_name")
-          #fill_in "pet_name", with: "rex"
-          
+
+          fill_in "pet_name", with: "Rex"
 
           click_button "Submit"
+
+          expect(current_path).to eq("/applicants/#{@bob.id}")
+
+          expect(page).to have_content("#{@rex.name}")
+          expect(page).to have_content("Age: #{@rex.age}")
+          expect(page).to have_content("Breed: #{@rex.breed}")
+          expect(page).to have_content("Adoptable: #{@rex.adoptable}")
+        end
+
+        describe "And I search for a Pet by name and I see the names of the Pets that match my search" do
+          it "displays a button to 'Adopt this Pet' next to each Pets name" do
+            visit "/applicants/#{@bob.id}?pet_name=#{@rex.name}&commit=Submit"
+
+            expect(page).to have_button("Adopt this Pet")
+          end
+
+          describe "When I click one of these buttons" do
+            it "takes me back to the application show page and I see the Pet I want to adopt listed on this application" do
+              visit "/applicants/#{@bob.id}?pet_name=#{@rex.name}&commit=Submit"
+
+              click_on "Adopt this Pet"
+
+              expect(current_path).to eq("/applicants/#{@bob.id}")
+
+              expect(page).to have_content("Pets being applied for:")
+              expect(page).to have_content("#{@rex.name}")
+              expect(page).to have_content("Age: #{@rex.age}")
+              expect(page).to have_content("Breed: #{@rex.breed}")
+              expect(page).to have_content("Adoptable: #{@rex.adoptable}")
+            end
+          end
         end
       end
     end
