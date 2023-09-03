@@ -33,15 +33,11 @@ RSpec.describe "Admin Application" do
       visit "/admin/applications/#{charlie.id}"
 
       expect(page).to have_content("Snoopy")
-      save_and_open_page
       within("#pet-#{snoopy.id}") do
-        click_button "Approved"
-      end
-
+      click_button "Approved"
+    end
+    
       expect(page).to have_content("APPROVED")
     end
-      
-
-
   end
 end
