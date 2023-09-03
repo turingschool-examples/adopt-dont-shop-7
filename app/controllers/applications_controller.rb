@@ -6,5 +6,11 @@ class ApplicationsController < ApplicationController
       @matching_pets = Pet.adoptable.where('name ILIKE ?', "%#{params[:pet_name]}%")
     end
   end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.update(description: params[:description], status: "Pending")
+    redirect_to "/applications/#{@application.id}"
+  end
 end
 

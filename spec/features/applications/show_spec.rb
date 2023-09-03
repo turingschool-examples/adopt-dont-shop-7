@@ -34,6 +34,7 @@ RSpec.feature "the application show" do
 
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to have_button("Search")
+      expect(page).to_not have_content("Zeus")
 
       fill_in "pet_name", with: "Zeus"
       click_button "Search"
@@ -49,7 +50,7 @@ RSpec.feature "the application show" do
 
       visit "/applications/#{application.id}"
 
-      expect(page).to have_content("Matching Pets:")
+      expect(page).to have_content("Add a Pet to this Application")
 
       fill_in "pet_name", with: "Zeus"
       click_button "Search"
@@ -60,10 +61,39 @@ RSpec.feature "the application show" do
 
       click_button "Adopt this Pet"
 
-      #probably need a wihthin block here
       expect(page).to have_content(application.pets.name)
     end
 
+    scenario 'US6 see a section to submit my application' do
+      application = Application.create!(applicant_name: "Thomas Jefferson", street_address: "123 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm on a fiver", status: "In Progress")
+      shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      pet1 = shelter.pets.create!(name: "Zeus", breed: "Great Dane", age: 3, adoptable: true)
+      PetApplication.create!(pet_id: pet1.id, application_id: application.id)
+
+      visit "/applications/#{application.id}"
+
+      expect(page).to have_content("Why would you make a good owner?")
+      expect(page).to have_button("Submit Application")
+
+      fill_in "description", with: "I'm a good owner"
+      click_button "Submit Application"
+
+      expect(page).to have_current_path("/applications/#{application.id}")
+      expect(page).to have_content("Status: Pending")
+      expect(page).to have_content("Description: I'm a good owner")
+      expect(page).to have_content(application.pets.name)
+      expect(page).to_not have_content("Add a Pet to this Application")
+    end
+
+    scenario 'US7 does not display submit if there are no pets' do
+      application = Application.create!(applicant_name: "Thomas Jefferson", street_address: "123 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm on a fiver", status: "In Progress")
+        
+      visit "/applications/#{application.id}"
+
+      expect(page).to_not have_content("Why would you make a good owner?")
+      expect(page).to_not have_button("Submit Application")
+    end
+    
     scenario 'US8 search allows partial matches' do
       application = Application.create!(applicant_name: "Thomas Jefferson", street_address: "123 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm on a fiver", status: "In Progress")
       shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
@@ -73,7 +103,7 @@ RSpec.feature "the application show" do
 
       fill_in "pet_name", with: "Zeu"
       click_button "Search"
-
+      
       expect(page).to have_content("Zeus")
     end
 
@@ -84,8 +114,6 @@ RSpec.feature "the application show" do
       pet2 = shelter.pets.create!(name: "zeus2", breed: "Great Dane", age: 3, adoptable: true)
       
       visit "/applications/#{application.id}"
-
-      expect(page).to have_content("Matching Pets:")
 
       fill_in "pet_name", with: "zEus"
       click_button "Search"
