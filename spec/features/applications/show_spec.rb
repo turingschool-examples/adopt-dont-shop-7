@@ -86,4 +86,70 @@ RSpec.describe "Application show page" do
     expect(page).to have_content(@billy.name)
     expect(page).to have_content(@billy.name)
   end
+
+ describe "Application search and add pet" do
+  before(:each) do
+    PetApplication.destroy_all
+    Pet.destroy_all
+    Shelter.destroy_all
+    Application.destroy_all
+
+    @shelter = Shelter.create!(name: 'Boulder Valley', city: 'Boulder', foster_program: false, rank: 15)
+    @pet = @shelter.pets.create!(name: 'Hank', breed: 'mini pig', age: 3, adoptable: true)
+    @applicant_1 = Application.create!(name: 'Steven', 
+      street_address: '1234 main st.', 
+      city: 'Westminster', 
+      state: 'CO',
+      zip_code: '80020', 
+      reason_for_adoption: "I want the pig",
+      status: "In Progress"
+      )
+      PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id, status: "Pending")
+    end
+
+    it "displays a section on the show page to add a pet to this application" do
+      visit "/applications/#{@applicant_1.id}"
+
+      expect(page).to have_content('Add a Pet to this Application')
+    end
+
+    it "has a search button" do
+      visit "/applications/#{@applicant_1.id}"
+
+      expect(page).to have_button("Search")
+    end
+
+    it "When the user fills in this field with a pet name, and clicks search, then they are taken back to the application show page" do
+      visit "/applications/#{@applicant_1.id}"
+
+      fill_in("Search", with: "Hank")
+
+      click_button("Search")
+
+      expect(current_path).to eq("/applications/#{@applicant_1.id}")
+    end
+
+  end
+  
+  it "adds pet to the application" do
+    @shelter = Shelter.create!(name: 'Boulder Valley', city: 'Boulder', foster_program: false, rank: 15)
+    @pet = @shelter.pets.create!(name: 'Hank', breed: 'mini pig', age: 3, adoptable: true)
+    @applicant_1 = Application.create!(name: 'Steven', 
+      street_address: '1234 main st.', 
+      city: 'Westminster', 
+      state: 'CO',
+      zip_code: '80020', 
+      reason_for_adoption: "I want the pig",
+      status: "In Progress"
+      )
+
+    visit "/applications/#{@applicant_1.id}"
+
+    fill_in "Search", with: "Hank"
+    click_button("Search")
+
+    click_button("Adopt this Pet")
+    expect(@applicant_1.pets.to_a).to eq([@pet])
+    expect(page).to have_content("Hank")
+  end
 end
