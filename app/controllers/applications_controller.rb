@@ -21,6 +21,7 @@ class ApplicationsController < ApplicationController
     state: params[:state],
     zipcode: params[:zipcode],
     description: params[:description],
+    adoption_reason: params[:adoption_reason],
     status: "In Progress"
     })
     
@@ -30,5 +31,15 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end 
+  end
+
+  def update
+    application = Application.find(params[:id])
+    application.update({ 
+      adoption_reason: params[:adoption_reason],
+      status: "Pending"
+    })
+
+    redirect_to "/applications/#{application.id}"
   end
 end

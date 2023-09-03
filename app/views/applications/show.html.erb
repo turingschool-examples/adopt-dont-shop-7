@@ -6,10 +6,19 @@
   <h3>Status: <%= @application.status %></h3>
 </section>
 
+
 <h3>Pets Applied For</h3>
 <% @pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end  %>
+
+<% if @application.status == "In Progress" %>
+  <h3>Add a pet this application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true, data: {turbo: false} do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
 
 
 <h3>Add a pet this application</h3>
@@ -19,15 +28,25 @@
   <%= f.submit "Search" %>
 <% end %>
 
-<% if @search %>
-  <h3>Search Results</h3>
-  <% @results.each do |result| %>
-    <%= result.name %>
-    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", params: {pet_id: result.id} %>
+
+  <% if @search %>
+    <h3>Search Results</h3>
+    <% @results.each do |result| %>
+      <%= result.name %>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", params: {pet_id: result.id} %>
+    <% end %>
+
+    <% else %>
+    <p>No results input to search</p>
   <% end %>
 
-  <% else %>
-  <p>No results input to search</p>
+  <% if @application.pets != [] %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true, data: {turbo: false} do |f| %>
+      <%= f.label :adoption_reason, "Why would you make a good owner for these pet(s)?" %>
+      <%= f.text_area :adoption_reason, size: "70x5" %>
+      <%= f.submit "Submit this Application" %>
+    <% end %>
+  <% end %>
 <% end %>
 
 
