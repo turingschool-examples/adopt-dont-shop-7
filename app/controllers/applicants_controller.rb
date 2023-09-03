@@ -7,9 +7,13 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-    Applicant.create!(applicant_params)
-    #applicant = Applicant.find(params[:id])
-    redirect_to "/applicants/#{Applicant.last.id}"
+    @applicant = Applicant.new(applicant_params)
+    if @applicant.save
+      redirect_to "/applicants/#{Applicant.last.id}"
+    else
+      flash[:error] = 'Invalid data. Please fill out fields correctly.'
+      redirect_to "/applicants/new"
+    end
   end
 
   private
