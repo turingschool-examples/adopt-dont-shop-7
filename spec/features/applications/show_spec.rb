@@ -79,6 +79,35 @@ RSpec.describe "the application show" do
       expect(page).to have_content(@pet_4.name) # Lasagna
       expect(@application_1.pets).to include(@pet_4)
     end
-    
+  end
+
+  describe "when visiting the application's show page and I have added pets to the applications" do
+    it "has a section to submit the application that has an input to describe why the user would be a good owner" do
+      visit "/applications/#{@application_1.id}"
+      expect(@application_1.pets).to_not be_empty
+      expect(@application_1.status).to eq("In Progress")
+      
+      within("#submit_application") do
+       expect(find("form")).to have_content("Qualification")
+      end
+    end
+
+    it "when the user fills in the form and clicks submit" do
+      visit "/applications/#{@application_1.id}"
+
+      within("#submit_application") do
+        fill_in "Qualification", with: "I'm a pro"
+        click_button("Submit Application")
+        @application_1.reload
+      end
+      
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(@application_1.status).to eq("Pending")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_field("Qualification")
+    end
   end
 end

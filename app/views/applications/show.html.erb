@@ -2,6 +2,7 @@
 <h3>Name: <%= @application.name %></h3>
 <p>Address Line 1: <%= @application.street %></p>
 <p>Address Line 2: <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
+<p>Status: <%= @application.status %></p>
 
 <p>Description: <%= @application.description %></p>
 
@@ -11,18 +12,32 @@
 
 <p>Adoption Status: <%= @application.status %></p>
 
-<div id="pet_adoption">
-  <h3>Add a Pet to this Application</h3>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
-  <%= form.label :search, "Search by Name" %>
-  <%= form.text_field :search %>
-  <%= form.submit "Search" %>
-  <% end %>
-
-  <div>
-  <% @pet_search_results.each do |result| %>
-    <p>Result: <%= result.name %></p>
-    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{result.id}", method: :post, params: { application_id: @application.id, pet_id: result.id } %>
-  <% end %>
+<% if @application.status == "In Progress" %>
+  <div id="pet_adoption">
+    <h3>Add a Pet to this Application</h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
+    <%= form.label :search, "Search by Name" %>
+    <%= form.text_field :search %>
+    <%= form.submit "Search" %>
+    <% end %>
+    
+    <div>
+    <% @pet_search_results.each do |result| %>
+      <p>Result: <%= result.name %></p>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{result.id}", method: :post, params: { application_id: @application.id, pet_id: result.id } %>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
+
+<% if @application.pets.present? && @application.status == "In Progress" %>
+  <div id="submit_application">
+    <h3> Submit Application </h3>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |form| %>
+      <%= form.label :reason, "Qualification" %>
+      <%= form.text_area :reason, size: "70x5" %>
+      <%= form.submit "Submit Application" %>
+      <%= form.hidden_field :status, value: "Pending" %>
+    <% end %>
+  </div>
+<% end %>
