@@ -88,14 +88,36 @@ RSpec.describe "applications#show" do
       
       click_button("Search")
       click_button("Adopt this Pet")
-
+      
       fill_in(:adoption_reason, with: "I like turtles")
       click_button("Submit")
+      
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      
+      within("#applicant_info-#{@application_1.id}") do 
+        expect(page).to have_content("I like turtles")
+      end
+    end
+  
+    it "changes status to pending once the application is submitted" do 
+      visit "/applications/#{@application_1.id}"
 
+      within("#applicant_info-#{@application_1.id}") do 
+        expect(page).to have_content("In Progress")
+      end
+
+      fill_in(:search, with: "Mr. Pirate")
+      
+      click_button("Search")
+      click_button("Adopt this Pet")
+      
+      fill_in(:adoption_reason, with: "I like turtles")
+      click_button("Submit")
+      
       expect(current_path).to eq("/applications/#{@application_1.id}")
 
       within("#applicant_info-#{@application_1.id}") do 
-        expect(page).to have_content("I like turtles")
+        expect(page).to have_content("Pending")
       end
     end
   end
