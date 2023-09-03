@@ -100,12 +100,12 @@ RSpec.describe "the pets index" do
     pet_3 = Pet.create(adoptable: true, age: 4, breed: "chihuahua", name: "Elle", shelter_id: shelter.id)
 
     visit "/applicants/new"
-save_and_open_page
+  save_and_open_page
     expect(page).to have_field("name") 
     expect(page).to have_field("street_address") 
     expect(page).to have_field("city") 
     expect(page).to have_field("state") 
-    expect(page).to have_field("zip_code") 
+    expect(page).to have_field("zipcode") 
     expect(page).to have_field("description") 
   end
 end
