@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post "/applications", to: "applications#create"
   get "/applications/new", to: "applications#new"
   get "/applications/:app_id", to: "applications#show", as: "application"
+  patch "/applications/:app_id", to: "applications#update"
   get "/applications", to: "applications#index"
   patch "/applications/add_pet/:app_id", to: "applications#add_pet"
 
