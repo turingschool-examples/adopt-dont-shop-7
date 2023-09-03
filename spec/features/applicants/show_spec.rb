@@ -4,7 +4,7 @@ RSpec.describe "Applicants Show Page", type: :feature do
   before(:each) do
     @bob = Applicant.create!(name: "Bob", street_address: "1234 Bob's Street", city: "Fudgeville", state: "AK", zip_code: 27772, description: "", application_status: "In Progress")
     @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    @rex = @shelter.pets.create!(adoptable: true, age: 2, breed: "dog", name: "Rex" )
+    @rex = @shelter.pets.create!(adoptable: true, age: 2, breed: "Dog", name: "Rex" )
   end
 
   describe "As a visitor" do
@@ -28,9 +28,16 @@ RSpec.describe "Applicants Show Page", type: :feature do
           expect(page).to have_content("Add a Pet to this Application")
           expect(page).to have_field("pet_name")
 
-          fill_in "pet_name", with: "rex"
+          fill_in "pet_name", with: "Rex"
 
           click_button "Submit"
+
+          expect(current_path).to eq("/applicants/#{@bob.id}")
+
+          expect(page).to have_content("#{@rex.name}")
+          expect(page).to have_content("Age: #{@rex.age}")
+          expect(page).to have_content("Breed: #{@rex.breed}")
+          expect(page).to have_content("Adoptable: #{@rex.adoptable}")
         end
       end
     end
