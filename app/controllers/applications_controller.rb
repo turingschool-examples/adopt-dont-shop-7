@@ -24,6 +24,12 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def add_pet
+    application = Application.find(params[:app_id])
+    application.add_pet(params[:pet_id])
+    redirect_to "/applications/#{application.id}"
+  end
+
   private 
     def application_params
       params.require(:application).permit(:name, :address, :city, :state, :zip, :description)
