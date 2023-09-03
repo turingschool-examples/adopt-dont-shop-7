@@ -20,10 +20,12 @@ RSpec.describe "applications#show" do
       expect(page).to have_content(@application_1.state)
       expect(page).to have_content(@application_1.zipcode)
       expect(page).to have_content(@application_1.description)
+      expect(page).to have_content(@application_1.adoption_reason)
       expect(page).to have_content(@application_1.status)
       end 
     end
   end
+
   describe "Search for pets" do 
     it "returns pet's name when searched for in the seach bar" do 
       visit "/applications/#{@application_1.id}"
@@ -60,6 +62,41 @@ RSpec.describe "applications#show" do
       expect(@application_1.pets).to eq([@pet_1])
       expect(page).to have_content("Mr. Pirate")
 
+    end
+  end
+  
+  describe "submit application" do 
+    it "not have a section to submit if not pets are selected" do 
+      visit "/applications/#{@application_1.id}"
+      
+      expect(page).to_not have_content("Why would you make a good owner for these pet(s)?")
+    end
+    
+    it "has a section to submit once a pet is added to the application" do 
+      visit "/applications/#{@application_1.id}"
+      fill_in(:search, with: "Mr. Pirate")
+      
+      click_button("Search")
+      click_button("Adopt this Pet")
+      
+      expect(page).to have_content("Why would you make a good owner for these pet(s)?")
+    end
+    
+    it "populates 'Reason for adoption' once submitted" do 
+      visit "/applications/#{@application_1.id}"
+      fill_in(:search, with: "Mr. Pirate")
+      
+      click_button("Search")
+      click_button("Adopt this Pet")
+
+      fill_in(:adoption_reason, with: "I like turtles")
+      click_button("Submit")
+
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+
+      within("#applicant_info-#{@application_1.id}") do 
+        expect(page).to have_content("I like turtles")
+      end
     end
   end
 end
