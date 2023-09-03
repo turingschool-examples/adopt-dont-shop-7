@@ -39,6 +39,30 @@ RSpec.describe "Applicants Show Page", type: :feature do
           expect(page).to have_content("Breed: #{@rex.breed}")
           expect(page).to have_content("Adoptable: #{@rex.adoptable}")
         end
+
+        describe "And I search for a Pet by name and I see the names of the Pets that match my search" do
+          it "displays a button to 'Adopt this Pet' next to each Pets name" do
+            visit "/applicants/#{@bob.id}?pet_name=#{@rex.name}&commit=Submit"
+
+            expect(page).to have_button("Adopt this Pet")
+          end
+
+          describe "When I click one of these buttons" do
+            it "takes me back to the application show page and I see the Pet I want to adopt listed on this application" do
+              visit "/applicants/#{@bob.id}?pet_name=#{@rex.name}&commit=Submit"
+
+              click_on "Adopt this Pet"
+
+              expect(current_path).to eq("/applicants/#{@bob.id}")
+
+              expect(page).to have_content("Pets being applied for:")
+              expect(page).to have_content("#{@rex.name}")
+              expect(page).to have_content("Age: #{@rex.age}")
+              expect(page).to have_content("Breed: #{@rex.breed}")
+              expect(page).to have_content("Adoptable: #{@rex.adoptable}")
+            end
+          end
+        end
       end
     end
   end
