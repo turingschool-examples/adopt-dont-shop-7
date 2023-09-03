@@ -6,4 +6,7 @@ class Applicant < ApplicationRecord
   validates :zip_code, presence: true, numericality: true
   # validates :description, presence: true
   validates :application_status, presence: true
+
+  has_many :applicants_pets
+  has_many :pets, through: :applicants_pets
 end
