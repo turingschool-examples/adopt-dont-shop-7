@@ -21,6 +21,16 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+    @pet_5 = @shelter_2.pets.create!(name: "Tiger", breed: "Labradoodle", age: 4, adoptable: true)
+    @pet_6 = @shelter_2.pets.create!(name: "Geff", breed: "Labradoodle", age: 4, adoptable: true)
+
+    @cory = Application.create!(name:"Cory", street_address: "385 N Billups st.", city: "Athen", state: "GA", zipcode:"30606", description:"Extremely normal and can be trusted", status:"Pending" )
+    @antoine = Application.create!(name:"Antoine", street_address: "1244 Windsor Street", city: "Salt Lake City", state: "UT", zipcode:"84105", description:"need to strengthen fingers through petting", status:"Pending" )
+    @jeff = Application.create!(name:"Jeff", street_address: "1244 Windsor Street", city: "Salt Lake City", state: "UT", zipcode:"84105", description:"need to strengthen fingers through petting", status:"Pending" )
+
+    @pet_applications_1 = PetApplication.create!(pet_id: "#{@pet_1.id}", application_id: "#{@cory.id}", status: "Pending" )
+    @pet_applications_2 = PetApplication.create!(pet_id: "#{@pet_5.id}", application_id: "#{@antoine.id}", status: "Pending" )
+    @pet_applications_3 = PetApplication.create!(pet_id: "#{@pet_5.id}", application_id: "#{@jeff.id}", status: "Pending" )
   end
 
   describe "class methods" do
@@ -38,7 +48,7 @@ RSpec.describe Shelter, type: :model do
 
     describe "#order_by_number_of_pets" do
       it "orders the shelters by number of pets they have, descending" do
-        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_2, @shelter_3])
       end
     end
   end
@@ -71,6 +81,12 @@ RSpec.describe Shelter, type: :model do
     describe ".pet_count" do
       it "returns the number of pets at the given shelter" do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe ".pending_applications" do
+      it "returns the shelters with pets that have pending applications" do
+        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_2])
       end
     end
   end
