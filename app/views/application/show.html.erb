@@ -16,10 +16,15 @@
   <%= form.label :name, "Search for a Pet:" %>
   <%= form.text_field :name %>
   <%= form.submit "Submit" %>
-<% end %>
+<% end %><br/>
 <% if @pets != nil %>
   <% @pets.each do |pet| %>
-    <p><%= pet.name %></p>
+    <div class="pet-name-button">
+      <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+      <%= pet.name %>
+        <%= form.button "Adopt this Pet" %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
 </div>
