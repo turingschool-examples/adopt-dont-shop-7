@@ -75,6 +75,7 @@ RSpec.describe "the application show" do
         expect(page).to have_button("Adopt this Pet")
         click_button("Adopt this Pet")
       end
+      
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content(@pet_4.name) # Lasagna
       expect(@application_1.pets).to include(@pet_4)
@@ -108,6 +109,25 @@ RSpec.describe "the application show" do
       expect(page).to have_content(@pet_2.name)
       expect(page).to_not have_button("Search")
       expect(page).to_not have_field("Qualification")
+    end
+  end
+
+  describe "When I visit an application show page" do
+    it "can return results for a partial name search"do
+      visit "/applications/#{@application_1.id}"
+      fill_in "Search by Name", with: "ste"
+      click_button("Search")
+
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_content(@pet_3.name)
+    end
+
+    it "I can search for pets by name with case insensitivity" do
+      visit "/applications/#{@application_1.id}"
+      fill_in "Search by Name", with: "lAsAgNa"
+      click_button("Search")
+
+      expect(page).to have_content(@pet_4.name) # Lasagna
     end
   end
 end
