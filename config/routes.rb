@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get "/applications/:id", to: "applications#show"
   post "/applications", to: "applications#create"
 
+  patch "/application_pets/:id", to: "application_pets#update"
+
   namespace :admin do
     get "/applications/:id", to: "applications#show"
   end
