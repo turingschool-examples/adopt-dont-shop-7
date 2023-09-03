@@ -9,7 +9,7 @@ RSpec.describe "Admin Application" do
     let! (:join2) {ApplicationPet.create!(pet: lobster, application: charlie)}
 
     let! (:handsome) {handsome = Pet.create!(adoptable: true, age: 1, breed: "husky shepard", name: "Handsome", shelter_id: aurora.id)}
-    let! (:jillybean) {jillybean = Pet.create!(adoptable: true, age: 3, breed: "english lab mix", name: "jillybeen", shelter_id: aurora.id)}
+    let! (:jillybean) {jillybean = Pet.create!(adoptable: true, age: 3, breed: "english lab mix", name: "Jillybeen", shelter_id: aurora.id)}
     let! (:joop) {joop = Application.create!(applicant_name: "Joop", full_address: "123 Peanuts Rd, Lansing MI, 48864", description: "Really, really good looking", application_status: "Pending")}
     let! (:join3) {ApplicationPet.create!(pet: handsome, application: joop)}
     let! (:join4) {ApplicationPet.create!(pet: jillybean, application: joop)}
@@ -34,10 +34,41 @@ RSpec.describe "Admin Application" do
 
       expect(page).to have_content("Snoopy")
       within("#pet-#{snoopy.id}") do
-      click_button "Approved"
-    end
+        click_button "Approved"
+      end
     
       expect(page).to have_content("APPROVED")
+    end
+    
+    it "can approve application for specific dog" do
+      visit "/admin/applications/#{charlie.id}"
+      
+      expect(page).to have_content("Snoopy")
+      within("#pet-#{snoopy.id}") do
+        click_button "Rejected"
+      end
+      
+      expect(page).to have_content("REJECTED")
+    end
+    
+    it "can approve application for specific dog and not affect other applications" do
+      ApplicationPet.create!(pet: snoopy, application: joop)
+      visit "/admin/applications/#{joop.id}"
+
+      expect(find("#pet-#{snoopy.id}")).to_not have_content("APPROVED")
+
+      visit "/admin/applications/#{charlie.id}"
+
+      expect(page).to have_content("Snoopy")
+      within("#pet-#{snoopy.id}") do
+        click_button "Approved"
+      end
+       
+      expect(find("#pet-#{snoopy.id}")).to have_content("APPROVED")
+
+      visit "/admin/applications/#{joop.id}"
+
+      expect(find("#pet-#{snoopy.id}")).to_not have_content("APPROVED")
     end
   end
 end
