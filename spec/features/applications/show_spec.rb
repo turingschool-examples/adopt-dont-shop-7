@@ -88,7 +88,7 @@ RSpec.describe "the application show" do
       expect(@application_1.status).to eq("In Progress")
       
       within("#submit_application") do
-       expect(find("form")).to have_content("Description")
+       expect(find("form")).to have_content("Qualification")
       end
     end
 
@@ -96,7 +96,7 @@ RSpec.describe "the application show" do
       visit "/applications/#{@application_1.id}"
 
       within("#submit_application") do
-        fill_in "Description", with: "I like aminals!"
+        fill_in "Qualification", with: "I'm a pro"
         click_button("Submit Application")
         @application_1.reload
       end
@@ -107,7 +107,7 @@ RSpec.describe "the application show" do
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       expect(page).to_not have_button("Search")
-      expect(page).to_not have_field("Description")
+      expect(page).to_not have_field("Qualification")
     end
   end
 end
