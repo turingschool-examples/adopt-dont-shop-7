@@ -51,6 +51,39 @@ RSpec.describe "Application Show Page" do
       expect(page).to have_link(href: "/pets/#{pet_1.id}")
       expect(page).to have_link(href: "/pets/#{pet_2.id}")
     end
+
+    it "should allow a visitor to submit an application with added pets" do
+      dude = Applicant.create(name: "James", street_address: "11234 Jane Street", city: "Dallas", 
+      state: "Texas", zip_code: "75248", description: "I love animals!")
+      shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      pet_1 = shelter.pets.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
+      pet_2 = shelter.pets.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe")
+      application = PetsApplication.create!(applicant: dude)
+
+      visit "/applications/#{application.id}"
+      fill_in('search', with: "Lucille Bald")
+      click_button("Search")
+      expect(page).to have_current_path("/applications/#{application.id}?search=Lucille+Bald&commit=Search")
+      expect(page).to have_content("Lucille Bald")
+      click_button("Adopt this pet?")
+      expect(page).to have_current_path("/applications/#{application.id}")
+      expect(page).to have_content("Lucille Bald")
+      
+      fill_in('search', with: "Babe")
+      click_button("Search")
+
+      expect(page).to have_current_path("/applications/#{application.id}?search=Babe&commit=Search")
+      expect(page).to have_content("Babe")
+      click_button("Adopt this pet?")
+      expect(page).to have_current_path("/applications/#{application.id}")
+      expect(page).to have_content("Lucille Bald")
+
+      expect(page).to have_link(href: "/pets/#{pet_1.id}")
+      expect(page).to have_link(href: "/pets/#{pet_2.id}")
+
+      click_button("Submit Application")
+      expect(page).to have_content("Pending")
+    end
   
 
     it "I see links to all pets on this application" do
