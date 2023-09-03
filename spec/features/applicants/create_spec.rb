@@ -1,11 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "create applicant" do
-  before(:each) do
-    @bob = Applicant.create!(name: "Bob", street_address: "1234 Bob's Street", city: "Fudgeville", state: "AK", zip_code: 27772, description: "", application_status: "In Progress")
-    @greg = Applicant.create!(name: "Greg", street_address: "123 Street St", city: "Denver", state: "NC", zip_code: 00001, description: "I like petz", application_status: "In Progress")
-  end
-
   describe "As a visitor" do
     describe "When I visit the pet index page" do
       it "displays a link to 'Start an Application', which takes the user to the Create Applicant page" do
@@ -24,23 +19,21 @@ RSpec.describe "create applicant" do
         visit "/applicants/new"
 
         expect(page).to have_content("New Applicant")
-        fill_in "Name", with: "#{@greg.name}"
-        fill_in "Street address", with: "#{@greg.street_address}"
-        fill_in "City", with: "#{@greg.city}"
-        fill_in "State", with: "#{@greg.state}"
-        fill_in "Zip code", with: @greg.zip_code
-        fill_in "Description", with: "#{@greg.description}"
-        click_on "Submit Application"
+        fill_in 'Name', with: 'John Doe'
+        fill_in 'Street address', with: '123 Main St'
+        fill_in 'City', with: 'Denver'
+        fill_in 'State', with: 'CO'
+        fill_in 'Zip code', with: 80_202
+        click_button "Submit Application"
 
-        expect(current_path).to eq("/applicants/{#{@greg.id}}")
+        expect(current_path).to eq("/applicants/#{Applicant.last.id}")
 
-        expect(page).to have_content("#{@greg.name}")
-        expect(page).to have_content("#{@greg.street_address}")
-        expect(page).to have_content("#{@greg.city}")
-        expect(page).to have_content("#{@greg.state}")
-        expect(page).to have_content("#{@greg.zip_code}")
-        expect(page).to have_content("#{@greg.description}")
-        expect(page).to have_content("#{@greg.application_status}")
+        expect(page).to have_content('John Doe')
+        expect(page).to have_content('123 Main St')
+        expect(page).to have_content('Denver')
+        expect(page).to have_content('CO')
+        expect(page).to have_content(80_202)
+        expect(page).to have_text('In Progress')
       end
     end
   end

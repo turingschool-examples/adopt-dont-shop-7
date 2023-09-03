@@ -8,8 +8,8 @@ class ApplicantsController < ApplicationController
 
   def create
     Applicant.create!(applicant_params)
-    applicant = Applicant.find(params[:id])
-    redirect_to "/applicants/#{applicant.id}"
+    #applicant = Applicant.find(params[:id])
+    redirect_to "/applicants/#{Applicant.last.id}"
   end
 
   private

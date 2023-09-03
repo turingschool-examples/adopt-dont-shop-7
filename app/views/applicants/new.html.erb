@@ -1,16 +1,27 @@
 <h2>New Applicant</h2>
-<%= form_with url: "/applicants/create", method: :post, data: { turbo: false } do |form| %>
+<%= form_with url: "/applicants", method: :post, data: { turbo: false } do |form| %>
+  <div>
   <%= form.label :name %>
-  <%= form.text_field :name %><br><br>
+  <%= form.text_field :name %>
+
   <%= form.label :street_address %>
-  <%= form.text_field :street_address %><br><br>
+  <%= form.text_field :street_address %>
+  
+  <div>
   <%= form.label :city %>
-  <%= form.text_field :city %><br><br>
+  <%= form.text_field :city %>
+  </div>
+  <div>
   <%= form.label :state %>
-  <%= form.text_field :state %><br><br>
+  <%= form.text_field :state %>
+  </div>
+  <div>
   <%= form.label :zip_code %>
-  <%= form.text_field :zip_code %><br><br>
+  <%= form.text_field :zip_code %>
+  </div>
+  <div>
   <%= form.label :description %>
-  <%= form.text_field :description %><br><br>
+  <%= form.text_field :description %>
+  </div>
   <%= form.submit "Submit Application" %>
 <% end %>
