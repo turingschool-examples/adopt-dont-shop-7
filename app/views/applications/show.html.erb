@@ -21,7 +21,7 @@
   <p>No pets match your search criteria.</p>
 <% else %>
   <% @matching_pets.each do |pet| %>
-      <%= pet.name %><%= button_to 'Adopt this Pet', adopt_pet_path(@application, pet), method: :post %>
+      <%= pet.name %><%= button_to 'Adopt this Pet', create_pet_application_path(@application, pet), method: :post %>
   <% end %>
 <% end %>
 
