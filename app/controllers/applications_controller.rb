@@ -1,19 +1,16 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+
+    if params[:pet_name].present?
+      @matching_pets = Pet.adoptable.where('name ILIKE ?', "%#{params[:pet_name]}%")
+    end
   end
 
-  def add_pet
+  def update
     @application = Application.find(params[:id])
-    pet = Pet.find_by(name: params[:pet_name])
-
-    if pet
-      unless @application.pets.include?(pet)
-        @application.pets << pet
-      end
-    end
-
-    redirect_to "/applications/#{params[:id]}"
-  end  
+    @application.update(description: params[:description], status: "Pending")
+    redirect_to "/applications/#{@application.id}"
+  end
 end
 
