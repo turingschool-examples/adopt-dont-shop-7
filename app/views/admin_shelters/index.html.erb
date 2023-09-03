@@ -1,3 +1,10 @@
 <% @shelters.each do |shelter| %>
   <h3><%= shelter.name %></h3>
+    <% shelter.pets.each do |pet| %>
+      <% pet.applications.find do |application| %>
+        <% if application.status == "Pending" %>
+          <h5><%= application.status %></h5>
+        <% end %>
+      <% end %>
+    <% end %>
 <% end %>
