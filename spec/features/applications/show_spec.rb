@@ -19,7 +19,10 @@ RSpec.describe "the Application show page", type: :feature do
       end
 
       it "I see names of all pets the application is for" do
-        expect(page).to have_content(@pet.name)
+
+        within("#mypets-#{@application.id}") do
+          expect(page).to have_content(@pet.name)
+        end
       end
 
       it "the pets names are links to their show pages" do
@@ -41,9 +44,25 @@ RSpec.describe "the Application show page", type: :feature do
         click_button "Submit"
 
         expect(current_path).to eq("/applications/#{@application.id}")
-        expect(page).to have_content(@pet1.name)
-        expect(page).to have_content(@pet1.breed)
-        expect(page).to have_content(@pet1.age)
+
+        within("#searched-#{@application.id}") do
+          expect(page).to have_content(@pet1.name)
+          expect(page).to have_content(@pet1.breed)
+          expect(page).to have_content(@pet1.age)
+        end
+      end
+      
+      # US 5
+      it "I see a button to Adopt this pet next to each searched pet name" do
+        fill_in "search", with: "Adonis"
+        click_button "Submit"
+        click_button "Adopt this Pet"
+        
+        expect(current_path).to eq("/applications/#{@application.id}")
+        
+        within("#mypets-#{@application.id}") do
+          expect(page).to have_content(@pet1.name)
+        end
       end
     end
   end

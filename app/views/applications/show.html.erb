@@ -5,9 +5,11 @@
 <p> Reason to be approved: </p>
 <p> <%= @application.description%> </p> <br>
 <p> Pet Names: </p> 
-<%= @pets.each do |pet| %> 
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-<% end %> <br>
+<section id="mypets-<%= @application.id %>">
+<% @pets.each do |pet| %> 
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+<% end %>
+</section>
 <p> Application Status: <%= @application.status %> </p>
 
 <p>Add a Pet to this Application</p>
@@ -18,13 +20,16 @@
 <% end %>
 
 <% if @searched_pets != nil %>
+<section id="searched-<%= @application.id %>">
   <% @searched_pets.each do |pet| %>
     <div style="background-color: lightblue; border-style: solid; border-radius: 8px; padding: 10px; margin: 10px;">
-      <p style="font-size: 18px; font-weight: bold; margin-top: 0;">Name: <%= pet.name %></p>
+      <p style="font-size: 18px; font-weight: bold; margin-top: 0; float:left">Name: <%= pet.name %>&emsp;<%= button_to "Adopt this Pet", "/applications/#{@application.id}?pet=#{pet.id}", method: :post, data: { turbo: false } %></p>
+      <div style="clear:both;"></div>
       <p style="font-size: 16px;">Breed: <%= pet.breed %></p>
       <p style="font-size: 16px;">Age: <%= pet.age %></p>
     </div>
   <% end %>
+</section>
 <% end %>
 
 
