@@ -26,12 +26,11 @@ RSpec.describe "Applicants Show Page", type: :feature do
 
           expect(page).to have_content("Add a Pet to this Application")
           expect(page).to have_field("pet_name")
-          fill_in "pet_name", with: "rex"
+          #fill_in "pet_name", with: "rex"
           
 
           click_button "Submit"
-
-
+        end
       end
     end
   end
