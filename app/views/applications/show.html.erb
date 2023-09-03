@@ -7,11 +7,12 @@
   <h3>Status: <%= @application.status %></h3>
 </section>
 
-
-<h3>Pets Applied For</h3>
-<% @pets.each do |pet| %>
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-<% end  %>
+<section id="pets_applied_for">
+  <h3>Pets Applied For</h3>
+  <% @pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end  %>
+</section>
 
 <% if @application.status == "In Progress" %>
   <h3>Add a pet this application</h3>

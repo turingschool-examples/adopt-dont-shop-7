@@ -92,6 +92,10 @@ RSpec.describe "applications#show" do
       click_button("Adopt this Pet")
 
       expect(@application_1.pets).to eq([@pet_1])
+
+      within("#pets_applied_for") do 
+        expect(page).to have_content(@pet_1.name)
+      end
     end
   end
   
