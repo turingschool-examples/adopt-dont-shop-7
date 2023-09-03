@@ -31,7 +31,8 @@ RSpec.describe "the Application show page", type: :feature do
       it "I see the applications status" do
         expect(page).to have_content(@application.status)
       end
-# US 4
+      
+      # US 4
       it "I see a section to Add a pet to the application" do
         expect(page).to have_content("Add a Pet to this Application")
         
