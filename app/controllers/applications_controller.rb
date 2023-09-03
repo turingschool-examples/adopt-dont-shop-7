@@ -21,7 +21,8 @@ class ApplicationsController < ApplicationController
     state: params[:state],
     zipcode: params[:zipcode],
     description: params[:description],
-    adoption_reason: params[:adoption_reason],
+    # adoption_reason: params[:adoption_reason],
+    adoption_reason: "Add pets to fill this field",
     status: "In Progress"
     })
     
