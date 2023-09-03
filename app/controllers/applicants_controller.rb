@@ -3,13 +3,12 @@ class ApplicantsController < ApplicationController
 
   end
   
-  # def pet_names
-  #   pets_array = []
-  #   pets_array << @applicant.pets
-  # end
-
   def show
     @applicant = Applicant.find(params[:id])
     # @pets = Pet.find(params[:id])
+  end
+
+  def new
+    
   end
 end
