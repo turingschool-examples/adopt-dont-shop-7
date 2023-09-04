@@ -60,6 +60,6 @@ RSpec.describe "Applications show", type: :feature do
       end
     end
 
-    
+    describe "Add "
   end
 end

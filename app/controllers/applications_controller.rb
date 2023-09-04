@@ -19,11 +19,11 @@ class ApplicationsController < ApplicationController
     end
   end
 
-
 private
 
   def application_params
     format_addy_params
+    require 'pry';binding.pry
     params.permit(:applicant_name, :full_address, :application_status, :description)
   end
   
