@@ -20,10 +20,11 @@
 <% if @pets != nil %>
   <% @pets.each do |pet| %>
     <div class="pet-name-button">
-      <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+      <%= form_with url: "/application_pets/", method: :post do |form| %>
       <%= pet.name %>
-        <% form.hidden_field :pet_id, value: pet.id %>
-        <%= form.button "Adopt this Pet" %>
+        <%= form.hidden_field :pet_id, value: pet.id %>
+        <%= form.hidden_field :application_id, value: @application.id %>
+        <%= form.submit "Adopt this Pet" %>
       <% end %>
     </div>
   <% end %>
