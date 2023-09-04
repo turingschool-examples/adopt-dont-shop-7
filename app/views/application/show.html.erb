@@ -33,5 +33,12 @@
 <% end %>
 </div>
 
+<div class="submit-application">
+  <% if @application.pets.any? %>
+    <%= form_with url: "/applications/#{@application.id}", method: :update do |form| %>
+      <%= form.submit "Submit Application" %>    
+    <% end %>
+  <% end %>
+</div>
 <h3>Application status: </h3>
 <p><%= @application.application_status %></p>
