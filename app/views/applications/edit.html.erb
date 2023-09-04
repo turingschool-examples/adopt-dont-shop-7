@@ -1,0 +1,22 @@
+<h1>Edit Application</h1>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :street_address %>
+  <%= f.text_field :street_address %>
+
+  <%= f.label :city %>
+  <%= f.check_box :city %>
+
+  <%= f.label :state %>
+  <%= f.number_field :state %>
+
+  <%= f.label :zip_code %>
+  <%= f.number_field :zip_code %>
+  
+  <%= f.label :description %>
+  <%= f.number_field :description %>
+
+  <%= f.submit %>
+<% end %>
