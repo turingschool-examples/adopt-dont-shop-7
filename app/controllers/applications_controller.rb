@@ -19,6 +19,12 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    application = Application.find(params[:id])
+    application.application_status = "Pending"
+    application.save
+  end
+
 private
 
   def application_params

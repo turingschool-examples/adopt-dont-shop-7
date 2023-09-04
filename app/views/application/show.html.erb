@@ -31,18 +31,19 @@
     </div>
   <% end %>
 <% end %>
-</div><br/><br/>
+</div><br/><br/><br/>
 
 <div class="submit-application">
   <% if @application.pets.any? %>
-    <%= form_with url: "/applications/#{@application.id}", method: :update do |form| %>
-      <%= form.submit "Submit Application" %>    
-    <% end %><br/>
     <%= form_with do |form| %>
       <%= form.label :why, "Why would you make a good owner for this/these pets?" %></br>
-      <%= form.text_area :why %>
-    <% end %>
+      <%= form.text_area :why, required: true %>
+    <% end %><br/>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch do |form| %>
+      <%= form.submit "Submit Application" %>    
+    <% end %><br/>
   <% end %>
 </div>
+
 <h3>Application status: </h3>
 <p><%= @application.application_status %></p>
