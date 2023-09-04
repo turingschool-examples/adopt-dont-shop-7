@@ -34,7 +34,7 @@
 </section>
 <% end %>
 <%= form_with url:"/applications/#{@application.id}", method: :patch, data: { turbo: false } do |form| %>
-  <%= form.label :good_owner_reason, "Why I would make a good owner for these pets:" %>
+  <%= form.label :good_owner_reason, "Why I would make a good owner for these pets:" %> <br>
   <%= form.text_area :good_owner_reason, :cols => 36, :rows => 3 %>
   <div style="clear:both;"></div>
   <%= form.submit "Submit this Application" %>
