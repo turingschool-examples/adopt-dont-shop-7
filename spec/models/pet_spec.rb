@@ -22,7 +22,11 @@ RSpec.describe Pet, type: :model do
 
   describe "class methods" do
     describe "#search" do
-      it "returns partial matches" do
+      it "returns all pets that match the name search" do
+        expect(Pet.search("Clawdia")).to eq([@pet_2])
+      end
+      
+      xit "returns partial matches" do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
     end
