@@ -28,4 +28,14 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{application.id}"
     end
   end
+
+  def update
+    application = Application.find(params[:id])
+    application.update({
+      status: "Pending",
+      good_owner_reason: params[:good_owner_reason]
+    })
+    application.save
+    redirect_to "/applications/#{application.id}"
+  end
 end
