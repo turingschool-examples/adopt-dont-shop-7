@@ -51,9 +51,9 @@ RSpec.describe "Applications show", type: :feature do
         fill_in(:name, with: "Snoopy")
         click_on("Submit")
         
-        save_and_open_page
         expect(page).to have_content("Adopt this Pet")
         click_on("Adopt this Pet")
+        save_and_open_page
       end
     end
   end

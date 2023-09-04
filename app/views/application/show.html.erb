@@ -22,6 +22,7 @@
     <div class="pet-name-button">
       <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
       <%= pet.name %>
+        <% form.hidden_field :pet_id, value: pet.id %>
         <%= form.button "Adopt this Pet" %>
       <% end %>
     </div>
