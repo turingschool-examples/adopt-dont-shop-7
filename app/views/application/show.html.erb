@@ -14,26 +14,28 @@
   </div>
 </div>
 
-<h3> Add a Pet to this Application </h4>
-<div>
-<%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
-  <%= form.label :name, "Search for a Pet:" %>
-  <%= form.text_field :name %>
-  <%= form.submit "Submit" %>
-<% end %><br/>
-<% if @pets != nil %>
-  <% @pets.each do |pet| %>
-    <div class="pet-name-button">
-      <%= form_with url: "/application_pets/", method: :post do |form| %>
-      <%= pet.name %>
-        <%= form.hidden_field :pet_id, value: pet.id %>
-        <%= form.hidden_field :application_id, value: @application.id %>
-        <%= form.submit "Adopt this Pet" %>
-      <% end %>
-    </div>
+<% if @application.application_status != "Pending" %>
+<h4> Add a Pet to this Application </h4>
+  <div>
+  <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+    <%= form.label :name, "Search for a Pet:" %>
+    <%= form.text_field :name %>
+    <%= form.submit "Submit" %>
+  <% end %><br/>
+  <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+      <div class="pet-name-button">
+        <%= form_with url: "/application_pets/", method: :post do |form| %>
+        <%= pet.name %>
+          <%= form.hidden_field :pet_id, value: pet.id %>
+          <%= form.hidden_field :application_id, value: @application.id %>
+          <%= form.submit "Adopt this Pet" %>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
+  </div><br/><br/>
 <% end %>
-</div><br/><br/>
 
 <div class="submit-application">
   <% if @application.pets.any? %>

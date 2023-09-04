@@ -104,6 +104,7 @@ RSpec.describe "Applications show", type: :feature do
         within("div.application-status") do
           expect(page).to have_content("Pending")
         end
+        expect(page).to_not have_content("Add a Pet to this Application")
       end
     end
   end
