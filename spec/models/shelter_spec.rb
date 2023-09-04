@@ -55,7 +55,7 @@ RSpec.describe Shelter, type: :model do
         ApplicationPet.create!(pet: @pet_2, application: charlie)
         ApplicationPet.create!(pet: @pet_3, application: joop)
 
-        expect(Shelter.with_applicants).to eq([@shelter_1,@shelter_3])
+        expect(Shelter.with_applicants).to eq(["Aurora shelter", "Fancy pets of Colorado"])
       end
     end
   end
