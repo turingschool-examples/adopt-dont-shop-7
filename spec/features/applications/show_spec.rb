@@ -104,7 +104,7 @@ describe "Application search and add pet" do
       reason_for_adoption: "I want the pig",
       status: "In Progress"
       )
-      PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id, status: "Pending")
+      PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id)
     end
 
     it "displays a section on the show page to add a pet to this application" do
@@ -164,24 +164,63 @@ describe "Application search and add pet" do
       reason_for_adoption: "I want the pig",
       status: "In Progress"
       )
-      PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id, status: "Pending")
+    PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id)
 
-     visit "/applications/#{@applicant_1.id}"
+    visit "/applications/#{@applicant_1.id}"
 
-      expect(page).to have_content("Hank")
-      expect(page).to have_content("In Progress")
-      expect(page).to have_content("Add a Pet to this Application")
-      expect(page).to have_field(:reason_for_adoption)
+    expect(page).to have_content("Hank")
+    expect(page).to have_content("In Progress")
+    expect(page).to have_content("Add a Pet to this Application")
+    expect(page).to have_field(:reason_for_adoption)
 
-      fill_in(:reason_for_adoption, with: "I have a huge yard")
-      expect(page).to have_button("Submit")
-      click_button("Submit")
+    fill_in(:reason_for_adoption, with: "I have a huge yard")
+    expect(page).to have_button("Submit")
+    click_button("Submit")
 
-      expect(current_path).to eq("/applications/#{@applicant_1.id}")
-      expect(page).to have_content("Pending")
-      expect(page).to_not have_content("In Progress")
-      expect(page).to have_content("I have a huge yard")
+    expect(current_path).to eq("/applications/#{@applicant_1.id}")
+    expect(page).to have_content("Pending")
+    expect(page).to_not have_content("In Progress")
+    expect(page).to have_content("I have a huge yard")
 
-      expect(page).to_not have_content("Add a Pet to this Application")
-    end
+    expect(page).to_not have_content("Add a Pet to this Application")
+  end
+
+  #user story 7
+  it "doesn't show submit button if no pets on application" do
+    @shelter = Shelter.create!(name: 'Boulder Valley', city: 'Boulder', foster_program: false, rank: 15)
+    @pet = @shelter.pets.create!(name: 'Hank', breed: 'mini pig', age: 3, adoptable: true)
+    @applicant_1 = Application.create!(name: 'Steven', 
+      street_address: '1234 main st.', 
+      city: 'Westminster', 
+      state: 'CO',
+      zip_code: '80020', 
+      reason_for_adoption: "I want the pig",
+      status: "In Progress"
+    )
+    
+    visit "/applications/#{@applicant_1.id}"
+
+    expect(page).not_to have_button("Submit")
+  end
+
+  #user story 8 & 9
+  it "allows for partial matches and case insensitive matches when searching for pet names" do
+    @shelter = Shelter.create!(name: 'Boulder Valley', city: 'Boulder', foster_program: false, rank: 15)
+    @pet = @shelter.pets.create!(name: 'Hank', breed: 'mini pig', age: 3, adoptable: true)
+    @applicant_1 = Application.create!(name: 'Steven', 
+      street_address: '1234 main st.', 
+      city: 'Westminster', 
+      state: 'CO',
+      zip_code: '80020', 
+      reason_for_adoption: "I want the pig",
+      status: "In Progress"
+    )
+    
+    visit "/applications/#{@applicant_1.id}"
+
+    fill_in "Search", with: "poRT"
+    click_button("Search")
+
+    expect(page).to have_content(@porter.name)
+  end
 end
