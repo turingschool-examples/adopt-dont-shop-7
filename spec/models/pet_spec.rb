@@ -32,6 +32,23 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe "#pets_with_app_status" do
+      it "shows pets ids and gives access to status" do
+        dude = Applicant.create!(name: "James", street_address: "11234 Jane Street", city: "Dallas", 
+        state: "Texas", zip_code: "75248", description: "I love animals!")
+        jane = Applicant.create!(name: "jane", street_address: "11234 Jane Street", city: "Dallas", 
+        state: "Texas", zip_code: "75248", description: "I love animals!")
+        shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        pet_1 = shelter.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
+        pet_2 = shelter.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Barry")
+        application = PetsApplication.create!(applicant: dude, pet: pet_1, status: "Pending")
+        application_1 = PetsApplication.create!(applicant: dude, pet: pet_2)
+
+        expect(Pet.pets_with_app_status_by_sql(application)).to eq([pet_1, pet_2])
+      end
+
+    end
   end
 
   describe "instance methods" do

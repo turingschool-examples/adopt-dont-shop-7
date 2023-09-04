@@ -13,12 +13,12 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def self.pets_with_app_status(application)
-    joins(applicants: :pets_applications)
-    .where('pets_applications.applicant_id = ?', application.applicant_id)
-    .select("pets_applications.status", "pets.name", "pets.id")
-    .distinct
-  end
+  # def self.pets_with_app_status(application)
+  #   joins(applicants: :pets_applications)
+  #   .where('pets_applications.applicant_id = ?', application.applicant_id)
+  #   .select("pets_applications.status", "pets.name", "pets.id")
+  #   .distinct
+  # end
 
   def self.pets_with_app_status_by_sql(application)
     find_by_sql("SELECT pets.name, pets.id, pets_applications.status FROM pets 
