@@ -13,6 +13,10 @@ bob = Applicant.create!(name: "Bob", street_address: "1234 Bob's Street", city: 
 
 shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
-pet_1 = shelter.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
-  
-pet_2 = shelter.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id)
+lucille_bald = shelter.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
+lobster = shelter.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id)
+rex = shelter.pets.create!(adoptable: true, age: 2, breed: "Dog", name: "Rex" )
+floof = shelter.pets.create!(adoptable: true, age: 3, breed: "English Bulldog", name: "Floof")
+fluffy = shelter.pets.create!(adoptable: true, age: 4, breed: "Three-Headed Dog", name: "FlUfFy")
+fluff = shelter.pets.create!(adoptable: true, age: 5, breed: "Pomeranian", name: "FLUFF")
+mr_fluff = shelter.pets.create!(adoptable: true, age: 3, breed: "Great Dane", name: "Mr. FluFF")
