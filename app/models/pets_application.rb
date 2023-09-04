@@ -14,9 +14,9 @@ class PetsApplication < ApplicationRecord
     where("applicant_id = ? AND pet_id = ?", app_id, pet_id)
   end
 
-  def self.check_overall_status(application)
+  def self.check_overall_status(app)
     uniformity = joins(:applicant)
-                .where("pets_applications.applicant_id = #{application.applicant_id}")
+                .where("pets_applications.applicant_id = #{app.id}")
                 .select('status')
                 .distinct
                 .count
