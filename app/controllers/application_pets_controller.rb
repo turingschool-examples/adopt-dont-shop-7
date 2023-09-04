@@ -1,8 +1,7 @@
 class ApplicationPetsController < ApplicationController
   def create
-    
-    require 'pry';binding.pry
-    redirect_to "/applications/#{application.id}"
+    ApplicationPet.create(pet_id: params[:pet_id], application_id: params[:application_id])
+    redirect_to "/applications/#{params[:application_id]}"
   end
 
   def update
@@ -11,5 +10,4 @@ class ApplicationPetsController < ApplicationController
 
     redirect_to "/admin/applications/#{status.application_id}"
   end
-
 end

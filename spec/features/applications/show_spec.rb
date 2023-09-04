@@ -53,6 +53,10 @@ RSpec.describe "Applications show", type: :feature do
         
         expect(page).to have_button("Adopt this Pet")
         click_on("Adopt this Pet")
+        expect(current_path).to eq("/applications/#{application_1.id}") 
+        within("div.pets-to-be-adopted") do
+          expect(page).to have_link("Snoopy")
+        end
         save_and_open_page
       end
     end

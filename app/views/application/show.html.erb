@@ -6,9 +6,11 @@
 <h3> Applicant's reason for adoption: </h3>
   <p><%= @application.description %></p>
 <h3> Pet to be adopted: </h3>
+<div class="pets-to-be-adopted">
 <% @application.pets.each do |pet| %>
   <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <%end%>
+</div>
 <h4> Add a Pet to this Application </h4>
 
 <div>
