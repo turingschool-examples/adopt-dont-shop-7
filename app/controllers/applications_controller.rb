@@ -3,14 +3,9 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    if params[:search].present?
-      @searched_pets = Pet.search(params[:search])
-    else
-      @searched_pets = []
-    end
+    @searched_pets = pet_search
     @application = PetsApplication.find(params[:id])
     @applicant = Applicant.retrieve_applicant(params[:id])
-    # @pets = list_pets(@applicant)
     @pets = @applicant.pets
   end
 
@@ -50,6 +45,14 @@ class ApplicationsController < ApplicationController
     else
       all_apps = PetsApplication.where('applicant_id = ?', application.applicant_id)
       all_apps.each { |app| app.update(status: "Pending")}
+    end
+  end
+
+  def pet_search
+    if params[:search].present?
+      @searched_pets = Pet.search(params[:search])
+    else
+      @searched_pets = []
     end
   end
 end
