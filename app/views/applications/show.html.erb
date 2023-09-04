@@ -10,3 +10,39 @@
 </ul>
 
 <h3>Status: <%= @application.status %></h3>
+
+<section>
+  <h2 style="border-bottom: 1px solid black">Add a Pet</h2>
+
+  <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
+    <%= form.label :pet_search, "Search for Pets by Name" %><br>
+    <%= form.text_field :pet_search %>
+    <%= form.submit "Search" %>
+  <% end %>
+  <br><br>
+  <% @searched_pets.each do |pet| %>
+    <h3><%= pet.name %></h3>
+    <table>
+      <tr>
+        <td>Name:</td>
+        <td><%= pet.name %></td>
+      </tr>
+      <tr>
+        <td>Age:</td>
+        <td><%= pet.age %></td>
+      </tr>
+      <tr>
+        <td>Breed:</td>
+        <td><%= pet.breed %></td>
+      </tr>
+      <tr>
+        <td>Adoptable:</td>
+        <td><%= pet.adoptable %></td>
+      </tr>
+      <tr>
+        <td>Shelter ID:</td>
+        <td><%= pet.shelter_id %></td>
+      </tr>
+    </table><br><br>
+  <% end %>
+</section>
