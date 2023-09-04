@@ -41,6 +41,9 @@ RSpec.describe "new application form" do
     it "re-renders the new form" do
       visit "/applications/new"
 
+      fill_in "Applicant Name", with: "Thomas Jefferson"
+      fill_in "Street Address", with: "123 Main St."
+      fill_in "City", with: "Boston"
       click_button "Submit"
 
       expect(current_path).to eq("/applications/new")
