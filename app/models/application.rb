@@ -13,4 +13,8 @@ class Application < ApplicationRecord
   def address
     "#{self.street_address}, #{self.city}, #{self.state} #{self.zip_code}"
   end
+
+  def searched_pets(pets)
+    Pet.where("name LIKE ?", "%#{pets}%").all 
+  end
 end
