@@ -1,37 +1,55 @@
 <h1> Application: </h1>
-<h3> Applicant's name: </h3>
-  <p><%= @application.applicant_name %></p>
-<h3> Applicant's address: </h3>
-  <p><%= @application.full_address %></p>
-<h3> Applicant's reason for adoption: </h3>
-  <p><%= @application.description %></p>
-<h3> Pet to be adopted: </h3>
-<div class="pets-to-be-adopted">
-<% @application.pets.each do |pet| %>
-  <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
-<%end%>
+<div class="application-details">
+  <h3> Applicant's name: </h3>
+    <p><%= @application.applicant_name %></p>
+  <h3> Applicant's address: </h3>
+    <p><%= @application.full_address %></p>
+  <h3> Applicant's reason for adoption: </h3>
+    <p><%= @application.description %></p>
+  <h3> Pet to be adopted: </h3>
+  <div class="pets-to-be-adopted">
+  <% @application.pets.each do |pet| %>
+    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+  <%end%>
+  </div>
 </div>
+
+<% if @application.application_status != "Pending" %>
 <h4> Add a Pet to this Application </h4>
-
-<div>
-<%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
-  <%= form.label :name, "Search for a Pet:" %>
-  <%= form.text_field :name %>
-  <%= form.submit "Submit" %>
-<% end %><br/>
-<% if @pets != nil %>
-  <% @pets.each do |pet| %>
-    <div class="pet-name-button">
-      <%= form_with url: "/application_pets/", method: :post do |form| %>
-      <%= pet.name %>
-        <%= form.hidden_field :pet_id, value: pet.id %>
-        <%= form.hidden_field :application_id, value: @application.id %>
-        <%= form.submit "Adopt this Pet" %>
-      <% end %>
-    </div>
+  <div>
+  <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
+    <%= form.label :name, "Search for a Pet:" %>
+    <%= form.text_field :name %>
+    <%= form.submit "Submit" %>
+  <% end %><br/>
+  <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+      <div class="pet-name-button">
+        <%= form_with url: "/application_pets/", method: :post do |form| %>
+        <%= pet.name %>
+          <%= form.hidden_field :pet_id, value: pet.id %>
+          <%= form.hidden_field :application_id, value: @application.id %>
+          <%= form.submit "Adopt this Pet" %>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
+  </div><br/><br/>
 <% end %>
+
+<div class="submit-application">
+  <% if @application.pets.any? %>
+    <%= form_with do |form| %>
+      <%= form.label :why, "Why would you make a good owner for this/these pets?" %></br>
+      <%= form.text_area :why, required: true %>
+    <% end %><br/>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch do |form| %>
+      <%= form.submit "Submit Application" %>    
+    <% end %><br/>
+  <% end %>
 </div>
 
-<h3>Application status: </h3>
-<p><%= @application.application_status %></p>
+<div class="application-status">
+  <h3>Application status: </h3>
+  <p><%= @application.application_status %></p>
+</div>
