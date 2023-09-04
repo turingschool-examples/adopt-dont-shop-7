@@ -75,7 +75,7 @@ RSpec.describe "Applications show", type: :feature do
         end
       end
 
-      xit "Add a 'reason why the applicant would be a good pet owner' dialogue to application" do
+      it "Add a 'reason why the applicant would be a good pet owner' dialogue to application" do
         shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Snoopy", shelter_id: shelter_1.id)
         pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter_1.id)
@@ -83,6 +83,10 @@ RSpec.describe "Applications show", type: :feature do
         ApplicationPet.create(pet: pet_2, application: application_1)
         ApplicationPet.create(pet: pet_1, application: application_1)
         visit "/applications/#{application_1.id}"
+
+        within("div.submit-application") do
+          expect(page).to have_field(:why)
+        end
       end
     end
   end
