@@ -65,11 +65,10 @@ RSpec.describe 'the admin/shelters' do
     fill_in "description", with: "i want a dog"
           click_button "Submit Application"
           expect(page).to have_content('Pending')
-    save_and_open_page
+  
 
     visit '/admin/shelters'
     within('#pending') do
-    save_and_open_page
       expect(page).to have_content(@shelter1.name)
     end
   end
