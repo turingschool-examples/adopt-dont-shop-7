@@ -109,7 +109,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done
+[X] done
 
 6. Submit an Application
 
