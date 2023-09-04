@@ -27,14 +27,13 @@ RSpec.describe 'New Applicant' do
       expect(page).to have_content("good pet owner")
       expect(page).to have_content("In Progress")
     end
-  end
 
-    it "cannot create an applicant without a name, street_address,city, state, zipcode, & description" do
+    it "cannot create an application without a name, street_address,city, state, zipcode, & description" do
       visit "/applicants/new"
 
       click_on "Apply for Pet"
-
-      expect(page).to have_content("Applicant not created: Required information missing.")
+save_and_open_page
+      expect(page).to have_content("Application not created: Required information missing.")
       expect(page).to have_button("Apply for Pet")
     end
   end
