@@ -35,7 +35,6 @@ RSpec.describe "Admin Shelters Page" do
       
       visit "/admin/shelters"
       
-      save_and_open_page
       expect(find("#with_application")).to have_content("Aurora shelter")
       expect(find("#with_application")).to have_content("Fancy pets")
       expect(find("#with_application")).to_not have_content("RGV")
