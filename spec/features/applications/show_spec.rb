@@ -37,4 +37,23 @@ RSpec.describe "the application show" do
     expect(page).to have_content("Adoptable: #{@pet_2.adoptable}")
     expect(page).to have_content("Shelter ID: #{@pet_2.shelter_id}")
   end
+
+  it "has a form to submit an application if one or more pets have been added" do # add sad path for this
+    visit "/applications/#{@application_1.id}"
+
+    expect(page).to have_field("adoption_description")
+    expect(page).to have_button("Submit Application")
+  end
+
+  it "removes the add pets section and updates the application status once submitted" do
+    visit "/applications/#{@application_1.id}"
+
+    fill_in("adoption_description", with: "I really like this pet")
+    click_button("Submit Application")
+
+    expect(page).to have_content(@pet.name)
+    expect(page).to have_content("Pending")
+    expect(page).to_not have_content("Add a Pet")
+    expect(page).to_not have_button("Submit Application")
+  end
 end

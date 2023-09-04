@@ -18,6 +18,19 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    application = Application.find(params[:id])
+    pets = application.pets
+    application.update(
+      adoption_description: params[:adoption_description],
+      status: "Pending"
+    )
+    application.save
+    application.pets = pets
+
+    redirect_to "/applications/#{application.id}"
+  end
+
   private
     def application_params
       full_addr = "#{params[:addr]}, #{params[:city]}, #{params[:state]}, #{params[:zip]}"

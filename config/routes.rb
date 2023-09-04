@@ -40,5 +40,6 @@ Rails.application.routes.draw do
   post "/applications", to: "applications#create"
   get "/applications/new", to: "applications#new"
   get "/applications/:id", to: "applications#show"
+  patch "/applications/:id", to: "applications#update"
   get "/applications/pets/:id", to: "pets#show" # probably make this its own application_pets controller later on
 end
