@@ -22,8 +22,7 @@ class ApplicationsController < ApplicationController
 
   def update
     application = PetsApplication.find(params[:id])
-    update_empty_pet_app(application) if application.pet_id.nil?
-    create_new_or_update_app(application)
+    application.pet_id.nil? ? update_empty_pet_app(application) : create_new_or_update_app(application)
     redirect_to "/applications/#{application.id}"
   end
 
