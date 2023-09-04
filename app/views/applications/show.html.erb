@@ -32,8 +32,7 @@
   <% end %>
 </section>
 <% end %>
-<%# <%binding.pry%> 
-<%# || @application.status != "Pending" %>
+
 <% if @application.status != "Pending" && @pets != []%>
   <%= form_with url:"/applications/#{@application.id}", method: :patch, data: { turbo: false } do |form| %>
     <%= form.label :good_owner_reason, "Why I would make a good owner for these pets:" %> <br>
