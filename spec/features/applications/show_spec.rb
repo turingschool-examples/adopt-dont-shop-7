@@ -101,7 +101,9 @@ RSpec.describe "Applications show", type: :feature do
         fill_in(:why, with: "Because")
         click_on("Submit Application")
         expect(current_path).to eq("/applications/#{application_1.id}") 
-        expect(application_1.application_status).to eq("Pending")
+        within("div.application-status") do
+          expect(application_1.application_status).to eq("Pending")
+        end
       end
     end
   end
