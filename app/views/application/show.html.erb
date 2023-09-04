@@ -33,7 +33,7 @@
     </div>
   <% end %>
 <% end %>
-</div><br/><br/><br/>
+</div><br/><br/>
 
 <div class="submit-application">
   <% if @application.pets.any? %>
@@ -41,13 +41,13 @@
       <%= form.label :why, "Why would you make a good owner for this/these pets?" %></br>
       <%= form.text_area :why, required: true %>
     <% end %><br/>
-    <%= form_with method: :patch do |form| %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch do |form| %>
       <%= form.submit "Submit Application" %>    
     <% end %><br/>
   <% end %>
 </div>
 
 <div class="application-status">
-<h3>Application status: </h3>
-<p><%= @application.application_status %></p>
+  <h3>Application status: </h3>
+  <p><%= @application.application_status %></p>
 </div>
