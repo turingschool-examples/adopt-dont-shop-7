@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.create!({
+    application = Application.new({
       name: params[:name],
       street_address: params[:street_address],
       city: params[:city],
@@ -18,6 +18,11 @@ class ApplicationsController < ApplicationController
       status: "In Progress"
     })
 
-    redirect_to "/applications/#{application.id}"
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:alert] = "Error: You must fill in all fields"
+      render :new
+    end
   end
 end

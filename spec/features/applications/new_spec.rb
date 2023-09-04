@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "New Application",type: :feature do
+RSpec.describe "New Application", type: :feature do
   describe "as a visitor, when I visit the pet index page" do
     describe "then I see a link to 'Start an Application', when I click this link" do
       describe "then I am taken to the new application page where I see a form, I fill in this form with my: name, street address, city, state, zip code, description and I click submit" do
@@ -36,6 +36,18 @@ RSpec.describe "New Application",type: :feature do
           expect(page).to have_content("Pets:")
           expect(page).to have_content("Status: In Progress")
         end
+      end
+    end
+  end
+
+  describe " As a visitor when I visit the new application page" do
+    describe "And I fail to fill in any of the form fields and I click submit" do
+      it "I am taken back to the new applications page and I see a message that I must fill in those fields." do
+        visit "/applications/new"
+
+        click_button("Submit")
+
+        expect(page).to have_content("You must fill in all fields")
       end
     end
   end
