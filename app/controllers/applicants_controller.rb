@@ -7,7 +7,7 @@ class ApplicantsController < ApplicationController
     else
       @pets = []
     end
-    
+    @submission_ready = @applicant.descript
   end
 
   def new
