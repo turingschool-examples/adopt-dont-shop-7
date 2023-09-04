@@ -36,9 +36,26 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe "#reverse_alphabetical" do
+      it "returns the shelters in reverse alphabetical order by name"do
+        expect(Shelter.reverse_alphabetical).to eq([@shelter_2,@shelter_3,@shelter_1])
+      end
+    end
+
     describe "#order_by_number_of_pets" do
       it "orders the shelters by number of pets they have, descending" do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
+
+    describe "#with_applicants" do
+      it "returns an array of shelters with applications" do
+        charlie = Application.create!(applicant_name: "Charlie Brown", full_address: "123 Peanuts Rd, Lansing MI, 48864", description: "Charlie has been looking forward to picking out a friend", application_status: "Pending")
+        joop = Application.create!(applicant_name: "Joop", full_address: "123 Peanuts Rd, Lansing MI, 48864", description: "Really, really good looking", application_status: "Pending")  
+        ApplicationPet.create!(pet: @pet_2, application: charlie)
+        ApplicationPet.create!(pet: @pet_3, application: joop)
+
+        expect(Shelter.with_applicants).to eq(["Aurora shelter", "Fancy pets of Colorado"])
       end
     end
   end

@@ -1,0 +1,16 @@
+
+<h1> All Shelters </h1>
+<% @shelters.each do |shelter| %>
+  <h3><%= shelter.name %></h3>
+  City: <%= shelter.city %> |
+  Rank: <%= shelter.rank %> |
+  Foster Program: <%= shelter.foster_program ? "Yes" : "Not at this time" %>
+  <% end %>
+  </br>
+
+  <section id="with_application">
+  <h1> Shelters that currently have applicants </h1>
+  <% @shelters_with_applicants.each do |shelter| %>
+    <%=shelter %></br></br>
+  <% end %>
+  </section>

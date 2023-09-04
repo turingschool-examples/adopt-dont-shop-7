@@ -57,7 +57,6 @@ RSpec.describe "Applications show", type: :feature do
         within("div.pets-to-be-adopted") do
           expect(page).to have_link("Snoopy")
         end
-        save_and_open_page
       end
     end
   end
