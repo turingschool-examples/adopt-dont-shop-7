@@ -18,6 +18,10 @@ class AdminController < ActionController::Base
     @application.first.update(status: params[:status])
     if PetsApplication.check_overall_status(@application.first)
       redirect_to "/applications/#{params[:id]}"
+    elsif params[:status] == "Rejected"
+      @applications = PetsApplication.where('pets_applications.applicant_id = ?', params[:applicant_id])
+      @applications.each { |app| app.update(status: "Rejected")}
+      redirect_to "/applications/#{params[:id]}"
     else
       redirect_to "/admin/applications/#{params[:id]}"
     end
