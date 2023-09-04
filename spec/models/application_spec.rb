@@ -29,5 +29,10 @@ RSpec.describe Application, type: :model do
     it "displays partial matches for pet names" do
       expect(@application.searched_pets("Cla")).to eq([@pet_1, @pet_2, @pet_3])
     end
+
+    # US 9
+    it "is case insensitive for pet names" do
+      expect(@application.searched_pets("cla")).to eq([@pet_1, @pet_2, @pet_3])
+    end
   end
 end
