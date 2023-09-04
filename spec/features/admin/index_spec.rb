@@ -22,6 +22,25 @@ RSpec.describe 'the admin/shelters' do
       foster_program: false,
       rank: 11
     )
+    @bob = Applicant.create!(name: "Bob", 
+      street_address: "1234 Bob's Street", 
+      city: "Fudgeville", 
+      state: "AK", 
+      zip_code: 27772, 
+      description: ""
+      )
+
+    @pet_1 = Pet.create(adoptable: true, 
+      age: 1, breed: "sphynx", 
+      name: "Lucille Bald", 
+      shelter_id: @shelter1.id)
+
+    @pet_2 = Pet.create(adoptable: true, 
+      age: 3, breed: "doberman", 
+      name: "Lobster", 
+      shelter_id: @shelter1.id)
+
+      ApplicantsPet.create(applicant: @bob, pet: @pet_1)
   end
 
   # User Story 10 Test
@@ -37,20 +56,21 @@ RSpec.describe 'the admin/shelters' do
   end
 
   # User Story 11 Test
-  xit 'lists all the shelters with pending applications' do
-    
-    ApplicantsPet.create(applicant: applicant1, pet: pet1)
-    applicant1.reload
+  it 'lists all the shelters with pending applications' do
 
-    visit "/pets/#{pet1.id}"
-    expect(page).to have_content("Shelter Name: #{shelter1.name}")
+    visit "/pets/#{@pet_1.id}"
+    expect(page).to have_content("#{@shelter1.name}")
 
-    visit "/applicants/#{applicant1.id}"
-    expect(page).to have_content('Status: Pending')
+    visit "/applicants/#{@bob.id}"
+    fill_in "description", with: "i want a dog"
+          click_button "Submit Application"
+          expect(page).to have_content('Pending')
+    save_and_open_page
 
     visit '/admin/shelters'
-    within('#pending-applications-title + p', text: shelter1.name) do
-      expect(page).to have_content(shelter1.name)
+    within('#pending') do
+    save_and_open_page
+      expect(page).to have_content(@shelter1.name)
     end
   end
 end

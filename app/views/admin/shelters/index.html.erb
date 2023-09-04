@@ -5,4 +5,13 @@
   <p>Shelter Rank: <%= shelter.rank %></p>
   <p>Shelter Foster Program: <%= shelter.foster_program %></p>
   <br>
- <% end %>
+<% end %>
+<div id="pending">
+<h2> Shelters with Pending Applications</h2>
+<% @shelters_with_pending_applicants.each do |shelter| %>
+  <p>Shelter Name: <%= shelter.name %></p>
+  <p>Shelter City: <%= shelter.city %></p>
+  <p>Shelter Rank: <%= shelter.rank %></p>
+  <br>
+<% end %>
+<div>
