@@ -12,4 +12,13 @@
 
 <p><strong>Applicant Status:</strong> <%= @applicant.status %></p>
 
+<h3>Add A Pet To This Appplication</h3>
+
+<div class="add_pet"> 
+  <%= form_with url: "/applicants/#{:id}", method: :get do |form| %>
+    <p><%= form.label :name %>
+    <%= form.text_field :name %></p>
+    <%= form.submit 'Search' %>
+  <% end %>
+</div>
   

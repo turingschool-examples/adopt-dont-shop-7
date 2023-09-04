@@ -19,7 +19,7 @@ def load_test_data
   @pet_8 = @shelter_4.pets.create!(name: 'Gonzo', breed: "lab", age: 1, adoptable: false)
   
   @pet_9 = @shelter_5.pets.create!(name: 'Cherry', breed: "german shepard", age: 4, adoptable: true)
-  @pet_10 = @shelter_5.pets.create!(name: 'Portia', breed: "chow chow", age: 1, adoptable: false)
+  @pet_10 = @shelter_5.pets.create!(name: 'Portia', breed: "chow chow", age: 1, adoptable: true)
   
   @pet_11 = @shelter_6.pets.create!(name: 'Stinky', breed: "australian shepard", age: 1, adoptable: false)
   @pet_12 = @shelter_6.pets.create!(name: 'Bob', breed: "blue heeler", age: 1, adoptable: false)
