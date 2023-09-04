@@ -21,7 +21,6 @@ RSpec.feature "the application show" do
       expect(page).to have_content(application.state)
       expect(page).to have_content(application.zip_code)
       expect(page).to have_content(application.description)
-      save_and_open_page
       expect(page).to have_content(pet1.name)
       expect(page).to have_content(pet2.name)
       expect(page).to have_content(application.status)
