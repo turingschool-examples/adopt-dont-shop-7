@@ -6,6 +6,10 @@ class Application < ApplicationRecord
   validates :description, presence: true
   validates_inclusion_of :status, in: ["In Progress", "Pending", "Accepted", "Rejected"]
 
+  def get_pets
+    pets
+  end
+  
   def pet_names
     pets.pluck(:name)
   end
