@@ -1,11 +1,43 @@
 <h1><%= @application.applicant_name %></h1>
-<h3><%= @application.street_address %></h3>
-<h3><%= @application.city %></h3>
-<h3><%= @application.state %></h3>
-<h3><%= @application.zip_code %></h3>
-<h3><%= @application.description %></h3>
-<h3><%= @application.status %></h3>
+<h3>Street Address: <%= @application.street_address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zip Code: <%= @application.zip_code %></h3>
+<h3>Description: <%= @application.description %></h3>
+<h3>Pets on this Application:</h3>
+<% @application.pets.each do |pet| %>
+    <li><%= pet.name %></li>
+  <% end %>
+<h3>Status: <%= @application.status %></h3>
 
-<!- asdfjhhaaojskdhfklajshdfo; ->
+<% if @application.status == "In Progress" %>
+  <h3>Add a Pet to this Application:</h3>
+  <%= form_tag show_application_path, method: :get do %>
+    <%= text_field_tag 'pet_name', params[:pet_name], placeholder: 'Enter pet name' %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+<% end %>
 
+<% if params[:pet_name].present? %>
+  <h4>Matching Pets:</h4>
+    <% if @matching_pets.blank? %>
+      <p>No pets match your search criteria.</p>
+    <% else %>
+      <% @matching_pets.each do |pet| %>
+        <b><h3><%= pet.name %></b></h3>
+        <p>Age: <%= pet.age %></p>
+        <p>Breed: <%= pet.breed %></p>
+        <p>Adoptable: <%= pet.adoptable %></p>
+        <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+        <%= button_to 'Adopt this Pet', create_pet_application_path(@application, pet), method: :post %>
+      <% end %>
+    <% end %>
+<% end %><br><br>
 
+<% if @application.status == "In Progress" && @application.pets.exists? %>
+  <%= form_tag submit_application_path(@application), method: :patch do %>
+    <label for="description"><h3>Why would you make a good owner?</label></h3>
+    <%= text_area_tag 'description', params[:description] %><br>
+  <%= submit_tag 'Submit Application' %>
+  <% end %>
+<% end %>

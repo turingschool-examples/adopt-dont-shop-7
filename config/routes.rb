@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   
   post "/applications", to: "applications#create"
   get "/applications/new", to: "applications#new"
-  get "/applications/:id", to: "applications#show"
+  get "/applications/:id", to: "applications#show", as: 'show_application'
+  patch "/applications/:id", to: "applications#update", as: 'submit_application'
+  post "/applications/:id", to: "pet_applications#create", as: 'create_pet_application'
   
   get "/veterinary_offices", to: "veterinary_offices#index"
   get "/veterinary_offices/new", to: "veterinary_offices#new"
