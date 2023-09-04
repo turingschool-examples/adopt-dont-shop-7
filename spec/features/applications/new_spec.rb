@@ -36,4 +36,15 @@ RSpec.describe "new application form" do
       expect(page).to have_content("In Progress")
     end
   end 
+
+  context "given invalid data" do
+    it "re-renders the new form" do
+      visit "/applications/new"
+
+      click_button "Submit"
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: All fields must be filled in to submit")
+    end
+  end
 end
