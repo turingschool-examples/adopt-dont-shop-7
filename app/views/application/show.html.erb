@@ -6,9 +6,11 @@
 <h3> Applicant's reason for adoption: </h3>
   <p><%= @application.description %></p>
 <h3> Pet to be adopted: </h3>
+<div class="pets-to-be-adopted">
 <% @application.pets.each do |pet| %>
   <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <%end%>
+</div>
 <h4> Add a Pet to this Application </h4>
 
 <div>
@@ -16,10 +18,17 @@
   <%= form.label :name, "Search for a Pet:" %>
   <%= form.text_field :name %>
   <%= form.submit "Submit" %>
-<% end %>
+<% end %><br/>
 <% if @pets != nil %>
   <% @pets.each do |pet| %>
-    <p><%= pet.name %></p>
+    <div class="pet-name-button">
+      <%= form_with url: "/application_pets/", method: :post do |form| %>
+      <%= pet.name %>
+        <%= form.hidden_field :pet_id, value: pet.id %>
+        <%= form.hidden_field :application_id, value: @application.id %>
+        <%= form.submit "Adopt this Pet" %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
 </div>
