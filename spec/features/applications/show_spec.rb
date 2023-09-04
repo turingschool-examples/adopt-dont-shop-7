@@ -8,6 +8,7 @@ RSpec.describe "the Application show page", type: :feature do
         @pet = Pet.create!(adoptable: true, age: 1, breed: "doberman", name: "Spot", shelter_id: @shelter.id)
         @pet1 = Pet.create!(adoptable: true, age: 6, breed: "pug", name: "Adonis", shelter_id: @shelter.id)
         @application = Application.create!(name: "John Smith", street_address: "123 Main st", city: "Boulder", state: "CO", zip_code: "12345", description: "I'm rich.", status: "In Progress")
+        @application1 = Application.create!(name: "Danny Apple", street_address: "999 Davis st", city: "Yonkers", state: "NY", zip_code: "11033", description: "Upstate New York.", status: "In Progress")
         PetApplication.create!(pet: @pet, application: @application)
         visit "/applications/#{@application.id}"
       end
@@ -79,6 +80,14 @@ RSpec.describe "the Application show page", type: :feature do
           expect(page).to have_content(@pet1.name)
         end
         expect(page).not_to have_content("Add a Pet to this Application")
+      end
+
+      # US 7
+      it "does not show a submit application section if pets are not added to application" do
+        visit "/applications/#{@application1.id}"
+      
+        expect(@application1.pets).to eq([])
+        expect(page).not_to have_content("Why I would make a good owner for these pets:")
       end
     end
   end
