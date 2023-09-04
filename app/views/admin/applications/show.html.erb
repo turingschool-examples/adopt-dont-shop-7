@@ -1,0 +1,53 @@
+<h1><%= "#{@application.name}'s Application" %></h1>
+
+<p>Address: <%= "#{@application.street_address}, #{@application.city}, #{@application.state} #{@application.zip_code}" %></p>
+<p>Reason for Adoption: <%= @application.reason_for_adoption %></p>
+<p>Status: <%= @application.status %></p>
+
+<h4>Pets Applied For</h4>
+<% @application.pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+    <% if @application.status == "Approved" %>
+      <p>Application Approved</p>
+    <% elsif @application.status == "Rejected" %>
+      <p>Application Rejected</p>
+    <% elsif @application.status == "Pending" %>
+      <%= button_to "Approve Application", "/admin/applications/#{@application.id}?button=approve", method: :patch %><br>
+      <%= button_to "Reject Application", "/admin/applications/#{@application.id}?button=reject", method: :patch %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @application.status == "In Progress" %>
+    <h3>Add a Pet to this Application</h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |pet| %>
+      <%= pet.label :search %>
+      <%= pet.text_field :search, value: params[:search] %>
+      <%= pet.submit "Search" %>
+    <% end %>
+    <% if @search_results %>
+        <h3>Search Results</h3>
+        <ul>
+            <% @results.each do |result| %>
+            <li>
+                <p>
+                <%= result.name %>
+                <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", params: { pet_id: result.id } %>
+            </p>
+                </p>
+            </li>
+            <% end %>
+        </ul>
+        <% else %>
+            <p> No Results Found </p>
+    <% end %>
+<% end %>
+<% if !@application.pets.empty? %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.label :reason_for_adoption, "Please explain why you would make a good home for these pets" %>
+      <%= form.text_area :reason_for_adoption %><br>
+      <%= form.submit "Submit" %>
+    <% end %>
+<% end %>
+
