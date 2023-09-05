@@ -47,8 +47,8 @@ RSpec.describe Application, type: :model do
       it "adds a pet to the application" do
         @application_1.add_pet("#{@pet_2.id}")
 
-        names = @application_1.pet_name
-        
+        names = @application_1.pet_names
+
         expect(names).to eq(["Scooby", "Chicken"])
       end
     end
