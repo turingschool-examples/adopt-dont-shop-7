@@ -11,6 +11,10 @@ class ApplicantsController < ApplicationController
     @not_submitted = @applicant.no_description?
   end
 
+   def index
+    @applicants = Applicant.all
+  end
+
   def new
   end
 
