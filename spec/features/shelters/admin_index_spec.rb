@@ -17,8 +17,8 @@ RSpec.describe "the shelters index" do
       reason_for_adoption: "I want the pig",
       status: "Pending"
     )
-    PetApplication.create!(pet_id: @mr_p.id, application_id: @applicant_1.id)
-    PetApplication.create!(pet_id: @catsby.id, application_id: @applicant_1.id)
+    PetApplication.create!(pet_id: @mr_p.id, application_id: @applicant_1.id, application_status: "Pending")
+    PetApplication.create!(pet_id: @catsby.id, application_id: @applicant_1.id, application_status: "Pending")
 
   end
 
