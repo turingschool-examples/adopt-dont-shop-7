@@ -14,6 +14,8 @@
   <h3><%= pet.name %> Adoption Approval Status: <%= @application.individual_pet_status(pet) %> </h3>
   <% if @application.individual_pet_status(pet) == "Pending" %>
     <%= button_to "Approve Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"}, local: true, data: {turbo: false} %>
+    <%= button_to "Reject Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Rejected"}, local: true, data: {turbo: false} %>
+    <br>
   <% end %>
   <% end  %>
 </section>
