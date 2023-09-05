@@ -1,7 +1,6 @@
 class AdminSheltersController < ApplicationController
   def index
     @shelters = Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
-    # require 'pry';binding.pry
   end
 
   def show
@@ -15,9 +14,11 @@ class AdminSheltersController < ApplicationController
         pa.update({
           pet_app_status: [params[:new_status]]
         })
+        application.update(status: params[:new_status])
         pa.save
       end
     end
-      redirect_to "/admin/shelters/#{application.id}"
+
+    redirect_to "/admin/shelters/#{application.id}"
   end
 end
