@@ -14,4 +14,7 @@ class Applicant < ApplicationRecord
     self.description.blank? && self.pets.count > 0
   end
 
+  def no_description?
+    self.description.blank?
+  end
 end
