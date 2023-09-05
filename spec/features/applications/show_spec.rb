@@ -72,4 +72,25 @@ RSpec.describe "the application show" do
 
     expect(page).to_not have_button("Submit Application")
   end
+
+  it "shows partial matches for pet names in search" do
+    visit "/applications/#{@application_1.id}"
+    fill_in("pet_search", with: "Ch")
+    click_button("Search")
+    click_button("Adopt this Pet")
+
+    expect(page).to have_content("#{@pet_2.name}")
+  end
+
+  it "shows case insensitive matches for pet names in search" do
+    pet_3 = Pet.create(name: "Mini CHICK", age: 1, breed: "Chihuaha", adoptable: true, shelter_id: @shelter.id)
+
+    visit "/applications/#{@application_1.id}"
+    fill_in("pet_search", with: "CHICKEN")
+    click_button("Search")
+    click_button("Adopt this Pet")
+
+    expect(page).to have_content("#{@pet_2.name}")
+    expect(page).to have_content("#{pet_3.name}")
+  end
 end
