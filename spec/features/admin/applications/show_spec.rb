@@ -87,9 +87,6 @@ RSpec.describe "Admin Applications Show Page" do
         within("#pet_applied_for-#{@pet_3.id}") do
           expect(page).to have_content("Pending")
         end
-
-        
-
       end
     end
   end
