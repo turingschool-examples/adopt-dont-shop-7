@@ -16,4 +16,24 @@ RSpec.describe Applicant, type: :model do
     it { should validate_presence_of(:application_status) }
   end
 
+  describe "instance methods" do
+    before :each do
+      @applicant = Applicant.create!(name: "Bob", street_address: "1234 Bob's Street", city: "Fudgeville", state: "AK", zip_code: 27772, description: "", application_status: "In Progress")
+      @shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      @pet_1 = @applicant.pets.create!(adoptable: true, age: 2, breed: "Dog", name: "Rex", shelter_id: @shelter.id)
+    end
+
+    it "#descript" do
+      query = @applicant.descript
+
+      expect(query).to eq(true)
+    end
+
+    it "#no_description?" do
+      query = @applicant.no_description?
+
+      expect(query).to eq(true)
+    end
+  end
+
 end

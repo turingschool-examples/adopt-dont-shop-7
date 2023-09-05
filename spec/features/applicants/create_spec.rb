@@ -6,9 +6,9 @@ RSpec.describe "create applicant" do
       it "displays a link to 'Start an Application', which takes the user to the Create Applicant page" do
         visit "/pets"
 
-        expect(page).to have_link("Start an Application")
+        expect(page).to have_button("Start an Application")
 
-        click_link "Start an Application"
+        click_button "Start an Application"
 
         expect(current_path).to eq("/applicants/new")
       end

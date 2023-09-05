@@ -7,7 +7,8 @@ class ApplicantsController < ApplicationController
     else
       @pets = []
     end
-    
+    @submission_ready = @applicant.descript
+    @not_submitted = @applicant.no_description?
   end
 
    def index

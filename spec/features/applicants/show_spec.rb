@@ -4,7 +4,11 @@ RSpec.describe "Applicants Show Page", type: :feature do
   before(:each) do
     @bob = Applicant.create!(name: "Bob", street_address: "1234 Bob's Street", city: "Fudgeville", state: "AK", zip_code: 27772, description: "", application_status: "In Progress")
     @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    @rex = @shelter.pets.create!(adoptable: true, age: 2, breed: "Dog", name: "Rex" )
+    @rex = @shelter.pets.create!(adoptable: true, age: 2, breed: "Dog", name: "Rex")
+    @floof = @shelter.pets.create!(adoptable: true, age: 3, breed: "English Bulldog", name: "Floof")
+    @fluffy = @shelter.pets.create!(adoptable: true, age: 4, breed: "Three-Headed Dog", name: "FlUfFy")
+    @fluff = @shelter.pets.create!(adoptable: true, age: 5, breed: "Pomeranian", name: "FLUFF")
+    @mr_fluff = @shelter.pets.create!(adoptable: true, age: 3, breed: "Great Dane", name: "Mr. FluFF")
   end
 
   describe "As a visitor" do
@@ -12,12 +16,13 @@ RSpec.describe "Applicants Show Page", type: :feature do
       it "displays the name, full address, description, pets that its for, and the app status" do
         visit "/applicants/#{@bob.id}"
 
-        expect(page).to have_content("#{@bob.name}")
+        expect(page).to have_content("Applicant Name: #{@bob.name}")
+        expect(page).to have_content("Address:")
         expect(page).to have_content("#{@bob.street_address}")
-        expect(page).to have_content("#{@bob.city}")
-        expect(page).to have_content("#{@bob.state}")
-        expect(page).to have_content("#{@bob.zip_code}")
+        expect(page).to have_content("#{@bob.city}, #{@bob.state} #{@bob.zip_code}")
+        expect(page).to have_content("Why I would make a good home:")
         expect(page).to have_content("#{@bob.description}")
+        expect(page).to have_content("Application Status:")
         expect(page).to have_content("#{@bob.application_status}")
       end
 
@@ -45,6 +50,20 @@ RSpec.describe "Applicants Show Page", type: :feature do
             visit "/applicants/#{@bob.id}?pet_name=#{@rex.name}&commit=Submit"
 
             expect(page).to have_button("Adopt this Pet")
+          end
+
+          it "displays any pet whose name PARTIALLY matches my search and my search is case insensitive" do
+            visit "/applicants/#{@bob.id}"
+
+            fill_in "pet_name", with: "fluff"
+
+            click_button "Submit"
+
+            expect(page).to have_content("#{@fluffy.name}")
+            expect(page).to have_content("#{@fluff.name}")
+            expect(page).to have_content("#{@mr_fluff.name}")
+            expect(page).to_not have_content("#{@rex.name}")
+            expect(page).to_not have_content("#{@floof.name}")
           end
 
           describe "When I click one of these buttons" do
