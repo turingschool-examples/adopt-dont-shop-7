@@ -11,6 +11,9 @@
   <h3>Pets Applied For</h3>
   <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <h3><%= pet.name %> Adoption Approval Status: <%= pet.pets_status(@application) %> </h3>
+  <h3><%= pet.name %> Adoption Approval Status: <%= @application.individual_pet_status(pet) %> </h3>
+  <% if @application.individual_pet_status(pet) == "Pending" %>
+    <%= button_to "Approve Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"}, local: true, data: {turbo: false} %>
+  <% end %>
   <% end  %>
 </section>
