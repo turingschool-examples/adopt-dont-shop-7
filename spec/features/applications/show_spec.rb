@@ -92,7 +92,7 @@ RSpec.describe "applications#show" do
 
       expect(@application_1.pets).to eq([@pet_1])
 
-      within("#pets_applied_for") do 
+      within("#pets_applied_for-#{@pet_1.id}") do 
         expect(page).to have_content(@pet_1.name)
       end
     end
@@ -152,6 +152,25 @@ RSpec.describe "applications#show" do
       within("#applicant_info-#{@application_1.id}") do 
         expect(page).to have_content("Pending")
       end
+    end
+
+    it "sends an error message if the adoption reason is left blank" do
+      visit "/applications/#{@application_1.id}"
+
+      within("#applicant_info-#{@application_1.id}") do 
+        expect(page).to have_content("In Progress")
+      end
+
+      fill_in(:search, with: "Mr. Pirate")
+      
+      click_button("Search")
+      click_button("Adopt this Pet")
+      
+      fill_in(:adoption_reason, with: "")
+      click_button("Submit")
+
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content("Error: Adoption reason field cannot be empty")
     end
   end
 end
