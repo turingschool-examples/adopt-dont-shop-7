@@ -8,13 +8,13 @@
 <% @application.pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
-    <% if @application.status == "Approved" %>
+    <% if @application.pet_applications.pluck(:application_status).first == "Approved" %>
       <p>Application Approved</p>
-    <% elsif @application.status == "Rejected" %>
+    <% elsif @application.pet_applications.pluck(:application_status).first == "Rejected" %>
       <p>Application Rejected</p>
-    <% elsif @application.status == "Pending" %>
-      <%= button_to "Approve Application", "/admin/applications/#{@application.id}?button=approve", method: :patch %><br>
-      <%= button_to "Reject Application", "/admin/applications/#{@application.id}?button=reject", method: :patch %>
+    <% elsif @application.pet_applications.pluck(:application_status).first == "Pending" %>
+      <%= button_to "Approve Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}&button=approve", method: :patch %><br>
+      <%= button_to "Reject Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}&button=reject", method: :patch %>
     <% end %>
   </div>
 <% end %>

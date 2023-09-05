@@ -104,7 +104,7 @@ describe "Application search and add pet" do
       reason_for_adoption: "I want the pig",
       status: "In Progress"
       )
-      PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id)
+      PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id, application_status: "Pending")
     end
 
     it "displays a section on the show page to add a pet to this application" do
@@ -164,7 +164,7 @@ describe "Application search and add pet" do
       reason_for_adoption: "I want the pig",
       status: "In Progress"
       )
-    PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id)
+    PetApplication.create!(pet_id: @pet.id, application_id: @applicant_1.id, application_status: "Pending")
 
     visit "/applications/#{@applicant_1.id}"
 
