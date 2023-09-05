@@ -50,14 +50,14 @@ RSpec.feature "the application show" do
       visit "/applications/#{application.id}"
 
       expect(page).to have_content("Add a Pet to this Application")
-
+      
       fill_in "pet_name", with: "Zeus"
       click_button "Search"
 
       expect(page).to have_content("Zeus")
       expect(page).to_not have_content("Demeter")
       expect(page).to have_button("Adopt this Pet")
-
+      
       click_button "Adopt this Pet"
 
       expect(page).to have_content(application.pets.name)
