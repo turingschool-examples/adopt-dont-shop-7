@@ -19,7 +19,6 @@ RSpec.describe PetsApplication, type: :model do
         application = PetsApplication.create!(applicant: dude, pet: pet_1, status: "Pending")
         application_1 = PetsApplication.create!(applicant: jane, pet: pet_2)
         expect(PetsApplication.find_application(pet_1.id, dude.id)).to eq([application])
-        # expect(PetsApplication.find_application_for_approve(pet_1.id, dude.id)).to eq([application.id])
       end
     end
     describe "check_app_status" do

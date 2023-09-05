@@ -12,8 +12,6 @@ class AdminController < ActionController::Base
   end
 
   def approve_reject
-    # @application = PetsApplication.find_application_for_approve(params[:pet_id], params[:applicant_id])
-    # @application.first.update(status: params[:status])
     @application = PetsApplication.find_application(params[:pet_id], params[:applicant_id])
     @application.first.update(status: params[:status])
     @applicant = Applicant.find(params[:applicant_id])
