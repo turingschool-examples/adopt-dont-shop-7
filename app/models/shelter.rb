@@ -37,4 +37,8 @@ class Shelter < ApplicationRecord
       .where(pet_applications: { status: "Pending" })
       .distinct
   end
+
+  def self.shelters_order
+   Shelter.find_by_sql("select * from shelters order by name desc;")
+  end
 end
