@@ -10,6 +10,6 @@ class Application < ApplicationRecord
   has_many :pets, through: :pet_applications
 
   def individual_pet_status(pet)
-    pet_applications.find_by(pet_id: pet.id, application_id: self.id).status
+    pet_application = PetApplication.where(application_id: self.id, pet_id: pet.id).first.status
   end
 end
