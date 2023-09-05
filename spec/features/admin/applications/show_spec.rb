@@ -16,6 +16,7 @@ RSpec.describe "Admin Applications Show Page" do
     @pet_applications_1 = PetApplication.create!(pet_id: "#{@pet_1.id}", application_id: "#{@cory.id}", status: "Pending" )
     @pet_applications_2 = PetApplication.create!(pet_id: "#{@pet_3.id}", application_id: "#{@antoine.id}", status: "Pending" )
     @pet_applications_3 = PetApplication.create!(pet_id: "#{@pet_3.id}", application_id: "#{@jeff.id}", status: "Pending" )
+    @pet_applications_4 = PetApplication.create!(pet_id: "#{@pet_2.id}", application_id: "#{@antoine.id}", status: "Pending" )
   end
   describe "#show"
     it "shows the application and all its attributes" do
@@ -86,6 +87,26 @@ RSpec.describe "Admin Applications Show Page" do
 
         within("#pet_applied_for-#{@pet_3.id}") do
           expect(page).to have_content("Pending")
+        end
+      end
+
+      describe "Application Status changed based on individual pet approval" do 
+        it "Sets application status to 'Approved' when all pets are approved" do
+          visit "/admin/applications/#{@antoine.id}"
+
+          within("#pet_applied_for-#{pet_3.id}") do
+            expect(page).to have_content("Pending")
+            click_button("Approve Adoption")
+            expect(page).to have_content("Approved")
+          end
+          
+          within("#pet_applied_for-#{pet_2.id}") do
+          expect(page).to have_content("Pending")
+          click_button("Approve Adoption")
+          expect(page).to have_content("Approved")
+          end
+
+          expect(@antoine.status).to eq("Approved")
         end
       end
     end
