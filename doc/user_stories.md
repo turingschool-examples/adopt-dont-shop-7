@@ -127,7 +127,7 @@ And I do not see a section to add more pets to this application
 ```
 
 ```
-[ ] done
+[X] done
 
 7. No Pets on an Application
 
@@ -142,7 +142,7 @@ Then I do not see a section to submit my application
 These stories emphasize key database concepts.
 
 ```
-[ ] done
+[X] done
 
 8. Partial Matches for Pet Names
 
@@ -154,7 +154,7 @@ For example, if I search for "fluff", my search would match pets with names "flu
 ```
 
 ```
-[ ] done
+[X] done
 
 9. Case Insensitive Matches for Pet Names
 
@@ -166,7 +166,7 @@ For example, if I search for "fluff", my search would match pets with names "Flu
 ```
 
 ```
-[ ] done
+[X] done
 
 SQL Only Story
 
@@ -180,7 +180,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
-[ ] done
+[X] done
 
 For this story, you should fully leverage ActiveRecord methods in your query.
 

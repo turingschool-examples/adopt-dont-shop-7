@@ -1,0 +1,16 @@
+<h2>Application: <%= @application.name %></h2>
+<br>
+<% @pets.each do |pet| %>
+<section id="pet-<%= pet.id %>">
+    <div style="background-color: lightblue; border-style: solid; border-radius: 8px; padding: 10px; margin: 10px;">
+      <% if @application.pet_status(pet.id) == 'Approved'%>
+        <p style="font-size: 18px; font-weight: bold; margin-top: 0; float:left">Name: <%= pet.name %>&emsp;*Approved</p>
+      <% else %>
+        <p style="font-size: 18px; font-weight: bold; margin-top: 0; float:left">Name: <%= pet.name %>&emsp;<%= button_to "Approve", "/admin/applications/#{@application.id}?petid=#{pet.id}", method: :patch, data: { turbo: false } %></p>
+      <% end%>
+      <div style="clear:both;"></div>
+      <p style="font-size: 16px;">Breed: <%= pet.breed %></p>
+      <p style="font-size: 16px;">Age: <%= pet.age %></p>
+    </div>
+</section>
+  <% end %>

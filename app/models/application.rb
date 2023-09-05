@@ -17,4 +17,10 @@ class Application < ApplicationRecord
   def searched_pets(pets)
     Pet.where("lower(name) LIKE ?", "%#{pets.downcase}%").all 
   end
+
+  def pet_status(petid)
+    pet_applications = PetApplication.where(application_id: self.id, pet_id: petid)
+ 
+    pet_applications.first.status if pet_applications.first.status != nil
+  end
 end
