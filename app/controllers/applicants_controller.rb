@@ -8,6 +8,7 @@ class ApplicantsController < ApplicationController
       @pets = []
     end
     @submission_ready = @applicant.descript
+    @not_submitted = @applicant.no_description?
   end
 
   def new
