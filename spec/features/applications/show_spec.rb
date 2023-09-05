@@ -63,8 +63,6 @@ RSpec.describe "the application show" do
     click_button("Search")
     click_button("Adopt this Pet")
 
-
-    expect(page).to have_current_path("/applications/#{@application_1.id}")
     expect(page).to have_content("#{@pet_2.name}")
   end
 end

@@ -42,4 +42,5 @@ Rails.application.routes.draw do
   get "/applications/:id", to: "applications#show"
   patch "/applications/:id", to: "applications#update"
   get "/applications/pets/:id", to: "pets#show" # probably make this its own application_pets controller later on
+  post "/applications/:id/pets", to: "applications#add_pet"
 end

@@ -33,8 +33,8 @@ class ApplicationsController < ApplicationController
 
   def add_pet
     application = Application.find(params[:id])
-    application.add_pet(params[:id])
-    
+    application.add_pet(params[:pet_id])
+
     redirect_to "/applications/#{application.id}"
   end
 
