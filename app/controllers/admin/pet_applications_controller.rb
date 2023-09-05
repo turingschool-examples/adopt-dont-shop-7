@@ -10,7 +10,7 @@ class Admin::PetApplicationsController < ApplicationController
             application_status: "Rejected"
             )
         end
-    
+    # require 'pry';binding.pry
         redirect_to "/admin/applications/#{params[:id]}"
     end
 end

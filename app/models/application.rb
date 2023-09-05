@@ -9,4 +9,8 @@ class Application < ApplicationRecord
 
   has_many :pet_applications
   has_many :pets, through: :pet_applications
+
+  def find_pet_application_status(pet)
+    self.pet_applications.where("pet_id = #{pet}").pluck(:application_status).first
+  end
 end

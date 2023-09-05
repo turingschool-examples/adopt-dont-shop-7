@@ -88,16 +88,19 @@ RSpec.describe "Admin show" do
 
     within("#pet-#{@pet_1.id}") do
       click_button "Approve Application"
+      expect(page).to have_content("Application Approved")
     end
 
     within("#pet-#{@pet_2.id}") do
       click_button "Approve Application"
-    end
-    
-    within("#pet-#{@pet_3.id}") do
-      click_button "Approve Application"
+      expect(page).to have_content("Application Approved")
     end
 
+    within("#pet-#{@pet_3.id}") do
+      click_button "Approve Application"
+      expect(page).to have_content("Application Approved")
+    end
+save_and_open_page
     expect(page).to have_content("Status: Approved")
   end
 end
