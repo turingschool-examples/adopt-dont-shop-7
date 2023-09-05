@@ -1,4 +1,4 @@
-<h1>Applicant Name: <%= @applicant.name %></h1>
+<h2>Applicant Name: <%= @applicant.name %></h2>
 <p>Address:<br/>
 <%= @applicant.street_address %><br/>
 <%= @applicant.city %>, <%= @applicant.state %> <%= @applicant.zip_code %></p>
@@ -43,7 +43,7 @@
       <%= form.submit "Submit" %>
     <% end %>
   </div>
-  
+
   <% @pets.each do |pet| %>
     <h3><%= pet.name %></h3>
     <p>Age: <%= pet.age %></p>
