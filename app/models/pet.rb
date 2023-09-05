@@ -14,6 +14,6 @@ class Pet < ApplicationRecord
   end
 
   def self.search(name)
-    where(name: name)
+    where("name ILIKE ?", "%#{name}%")
   end
 end
