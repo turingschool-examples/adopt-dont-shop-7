@@ -2,9 +2,11 @@
 <p>Address:<br/>
 <%= @applicant.street_address %><br/>
 <%= @applicant.city %>, <%= @applicant.state %> <%= @applicant.zip_code %></p>
-<p><%= @applicant.description %></p>
+<p>Why I would make a good home:<br/>
+<%= @applicant.description %></p>
 <p>Application Status:<br/>
 <%= @applicant.application_status %></p>
+
 <h3>Pets being applied for:</h3>
 <ul>
   <% @applicant_pets.each do |pet| %>
@@ -14,34 +16,40 @@
     <p>Adoptable: <%= pet.adoptable %></p>
   <% end %>
 </ul>
+
 <%if @submission_ready %>
-<div>
-  <h2>Add a Description</h2>
-  <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
-    <div>
-      <%= form.label "Why would you make a good home?" %>
-    </div>
-    <div>
-      <%= form.text_area :description %>
-    </div>  
-    <div>
-      <%= form.submit "Submit Application" %>
-    </div>
-  <% end %>
-</div>
+  <div>
+    <h2>Add a Description</h2>
+    <%= form_with url: "/applicants/#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
+      <div>
+        <%= form.label "Why would you make a good home?" %>
+      </div>
+      <div>
+        <%= form.text_area :description %>
+      </div>  
+      <div>
+        <%= form.submit "Submit Application" %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
-<div>
-  <h2>Add a Pet to this Application</h2>
-  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, data: { turbo: false } do |form| %>
-    <%= form.label :pet_name %>
-    <%= form.text_field :pet_name %>
-    <%= form.submit "Submit" %>
+
+<% if @not_submitted %>
+  <div>
+    <h2>Add a Pet to this Application</h2>
+    <%= form_with url: "/applicants/#{@applicant.id}", method: :get, data: { turbo: false } do |form| %>
+      <%= form.label :pet_name %>
+      <%= form.text_field :pet_name %>
+      <%= form.submit "Submit" %>
+    <% end %>
+  </div>
+  
+  <% @pets.each do |pet| %>
+    <h3><%= pet.name %></h3>
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Adoptable: <%= pet.adoptable %></p>
+    <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+    <%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}/#{pet.id}", method: :patch %>
   <% end %>
-</div>
-<% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3><%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}/#{pet.id}", method: :patch %>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: <%= pet.adoptable %></p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
 <% end %>
