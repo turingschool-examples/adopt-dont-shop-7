@@ -20,6 +20,7 @@ RSpec.describe "Applicants Show Page", type: :feature do
         expect(page).to have_content("Address:")
         expect(page).to have_content("#{@bob.street_address}")
         expect(page).to have_content("#{@bob.city}, #{@bob.state} #{@bob.zip_code}")
+        expect(page).to have_content("Why I would make a good home:")
         expect(page).to have_content("#{@bob.description}")
         expect(page).to have_content("Application Status:")
         expect(page).to have_content("#{@bob.application_status}")
