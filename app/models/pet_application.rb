@@ -5,4 +5,8 @@ class PetApplication < ApplicationRecord
   def approve
     update(approval: true)
   end
+
+  def reject
+    update(approval: false)
+  end
 end

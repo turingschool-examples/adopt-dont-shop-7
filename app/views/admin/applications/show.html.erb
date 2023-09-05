@@ -5,8 +5,44 @@
 <h3>Zip Code: <%= @application.zip_code %></h3>
 <h3>Description: <%= @application.description %></h3>
 <h3>Pets on this Application:</h3>
-<% @application.pet_applications.each do |pet_application| %>
-  <li><%= pet_application.pet.name %></li>
-  <%= button_to 'Approve', admin_application_path(@application, id: pet_application.id), method: :patch %>
-<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Pet Name</th>
+      <th>Approve</th>
+      <th>Reject</th>
+      <th>Approval Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @application.pet_applications.each do |pet_application| %>
+      <tr>
+        <td><%= pet_application.pet.name %></td>
+        <td>
+          <% if pet_application.approval == nil %>
+            <%= form_tag admin_application_path(@application, id: pet_application.id), method: :patch do %>
+            <%= submit_tag 'Approve' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if pet_application.approval == nil %>
+            <%= form_tag admin_application_path(@application, id: pet_application.id), method: :patch do %>
+            <%= submit_tag 'Reject' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if pet_application.approval == nil %>
+            <%= "Awaiting Approval" %>
+          <% elsif pet_application.approval == true %>
+            <%= "APPROVED" %>
+          <% elsif pet_application.approval == false %>
+            <%= "REJECTED" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <h3>Status: <%= @application.status %></h3>
