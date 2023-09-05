@@ -3,27 +3,14 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    if params[:search].present?
-      @searched_pets = Pet.search(params[:search])
-    else
-      @searched_pets = []
-    end
+    @searched_pets = pet_search
     @application = PetsApplication.find(params[:id])
     @applicant = Applicant.retrieve_applicant(params[:id])
-    # @pets = list_pets(@applicant)
     @pets = @applicant.pets
   end
 
   def create
-    applicant = Applicant.new({
-      name: params[:name],
-      street_address: params[:street_address],
-      city: params[:city],
-      state: params[:state],
-      zip_code: params[:zip_code],
-      description: params[:description],
-    })
-
+    applicant = Applicant.new(applicant_params)
     if applicant.save
       application = PetsApplication.create!(applicant: applicant)
       redirect_to "/applications/#{application.id}"
@@ -35,18 +22,36 @@ class ApplicationsController < ApplicationController
 
   def update
     application = PetsApplication.find(params[:id])
-    if application.pet_id == nil
-      application.update ({
+    application.pet_id.nil? ? update_empty_pet_app(application) : create_new_or_update_app(application)
+    redirect_to "/applications/#{application.id}"
+  end
+
+  private 
+
+  def applicant_params
+    params.permit(:id, :name, :street_address, :city, :state, :zip_code, :description)
+  end
+
+  def update_empty_pet_app(application)
+    application.update ({
         pet_id: params[:pet]
       })
-    elsif params[:status].nil?
+  end
+
+  def create_new_or_update_app(application)
+    if params[:status].nil?
       PetsApplication.create!(applicant_id: application.applicant_id, pet_id: params[:pet])
     else
       all_apps = PetsApplication.where('applicant_id = ?', application.applicant_id)
       all_apps.each { |app| app.update(status: "Pending")}
     end
-    redirect_to "/applications/#{application.id}"
   end
 
-  private 
+  def pet_search
+    if params[:search].present?
+      @searched_pets = Pet.search(params[:search])
+    else
+      @searched_pets = []
+    end
+  end
 end
