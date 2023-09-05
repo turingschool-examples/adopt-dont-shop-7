@@ -1,0 +1,14 @@
+<h1>Applicant IDs</h1>
+<% @applicants.each do |applicant| %>
+  <h3>
+    <p><%= applicant.id %></p>
+  </h3>
+  <p><%= link_to "Applicants Show page", "/applicants/#{applicant.id}" %></p>
+<p>Name: <%= applicant.name %></p>
+<p>Application Status <%= applicant.application_status  %> </p>
+<p>Street Address <%= applicant.street_address %> </p>
+<p>Zip <%= applicant.zip_code %> </p>
+<p>City <%= applicant.city %> </p>
+<p>State <%= applicant.state  %> </p>
+<p>Description <%= applicant.description  %> </p>
+<% end %>

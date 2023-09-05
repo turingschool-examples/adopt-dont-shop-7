@@ -10,6 +10,10 @@ class ApplicantsController < ApplicationController
     
   end
 
+   def index
+    @applicants = Applicant.all
+  end
+
   def new
   end
 
