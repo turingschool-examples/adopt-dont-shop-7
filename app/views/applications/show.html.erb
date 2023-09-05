@@ -21,3 +21,11 @@
 </p>
 
 <p>Status: <%= @application.status %></p>
+
+<h2>Add a Pet to this Application</h2>
+
+<p>Search for pets by name</p>
+<form class="example" action="/applications/:id">
+  <input type="text" name="pet_name" placeholder="Search for pets by name">
+  <%= submit_tag "Search" %>
+</form>

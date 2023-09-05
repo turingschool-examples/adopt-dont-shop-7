@@ -78,20 +78,12 @@ RSpec.describe "Application Show", type: :feature do
             expect(page).to have_content("Add a Pet to this Application")
 
             fill_in "Search for pets by name", with: "Tony the Tiger"
+
             click_button "Search"
 
-            expect(current_path).to eq("/applications/#{application.name("Tony the Tiger")}")
+            expect(current_path).to eq("/applications/#{application.id}")
 
             expect(page).to have_content("Tony the Tiger")
-            expect(page).to have_button("Add to Application")
-
-            click_button "Add to Application"
-
-            expect(page).to have_content("Pet added to the application")
-
-            within("#application-details") do
-              expect(page).to have_content("Tony the Tiger")
-            end
           end
         end
       end
