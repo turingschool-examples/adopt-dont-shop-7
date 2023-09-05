@@ -67,5 +67,11 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+    
+    describe ".order_desc_alphabetical" do
+      it "returns shelters in descending alphabetical order" do
+        expect(Shelter.order_desc_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
   end
 end
