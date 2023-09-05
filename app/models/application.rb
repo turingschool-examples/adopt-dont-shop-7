@@ -12,4 +12,8 @@ class Application < ApplicationRecord
   def individual_pet_status(pet)
     pet_application = PetApplication.where(application_id: self.id, pet_id: pet.id).first.status
   end
+
+  def all_pet_statuses
+    pet_application = PetApplication.where(application_id: self.id).pluck(:status)
+  end
 end

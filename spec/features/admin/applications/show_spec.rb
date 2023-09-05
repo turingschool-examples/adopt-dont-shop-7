@@ -94,13 +94,13 @@ RSpec.describe "Admin Applications Show Page" do
         it "Sets application status to 'Approved' when all pets are approved" do
           visit "/admin/applications/#{@antoine.id}"
 
-          within("#pet_applied_for-#{pet_3.id}") do
+          within("#pet_applied_for-#{@pet_3.id}") do
             expect(page).to have_content("Pending")
             click_button("Approve Adoption")
             expect(page).to have_content("Approved")
           end
           
-          within("#pet_applied_for-#{pet_2.id}") do
+          within("#pet_applied_for-#{@pet_2.id}") do
           expect(page).to have_content("Pending")
           click_button("Approve Adoption")
           expect(page).to have_content("Approved")
