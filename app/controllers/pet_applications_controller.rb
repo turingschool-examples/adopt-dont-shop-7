@@ -14,7 +14,6 @@ class PetApplicationsController < ApplicationController
   def update
     # pet_application = PetApplication.find_by(pet_id: params[:pet_id], application_id: params[:id]).first
     pet_application = PetApplication.find_pet_application(params[:id], params[:pet_id])
-    # require 'pry';binding.pry
     pet_application.update!(status: params[:status])
     redirect_to "/admin/applications/#{params[:id]}"
   end
