@@ -4,5 +4,4 @@ class PetApplication < ApplicationRecord
 
     validates :pet_id, presence: true
     validates :application_id, presence: true
-    validates :application_status, presence: true
 end
