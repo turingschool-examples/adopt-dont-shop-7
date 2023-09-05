@@ -48,7 +48,7 @@ jericho = happy.pets.create!({
   breed: "Turtle"
 })
 
-billy = Applications.create!({
+billy = Application.create!({
   name: "Billy the Kid",
   street_address: "123 ABC St",
   city: "Boulder",
@@ -58,7 +58,7 @@ billy = Applications.create!({
   status: "In Progress"
 })
 
-peggy = Applications.create!({
+peggy = Application.create!({
   name: "Peggy Sue",
   street_address: "456 Main St",
   city: "Longmont",
@@ -68,7 +68,7 @@ peggy = Applications.create!({
   status: "In Progress"
 })
 
-balthazar = Applications.create!({
+balthazar = Application.create!({
   name: "Balthazar",
   street_address: "666 Demon Blvd",
   city: "Greely",
