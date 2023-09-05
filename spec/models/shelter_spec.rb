@@ -41,6 +41,25 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe ".order_desc_alphabetical" do
+      it "returns shelters in descending alphabetical order" do
+        expect(Shelter.order_desc_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#pending_applications" do
+      it "returns shelters with pending applications" do
+        application = Application.create!(applicant_name: "Thomas Jefferson", street_address: "123 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm on a fiver", status: "In Progress")
+        application.pets << @pet_1
+
+        expect(Shelter.pending_applications).to_not eq([@shelter_1])
+
+        application.update(status: "Pending")
+
+        expect(Shelter.pending_applications).to eq([@shelter_1])
+      end
+    end
   end
 
   describe "instance methods" do
@@ -65,12 +84,6 @@ RSpec.describe Shelter, type: :model do
     describe ".pet_count" do
       it "returns the number of pets at the given shelter" do
         expect(@shelter_1.pet_count).to eq(3)
-      end
-    end
-    
-    describe ".order_desc_alphabetical" do
-      it "returns shelters in descending alphabetical order" do
-        expect(Shelter.order_desc_alphabetical).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
   end
