@@ -32,7 +32,7 @@ RSpec.describe 'New Applicant' do
       visit "/applicants/new"
 
       click_on "Apply for Pet"
-save_and_open_page
+
       expect(page).to have_content("Application not created: Required information missing.")
       expect(page).to have_button("Apply for Pet")
     end

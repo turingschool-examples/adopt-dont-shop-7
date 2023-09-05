@@ -18,12 +18,17 @@ RSpec.describe "applicant show page", type: :feature do
       expect(page).to have_link("Bill")
   end
 
-  it "allows user to search for a pets by name" do
+  it "allows user to search for a pets by name + click button to add that pet to their application" do
     visit "/applicants/#{@applicant_1.id}"
     
     fill_in "name", with: "Portia"
     click_button "Search"
 
     expect(page).to have_content("Portia")
+
+    click_button "Adopt this Pet"
+
+    expect(page).to have_link("Portia")
+
   end
 end

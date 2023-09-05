@@ -8,6 +8,7 @@
   <% @applicant.pets.each do |pet| %>
     <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
   <% end %>
+  
 </ul>
 
 <p><strong>Applicant Status:</strong> <%= @applicant.status %></p>
@@ -16,14 +17,24 @@
 
 <div class="search_pet"> 
   <%= form_with url: "/applicants/#{@applicant.id}", method: :get, data: { turbo: false } do |form| %>
-    <p><%= form.label :name, "Search A Pet" %>
-    <%= form.text_field :name %></p>
+    <%= form.label :name, "Search A Pet" %>
+    <%= form.text_field :name %>
     <%= form.submit "Search" %>
-    <% if @search %>
+    <% if @search %><br/>
+    <br/>
       <% @results.each do |result| %>
-        <p><%= result.name %></p>
+        <%= result.name %>
+        <% if @results.any? %>
+            <% @results.each do |result| %>
+                <% result.name %>
+                <%= form_with url: "/applicants/#{@applicant.id}", method: :post do |form| %>
+                 <%= form.submit "Adopt this Pet" %>
+                <% end %>
+            <% end %>
+        <% end %>
       <% end %>
     <% end %>
+    
   <% end %>
 </div>
   
