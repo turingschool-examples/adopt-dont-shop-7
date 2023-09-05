@@ -15,8 +15,8 @@ class PetsApplication < ApplicationRecord
       "Rejected"
     elsif PetsApplication.where('applicant_id = ?', applicant.id).exists?(status: "Accepted")
       "Approved"
-    else
-      "In Progress"
+    # else
+    #   "In Progress"
     end
   end
 end
