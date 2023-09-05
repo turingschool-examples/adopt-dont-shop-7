@@ -31,6 +31,13 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{application.id}"
   end
 
+  def add_pet
+    application = Application.find(params[:id])
+    application.add_pet(params[:pet_id])
+
+    redirect_to "/applications/#{application.id}"
+  end
+
   private
     def application_params
       full_addr = "#{params[:addr]}, #{params[:city]}, #{params[:state]}, #{params[:zip]}"

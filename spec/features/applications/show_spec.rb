@@ -56,4 +56,13 @@ RSpec.describe "the application show" do
     expect(page).to_not have_content("Add a Pet")
     expect(page).to_not have_button("Submit Application")
   end
+
+  it "can add a pet that matches search to the application" do
+    visit "/applications/#{@application_1.id}"
+    fill_in("pet_search", with: "#{@pet_2.name}")
+    click_button("Search")
+    click_button("Adopt this Pet")
+
+    expect(page).to have_content("#{@pet_2.name}")
+  end
 end

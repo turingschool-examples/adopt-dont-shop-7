@@ -18,4 +18,10 @@ class Application < ApplicationRecord
     pet = Pet.find_by(name: pet_name)
     "/pets/#{pet.id}" if pet
   end
+
+  def add_pet(pet_id)
+    pet = Pet.find(pet_id)
+
+    self.pets << pet
+  end
 end

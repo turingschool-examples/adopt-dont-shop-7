@@ -27,6 +27,9 @@
     <br><br>
     <% @searched_pets.each do |pet| %>
       <h3><%= pet.name %></h3>
+      <%= form_with url: "/applications/#{@application.id}/pets?pet_id=#{pet.id}", method: :post, data: { turbo: false } do  |form| %> 
+        <%= form.submit "Adopt this Pet" %>
+      <% end %>
       <table>
         <tr>
           <td>Name:</td>
