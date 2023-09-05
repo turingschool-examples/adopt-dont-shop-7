@@ -39,4 +39,11 @@ RSpec.describe Pet, type: :model do
       end
     end
   end
+
+  # describe "#partial search" do
+    # it "returns adoptable pets by a partial search" do
+   
+  #     end
+  #   end
+  # end
 end
