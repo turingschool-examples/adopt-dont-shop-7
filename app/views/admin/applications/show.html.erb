@@ -11,5 +11,6 @@
   <h3>Pets Applied For</h3>
   <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <h3><%= pet.name %> Adoption Approval Status: <%= pet.pets_status(@application) %> </h3>
   <% end  %>
 </section>
