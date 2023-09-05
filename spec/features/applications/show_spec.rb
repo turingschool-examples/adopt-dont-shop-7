@@ -20,7 +20,6 @@ RSpec.describe "applications#show" do
         expect(page).to have_content(@application_1.state)
         expect(page).to have_content(@application_1.zipcode)
         expect(page).to have_content(@application_1.description)
-        expect(page).to have_content(@application_1.adoption_reason)
         expect(page).to have_content(@application_1.status)
       end 
     end

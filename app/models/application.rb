@@ -8,4 +8,8 @@ class Application < ApplicationRecord
   validates :status, presence: true
   has_many :pet_applications
   has_many :pets, through: :pet_applications
+
+  def individual_pet_status(pet)
+    pet_application = PetApplication.where(application_id: self.id, pet_id: pet.id).first.status
+  end
 end
