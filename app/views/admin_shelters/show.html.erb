@@ -1,0 +1,17 @@
+<%= @application.name %>
+<%= @application.description %>
+<%= @application.status %>
+  <% @application.pets.each do |pet| %>
+    <% pet.pet_applications.each do |pa| %>
+      <% if pa.application_id == @application.id && pa.pet_id == pet.id %>
+        <% if pa.pet_app_status == nil %>
+          <%= button_to "Approve #{pet.name}", "/admin/shelters/#{@application.id}?new_status=Approved&pa_id=#{pa.id}", method: :patch%>
+          <%= button_to "Reject #{pet.name}", "/admin/shelters/#{@application.id}?new_status=Rejected&pa_id=#{pa.id}", method: :patch%>
+        <% elsif pa.pet_app_status == "[\"Approved\"]" %>
+          <%= "#{pet.name} Approved" %>
+        <% elsif pa.pet_app_status == "[\"Rejected\"]" %>
+          <%= "#{pet.name} Rejected" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
