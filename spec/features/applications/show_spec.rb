@@ -92,7 +92,7 @@ RSpec.describe "applications#show" do
 
       expect(@application_1.pets).to eq([@pet_1])
 
-      within("#pets_applied_for") do 
+      within("#pets_applied_for-#{@pet_1.id}") do 
         expect(page).to have_content(@pet_1.name)
       end
     end
