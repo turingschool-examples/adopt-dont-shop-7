@@ -65,4 +65,10 @@ RSpec.describe "the application show" do
 
     expect(page).to have_content("#{@pet_2.name}")
   end
+
+  it "when no pets are added to the application, submit button will not be shown" do 
+    visit "/applications/#{@application_1.id}"
+
+    expect(page).to_not have_button("Submit Application")
+  end
 end
