@@ -7,15 +7,15 @@
   <h3>Status: <%= @application.status %></h3>
 </section>
 
-<section id="pets_applied_for">
   <h3>Pets Applied For</h3>
   <% @application.pets.each do |pet| %>
+<section id="pet_applied_for-<%= pet.id%>">
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <h3><%= pet.name %> Adoption Approval Status: <%= @application.individual_pet_status(pet) %> </h3>
-  <% if @application.individual_pet_status(pet) == "Pending" %>
-    <%= button_to "Approve Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"}, local: true, data: {turbo: false} %>
-    <%= button_to "Reject Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Rejected"}, local: true, data: {turbo: false} %>
-    <br>
-  <% end %>
-  <% end  %>
+    <% if @application.individual_pet_status(pet) == "Pending" %>
+      <%= button_to "Approve Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"}, local: true, data: {turbo: false} %>
+      <%= button_to "Reject Adoption", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Rejected"}, local: true, data: {turbo: false} %>
+      <br>
+    <% end %>
 </section>
+  <% end  %>

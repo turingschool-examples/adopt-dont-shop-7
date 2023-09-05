@@ -35,7 +35,7 @@ RSpec.describe "Admin Applications Show Page" do
     it "shows all pets on the application" do
       visit "/admin/applications/#{@cory.id}"
 
-      within("#pets_applied_for") do 
+      within("#pet_applied_for-#{@pet_1.id}") do 
         expect(page).to have_content(@pet_1.name)
       end
     end 
@@ -44,14 +44,14 @@ RSpec.describe "Admin Applications Show Page" do
       it "sets pet application status to 'Approved' when button is clicked" do
         visit "/admin/applications/#{@cory.id}"
 
-        within("#pets_applied_for") do
+        within("#pet_applied_for-#{@pet_1.id}") do
           expect(page).to have_button("Approve Adoption")
           expect(page).to have_content("Pending")
         end
 
         click_button("Approve Adoption")
 
-        within("#pets_applied_for") do
+        within("#pet_applied_for-#{@pet_1.id}") do
           expect(page).to_not have_button("Approve Adoption")
           expect(page).to have_content("Approved")
         end
@@ -60,17 +60,36 @@ RSpec.describe "Admin Applications Show Page" do
       it "sets pet application status to 'Rejected' when button is clicked" do
         visit "/admin/applications/#{@cory.id}"
 
-        within("#pets_applied_for") do
+        within("#pet_applied_for-#{@pet_1.id}") do
           expect(page).to have_button("Reject Adoption")
           expect(page).to have_content("Pending")
+          click_button("Reject Adoption")
         end
 
-        click_button("Reject Adoption")
-
-        within("#pets_applied_for") do
+        within("#pet_applied_for-#{@pet_1.id}") do
           expect(page).to_not have_button("Reject Adoption")
           expect(page).to have_content("Rejected")
         end
+      end
+
+      it "does not affect other applications when approving/rejecting" do
+        visit "admin/applications/#{@antoine.id}"
+        
+        within("#pet_applied_for-#{@pet_3.id}") do
+          expect(page).to have_button("Reject Adoption")
+          expect(page).to have_content("Pending")
+          click_button("Reject Adoption")
+          expect(page).to have_content("Rejected")
+        end
+      
+        visit "admin/applications/#{@jeff.id}"
+
+        within("#pet_applied_for-#{@pet_3.id}") do
+          expect(page).to have_content("Pending")
+        end
+
+        
+
       end
     end
   end
