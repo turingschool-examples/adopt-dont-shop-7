@@ -19,4 +19,9 @@ class PetsApplication < ApplicationRecord
     #   "In Progress"
     end
   end
+
+  def self.all_apps_for_applicant(application)
+    where('applicant_id = ?', application.applicant_id)
+  end
+
 end

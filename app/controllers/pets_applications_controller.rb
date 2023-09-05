@@ -42,7 +42,7 @@ class PetsApplicationsController < ApplicationController
     if params[:status].nil?
       PetsApplication.create!(applicant_id: application.applicant_id, pet_id: params[:pet])
     else
-      all_apps = PetsApplication.where('applicant_id = ?', application.applicant_id)
+      all_apps = PetsApplication.all_apps_for_applicant(application)
       all_apps.each { |app| app.update(status: "Pending")}
     end
   end
