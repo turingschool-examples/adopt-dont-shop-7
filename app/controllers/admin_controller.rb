@@ -16,6 +16,6 @@ class AdminController < ActionController::Base
     @application.first.update(status: params[:status])
     @applicant = Applicant.find(params[:applicant_id])
     @status = PetsApplication.check_app_status(@applicant)
-    redirect_to "/admin/applications/#{@application.first.id}"
+    redirect_to "/admin/pets_applications/#{@application.first.id}"
   end
 end

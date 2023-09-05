@@ -12,7 +12,7 @@ RSpec.describe "admin application show page" do
     application = PetsApplication.create!(applicant: dude, pet: pet_1, status: "Pending")
     application_1 = PetsApplication.create!(applicant: jane, pet: pet_2)
 
-    visit "/admin/applications/#{application.id}"
+    visit "/admin/pets_applications/#{application.id}"
 
     expect(page).to have_content(dude.name)
     expect(page).to have_content(pet_1.name)
@@ -34,7 +34,7 @@ RSpec.describe "admin application show page" do
     application = PetsApplication.create!(applicant: dude, pet: pet_1, status: "Pending")
     application_1 = PetsApplication.create!(applicant: jane, pet: pet_2)
 
-    visit "/admin/applications/#{application.id}"
+    visit "/admin/pets_applications/#{application.id}"
 
     expect(page).to have_content(dude.name)
     expect(page).to have_content(pet_1.name)
@@ -56,7 +56,7 @@ RSpec.describe "admin application show page" do
     application = PetsApplication.create!(applicant: dude, pet: pet_1, status: "Pending")
     application_1 = PetsApplication.create!(applicant: jane, pet: pet_2)
 
-    visit "/admin/applications/#{application.id}"
+    visit "/admin/pets_applications/#{application.id}"
 
     expect(page).to have_content("Application Status: Pending")
     expect(page).to have_content(dude.name)
