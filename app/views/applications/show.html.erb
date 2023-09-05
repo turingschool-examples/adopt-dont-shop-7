@@ -33,7 +33,7 @@
             <p> No Results Found </p>
     <% end %>
 <% end %>
-<% if !@application.pets.empty? %>
+<% if !@application.pets.empty? && @application.status == "In Progress" %>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
       <%= form.label :reason_for_adoption, "Please explain why you would make a good home for these pets" %>
       <%= form.text_area :reason_for_adoption %><br>
