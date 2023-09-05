@@ -36,11 +36,16 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    application.update({ 
-      adoption_reason: params[:adoption_reason],
-      status: "Pending"
-    })
-    
-    redirect_to "/applications/#{application.id}"
+    if params[:adoption_reason].empty?
+      redirect_to "/applications/#{application.id}"
+      flash[:alert] = "Error: Adoption reason field cannot be empty"
+    else
+      application.update({ 
+        adoption_reason: params[:adoption_reason],
+        status: "Pending"
+      })
+      
+      redirect_to "/applications/#{application.id}"
+    end
   end
 end
