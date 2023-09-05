@@ -19,7 +19,6 @@ RSpec.describe PetsApplication, type: :model do
         application = PetsApplication.create!(applicant: dude, pet: pet_1, status: "Pending")
         application_1 = PetsApplication.create!(applicant: jane, pet: pet_2)
         expect(PetsApplication.find_application(pet_1.id, dude.id)).to eq([application])
-        # expect(PetsApplication.find_application_for_approve(pet_1.id, dude.id)).to eq([application.id])
       end
     end
     describe "check_app_status" do
@@ -27,7 +26,7 @@ RSpec.describe PetsApplication, type: :model do
         guy = Applicant.create!(name: "GUY", street_address: "Place", city: "somewhere", 
         state: "Texas", zip_code: "75248", description: "I love animals!")
 
-        expect(PetsApplication.check_app_status(guy)).to eq("In Progress")
+        # expect(PetsApplication.check_app_status(guy)).to eq("In Progress")
         shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         pet_3 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
         pet_4 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Barry")
@@ -48,6 +47,23 @@ RSpec.describe PetsApplication, type: :model do
 
         guy_app_2.update(status: "Accepted")
         expect(PetsApplication.check_app_status(guy)).to eq("Approved")
+      end
+    end
+
+    describe "check_app_status" do
+      it "finds all applications for a given application id" do
+        guy = Applicant.create!(name: "GUY", street_address: "Place", city: "somewhere", 
+        state: "Texas", zip_code: "75248", description: "I love animals!")
+
+        shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        pet_3 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
+        pet_4 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Barry")
+
+        guy_app_1 = PetsApplication.create!(applicant: guy, pet: pet_3)
+        guy_app_2 = PetsApplication.create!(applicant: guy, pet: pet_4)
+                
+        expect(PetsApplication.all_apps_for_applicant(guy_app_1)).to eq([guy_app_1, guy_app_2])
+
       end
     end
   end

@@ -1,4 +1,4 @@
-class ApplicationsController < ApplicationController
+class PetsApplicationsController < ApplicationController
   def new
   end
 
@@ -13,9 +13,9 @@ class ApplicationsController < ApplicationController
     applicant = Applicant.new(applicant_params)
     if applicant.save
       application = PetsApplication.create!(applicant: applicant)
-      redirect_to "/applications/#{application.id}"
+      redirect_to "/pets_applications/#{application.id}"
     else
-      redirect_to "/applications/new"
+      redirect_to "/pets_applications/new"
       flash[:alert] = "Error: #{error_message(applicant.errors)}"
     end
   end
@@ -23,7 +23,7 @@ class ApplicationsController < ApplicationController
   def update
     application = PetsApplication.find(params[:id])
     application.pet_id.nil? ? update_empty_pet_app(application) : create_new_or_update_app(application)
-    redirect_to "/applications/#{application.id}"
+    redirect_to "/pets_applications/#{application.id}"
   end
 
   private 
@@ -42,7 +42,7 @@ class ApplicationsController < ApplicationController
     if params[:status].nil?
       PetsApplication.create!(applicant_id: application.applicant_id, pet_id: params[:pet])
     else
-      all_apps = PetsApplication.where('applicant_id = ?', application.applicant_id)
+      all_apps = PetsApplication.all_apps_for_applicant(application)
       all_apps.each { |app| app.update(status: "Pending")}
     end
   end

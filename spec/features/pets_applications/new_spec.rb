@@ -4,7 +4,7 @@ RSpec.describe "application creation" do
   describe "new applicant" do
     it "renders the new applicant form" do
 
-    visit "/applications/new"
+    visit "/pets_applications/new"
 
     expect(page).to have_content("New Adoption Application")
     expect(find("form")).to have_content("Name")
@@ -18,7 +18,7 @@ RSpec.describe "application creation" do
   describe "the application form" do
     it "fills out the form and is redirected to the show page" do
 
-      visit "/applications/new"
+      visit "/pets_applications/new"
 
       fill_in "Name", with: "James"
       fill_in "Street Address", with: "11234 Jane Street"
@@ -27,7 +27,6 @@ RSpec.describe "application creation" do
       fill_in "Zip Code", with: "75248"
       fill_in "Description", with: "I love animals!"
       click_button "Submit Application"
-      # expect(page).to have_current_path("/applicants/#{@applicant.id}")
       expect(page).to have_content("James")
       expect(page).to have_content("11234 Jane Street")
       expect(page).to have_content("Dallas")
@@ -40,7 +39,7 @@ RSpec.describe "application creation" do
   describe "the application form" do
     it "if part of the application does not have an input, an error message will display" do
 
-      visit "/applications/new"
+      visit "/pets_applications/new"
 
       fill_in "Name", with: "James"
       fill_in "Street Address", with: "11234 Jane Street"

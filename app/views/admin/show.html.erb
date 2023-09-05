@@ -1,16 +1,16 @@
 <h1><%= @applicant.name %></h1>
 <% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
+  <h3><%= pet.name %>:
   <% if pet.status == "Pending" %>
-    <%= form_with url:"/admin/applications/#{@application.id}?status=Accepted&pet_id=#{pet.id}&applicant_id=#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
+    <%= form_with url:"/admin/pets_applications/#{@application.id}?status=Accepted&pet_id=#{pet.id}&applicant_id=#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
     <% form.label :approve %>  
       <%= form.submit "Approve" %>
     <% end %>
-    <%= form_with url:"/admin/applications/#{@application.id}?status=Rejected&pet_id=#{pet.id}&applicant_id=#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
+    <%= form_with url:"/admin/pets_applications/#{@application.id}?status=Rejected&pet_id=#{pet.id}&applicant_id=#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
       <%= form.submit "Reject" %>
     <% end %>
   <% else %>
-    <h3><%= pet.status %></h3>
+    <%= pet.status %></h3>
   <% end %>
 <% end %>
-<h1>Appliction Status: <%= @status %></h1>
+<h1>Application Status: <%= @status %></h1>
