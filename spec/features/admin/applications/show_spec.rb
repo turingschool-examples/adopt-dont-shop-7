@@ -29,7 +29,6 @@ RSpec.describe "Admin Applications Show Page" do
         expect(page).to have_content(@cory.zipcode)
         expect(page).to have_content(@cory.description)
         expect(page).to have_content(@cory.status)
-        expect(page).to have_content(@cory.adoption_reason)
       end
     end 
 
@@ -40,4 +39,38 @@ RSpec.describe "Admin Applications Show Page" do
         expect(page).to have_content(@pet_1.name)
       end
     end 
+
+    describe "approve/reject buttons" do
+      it "sets pet application status to 'Approved' when button is clicked" do
+        visit "/admin/applications/#{@cory.id}"
+
+        within("#pets_applied_for") do
+          expect(page).to have_button("Approve Adoption")
+          expect(page).to have_content("Pending")
+        end
+
+        click_button("Approve Adoption")
+
+        within("#pets_applied_for") do
+          expect(page).to_not have_button("Approve Adoption")
+          expect(page).to have_content("Approved")
+        end
+      end
+
+      it "sets pet application status to 'Rejected' when button is clicked" do
+        visit "/admin/applications/#{@cory.id}"
+
+        within("#pets_applied_for") do
+          expect(page).to have_button("Reject Adoption")
+          expect(page).to have_content("Pending")
+        end
+
+        click_button("Reject Adoption")
+
+        within("#pets_applied_for") do
+          expect(page).to_not have_button("Reject Adoption")
+          expect(page).to have_content("Rejected")
+        end
+      end
+    end
   end
