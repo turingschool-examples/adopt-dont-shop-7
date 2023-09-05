@@ -13,6 +13,7 @@ RSpec.describe "application creation" do
     fill_in('City', with: 'Somewhere')
     fill_in('State', with: "Colorado")
     fill_in('Zip', with: '01234')
+    fill_in('Description', with: "I love pets!")
     click_button('Submit')
     #assert
     expect(page).to have_content("John")
@@ -22,6 +23,7 @@ RSpec.describe "application creation" do
     expect(page).to have_content("01234")
     # expect(page).to have_content(application.pet_names)
     expect(page).to have_content("In Progress")
+    expect(page).to have_content("I love pets!")
   end
 
   it "denies the application if the form is not filled out correctly" do
