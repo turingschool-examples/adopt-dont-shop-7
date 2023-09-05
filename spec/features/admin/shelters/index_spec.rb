@@ -11,8 +11,8 @@ RSpec.describe "Admin Shelter Index page", type: :feature do
     @bare = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Bare-y Manilow", shelter_id: @shelter_1.id)
     @lobster = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter_3.id)
     
-    @bare_app = @homer.pet_applications.create!(pet_id: @bare.id, status: "Pending")
-    @lobster_app = @homer.pet_applications.create!(pet_id: @lobster.id, status: "In Progress")
+    @bare_app = @peter.pet_applications.create!(pet_id: @bare.id, status: "Pending")
+    @lobster_app = @peter.pet_applications.create!(pet_id: @lobster.id, status: "In Progress")
   end
 
   

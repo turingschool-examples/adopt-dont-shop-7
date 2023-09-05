@@ -1,0 +1,19 @@
+<h3>Admin</h3>
+<h1>Shelters</h1>
+
+<div id="all-shelters">
+  <% @shelters.each do |shelter| %>
+    <div id="shelter-<%= shelter.id %>">
+      <h3><%= link_to shelter.name, "/shelters/#{shelter.id}" %></h3>
+      <p>Created at: <%= shelter.created_at %></p>
+    </div>
+  <% end %>
+</div>
+
+
+<div id="pending-applications">
+  <h2>Shelters with Pending Applications</h2>
+  <% Shelter.pending_applications.each do |shelter| %>
+    <p><%= shelter.name %></p>
+  <% end %>
+</div>

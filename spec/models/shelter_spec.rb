@@ -71,7 +71,7 @@ RSpec.describe Shelter, type: :model do
 
   describe ".pending_applications" do
     it "finds pending application pet applications" do
-      homer = Application.create!(name: "Homer Simpson", street: "432 Evergreen Terrace", city: "Springfield", state: "OR", zip: "89234", description: "I really want a dog because I love dogs", status: "In Progress")
+      homer = Application.create!(name: "Homer Simpson", street: "432 Evergreen Terrace", city: "Springfield", state: "OR", zip_code: "89234", description: "I really want a dog because I love dogs", status: "In Progress")
       homer.pet_applications.create!(pet_id: @pet_1.id, status: "Pending")
       homer.pet_applications.create!(pet_id: @pet_3.id, status: "In Progress")
     
