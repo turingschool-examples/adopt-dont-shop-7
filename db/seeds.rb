@@ -7,6 +7,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 application1 = Application.create(applicant_name: "Thomas Jefferson", street_address: "123 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm on a fiver", status: "In Progress")
+application2 = Application.create(applicant_name: "Benjamin Franklin", street_address: "456 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I like turkeys", status: "Pending")
+application3 = Application.create(applicant_name: "Alexander Hamilton", street_address: "789 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm smart af", status: "In Progress")
 
 shelter1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 shelter2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -17,3 +19,8 @@ pet2 = shelter1.pets.create(name: "Demeter", breed: "Golden Retriever", age: 4, 
 pet3 = shelter2.pets.create(name: "Hades", breed: "Doberman", age: 3, adoptable: true)
 pet4 = shelter2.pets.create(name: "Apollo", breed: "German Shepherd", age: 2, adoptable: false)
 pet5 = shelter3.pets.create(name: "zeus2", breed: "German Shepherd", age: 2, adoptable: true)
+
+application2.pets << pet1
+application2.pets << pet2
+application2.pets << pet5
+
