@@ -77,13 +77,13 @@ RSpec.describe "Application Show", type: :feature do
 
             expect(page).to have_content("Add a Pet to this Application")
 
-            fill_in "Search for pets by name", with: "Tony the Tiger"
+            fill_in "Search for pets by name", with: "Cheesecake"
 
-            click_button "Search"
+            click_button "Submit"
 
             expect(current_path).to eq("/applications/#{application.id}")
 
-            expect(page).to have_content("Tony the Tiger")
+            expect(page).to have_content("Cheesecake")
           end
         end
       end

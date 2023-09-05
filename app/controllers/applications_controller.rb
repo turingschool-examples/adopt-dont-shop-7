@@ -1,8 +1,9 @@
 class ApplicationsController < ApplicationController
   def show
-    require "pry"
-    binding.pry
     @application = Application.find(params[:id])
+    if params[:search] == "pet"
+      @searched_pets = Pet.where(name: "#{params[:pet_name]}")
+    end
   end
 
   def new

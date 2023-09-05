@@ -24,8 +24,15 @@
 
 <h2>Add a Pet to this Application</h2>
 
-<p>Search for pets by name</p>
-<form class="example" action="/applications/:id">
-  <input type="text" name="pet_name" placeholder="Search for pets by name">
-  <%= submit_tag "Search" %>
-</form>
+<%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
+  <%= form.hidden_field :search, value: "pet" %>
+  <%= form.label :pet_name, "Search for pets by name" %>
+  <%= form.text_field :pet_name %>
+  <%= form.submit "Submit" %>
+<% end %>
+
+<% if !@searched_pets.nil? %>
+  <% @searched_pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end %>
