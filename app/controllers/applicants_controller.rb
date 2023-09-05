@@ -5,11 +5,13 @@ class ApplicantsController < ApplicationController
   
   def show
     @applicant = Applicant.find(params[:id])
+    @pets = Pet.all
     # require 'pry';binding.pry
-    if Pet.where(params[:name]).present?
-      @pets = Pet.search(params[:name])
+    if params[:name].present? 
+      @results = @pets.search(params[:name]) 
+      @search = params[:name]
+      # redirect_to "/applicants/#{@applicant.id}"
     end
-    # Pet.where("name LIKE ?", "%#{params[:search_name]}%")
   end
 
   def new
