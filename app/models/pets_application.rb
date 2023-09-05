@@ -14,16 +14,21 @@ class PetsApplication < ApplicationRecord
     where("applicant_id = ? AND pet_id = ?", app_id, pet_id)
   end
 
-  def self.check_overall_status(app)
-    uniformity = joins(:applicant)
-                .where("pets_applications.applicant_id = #{app.id}")
-                .select('status')
-                .distinct
-                .count
-    if uniformity == 1
-      true
+  # def self.check_if_pending(app)
+  #   PetsApplication.joins(:applicant).where('applicant_id = ?', app.id).exists?(status: "Pending")
+  # end
+
+  # def self.check_if_rejected(app)
+  #   PetsApplication.joins(:applicant).where('applicant_id = ?', app.id).exists?(status: "Rejected")
+  # end
+
+  def self.check_app_status(applicant)
+    if PetsApplication.joins(:applicant).where('applicant_id = ?', applicant.id).exists?(status: "Pending")
+      @status = "Pending"
+    elsif PetsApplication.joins(:applicant).where('applicant_id = ?', applicant.id).exists?(status: "Rejected")
+      @status = "Rejected"
     else
-      false
+      @status = "Approved"
     end
   end
 end
