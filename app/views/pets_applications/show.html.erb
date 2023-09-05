@@ -13,14 +13,14 @@
 <section>
 <% if @application.status == "In Progress" %>
   <h2>Add a Pet to this Application</h2>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
+  <%= form_with url: "/pets_applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
     <%= form.label :search %>
     <%= form.text_field :search %>
     <%= form.submit "Search" %>
   <% end %>
   </section>
   <% @searched_pets.each do |pet| %>
-    <%= pet.name %><%= form_with url: "/applications/#{@application.id}?pet=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>  
+    <%= pet.name %><%= form_with url: "/pets_applications/#{@application.id}?pet=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>  
 
       <%= form.submit "Adopt this pet?" %>
     <% end %>
@@ -29,7 +29,7 @@
 <% end %>
 
 <% if !@pets.empty? && @application.status == "In Progress" %>
-  <%= form_with url: "/applications/#{@application.id}?status=submit", method: :patch, data: { turbo: false } do |form| %>
+  <%= form_with url: "/pets_applications/#{@application.id}?status=submit", method: :patch, data: { turbo: false } do |form| %>
     <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>
