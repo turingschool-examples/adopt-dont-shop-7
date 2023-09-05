@@ -15,7 +15,4 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def pets_status(application)
-    pet_application = PetApplication.where(pet_id: self.id, application_id: application.id).first.status
-  end
 end

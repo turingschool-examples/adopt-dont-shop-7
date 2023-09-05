@@ -9,9 +9,9 @@
 
 <section id="pets_applied_for">
   <h3>Pets Applied For</h3>
-  <% @pets.each do |pet| %>
+  <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-      <h3><%= pet.name %> Adoption Approval Status: <h3 style="color:red"><%= pet.pets_status(@application) %> </h3>
+      <h3><%= pet.name %> Adoption Approval Status: <h3 style="color:red"><%= @application.individual_pet_status(pet) %> </h3>
   <% end  %>
 </section>
 

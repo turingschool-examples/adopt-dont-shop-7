@@ -48,12 +48,5 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
-    
-    describe ".pets_status" do
-      it "returns the status of the pet on the specific application" do
-        expect(@pet_1.pets_status(@cory)).to eq("Pending")
-        expect(@pet_1.pets_status(@antoine)).to eq("Rejected")
-      end
-    end
   end
 end
