@@ -5,7 +5,13 @@ class ApplicantsController < ApplicationController
   
   def show
     @applicant = Applicant.find(params[:id])
-    # @pets = Pet.find(params[:id])
+    @pets = Pet.all
+    # require 'pry';binding.pry
+    if params[:name].present? 
+      @results = @pets.search(params[:name]) 
+      @search = params[:name]
+      # redirect_to "/applicants/#{@applicant.id}"
+    end
   end
 
   def new
@@ -13,7 +19,6 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-  # require 'pry';binding.pry
     applicant = Applicant.new(applicant_params)
     if applicant.save
       redirect_to "/applicants/#{applicant.id}"

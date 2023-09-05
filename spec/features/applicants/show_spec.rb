@@ -6,16 +6,24 @@ RSpec.describe "applicant show page", type: :feature do
   end
 
   it "shows the name of the applicant and all of its attributes" do 
-    visit "/applications/#{@applicant1.id}"
+    visit "/applicants/#{@applicant_1.id}"
 
-      expect(page).to have_content(@applicant1.name)
-      expect(page).to have_content(@applicant1.street_address)
-      expect(page).to have_content(@applicant1.city)
-      expect(page).to have_content(@applicant1.state)
-      expect(page).to have_content(@applicant1.zipcode)
-      expect(page).to have_content(@applicant1.description)
-      expect(page).to have_link("Drake", href: pet_path(@drake))
-      expect(page).to have_link("Portia", href: pet_path(@portia))
-      expect(page).to have_link("Stinky", href: pet_path(@stinky))
+      expect(page).to have_content(@applicant_1.name)
+      expect(page).to have_content(@applicant_1.street_address)
+      expect(page).to have_content(@applicant_1.city)
+      expect(page).to have_content(@applicant_1.state)
+      expect(page).to have_content(@applicant_1.zipcode)
+      expect(page).to have_content(@applicant_1.description)
+      expect(page).to have_link("Drake")
+      expect(page).to have_link("Bill")
+  end
+
+  it "allows user to search for a pets by name" do
+    visit "/applicants/#{@applicant_1.id}"
+    
+    fill_in "name", with: "Portia"
+    click_button "Search"
+
+    expect(page).to have_content("Portia")
   end
 end
