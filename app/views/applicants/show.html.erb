@@ -14,11 +14,23 @@
 
 <h3>Add A Pet To This Appplication</h3>
 
-<div class="add_pet"> 
-  <%= form_with url: "/applicants/#{:id}", method: :get do |form| %>
-    <p><%= form.label :name %>
-    <%= form.text_field :name %></p>
-    <%= form.submit 'Search' %>
-  <% end %>
+<div class="search_pet"> 
+<%= form_with url: "/applicants/#{:id}", method: :get, data: { turbo: false } do |form| %>
+  <p><%= form.label :name %>
+  <%= form.text_field :name %></p>
+  <%= form.submit 'Search' %>
+<% end %>
+  <% if @pets != nil %>
+   <% @pets.each do |pet| %>
+    <div class="add_pet">
+      <form_with url:"/pet_applicants/", method: :post, data: { turbo: false } do |form| %>
+        <%= pet.name %>
+        <%= form.hidden_field :pet_id, value: pet.id %>
+        <%= form.hidden_field :applicant_id, value: @applicant.id %>
+       <%= form.submit "Apply For This Pet" %>
+      <% end %>
+    </div>
+   <% end %>
 </div>
   
+
