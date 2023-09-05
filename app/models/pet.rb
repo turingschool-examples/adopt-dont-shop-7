@@ -16,6 +16,6 @@ class Pet < ApplicationRecord
   end
 
   def pets_status(application)
-    pet_Application = PetApplication.where(pet_id: self.id, application_id: application.id).first.status
+    pet_application = PetApplication.where(pet_id: self.id, application_id: application.id).first.status
   end
 end
