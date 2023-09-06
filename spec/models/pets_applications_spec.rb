@@ -33,6 +33,8 @@ RSpec.describe PetsApplication, type: :model do
 
         guy_app_1 = PetsApplication.create!(applicant: guy, pet: pet_3)
         guy_app_2 = PetsApplication.create!(applicant: guy, pet: pet_4)
+
+        expect(PetsApplication.check_app_status(guy)).to eq("In Progress")
         
         guy_app_1.update(status: "Pending")
         guy_app_2.update(status: "Pending")
