@@ -100,7 +100,61 @@ RSpec.describe "Admin show" do
       click_button "Approve Application"
       expect(page).to have_content("Application Approved")
     end
-save_and_open_page
+
     expect(page).to have_content("Status: Approved")
+  end
+
+  it "does not affect other petapplications when one is accepted" do
+
+    visit "/admin/applications/#{@applicant_1.id}"
+
+    within "#pet-#{@pet_1.id}" do
+      expect(page).to have_content("Approve Application")
+      expect(page).to have_content("Reject Application")
+    end
+
+    visit "/admin/applications/#{@applicant_1.id}"
+
+    within "#pet-#{@pet_1.id}" do
+      expect(page).to have_button("Approve Application")
+      expect(page).to have_button("Reject Application")
+      click_button("Approve Application")
+      expect(page).to_not have_button("Approve Application")
+      expect(page).to_not have_button("Reject Application")
+    end
+
+    visit "/admin/applications/#{@applicant_2.id}"
+
+    within "#pet-#{@pet_1.id}" do
+      expect(page).to have_content("Approve Application")
+      expect(page).to have_content("Reject Application")
+    end
+  end
+
+  it "does not affect other pet applications when one is rejected" do
+    
+    visit "/admin/applications/#{@applicant_2.id}"
+
+    within "#pet-#{@pet_1.id}" do
+      expect(page).to have_content("Approve Application")
+      expect(page).to have_content("Reject Application")
+    end
+
+    visit "/admin/applications/#{@applicant_1.id}"
+
+    within "#pet-#{@pet_1.id}" do
+      expect(page).to have_button("Approve Application")
+      expect(page).to have_button("Reject Application")
+      click_button("Reject Application")
+      expect(page).to_not have_button("Approve Application")
+      expect(page).to_not have_button("Reject Application")
+    end
+
+    visit "/admin/applications/#{@applicant_2.id}"
+
+    within "#pet-#{@pet_1.id}" do
+      expect(page).to have_content("Approve Application")
+      expect(page).to have_content("Reject Application")
+    end
   end
 end
