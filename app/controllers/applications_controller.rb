@@ -1,12 +1,11 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    if params[:search] == "pet"
-      @searched_pets = Pet.where(name: "#{params[:pet_name]}")
+    if params[:search] == "pet" && params[:pet_name].present?
+      search_query = params[:pet_name]
+      @searched_pets = Pet.where("name LIKE ?", "%#{search_query}%")
     else
-      params[:search].present?
-      new_search = params[:search]
-      @searched_pets = Pet.where("name LIKE ?", "%#{new_search}%")
+      @searched_pets = []
     end
   end
 
