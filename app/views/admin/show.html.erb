@@ -1,14 +1,27 @@
-<h1><%= @applicant.name %></h1>
+<%= render partial: "/layouts/applicant", locals: {
+  name: @applicant.name,
+  street_address: @applicant.street_address,
+  city: @applicant.city,
+  state: @applicant.state,
+  zip_code: @applicant.zip_code,
+  description: @applicant.description
+} %>
+<h1>Pets On this Application:</h1>
 <% @pets.each do |pet| %>
   <h3><%= pet.name %>:
-  <% if pet.status == "Pending" %>
-    <%= form_with url:"/admin/pets_applications/#{@application.id}?status=Accepted&pet_id=#{pet.id}&applicant_id=#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
-    <% form.label :approve %>  
-      <%= form.submit "Approve" %>
-    <% end %>
-    <%= form_with url:"/admin/pets_applications/#{@application.id}?status=Rejected&pet_id=#{pet.id}&applicant_id=#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
-      <%= form.submit "Reject" %>
-    <% end %>
+  <% if pet.status == "Pending" || pet.status == "In Progress" %>
+    <%= render partial: 'button', locals: 
+      {
+        url: "/admin/pets_applications/#{@application.id}?status=Accepted&pet_id=#{pet.id}&applicant_id=#{@applicant.id}",
+        method: :patch,
+        button_text: "Approve"
+      } %>
+    <%= render partial: 'button', locals: 
+      {
+        url: "/admin/pets_applications/#{@application.id}?status=Rejected&pet_id=#{pet.id}&applicant_id=#{@applicant.id}",
+        method: :patch,
+        button_text: "Reject"
+      } %>
   <% else %>
     <%= pet.status %></h3>
   <% end %>

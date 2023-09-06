@@ -19,4 +19,12 @@ class Pet < ApplicationRecord
     JOIN applicants on applicants.id = pets_applications.applicant_id 
     WHERE pets_applications.applicant_id = #{application.applicant_id}")
   end
+
+  def self.change_pet_status(applicant)
+    if PetsApplication.check_app_status(applicant) == "Approved"
+      pets = applicant.pets
+      pets.update!(adoptable: false)
+    end
+    
+  end
 end

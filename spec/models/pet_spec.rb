@@ -70,4 +70,31 @@ RSpec.describe Pet, type: :model do
       expect(@pet_1.applicants).to eq([applicant_1])
     end
   end
+
+  describe "change_pet_status" do
+    it "changes status of all pets on an application to false only if all pets have been Approved for adoption" do
+      applicant_1 = Applicant.create!(name: "Josh", street_address: "21546", city: "kdjfk", state: "tx", zip_code: "1233", description: "124651")
+      shelter_2 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      pet_5 = shelter_2.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+      pet_6 = shelter_2.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+      app_1 = PetsApplication.create!(applicant: applicant_1, pet: pet_5)
+      app_2 = PetsApplication.create!(applicant: applicant_1, pet: pet_6)
+
+      expect(pet_5.adoptable).to eq(true)
+      expect(pet_6.adoptable).to eq(true)
+
+      Pet.change_pet_status(applicant_1)
+
+      expect(pet_5.adoptable).to eq(true)
+      expect(pet_6.adoptable).to eq(true)
+
+      app_1.update(status: "Accepted")
+      app_2.update(status: "Accepted")
+
+      Pet.change_pet_status(applicant_1)
+      
+      expect(applicant_1.pets.first.adoptable).to eq(false)
+      expect(applicant_1.pets.second.adoptable).to eq(false)
+    end
+  end
 end
