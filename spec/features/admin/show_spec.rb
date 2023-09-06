@@ -106,7 +106,7 @@ RSpec.feature "Admin Application Show", type: :feature do
 
         application.pets << [pet_1, pet_2, pet_3]
 
-        visit "/admin/applications/#{applcation.id}"
+        visit "/admin/applications/#{application.id}"
 
         pets.each do |pet|
           expect(page).to have_button("Reject #{pet.name}")

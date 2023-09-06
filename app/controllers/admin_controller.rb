@@ -3,4 +3,7 @@ class AdminController < ApplicationController
     @shelters = Shelter.alphabetical_sort
     @shelters_pending = Shelter.pending_applications
   end
+
+  def show
+  end
 end
