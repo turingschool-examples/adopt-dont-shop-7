@@ -199,6 +199,9 @@ describe "Application search and add pet" do
     
     visit "/applications/#{@applicant_1.id}"
 
+    expect(page).to_not have_content("porter")
+    expect(page).to_not have_content("juniper")
+    expect(page).to_not have_content("Hank")
     expect(page).not_to have_button("Submit")
   end
 
@@ -221,5 +224,6 @@ describe "Application search and add pet" do
     click_button("Search")
 
     expect(page).to have_content(@porter.name)
+    expect(page).to_not have_content(@juniper.name)
   end
 end
