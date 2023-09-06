@@ -58,5 +58,24 @@ RSpec.describe "the admin/applications/:id show page" do
         expect(page).to have_content("*Rejected")
       end
     end
+
+    # US 14
+    it "approving a pet on an application will not affect the same pet on other applications" do
+      @application_1 = Application.create!(name: "Daniel Joes", street_address: "999 Side st", city: "Daniel", state: "KY", zip_code: "20004", description: "I'm broke.", status: "Pending")
+      PetApplication.create!(pet: @pet, application: @application_1)
+
+      click_button("Approve", match: :first)
+
+      within("#pet-#{@pet.id}") do
+        expect(page).to have_content("*Approved")
+      end
+
+      visit "/admin/applications/#{@application_1.id}"
+    
+      within("#pet-#{@pet.id}") do
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+      end
+    end
   end
 end
