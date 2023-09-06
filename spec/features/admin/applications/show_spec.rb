@@ -13,7 +13,7 @@ RSpec.describe "Admin show" do
       zip_code: '80020', 
       reason_for_adoption: "I want the pig",
       status: "Pending"
-      )
+    )
     @applicant_2 = Application.create!(name: 'Tyler', 
       street_address: '1234 main st.', 
       city: 'Westminster', 
@@ -21,7 +21,7 @@ RSpec.describe "Admin show" do
       zip_code: '80020', 
       reason_for_adoption: "I want the pig",
       status: "Pending"
-      )
+    )
     PetApplication.create!(pet_id: @pet_1.id, application_id: @applicant_1.id, application_status: "Pending")
     PetApplication.create!(pet_id: @pet_1.id, application_id: @applicant_2.id, application_status: "Pending")
     PetApplication.create!(pet_id: @pet_2.id, application_id: @applicant_2.id, application_status: "Pending")
