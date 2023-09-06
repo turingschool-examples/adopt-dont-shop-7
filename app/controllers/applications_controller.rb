@@ -16,7 +16,7 @@ class ApplicationsController < ApplicationController
       city: params[:city],
       state: params[:state],
       zip_code: params[:zip_code],
-      description: params[:description],
+      owner_description: params[:description],
       pets: [],
       status: "In Progress"
     })
@@ -27,5 +27,15 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: You must fill in all fields"
       render :new
     end
+  end
+
+  def update
+    application = Application.find(params[:id])
+    application.update({
+      status: "Pending",
+      pet_description: params[:pet_description]
+      })
+
+    redirect_to "/applications/#{application.id}"
   end
 end
