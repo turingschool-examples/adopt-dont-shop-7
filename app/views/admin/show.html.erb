@@ -2,13 +2,18 @@
 <% @pets.each do |pet| %>
   <h3><%= pet.name %>:
   <% if pet.status == "Pending" %>
-    <%= form_with url:"/admin/pets_applications/#{@application.id}?status=Accepted&pet_id=#{pet.id}&applicant_id=#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
-    <% form.label :approve %>  
-      <%= form.submit "Approve" %>
-    <% end %>
-    <%= form_with url:"/admin/pets_applications/#{@application.id}?status=Rejected&pet_id=#{pet.id}&applicant_id=#{@applicant.id}", method: :patch, data: { turbo: false } do |form| %>
-      <%= form.submit "Reject" %>
-    <% end %>
+    <%= render partial: 'button', locals: 
+      {
+        url: "/admin/pets_applications/#{@application.id}?status=Accepted&pet_id=#{pet.id}&applicant_id=#{@applicant.id}",
+        method: :patch,
+        button_text: "Approve"
+      } %>
+    <%= render partial: 'button', locals: 
+      {
+        url: "/admin/pets_applications/#{@application.id}?status=Rejected&pet_id=#{pet.id}&applicant_id=#{@applicant.id}",
+        method: :patch,
+        button_text: "Reject"
+      } %>
   <% else %>
     <%= pet.status %></h3>
   <% end %>
