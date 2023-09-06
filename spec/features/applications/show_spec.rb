@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "the application show" do
-  describe 'when visiting /applications/:id/show' do
+  describe 'when visiting /applications/:id' do
     scenario 'US1 displays all application info' do
       application = Application.create!(applicant_name: "Thomas Jefferson", street_address: "123 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm on a fiver", status: "In Progress")
       shelter1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
@@ -50,14 +50,14 @@ RSpec.feature "the application show" do
       visit "/applications/#{application.id}"
 
       expect(page).to have_content("Add a Pet to this Application")
-
+      
       fill_in "pet_name", with: "Zeus"
       click_button "Search"
 
       expect(page).to have_content("Zeus")
       expect(page).to_not have_content("Demeter")
       expect(page).to have_button("Adopt this Pet")
-
+      
       click_button "Adopt this Pet"
 
       expect(page).to have_content(application.pets.name)
