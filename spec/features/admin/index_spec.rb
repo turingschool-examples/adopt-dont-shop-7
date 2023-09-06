@@ -17,4 +17,15 @@ RSpec.describe "the shelters index" do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to have_content(@shelter_3.name)
   end
+
+  it "lists all the shelter names in reverse alphabetical order" do
+    visit "/admin/shelters"
+
+    end_of = find("#shelter-#{@shelter_2.id}")
+    mid_of = find("#shelter-#{@shelter_3.id}")
+    start_of = find("#shelter-#{@shelter_1.id}")
+
+    expect(end_of).to appear_before(mid_of)
+    expect(mid_of).to appear_before(start_of)
+  end
 end
