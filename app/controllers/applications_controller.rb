@@ -1,8 +1,5 @@
 class ApplicationsController < ApplicationController
-  def index
-  end
-  
-  
+ 
   def show
     @application = Application.find(params[:app_id])
 
@@ -29,13 +26,12 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:app_id])
-    
+
     application.update(
       description: params[:reason],
       status: params[:app_status]
     )
-
-    application.save
+    
     redirect_to "/applications/#{application.id}"
   end
 

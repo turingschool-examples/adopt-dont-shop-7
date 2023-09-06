@@ -9,10 +9,15 @@
 <%if !@application.pets.empty? %>
   <% @application.pets.each do |pet| %>
     <h5><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get%></h5>
-    <p>Age: <%= pet.age %></p>
-    <p>Breed: <%= pet.breed %></p>
-    <p>Adoptable: <%= pet.adoptable %></p>
-    <p>Trying to adopt <%= pet.name %> from <%= pet.shelter_name %>!</p>
+    <%= render partial: "applications/pet_attributes", locals: { pet: pet } %>
+  <% end %>
+<% end %>
+
+<%if !@application.pets.empty? && @application.status == "In Progress"%>
+  <%= form_with url: "/applications/#{@application.id}?app_status=Pending", method: :patch, data: { turbo: false } do |form| %>
+    <%= form.label :reason %>
+    <%= form.text_field :reason %>
+    <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>
 
@@ -27,22 +32,10 @@
     <% end %>
 <% end %>
 
-
-<%if !@application.pets.empty? && @application.status == "In Progress"%>
-<%= form_with url: "/applications/#{@application.id}?app_status=Pending", method: :patch, data: { turbo: false } do |form| %>
-  <%= form.label :reason %>
-  <%= form.text_field :reason %>
-  <%= form.submit "Submit Application" %>
-<% end %>
-<% end %>
-
-  <%if @searched_pets.present? %>
-    <% @searched_pets.each do |pet| %>
-      <h5><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get%></h5>
-      <%= button_to "Adopt this Pet", "/applications/add_pet/#{@application.id}?pet_id=#{pet.id}", method: :patch%>
-      <p>Age: <%= pet.age %></p>
-      <p>Breed: <%= pet.breed %></p>
-      <p>Adoptable: <%= pet.adoptable %></p>
-      <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-      <% end %>
+<%if @searched_pets.present? %>
+  <% @searched_pets.each do |pet| %>
+    <h5><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get%></h5>
+    <%= button_to "Adopt this Pet", "/applications/add_pet/#{@application.id}?pet_id=#{pet.id}", method: :patch%>
+    <%= render partial: "applications/pet_attributes", locals: { pet: pet } %>
   <% end %>
+<% end %>
