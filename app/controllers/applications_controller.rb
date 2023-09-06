@@ -3,10 +3,10 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:search] == "pet"
       @searched_pets = Pet.where(name: "#{params[:pet_name]}")
-    else 
+    else
       params[:search].present?
       new_search = params[:search]
-      @searched_pets = Pet.where(name:, "%#{new_search}%")
+      @searched_pets = Pet.where("name LIKE ?", "%#{new_search}%")
     end
   end
 
@@ -38,7 +38,7 @@ class ApplicationsController < ApplicationController
     application.update({
       status: "Pending",
       pet_description: params[:pet_description]
-      })
+    })
 
     redirect_to "/applications/#{application.id}"
   end
