@@ -25,4 +25,8 @@ class Application < ApplicationRecord
     end
     self.status
   end
+
+  def find_if_adoptable(pet)
+    self.pets.where("pet_id = #{pet}").pluck(:adoptable).first
+  end
 end
