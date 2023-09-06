@@ -49,8 +49,9 @@ RSpec.feature "Admin Application Show", type: :feature do
 
         visit "/admin/applications/#{application.id}"
 
-        pets.each do |pet|
+        application.pets.each do |pet|
           expect(page).to have_button("Approve #{pet.name}")
+
           click_button("Approve #{pet.name}")
 
           expect(page).to have_no_button("Approve #{pet.name}")
