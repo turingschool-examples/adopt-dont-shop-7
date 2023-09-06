@@ -101,11 +101,12 @@ RSpec.describe "Admin Applications Show Page" do
           end
           
           within("#pet_applied_for-#{@pet_2.id}") do
-          expect(page).to have_content("Pending")
-          click_button("Approve Adoption")
-          expect(page).to have_content("Approved")
+            expect(page).to have_content("Pending")
+            click_button("Approve Adoption")
+            expect(page).to have_content("Approved")
           end
-
+          
+          @antoine.reload
           expect(@antoine.status).to eq("Approved")
         end
       end
