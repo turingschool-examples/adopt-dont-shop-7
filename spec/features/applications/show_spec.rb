@@ -278,7 +278,7 @@ RSpec.describe "Application Show", type: :feature do
 
         expect(page).to have_content("fluffy")
         expect(page).to have_content("fluff")
-        expect(page).to have_content("mr. fluff")
+        expect(page).to have_content("mr.fluff")
       end
     end
   end
