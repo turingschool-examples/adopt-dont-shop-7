@@ -29,8 +29,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_01_210644) do
     t.string "city"
     t.string "state"
     t.string "zip_code"
-    t.string "description"
+    t.string "owner_description"
     t.string "status"
+    t.string "pet_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

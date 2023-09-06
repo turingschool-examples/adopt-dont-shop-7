@@ -12,7 +12,7 @@ application = Application.create!(
   city: "Happy City", 
   state: "CO", 
   zip_code: "80111",
-  description: "I want an animal",
+  owner_description: "I want an animal",
   status: "Accepted"
 )
 
