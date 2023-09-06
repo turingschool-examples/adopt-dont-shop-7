@@ -1,4 +1,12 @@
-<h1><%= @applicant.name %></h1>
+<%= render partial: "/layouts/applicant", locals: {
+  name: @applicant.name,
+  street_address: @applicant.street_address,
+  city: @applicant.city,
+  state: @applicant.state,
+  zip_code: @applicant.zip_code,
+  description: @applicant.description
+} %>
+<h1>Pets On this Application:</h1>
 <% @pets.each do |pet| %>
   <h3><%= pet.name %>:
   <% if pet.status == "Pending" %>
