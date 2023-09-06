@@ -1,3 +1,4 @@
+<section class="applicant_information">
 <%= render partial: '/layouts/applicant', locals: {
   name: @applicant.name,
   street_address: @applicant.street_address,
@@ -6,8 +7,9 @@
   zip_code: @applicant.zip_code,
   description: @applicant.description
 } %>
+</section>
 
-<section>
+<section class="search_adopt">
 <% if @application.status == "In Progress" %>
 <h2>Add a Pet to this Application</h2>
 <%= form_with url: "/pets_applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
@@ -15,7 +17,6 @@
 <%= form.text_field :search %>
 <%= form.submit "Search" %>
 <% end %>
-</section>
 <% @searched_pets.each do |pet| %>
   <%= pet.name %><%= form_with url: "/pets_applications/#{@application.id}?pet=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>  
   
@@ -24,6 +25,9 @@
   
   <% end %>
   <% end %>
+  </section>
+
+<section class="pets_submit"
   
   <h3>Pet you would like to adopt:</h3>
   <% @pets.each do |pet| %>
@@ -36,3 +40,4 @@
   <% end %>
 <% end %>
 <h4><%= @status %></h4>
+</section>

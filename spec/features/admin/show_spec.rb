@@ -14,8 +14,8 @@ RSpec.describe "admin application show page" do
 
     visit "/admin/pets_applications/#{application.id}"
 
-    expect(page).to have_content(dude.name)
-    expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(dude.name)
+      expect(page).to have_content(pet_1.name)
 
     expect(page).to have_button("Approve")
     click_button("Approve")

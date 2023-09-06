@@ -12,13 +12,18 @@ RSpec.describe "Application Show Page" do
 
         visit "/pets_applications/#{application.id}"
 
-        expect(page).to have_content("James")
-        expect(page).to have_content("11234 Jane Street")
-        expect(page).to have_content("Dallas")
-        expect(page).to have_content("Texas")
-        expect(page).to have_content("75248")
-        expect(page).to have_content("I love animals!")
-        expect(page).to have_content("In Progress")
+        within(".applicant_information") do
+          expect(page).to have_content("James")
+          expect(page).to have_content("11234 Jane Street")
+          expect(page).to have_content("Dallas")
+          expect(page).to have_content("Texas")
+          expect(page).to have_content("75248")
+          expect(page).to have_content("I love animals!")
+        end
+
+        within(".pets_submit") do
+          expect(page).to have_content("In Progress")
+        end
       end
     end
 
@@ -31,25 +36,38 @@ RSpec.describe "Application Show Page" do
       application = PetsApplication.create!(applicant: dude)
 
       visit "/pets_applications/#{application.id}"
-      fill_in('search', with: "Lucille Bald")
-      click_button("Search")
-      expect(page).to have_current_path("/pets_applications/#{application.id}?search=Lucille+Bald&commit=Search")
-      expect(page).to have_content("Lucille Bald")
-      click_button("Adopt this pet?")
-      expect(page).to have_current_path("/pets_applications/#{application.id}")
-      expect(page).to have_content("Lucille Bald")
       
-      fill_in('search', with: "Babe")
-      click_button("Search")
+      within(".search_adopt") do
+        fill_in('search', with: "Lucille Bald")
+        click_button("Search")
+        expect(page).to have_current_path("/pets_applications/#{application.id}?search=Lucille+Bald&commit=Search")
+        expect(page).to have_content("Lucille Bald")
+        click_button("Adopt this pet?")
+      end
 
-      expect(page).to have_current_path("/pets_applications/#{application.id}?search=Babe&commit=Search")
-      expect(page).to have_content("Babe")
-      click_button("Adopt this pet?")
-      expect(page).to have_current_path("/pets_applications/#{application.id}")
-      expect(page).to have_content("Lucille Bald")
+      within(".pets_submit") do
+        expect(page).to have_current_path("/pets_applications/#{application.id}")
+        expect(page).to have_content("Lucille Bald")
+      end
+      
+      within(".search_adopt") do
+        fill_in('search', with: "Babe")
+        click_button("Search")
+      end
 
-      expect(page).to have_link(href: "/pets/#{pet_1.id}")
-      expect(page).to have_link(href: "/pets/#{pet_2.id}")
+      within(".search_adopt") do
+        expect(page).to have_current_path("/pets_applications/#{application.id}?search=Babe&commit=Search")
+        expect(page).to have_content("Babe")
+        click_button("Adopt this pet?")
+      end
+
+      within(".pets_submit") do
+        expect(page).to have_current_path("/pets_applications/#{application.id}")
+        expect(page).to have_content("Lucille Bald")
+
+        expect(page).to have_link(href: "/pets/#{pet_1.id}")
+        expect(page).to have_link(href: "/pets/#{pet_2.id}")
+      end
     end
 
     it "should allow a visitor to submit an application with added pets" do
@@ -61,28 +79,39 @@ RSpec.describe "Application Show Page" do
       application = PetsApplication.create!(applicant: dude)
 
       visit "/pets_applications/#{application.id}"
-      fill_in('search', with: "Lucille Bald")
-      click_button("Search")
-      expect(page).to have_current_path("/pets_applications/#{application.id}?search=Lucille+Bald&commit=Search")
-      expect(page).to have_content("Lucille Bald")
-      click_button("Adopt this pet?")
-      expect(page).to have_current_path("/pets_applications/#{application.id}")
-      expect(page).to have_content("Lucille Bald")
+
+      within(".search_adopt") do
+        fill_in('search', with: "Lucille Bald")
+        click_button("Search")
+        expect(page).to have_current_path("/pets_applications/#{application.id}?search=Lucille+Bald&commit=Search")
+        expect(page).to have_content("Lucille Bald")
+        click_button("Adopt this pet?")
+      end
+
+      within(".pets_submit") do
+        expect(page).to have_current_path("/pets_applications/#{application.id}")
+        expect(page).to have_content("Lucille Bald")
+      end
       
-      fill_in('search', with: "Babe")
-      click_button("Search")
+      within(".search_adopt") do
+        fill_in('search', with: "Babe")
+        click_button("Search")
+      end
 
-      expect(page).to have_current_path("/pets_applications/#{application.id}?search=Babe&commit=Search")
-      expect(page).to have_content("Babe")
-      click_button("Adopt this pet?")
-      expect(page).to have_current_path("/pets_applications/#{application.id}")
-      expect(page).to have_content("Lucille Bald")
+      within(".search_adopt") do
+        expect(page).to have_current_path("/pets_applications/#{application.id}?search=Babe&commit=Search")
+        expect(page).to have_content("Babe")
+        click_button("Adopt this pet?")
+      end
 
-      expect(page).to have_link(href: "/pets/#{pet_1.id}")
-      expect(page).to have_link(href: "/pets/#{pet_2.id}")
-
-      click_button("Submit Application")
-      expect(page).to have_content("Pending")
+      within(".pets_submit") do
+        expect(page).to have_current_path("/pets_applications/#{application.id}")
+        expect(page).to have_content("Lucille Bald")
+        expect(page).to have_link(href: "/pets/#{pet_1.id}")
+        expect(page).to have_link(href: "/pets/#{pet_2.id}")
+        click_button("Submit Application")
+        expect(page).to have_content("Pending")
+      end
     end
   
 
@@ -97,8 +126,10 @@ RSpec.describe "Application Show Page" do
 
       visit "/pets_applications/#{application.id}"
 
-      expect(page).to have_link(href: "/pets/#{pet_1.id}")
-      expect(page).to have_link(href: "/pets/#{pet_2.id}")
+      within(".pets_submit") do
+        expect(page).to have_link(href: "/pets/#{pet_1.id}")
+        expect(page).to have_link(href: "/pets/#{pet_2.id}")
+      end
     end
   end
 end
