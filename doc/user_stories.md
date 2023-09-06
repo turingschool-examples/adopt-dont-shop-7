@@ -287,7 +287,7 @@ Then I see that those pets are no longer "adoptable"
 ```
 
 ```
-[ ] done
+[x] done
 
 18. Pets can only have one approved application on them at any time
 

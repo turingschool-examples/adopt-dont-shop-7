@@ -64,13 +64,13 @@ RSpec.describe "Admin show" do
 
     expect(page).to have_button("Approve Application")
 
-    click_button("Approve Application")
+    click_button("Reject Application")
 
     expect(current_path).to eq("/admin/applications/#{@applicant_1.id}")
     
     within("#pet-#{@pet_1.id}") do
-      expect(page).to have_content("Application Approved")
-      expect(page).not_to have_button("Approve Application")
+      expect(page).to have_content("Application Rejected")
+      expect(page).not_to have_button("Reject Application")
     end
 
     visit "/admin/applications/#{@applicant_2.id}"
@@ -134,7 +134,7 @@ RSpec.describe "Admin show" do
     expect(page).to have_content("true")
     visit "/pets/#{@pet_3.id}"
     expect(page).to have_content("true")
-    
+
     visit "/admin/applications/#{@applicant_2.id}"
 
     within("#pet-#{@pet_1.id}") do
@@ -157,5 +157,19 @@ RSpec.describe "Admin show" do
     expect(page).to have_content("false")
     visit "/pets/#{@pet_3.id}"
     expect(page).to have_content("false")
+  end
+
+  it "cannot approve a pet that has already been approved" do
+    visit "/admin/applications/#{@applicant_1.id}"
+
+    click_button "Approve Application"
+
+    visit "/admin/applications/#{@applicant_2.id}"
+
+    within("#pet-#{@pet_1.id}") do
+      expect(page).to have_content("This pet has been approved for adoption")
+      expect(page).not_to have_button("Approve Application")
+      expect(page).to have_button("Reject Application")
+    end
   end
 end
