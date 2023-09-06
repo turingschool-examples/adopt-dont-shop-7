@@ -35,4 +35,27 @@ RSpec.describe Application, type: :model do
       expect(@application.searched_pets("cla")).to eq([@pet_1, @pet_2, @pet_3])
     end
   end
+
+  describe "#address" do
+    before(:each) do
+      @application = Application.create!(name: "John Smith", street_address: "123 Main st", city: "Boulder", state: "CO", zip_code: "12345", description: "I'm rich.", status: "In Progress")
+    end
+
+    it "displays address" do
+      expect(@application.address).to eq("123 Main st, Boulder, CO 12345")
+    end
+  end
+
+  describe "#pet_status" do
+    before(:each) do
+      @shelter_1 = Shelter.create(name: "Claus Home", city: "Aurora, CO", foster_program: false, rank: 9)
+      @pet_1 = @shelter_1.pets.create(name: "Claudia", breed: "tuxedo shorthair", age: 5, adoptable: true)
+      @application = Application.create!(name: "John Smith", street_address: "123 Main st", city: "Boulder", state: "CO", zip_code: "12345", description: "I'm rich.", status: "Pending")
+      PetApplication.create!(pet: @pet_1, application: @application, status: "Approved")
+    end
+
+    it "displays pet status" do
+      expect(@application.pet_status(@pet_1.id)).to eq("Approved")
+    end
+  end
 end
