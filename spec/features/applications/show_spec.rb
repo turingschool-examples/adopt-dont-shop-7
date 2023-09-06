@@ -78,7 +78,6 @@ RSpec.describe "Application show page" do
 
   it "will show the info of an applicant" do
     visit "/applications/#{@billy.id}"
-
     expect(page).to have_content(@billy.name)
     expect(page).to have_content(@billy.reason_for_adoption)
     expect(page).to have_content(@billy.status)

@@ -13,4 +13,15 @@ class Application < ApplicationRecord
   def find_pet_application_status(pet)
     self.pet_applications.where("pet_id = #{pet}").pluck(:application_status).first
   end
+
+  def status_check
+    if self.pet_applications.empty?
+      self.status
+    elsif self.pet_applications.pluck(:application_status).include?("Rejected")
+      self.update_attribute(:status, "Rejected")
+    elsif self.pet_applications.pluck(:application_status).all?("Approved")
+      self.update_attribute(:status, "Approved")
+    end
+    self.status
+  end
 end

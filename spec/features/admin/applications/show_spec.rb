@@ -100,7 +100,30 @@ RSpec.describe "Admin show" do
       click_button "Approve Application"
       expect(page).to have_content("Application Approved")
     end
-save_and_open_page
+
     expect(page).to have_content("Status: Approved")
+  end
+
+  it "can show rejected applications" do
+    visit "/admin/applications/#{@applicant_2.id}"
+
+    expect(page).to have_content("Status: Pending")
+
+    within("#pet-#{@pet_1.id}") do
+      click_button "Approve Application"
+      expect(page).to have_content("Application Approved")
+    end
+
+    within("#pet-#{@pet_2.id}") do
+      click_button "Reject Application"
+      expect(page).to have_content("Application Rejected")
+    end
+
+    within("#pet-#{@pet_3.id}") do
+      click_button "Approve Application"
+      expect(page).to have_content("Application Approved")
+    end
+
+    expect(page).to have_content("Status: Rejected")
   end
 end
