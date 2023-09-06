@@ -89,6 +89,7 @@ RSpec.describe "Application Show", type: :feature do
       end
     end
   end
+
   describe "as a visitor" do
     describe "when I visit an application's show page and I search for a pet by name, and I see the names of Pets that match my search" do
       describe "then next to each Pet's name I see a button to 'Adopt this Pet'" do
@@ -168,9 +169,9 @@ RSpec.describe "Application Show", type: :feature do
               breed: "orange cat",
               name: "Cheesecake"
             )
-            
+
             visit "/applications/#{application.id}"
-            
+
             fill_in "Search for pets by name", with: "Cheesecake"
 
             click_button "Submit"
@@ -194,7 +195,7 @@ RSpec.describe "Application Show", type: :feature do
               expect(page).to have_content("Cheesecake")
             end
 
-            within ("#pet-add") do
+            within("#pet-add") do
               expect(page).not_to have_content("Add a Pet to this Application")
               expect(page).not_to have_content("Search for pets by name")
               expect(page).not_to have_button("Submit")
@@ -224,6 +225,114 @@ RSpec.describe "Application Show", type: :feature do
           expect(page).not_to have_content("Why would you make a good owner for these pet(s)?")
           expect(page).not_to have_button("Submit Application")
         end
+      end
+    end
+  end
+
+  describe "US 8 - as a visitor" do
+    describe "when I visit an application's show page and I search for pets by name" do
+      it "Then I see any pet whose name PARTIALLY matches my search" do
+        application = Application.create!(
+          name: "John Smith",
+          street_address: "1234 Lane Street",
+          city: "Happy City",
+          state: "CO",
+          zip_code: "80111",
+          owner_description: "I want an animal",
+          status: "In Progress"
+        )
+
+        shelter = Shelter.create!(
+          foster_program: true,
+          name: "The Shelter",
+          city: "Happy City",
+          rank: 1
+        )
+
+        pet_1 = shelter.pets.create!(
+          adoptable: true,
+          age: 3,
+          breed: "white cat",
+          name: "fluffy"
+        )
+
+        pet_2 = shelter.pets.create!(
+          adoptable: true,
+          age: 4,
+          breed: "whiter cat",
+          name: "fluff"
+        )
+
+        pet_3 = shelter.pets.create!(
+          adoptable: true,
+          age: 5,
+          breed: "whitest cat",
+          name: "mr.fluff"
+        )
+
+        visit "/applications/#{application.id}"
+
+        fill_in "Search for pets by name", with: "fluff"
+
+        click_button "Submit"
+
+        expect(page).to have_content("fluffy")
+        expect(page).to have_content("fluff")
+        expect(page).to have_content("mr. fluff")
+      end
+    end
+  end
+
+  describe "US 9 - as a visitor" do
+    describe "when I visit an application's show page and I search for pets by name" do
+      it "Then my search is case insensitive" do
+        application = Application.create!(
+          name: "John Smith",
+          street_address: "1234 Lane Street",
+          city: "Happy City",
+          state: "CO",
+          zip_code: "80111",
+          owner_description: "I want an animal",
+          status: "In Progress"
+        )
+
+        shelter = Shelter.create!(
+          foster_program: true,
+          name: "The Shelter",
+          city: "Happy City",
+          rank: 1
+        )
+
+        pet_1 = shelter.pets.create!(
+          adoptable: true,
+          age: 3,
+          breed: "white cat",
+          name: "Fluffy"
+        )
+
+        pet_2 = shelter.pets.create!(
+          adoptable: true,
+          age: 4,
+          breed: "whiter cat",
+          name: "FLUFF"
+        )
+
+        pet_3 = shelter.pets.create!(
+          adoptable: true,
+          age: 5,
+          breed: "whitest cat",
+          name: "Mr.FlUfF"
+        )
+
+        visit "/applications/#{application.id}"
+
+        fill_in "Search for pets by name", with: "fluff"
+
+        click_button "Submit"
+
+        expect(page).to have_content("Fluffy")
+        expect(page).to have_content("FLUFF")
+        expect(page).to have_content("Mr.FlUfF")
       end
     end
   end
