@@ -126,4 +126,36 @@ RSpec.describe "Admin show" do
 
     expect(page).to have_content("Status: Rejected")
   end
+
+  it "application approval makes pets not adoptable" do
+    visit "/pets/#{@pet_1.id}"
+    expect(page).to have_content("true")
+    visit "/pets/#{@pet_2.id}"
+    expect(page).to have_content("true")
+    visit "/pets/#{@pet_3.id}"
+    expect(page).to have_content("true")
+    
+    visit "/admin/applications/#{@applicant_2.id}"
+
+    within("#pet-#{@pet_1.id}") do
+      click_button "Approve Application"
+    end
+
+    within("#pet-#{@pet_2.id}") do
+      click_button "Approve Application"
+    end
+
+    within("#pet-#{@pet_3.id}") do
+      click_button "Approve Application"
+    end
+
+    expect(page).to have_content("Status: Approved")
+
+    visit "/pets/#{@pet_1.id}"
+    expect(page).to have_content("false")
+    visit "/pets/#{@pet_2.id}"
+    expect(page).to have_content("false")
+    visit "/pets/#{@pet_3.id}"
+    expect(page).to have_content("false")
+  end
 end

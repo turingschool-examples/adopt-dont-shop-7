@@ -21,6 +21,7 @@ class Application < ApplicationRecord
       self.update_attribute(:status, "Rejected")
     elsif self.pet_applications.pluck(:application_status).all?("Approved")
       self.update_attribute(:status, "Approved")
+      self.pets.update_all(adoptable: false)
     end
     self.status
   end
