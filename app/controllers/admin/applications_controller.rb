@@ -17,6 +17,6 @@ class Admin::ApplicationsController < ApplicationController
     
     @application.update(application_status: "Approved")
 
-    redirect_to admin_application_path(id: @application.id)
+    redirect_to "/applications/#{@application.id}"
   end
 end

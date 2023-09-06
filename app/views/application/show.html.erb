@@ -19,7 +19,7 @@
   <div>
   <%= form_with url: "/applications/#{@application.id}", method: :get do |form| %>
     <%= form.label :name, "Search for a Pet:" %>
-    <%= form.text_field :search_params %>
+    <%= form.text_field :name %>
     <%= form.submit "Submit" %>
   <% end %><br/>
   <% if @pets != nil %>
