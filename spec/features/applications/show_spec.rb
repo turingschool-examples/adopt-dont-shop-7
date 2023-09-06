@@ -10,8 +10,8 @@ RSpec.describe "Application Show", type: :feature do
           city: "Happy City",
           state: "CO",
           zip_code: "80111",
-          description: "I want an animal",
-          status: "Accepted"
+          owner_description: "I want an animal",
+          status: "In Progress"
         )
 
         shelter = Shelter.create!(
@@ -37,7 +37,7 @@ RSpec.describe "Application Show", type: :feature do
         expect(page).to have_content("City: #{application.city}")
         expect(page).to have_content("State: #{application.state}")
         expect(page).to have_content("Zip Code: #{application.zip_code}")
-        expect(page).to have_content("Description: #{application.description}")
+        expect(page).to have_content("Description: #{application.owner_description}")
         expect(page).to have_content("Pets: #{application.pets.first.name}")
         expect(page).to have_content("Status: #{application.status}")
       end
@@ -55,8 +55,8 @@ RSpec.describe "Application Show", type: :feature do
               city: "Happy City",
               state: "CO",
               zip_code: "80111",
-              description: "I want an animal",
-              status: "Accepted"
+              owner_description: "I want an animal",
+              status: "In Progress"
             )
 
             shelter = Shelter.create!(
@@ -100,8 +100,8 @@ RSpec.describe "Application Show", type: :feature do
               city: "Happy City",
               state: "CO",
               zip_code: "80111",
-              description: "I want an animal",
-              status: "Accepted"
+              owner_description: "I want an animal",
+              status: "In Progress"
             )
 
             shelter = Shelter.create!(
@@ -133,6 +133,71 @@ RSpec.describe "Application Show", type: :feature do
 
             within("#pets") do
               expect(page).to have_content("Cheesecake")
+            end
+          end
+        end
+      end
+    end
+  end
+
+  describe "as a visitor" do
+    describe "when I visit an application's show page and I have added one or more pets to the application" do
+      describe "Then I see a section to submit my application and in that section I see an input to enter why I would make a good owner for these pet(s)" do
+        describe "When I fill in that input and I click a button to submit this application" do
+          it "I am taken back to the application's show page, I see an indicator that the application is 'Pending', I see all the pets that I wat to adopt, and I do not see a section to add more pets to this application" do
+            application = Application.create!(
+              name: "John Smith",
+              street_address: "1234 Lane Street",
+              city: "Happy City",
+              state: "CO",
+              zip_code: "80111",
+              owner_description: "I want an animal",
+              status: "In Progress"
+            )
+
+            shelter = Shelter.create!(
+              foster_program: true,
+              name: "The Shelter",
+              city: "Happy City",
+              rank: 1
+            )
+
+            pet_1 = shelter.pets.create!(
+              adoptable: true,
+              age: 3,
+              breed: "orange cat",
+              name: "Cheesecake"
+            )
+            
+            visit "/applications/#{application.id}"
+            
+            fill_in "Search for pets by name", with: "Cheesecake"
+
+            click_button "Submit"
+
+            click_button "Adopt this Pet"
+
+            expect(page).to have_content("Why would you make a good owner for these pet(s)?")
+            expect(page).to have_button("Submit Application")
+
+            fill_in "Why would you make a good owner for these pet(s)?", with: "Because I am amazing"
+
+            click_button("Submit Application")
+
+            expect(current_path).to eq("/applications/#{application.id}")
+
+            within("#status") do
+              expect(page).to have_content("Pending")
+            end
+
+            within("#pets") do
+              expect(page).to have_content("Cheesecake")
+            end
+
+            within ("#pet-add") do
+              expect(page).not_to have_content("Add a Pet to this Application")
+              expect(page).not_to have_content("Search for pets by name")
+              expect(page).not_to have_button("Submit")
             end
           end
         end
