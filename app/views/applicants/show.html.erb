@@ -1,19 +1,9 @@
-<h2>Applicant Name: <%= @applicant.name %></h2>
-<p>Address:<br/>
-<%= @applicant.street_address %><br/>
-<%= @applicant.city %>, <%= @applicant.state %> <%= @applicant.zip_code %></p>
-<p>Why I would make a good home:<br/>
-<%= @applicant.description %></p>
-<p>Application Status:<br/>
-<%= @applicant.application_status %></p>
+<%= render partial: 'applicant_info', locals: {object: @applicant} %>
 
 <h3>Pets being applied for:</h3>
 <ul>
   <% @applicant_pets.each do |pet| %>
-    <li><h3><%= pet.name %></h3></li>
-    <p>Age: <%= pet.age %></p>
-    <p>Breed: <%= pet.breed %></p>
-    <p>Adoptable: <%= pet.adoptable %></p>
+    <li><%= render partial: 'pet_info', locals: {object: pet} %></li>
   <% end %>
 </ul>
 
@@ -45,10 +35,7 @@
   </div>
 
   <% @pets.each do |pet| %>
-    <h3><%= pet.name %></h3>
-    <p>Age: <%= pet.age %></p>
-    <p>Breed: <%= pet.breed %></p>
-    <p>Adoptable: <%= pet.adoptable %></p>
+    <%= render partial: 'pet_info', locals: {object: pet} %>
     <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
     <%= button_to "Adopt this Pet", "/applicants/#{@applicant.id}/#{pet.id}", method: :patch %>
   <% end %>
