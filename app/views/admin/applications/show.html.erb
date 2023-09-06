@@ -1,9 +1,12 @@
 <h1> <%= "Application for #{@application.applicant_name} (admin view)" %> </h1>
-
+    <%= form_with url: admin_approve_all_pets_path(@application), method: :patch, data: { turbo: false} do |f| %>
+      <%= f.hidden_field :approve_all_pets, :value=>"approved" %>
+        <%= f.submit "Approve All Pets" %>
+    <% end %>
 <% @pets.each do |pet| %>
   <section id="pet-<%= pet.id%>">
   <% pet_status = @status.where(pet_id:"#{pet.id}")[0]%>
-  </br>
+  <%# </br> %>
   <%= pet.name %> | 
   Age: <%= pet.age %> |
   Breed: <%= pet.breed %> |
