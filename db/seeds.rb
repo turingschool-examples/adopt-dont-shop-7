@@ -37,3 +37,4 @@ Shelter.destroy_all
 # @pet_applications_1 = PetApplication.create!(pet_id: "#{@pet_1.id}", application_id: "#{@cory.id}", status: "Pending" )
 # @pet_applications_2 = PetApplication.create!(pet_id: "#{@pet_4.id}", application_id: "#{@antoine.id}", status: "Approved" )
 # @pet_applications_3 = PetApplication.create!(pet_id: "#{@pet_3.id}", application_id: "#{@jeff.id}", status: "Approved" )
+# @pet_applications_4 = PetApplication.create!(pet_id: "#{@pet_1.id}", application_id: "#{@antoine.id}", status: "Approved" )

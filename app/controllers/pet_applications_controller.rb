@@ -12,9 +12,19 @@ class PetApplicationsController < ApplicationController
   end
 
   def update
-    # pet_application = PetApplication.find_by(pet_id: params[:pet_id], application_id: params[:id]).first
     pet_application = PetApplication.find_pet_application(params[:id], params[:pet_id])
     pet_application.update!(status: params[:status])
+    
+    application = Application.find(params[:id])
+    if application.all_pet_statuses.all?("Approved")
+      application.update!({
+        status: "Approved"
+    })
+    else application.all_pet_statuses.any?("Rejected")
+      application.update!({
+        status: "Rejected"
+    })
+    end 
     redirect_to "/admin/applications/#{params[:id]}"
   end
 end
