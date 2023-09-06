@@ -37,5 +37,14 @@ RSpec.describe Application, type: :model do
         expect(@antoine.individual_pet_status(@pet_2)).to eq("Rejected")
       end
     end
+
+    describe "class methods" do 
+      describe "#all_pet_statuses" do
+        it "returns all the statuses of the pets on the specific application" do
+          expect(@cory.all_pet_statuses).to eq(["Pending", "Approved"])
+          expect(@antoine.all_pet_statuses).to eq(["Rejected", "Rejected"])
+        end
+      end
+    end
   end
 end
