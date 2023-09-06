@@ -17,11 +17,11 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_alphabetical
-    find_by_sql "SELECT * FROM Shelters ORDER BY name DESC"
+    find_by_sql "SELECT DISTINCT ON (name) * FROM Shelters ORDER BY name DESC"
   end
 
   def self.with_applicants
-    joins(pets: {application_pets: :application}).pluck(:name)
+    joins(pets: {application_pets: :application}).select(:name).distinct.pluck(:name)
   end
 
   def pet_count

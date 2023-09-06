@@ -7,19 +7,22 @@ RSpec.describe "Admin Shelters Page" do
       englewood = Shelter.create!(foster_program: true, name: "Englewood", city: "Denver", rank: 7)
       colemine = Shelter.create!(foster_program: true, name: "Colemine", city: "Denver", rank: 7)
       arapahoe = Shelter.create!(foster_program: true, name: "Arapahoe", city: "Denver", rank: 7)
+      arapahoe2 = Shelter.create!(foster_program: true, name: "Arapahoe", city: "denver", rank: 7)
       denver = Shelter.create!(foster_program: true, name: "Denver", city: "Denver", rank: 7)
 
       visit "/admin/shelters"
-      
+      save_and_open_page
       expect("Englewood").to appear_before("Denver")
       expect("Denver").to appear_before("Colemine")
       expect("Colemine").to appear_before("Broadway")
       expect("Broadway").to appear_before("Arapahoe")
+      expect(page).to_not have_content("arapahoe")
     end
   end
   describe "shelters with applicants list" do
     it "can display shelters with application submitted" do
       shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      shelter_1_5 = Shelter.create(name: "Aurora shelter", city: "aurora, CO", foster_program: false, rank: 9)
       shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
       shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
       
@@ -27,6 +30,7 @@ RSpec.describe "Admin Shelters Page" do
       pet_2 = shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
       pet_3 = shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
       pet_4 = shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+      pet_5 = shelter_1_5.pets.create(name: "Dog", breed: "cat", age: 5, adoptable: true)
       
       charlie = Application.create!(applicant_name: "Charlie Brown", full_address: "123 Peanuts Rd, Lansing MI, 48864", description: "Charlie has been looking forward to picking out a friend", application_status: "Pending")
       joop = Application.create!(applicant_name: "Joop", full_address: "123 Peanuts Rd, Lansing MI, 48864", description: "Really, really good looking", application_status: "Pending")  
