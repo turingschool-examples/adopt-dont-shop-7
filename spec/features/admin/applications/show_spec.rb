@@ -126,7 +126,7 @@ RSpec.describe "Admin show" do
     visit "/admin/applications/#{@applicant_2.id}"
 
     within "#pet-#{@pet_1.id}" do
-      expect(page).to have_content("Approve Application")
+      expect(page).to have_content("This pet has been approved for adoption")
       expect(page).to have_content("Reject Application")
     end
   end
@@ -156,6 +156,7 @@ RSpec.describe "Admin show" do
       expect(page).to have_content("Approve Application")
       expect(page).to have_content("Reject Application")
     end
+  end
 
   it "can show rejected applications" do
     visit "/admin/applications/#{@applicant_2.id}"
