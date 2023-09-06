@@ -56,11 +56,15 @@
   </section>
 
   <section>
-    <h2 style="border-bottom: 1px solid black">Ready to Submit?</h2>
-    <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |form| %>
-      <%= form.label :adoption_description, "Why would you make a good owner for the selected pet(s)?" %><br>
-      <%= form.text_area :adoption_description, size: "70x5" %><br>
-      <%= form.submit "Submit Application" %>
+    <% if @application.has_pets? %>
+      <h2 style="border-bottom: 1px solid black">Ready to Submit?</h2>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |form| %>
+        <%= form.label :adoption_description, "Why would you make a good owner for the selected pet(s)?" %><br>
+        <%= form.text_area :adoption_description, size: "70x5" %><br>
+        <%= form.submit "Submit Application" %>
+      <% end %>
+    <% else %>
+      <p>Please add at least one pet to submit your application.</p>
     <% end %>
   </section>
 <% end %>

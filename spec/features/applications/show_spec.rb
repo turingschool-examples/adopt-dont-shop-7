@@ -4,6 +4,7 @@ RSpec.describe "the application show" do
   before(:each) do
     @shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
     @application_1 = Application.create(name: "John Dwayne", address: "1010 W 50th Ave, Denver, CO, 80020", description: "Background as a dog sitter", status: "In Progress")
+    @application_2 = Application.create(name: "Wayne Zane", address: "2020 E 10th Ave, Denver, CO, 80020", description: "Has pets already", status: "In Progress")
     @pet = @application_1.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: @shelter.id)
     @pet_2 = Pet.create(name: "Chicken", age: 3, breed: "Lab", adoptable: true, shelter_id: @shelter.id)
   end
@@ -64,5 +65,11 @@ RSpec.describe "the application show" do
     click_button("Adopt this Pet")
 
     expect(page).to have_content("#{@pet_2.name}")
+  end
+
+  it "when no pets are added to the application, submit button will not be shown" do 
+    visit "/applications/#{@application_2.id}"
+
+    expect(page).to_not have_button("Submit Application")
   end
 end

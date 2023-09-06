@@ -24,4 +24,8 @@ class Application < ApplicationRecord
 
     self.pets << pet
   end
+
+  def has_pets?
+    pets.exists?
+  end
 end
