@@ -93,7 +93,7 @@ RSpec.describe "Admin Applications Show Page" do
       describe "Application Status changed based on individual pet approval" do 
         it "Sets application status to 'Approved' when all pets are approved" do
           visit "/admin/applications/#{@antoine.id}"
-
+  
           within("#pet_applied_for-#{@pet_3.id}") do
             expect(page).to have_content("Pending")
             click_button("Approve Adoption")
@@ -108,6 +108,25 @@ RSpec.describe "Admin Applications Show Page" do
           
           @antoine.reload
           expect(@antoine.status).to eq("Approved")
+        end
+
+        it "Sets application status to 'Rejected' when not all pets are approved" do
+          visit "/admin/applications/#{@antoine.id}"
+  
+          within("#pet_applied_for-#{@pet_3.id}") do
+            expect(page).to have_content("Pending")
+            click_button("Approve Adoption")
+            expect(page).to have_content("Approved")
+          end
+          
+          within("#pet_applied_for-#{@pet_2.id}") do
+            expect(page).to have_content("Pending")
+            click_button("Reject Adoption")
+            expect(page).to have_content("Rejected")
+          end
+          
+          @antoine.reload
+          expect(@antoine.status).to eq("Rejected")
         end
       end
     end
