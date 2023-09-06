@@ -11,7 +11,7 @@ class AdminsController < ApplicationController
   def update
     pet_applications = PetApplication.where(application_id: params[:id], pet_id: params[:petid])
     pet_applications.update({
-      status: "Approved"
+      status: params[:status]
     })
 
     pet_applications.first.save
