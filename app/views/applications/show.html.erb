@@ -5,6 +5,7 @@
 <h3><%= @application.zip %></h3>
 <h3><%= @application.description %></h3>
 <h3><%= @application.status %></h3>
+
 <%if !@application.pets.empty? %>
   <% @application.pets.each do |pet| %>
     <h5><%= pet.name %></h5>
@@ -14,21 +15,26 @@
     <p>Trying to adopt <%= pet.name %> from <%= pet.shelter_name %>!</p>
   <% end %>
 <% end %>
-<%= form_with url:"/applications/#{@application.id}?app_status=Pending", method: :patch, data: { turbo: false } do |form| %>
-  <%if !@application.pets.empty? %>
-    <%= form.label :reason %>
-    <%= form.text_field :reason %>
-    <%= form.submit "Submit Application" %>
-  <% end %>
+
+<% if @application.status == "Pending" %>
+    <h4> The application is pending. </h4>
+<% else %>
+    <h4> Add a Pet to this Application </h4>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %>
+    <% end %>
 <% end %>
 
-<%if @application.status != "Pending" %>
-  <h4> Add a Pet to this Application </h4>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-    <%= f.label :search %>
-    <%= f.text_field :search %>
-    <%= f.submit "Search" %>
-  <% end %>
+
+<%if !@application.pets.empty? && @application.status == "In Progress"%>
+<%= form_with url: "/applications/#{@application.id}?app_status=Pending", method: :patch, data: { turbo: false } do |form| %>
+  <%= form.label :reason %>
+  <%= form.text_field :reason %>
+  <%= form.submit "Submit Application" %>
+<% end %>
+<% end %>
 
   <%if @searched_pets.present? %>
     <% @searched_pets.each do |pet| %>
@@ -39,5 +45,4 @@
       <p>Adoptable: <%= pet.adoptable %></p>
       <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
       <% end %>
-    <% end %>
   <% end %>

@@ -29,10 +29,11 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:app_id])
-    application.update({
+    
+    application.update(
       description: params[:reason],
-      status: [params[:app_status]]
-    })
+      status: params[:app_status]
+    )
     application.save
     redirect_to "/applications/#{application.id}"
   end
