@@ -156,4 +156,18 @@ RSpec.describe "the application show" do
     expect(page).to have_content(pet_3.name)
     expect(page).to have_content(application.status)
   end
+
+  it "pet names are links to pet show" do
+    shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    application = Application.create(name:"Bob", address:"SF", city: "Town", state: "Colorado", zip: "12345", description: "Fuzzy", status: "In Progress")
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Fluffy", shelter_id: shelter.id)
+    
+    visit "/applications/#{application.id}"
+    fill_in( :search, with: 'fluff')
+    click_button('Search')
+    click_link('Fluffy')
+
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_1.age)
+  end
 end

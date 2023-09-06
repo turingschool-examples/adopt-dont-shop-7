@@ -14,7 +14,7 @@ RSpec.describe "admin_applications show" do
     visit "/admin/shelters/#{application.id}"
     click_button("Approve #{pet_1.name}")
 
-    expect(page).to have_content("Approved")
+    expect(page).to have_content("#{pet_1.name} Approved")
   end
 
   it "reject application for pet" do
@@ -29,7 +29,7 @@ RSpec.describe "admin_applications show" do
     visit "/admin/shelters/#{application.id}"
     click_button("Reject #{pet_1.name}")
 
-    expect(page).to have_content("Rejected")
+    expect(page).to have_content("#{pet_1.name} Rejected")
   end
 
   it "applications don't effect each other" do

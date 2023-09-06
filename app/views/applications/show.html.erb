@@ -8,7 +8,7 @@
 
 <%if !@application.pets.empty? %>
   <% @application.pets.each do |pet| %>
-    <h5><%= pet.name %></h5>
+    <h5><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get%></h5>
     <p>Age: <%= pet.age %></p>
     <p>Breed: <%= pet.breed %></p>
     <p>Adoptable: <%= pet.adoptable %></p>
@@ -38,7 +38,7 @@
 
   <%if @searched_pets.present? %>
     <% @searched_pets.each do |pet| %>
-      <h5><%= pet.name %></h5>
+      <h5><%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get%></h5>
       <%= button_to "Adopt this Pet", "/applications/add_pet/#{@application.id}?pet_id=#{pet.id}", method: :patch%>
       <p>Age: <%= pet.age %></p>
       <p>Breed: <%= pet.breed %></p>
