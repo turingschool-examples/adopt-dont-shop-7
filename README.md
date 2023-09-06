@@ -38,3 +38,28 @@ This project will have one Check In. During your Check In, you should be prepare
 [Database schema](https://erd.dbdesigner.net/designer/schema/1693514690-adopt_dont_shop)
 [DTR](https://docs.google.com/document/d/1bt8hrE2qSD9FLLe56inBho_DDstlvSUaVyQm2IfL5bc/edit)
 
+
+# Description
+
+
+
+
+## Database Design: 
+
+## Code Design:
+Summary:
+
+Modules:
+
+
+## Contributers
+
+## Tech Stack
+
+## Additional Documentation
+
+## Skills Gained/Improved
+
+## Reflection Points
+
+
