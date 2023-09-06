@@ -1,0 +1,18 @@
+<h1>Application Details</h1>
+<h3>Name: <%= @admin_application.name %></h3>
+<p>Address Line 1: <%= @admin_application.street %></p>
+<p>Address Line 2: <%= @admin_application.city %>, <%= @admin_application.state %> <%= @admin_application.zip_code %></p>
+<p>Status: <%= @admin_application.status %></p>
+
+<p>Description: <%= @admin_application.description %></p>
+
+<% @admin_application.pet_applications.each do |admin_pet| %>
+  <div id="<%= admin_pet.pet.name %>">
+  <p><%= admin_pet.pet.name %></p>
+    <div class="button-group">
+    <%= button_to "Approve", "/admin/applications/#{admin_pet.application.id}/#{admin_pet.id}", method: :patch, data: { turbo: false }, params: { value: "Approved" } %>
+    </div>
+  </div>
+<% end %>
+
+<p>Adoption Status: <%= @admin_application.status %></p>
