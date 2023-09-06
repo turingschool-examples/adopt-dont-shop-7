@@ -71,4 +71,17 @@ RSpec.describe "Admin Application" do
       expect(find("#pet-#{snoopy.id}")).to_not have_content("APPROVED")
     end
   end
+
+  it "can approve all pets on application" do
+    visit "/admin/applications/#{charlie.id}"
+
+    expect(page).to have_content("Snoopy")
+    expect(page).to have_content("Lobster")
+    save_and_open_page
+    within("#approve-all-pets") do
+      click_button "Approve All Pets"
+    end
+    
+    expect(page).to have_content("Approved")
+  end
 end
