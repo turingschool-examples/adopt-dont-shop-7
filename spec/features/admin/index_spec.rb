@@ -11,7 +11,7 @@ RSpec.describe "the shelters index" do
   end
 
   it "lists all the shelter names" do
-    visit "/shelters"
+    visit "/admin/shelters"
 
     expect(page).to have_content(@shelter_1.name)
     expect(page).to have_content(@shelter_2.name)
