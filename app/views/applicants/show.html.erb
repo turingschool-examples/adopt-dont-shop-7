@@ -26,8 +26,8 @@
         <%= result.name %>
         <% if @results.any? %>
             <% @results.each do |result| %>
+              <%= form_with url: "/applicants/#{@applicant.id}", method: :post do |form| %>
                 <% result.name %>
-                <%= form_with url: "/applicants/#{@applicant.id}", method: :post do |form| %>
                  <%= form.submit "Adopt this Pet" %>
                 <% end %>
             <% end %>
