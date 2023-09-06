@@ -56,9 +56,36 @@ RSpec.describe 'the /admin/applications/:id' do
     click_button "Approve Application"
     end
 
+    expect(current_path).to eq("/admin/applications/#{@bob.id}")
+
     within("##{@pet_1.id}") do
     expect(page).to have_content("Approved")
     expect(page).to_not have_button("Approve Application")
+    end
+
+    within("##{@pet_2.id}") do
+    expect(page).to have_button("Approve Application")
+    expect(page).to have_content("Pending")
+    end
+  end
+
+  # User Story 13 Test
+  it 'For every pet that the application is for, I see a button to reject the application ' do
+    visit "/admin/applications/#{@bob.id}"
+
+
+    
+    within("##{@pet_1.id}") do
+    expect(page).to have_button("Reject Application")
+    expect(page).to have_content("Pending")
+    click_button "Reject Application"
+    end
+
+    expect(current_path).to eq("/admin/applications/#{@bob.id}")
+
+    within("##{@pet_1.id}") do
+    expect(page).to have_content("Rejected")
+    expect(page).to_not have_button("Reject Application")
     end
 
     within("##{@pet_2.id}") do

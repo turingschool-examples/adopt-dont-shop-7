@@ -21,6 +21,7 @@
     <% if pet.applicants_pets.find_by(pet_id: pet.id).status == 'Pending' %>
       <li>
         <%= button_to "Approve Application", "/admin/applicants/#{@applicant.id}/pets/#{pet.id}/approve", method: :patch %>
+        <%= button_to "Reject Application", "/admin/applicants/#{@applicant.id}/pets/#{pet.id}/reject", method: :patch %>
       </li>
     <% end %> 
   </div>
