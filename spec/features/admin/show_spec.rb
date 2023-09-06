@@ -45,7 +45,7 @@ RSpec.feature "Admin Application Show", type: :feature do
           status: "Pending"
         )
 
-        application.pets << pets
+        application.pets << [pet_1, pet_2, pet_3]
 
         visit "/admin/applications/#{applcation.id}"
 
