@@ -25,5 +25,6 @@ class Pet < ApplicationRecord
       pets = applicant.pets
       pets.update(adoptable: false)
     end
+    require 'pry';binding.pry
   end
 end
