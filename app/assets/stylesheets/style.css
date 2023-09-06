@@ -1,0 +1,56 @@
+#new-application {
+  
+
+}
+
+fieldset {
+  margin: 2em 0;
+  border: solid 1px #ccc;
+  border-radius: 6px;
+  min-width: 200px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  /* display: block; */
+  margin-top: 1em;
+}
+
+label:first-of-type {
+  margin-top: 0;
+}
+
+input {
+  padding: .5em;
+  border: solid 1px #999;
+  width: 20em;
+}
+
+input[type=text]:focus {
+  border-color:#333;
+}
+
+input[type=submit] {
+  width: 6em;
+  margin: 2em;
+  padding:7px 15px; 
+  background:#6286ff; 
+  border:0 none;
+  cursor:pointer;
+  border-radius: 6px; 
+}
+
+input[name="state"] {
+  width: 3em;
+}
+
+input[name="zip_code"] {
+  width: 5em;
+}
+
+textarea {
+  border: solid 1px #999;
+  max-width: 30em;
+}
