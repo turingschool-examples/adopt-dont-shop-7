@@ -29,6 +29,5 @@ RSpec.describe "applicant show page", type: :feature do
     click_button "Adopt this Pet"
 
     expect(page).to have_link("Portia")
-
   end
 end
