@@ -98,5 +98,36 @@ RSpec.describe Shelter, type: :model do
         expect(result).not_to include(shelter_2)
       end
     end
+
+    it "orders shelters by name" do
+
+      ordered_shelters = Shelter.alphabetical_order.to_a
+
+      expected_order = [@shelter_1, @shelter_3, @shelter_2]
+
+      expect(ordered_shelters).to eq(expected_order)
+    end
+
+  end
+
+  it 'returns shelters with pending applications' do
+    shelter_1 = Shelter.create(name: "Boulder Vally", city: "Boulder", foster_program: false, rank: 9)
+    shelter_2 = Shelter.create(name: "Run Away Haven", city: "New York", foster_program: false, rank: 5)
+  
+    pet_1 = shelter_1.pets.create(name: "Bill", breed: "Boxer", age: 5, adoptable: false)
+    pet_2 = shelter_2.pets.create(name: "Marko", breed: "Hound", age: 3, adoptable: true)
+    pet_3 = shelter_2.pets.create(name: "Tiny", breed: "Pit", age: 2, adoptable: true)
+  
+    johnny = Application.create!(name: 'Johnny', street_address: '111 rainbow rd', city: 'Iceblock', state: 'CO', zip_code: '80020',  reason_for_adoption: "I want dog", status: "Pending" )
+    kim = Application.create!(name: "Kim", street_address: "123 riverdale rd", city: "Thornton", state: "CO", zip_code: "80241", reason_for_adoption: "I want hound", status: "Approved")
+    susan = Application.create!(name: "Susan", street_address: "333 nighthawk ln", city: "Erie", state: "CO", zip_code: "45673", reason_for_adoption: "I am alone", status: "Rejected")
+  
+    PetApplication.create!(pet: pet_1, application: johnny, application_status: 'Pending')
+    PetApplication.create!(pet: pet_2, application: kim, application_status: 'Approved')
+    PetApplication.create!(pet: pet_3, application: susan, application_status: 'Rejected')
+
+    shelters_with_pending_apps = Shelter.shelters_with_pending_apps
+
+    expect(shelters_with_pending_apps).to include(shelter_1)
   end
 end
