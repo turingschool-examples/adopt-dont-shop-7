@@ -320,13 +320,9 @@ ALTER TABLE ONLY public.veterinary_offices ALTER COLUMN id SET DEFAULT nextval('
 --
 
 COPY public.application_pets (id, pet_id, application_id, created_at, updated_at, app_pet_status) FROM stdin;
-5	5	2	2023-09-06 01:39:46.787344	2023-09-06 01:39:46.787344	\N
-6	1	2	2023-09-06 01:39:54.29364	2023-09-06 01:49:11.086552	approved
-7	3	2	2023-09-06 01:39:58.57259	2023-09-06 01:49:11.091371	approved
-4	5	2	2023-09-06 01:39:32.435765	2023-09-06 01:49:11.094124	approved
-1	1	1	2023-09-06 01:00:59.4747	2023-09-06 17:06:19.969818	approved
-2	2	1	2023-09-06 01:00:59.476506	2023-09-06 17:06:19.977504	approved
-3	3	1	2023-09-06 01:00:59.477845	2023-09-06 17:06:19.983508	approved
+1	1	1	2023-09-06 22:21:21.856513	2023-09-06 22:21:21.856513	\N
+2	2	1	2023-09-06 22:21:21.857772	2023-09-06 22:21:21.857772	\N
+3	3	1	2023-09-06 22:21:21.858734	2023-09-06 22:21:21.858734	\N
 \.
 
 
@@ -335,10 +331,7 @@ COPY public.application_pets (id, pet_id, application_id, created_at, updated_at
 --
 
 COPY public.applications (id, applicant_name, full_address, description, application_status, created_at, updated_at) FROM stdin;
-4	Test West	123 Test Address; Test, Colorado 80829	I would love to help a friend have a new home	In Progress	2023-09-06 01:30:31.179638	2023-09-06 01:30:31.179638
-2	Joop Stark	123 Test Address; Test, Colorado 80829	Test for approve all apps	Approved	2023-09-06 01:19:45.25872	2023-09-06 01:49:11.097209
-1	Charlie Brown	123 Peanuts Rd, Lansing MI, 48864	Charlie has been looking forward to picking out a friend	Approved	2023-09-06 01:00:59.46761	2023-09-06 17:06:19.985351
-3	Joop Stark	123 Test Address; Test, Colorado 80829	teST aPPROVAL	Approved	2023-09-06 01:21:08.495762	2023-09-06 17:11:29.883608
+1	Charlie Brown	123 Peanuts Rd, Lansing MI, 48864	Charlie has been looking forward to picking out a friend	In Progress	2023-09-06 22:21:21.852573	2023-09-06 22:21:21.852573
 \.
 
 
@@ -347,7 +340,7 @@ COPY public.applications (id, applicant_name, full_address, description, applica
 --
 
 COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
-environment	development	2023-09-06 01:00:59.411518	2023-09-06 01:00:59.411518
+environment	development	2023-09-06 22:21:21.777788	2023-09-06 22:21:21.777788
 \.
 
 
@@ -356,11 +349,9 @@ environment	development	2023-09-06 01:00:59.411518	2023-09-06 01:00:59.411518
 --
 
 COPY public.pets (id, adoptable, age, breed, name, shelter_id, created_at, updated_at, application_id) FROM stdin;
-1	t	1	beagle	Snoopy	1	2023-09-06 01:00:59.459857	2023-09-06 01:00:59.459857	\N
-2	t	3	doberman	Lobster	1	2023-09-06 01:00:59.461819	2023-09-06 01:00:59.461819	\N
-3	t	4	beagle	Snoop Dogg	1	2023-09-06 01:00:59.463347	2023-09-06 01:00:59.463347	\N
-4	t	2	beagle	Snoop	1	2023-09-05 20:01:16.298947	2023-09-05 20:01:16.298947	\N
-5	t	5	beagle	Mr. SnOOp	1	2023-09-05 20:05:06.778414	2023-09-05 20:05:06.778414	\N
+1	t	1	beagle	Snoopy	1	2023-09-06 22:21:21.841801	2023-09-06 22:21:21.841801	\N
+2	t	3	doberman	Lobster	1	2023-09-06 22:21:21.844771	2023-09-06 22:21:21.844771	\N
+3	t	4	beagle	Snoop Dogg	1	2023-09-06 22:21:21.847466	2023-09-06 22:21:21.847466	\N
 \.
 
 
@@ -386,7 +377,9 @@ COPY public.schema_migrations (version) FROM stdin;
 --
 
 COPY public.shelters (id, foster_program, name, city, rank, created_at, updated_at) FROM stdin;
-1	f	Aurora shelter	Aurora, CO	9	2023-09-06 01:00:59.450319	2023-09-06 01:00:59.450319
+1	f	Aurora shelter	Aurora, CO	9	2023-09-06 22:21:21.828845	2023-09-06 22:21:21.828845
+2	t	Colemine Shelter	Colorado Springs, CO	7	2023-09-06 17:21:38.590771	2023-09-06 17:21:38.590771
+3	f	Broadway Shelter	Denver, CO	8	2023-09-06 17:21:50.799194	2023-09-06 17:21:50.799194
 \.
 
 
@@ -410,28 +403,28 @@ COPY public.veterinary_offices (id, boarding_services, max_patient_capacity, nam
 -- Name: application_pets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: williamweston
 --
 
-SELECT pg_catalog.setval('public.application_pets_id_seq', 7, true);
+SELECT pg_catalog.setval('public.application_pets_id_seq', 3, true);
 
 
 --
 -- Name: applications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: williamweston
 --
 
-SELECT pg_catalog.setval('public.applications_id_seq', 4, true);
+SELECT pg_catalog.setval('public.applications_id_seq', 1, true);
 
 
 --
 -- Name: pets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: williamweston
 --
 
-SELECT pg_catalog.setval('public.pets_id_seq', 5, true);
+SELECT pg_catalog.setval('public.pets_id_seq', 3, true);
 
 
 --
 -- Name: shelters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: williamweston
 --
 
-SELECT pg_catalog.setval('public.shelters_id_seq', 1, true);
+SELECT pg_catalog.setval('public.shelters_id_seq', 3, true);
 
 
 --
