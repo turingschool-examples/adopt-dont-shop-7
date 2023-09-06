@@ -7,6 +7,7 @@ class PetsApplicationsController < ApplicationController
     @application = PetsApplication.find(params[:id])
     @applicant = Applicant.retrieve_applicant(params[:id])
     @pets = @applicant.pets
+    @status = PetsApplication.check_app_status(@applicant)
   end
 
   def create
