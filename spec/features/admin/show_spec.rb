@@ -1,4 +1,4 @@
-equire "rails_helper"
+require "rails_helper"
 
 RSpec.feature "Admin Application Show", type: :feature do
   describe "When I visit an admin application show page, for every pet that the application is for, I see a button to approve the application for that specific pet" do
