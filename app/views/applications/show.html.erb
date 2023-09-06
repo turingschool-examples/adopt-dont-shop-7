@@ -16,6 +16,14 @@
   <% end %>
 <% end %>
 
+<%if !@application.pets.empty? && @application.status == "In Progress"%>
+<%= form_with url: "/applications/#{@application.id}?app_status=Pending", method: :patch, data: { turbo: false } do |form| %>
+  <%= form.label :reason %>
+  <%= form.text_field :reason %>
+  <%= form.submit "Submit Application" %>
+<% end %>
+<% end %>
+
 <% if @application.status == "Pending" %>
     <h4> The application is pending. </h4>
 <% else %>
@@ -28,13 +36,6 @@
 <% end %>
 
 
-<%if !@application.pets.empty? && @application.status == "In Progress"%>
-<%= form_with url: "/applications/#{@application.id}?app_status=Pending", method: :patch, data: { turbo: false } do |form| %>
-  <%= form.label :reason %>
-  <%= form.text_field :reason %>
-  <%= form.submit "Submit Application" %>
-<% end %>
-<% end %>
 
   <%if @searched_pets.present? %>
     <% @searched_pets.each do |pet| %>
