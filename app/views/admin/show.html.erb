@@ -9,7 +9,7 @@
 <h1>Pets On this Application:</h1>
 <% @pets.each do |pet| %>
   <h3><%= pet.name %>:
-  <% if pet.status == "Pending" %>
+  <% if pet.status == "Pending" || pet.status == "In Progress" %>
     <%= render partial: 'button', locals: 
       {
         url: "/admin/pets_applications/#{@application.id}?status=Accepted&pet_id=#{pet.id}&applicant_id=#{@applicant.id}",
