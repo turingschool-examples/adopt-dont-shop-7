@@ -7,14 +7,16 @@ RSpec.describe "Admin Shelters Page" do
       englewood = Shelter.create!(foster_program: true, name: "Englewood", city: "Denver", rank: 7)
       colemine = Shelter.create!(foster_program: true, name: "Colemine", city: "Denver", rank: 7)
       arapahoe = Shelter.create!(foster_program: true, name: "Arapahoe", city: "Denver", rank: 7)
+      arapahoe2 = Shelter.create!(foster_program: true, name: "Arapahoe", city: "denver", rank: 7)
       denver = Shelter.create!(foster_program: true, name: "Denver", city: "Denver", rank: 7)
 
       visit "/admin/shelters"
-      
+      save_and_open_page
       expect("Englewood").to appear_before("Denver")
       expect("Denver").to appear_before("Colemine")
       expect("Colemine").to appear_before("Broadway")
       expect("Broadway").to appear_before("Arapahoe")
+      expect(page).to_not have_content("arapahoe")
     end
   end
   describe "shelters with applicants list" do
@@ -38,7 +40,6 @@ RSpec.describe "Admin Shelters Page" do
       visit "/admin/shelters"
       
       expect(find("#with_application")).to have_content("Aurora shelter")
-      save_and_open_page
       expect(find("#with_application")).to have_content("Fancy pets")
       expect(find("#with_application")).to_not have_content("RGV")
     end
