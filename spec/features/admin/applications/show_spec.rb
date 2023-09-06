@@ -24,27 +24,27 @@ RSpec.describe "the admin application show" do
         expect(page).to have_button("Approve")
       end
 
-      # within("name_Lobster") do
-      #   expect(page).to have_content(@pet_2.name) # Lobster
-      #   expect(page).to have_button("Approve")
-      # end
+      within("#Lobster") do
+        expect(page).to have_content(@pet_2.name) # Lobster
+        expect(page).to have_button("Approve")
+      end
     end
 
-    xit "When I click that button then I'm taken back to the admin application show page" do
+    it "When I click that button then I'm taken back to the admin application show page" do
 
       visit "/admin/applications/#{@application_1.id}"
       
       expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
       # save_and_open_page
-      within("##{@pet_1.id}") do
+      within("#Bare-y-Manilow") do
         click_button("Approve")
         expect(page).to have_content("Approved")
         expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
       end
 
-      # within("name_Lobster") do
-      #   expect(page).to_not have_content("Approved")
-      # end
+      within("#Lobster") do
+        expect(page).to_not have_content("Approved")
+      end
     end
   end
 end
