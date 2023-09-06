@@ -4,7 +4,10 @@
 <% @application.pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
     <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
-    <% if @application.find_pet_application_status(pet.id) == "Approved" %>
+    <% if @application.pets.where("pet_id = #{pet.id}").pluck(:adoptable).first == false && @application.find_pet_application_status(pet.id) == "Pending" %>
+      <p>This pet has been approved for adoption</p><br>
+      <%= button_to "Reject Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}&button=reject", method: :patch %>
+    <% elsif @application.find_pet_application_status(pet.id) == "Approved" %>
       <p>Application Approved</p>
     <% elsif @application.find_pet_application_status(pet.id) == "Rejected" %>
       <p>Application Rejected</p>
