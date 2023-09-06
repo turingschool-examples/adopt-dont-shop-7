@@ -34,6 +34,7 @@ class ApplicationsController < ApplicationController
       description: params[:reason],
       status: params[:app_status]
     )
+
     application.save
     redirect_to "/applications/#{application.id}"
   end
