@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:app_id])
 
     if params[:search].present?
-      @searched_pets = Pet.where("lower(name) LIKE ?", "%#{params[:search].downcase}%") 
+      @searched_pets = Pet.search_pets(params[:search])
     end
   end
 
@@ -29,10 +29,12 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:app_id])
-    application.update({
+    
+    application.update(
       description: params[:reason],
       status: params[:app_status]
-    })
+    )
+
     application.save
     redirect_to "/applications/#{application.id}"
   end
