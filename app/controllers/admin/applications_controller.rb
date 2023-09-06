@@ -12,6 +12,8 @@ class Admin::ApplicationsController < ApplicationController
     elsif params[:commit] == 'Reject'
       @pet_application.reject
     end
+    
+    @application.update_status
 
     redirect_to admin_application_path(@application)
   end
