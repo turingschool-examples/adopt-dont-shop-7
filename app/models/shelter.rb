@@ -21,7 +21,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.with_applicants
-    joins(pets: {application_pets: :application}).pluck(:name)
+    joins(pets: {application_pets: :application}).select(:name).distinct.pluck(:name)
   end
 
   def pet_count
