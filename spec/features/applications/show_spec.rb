@@ -204,4 +204,27 @@ RSpec.describe "Application Show", type: :feature do
       end
     end
   end
+
+  describe "as a visitor" do
+    describe "when I visit an application's show page and I have not added any pets to the application" do
+      it "then I do not see a section to submit my application" do
+        application = Application.create!(
+          name: "John Smith",
+          street_address: "1234 Lane Street",
+          city: "Happy City",
+          state: "CO",
+          zip_code: "80111",
+          owner_description: "I want an animal",
+          status: "In Progress"
+        )
+
+        visit "/applications/#{application.id}"
+
+        within("#submit-application") do
+          expect(page).not_to have_content("Why would you make a good owner for these pet(s)?")
+          expect(page).not_to have_button("Submit Application")
+        end
+      end
+    end
+  end
 end
