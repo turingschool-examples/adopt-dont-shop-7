@@ -35,7 +35,7 @@
   <% end %>
 </section>
 
-<% if !@searched_pets.nil? %>
+<% if !@searched_pets.nil? && @searched_pets.any? %>
   <% @searched_pets.each do |pet| %>
     <%= pet.name %><%= form_with url: "/application_pet?pet_id=#{pet.id}&application_id=#{@application.id}", method: :post, data: { turbo: false } do |form| %>
       <%= form.submit "Adopt this Pet" %>
