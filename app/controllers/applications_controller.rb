@@ -3,6 +3,10 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:search] == "pet"
       @searched_pets = Pet.where(name: "#{params[:pet_name]}")
+    else 
+      params[:search].present?
+      new_search = params[:search]
+      @searched_pets = Pet.where(name:, "%#{new_search}%")
     end
   end
 
