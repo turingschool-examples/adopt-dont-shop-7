@@ -23,33 +23,35 @@
       <%= form.submit "Search" %>
     <% end %>
     <br><br>
-    <% @searched_pets.each do |pet| %>
-      <h3><%= pet.name %></h3>
-      <%= form_with url: "/applications/#{@application.id}/pets?pet_id=#{pet.id}", method: :post, data: { turbo: false } do  |form| %> 
-        <%= form.submit "Adopt this Pet" %>
+    <% if @searched_pets %>
+      <% @searched_pets.each do |pet| %>
+        <h3><%= pet.name %></h3>
+        <%= form_with url: "/applications/#{@application.id}/pets?pet_id=#{pet.id}", method: :post, data: { turbo: false } do  |form| %> 
+          <%= form.submit "Adopt this Pet" %>
+        <% end %>
+        <table>
+          <tr>
+            <td>Name:</td>
+            <td><%= pet.name %></td>
+          </tr>
+          <tr>
+            <td>Age:</td>
+            <td><%= pet.age %></td>
+          </tr>
+          <tr>
+            <td>Breed:</td>
+            <td><%= pet.breed %></td>
+          </tr>
+          <tr>
+            <td>Adoptable:</td>
+            <td><%= pet.adoptable %></td>
+          </tr>
+          <tr>
+            <td>Shelter ID:</td>
+            <td><%= pet.shelter_id %></td>
+          </tr>
+        </table><br><br>
       <% end %>
-      <table>
-        <tr>
-          <td>Name:</td>
-          <td><%= pet.name %></td>
-        </tr>
-        <tr>
-          <td>Age:</td>
-          <td><%= pet.age %></td>
-        </tr>
-        <tr>
-          <td>Breed:</td>
-          <td><%= pet.breed %></td>
-        </tr>
-        <tr>
-          <td>Adoptable:</td>
-          <td><%= pet.adoptable %></td>
-        </tr>
-        <tr>
-          <td>Shelter ID:</td>
-          <td><%= pet.shelter_id %></td>
-        </tr>
-      </table><br><br>
     <% end %>
   </section>
 

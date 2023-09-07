@@ -86,9 +86,8 @@ RSpec.describe "the application show" do
     pet_3 = Pet.create(name: "Mini CHICK", age: 1, breed: "Chihuaha", adoptable: true, shelter_id: @shelter.id)
 
     visit "/applications/#{@application_1.id}"
-    fill_in("pet_search", with: "CHICKEN")
+    fill_in("pet_search", with: "cHiCK")
     click_button("Search")
-    click_button("Adopt this Pet")
 
     expect(page).to have_content("#{@pet_2.name}")
     expect(page).to have_content("#{pet_3.name}")
