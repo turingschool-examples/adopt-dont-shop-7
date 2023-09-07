@@ -16,9 +16,9 @@
     <p>Age: <%= pet.age %></p>
     <p>Breed: <%= pet.breed %></p>
     <p>Adoptable: <%= pet.adoptable %></p>
-    <p>Status: <%= pet.applicants_pets.find_by(pet_id: pet.id).status  %></p>
+    <p>Status: <%= pet.applicants_pets.find_by(applicant_id: @applicant.id, pet_id: pet.id).status  %></p>
       
-    <% if pet.applicants_pets.find_by(pet_id: pet.id).status == 'Pending' %>
+    <% if pet.applicants_pets.find_by(applicant_id: @applicant.id, pet_id: pet.id).status == 'Pending' %>
         <%= button_to "Approve Application", "/admin/applicants/#{@applicant.id}/pets/#{pet.id}/approve", method: :patch %><br>
         <%= button_to "Reject Application", "/admin/applicants/#{@applicant.id}/pets/#{pet.id}/reject", method: :patch %>
     <% end %> 
