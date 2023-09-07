@@ -1,8 +1,4 @@
-<h1>Application Details</h1>
-<h3>Name: <%= @application.name %></h3>
-<p>Address Line 1: <%= @application.street %></p>
-<p>Address Line 2: <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
-<p>Status: <%= @application.status %></p>
+<%= render partial: "layouts/application_details" %>
 
 <p>Description: <%= @application.description %></p>
 

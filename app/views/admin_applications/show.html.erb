@@ -1,0 +1,19 @@
+<%= render partial: "layouts/application_details" %>
+
+<% @application.pet_applications.each do |admin_pet| %>
+  <div id="<%= admin_pet.pet.name %>">
+  <p><%= admin_pet.pet.name %></p>
+  <% if admin_pet.status == "Approved" %>
+  <p>Approved</p>
+  <% elsif admin_pet.status == "Rejected" %>
+  <p>Rejected</p>
+  <% else %>
+    <div class="button-group">
+    <%= button_to "Approve", "/admin/applications/#{admin_pet.application.id}/#{admin_pet.id}", method: :patch, data: { turbo: false }, params: { value: "Approved" } %>
+    <%= button_to "Reject", "/admin/applications/#{admin_pet.application.id}/#{admin_pet.id}", method: :patch, data: { turbo: false }, params: { value: "Rejected" } %>
+    </div>
+    <% end %>
+  </div>
+<% end %>
+
+<p>Adoption Status: <%= @application.status %></p>
