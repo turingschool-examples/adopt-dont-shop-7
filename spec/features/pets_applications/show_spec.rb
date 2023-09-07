@@ -112,7 +112,10 @@ RSpec.describe "Application Show Page" do
         fill_in("description", with: "foo barr")
         click_button("Submit Application")
         expect(page).to have_content("Pending")
-        expect(dude.description).to eq("foo barr")
+      end
+
+      within(".applicant_information") do
+        expect(page).to have_content("foo barr")
       end
     end
   
