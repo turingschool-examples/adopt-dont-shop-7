@@ -49,5 +49,38 @@ RSpec.describe "Admin Applications Show" do
         expect(page).to have_content("Pet status: Approved")
       end
     end
+
+    it "Each pet has a rejection button that redirects to the same page and the pet is shown as rejected" do
+      visit "/admin/applications/#{@application_1.id}"
+
+      within("#pet-#{@pet_1.id}") do
+        expect(page).to have_button("Reject Pet")
+        click_button("Reject Pet")
+      end
+
+      expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
+
+      within("#pet-#{@pet_1.id}") do
+        expect(page).to have_content("Pet status: Rejected")
+        expect(page).to_not have_button("Reject Pet")
+        expect(page).to_not have_button("Approve Pet")
+      end
+    end
+
+    it "updates pet status per application rather than across all applications" do
+      PetApplication.create!(pet_id: @pet_1.id, application_id: @application_2.id)
+      visit "/admin/applications/#{@application_1.id}"
+
+      find("#pet-#{@pet_1.id}").click_button("Approve Pet")
+      expect(page).to have_content("Pet status: Approved")
+
+      visit "/admin/applications/#{@application_2.id}"
+      
+      within("#pet-#{@pet_1.id}") do
+        expect(page).to have_button("Approve Pet")
+        expect(page).to have_button("Reject Pet")
+        expect(page).to_not have_content("Pet status:")
+      end
+    end
   end
 end
