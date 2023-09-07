@@ -6,9 +6,6 @@ class AdminController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    if !params[:relationship_id].nil?
-      @relationship = ApplicationPet.find(params[:relationship_id])
-    end
   end
 
   def update
