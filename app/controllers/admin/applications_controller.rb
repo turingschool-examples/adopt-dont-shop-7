@@ -16,7 +16,6 @@ class Admin::ApplicationsController < ApplicationController
     
     @application.update_status
     @pet.update_adoptable_status
-    
 
     redirect_to admin_application_path(@application)
   end

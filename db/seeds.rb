@@ -23,6 +23,8 @@ pet5 = shelter3.pets.create(name: "zeus2", breed: "German Shepherd", age: 2, ado
 application2.pets << pet1
 application2.pets << pet2
 application2.pets << pet5
+application2.pets << pet4
 application3.pets << pet1
+
 
 

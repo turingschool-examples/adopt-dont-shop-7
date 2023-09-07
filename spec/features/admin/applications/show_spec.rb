@@ -101,5 +101,27 @@ RSpec.feature "the admin application show" do
         expect(page).to have_content('Awaiting Approval')
       end
     end
+
+    scenario 'US18 pets can only be approved for one application at a time' do
+      application2 = Application.create(applicant_name: "Benjamin Franklin", street_address: "456 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I like turkeys", status: "Pending")
+      application3 = Application.create(applicant_name: "Alexander Hamilton", street_address: "789 Main St.", city: "Boston", state: "MA", zip_code: "12345", description: "I'm smart af", status: "In Progress")   
+      shelter1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      pet1 = shelter1.pets.create(name: "Zeus", breed: "Great Dane", age: 3, adoptable: true)
+      application2.pets << pet1
+      application3.pets << pet1
+
+      visit "/admin/applications/#{application2.id}"
+
+      within("tr:contains('#{pet1.name}')") do
+        click_button 'Approve'
+      end
+
+      visit "/admin/applications/#{application3.id}"
+
+      within("tr:contains('#{pet1.name}')") do
+        expect(page).to have_button('Reject')
+        expect(page).to have_content('Already Approved')
+      end
+    end
   end
 end

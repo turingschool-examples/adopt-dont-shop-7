@@ -21,7 +21,7 @@
       <tr>
         <td><%= pet_application.pet.name %></td>
         <td>
-          <% if pet_application.approval == nil %>
+          <% if pet_application.approval == nil && pet_application.pet.adoptable != false %> 
             <%= form_tag admin_application_path(@application, id: pet_application.id), method: :patch do %>
             <%= submit_tag 'Approve' %>
             <% end %>
