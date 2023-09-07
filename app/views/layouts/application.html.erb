@@ -12,11 +12,11 @@
 
   <body>
   <% flash.each do |type, msg| %>
-    <div>
+    <div class="alert-info">
       <%= msg %>
     </div>
   <% end %>
-    <section>
+    <section id="nav">
       <p><%= link_to "Pets", "/pets" %></p>
       <p><%= link_to "Shelters", "/shelters" %></p>
       <p><%= link_to "Veterinarians", "/veterinarians" %></p>

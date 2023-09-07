@@ -1,18 +1,24 @@
 <h1>New Application</h1>
 
-<%= form_with url: "/applications", method: :post, data: { turbo: false } do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-  <%= form.label :street %>
-  <%= form.text_field :street %>
-  <%= form.label :city %>
-  <%= form.text_field :city %>
-  <%= form.label :state %>
-  <%= form.text_field :state %>
-  <%= form.label :zip_code %>
-  <%= form.text_field :zip_code %>
-  <%= form.label :description %>
-  <%= form.text_area :description, size: "70x5" %>
-  <%= form.submit "Submit" %>
-  <%= form.hidden_field :status, value: "In Progress" %>
-<% end %>
+<section id="new-application">
+  <%= form_with url: "/applications", method: :post, data: { turbo: false } do |form| %>
+    <fieldset>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+      <%= form.label :street %>
+      <%= form.text_field :street %>
+      <%= form.label :city %>
+      <%= form.text_field :city %>
+      <%= form.label :state %>
+      <%= form.text_field :state %>
+      <%= form.label :zip_code %>
+      <%= form.text_field :zip_code %>
+      <%= form.label :description %>
+      <%= form.text_area :description, size: "40x7" %>
+      <%= form.submit "Submit" %>
+      <%= form.hidden_field :status, value: "In Progress" %>
+    </fieldset>
+  <% end %>
+</section>
+
+

@@ -1,26 +1,28 @@
 <%= render partial: "layouts/application_details" %>
+<p><strong>Adoption Status:</strong> <%= @application.status %></p>
 
-<p>Description: <%= @application.description %></p>
-
-<% @application.pets.each do |pet| %>
-  <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
-<% end %>
-
-<p>Adoption Status: <%= @application.status %></p>
+<div id="pending-pets">
+  <h4>-- Pets On This Application --</h4>
+  <% @application.pets.each do |pet| %>
+    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+  <% end %>
+</div>
 
 <% if @application.status == "In Progress" %>
   <div id="pet_adoption">
     <h3>Add a Pet to this Application</h3>
     <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
-    <%= form.label :search, "Search by Name" %>
+    <%= form.label :search, "Search by Name:" %>
     <%= form.text_field :search %>
     <%= form.submit "Search" %>
     <% end %>
     
     <div>
     <% @pet_search_results.each do |result| %>
-      <p>Result: <%= result.name %></p>
-      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{result.id}", method: :post, params: { application_id: @application.id, pet_id: result.id } %>
+      <div class="pet-search-results">
+      <p><strong>Result:</strong> <%= result.name %></p>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{result.id}", class: "adopt-button", method: :post, params: { application_id: @application.id, pet_id: result.id } %>
+      </div>
       <% end %>
     </div>
   </div>
@@ -30,10 +32,12 @@
   <div id="submit_application">
     <h3> Submit Application </h3>
       <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |form| %>
+      <fieldset>
       <%= form.label :reason, "Qualification" %>
       <%= form.text_area :reason, size: "70x5" %>
       <%= form.submit "Submit Application" %>
       <%= form.hidden_field :status, value: "Pending" %>
+      </fieldset>
     <% end %>
   </div>
 <% end %>
