@@ -30,7 +30,8 @@
     </table>
     <% if @application.pet_status(pet) == nil %>
       <br>
-      <%= button_to "Approve Pet", "/admin/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch, data: {turbo: false} %>
+      <%= button_to "Approve Pet", "/admin/applications/#{@application.id}?pet_id=#{pet.id}&status=approved", method: :patch, data: {turbo: false} %>
+      <%= button_to "Reject Pet", "/admin/applications/#{@application.id}?pet_id=#{pet.id}&status=rejected", method: :patch, data: {turbo: false} %>
     <% else %>
       <p><b>Pet status: </b><%= @application.pet_status(pet) %></p>
     <% end %>
