@@ -37,4 +37,5 @@ This project will have one Check In. During your Check In, you should be prepare
 ## Resources
 
 [GitHub Projects](https://github.com/users/reedhillmar/projects/2)<br>
-[DB Designer](https://dbdesigner.page.link/RCEaHXh6d36cuJvv9)
+[DB Designer](https://dbdesigner.page.link/RCEaHXh6d36cuJvv9)<br>
+[Deployment](https://damp-forest-05477-ddcef6d7efce.herokuapp.com/)
