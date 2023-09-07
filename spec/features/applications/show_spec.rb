@@ -1,10 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Application Show", type: :feature do
-  describe "as a visitor" do
-    describe "when I visit an applications show page" do
-      it "then I can see the name, the full address of the applicant including street address, city, state, and zip code, description of why the applicant says they'd be a good home for this pet(s), names of all pets that this application is for (all names of pets should be links to their show page), and The Application's status, either 'In Progress', 'Pending', 'Accepted', or 'Rejected'" do
-        application = Application.create!(
+  before(:each) do
+    @application = Application.create!(
           name: "John Smith",
           street_address: "1234 Lane Street",
           city: "Happy City",
@@ -14,32 +12,35 @@ RSpec.describe "Application Show", type: :feature do
           status: "In Progress"
         )
 
-        shelter = Shelter.create!(
+        @shelter = Shelter.create!(
           foster_program: true,
           name: "The Shelter",
           city: "Happy City",
           rank: 1
         )
 
-        pet_1 = shelter.pets.create!(
+        @pet_1 = @shelter.pets.create!(
           adoptable: true,
           age: 3,
           breed: "orange cat",
           name: "Cheesecake"
         )
+  end
+  describe "as a visitor" do
+    describe "when I visit an applications show page" do
+      it "then I can see the name, the full address of the applicant including street address, city, state, and zip code, description of why the applicant says they'd be a good home for this pet(s), names of all pets that this application is for (all names of pets should be links to their show page), and The Application's status, either 'In Progress', 'Pending', 'Accepted', or 'Rejected'" do
+        ApplicationPet.create!(pet: @pet_1, application: @application)
 
-        ApplicationPet.create!(pet: pet_1, application: application)
+        visit "/applications/#{@application.id}"
 
-        visit "/applications/#{application.id}"
-
-        expect(page).to have_content("#{application.name}")
-        expect(page).to have_content("Street Address: #{application.street_address}")
-        expect(page).to have_content("City: #{application.city}")
-        expect(page).to have_content("State: #{application.state}")
-        expect(page).to have_content("Zip Code: #{application.zip_code}")
-        expect(page).to have_content("Description: #{application.owner_description}")
-        expect(page).to have_content("Pets: #{application.pets.first.name}")
-        expect(page).to have_content("Status: #{application.status}")
+        expect(page).to have_content("#{@application.name}")
+        expect(page).to have_content("Street Address: #{@application.street_address}")
+        expect(page).to have_content("City: #{@application.city}")
+        expect(page).to have_content("State: #{@application.state}")
+        expect(page).to have_content("Zip Code: #{@application.zip_code}")
+        expect(page).to have_content("Description: #{@application.owner_description}")
+        expect(page).to have_content("Pets: #{@application.pets.first.name}")
+        expect(page).to have_content("Status: #{@application.status}")
       end
     end
   end
@@ -49,31 +50,7 @@ RSpec.describe "Application Show", type: :feature do
       describe "In that section I see an input where I can search for Pets by name" do
         describe "When I fill in this field with a Pet's name and I click submit," do
           it "Then I am taken back to the application show page and under the search bar I see any Pet whose name matches my search" do
-            application = Application.create!(
-              name: "John Smith",
-              street_address: "1234 Lane Street",
-              city: "Happy City",
-              state: "CO",
-              zip_code: "80111",
-              owner_description: "I want an animal",
-              status: "In Progress"
-            )
-
-            shelter = Shelter.create!(
-              foster_program: true,
-              name: "The Shelter",
-              city: "Happy City",
-              rank: 1
-            )
-
-            pet_1 = shelter.pets.create!(
-              adoptable: true,
-              age: 3,
-              breed: "orange cat",
-              name: "Cheesecake"
-            )
-
-            visit "/applications/#{application.id}"
+            visit "/applications/#{@application.id}"
 
             expect(page).to have_content("Add a Pet to this Application")
 
@@ -81,7 +58,7 @@ RSpec.describe "Application Show", type: :feature do
 
             click_button "Submit"
 
-            expect(current_path).to eq("/applications/#{application.id}")
+            expect(current_path).to eq("/applications/#{@application.id}")
 
             expect(page).to have_content("Cheesecake")
           end
@@ -95,31 +72,7 @@ RSpec.describe "Application Show", type: :feature do
       describe "then next to each Pet's name I see a button to 'Adopt this Pet'" do
         describe "when I click one of these buttons" do
           it "I am taken back to the application show page and I see the pet I want to adopt listed on this application" do
-            application = Application.create!(
-              name: "John Smith",
-              street_address: "1234 Lane Street",
-              city: "Happy City",
-              state: "CO",
-              zip_code: "80111",
-              owner_description: "I want an animal",
-              status: "In Progress"
-            )
-
-            shelter = Shelter.create!(
-              foster_program: true,
-              name: "The Shelter",
-              city: "Happy City",
-              rank: 1
-            )
-
-            pet_1 = shelter.pets.create!(
-              adoptable: true,
-              age: 3,
-              breed: "orange cat",
-              name: "Cheesecake"
-            )
-
-            visit "/applications/#{application.id}"
+            visit "/applications/#{@application.id}"
 
             fill_in "Search for pets by name", with: "Cheesecake"
 
@@ -130,7 +83,7 @@ RSpec.describe "Application Show", type: :feature do
 
             click_button "Adopt this Pet"
 
-            expect(current_path).to eq("/applications/#{application.id}")
+            expect(current_path).to eq("/applications/#{@application.id}")
 
             within("#pets") do
               expect(page).to have_content("Cheesecake")
@@ -146,31 +99,7 @@ RSpec.describe "Application Show", type: :feature do
       describe "Then I see a section to submit my application and in that section I see an input to enter why I would make a good owner for these pet(s)" do
         describe "When I fill in that input and I click a button to submit this application" do
           it "I am taken back to the application's show page, I see an indicator that the application is 'Pending', I see all the pets that I wat to adopt, and I do not see a section to add more pets to this application" do
-            application = Application.create!(
-              name: "John Smith",
-              street_address: "1234 Lane Street",
-              city: "Happy City",
-              state: "CO",
-              zip_code: "80111",
-              owner_description: "I want an animal",
-              status: "In Progress"
-            )
-
-            shelter = Shelter.create!(
-              foster_program: true,
-              name: "The Shelter",
-              city: "Happy City",
-              rank: 1
-            )
-
-            pet_1 = shelter.pets.create!(
-              adoptable: true,
-              age: 3,
-              breed: "orange cat",
-              name: "Cheesecake"
-            )
-
-            visit "/applications/#{application.id}"
+            visit "/applications/#{@application.id}"
 
             fill_in "Search for pets by name", with: "Cheesecake"
 
@@ -185,7 +114,7 @@ RSpec.describe "Application Show", type: :feature do
 
             click_button("Submit Application")
 
-            expect(current_path).to eq("/applications/#{application.id}")
+            expect(current_path).to eq("/applications/#{@application.id}")
 
             within("#status") do
               expect(page).to have_content("Pending")
@@ -209,17 +138,7 @@ RSpec.describe "Application Show", type: :feature do
   describe "as a visitor" do
     describe "when I visit an application's show page and I have not added any pets to the application" do
       it "then I do not see a section to submit my application" do
-        application = Application.create!(
-          name: "John Smith",
-          street_address: "1234 Lane Street",
-          city: "Happy City",
-          state: "CO",
-          zip_code: "80111",
-          owner_description: "I want an animal",
-          status: "In Progress"
-        )
-
-        visit "/applications/#{application.id}"
+        visit "/applications/#{@application.id}"
 
         within("#submit-application") do
           expect(page).not_to have_content("Why would you make a good owner for these pet(s)?")
@@ -232,45 +151,28 @@ RSpec.describe "Application Show", type: :feature do
   describe "US 8 - as a visitor" do
     describe "when I visit an application's show page and I search for pets by name" do
       it "Then I see any pet whose name PARTIALLY matches my search" do
-        application = Application.create!(
-          name: "John Smith",
-          street_address: "1234 Lane Street",
-          city: "Happy City",
-          state: "CO",
-          zip_code: "80111",
-          owner_description: "I want an animal",
-          status: "In Progress"
-        )
-
-        shelter = Shelter.create!(
-          foster_program: true,
-          name: "The Shelter",
-          city: "Happy City",
-          rank: 1
-        )
-
-        pet_1 = shelter.pets.create!(
+        pet_1 = @shelter.pets.create!(
           adoptable: true,
           age: 3,
           breed: "white cat",
           name: "fluffy"
         )
 
-        pet_2 = shelter.pets.create!(
+        pet_2 = @shelter.pets.create!(
           adoptable: true,
           age: 4,
           breed: "whiter cat",
           name: "fluff"
         )
 
-        pet_3 = shelter.pets.create!(
+        pet_3 = @shelter.pets.create!(
           adoptable: true,
           age: 5,
           breed: "whitest cat",
           name: "mr.fluff"
         )
 
-        visit "/applications/#{application.id}"
+        visit "/applications/#{@application.id}"
 
         fill_in "Search for pets by name", with: "fluff"
 
@@ -286,45 +188,28 @@ RSpec.describe "Application Show", type: :feature do
   describe "US 9 - as a visitor" do
     describe "when I visit an application's show page and I search for pets by name" do
       it "Then my search is case insensitive" do
-        application = Application.create!(
-          name: "John Smith",
-          street_address: "1234 Lane Street",
-          city: "Happy City",
-          state: "CO",
-          zip_code: "80111",
-          owner_description: "I want an animal",
-          status: "In Progress"
-        )
-
-        shelter = Shelter.create!(
-          foster_program: true,
-          name: "The Shelter",
-          city: "Happy City",
-          rank: 1
-        )
-
-        pet_1 = shelter.pets.create!(
+        pet_1 = @shelter.pets.create!(
           adoptable: true,
           age: 3,
           breed: "white cat",
           name: "Fluffy"
         )
 
-        pet_2 = shelter.pets.create!(
+        pet_2 = @shelter.pets.create!(
           adoptable: true,
           age: 4,
           breed: "whiter cat",
           name: "FLUFF"
         )
 
-        pet_3 = shelter.pets.create!(
+        pet_3 = @shelter.pets.create!(
           adoptable: true,
           age: 5,
           breed: "whitest cat",
           name: "Mr.FlUfF"
         )
 
-        visit "/applications/#{application.id}"
+        visit "/applications/#{@application.id}"
 
         fill_in "Search for pets by name", with: "fluff"
 
