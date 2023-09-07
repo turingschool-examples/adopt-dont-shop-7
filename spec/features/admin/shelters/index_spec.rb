@@ -11,7 +11,7 @@ RSpec.describe "Admin Shelters Page" do
       denver = Shelter.create!(foster_program: true, name: "Denver", city: "Denver", rank: 7)
 
       visit "/admin/shelters"
-      save_and_open_page
+
       expect("Englewood").to appear_before("Denver")
       expect("Denver").to appear_before("Colemine")
       expect("Colemine").to appear_before("Broadway")
