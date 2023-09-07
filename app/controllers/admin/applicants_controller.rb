@@ -1,8 +1,11 @@
 class Admin::ApplicantsController < ApplicationController
+  def index
+    @applicants = Applicant.where(application_status: "Pending")
+  end
+  
   def show
     @applicant = Applicant.find(params[:id])
     @applicant_pets = @applicant.pets
-   
   end
 
   def approve_pet
