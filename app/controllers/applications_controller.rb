@@ -1,7 +1,9 @@
 class ApplicationsController < ApplicationController
   def show 
     @application = Application.find(params[:id])
-    @searched_pets = Pet.search(params[:pet_search])
+    if params[:pet_search]
+      @searched_pets = Pet.search(params[:pet_search])
+    end
   end
 
   def new
