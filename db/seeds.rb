@@ -33,9 +33,9 @@ brian = shelter_3.pets.create(adoptable: true, age: 7, breed: "TV Pooch", name: 
 
 # Applications
 dargo = Application.create(name: "Kal Dargo", street: "123 Turing Lane", city: "Boulder", state: "CO", zip_code: "80301", description: "I really want a dog because I love dogs.", status: "In Progress")
-aeryn = Application.create(name: "Aeryn Sun", street: "555 Peaceful Ave", city: "Hollywood", state: "CA", zip_code: "90210", description: "I need a companion on my long travels.", status: "Pending")
-chiana = Application.create(name: "Chiana", street: "235 River Ferry", city: "Nebari", state: "AU", zip_code: "45J83", description: "Oh come on, look how cute they are, just look!", status: "Accepted")
-rygel = Application.create(name: "Dominar Rygel XVI", street: "101 Royal Palace Rd.", city: "Hyneria", state: "UK", zip_code: "48J77", description: "I promise I won't eat it... reall I won't.", status: "Rejected")
+aeryn = Application.create(name: "Aeryn Sun", street: "555 Peaceful Ave", city: "Hollywood", state: "CA", zip_code: "90210", description: "I need a companion on my long travels.", status: "In Progress")
+chiana = Application.create(name: "Chiana", street: "235 River Ferry", city: "Nebari", state: "AU", zip_code: "45J83", description: "Oh come on, look how cute they are, just look!", status: "In Progress")
+rygel = Application.create(name: "Dominar Rygel XVI", street: "101 Royal Palace Rd.", city: "Hyneria", state: "UK", zip_code: "48J77", description: "I promise I won't eat it... reall I won't.", status: "In Progress")
 
 
 # PetApplications
