@@ -12,7 +12,7 @@
 
 <p id="pets">Pets: 
   <% @application.pets.each do |pet| %>
-      <br><%= pet.name %>
+      <br><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
       <% if pet.find_app_relationship(@application.id).status.nil? %>
         <%= render partial: 'button', locals: {
                                                 url: "/admin/applications/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=approved",

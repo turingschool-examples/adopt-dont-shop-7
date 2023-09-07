@@ -12,7 +12,7 @@
 
 <p id="pets">Pets: 
   <% @application.pets.each do |pet| %>
-    <br><%= pet.name %>
+    <br><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 </p>
 

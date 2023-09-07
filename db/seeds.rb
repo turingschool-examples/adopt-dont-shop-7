@@ -16,6 +16,15 @@ application = Application.create!(
   status: "Pending"
 )
 
+application_2 = Application.create!(
+  name: "Holly Adams",
+  street_address: "2345 Apple Street",
+  city: "Happy City",
+  state: "CO",
+  zip_code: "80111",
+  owner_description: "I have fostered before",
+  status: "In Progress"
+)
 shelter = Shelter.create!(
   foster_program: true,
   name: "The Shelter",
@@ -78,5 +87,6 @@ elle = shelter_2.pets.create!(
   breed: "chihuahua",
   name: "Elle",
 )
+
 
 ApplicationPet.create!(pet: pet_1, application: application)
