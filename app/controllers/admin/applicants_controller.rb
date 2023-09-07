@@ -11,7 +11,7 @@ class Admin::ApplicantsController < ApplicationController
   def approve_pet
     applicant = Applicant.find(params[:applicant_id])
     pet = Pet.find(params[:pet_id])
-    applicants_pet = ApplicantsPet.find_by(params[applicant_id: applicant.id, pet_id: pet.id])
+    applicants_pet = ApplicantsPet.find_by(applicant_id: applicant.id, pet_id: pet.id)
     applicants_pet.update(applicants_pet_params)
     applicants_pet.update(status: 'Approved')
     
@@ -21,7 +21,7 @@ class Admin::ApplicantsController < ApplicationController
   def reject_pet
     applicant = Applicant.find(params[:applicant_id])
     pet = Pet.find(params[:pet_id])
-    applicants_pet = ApplicantsPet.find_by(params[applicant_id: applicant.id, pet_id: pet.id])
+    applicants_pet = ApplicantsPet.find_by(applicant_id: applicant.id, pet_id: pet.id)
     applicants_pet.update(applicants_pet_params)
     applicants_pet.update(status: 'Rejected')
     redirect_to "/admin/applications/#{applicant.id}"
