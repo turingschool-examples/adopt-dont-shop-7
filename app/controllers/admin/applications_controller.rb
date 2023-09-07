@@ -17,4 +17,20 @@ class Admin::ApplicationsController < ApplicationController
 
     redirect_to admin_application_path(@application)
   end
+
+  def update
+    @pet_application = PetApplication.find(params[:id])
+    @application = @pet_application.application
+    @pet = @pet_application.pet
+
+    if params[:commit] == 'Approve'
+      @pet_application.approve
+@@ -14,6 +15,7 @@ def update
+    end
+
+    @application.update_status
+    @pet.update_adoptable_status
+
+    redirect_to admin_application_path(@application)
+  end
 end
