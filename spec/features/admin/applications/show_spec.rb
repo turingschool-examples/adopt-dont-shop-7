@@ -12,6 +12,8 @@ RSpec.describe "the admin application show" do
     @application_2 = Application.create!(name: "Quagmire", street: "300 Crest Lane", city: "Lowell", state: "NY", zip_code: "12345", description: "Giggity", status: "Pending")
     @apply_1 = PetApplication.create!(application_id: @application_1.id, pet_id: @pet_1.id, status: "Pending")
     @apply_2 = PetApplication.create!(application_id: @application_1.id, pet_id: @pet_2.id, status: "Pending")
+    @apply_3 = PetApplication.create!(application_id: @application_2.id, pet_id: @pet_1.id, status: "Pending")
+    @apply_4 = PetApplication.create!(application_id: @application_2.id, pet_id: @pet_2.id, status: "Pending")
   end
 
   describe "When I visit an admin application show page ('/admin/applications/:id')" do
@@ -97,5 +99,40 @@ RSpec.describe "the admin application show" do
 
       expect(page).to_not have_css('.button-group')
     end
+  end
+
+  describe "When there are two applications in the system for the same pets" do
+    describe "When I visit the admin application show page for one of the applications" do
+      it "I approve or reject a pet for this application and it does not affect the same pets on other applications" do
+
+        visit "/admin/applications/#{@application_1.id}"
+
+        within("#Bare-y-Manilow") do
+          click_button("Reject")
+          expect(page).to have_content("Rejected")
+        end
+        
+        within("#Lobster") do
+          click_button("Approve")
+          expect(page).to have_content("Approved")
+        end
+        expect(page).to_not have_css('.button-group')
+        visit "/admin/applications/#{@application_2.id}"
+
+        within("#Bare-y-Manilow") do
+          expect(page).to have_content(@pet_1.name) # Bare-y Manilow
+          expect(page).to have_button("Approve")
+          expect(page).to have_button("Reject")
+        end
+  
+        within("#Lobster") do
+          expect(page).to have_content(@pet_2.name) # Lobster
+          expect(page).to have_button("Approve")
+          expect(page).to have_button("Reject")
+        end
+        expect(page).to have_css('.button-group')
+      end
+    end
+
   end
 end
