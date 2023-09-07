@@ -1,4 +1,4 @@
-include 'rails_helper'
+require 'rails_helper'
 
 RSpec.describe "Admin Applications Show" do
   before(:each) do
@@ -7,7 +7,7 @@ RSpec.describe "Admin Applications Show" do
     @shelter_1 = Shelter.create!(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
     @pet_1 = @application_1.pets.create!(name: "Scooby", age: 2, breed: "Greate Dane", adoptable: true, shelter_id: @shelter_1.id)
     @pet_2 = @application_1.pets.create!(name: "Chicken", age: 6, breed: "Actually A Bird", adoptable: true, shelter_id: @shelter_1.id)
-    @pet_3 = application_2.pets.create!(name: "Kiwi", age: 5, breed: "Actually A Kiwi", adoptable: true, shelter_id: @shelter_1.id)
+    @pet_3 = @application_2.pets.create!(name: "Kiwi", age: 5, breed: "Actually A Kiwi", adoptable: true, shelter_id: @shelter_1.id)
   end
 
   describe "When I visit /admin/applications/:id" do

@@ -59,5 +59,15 @@ RSpec.describe Application, type: :model do
         expect(@application_2.has_pets?).to be(false)
       end
     end
+
+    describe "#pet_status" do
+      it "returns the current adoption status of a pet on an individual application" do
+        PetApplication.create!(pet_id: @pet.id, application_id: @application_2.id)
+        PetApplication.create!(pet_id: @pet_2.id, application_id: @application_1.id, status: "Approved")
+
+        expect(@application_1.pet_status(@pet_2)).to eq("Approved")
+        expect(@application_2.pet_status(@pet)).to be nil
+      end
+    end
   end
 end

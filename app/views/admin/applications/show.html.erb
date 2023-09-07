@@ -1,0 +1,38 @@
+<h1>Application #<%= @application.id %></h1>
+
+<h3>Name: <%= @application.name %></h3>
+<h3>Address: <%= @application.address %></h3>
+<h3>Description: <%= @application.description %></h3>
+<% if @application.adoption_description != nil %>
+  <h3>Why I'd make a good home: <%= @application.adoption_description %></h3>
+<% end %>
+
+<h3>Requested pet(s):</h3>
+<% @pets.each do |pet| %>
+  <section id="pet-<%= pet.id %>">
+    <table>
+      <tr>
+        <td>Name: </td>
+        <td><%= pet.name %></td>
+      </tr>
+      <tr>
+        <td>Age: </td>
+        <td><%= pet.age %></td>
+      </tr>
+      <tr>
+        <td>Breed: </td>
+        <td><%= pet.breed %></td>
+      </tr>
+      <tr>
+        <td>Shelter ID: </td>
+        <td><%= pet.shelter_id %></td>
+      </tr>
+    </table>
+    <% if @application.pet_status(pet) == nil %>
+      <br>
+      <%= button_to "Approve Pet", "/admin/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch, data: {turbo: false} %>
+    <% else %>
+      <p><b>Pet status: </b><%= @application.pet_status(pet) %></p>
+    <% end %>
+  </section>
+<% end %>
