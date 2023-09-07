@@ -41,6 +41,10 @@ RSpec.describe "Application Show", type: :feature do
         expect(page).to have_content("Description: #{@application.owner_description}")
         expect(page).to have_content("Pets: #{@application.pets.first.name}")
         expect(page).to have_content("Status: #{@application.status}")
+
+        click_link("Cheesecake")
+
+        expect(current_path).to eq("/pets/#{@pet_1.id}")
       end
     end
   end
