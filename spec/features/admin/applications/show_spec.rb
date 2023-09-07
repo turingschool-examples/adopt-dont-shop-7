@@ -121,6 +121,7 @@ RSpec.feature "the admin application show" do
 
       within("tr:contains('#{pet1.name}')") do
         expect(page).to have_button('Reject')
+        expect(page).to_not have_button('Approve')
         expect(page).to have_content('APPROVED')
       end
     end
