@@ -77,7 +77,7 @@ RSpec.describe "Admin Application" do
 
     expect(page).to have_content("Snoopy")
     expect(page).to have_content("Lobster")
-    save_and_open_page
+    
     within("#approve-all-pets") do
       click_button "Approve All Pets"
     end
