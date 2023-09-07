@@ -109,8 +109,10 @@ RSpec.describe "Application Show Page" do
         expect(page).to have_content("Lucille Bald")
         expect(page).to have_link(href: "/pets/#{pet_1.id}")
         expect(page).to have_link(href: "/pets/#{pet_2.id}")
+        fill_in("description", with: "foo barr")
         click_button("Submit Application")
         expect(page).to have_content("Pending")
+        expect(dude.description).to eq("foo barr")
       end
     end
   

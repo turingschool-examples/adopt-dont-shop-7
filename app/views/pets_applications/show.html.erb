@@ -27,8 +27,7 @@
   <% end %>
   </section>
 
-<section class="pets_submit"
-  
+<section class="pets_submit">
   <h3>Pet you would like to adopt:</h3>
   <% @pets.each do |pet| %>
     <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
@@ -36,6 +35,7 @@
   
 <% if !@pets.empty? && @application.status == "In Progress" %>
   <%= form_with url: "/pets_applications/#{@application.id}?status=submit", method: :patch, data: { turbo: false } do |form| %>
+    <%= form.text_area :description, size: "25x3", placeholder: "Why would you make a good home to these pets?" %>
     <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>
