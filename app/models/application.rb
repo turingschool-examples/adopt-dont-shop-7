@@ -28,4 +28,8 @@ class Application < ApplicationRecord
   def has_pets?
     pets.exists?
   end
+
+  def pet_status(pet)
+    PetApplication.where(pet_id: pet.id, application_id: self.id).pluck(:status).first
+  end
 end
