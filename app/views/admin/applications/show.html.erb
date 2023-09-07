@@ -1,3 +1,5 @@
+<%= render partial: 'admin/header', locals: { name: "Application" } %>
+
 <h1><%= @application.applicant_name %></h1>
 <h3>Street Address: <%= @application.street_address %></h3>
 <h3>City: <%= @application.city %></h3>
@@ -19,7 +21,7 @@
       <tr>
         <td><%= pet_application.pet.name %></td>
         <td>
-          <% if pet_application.approval == nil %>
+          <% if pet_application.approval == nil && pet_application.pet.adoptable != false %> 
             <%= form_tag admin_application_path(@application, id: pet_application.id), method: :patch do %>
             <%= submit_tag 'Approve' %>
             <% end %>
@@ -33,12 +35,12 @@
           <% end %>
         </td>
         <td>
-          <% if pet_application.approval == nil %>
-            <%= "Awaiting Approval" %>
-          <% elsif pet_application.approval == true %>
+          <% if pet_application.approval == true || pet_application.pet.adoptable == false %>
             <%= "APPROVED" %>
           <% elsif pet_application.approval == false %>
             <%= "REJECTED" %>
+          <% elsif pet_application.approval == nil %>
+            <%= "Awaiting Approval" %>
           <% end %>
         </td>
       </tr>

@@ -1,3 +1,4 @@
+<%= render partial: 'admin/header', locals: { name: "Shelters" } %>
 <h1>All Shelters</h1>
 <% @shelters.each do |shelter| %>
   <div id="shelter-<%= shelter.id %>">
