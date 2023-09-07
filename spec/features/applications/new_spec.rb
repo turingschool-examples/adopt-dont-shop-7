@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "new application form" do 
-  it "creates a new application" do 
+  it "US1: creates a new application" do 
     visit "/applications/new"
 
     expect(page).to have_field("Applicant Name")
@@ -13,7 +13,7 @@ RSpec.describe "new application form" do
     expect(page).to have_button("Submit")
   end
 
-  context "given valid data" do
+  context "US2: given valid data" do
     it "creates the pet and redirects to the shelter pets index" do
       visit "/applications/new"
 
@@ -25,8 +25,8 @@ RSpec.describe "new application form" do
       fill_in "Description", with: "I'm on a fiver"
       click_button "Submit"
 
-      app1_id = Application.last.id
-      expect(page).to have_current_path("/applications/#{app1_id}")
+      @app1_id = Application.last.id
+      expect(page).to have_current_path("/applications/#{@app1_id}")
       expect(page).to have_content("Thomas Jefferson")
       expect(page).to have_content("123 Main St.")
       expect(page).to have_content("Boston")
@@ -37,7 +37,7 @@ RSpec.describe "new application form" do
     end
   end 
 
-  context "given invalid data" do
+  context "US3: given invalid data" do
     it "re-renders the new form" do
       visit "/applications/new"
 

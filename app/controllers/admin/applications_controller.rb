@@ -13,7 +13,7 @@ class Admin::ApplicationsController < ApplicationController
     elsif params[:commit] == 'Reject'
       @pet_application.reject
     end
-    
+
     @application.update_status
     @pet.update_adoptable_status
 

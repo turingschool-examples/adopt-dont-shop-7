@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "the veterinary offices veterinarians index" do
-  before(:each) do
+  before :each do
     @vet_office_1 = VeterinaryOffice.create(name: "Best Vets", boarding_services: true, max_patient_capacity: 20)
     @vet_office_2 = VeterinaryOffice.create(name: "Vets R Us", boarding_services: true, max_patient_capacity: 20)
     @not_on_call_vet = Veterinarian.create(name: "Taylor", review_rating: 10, on_call: false, veterinary_office_id: @vet_office_1.id)
