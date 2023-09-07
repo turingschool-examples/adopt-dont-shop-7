@@ -40,5 +40,21 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe ".find_app_relationship" do
+      it "finds application relationship" do
+        application = Application.create!(
+          name: "John Smith",
+          street_address: "1234 Lane Street",
+          city: "Happy City",
+          state: "CO",
+          zip_code: "80111",
+          owner_description: "I want an animal",
+          status: "Pending"
+        )
+        relationship = ApplicationPet.create!(application: application, pet: @pet_1)
+        expect(@pet_1.find_app_relationship(application.id)).to eq(relationship)
+      end
+    end
   end
 end
