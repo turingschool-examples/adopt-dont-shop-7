@@ -14,14 +14,16 @@
   <% @application.pets.each do |pet| %>
       <%= pet.name %><br>
       <% if pet.find_app_relationship(@application.id).status.nil? %>
-        <%= form_with url: "/admin/applications/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=approved", method: :patch, data: { turbo: false } do |form| %>
-            <%= form.submit "Approve #{pet.name}" %>
-        <% end %>
-        
-        <%= form_with url: "/admin/applications/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=rejected", method: :patch, data: { turbo: false } do |form| %>
-            <%= form.submit "Reject #{pet.name}" %>
-        <% end %>
-
+        <%= render partial: 'button', locals: {
+                                                url: "/admin/applications/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=approved",
+                                                method: :patch,
+                                                button_text: "Approve #{pet.name}"
+        } %>
+        <%= render partial: 'button', locals: {
+                                                url: "/admin/applications/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=rejected",
+                                                method: :patch,
+                                                button_text: "Reject #{pet.name}"
+        } %>
         <% elsif pet.find_app_relationship(@application.id).status == "Approved" %>
             <%= "#{pet.name} has been approved" %>
         <% elsif pet.find_app_relationship(@application.id).status == "Rejected" %>
