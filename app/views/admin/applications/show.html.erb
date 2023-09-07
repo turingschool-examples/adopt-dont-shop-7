@@ -1,8 +1,5 @@
-<h1>Application #<%= @application.id %></h1>
+<%= render partial: '/layouts/application_header', locals: { application: @application } %>
 
-<h3>Name: <%= @application.name %></h3>
-<h3>Address: <%= @application.address %></h3>
-<h3>Description: <%= @application.description %></h3>
 <% if @application.adoption_description != nil %>
   <h3>Why I'd make a good home: <%= @application.adoption_description %></h3>
 <% end %>

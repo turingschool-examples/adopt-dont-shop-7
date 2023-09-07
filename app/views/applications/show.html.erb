@@ -1,6 +1,4 @@
-<h1><%= @application.name %></h1>
-<h3>Address: <%= @application.address %></h3>
-<h3>Description: <%= @application.description %></h3>
+<%= render partial: '/layouts/application_header', locals: { application: @application } %>
 
 <h3>Requested pet(s):</h3>
 <ul>
