@@ -24,6 +24,8 @@ class PetsApplicationsController < ApplicationController
   def update
     application = PetsApplication.find(params[:id])
     application.pet_id.nil? ? update_empty_pet_app(application) : create_new_or_update_app(application)
+    applicant = Applicant.find(application.applicant_id)
+    applicant.update(description: params[:description])
     redirect_to "/pets_applications/#{application.id}"
   end
 
