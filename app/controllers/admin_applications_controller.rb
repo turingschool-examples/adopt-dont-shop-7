@@ -1,6 +1,6 @@
 class AdminApplicationsController < ApplicationController
   def show
-    @admin_application = Application.find(params[:app_id])
+    @application = Application.find(params[:app_id])
   end
 
   def update
