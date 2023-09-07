@@ -13,7 +13,7 @@ Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
 
 # Create shelters
-shelters = Shelter.create([
+shelters = Shelter.create!([
                             {
                               name: "Aurora shelter",
                               city: "Aurora, CO",
@@ -35,7 +35,7 @@ shelters = Shelter.create([
                           ])
 
 # Create veterinary offices
-veterinary_offices = VeterinaryOffice.create([
+veterinary_offices = VeterinaryOffice.create!([
                                               {
                                                name: 'Vet Office 1',
                                                boarding_services: true,
@@ -54,7 +54,7 @@ veterinary_offices = VeterinaryOffice.create([
                                              ])
 
 # Create veterinarians
-veterinarians = Veterinarian.create([
+veterinarians = Veterinarian.create!([
                                       {
                                         name: 'Vet 1',
                                         veterinary_office: veterinary_offices.first,
@@ -76,7 +76,7 @@ veterinarians = Veterinarian.create([
                                     ])
 
 # Create pets
-pets = Pet.create([
+pets = Pet.create!([
                     {
                       name: "Lucille Bald",
                       age: 1,
@@ -97,11 +97,18 @@ pets = Pet.create([
                       breed: "Pit",
                       shelter: shelters.third,
                       adoptable: false
+                    },
+                    {
+                      name: 'Rex',
+                      age: 2,
+                      breed: "Dog",
+                      shelter: shelters.third,
+                      adoptable: true
                     }
                   ])
 
 # Create applicants
-applicants = Applicant.create([
+applicants = Applicant.create!([
                                 {
                                   name: "Bob",
                                   street_address: "1234 Bob's Street",
@@ -120,23 +127,15 @@ applicants = Applicant.create([
                                   application_status: 'In Progress'
                                 },
                                 {
-                                  name: 'Jane',
+                                  name: 'Lane',
                                   street_address: '789 Oak St',
                                   city: 'Midland',
                                   state: 'CA',
                                   zip_code: 90123,
-                                  description: 'Give me the fluff',
-                                  application_status: 'Pending'
+                                  application_status: 'In Progress'
                                 }
                               ])
 
 
-
-# lucille_bald = shelter.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
-# lobster = shelter.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id)
-# rex = shelter.pets.create!(adoptable: true, age: 2, breed: "Dog", name: "Rex" )
-# floof = shelter.pets.create!(adoptable: true, age: 3, breed: "English Bulldog", name: "Floof")
-# fluffy = shelter.pets.create!(adoptable: true, age: 4, breed: "Three-Headed Dog", name: "FlUfFy")
-# fluff = shelter.pets.create!(adoptable: true, age: 5, breed: "Pomeranian", name: "FLUFF")
-# mr_fluff = shelter.pets.create!(adoptable: true, age: 3, breed: "Great Dane", name: "Mr. FluFF")
-
+ApplicantsPet.create(applicant: applicants.first, pet: pets.first)
+ApplicantsPet.create(applicant: applicants.first, pet: pets[1])
