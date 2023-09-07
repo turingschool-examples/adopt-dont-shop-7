@@ -17,4 +17,8 @@ class Pet < ApplicationRecord
   def self.adoptable_search(search_params)
     adoptable.search(search_params)
   end
+
+  def update_adoptable_status
+    update(adoptable: false) if pet_applications.any? { |pa| pa.approval == true }
+  end
 end
