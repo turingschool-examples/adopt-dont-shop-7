@@ -13,7 +13,7 @@ application = Application.create!(
   state: "CO", 
   zip_code: "80111",
   owner_description: "I want an animal",
-  status: "Accepted"
+  status: "Pending"
 )
 
 shelter = Shelter.create!(
@@ -23,11 +23,60 @@ shelter = Shelter.create!(
   rank: 1
 )
 
+shelter_2 = Shelter.create!(
+  foster_program: false,
+  name: "Friends Shelter",
+  city: "Friends City",
+  rank: 2
+)
+
 pet_1 = shelter.pets.create!(
   adoptable: true,
   age: 3,
   breed: "orange cat",
   name: "Cheesecake"
+)
+
+fluffy = shelter.pets.create!(
+  adoptable: true,
+  age: 3,
+  breed: "white cat",
+  name: "Fluffy"
+)
+
+fluff = shelter.pets.create!(
+  adoptable: true,
+  age: 4,
+  breed: "whiter cat",
+  name: "FLUFF"
+)
+
+mrfluff = shelter.pets.create!(
+  adoptable: true,
+  age: 5,
+  breed: "whitest cat",
+  name: "Mr.FlUfF"
+)
+
+barey = shelter_2.pets.create!(
+  adoptable: true,
+  age: 7,
+  breed: "sphynx",
+  name: "Bare-y Manilow",
+)
+
+babe = shelter_2.pets.create!(
+  adoptable: true,
+  age: 3,
+  breed: "domestic pig",
+  name: "Babe",
+)
+
+elle = shelter_2.pets.create!(
+  adoptable: true,
+  age: 4,
+  breed: "chihuahua",
+  name: "Elle",
 )
 
 ApplicationPet.create!(pet: pet_1, application: application)
