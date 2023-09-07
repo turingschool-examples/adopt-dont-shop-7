@@ -1,0 +1,6 @@
+<h1>All Submitted Applications</h1>
+
+<% @applicants.each do |applicant| %>
+  <%= render partial: "applicants/applicant_info", locals: {object: applicant} %>
+  <%= link_to "Applicants Show page", "/admin/applications/#{applicant.id}" %>
+<% end %>
