@@ -54,6 +54,8 @@ RSpec.feature "Admin Application Show", type: :feature do
 
           click_button("Approve #{pet.name}")
 
+          save_and_open_page
+
           expect(page).to have_no_button("Approve #{pet.name}")
           expect(page).to have_content("#{pet.name} has been approved")
         end
