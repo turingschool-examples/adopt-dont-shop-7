@@ -88,6 +88,7 @@ RSpec.describe 'the /admin/applications/:id' do
     expect(page).to_not have_button("Reject Application")
     end
 
+    
     within("##{@pet_2.id}") do
     expect(page).to have_button("Approve Application")
     expect(page).to have_content("Pending")
