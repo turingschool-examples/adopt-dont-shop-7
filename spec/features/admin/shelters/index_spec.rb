@@ -28,4 +28,15 @@ RSpec.describe "the shelters index" do
     expect(end_of).to appear_before(mid_of)
     expect(mid_of).to appear_before(start_of)
   end
+
+  it "shows the shelters with pending applications" do 
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: true, rank: 9)
+    application_1 = Application.create(name: "John Dwayne", address: "1010 W 50th Ave, Denver, CO, 80020", description: "Background as a dog sitter", status: "Pending")
+    pet = application_1.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+    visit "/admin/shelters"
+
+    expect(page).to have_content("Shelters with Pending Applications")
+    expect(page).to have_content(shelter.name)
+  end
 end
