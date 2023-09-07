@@ -35,12 +35,12 @@
           <% end %>
         </td>
         <td>
-          <% if pet_application.approval == nil %>
-            <%= "Awaiting Approval" %>
-          <% elsif pet_application.approval == true %>
+          <% if pet_application.approval == true || pet_application.pet.adoptable == false %>
             <%= "APPROVED" %>
           <% elsif pet_application.approval == false %>
             <%= "REJECTED" %>
+          <% elsif pet_application.approval == nil %>
+            <%= "Awaiting Approval" %>
           <% end %>
         </td>
       </tr>

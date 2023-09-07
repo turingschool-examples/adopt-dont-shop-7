@@ -89,11 +89,12 @@ RSpec.feature "the admin application show" do
 
       visit "/admin/applications/#{application3.id}"
 
-      within("tr:contains('#{pet1.name}')") do
-        expect(page).to have_button('Approve')
-        expect(page).to have_button('Reject')
-        expect(page).to have_content('Awaiting Approval')
-      end
+      # This test is invaldiated by US18, see below
+      # within("tr:contains('#{pet1.name}')") do
+      #   expect(page).to have_button('Approve')
+      #   expect(page).to have_button('Reject')
+      #   expect(page).to have_content('Awaiting Approval')
+      # end
 
       within("tr:contains('#{pet2.name}')") do
         expect(page).to have_button('Approve')
@@ -120,7 +121,7 @@ RSpec.feature "the admin application show" do
 
       within("tr:contains('#{pet1.name}')") do
         expect(page).to have_button('Reject')
-        expect(page).to have_content('Already Approved')
+        expect(page).to have_content('APPROVED')
       end
     end
   end
