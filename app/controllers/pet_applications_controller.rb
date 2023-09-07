@@ -19,12 +19,13 @@ class PetApplicationsController < ApplicationController
     if application.all_pet_statuses.all?("Approved")
       application.update!({
         status: "Approved"
-    })
-    else application.all_pet_statuses.any?("Rejected")
-      application.update!({
-        status: "Rejected"
+      })
+    elsif application.all_pet_statuses.any?("Rejected")
+    application.update!({
+      status: "Rejected"
     })
     end 
+
     redirect_to "/admin/applications/#{params[:id]}"
   end
 end
