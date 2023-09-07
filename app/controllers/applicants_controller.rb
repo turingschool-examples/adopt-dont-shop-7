@@ -6,7 +6,7 @@ class ApplicantsController < ApplicationController
   def show
     @applicant = Applicant.find(params[:id])
     @pets = Pet.all
-    # require 'pry';binding.pry
+    
     if params[:name].present? 
       @results = @pets.search(params[:name]) 
       @search = params[:name]
