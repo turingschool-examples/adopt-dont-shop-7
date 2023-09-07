@@ -52,27 +52,26 @@ This project is a brownfield project, meaning that it was not created from scrat
 
 The Database has a many to many relationship in how the tables interrelate. So Shelters can have many pets, pets can belong to many applications, but only through the pet applications table.
 
-## Code Design:
-Summary:
-
-Modules:
-
-
 ## Contributers:
 
 - Cory Powell - [Github](https://github.com/coryrpow) || [LinkedIn](https://www.linkedin.com/in/coryrpow/)
 - Antoine Aube - [Github](https://github.com/Antoine-Aube) || [LinkedIn](https://www.linkedin.com/in/antoineaube/)
 
 ## Tech Stack:
+- rspec-rails
+- ruby
+- pry
+- capybara
+- shoulda-matchers
+- simplecov
+- orderly
+- deployed on heroku
 
 ## Additional Documentation:
 - [Github Projects](https://github.com/users/coryrpow/projects/1)
 - [Deployment Site](https://mysterious-thicket-11192-d50cbdd4fc1c.herokuapp.com/)
 - [Docs File](https://docs.google.com/document/d/1tBAVjzctp13628lGgBPPK9kKkh3TGYcKZkk8VSxIL34/edit?usp=sharing)
 - [DTR](https://docs.google.com/document/d/1bt8hrE2qSD9FLLe56inBho_DDstlvSUaVyQm2IfL5bc/edit?usp=sharing)
-- 
-## Skills Gained/Improved:
-
-## Reflection Points:
+  
 
 
