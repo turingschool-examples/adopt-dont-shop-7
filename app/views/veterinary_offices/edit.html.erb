@@ -1,5 +1,6 @@
 <h1>Edit Shelter</h1>
 <%= form_with url: "/veterinary_offices/#{@vet_office.id}", method: :patch, local: true do |f| %>
+  <fieldset>
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -10,4 +11,5 @@
   <%= f.number_field :max_patient_capacity %>
 
   <%= f.submit %>
+  </fieldset>
 <% end %>

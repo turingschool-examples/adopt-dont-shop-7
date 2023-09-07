@@ -1,5 +1,6 @@
 <h1>Edit Shelter</h1>
 <%= form_with url: "/shelters/#{@shelter.id}", method: :patch, local: true do |f| %>
+  <fieldset>
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -13,4 +14,5 @@
   <%= f.number_field :rank %>
 
   <%= f.submit %>
+  </fieldset>
 <% end %>
