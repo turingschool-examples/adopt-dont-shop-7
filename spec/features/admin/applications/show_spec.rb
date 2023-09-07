@@ -46,5 +46,56 @@ RSpec.describe "the admin application show" do
         expect(page).to_not have_content("Approved")
       end
     end
+
+    it "For every pet that the application is for, I see a button to reject the application for that specific pet" do
+      
+      visit "/admin/applications/#{@application_1.id}"
+
+      within("#Bare-y-Manilow") do
+        expect(page).to have_content(@pet_1.name) # Bare-y Manilow
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+      end
+
+      within("#Lobster") do
+        expect(page).to have_content(@pet_2.name) # Lobster
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+      end
+    end
+
+    it "When I click the reject button then I'm taken back to the admin application show page and do not see buttons next to that pet" do
+
+      visit "/admin/applications/#{@application_1.id}"
+      
+      expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
+
+      within("#Bare-y-Manilow") do
+        click_button("Reject")
+        expect(page).to have_content("Rejected")
+        expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
+      end
+
+      within("#Lobster") do
+        expect(page).to_not have_content("Rejected")
+      end
+    end
+
+    it "When I click assignment buttons they update the pet and then vanish from the view page" do
+
+      visit "/admin/applications/#{@application_1.id}"
+      
+      within("#Bare-y-Manilow") do
+        click_button("Reject")
+        expect(page).to have_content("Rejected")
+      end
+      
+      within("#Lobster") do
+        click_button("Approve")
+        expect(page).to have_content("Approved")
+      end
+
+      expect(page).to_not have_css('.button-group')
+    end
   end
 end

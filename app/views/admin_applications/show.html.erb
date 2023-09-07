@@ -16,6 +16,7 @@
   <% else %>
     <div class="button-group">
     <%= button_to "Approve", "/admin/applications/#{admin_pet.application.id}/#{admin_pet.id}", method: :patch, data: { turbo: false }, params: { value: "Approved" } %>
+    <%= button_to "Reject", "/admin/applications/#{admin_pet.application.id}/#{admin_pet.id}", method: :patch, data: { turbo: false }, params: { value: "Rejected" } %>
     </div>
     <% end %>
   </div>
