@@ -10,7 +10,7 @@ RSpec.describe 'Application Show Page' do
     #After creatings pets, put the pet link in place of pets for Stacy
   end
 
-  xit 'displays the attribute of the applicant' do
+  it 'displays the attribute of the applicant' do
     # Instantiate an Application? Also create Application model and controller?
     visit "/applications/#{@stacy.id}"
     expect(page).to have_content("Name of Applicant")
