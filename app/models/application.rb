@@ -3,6 +3,6 @@ class Application < ApplicationRecord
   has_many :pets, through: :application_pets
 
   def address_join
-    #ActiveRecord coding to join the entire address together
+    "#{street_address}, #{city}, #{state}, #{zip_code}"
   end
 end
