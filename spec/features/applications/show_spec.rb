@@ -10,7 +10,6 @@ RSpec.describe "the application show" do
   describe "When I visit an applications show page"do 
     it "I can see the application attributes" do
       visit "/applications/#{@application.id}"
-      save_and_open_page
 
       expect(page).to have_content(@application.name) 
       expect(page).to have_content(@application.street_address) 
