@@ -1,0 +1,18 @@
+<h1>Name of Applicant: <%= @application.name %></h1>
+
+<p>
+  Applicant Address:
+  <%= @application.street_address %>,
+  <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %>
+</p>
+
+<p>Description of why the applicant says they'd be a good home for this pet(s): <%= @application.description %></p>
+
+<h2>Pets Applied for:</h2>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><%= link_to pet.name, pet_path(pet) %></li> 
+  <% end %>
+</ul>
+
+<p>Application's status: <%= @application.status %></p>
