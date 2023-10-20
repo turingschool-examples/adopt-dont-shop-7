@@ -15,5 +15,11 @@ class ApplicationsController < ApplicationController
     })
 
     redirect_to "/applications/#{application.id}"
+  def id
+    params[:id]
+  end
+
+  def show
+    @app = Application.find(id)
   end
 end
