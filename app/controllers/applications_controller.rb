@@ -1,13 +1,13 @@
 class ApplicationsController < ApplicationController
-  def show 
+  def show
     @application = Application.find(params[:id])
   end
 
-  def new 
+  def new
   end
 
-  def create 
-    @application = Application.new({ 
+  def create
+    @application = Application.new({
       name: params[:name],
       street_address: params[:street_address],
       city: params[:city],
@@ -15,19 +15,19 @@ class ApplicationsController < ApplicationController
       zip_code: params[:zip_code],
       description: params[:description],
       status: "In Progress"
-      })
+    })
 
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
       flash[:alert] = "Error: Fill in all fields"
-      render :new 
-    end 
+      render :new
+    end
   end
 
   # private
 
-  # def app_params 
+  # def app_params
   #   params.permit(:id, :name, :street_address, :city, :state, :zip_code, :description, status: "In Progress")
   # end
 end
