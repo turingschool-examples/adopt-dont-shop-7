@@ -10,6 +10,7 @@ RSpec.describe "Application Show Page", type: :feature do
         @pet_2 = @shelter_1.pets.create(name: "Rue", breed: "shorthair", age: 3, adoptable: true)
         @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
         @application_1 = @pet_1.applications.create!(name: "Julie Johnson", address: "201 Main Street", city: "Seattle", state: "WA", zip_code: "75250", description: "I love dogs!", to_adopt: "Auggie", status: "In Progress")
+        @application_1 = @pet_3.applications.create!(name: "Julie Johnson", address: "201 Main Street", city: "Seattle", state: "WA", zip_code: "75250", description: "I love dogs!", to_adopt: "Ann", status: "In Progress")
         @application_2 = @pet_2.applications.create!(name: "Steve Smith", address: "705 Olive Lane", city: "Omaha", state: "NE", zip_code: "98253", description: "Emotional support animal.", to_adopt: "Rue", status: "Accepted")
       end 
 
@@ -27,12 +28,12 @@ RSpec.describe "Application Show Page", type: :feature do
         expect(page).to have_content(@application_1.status)
         # save_and_open_page
       end 
-
+      
       it "links to the pets show page" do
         visit "/applications/#{@application_1.id}"
-
+        
         click_on "#{@pet_1.name}"
-
+        
         expect(current_path).to eq "/pets/#{@pet_1.id}"
       end
     end 
