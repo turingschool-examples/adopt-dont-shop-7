@@ -43,7 +43,7 @@ RSpec.describe "New Application Form", type: :feature do
         fill_in "Status", with: "In Progress"
         click_button "Submit"
 
-        expect(current_path).to eq("/applications/#{application.id}")
+        expect(current_path).to eq("/applications/#{@app2.id + 1}")
 
         expect(page).to have_content("Roman")
         expect(page).to have_content("444 Berry Way")
