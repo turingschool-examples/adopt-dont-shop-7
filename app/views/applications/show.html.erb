@@ -3,10 +3,19 @@
 <h3><%= @application.city %></h3>
 <h3><%= @application.state %></h3>
 <h3><%= @application.zip_code %></h3>
+<h3><%= @application.application_status %></h3>
+<h3><%= @application.description %></h3>
+<% if @application.application_status /= "in progress" %>
+<%= form_with url: "/applications/#{@application.id}", method: :get, data: {turbo: false} do |form| %>
+  <p><%= form.label :search_by_name, 'search for a pet:' %></p>
+  <%= form.text_field :search_by_name, value: params[:search_by_name] %>
+  <%= form.submit 'submit' %>
+  <% end %>
+<% end %>
 <h3><% @application.pets.each do |pet| %></h3>
 <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
 <% end %>
-<h3><%= @application.application_status %></h3>
-<h3><%= @application.description %></h3>
+
+
 
 

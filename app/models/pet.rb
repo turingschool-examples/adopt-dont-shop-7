@@ -12,4 +12,9 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.filter_by_name(threshold)
+    where('name > ?', threshold)
+  end
+
 end
