@@ -26,7 +26,7 @@ RSpec.describe "New application" do
     click_button "Submit"
 
     @new_app = Application.last
-    expect(current_path).to eq("/applications/#{@new_app.id}")
+    expect(current_path).to eq("/applications/#{@new_app.id}") 
 
     expect(page).to have_content "Noelle Hemphill"
     expect(page).to have_content "2929 Rexing Rd"
