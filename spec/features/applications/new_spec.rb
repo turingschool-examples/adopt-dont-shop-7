@@ -12,7 +12,8 @@ RSpec.describe "New Application Page" do
     fill_in('zip_code', with: '80206')
     fill_in('description', with: "I love dogs")
     click_on ('Submit')
-    expect(current_path).to eq("/applications/1") #everytime we test it's making more applications... doing application.id there isnt working for some reason
+    application = Application.first
+    expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content('Lauren Lockwood')
     # expect(page).to have_content('In Progress') #this is something we may have needed in the migration... will discuss
     Application.destroy_all
@@ -27,9 +28,9 @@ RSpec.describe "New Application Page" do
     fill_in('state', with: 'DC')
     fill_in('description', with: "I love cats")
     click_button ('Submit')
-    # save_and_open_page
+    application = Application.first
     # expect(page).to have_content("Please fill in all required fields!")
-    expect(current_path).to eq("/applications/2") #you have to run rails db:{drop,create,migrate} to get the numbers right.. 
+    expect(current_path).to eq("/applications/#{application.id}")
     Application.destroy_all
   end
 end
