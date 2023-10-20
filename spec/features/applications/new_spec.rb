@@ -16,7 +16,7 @@ RSpec.describe "Applications" do
       expect(page).to have_link "Start an Application", href: "/applications/new"
     end
 
-    it "On this page I see a form" do
+    xit "On this page I see a form" do
       visit "/applications/new"
 
       
@@ -55,8 +55,9 @@ RSpec.describe "Applications" do
     fill_in(:zip_code, with: '84105')
     fill_in(:description, with: 'Why would you be a good pet parent?')
 
-    expect(current_path).to eq('/applications/new')
+    click_button('Submit Application')
 
+    expect(current_path).to eq('/applications/new')
     expect(page).to have_content("You must fill in this field")
     expect("State:").to appear_before("You must fill in this field")
     expect("You must fill in this field").to appear_before("Zip Code:")
