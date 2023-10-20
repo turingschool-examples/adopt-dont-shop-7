@@ -38,4 +38,34 @@ RSpec.describe "create new application", type: :feature do
       end
     end
   end
+
+  describe "US3-Starting an Application, Form not complete" do
+    describe "When I visit the new application page" do
+        describe "I fail to fill in any of the form fields And I click submit" do
+          it "I am taken back to the new applications page, I see a message that I must fill in those fields." do
+            visit "/applications/new"
+
+            expect(current_path).to eq("/applications/new")
+
+            expect(page).to have_content("Name:")
+            expect(page).to have_content("Street Address:")
+            expect(page).to have_content("City:")
+            expect(page).to have_content("State:")
+            expect(page).to have_content("Zip Code:")
+            expect(page).to have_content("Description")
+
+            fill_in "name",	with: "Jimmy John"
+            fill_in "street_address",	with: "111 lonely road"
+            fill_in "city",	with: "John City"
+            fill_in "state",	with: "AR"
+            fill_in "zip_code",	with: "90909"
+
+            click_button "Submit"
+save_and_open_page 
+            expect(current_path). to eq("/applications/new")
+            expect(page).to have_content("Error: Fill in all fields")
+          end
+        end
+      end
+  end
 end

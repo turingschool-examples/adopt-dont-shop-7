@@ -21,7 +21,8 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{@application.id}"
     else
       flash[:alert] = "Error: Fill in all fields"
-      render :new
+      redirect_to "/applications/new"
+
     end
   end
 
