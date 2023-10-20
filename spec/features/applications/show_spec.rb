@@ -2,6 +2,10 @@ require 'rails_helper'
 RSpec.describe "the application show" do
   before :each do
     @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: "Bruno", status: "In Progress")
+    @trevor = Application.create!(name: "Trevor Smith", street_address: "815 Ardsma Ave", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: [], status: "In Progress")  
+    @bruiser = Pet.create!(adoptable: true, age: 1, breed: "huskey", name: "Bruiser", shelter_id: shelter.id)
+    @bruno = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Bruno", shelter_id: shelter.id)
+    @trixie = Pet.create!(adoptable: true, age: 7, breed: "pitbull", name: "Trixie", shelter_id: shelter.id)
   end
 
   # User Story 1, Application Show Page
@@ -74,4 +78,11 @@ RSpec.describe "the application show" do
     expect(page).to_not have_content(@trixie.name)
   end
 
+  # User Story 7, No Pets on an Application
+  it 'does not have section to submit app if no pets added' do
+    visit "/applications/#{@trevor.id}"
+
+    expect(@trevor.pet_names).to eq([])
+    expect(page).to_not have_content("Submit Application")
+  end
 end
