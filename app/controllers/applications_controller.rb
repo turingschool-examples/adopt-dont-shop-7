@@ -1,4 +1,9 @@
 class ApplicationsController < ApplicationController
+  def show
+    @application = Application.find(params[:id])
+    @address = @application.address
+  end
+
   def new 
   end
 
@@ -16,5 +21,5 @@ class ApplicationsController < ApplicationController
 
   def application_params 
     params.permit(:id, :name, :street_address, :city, :state, :zip_code, :description, :status)
-  end
+  end 
 end
