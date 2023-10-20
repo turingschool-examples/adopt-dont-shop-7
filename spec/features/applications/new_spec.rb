@@ -28,7 +28,6 @@ RSpec.describe "New Application Page" do
     fill_in('description', with: "I love cats")
     click_button ('Submit')
     # save_and_open_page
-    # expect(page).to have_content("Validation failed: City can't be blank, Zip code can't be blank")
     # expect(page).to have_content("Please fill in all required fields!")
     expect(current_path).to eq("/applications/2") #you have to run rails db:{drop,create,migrate} to get the numbers right.. 
     Application.destroy_all
