@@ -2,19 +2,27 @@
 <%= form_with url: "/applications", method: :post, data: { turbo: false } do |form| %>
   <%= form.label :name %><br>
   <%= form.text_field :name %> <br><br>
+
   <%= form.label :address, "Street Address" %><br>
   <%= form.text_field :address %><br><br>
+
   <%= form.label :address_s %><br>
   <%= form.text_field :address_s, optional: true %><br><br>
+
   <%= form.label :city %><br>
   <%= form.text_field :city %><br><br>
+
   <%= form.label :state %><br>
   <%= form.text_field :state %><br><br>
+
   <%= form.label :zip_code, "Zip Code" %><br>
   <%= form.text_field :zip_code %><br><br>
+
   <%= form.label :description,  "Description of why I would make a good home"%><br>
   <%= form.text_field :description %> <br><br>
+
   <%= form.label :status %><br>
   <%= form.text_field :status %><br><br>
-  <%= form.submit "Submit"%><br>
+
+  <%= form.submit "Submit" %><br>
 <% end %>

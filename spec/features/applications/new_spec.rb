@@ -32,7 +32,7 @@ RSpec.describe "New Application Form", type: :feature do
         # And I see my Name, address information, and description of why I would make a good home
         # And I see an indicator that this application is "In Progress"
 
-        visit "/applications/new" 
+        visit "/applications/new"
 
         fill_in "Name", with: "Roman"
         fill_in "Street Address", with: "444 Berry Way"
@@ -43,8 +43,7 @@ RSpec.describe "New Application Form", type: :feature do
         fill_in "Status", with: "In Progress"
         click_button "Submit"
 
-        expect(current_path).to_not eq("/applications/new")
-        # expect(current_path).to eq("/applications/#{application.id}")
+        expect(current_path).to eq("/applications/#{application.id}")
 
         expect(page).to have_content("Roman")
         expect(page).to have_content("444 Berry Way")
