@@ -40,13 +40,14 @@ RSpec.describe "As a visitor" do
       fill_in("description", with: "I love dogs")
       click_button("Submit Application")
 
-      expect(current_path).to eq("/applications/#{@application.id}")
-    end
-
-    it "I see my Name, address information, and description of why I would make a good home And I see an indicator that this application is 'In Progress'" do
-      # @application = Application.new(name: "Jackkie",  street_address: "432 road st", city: "peoria", state: "az", description: "I love Dogs", application_status: "in progress")
-
-      visit "/applications/#{}"
+      expect(current_path).to eq("/applications/#{Application.first.id}")
+      
+      expect(page).to have_content("Jackie")
+      expect(page).to have_content("432 road st")
+      expect(page).to have_content("Peoria")
+      expect(page).to have_content("AZ")
+      expect(page).to have_content("85032")
+      expect(page).to have_content("I love dogs")
     end
   end
 end
