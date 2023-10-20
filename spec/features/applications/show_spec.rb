@@ -23,7 +23,7 @@ RSpec.describe "applications show page" do
     # - names of all pets that this application is for (all names of pets should be links to their show page)
     # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 
-    visit "/applications/#{@app1.id}/show"
+    visit "/applications/#{@app1.id}"
 
     expect(page).to have_content @app1.name
     expect(page).to have_content @app1.full_address

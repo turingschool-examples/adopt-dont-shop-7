@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.create({
+    application = Application.create!({
       name: params[:name],
       address: params[:address],
       address_s: params[:address_s],
@@ -14,14 +14,16 @@ class ApplicationsController < ApplicationController
       status: "In Progress"
     })
 
-    redirect_to "/applications/#{application.id}/show"
-  end
-
-  def id
-    params[:id]
+    redirect_to "/applications/#{application.id}"
   end
 
   def show
     @app = Application.find(id)
+  end
+
+  private
+
+  def id
+    params[:id]
   end
 end
