@@ -102,7 +102,7 @@ RSpec.describe "the pets index" do
         # When I click this link
         # Then I am taken to the new application page where I see a form
 
-        visit "/pets" 
+        visit "/pets"
 
         expect(page).to have_link("Start an Application")
 
