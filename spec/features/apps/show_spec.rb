@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "the applications show" do
-  before(:each) do
+  # before(:each) do
 
-  end
+  # end
   it 'lists an applicant with their details' do
     timmy = App.create(name: "Timmy", address: "123 Main St", city: "Aurora, CO", zip: 80111, description: "I love dogs", status: "In Progress")
     
