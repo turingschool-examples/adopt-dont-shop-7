@@ -15,6 +15,8 @@ class ApplicationsController < ApplicationController
     })
 
     redirect_to "/applications/#{application.id}"
+  end
+
   def id
     params[:id]
   end
