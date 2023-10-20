@@ -40,7 +40,7 @@ RSpec.describe "New Application Form", type: :feature do
         fill_in "State", with: "CO"
         fill_in "Zip Code", with: "88888"
         fill_in "Description of why I would make a good home", with: "A loving family."
-        fill_in "Status"
+        fill_in "Status", with: "In Progress"
         click_button "Submit"
 
         expect(current_path).to_not eq("/applications/new")
