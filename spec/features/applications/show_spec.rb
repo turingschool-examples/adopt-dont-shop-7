@@ -37,7 +37,7 @@ RSpec.describe "applications show page" do
     expect(page).to have_content @app1.name
     expect(page).to have_content @app1.full_address
     expect(page).to have_content @app1.description
-    expect(page).to have_content @app1.pet_names
+    expect(page).to have_content @app1.pet_names.join(" | ")
     expect(page).to have_content @app1.status
   end
 
@@ -65,7 +65,7 @@ RSpec.describe "applications show page" do
     it "shows a search bar" do  # US 4.1
       visit "/applications/#{@app2.id}"
 
-      fill_in :name, with: "Buster"
+      fill_in :q, with: "Buster"
       click_button "Search"
 
       expect(page).to have_content "Search Results: Buster"
