@@ -1,0 +1,21 @@
+<center>
+  <h1>New Applicant Form</h1>
+  <section class="new-card card">
+  <div class=" card-body">
+    <%= form_with url: '/applications', method: :post, data: { turbo: false } do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name, placeholder: "Enter Full Name" %> 
+      <%= f.label :street_address %>
+      <%= f.text_field :street_address, placeholder: "Enter Street Address" %>
+      <%= f.label :city %>
+      <%= f.text_field :city, placeholder: "Enter City" %>
+      <%= f.label :state %>
+      <%= f.text_field :state, placeholder: "Enter State" %>
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code, placeholder: "Enter Zipcode" %>
+      <%= f.label :description %>
+      <%= f.text_field :description, placeholder: "Qualifications" %>
+      <%= f.submit 'Submit', class: 'button' %>
+    <% end %>
+  </div>
+</center></br>

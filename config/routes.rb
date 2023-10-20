@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get "/", to: "application#welcome"
+  get "/", to: "applications#welcome"
+  get "/applications/new", to: "applications#new", as: "new_application"
   get "/applications/:id", to: "applications#show"
+  post "/applications", to: "applications#create"
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
