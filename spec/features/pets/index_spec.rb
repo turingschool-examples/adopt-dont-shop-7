@@ -97,7 +97,7 @@ RSpec.describe "the pets index" do
   end
 
   it "when I click the 'Start an Application' link, I see a form with the following attributes" do
-    application = Application.create
+    application = PetApplication.create
 
     visit "/applications/new"
 
@@ -113,6 +113,6 @@ RSpec.describe "the pets index" do
     expect(current_path).to eq("/applications/#{application.id}")
 
     # save_and_open_page
-    # expect(page).to have_content("In Progress")
+    expect(page).to have_content("In Progress")
   end
 end
