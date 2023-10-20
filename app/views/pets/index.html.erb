@@ -6,6 +6,7 @@
   <%= f.submit "Search" %>
 <% end %>
 
+<%= link_to "Start an Application", new_application_path %></br></br>
 
 <% @pets.each do |pet| %>
   <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
