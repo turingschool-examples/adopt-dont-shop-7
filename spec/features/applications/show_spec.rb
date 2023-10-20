@@ -30,11 +30,10 @@ RSpec.describe "the application show" do
     expect(page).to have_field("Enter a Pet's Name")
     expect(page).to have_button("Search By Name")
     
-    fill_in "search", with: "Bru"
+    fill_in "search", with: "Bruno"
     click_button("Search")
 
     expect(page).to have_content(@bruno.name)
-    expect(page).to have_content(@bruiser.name)
   end
 
   # User Story 5, Add a Pet to an Application
@@ -84,5 +83,61 @@ RSpec.describe "the application show" do
 
     expect(@trevor.pet_names).to eq([])
     expect(page).to_not have_content("Submit Application")
+  end
+
+  # User Story 8, Partial Matches for Pet Names
+  it 'Alows search for pet by name partial matches' do
+    visit "/applications/#{@john.id}"
+
+    expect(page).to have_field("Enter a Pet's Name")
+    expect(page).to have_button("Search By Name")
+    
+    fill_in "search", with: "Bru"
+    click_button("Search")
+
+    expect(page).to have_content(@bruno.name)
+    expect(page).to have_content(@bruiser.name)
+  end
+
+  # User Story 9, Case Insensitive Matches for Pet Names
+  describe 'Case Insensitive Matches for Pet Names' do
+    it 'Alows search for pet by name all upcase' do
+      visit "/applications/#{@john.id}"
+
+      expect(page).to have_field("Enter a Pet's Name")
+      expect(page).to have_button("Search By Name")
+      
+      fill_in "search", with: "BRU"
+      click_button("Search")
+
+      expect(page).to have_content(@bruno.name)
+      expect(page).to have_content(@bruiser.name)
+    end
+
+    it 'Alows search for pet by name all lowercase' do
+      visit "/applications/#{@john.id}"
+
+      expect(page).to have_field("Enter a Pet's Name")
+      expect(page).to have_button("Search By Name")
+      
+      fill_in "search", with: "bru"
+      click_button("Search")
+
+      expect(page).to have_content(@bruno.name)
+      expect(page).to have_content(@bruiser.name)
+    end
+
+    it 'Alows search for pet by name case insensitive' do
+      visit "/applications/#{@john.id}"
+
+      expect(page).to have_field("Enter a Pet's Name")
+      expect(page).to have_button("Search By Name")
+      
+      fill_in "search", with: "BrU"
+      click_button("Search")
+
+      expect(page).to have_content(@bruno.name)
+      expect(page).to have_content(@bruiser.name)
+    end
   end
 end
