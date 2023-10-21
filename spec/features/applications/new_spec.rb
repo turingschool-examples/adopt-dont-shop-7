@@ -27,6 +27,28 @@ RSpec.describe "the New application page", type: :feature do
         expect(page).to have_content("I have three other dogs to be friends with.")
         expect(page).to have_content("In Progress")
       end
+
+      #User Story 3
+      it "I fail to fill in any of the form fields, click submit and taken back to new application page" do
+        
+        visit "/applications/new"
+
+        expect(page).to have_content("Name")
+        expect(page).to have_content("Street Address")
+        expect(page).to have_content("City")
+        expect(page).to have_content("State")
+        expect(page).to have_content("Zipcode")
+        expect(page).to have_content("Description")
+
+        fill_in("Name", with: "Joey Jones")
+        fill_in("Address", with: "100 Apple Ave")
+        fill_in("City", with: "Orlando")
+
+        click_button("Submit")
+
+        expect(current_path).to eq("/applications/new")
+        expect(page).to have_content("Please Fill In All Fields")
+      end
     end 
   end 
 end 
