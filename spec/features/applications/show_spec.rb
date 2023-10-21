@@ -26,5 +26,21 @@ RSpec.describe "Application Show Page" do
       expect(page).to have_content("Applying to Adopt:" )
       expect(page).to have_content("Status: #{@application1.status}")
     end
+    
+    it "shows a search for pets and lists matches to that pet name" do
+      visit "/applications/#{@application1.id}"
+
+      within("#pet_search") do
+        expect(page).to have_field(:search)
+        expect(page).to have_button("Search")
+        fill_in(:search, with: "Mr. Pirate")
+        click_button("Search")
+      end
+
+      expect(current_path).to eq("/applications/#{@application1.id}")
+      expect(page).to have_content("Mr. Pirate")
+      save_and_open_page
+    end
+
   end
 end 
