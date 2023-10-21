@@ -1,1 +1,1 @@
-web: bundle exec puma -C -p ${PORT:-3000} config/puma.rbg 
+web: bundle exec rails server -p $PORT
