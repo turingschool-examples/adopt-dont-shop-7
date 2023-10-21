@@ -26,14 +26,12 @@ RSpec.describe "the applications show" do
     # Description of why the applicant says they'd be a good home for this pet(s)
     expect(page).to have_content("I love dogs")
     # names of all pets that this application is for (all names of pets should be links to their show page)
-
-    expect(page).to have_content(@pet1.name)
-    expect(page).to have_link("/pets/#{@pet1.id}")
-    click_link "#{@pet1.name}"
-    save_and_open_page
-    expect(current_path).to eq("/pets/#{@pet1.id}")
     # The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
     expect(page).to have_content("In Progress")
+    expect(page).to have_content(@pet1.name)
+    expect(page).to have_link("#{@pet1.name}", href: "/pets/#{@pet1.id}")
+    click_link "#{@pet1.name}"
+    expect(current_path).to eq("/pets/#{@pet1.id}")
 
     #user story 1
   end
