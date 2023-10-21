@@ -1,4 +1,5 @@
 class AppsController < ApplicationController
+  
   def index
     @apps = App.all
   end
@@ -15,6 +16,11 @@ class AppsController < ApplicationController
     app = App.create(app_params)
     redirect_to "/apps/#{app.id}"
   end
+
+  # def add_pet
+  #   @app = App.find(params[:id])
+
+  # end
 
   private
   def app_params
