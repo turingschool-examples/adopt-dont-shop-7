@@ -71,7 +71,7 @@ RSpec.describe 'application show page', type: :feature do
   end
 
   describe 'submit an application' do
-    it 'submits an application' do
+    it 'submits an application with valid data' do
       #US 6
       # PetApplication.create!(pet_id: @pet_1.id, application_id: @application1.id)
       visit "/applications/#{@application1.id}"
@@ -90,6 +90,15 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content("#{@pet_1.name}")
       expect(page).to have_content("I know how to take care pets!")
       expect(page).to_not have_content("Add a Pet to this Application")
+    end
+
+    it 'cannot submit without pets on an application' do
+      application1 = Application.create!(name: "Hannah Banana", street_address: "1234 Sugarwood Cir", city: "Newport", state: "Kentucky", zip_code: "41071", description: "I already have a cat and my cat Dave needs a friend. Dave is very friendly and other cat would be a great addition for our household!")
+
+      visit "/applications/#{application1.id}"
+
+      expect(page).to_not have_button("Submit Application")
+      expect(page).to_not have_content("Why I would make a good owner for these pet(s)")
     end
   end
 end
