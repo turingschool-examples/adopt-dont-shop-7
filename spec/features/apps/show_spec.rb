@@ -8,7 +8,7 @@ RSpec.describe "the applications show" do
     @timmy.pets << @pet1
   end
   it 'lists an applicant with their details' do  
-    #     [ ] done
+    #     [x] done
 
     # Application Show Page
     # As a visitor
