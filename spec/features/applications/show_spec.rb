@@ -63,4 +63,43 @@ RSpec.describe "the application show" do
       end
     end
   end
+
+  describe "US 6 - Applications show page" do
+    describe "Add a pet and see a section to submit my application" do
+      describe "see and fill in an input to enter why I would make a good owner for these pet(s)" do
+        describe "click submit, taken back to the applications show page and see the application is now pending" do
+          it "I see all the pets I want to adopt and I dont see the section to add more pets" do
+            visit "/applications/#{@application.id}"
+
+            fill_in "Search for Pets", with: "Scooby"
+
+            click_button "Submit"
+
+            click_button "Adopt this Pet"
+            save_and_open_page
+            expect(page).to have_content("Why would you make a good owner for these pet(s)?")
+            expect(page).to have_button("Submit Application")
+
+            fill_in "Why would you make a good owner for these pet(s)?", with: "I love animals"
+
+            click_button("Submit Application")
+
+            expect(current_path).to eq("/applications/#{@application.id}")
+
+            within("#pets-applied-for") do
+              expect(page).to have_content("Scooby")
+            end
+
+            within("#app-status") do
+              expect(page).to have_content("Application's Status: Pending")
+            end
+
+            expect(page).not_to have_content("Add a Pet to this Application")
+            expect(page).not_to have_content("Search for Pets")
+            expect(page).not_to have_button("Submit")
+          end
+        end
+      end
+    end
+  end
 end
