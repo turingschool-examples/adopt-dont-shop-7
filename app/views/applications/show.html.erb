@@ -1,6 +1,28 @@
+
 <h2>Application Number <%= @application.id %></h2>
 <p> <b>Name of Applicant: </b><%= @application.name %></p>
 <p> <b>Address: </b> <%= @application.address_join %></p>
 <p> <b>Description of Qualification: </b><%= @application.description %></p> 
-<p> <b>Pets Applied For: </b></p> 
+<p> <b>Pets Applied For: </b></p>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><%= link_to pet.name, "/pets" %></li> 
+  <% end %>
+</ul>
 <p> <b>Application Status: </b><%= @application.status %></p>
+
+<% if @application.status == "In Progress" %>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
+    <%= form.hidden_field :search, value: "pet" %>
+    <%= form.label :pet_name, "Search for Pets" %>
+    <%= form.text_field :pet_name %>
+    <%= form.submit "Submit" %>
+  <% end %>
+<% end %>
+<br>
+<% if !@search_pets.nil? && @search_pets.any? %>
+  <% @search_pets.each do |pet| %>
+  <p><b><%= pet.name %> the <%= pet.breed %></b> / Age: <%= pet.age %></p>
+  <% end %>
+<% end %>
