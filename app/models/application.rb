@@ -15,4 +15,8 @@ class Application < ApplicationRecord
   def address_join
     "#{street_address}, #{city}, #{state}, #{zip_code}"
   end
+
+  def adopt
+    ##For storing a pet into a specific application <<
+  end
 end

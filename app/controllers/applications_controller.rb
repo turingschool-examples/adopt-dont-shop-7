@@ -14,7 +14,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.new({
+    application = Application.create({
       name: params[:name],
       street_address: params[:street_address],
       city: params[:city],
@@ -30,5 +30,9 @@ class ApplicationsController < ApplicationController
       flash[:error] = "Please fill in all required fields." 
       redirect_to "/applications/new"
     end
+  end
+
+  def update 
+    binding.pry
   end
 end
