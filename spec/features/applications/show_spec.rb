@@ -68,9 +68,10 @@ RSpec.describe "applications show page" do
       fill_in :q, with: "Buster"
       click_button "Search"
 
-      expect(page).to have_content "Search Results: Buster"
+      expect(page).to have_content "Search Results:\nBuster"
     end
 
+    # US 5
     # As a visitor
     # When I visit an application's show page
     # And I search for a Pet by name
@@ -79,8 +80,17 @@ RSpec.describe "applications show page" do
     # When I click one of these buttons
     # Then I am taken back to the application show page
     # And I see the Pet I want to adopt listed on this application
-    it "shows a button to adopt pet after search match" do
-      
+    it "shows a button inline with pet to adopt pet after search match" do
+      visit "/applications/#{@app2.id}"
+
+      fill_in :q, with: "Buster"
+      click_button "Search"
+
+      within("#pet-#{@p1.id}") do
+        click_button "Adopt"
+      end
+
+      expect(page).to have_content "Pets: Buster"
     end
   end
 end
