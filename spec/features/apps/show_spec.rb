@@ -29,4 +29,22 @@ RSpec.describe "the applications show" do
 
     #user story 1
   end
+
+    # describe "searching for pets" do
+    #   it "can search for pets whose name partially mathces search" do
+        # 8. Partial Matches for Pet Names
+        # 
+        # As a visitor
+        # When I visit an application show page
+        # visit "/apps/#{app.id}")
+        # expect(page).to have_content("search for pets by name:")
+        # And I search for Pets by name
+
+        # Then I see any pet whose name PARTIALLY matches my search
+        # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+
+
+    #   end
+    # end
+
 end
