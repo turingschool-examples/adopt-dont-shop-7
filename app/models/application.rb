@@ -22,4 +22,10 @@ class Application < ApplicationRecord
   def self.create_full_address(params)
     "#{params[:street_address]}, #{params[:city]}, #{params[:state]}, #{params[:zip_code]}"
   end
+
+
+  def self.searched_pet(params)
+    pets = Pet.all
+    pets.where(name: params[:search])
+  end
 end
