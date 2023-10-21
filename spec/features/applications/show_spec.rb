@@ -5,6 +5,9 @@ RSpec.describe "Application Show Page" do
   describe "As a visitor" do
     before(:each) do
       @application_1 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "Pending")
+      @application_2 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
+      @application_3 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "Accepted")
+      @application_4 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "Rejected")
       
       @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
@@ -53,8 +56,17 @@ RSpec.describe "Application Show Page" do
       it "shows the Application's status as 'In Progress', 'Pending', 'Accepted', or 'Rejected'" do
 
         visit "/applications/#{@application_1.id}"
-
         expect(page).to have_content("Pending")
+
+        visit "/applications/#{@application_2.id}"
+        expect(page).to have_content("In Progress")
+
+        visit "/applications/#{@application_3.id}"
+        expect(page).to have_content("Accepted")
+
+        visit "/applications/#{@application_4.id}"
+        expect(page).to have_content("Rejected")
+
       end
 
     end
