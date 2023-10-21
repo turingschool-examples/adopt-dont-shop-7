@@ -57,6 +57,15 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content("Pom Pom")
       expect(page).to_not have_content("Lobster")
     end 
+
+    it 'searches for pets with partial name' do
+      #US 8
+      visit "/applications/#{@application1.id}"
+      fill_in "Enter pet name", with: "Pom"
+      click_button "Search"
+
+      expect(page).to have_content("Pom Pom")
+    end
     
     it 'adds the pet to under Pets Applied for' do
       #US 5
