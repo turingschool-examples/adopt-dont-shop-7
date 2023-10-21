@@ -85,7 +85,6 @@ RSpec.describe "the application show" do
     visit "/applications/#{@application3.id}"
     @application3.pets << @pet_4
     @application3.pets << @pet_5
-    require 'pry'; binding.pry
     expect(@application3.pets).to eq([@pet_4, @pet_5])
     expect("Mr. Pirate").to appear_before("Clawdia")
 
