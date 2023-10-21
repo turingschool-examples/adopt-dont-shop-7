@@ -14,10 +14,17 @@
 
 <% if params[:search].present? %>
   <% @pets.each do |pet| %>
-    <%= pet.name %><br>
+  <div id="pet-<%= pet.id %>">
+    <%= pet.name %>
+    <%= form_with url: "/applications/#{@application.id}/update", method: :patch, data: { turbo: false } do |f| %>
+      <%= f.submit "Adopt this Pet" %>
+    <% end %>
+  </div>
   <% end %>
 <% end %>
 
 <% @application.pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <div id="petlist-<%= pet.id %>">
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  </div>
 <% end %>
