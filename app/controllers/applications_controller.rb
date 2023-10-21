@@ -36,7 +36,10 @@ class ApplicationsController < ApplicationController
 
   def update 
     application = Application.find(params[:id])
-    application.pets.update({name: params[:pet_name]})
+    # application.pets.update({name: params[:pet_name]})
+    require 'pry'; binding.pry
+    pet = Pet.update({name: params[:pet_name]})
+    application.pets << pet
     redirect_to "/applications/#{application.id}"
   end
 end
