@@ -1,14 +1,14 @@
 <%= form_with url: '/apps', method: :post, local: true do |form| %>
   <%= form.label :name %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name, required: true %>
   <%= form.label :address %>
-  <%= form.text_field :address %>
+  <%= form.text_field :address, required: true %>
   <%= form.label :city %>
-  <%= form.text_field :city %>
+  <%= form.text_field :city, required: true %>
   <%= form.label :zip %>
-  <%= form.text_field :zip %>
+  <%= form.text_field :zip, required: true %>
   <%= form.label :description %>
-  <%= form.text_field :description %>
+  <%= form.text_field :description, required: true %>
 
   <%= form.submit "Submit" %>
 <% end %>
