@@ -2,6 +2,10 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @address = @application.address
+
+    if params[:pet_name].present?
+      @matching_pets = Pet.adoptable_search(params[:pet_name])
+    end
   end
 
   def new 
