@@ -14,7 +14,7 @@ class Pet < ApplicationRecord
   end
 
   def self.search_for_pet(search)
-    pet = Pet.find_by(name: search)
+    pet = Pet.where("name like ?", "%#{search}%")
     if pet
       self.where(id: pet)
     else
