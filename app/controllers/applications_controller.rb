@@ -33,6 +33,9 @@ class ApplicationsController < ApplicationController
   end
 
   def update 
-    binding.pry
+    application = Application.find(params[:application_id])
+    pet = Pet.find(params[:pet_id])
+    application.pets << pet
+    redirect_to "/applications/#{@application_id}"
   end
 end
