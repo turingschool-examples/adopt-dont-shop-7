@@ -44,7 +44,6 @@ RSpec.describe "the application show" do
     click_button("Search")
 
     expect(current_path).to eq("/applications/#{@application2.id}")
-
     expect(page).to have_content("Results:")
     # expect(page).to have_content("Clawdia")
   end

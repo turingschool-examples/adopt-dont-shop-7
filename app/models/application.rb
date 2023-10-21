@@ -26,6 +26,6 @@ class Application < ApplicationRecord
 
   def self.searched_pet(params)
     pets = Pet.all
-    pets.where(name: params[:search])
+    pets.where("name ilike ?", "%#{params[:search]}%")
   end
 end
