@@ -17,9 +17,12 @@ class AppsController < ApplicationController
     redirect_to "/apps/#{app.id}"
   end
 
-  def add_pet(pet)
-    @app = App.find(params[:id])
-    # @app_pets 
+  def add_pet
+    @app = App.find(params[:app_id])
+    @pet = Pet.where(name: params[:query]).first
+    @app.pets << @pet
+
+    redirect_to "/apps/#{@app.id}"
   end
   
   private

@@ -6,6 +6,7 @@ RSpec.describe "the applications show" do
     shelter1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @pet1 = shelter1.pets.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
     @timmy.pets << @pet1
+    @pet2 = shelter1.pets.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster")
   end
 
   it 'lists an applicant with their details' do  
@@ -50,12 +51,12 @@ RSpec.describe "the applications show" do
     # In that section I see an input where I can search for Pets by name
     expect(page).to have_field("Search pets by name here")
     # When I fill in this field with a Pet's name
-    fill_in "Search pets by name here", with: "Lucille Bald"
+    fill_in "Search pets by name here", with: "Lobster"
     # And I click submit,
     click_button "Submit"
     # Then I am taken back to the application show page
-    expect(page).to have_current_path("apps/#{@timmy.id}")
+    expect(page).to have_current_path("/apps/#{@timmy.id}")
     # And under the search bar I see any Pet whose name matches my search
-    expect(page).to have_content("Lucille Bald")
+    expect(page).to have_content("Lobster")
   end
 end
