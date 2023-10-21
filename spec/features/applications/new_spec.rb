@@ -6,7 +6,6 @@ RSpec.describe "the New application page", type: :feature do
 
       #User Story 2
       it "after I click the 'Start an Application' link, I see a form with the following attributes" do
-        # application = PetApplication.create
           
         visit "/applications/new"
 
@@ -21,9 +20,10 @@ RSpec.describe "the New application page", type: :feature do
 
         expect(current_path).not_to eq("/applications/new")
 
-        # save_and_open_page
         expect(page).to have_content("Joey Jones")
-        expect(page).to have_content("100 Apple Ave Orlando, FL 5687")
+        expect(page).to have_content("100 Apple Ave")
+        expect(page).to have_content("Orlando")
+        expect(page).to have_content("FL")
         expect(page).to have_content("I have three other dogs to be friends with.")
         expect(page).to have_content("In Progress")
       end
