@@ -1,5 +1,5 @@
 class Pet < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: {case_sensitive: false}
   validates :age, presence: true, numericality: true
   belongs_to :shelter
   has_many :application_pets
@@ -14,7 +14,7 @@ class Pet < ApplicationRecord
   end
 
   def self.search_for_pet(search)
-    pet = Pet.where("name like ?", "%#{search}%")
+    pet = Pet.where("lower(name) like ?", "%#{search.downcase}%")
     if pet
       self.where(id: pet)
     else
