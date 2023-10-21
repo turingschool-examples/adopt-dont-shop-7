@@ -3,7 +3,7 @@
 <p>Applicants Reasoning: <%= @application.description %></p>
 <p> Pet Names: </p> 
 <section id="mypets-<%= @application.id %>">
-<% @pets.each do |pet| %> 
+<% @applicant_pets.each do |pet| %> 
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
 <% end %>
 </section>
@@ -17,8 +17,8 @@
     <%= form.submit "Submit" %>
   <% end %>
 <% end %>
-<% if !@search_pets.nil? %>
-  <% @search_pets.each do |pet| %>
+<% if !@pets.nil? %>
+  <% @pets.each do |pet| %>
   <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch, data: { turbo: false } %>
   <% end %>
 <% end %>
