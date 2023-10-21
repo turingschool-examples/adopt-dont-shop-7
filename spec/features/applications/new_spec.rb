@@ -9,16 +9,7 @@ RSpec.describe "Application New Page" do
     @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
   end
 
-# When I fill in this form with my:
-#   - Name
-#   - Street Address
-#   - City
-#   - State
-#   - Zip Code
-#   - Description of why I would make a good home
-# And I click submit
-# Then I am taken to the new application's show page
-# And I see my Name, address information, and description of why I would make a good home
+
 # And I see an indicator that this application is "In Progress"
   describe "visiting the application new page" do 
     it "has a form to fill in with required fields to create an application" do
@@ -31,6 +22,30 @@ RSpec.describe "Application New Page" do
       expect(page).to have_field(:zip_code)
       expect(page).to have_field(:description)
       expect(page).to have_button("Submit")
+    end
+
+    it "accepts user inputs and redirects us to the new application show page" do
+      visit "applications/new"
+
+      fill_in(:name, with: "Frank")
+      fill_in(:street_address, with: "123 Fake St.")
+      fill_in(:city, with: "Normaltown")
+      fill_in(:state, with: "FK")
+      fill_in(:zip_code, with: "12345")
+      fill_in(:description, with: "I love pets!")
+
+      click_button("Submit")
+
+      application = Application.last 
+
+      expect(current_path).to eq("/applications/#{application.id}")
+
+      expect(page).to have_content("Frank")
+      expect(page).to have_content("123 Fake St.")
+      expect(page).to have_content("Normaltown")
+      expect(page).to have_content("FK")
+      expect(page).to have_content("12345")
+      expect(page).to have_content("I love pets!")
     end
 
   end
