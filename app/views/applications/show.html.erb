@@ -2,7 +2,8 @@
 
 <h3>Applicant's Name: </h3> <%= @application.name %>
 <h3>Applicant's Address: </h3> <%= @address %>
-<h3>Description for Adoption: </h3> <%= @application.description %>
+<h3>Description of why I would make a good home: </h3> <%= @application.description %>
+
 <h3>Pets Applied for: </h3>
 <% @application.pets.each do |pet| %>
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %> </p>
@@ -16,6 +17,7 @@
     <%= submit_tag 'Search' %>
   <% end %>
 <% end %> 
+
 
 <% if params[:pet_name].present? %>
   <h4> Matching Pets:</h4>
@@ -32,3 +34,12 @@
       <% end %>
     <% end %>
   <% end %><br><br> 
+
+<% if @application.status == "In Progress" && @application.pets.exists? %>
+  <h3>Why I would make a good owner for these pet(s):</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description, placeholder: 'Enter answer' %>
+  <p><%= f.submit "Submit Application" %></p>
+  <% end %>
+<% end %>
