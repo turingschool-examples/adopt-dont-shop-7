@@ -1,7 +1,12 @@
 class ApplicationsController < ApplicationController
 
   def show
-    @application = Application.find(params[:id])
+    if params.keys.any? { |key| key == "search" }
+      @application = Application.find(params[:id])
+      @searched = Application.searched_pet(params)
+    else
+      @application = Application.find(params[:id])
+    end
   end
 
   def new
@@ -13,15 +18,12 @@ class ApplicationsController < ApplicationController
     else
       application = Application.new({
         name: params[:name],
-        full_address: "#{params[:street_address]}, #{params[:city]}, #{params[:state]}, #{params[:zip_code]}",
+        full_address: Application.create_full_address(params),
         description: params[:description],
-        status: "Pending"
+        status: "In Progress"
       })
       application.save
       redirect_to "/applications/#{application.id}"
     end
   end
-
-  # private
-
 end
