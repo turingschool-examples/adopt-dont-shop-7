@@ -1,11 +1,16 @@
 class ApplicationsController < ApplicationController
 
   def show
+    @application = Application.find(params[:id])
+    if params[:adopt] != nil
+      if !@application.pets.include?(Pet.find(params[:adopt])) 
+        @application.pets << Pet.find(params[:adopt])
+      else
+        @already_adopted = true
+      end
+    end
     if params.keys.any? { |key| key == "search" }
-      @application = Application.find(params[:id])
       @searched = Application.searched_pet(params)
-    else
-      @application = Application.find(params[:id])
     end
   end
 

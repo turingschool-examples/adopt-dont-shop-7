@@ -60,8 +60,24 @@ RSpec.describe "the application show" do
     click_button("Search")
     expect("Add a Pet to this Application").to appear_before("Clawdia")
     expect("Clawdia").to appear_before("Adopt this Pet")
-    click_button("Adopt this Pet")
+    # click_button("Adopt this Pet")
+    click_link("Adopt this Pet")
     expect(current_path).to eq("/applications/#{@application2.id}")
     expect("Clawdia").to appear_before("Add a Pet to this Application")
+  end
+
+  it "Cannot add a pet that has already been added" do
+    visit "/applications/#{@application2.id}"
+    expect(page).to_not have_content("Already on Application")
+    fill_in(:search, with: "Clawdia")
+    click_button("Search")
+    # click_button("Adopt this Pet")
+    click_link("Adopt this Pet")
+    expect(page).to_not have_content("Already on Application")
+    fill_in(:search, with: "Clawdia")
+    click_button("Search")
+    click_link("Adopt this Pet")
+    expect(page).to have_content("Already on Application")
+
   end
 end

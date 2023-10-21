@@ -15,9 +15,11 @@
 <% end %>
 
 <% if @searched != nil %>
-<%= "Results:" %> <br>
-<% @searched.each do |search| %>
-<%= search.name %> <br>
+  <%= "Results:" %> <br>
+  <% @searched.each do |pet| %>
+    <%= pet.name %> 
+    <%= link_to "Adopt this Pet", :adopt => "#{pet.id}" %> <br>
+  <% end %>
 <% end %>
-<% end %>
+    <%= "Already on Application" if @already_adopted %>
 
