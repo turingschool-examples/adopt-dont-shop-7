@@ -4,11 +4,16 @@
 <p><u>Application to Adopt</u>:</p>
 <p><u>Status</u>: <%= @application.status %> </p>
 
-<h3><u>Add a pet to this application</u>:</h3>
+<h2><u>Add a pet to this application</u>:</h2>
 <%= form_with url:"/applications/#{@application.id}", method: :get, local: :true do |f| %>
   <%= f.label "#{:search} for a pet name:" %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <%end%>
 
-<h2> <u>Search Results </u></h2>
+<% if @searched != nil%>
+  <%="Search Results"%><br>
+  <% @searched.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+<% end %>

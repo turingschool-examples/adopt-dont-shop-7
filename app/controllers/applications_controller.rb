@@ -1,6 +1,13 @@
 class ApplicationsController < ApplicationController
   def new
   end
+  
+  def show
+    @application = Application.find(params[:application_id])
+    if params.keys.any? { |key| key == "search"}
+      @searched = Application.search_for_pet(params)
+    end
+  end
 
   def create
     application = Application.new(application_params)
@@ -10,12 +17,6 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
-  end
-  
-  def show
-    @application = Application.find(params[:application_id])
-    require 'pry'; binding.pry
-    @search_results = Application.pets.search_for_pet([:pet_id])
   end
 
   private

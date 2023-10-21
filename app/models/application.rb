@@ -11,4 +11,9 @@ class Application < ApplicationRecord
   def full_address
     "#{self.street_address}, #{self.state}, #{self.city}, #{self.zip_code}"
   end
+
+  def search_for_pet(params)
+    pets = Pet.all
+    pets.where(name: params[:search])
+  end
 end
