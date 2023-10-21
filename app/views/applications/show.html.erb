@@ -1,6 +1,7 @@
 <h2>Name: <%= @application.name %></h2>
 <p>Address: <%= @application.full_address %></p>
-<p>Why would you be a good home?: <%= @application.description %></p>
+<p>Why would you be a good home?: <%= @application.good_home %></p>
+<p>Why would you be a good owner?: <%= @application.good_owner %></p>
 <p>This application is for the following pets: </p>
 <% @application.pets.each do |pet| %>
 <p><%= pet.name %></p>
@@ -8,32 +9,33 @@
 <p>Application Status: <%= @application.status %></p>
 
 
-<h4>Add a Pet to this Application</h4>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
-
-<% if @searched != nil %>
-  <%= "Results:" %> <br>
-  <% @searched.each do |pet| %>
-    <%= pet.name %> 
-    <%= link_to "Adopt this Pet", :adopt => "#{pet.id}" %> <br>
+<% if @application.status == "In Progress" %>
+  <h4>Add a Pet to this Application</h4>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
   <% end %>
-<% end %>
-    <%= "Already on Application" if @already_adopted %>
 
-<% if @has_pets != false %>
-  <h4><%= "Finalize Application" %></h4><br>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: :true do |f| %>
-    <%= f.label "Why would you make a good owner for these pet(s)?" %><br>
-    <%= f.text_field :good_owner %>
-    <%= f.submit "Submit" %>
+  <% if @searched != nil %>
+    <%= "Results:" %> <br>
+    <% @searched.each do |pet| %>
+      <%= pet.name %> 
+      <%= link_to "Adopt this Pet", :adopt => "#{pet.id}" %> <br>
+    <% end %>
   <% end %>
-  <%# Show reasoning on why I would be a good pet owner %>
-  <%# Change application status to pending %>
-<% end %>
 
+      <%= "Already on Application" if @already_adopted %>
+
+  <% if @has_pets == true %>
+    <h4><%= "Finalize Application" %></h4><br>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: :true do |f| %>
+      <%= f.label "Why would you make a good owner for these pet(s)?" %><br>
+      <%= f.text_field :good_owner %>
+      <%= f.submit "Submit" %>
+    <% end %>
+  <% end %>
+
+<% end %>
 <%# Finalize application button %>
   
 

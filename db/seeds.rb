@@ -25,8 +25,8 @@ vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: true, ve
 vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8, on_call: true, veterinary_office_id: vet_office_1.id)
 vet_3 = Veterinarian.create(name: 'Sarah', review_rating: 9, on_call: true, veterinary_office_id: vet_office_2.id)
 
-application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", description: "Gimme", status: "Pending")
-application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", description: "5 solid meals a day", status: "Rejected")
+application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Pending")
+application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I like fish", status: "Rejected")
 
 
 application1.pets << pet_1 

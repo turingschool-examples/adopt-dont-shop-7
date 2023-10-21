@@ -13,8 +13,6 @@ class ApplicationsController < ApplicationController
       @searched = Application.searched_pet(params)
     else
       @has_pets = @application.has_pets?
-      # require 'pry'; binding.pry
-
     end
   end
 
@@ -28,11 +26,25 @@ class ApplicationsController < ApplicationController
       application = Application.new({
         name: params[:name],
         full_address: Application.create_full_address(params),
-        description: params[:description],
+        good_home: params[:good_home],
         status: "In Progress"
       })
       application.save
       redirect_to "/applications/#{application.id}"
     end
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.update({
+      name: @application.name,
+      full_address: @application.full_address,
+      good_home: @application.good_home,
+      good_owner: params[:good_owner],
+      status: "Pending"
+    })
+    @application.save
+
+    redirect_to "/applications/#{@application.id}"
   end
 end

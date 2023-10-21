@@ -16,8 +16,8 @@
   <%= form.label "Zip Code:" %>
   <%= form.text_field :zip_code %>
   <%= "You must fill in this field" if params[:zip_code] == "true" %></br>
-  <%= form.label "Description:" %>
-  <%= form.text_field :description %>
-  <%= "You must fill in this field" if params[:description] == "true" %></br>
+  <%= form.label "Why would you make a good home?:" %>
+  <%= form.text_field :good_home %>
+  <%= "You must fill in this field" if params[:good_home] == "true" %></br>
   <%= form.submit "Submit Application" %>
 <% end %>

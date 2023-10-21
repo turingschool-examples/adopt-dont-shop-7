@@ -31,6 +31,6 @@ class Application < ApplicationRecord
 
   def has_pets?
     self.pets.count > 0
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 end
