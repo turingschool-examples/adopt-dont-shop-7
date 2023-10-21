@@ -33,4 +33,10 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
     end
   end
+
+  def update 
+    application = Application.find(params[:id])
+    application.pets.update({name: params[:pet_name]})
+    redirect_to "/applications/#{application.id}"
+  end
 end
