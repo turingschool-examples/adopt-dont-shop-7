@@ -14,6 +14,8 @@ class ApplicationsController < ApplicationController
   
   def show
     @application = Application.find(params[:application_id])
+    require 'pry'; binding.pry
+    @search_results = Application.pets.search_for_pet([:pet_id])
   end
 
   private

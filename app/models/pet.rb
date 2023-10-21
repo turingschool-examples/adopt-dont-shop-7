@@ -5,13 +5,15 @@ class Pet < ApplicationRecord
   has_many :application_pets
   has_many :applications, through: :application_pets
 
-
-
   def shelter_name
     shelter.name
   end
 
   def self.adoptable
     where(adoptable: true)
+  end
+
+  def search_for_pet(params)
+    params[:search]
   end
 end
