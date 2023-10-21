@@ -28,4 +28,9 @@ class Application < ApplicationRecord
     pets = Pet.all
     pets.where("name ilike ?", "%#{params[:search]}%")
   end
+
+  def has_pets?
+    self.pets.count > 0
+    # require 'pry'; binding.pry
+  end
 end
