@@ -25,12 +25,17 @@ RSpec.describe Pet, type: :model do
     describe "#search" do
       it "returns partial matches" do
         expect(Pet.search("Claw")).to eq([@pet_2])
+        expect(Pet.search("Claw")).to_not eq([@pet_3])
+
       end
 
       it 'returns case insensitive matches' do
         expect(Pet.search("CLAW")).to eq([@pet_2])
+        expect(Pet.search("CLAW")).to_not eq([@pet_3])
         expect(Pet.search("claw")).to eq([@pet_2])
+        expect(Pet.search("claw")).to_not eq([@pet_3])
         expect(Pet.search("ClAw")).to eq([@pet_2])
+        expect(Pet.search("ClAw")).to_not eq([@pet_3])
       end
     end
 
