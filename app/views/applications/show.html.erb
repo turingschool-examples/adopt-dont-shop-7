@@ -14,9 +14,7 @@
   <%= f.submit "Search" %>
 <% end %>
 
-<p>Results: </p> 
-
-
+<p>Results:</p> 
 <% if @searched != nil %>
 <% @searched.each do |search| %>
 <%= search.name %>
