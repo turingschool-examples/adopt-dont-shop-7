@@ -80,4 +80,23 @@ RSpec.describe "the application show" do
     expect(page).to have_content("Already on Application")
 
   end
+
+  it "Add reason on why I would be a good parent and allows to submit application" do
+    visit "/applications/#{@application2.id}"
+    # require 'pry'; binding.pry
+
+    expect(@application2.pets).to eq([@pet2, @pet3])
+    expect("Lobster").to appear_before("Beethoven")
+
+    expect(page).to have_content("Why would I make a good owner for these pet(s)?")
+    expect(page).to have_link("Submit Application")
+    expect(@application2.status).to eq("In Progress")
+    
+    click_link("Submit Application")
+    expect(current_path).to eq("/applications/#{@application2.id}")
+    expect(@application2.status).to eq("Pending")
+
+
+
+  end
 end

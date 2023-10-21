@@ -11,6 +11,10 @@ class ApplicationsController < ApplicationController
     end
     if params.keys.any? { |key| key == "search" }
       @searched = Application.searched_pet(params)
+    else
+      @has_pets = @application.has_pets?
+      # require 'pry'; binding.pry
+
     end
   end
 
