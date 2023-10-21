@@ -12,7 +12,6 @@
 <% if @application.status == "In Progress" %>
   <h3>Add a Pet to this Application</h3>
    <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
-    <%= form.hidden_field :search, value: "pet" %>
     <%= form.label :pet_name, "Search for Pets" %>
     <%= form.text_field :pet_name %>
     <%= form.submit "Submit" %>
