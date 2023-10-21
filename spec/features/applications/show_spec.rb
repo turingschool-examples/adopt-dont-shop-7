@@ -43,11 +43,18 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to have_field("Enter pet name")
       expect(page).to have_button("Search")
+    end
 
-      fill_in "Enter pet name", with: "Lobster"
+    it "searches for pets in the search bar and renders results" do  
+      visit "/applications/#{@applicant1.id}"
+
+      fill_in "Enter pet name", with: "Pom Pom"
       click_button "Search"
 
-      expect(current_path).to eq("/applications#{@applicant1.id}?pet_name=Lobster&comit=Search")
-    end
+      expect(current_path).to eq("/applications/#{@applicant1.id}?pet_name=Pom_Pom&commit=Search")
+
+      expect(page).to have_content("Pom Pom")
+      expect(page).to_not have_content("Lobster")
+    end 
   end
 end
