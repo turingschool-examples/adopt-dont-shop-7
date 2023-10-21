@@ -19,6 +19,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @app = Application.find(id)
+    if params[:q]
+      @search_results = Pet.where("name ILIKE ?", "%#{params[:q]}%").pluck(:name)
+    end
   end
 
   private
