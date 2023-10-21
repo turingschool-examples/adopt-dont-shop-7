@@ -7,8 +7,19 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    Application.create(application_params)
-    redirect_to "/applications/#{Application.last.id}"    
+    application = Application.new(application_params)
+    require 'pry'; binding.pry
+
+    if application.save      
+      require 'pry'; binding.pry
+
+      redirect_to "/applications/#{application.id}"   
+    else
+      require 'pry'; binding.pry
+
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
   end
 
   private
