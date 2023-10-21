@@ -14,10 +14,12 @@
   <%= f.submit "Search" %>
 <% end %>
 
-<p>Results:</p> 
 <% if @searched != nil %>
-<% @searched.each do |search| %>
-<%= search.name %>
+  <%= "Results:" %> <br>
+  <% @searched.each do |pet| %>
+    <%= pet.name %> 
+    <%= link_to "Adopt this Pet", :adopt => "#{pet.id}" %> <br>
+  <% end %>
 <% end %>
-<% end %>
+    <%= "Already on Application" if @already_adopted %>
 
