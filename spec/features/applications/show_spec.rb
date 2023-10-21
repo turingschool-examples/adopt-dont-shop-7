@@ -69,5 +69,35 @@ RSpec.describe "Application Show Page" do
 
       end
     end
+
+    describe "User Story 4. Searching for Pets for an Application" do
+      before(:each) do
+        @application_1 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
+        
+        @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+  
+        @pet_1 = Pet.create(adoptable: true, age: 7, breed: "sphynx", name: "Bare-y Manilow", shelter_id: @shelter.id)
+        @pet_2 = Pet.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe", shelter_id: @shelter.id)
+        @pet_3 = Pet.create(adoptable: true, age: 4, breed: "chihuahua", name: "Elle", shelter_id: @shelter.id)
+      end
+
+      describe "As a visitor, when I visit an app show page that has not been submitted" do
+        it "I see a section (form) on the page to 'Add a Pet' and an input where I can search for Pets by name" do
+          visit "/applications/#{@application_1.id}"
+          expect(page).to have_content("Add a Pet")
+          expect(page).to have_button("Search")
+        end
+
+        it "When I fill in this field with a Pet's name and I click submit, then I am taken back to the application show page, and I see pets whose name match" do
+          visit "/applications/#{@application_1.id}"
+          fill_in "Search", with: "Ba"
+          click_on("Search")
+          
+          expect(page).to have_content(@pet_1.name)
+          expect(page).to have_content(@pet_2.name)
+          expect(page).to_not have_content(@pet_3.name)
+        end
+      end
+    end
   end
 end
