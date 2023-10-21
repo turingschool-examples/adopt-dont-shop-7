@@ -7,7 +7,7 @@ RSpec.describe "Application Show Page" do
   # let(:pet2) { Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id) }
   before(:each) do 
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    @application1 = Application.create(name: "John", street_address: "123 makebelieve dr.", city: "fakesville", state: "NA", zip_code: 12345, description: "I lika da pets", status: "In Progress")
+    @application1 = Application.create(name: "John", street_address: "123 makebelieve dr.", city: "fakesville", state: "NA", zip_code: 12345, description: "I need a companion!", status: "In Progress")
     @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
@@ -39,8 +39,34 @@ RSpec.describe "Application Show Page" do
 
       expect(current_path).to eq("/applications/#{@application1.id}")
       expect(page).to have_content("Mr. Pirate")
-      save_and_open_page
     end
+    describe "When I visit an application's show page and I search for a Pet by name" do 
+      it "has a button to adopt a pet, next to each pets name that will add that pet to the application" do 
+        visit "/applications/#{@application1.id}"
+        
+        within("#pet_search") do
+        fill_in(:search, with: "Mr. Pirate")
+        click_button("Search")
+      end
+      expect(page).to have_button("Adopt this Pet")
 
+      click_button("Adopt this Pet")
+      expect(current_path).to eq("/applications/#{@application1.id}")
+      expect(page).to have_content("Applying to Adopt: #{@pet_1.name}")
+
+      end
+    end
+    context "Submit an Application" do
+
+      # And I have added one or more pets to the application
+      # Then I see a section to submit my application
+      # And in that section I see an input to enter why I would make a good owner for these pet(s)
+      # When I fill in that input
+      # And I click a button to submit this application
+      # Then I am taken back to the application's show page
+      # And I see an indicator that the application is "Pending"
+      # And I see all the pets that I want to adopt
+      # And I do not see a section to add more pets to this application
+    end
   end
 end 
