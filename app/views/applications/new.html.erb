@@ -2,16 +2,22 @@
 
 <%= form_with url: "/applications", method: :post, local: true do |form| %>
   <%= form.label "Name:" %>
-  <%= form.text_field :name %></br>
+  <%= form.text_field :name %>
+  <%= "You must fill in this field" if params[:name] == "true" %></br>
   <%= form.label "Street Address:" %>
-  <%= form.text_field :street_address %></br>
+  <%= form.text_field :street_address %>
+  <%= "You must fill in this field" if params[:street_address] == "true" %></br>
   <%= form.label "City:" %>
-  <%= form.text_field :city %></br>
+  <%= form.text_field :city %>
+  <%= "You must fill in this field" if params[:city] == "true" %></br>
   <%= form.label "State:" %>
-  <%= form.text_field :state %></br>
+  <%= form.text_field :state %>
+  <%= "You must fill in this field" if params[:state] == "true" %></br>
   <%= form.label "Zip Code:" %>
-  <%= form.text_field :zip_code %></br>
+  <%= form.text_field :zip_code %>
+  <%= "You must fill in this field" if params[:zip_code] == "true" %></br>
   <%= form.label "Description:" %>
-  <%= form.text_field :description %></br>
+  <%= form.text_field :description %>
+  <%= "You must fill in this field" if params[:description] == "true" %></br>
   <%= form.submit "Submit Application" %>
 <% end %>
