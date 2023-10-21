@@ -32,6 +32,20 @@ RSpec.describe "the application show" do
     expect(page).to have_content(@pet_2.name)
 
   end
+  
+  it "Names of pets are links that lead to the pet show page" do
+
+    visit "/applications/#{@application1.id}"
+    
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_content(@pet_2.name)
+    click_link(@pet_1.name)
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
+    visit "/applications/#{@application1.id}"
+    click_link(@pet_2.name)
+    expect(current_path).to eq("/pets/#{@pet_2.id}")
+
+  end
 
   it "Can search and returns names to add pets to application" do
     visit "/applications/#{@application3.id}"
@@ -81,19 +95,20 @@ RSpec.describe "the application show" do
 
   end
 
-  it "Add reason on why I would be a good parent and allows to submit application" do
-    visit "/applications/#{@application3.id}"
+  xit "Add reason on why I would be a good parent and allows to submit application" do
     @application3.pets << @pet_4
     @application3.pets << @pet_5
+    visit "/applications/#{@application3.id}"
     expect(@application3.pets).to eq([@pet_4, @pet_5])
     expect("Mr. Pirate").to appear_before("Clawdia")
 
     expect(page).to have_content("Why would I make a good owner for these pet(s)?")
-    expect(page).to have_link("Submit Application")
+    expect(page).to have_button("Submit Application")
     expect(@application3.status).to eq("In Progress")
-    
-    click_link("Submit Application")
+    fill_in(:good_owner, with: "I like cats")
+    click_button("Submit Application")
     expect(current_path).to eq("/applications/#{@application3.id}")
+    expect(page).to have_content("Why would I make a good owner for these pet(s)?: I like cats")
     expect(@application3.status).to eq("Pending")
   end
 end

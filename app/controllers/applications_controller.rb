@@ -44,7 +44,6 @@ class ApplicationsController < ApplicationController
       status: "Pending"
     })
     @application.save
-
     redirect_to "/applications/#{@application.id}"
   end
 end
