@@ -8,3 +8,17 @@
 <% end %>
 </section>
 <p>Applicants Status: <%= @application.status %></p>
+
+<% if @application.status == "In Progress" %>
+  <h3>Add a Pet to this Application</h3>
+   <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
+    <%= form.label :pet_name, "Search for Pets" %>
+    <%= form.text_field :pet_name %>
+    <%= form.submit "Submit" %>
+  <% end %>
+<% end %>
+<% if !@search_pets.nil? %>
+  <% @search_pets.each do |pet| %>
+  <%= pet.name %>
+  <% end %>
+<% end %>
