@@ -17,11 +17,12 @@ class ApplicationsController < ApplicationController
       description: params[:description],
       application_status: params[:application_status]
     })
+    
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
       redirect_to "/applications/new"
-      flash[:alert] = "Error: #{error_message(applications.errors)}"
+      flash[:alert] = "Error: #{error_message(@application.errors)}"
     end
   end
 end
