@@ -1,23 +1,22 @@
 class ApplicationsController < ApplicationController
-  def index
-    @applications = Application.all
+  def new
   end
   
-  def new
+  def show
+    @application = Application.find(params[:application_id])
+    if params.keys.any? { |key| key == "search"}
+      @searched = Application.search_for_pet(params)
+    end
   end
 
   def create
     application = Application.new(application_params)
     if application.save
-      redirect_to "/applications"
+      redirect_to "/applications/#{application.id}"
     else 
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
-  end
-  
-  def show
-    @application = Application.find(params[:application_id])
   end
 
   private

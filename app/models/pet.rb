@@ -5,8 +5,6 @@ class Pet < ApplicationRecord
   has_many :application_pets
   has_many :applications, through: :application_pets
 
-
-
   def shelter_name
     shelter.name
   end
