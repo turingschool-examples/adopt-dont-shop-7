@@ -31,30 +31,42 @@ RSpec.describe 'application show page', type: :feature do
         expect(page).to have_content(@applicant1.description)
         expect(page).to have_content(@applicant1.status)
         expect(page).to have_content(@pet_1.name)
+        expect(page).to have_link(@pet_1.name)
         expect(page).to_not have_content(@pet_2.name)
+        expect(page).to_not have_link(@pet_2.name)
       end
     end
   end
 
   describe "adding a pet to an application" do 
     it "has an add pet section and a search bar to find a pet" do 
+      #US 4
       visit "/applications/#{@applicant1.id}"
-
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to have_field("Enter pet name")
       expect(page).to have_button("Search")
     end
 
     it "searches for pets in the search bar and renders results" do  
+      #US 4
       visit "/applications/#{@applicant1.id}"
-
       fill_in "Enter pet name", with: "Pom Pom"
       click_button "Search"
 
-      expect(current_path).to eq("/applications/#{@applicant1.id}?pet_name=Pom_Pom")
-
+      expect(current_path).to eq("/applications/#{@applicant1.id}")
       expect(page).to have_content("Pom Pom")
       expect(page).to_not have_content("Lobster")
     end 
+    
+    it 'adds the pet to under Pets Applied for' do
+      #US 5
+      applicant1 = Application.create!(name: "Hannah Banana", street_address: "1234 Sugarwood Cir", city: "Newport", state: "Kentucky", zip_code: "41071", description: "I already have a cat and my cat Dave needs a friend. Dave is very friendly and other cat would be a great addition for our household!")
+      visit "/applications/#{applicant1.id}"
+      fill_in "Enter pet name", with: "Pom Pom"
+      click_button "Search"
+      click_button "Adopt this Pet"
+      expect(current_path).to eq("/applications/#{applicant1.id}")
+      expect(page).to have_content("Pom Pom")
+    end
   end
 end
