@@ -1,7 +1,10 @@
 <h1>Applicants Name: <%= @application.name %></h1>
-<p>Applicants Address: <%= @application.address %> <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %></p>
+<p>Applicants Address: <%= @application.address %></p>
 <p>Applicants Reasoning: <%= @application.description %></p>
-<p>Application For: <% @application.pets.each do |pet| %>
-  <%= link_to pet.name, "/pets/#{pet.id}" %> 
+<p> Pet Names: </p> 
+<section id="mypets-<%= @application.id %>">
+<% @pets.each do |pet| %> 
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
 <% end %>
+</section>
 <p>Applicants Status: <%= @application.status %></p>
