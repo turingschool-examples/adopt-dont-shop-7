@@ -6,6 +6,10 @@ class ApplicationsController < ApplicationController
     if params[:pet_name].present?
       @matching_pets = Pet.adoptable_search(params[:pet_name])
     end
+
+    if params[:good_owner] != nil
+      require 'pry'; binding.pry
+    end
   end
 
   def new 

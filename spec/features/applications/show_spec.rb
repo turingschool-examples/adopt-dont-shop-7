@@ -69,4 +69,20 @@ RSpec.describe 'application show page', type: :feature do
       expect(page).to have_content("Pom Pom")
     end
   end
+
+  describe 'submit an application' do
+    it 'submits an application' do
+      #US 6
+      visit "/applications/#{@applicant1.id}"
+      expect(page).to have_content("Pom Pom")
+      expect(page).to have_button("Submit Application")
+      fill_in "Why I would make a good owner for these pet(s)", with: "I know how to take care pets!"
+      click_button "Submit Application"
+      expect(current_path).to eq("/applications/#{@applicant1.id}")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content("Pom Pom")
+      expect(page).to have_content("Lucille Bald")
+      expect(page).to_not have_button("Search")
+    end
+  end
 end
