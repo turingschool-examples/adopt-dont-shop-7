@@ -18,6 +18,7 @@ RSpec.describe "the application show" do
       expect(page).to have_content(@application.zip_code)
       expect(page).to have_content(@application.description)
       expect(page).to have_content(@application.status)
+      save_and_open_page
     end
   end
 
@@ -37,7 +38,7 @@ RSpec.describe "the application show" do
               click_button "Submit"
 
               expect(current_path).to eq("/applications/#{@application.id}")
-save_and_open_page
+
               expect(page).to have_content("Scooby")
             end
           end
@@ -45,4 +46,26 @@ save_and_open_page
       end
     end
   end
+
+  describe "When I visit an applications show page- US4" do
+    describe "I search for a Pet by name" do 
+      describe "I see the names Pets that match my search" do
+        describe "Next to each Pet's name I see a button to 'Adopt this Pet', I click one of these buttons" do 
+          it "I am taken back to the application show page and I see the Pet I want to adopt listed on this application"do 
+            visit "/applications/#{@application.id}"
+
+            fill_in "Search for Pets", with: "Scooby"
+            click_button "Submit"
+
+            expect(page).to have_content("Adopt this Pet")
+            click_button "Adopt this pet"
+
+            expect(current_path).to eq("/applications/#{@application.id}")
+            expect(page).to have_content("Scooby")
+          end
+        end
+      end
+    end
+  end
+
 end
