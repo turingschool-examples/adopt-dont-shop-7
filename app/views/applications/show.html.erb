@@ -12,11 +12,12 @@
 <h2>Pets Applied for:</h2>
 <ul>
   <% @application.pets.each do |pet| %>
-    <li><%= link_to pet.name, pet_path(pet) %></li> 
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li> 
   <% end %>
 </ul>
 
 <p> Application's status: <%= @application.status %></p>
+<br>
 
 <% if @application.status == "In Progress" %>
   <h3>Add a Pet to this Application</h3>
@@ -27,9 +28,13 @@
     <%= form.submit "Submit" %>
   <% end %>
 <% end %>
+
 <br>
+
 <% if !@search_pets.nil? && @search_pets.any? %>
   <% @search_pets.each do |pet| %>
-  <%= pet.name %>
+    <%= form_with url: "/application_pets?pet_id=#{pet.id}&application_id=#{@application.id}", method: :post, data: { turbo: false } do |form| %>
+      <%= pet.name %> <%= form.submit "Adopt this Pet" %>
+    <% end %>
   <% end %>
 <% end %>
