@@ -29,7 +29,12 @@ class ApplicationsController < ApplicationController
     else
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
-    end
+    end  
+  end
 
+  def update
+    @application = Application.find(params[:id])
+    require 'pry'; binding.pry
+    @pet = Pet.find(params[:pet_id])
   end
 end

@@ -5,7 +5,11 @@
   <li><%= @application.state %></li>
   <li><%= @application.zip_code %></li>
 <p>Why I would make a good home: <%= @application.description %></p>
-<p>Applying to Adopt:</p>
+<p>Applying to Adopt: 
+  <% @application_pets.each do |pet| %>
+  <%= pet.name %>
+  <% end %>
+</p>
 <p>Status: <%= @application.status %></p>
 <% if @application.status == "In Progress" %>
   <section id="pet_search">
@@ -20,6 +24,7 @@
   <% if @pets != [] %>
     <% @pets.each do |pet|%>
       <%= pet.name %>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pet_applications", params: {pet_id: pet.id}, method: :patch %>
     <% end %>
   <% end %>
       
