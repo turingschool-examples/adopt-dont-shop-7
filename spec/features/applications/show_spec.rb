@@ -28,4 +28,13 @@ RSpec.describe "the application show" do
 
   end
 
+  it "Can search and returns names to add pets to application" do
+    visit "/applications/#{@application2.id}"
+
+    expect(page).to have_content(@application2.name)
+    expect(page).to have_content(@application2.full_address)
+    expect(page).to have_content(@application2.description)
+    expect(page).to have_content(@application2.status)
+  end
+
 end

@@ -13,8 +13,13 @@
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
+
 <p>Results: </p> 
+
+
+<% if @searched != nil %>
 <% @searched.each do |search| %>
 <%= search.name %>
+<% end %>
 <% end %>
 
