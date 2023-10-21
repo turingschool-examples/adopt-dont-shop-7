@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "New application" do 
   it "has a form for a new application" do
+    #US 2
     visit "/applications/new"
 
     expect(page).to have_content("New Application")
@@ -14,7 +15,8 @@ RSpec.describe "New application" do
     expect(page).to have_button("Submit")
   end
 
-  it "creates a new appplication given valid data" do 
+  it "creates a new application given valid data" do 
+    #US 2
     visit "/applications/new"
 
     fill_in "Name", with: "Noelle Hemphill"
@@ -37,6 +39,7 @@ RSpec.describe "New application" do
   end
 
   it "flashes an error message given invalid data" do 
+    #US 3
     visit "/applications/new"
 
     fill_in "Street Address", with: "2929 Rexing Rd"

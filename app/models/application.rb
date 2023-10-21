@@ -10,9 +10,6 @@ class Application < ApplicationRecord
     self.street_address + ", " + self.city + ", " + self.state + " " + self.zip_code
   end
 
-  # def pet_applied
-  #   Application.joins(pet_applications: :pets)
-  #   require 'pry'; binding.pry
-  # end
+
 
 end
