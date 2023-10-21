@@ -1,8 +1,12 @@
 <p><u>Name</u>: <%= @application.name %></p>
 <p><u>Address</u>: <%= @application.full_address %> </p>
 <p><u>Why would you make a good home?</u>: <%= @application.description %> </p>
-<p><u>Application to Adopt</u>:</p>
 <p><u>Status</u>: <%= @application.status %> </p>
+
+<p><u>Pets I'd Like to Adopt</u>:</p>
+<% @pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
+<%end%>
 
 <h2><u>Add a pet to this application</u>:</h2>
 <%= form_with url:"/applications/#{@application.id}", method: :get, local: :true do |f| %>
@@ -14,6 +18,11 @@
 <% if @searched != nil%>
   <%="Search Results"%><br>
   <% @searched.each do |pet| %>
-    <%= pet.name %>
+    <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %>  
+      <%= f.label :pet, pet.name %>
+      <%= f.submit "Adopt This Pet" %>
+  <% end %>
   <% end %>
 <% end %>
+
+
