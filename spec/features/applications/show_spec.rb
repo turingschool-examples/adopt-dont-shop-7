@@ -4,9 +4,9 @@ RSpec.describe "the application show" do
 
   before :each do
     @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    @application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", description: "Gimme", status: "Pending")
-    @application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", description: "5 solid meals a day", status: "Rejected")
-    @application3 = Application.create!(name: "Billy", full_address: "777 Circle Court, Houston, TX 77000", description: "Best Day Every Day", status: "In Progress")
+    @application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "one eyed cats!!", status: "Pending")
+    @application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I woudln't", status: "Rejected")
+    @application3 = Application.create!(name: "Billy", full_address: "777 Circle Court, Houston, TX 77000", good_home: "Best Day Every Day", status: "In Progress")
     @pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
     @pet_3 = Pet.create(adoptable: false, age: 2, breed: "saint bernard", name: "Beethoven", shelter_id: @shelter.id)
@@ -26,7 +26,7 @@ RSpec.describe "the application show" do
 
     expect(page).to have_content(@application1.name)
     expect(page).to have_content(@application1.full_address)
-    expect(page).to have_content(@application1.description)
+    expect(page).to have_content(@application1.good_home)
     expect(page).to have_content(@application1.status)
     expect(page).to have_content(@pet_1.name)
     expect(page).to have_content(@pet_2.name)
@@ -34,12 +34,12 @@ RSpec.describe "the application show" do
   end
 
   it "Can search and returns names to add pets to application" do
-    visit "/applications/#{@application2.id}"
+    visit "/applications/#{@application3.id}"
 
-    expect(page).to have_content(@application2.name)
-    expect(page).to have_content(@application2.full_address)
-    expect(page).to have_content(@application2.description)
-    expect(page).to have_content(@application2.status)
+    expect(page).to have_content(@application3.name)
+    expect(page).to have_content(@application3.full_address)
+    expect(page).to have_content(@application3.good_home)
+    expect(page).to have_content(@application3.status)
 
     expect(page).to have_content("Add a Pet to this Application")
     expect(page).to have_button("Search")
@@ -48,13 +48,13 @@ RSpec.describe "the application show" do
     expect(page).to_not have_content("Results:")
     click_button("Search")
 
-    expect(current_path).to eq("/applications/#{@application2.id}")
+    expect(current_path).to eq("/applications/#{@application3.id}")
     expect(page).to have_content("Results:")
     expect(page).to have_content("Clawdia")
   end
 
   it "Can add pets found by search result to an application" do
-    visit "/applications/#{@application2.id}"
+    visit "/applications/#{@application3.id}"
     expect(page).to_not have_content("Clawdia")
     fill_in(:search, with: "Clawdia")
     click_button("Search")
@@ -62,12 +62,12 @@ RSpec.describe "the application show" do
     expect("Clawdia").to appear_before("Adopt this Pet")
     # click_button("Adopt this Pet")
     click_link("Adopt this Pet")
-    expect(current_path).to eq("/applications/#{@application2.id}")
+    expect(current_path).to eq("/applications/#{@application3.id}")
     expect("Clawdia").to appear_before("Add a Pet to this Application")
   end
 
   it "Cannot add a pet that has already been added" do
-    visit "/applications/#{@application2.id}"
+    visit "/applications/#{@application3.id}"
     expect(page).to_not have_content("Already on Application")
     fill_in(:search, with: "Clawdia")
     click_button("Search")
@@ -82,21 +82,19 @@ RSpec.describe "the application show" do
   end
 
   it "Add reason on why I would be a good parent and allows to submit application" do
-    visit "/applications/#{@application2.id}"
-    # require 'pry'; binding.pry
-
-    expect(@application2.pets).to eq([@pet2, @pet3])
-    expect("Lobster").to appear_before("Beethoven")
+    visit "/applications/#{@application3.id}"
+    @application3.pets << @pet_4
+    @application3.pets << @pet_5
+    require 'pry'; binding.pry
+    expect(@application3.pets).to eq([@pet_4, @pet_5])
+    expect("Mr. Pirate").to appear_before("Clawdia")
 
     expect(page).to have_content("Why would I make a good owner for these pet(s)?")
     expect(page).to have_link("Submit Application")
-    expect(@application2.status).to eq("In Progress")
+    expect(@application3.status).to eq("In Progress")
     
     click_link("Submit Application")
-    expect(current_path).to eq("/applications/#{@application2.id}")
-    expect(@application2.status).to eq("Pending")
-
-
-
+    expect(current_path).to eq("/applications/#{@application3.id}")
+    expect(@application3.status).to eq("Pending")
   end
 end

@@ -1,7 +1,7 @@
 <h2>Name: <%= @application.name %></h2>
 <p>Address: <%= @application.full_address %></p>
 <p>Why would you be a good home?: <%= @application.good_home %></p>
-<p>Why would you be a good owner?: <%= @application.good_owner %></p>
+<p>Why would I make a good owner for these pet(s)?: <%= @application.good_owner %></p>
 <p>This application is for the following pets: </p>
 <% @application.pets.each do |pet| %>
 <p><%= pet.name %></p>
