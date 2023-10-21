@@ -48,11 +48,14 @@ RSpec.describe "New Application" do
     fill_in("Address", with: "123 Main St")
     fill_in("City", with: "Aurora, CO")
     fill_in("Zip", with: 80111)
+    fill_in("Description", with: "")
     # And I click submit
     click_button("Submit")
     # Then I am taken back to the new application's page
     # expect(current_path).to eq("/apps/new")
     # And I see a message that I must fill in those fields.
-    # expect(page).to have_content("Please fill out this field")
+    # assert_text "Please fill out this field"
   end
+
+
 end

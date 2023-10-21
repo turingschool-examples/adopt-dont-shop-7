@@ -1,4 +1,5 @@
 class AppsController < ApplicationController
+  
   def index
     @apps = App.all
   end
@@ -8,7 +9,7 @@ class AppsController < ApplicationController
   end
 
   def show
-    @apps = App.find(params[:id])
+    @app = App.find(params[:id])
   end
 
   def create
@@ -16,6 +17,11 @@ class AppsController < ApplicationController
     redirect_to "/apps/#{app.id}"
   end
 
+  def add_pet(pet)
+    @app = App.find(params[:id])
+    # @app_pets 
+  end
+  
   private
   def app_params
     params.permit(:name, :address, :city, :zip, :description)

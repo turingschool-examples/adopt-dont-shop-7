@@ -1,4 +1,17 @@
-<h1><%=@apps.name%>'s Application</h1>
-<h3><%=@apps.address%>,<%=@apps.city%>,<%=@apps.zip%></h3>
-<h3><%=@apps.description%></h3>
-<h3><%=@apps.status%></h3>
+<h1><%=@app.name%>'s Application</h1>
+<p><%=@app.address%>, <%=@app.city%>, <%=@app.zip%></p>
+<p><%=@app.description%></p>
+<p><%=@app.status%></p>
+
+
+<% @app.pets.each do |pet| %>
+  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+<% end %>
+
+
+<h2>Add a Pet to this Application</h2>
+<%= form_with url: "/search", method: :get do |form| %>
+  <%= form.label :query, "Search pets by name here:" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Submit" %>
+<% end %>
