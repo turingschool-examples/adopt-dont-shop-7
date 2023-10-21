@@ -6,10 +6,6 @@ class ApplicationsController < ApplicationController
     if params[:pet_name].present?
       @matching_pets = Pet.adoptable_search(params[:pet_name])
     end
-
-    if params[:good_owner] != nil
-      require 'pry'; binding.pry
-    end
   end
 
   def new 
@@ -23,6 +19,12 @@ class ApplicationsController < ApplicationController
       flash[:error] = "Error: All fields must be filled in to submit"
       redirect_to "/applications/new" 
     end 
+  end
+
+  def update
+    application = Application.find(params[:id])
+    application.update(description: params[:description], status: "Pending")
+    redirect_to "/applications/#{application.id}"
   end
 
   private 
