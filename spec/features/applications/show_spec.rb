@@ -37,7 +37,6 @@ RSpec.describe 'Application Show Page' do
 
     click_button "Submit"
     expect(current_path).to eq("/applications/#{application.id}")
-    save_and_open_page
     expect(page).to have_content(@pet_2.name)
     expect(page).to have_content(@pet_2.breed)
     expect(page).to have_content(@pet_2.age)
