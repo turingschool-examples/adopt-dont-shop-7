@@ -94,14 +94,14 @@ RSpec.describe "the application show" do
     expect(page).to have_content("Already on Application")
 
   end
-
+  
   xit "Add reason on why I would be a good parent and allows to submit application" do
     @application3.pets << @pet_4
     @application3.pets << @pet_5
     visit "/applications/#{@application3.id}"
     expect(@application3.pets).to eq([@pet_4, @pet_5])
     expect("Mr. Pirate").to appear_before("Clawdia")
-
+    
     expect(page).to have_content("Why would I make a good owner for these pet(s)?")
     expect(page).to have_button("Submit Application")
     expect(@application3.status).to eq("In Progress")
@@ -110,5 +110,15 @@ RSpec.describe "the application show" do
     expect(current_path).to eq("/applications/#{@application3.id}")
     expect(page).to have_content("Why would I make a good owner for these pet(s)?: I like cats")
     expect(@application3.status).to eq("Pending")
+  end
+  
+  it "The field and button to submit are not shown if there are not pets on the application" do
+    
+    visit "/applications/#{@application3.id}"
+    expect(@application3.pets).to eq([])
+    
+    expect(page).to_not have_content("Finalize Application")
+    expect(page).to_not have_button("Submit Application")
+    expect(@application3.status).to eq("In Progress")
   end
 end
