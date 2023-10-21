@@ -8,7 +8,7 @@ class AppsController < ApplicationController
   end
 
   def show
-    @apps = App.find(params[:id])
+    @app = App.find(params[:id])
   end
 
   def create
