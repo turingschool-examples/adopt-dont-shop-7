@@ -11,7 +11,7 @@
 
 <% if @application.status == "In Progress" %>
   <h3> Add a Pet to this Application:</h3>
-  <%= form_tag show_application_path, method: :get do %>
+  <%= form_with url: "/applications/#{@application.id}?pet_name=#{params[:pet_name]}&commit=Search", method: :get do %>
     <%= text_field_tag 'pet_name', params[:pet_name], placeholder: 'Enter pet name' %>
     <%= submit_tag 'Search' %>
   <% end %>

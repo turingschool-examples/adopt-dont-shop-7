@@ -51,7 +51,7 @@ RSpec.describe 'application show page', type: :feature do
       fill_in "Enter pet name", with: "Pom Pom"
       click_button "Search"
 
-      expect(current_path).to eq("/applications/#{@applicant1.id}?pet_name=Pom_Pom&commit=Search")
+      expect(current_path).to eq("/applications/#{@applicant1.id}?pet_name=Pom_Pom")
 
       expect(page).to have_content("Pom Pom")
       expect(page).to_not have_content("Lobster")
