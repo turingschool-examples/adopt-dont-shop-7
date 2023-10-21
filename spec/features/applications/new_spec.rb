@@ -9,11 +9,9 @@ RSpec.describe "Application New Page" do
     @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
   end
 
-
-# And I see an indicator that this application is "In Progress"
   describe "visiting the application new page" do 
     it "has a form to fill in with required fields to create an application" do
-      visit "applications/new"
+      visit "/applications/new"
 
       expect(page).to have_field(:name)
       expect(page).to have_field(:street_address)
@@ -25,7 +23,7 @@ RSpec.describe "Application New Page" do
     end
 
     it "accepts user inputs and redirects us to the new application show page" do
-      visit "applications/new"
+      visit "/applications/new"
 
       fill_in(:name, with: "Frank")
       fill_in(:street_address, with: "123 Fake St.")
@@ -48,6 +46,23 @@ RSpec.describe "Application New Page" do
       expect(page).to have_content("I love pets!")
     end
 
-  end
+    it "shows an error message when the form is not fully filled out
+    and it redirects to the new applications page" do
+      visit "/applications/new"
 
+     
+      fill_in(:street_address, with: "123 Fake St.")
+      fill_in(:city, with: "Normaltown")
+      fill_in(:state, with: "FK")
+      fill_in(:zip_code, with: "12345")
+      fill_in(:description, with: "I love pets!")
+
+      click_button("Submit")
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Error: Name can't be blank")
+      save_and_open_page
+    end
+
+  end
 end
