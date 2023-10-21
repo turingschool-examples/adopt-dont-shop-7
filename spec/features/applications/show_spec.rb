@@ -27,4 +27,5 @@ RSpec.describe "the application show" do
     expect(page).to have_content(@pet_2.name)
 
   end
+
 end

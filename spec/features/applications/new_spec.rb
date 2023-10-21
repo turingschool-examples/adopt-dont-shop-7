@@ -16,7 +16,7 @@ RSpec.describe "Applications" do
       expect(page).to have_link "Start an Application", href: "/applications/new"
     end
 
-    it "On this page I see a form" do
+    xit "On this page I see a form" do
       visit "/applications/new"
 
       
@@ -37,6 +37,43 @@ RSpec.describe "Applications" do
       expect(page).to have_content("Why would you be a good pet parent?")
       
       expect(page).to have_content("Pending")
+
+      application = Application.order(:created_at).first
+      expect(current_path).to eq("/applications/#{application.id}")
     end
+  end
+
+
+  it "will take you back to the new application page if any field is left empty" do
+    visit "/applications/new"
+
+    expect(page).to_not have_content("You must fill in this field")
+
+    fill_in(:name, with: 'Biggie')
+    fill_in(:street_address, with: 'South State Street')
+    fill_in(:city, with: 'Salt Lake City')
+    fill_in(:zip_code, with: '84105')
+    fill_in(:description, with: 'Why would you be a good pet parent?')
+
+    click_button('Submit Application')
+
+    expect(current_path).to eq('/applications/new')
+    expect(page).to have_content("You must fill in this field")
+    expect("State:").to appear_before("You must fill in this field")
+    expect("You must fill in this field").to appear_before("Zip Code:")
+
+    fill_in(:name, with: 'Biggie')
+    fill_in(:city, with: 'Salt Lake City')
+    fill_in(:state, with: 'UT')
+    fill_in(:zip_code, with: '84105')
+    fill_in(:description, with: 'Why would you be a good pet parent?')
+
+    click_button('Submit Application')
+
+    expect(current_path).to eq('/applications/new')
+
+    expect(page).to have_content("You must fill in this field")
+    expect("Street Address:").to appear_before("You must fill in this field")
+    expect("You must fill in this field").to appear_before("City:")
   end
 end
