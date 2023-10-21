@@ -66,6 +66,15 @@ RSpec.describe 'application show page', type: :feature do
 
       expect(page).to have_content("Pom Pom")
     end
+
+    it 'renders pets with case insensitive partials' do 
+      #US 9 
+      visit "/applications/#{@application1.id}"
+      fill_in "Enter pet name", with: "pOM"
+      click_button "Search"
+
+      expect(page).to have_content("Pom Pom")
+    end
     
     it 'adds the pet to under Pets Applied for' do
       #US 5
