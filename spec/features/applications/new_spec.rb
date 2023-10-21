@@ -61,7 +61,6 @@ RSpec.describe "create new application", type: :feature do
             fill_in "zip_code",	with: "90909"
 
             click_button "Submit"
-save_and_open_page 
             expect(current_path). to eq("/applications/new")
             expect(page).to have_content("Error: Fill in all fields")
           end

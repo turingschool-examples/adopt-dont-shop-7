@@ -10,4 +10,5 @@ class Application < ApplicationRecord
   validates :description, presence: true
   validates :status, presence: :true #inclusion: {in: ["In Progress", "Accepted", "Rejected", "Pending"]}
 
+
 end
