@@ -52,6 +52,29 @@ RSpec.describe "Application Show Page", type: :feature do
 
         expect(page).to have_content(@application_1.status)
       end
+
+      #User Story 4
+      describe "That application has not been submitted" do
+        it "See a section on the page to 'Add a Pet to this Application'" do
+          visit "/applications/#{@application_1.id}"
+
+          expect(page).to have_content("Add a Pet to this Application")
+        end
+
+        describe "In that section I see an input where I can search for Pets by name" do
+          describe "Fill in this field with a Pet's name and click submit" do
+            it "I am taken back to application show page and under search bar I see any Pet whose name matches my search" do
+              visit "/applications/#{@application_1.id}"
+              
+              fill_in "Search for Pets", with: "Rue"
+              click_button "Submit"
+
+              expect(current_path).to eq("/applications/#{@application_1.id}")
+              expect(page).to have_content("Rue")
+            end
+          end
+        end
+      end 
     end 
   end 
 end
