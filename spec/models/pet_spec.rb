@@ -11,6 +11,7 @@ RSpec.describe Pet, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:age) }
     it { should validate_numericality_of(:age) }
+    it { should_not validate_uniqueness_of(:name) }
   end
 
   before(:each) do
@@ -22,8 +23,23 @@ RSpec.describe Pet, type: :model do
 
   describe "class methods" do
     describe "#search" do
-      it "returns partial matches" do
+      it 'returns exact matches' do
+        expect(Pet.search("Clawdia")).to eq([@pet_2])
+        expect(Pet.search("Clawdia")).to_not eq([@pet_3])
+      end
+
+      it 'returns partial matches' do
         expect(Pet.search("Claw")).to eq([@pet_2])
+        expect(Pet.search("Claw")).to_not eq([@pet_3])
+      end
+
+      it 'returns case insensitive matches' do
+        expect(Pet.search("CLAW")).to eq([@pet_2])
+        expect(Pet.search("CLAW")).to_not eq([@pet_3])
+        expect(Pet.search("claw")).to eq([@pet_2])
+        expect(Pet.search("claw")).to_not eq([@pet_3])
+        expect(Pet.search("ClAw")).to eq([@pet_2])
+        expect(Pet.search("ClAw")).to_not eq([@pet_3])
       end
     end
 
