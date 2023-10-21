@@ -15,8 +15,7 @@ RSpec.describe "New Application Page" do
     application = Application.first
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content('Lauren Lockwood')
-    # expect(page).to have_content('In Progress') #this is something we may have needed in the migration... will discuss
-    Application.destroy_all
+    expect(page).to have_content('In Progress') 
   end
 
   #User story 3
@@ -25,13 +24,12 @@ RSpec.describe "New Application Page" do
     
     fill_in('name', with: 'Michelle Obama')
     fill_in('street_address', with: '55 West Broad St') 
+    fill_in('city', with: 'Washington')
     fill_in('state', with: 'DC')
-    fill_in('description', with: "I love cats")
+    fill_in('description', with: "")
     click_button ('Submit')
-    application = Application.first
-    # expect(page).to have_content("Please fill in all required fields!")
-    expect(current_path).to eq("/applications/#{application.id}")
-    Application.destroy_all
+    expect(page).to have_content("Please fill in all required fields.")
+    expect(current_path).to eq("/applications/new")
   end
 end
 

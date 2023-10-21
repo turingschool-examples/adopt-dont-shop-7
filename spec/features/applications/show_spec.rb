@@ -11,21 +11,19 @@ RSpec.describe 'Application Show Page' do
   end
 
   it 'displays the attribute of the applicant' do
-    @stacy = Application.create!(name: "Stacy Chapman", street_address: "1870 Canopy Rd", city: "Los Angeles", state: "CA", zip_code: 90001, description: "I grew up with dachshunds and felt really connected")
-    visit "/applications/#{@stacy.id}"
+    application = Application.create!(name: "Stacy Chapman", street_address: "1870 Canopy Rd", city: "Los Angeles", state: "CA", zip_code: 90001, description: "I grew up with dachshunds and felt really connected", status: "In Progress")
+    visit "/applications/#{application.id}"
     expect(page).to have_content("Name of Applicant")
     expect(page).to have_content("Address")
     expect(page).to have_content("Description of Qualification")
     expect(page).to have_content("Pets Applied For")
     expect(page).to have_content("Application Status")
-    Application.destroy_all
   end
 
   it 'puts the address together for applicant' do
-    @stacy = Application.create!(name: "Stacy Chapman", street_address: "1870 Canopy Rd", city: "Los Angeles", state: "CA", zip_code: 90001, description: "I grew up with dachshunds and felt really connected")
-    visit "/applications/#{@stacy.id}"
+    application = Application.create!(name: "Stacy Chapman", street_address: "1870 Canopy Rd", city: "Los Angeles", state: "CA", zip_code: 90001, description: "I grew up with dachshunds and felt really connected", status: "In Progress")
+    visit "/applications/#{application.id}"
     expect(page).to have_content("1870 Canopy Rd, Los Angeles, CA, 90001")
-    Application.destroy_all
   end
 
 end

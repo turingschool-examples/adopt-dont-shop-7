@@ -88,7 +88,6 @@ RSpec.describe "the pets index" do
     expect(page).to have_content("Start an Application")
     click_link "Start an Application"
     expect(current_path).to eq(new_application_path)
-    Application.destroy_all
   end
   
 end
