@@ -11,7 +11,7 @@ class ApplicationsController < ApplicationController
   def create
     application = Application.new({
       name: params[:name],
-      full_address: "#{params[:street_address]}, #{params[:city]}, #{params[:state]}, #{params[:zip_code]}",
+      full_address: create_full_address(params),
       description: params[:description],
       status: "Pending"
     })
@@ -21,6 +21,10 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{application.id}"
   end
 
-  # private
+  private
+
+  def create_full_address(params)
+    "#{params[:street_address]}, #{params[:city]}, #{params[:state]}, #{params[:zip_code]}"
+  end
 
 end
