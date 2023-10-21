@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.describe "the applications show" do
   before(:each) do
     @timmy = App.create(name: "Timmy", address: "123 Main St", city: "Aurora, CO", zip: 80111, description: "I love dogs", status: "In Progress")
+    shelter1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    @pet1 = shelter1.pets.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
+    @timmy.pets << @pet1
   end
   it 'lists an applicant with their details' do  
     #     [ ] done
@@ -22,6 +25,12 @@ RSpec.describe "the applications show" do
     # Description of why the applicant says they'd be a good home for this pet(s)
     expect(page).to have_content("I love dogs")
     # names of all pets that this application is for (all names of pets should be links to their show page)
+  
+    save_and_open_page
+    expect(page).to have_content(@pet1.name)
+    expect(page).to have_link("/pets/#{@pet1.id}")
+    click_link "@pet1.name"
+    expect(current_path).to eq("/pets/#{@pet1.id}")
     # The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
     expect(page).to have_content("In Progress")
 

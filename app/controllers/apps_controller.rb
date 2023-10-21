@@ -17,11 +17,11 @@ class AppsController < ApplicationController
     redirect_to "/apps/#{app.id}"
   end
 
-  # def add_pet
-  #   @app = App.find(params[:id])
-
-  # end
-
+  def add_pet(pet)
+    @app = App.find(params[:id])
+    # @app_pets 
+  end
+  
   private
   def app_params
     params.permit(:name, :address, :city, :zip, :description)
