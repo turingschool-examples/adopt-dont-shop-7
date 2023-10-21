@@ -7,7 +7,7 @@ RSpec.describe Application, type: :model do
     app = Application.create!({
       name: "Joe Shmo", 
       address: "2323 Wysteria Ln., Littleton, CO 89321",
-      description: "Love pets; live on farm",
+      descriptioissn: "Love pets; live on farm",
       pet_names: "Socks, Juneau, Curtis, Stimpy",
       status: "Pending"
     })
