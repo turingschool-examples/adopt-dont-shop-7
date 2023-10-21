@@ -12,4 +12,13 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.search_for_pet(search)
+    pet = Pet.find_by(name: search)
+    if pet
+      self.where(id: pet)
+    else
+      nil
+    end
+  end
 end

@@ -4,8 +4,8 @@ class ApplicationsController < ApplicationController
   
   def show
     @application = Application.find(params[:application_id])
-    if params.keys.any? { |key| key == "search"}
-      @searched = Application.search_for_pet(params)
+    if params[:search] != nil
+      @searched = Pet.search_for_pet(params[:search])
     end
   end
 
