@@ -4,7 +4,13 @@
 <p>City: <%= @application.city %></p>
 <p>State: <%= @application.state %></p>
 <p>Zip: <%= @application.zip %></p>
-<p>Pet's Name: <%= @application.pet_names %> </p>
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.status %></p>
 
+
+<% if @application.in_progress? %>
+  <h1>Add a Pet</h1>
+    <%= form_with "/applications", method: :get, data: {turbo: false} do |form| %>
+    <%= form.label "Search for:" %>
+    <%= form.text_field :query %>
+<% end %>
