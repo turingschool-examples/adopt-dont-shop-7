@@ -34,7 +34,10 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    require 'pry'; binding.pry
-    @pet = Pet.find(params[:pet_id])
+    @application.update({
+      status: "Pending",
+      description: params[:description]
+    })
+    redirect_to "/applications/#{@application.id}"
   end
 end

@@ -29,5 +29,14 @@
   <% end %>
       
   </section>
+  <% if !@application_pets.first.nil? %>
+    <section id="submit_application">
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label :description, "Why I would make a good owner for these pet(s)" %><br>
+      <%= f.text_area :description, size: "100x10" %><br>
+      <%= f.submit "Submit" %>
+      <% end %>
+    </section>
+  <% end %>
 <% end %>
 
