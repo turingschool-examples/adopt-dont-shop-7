@@ -18,4 +18,5 @@ class Application < ApplicationRecord
     status == "In Progress"
   end
 
+endclass Application <ApplicationRecord
 end
