@@ -31,7 +31,6 @@ class Application < ApplicationRecord
 
   def has_pets?
     self.pets.count > 0
-    # require 'pry'; binding.pry
   end
 
   def find_approvals
