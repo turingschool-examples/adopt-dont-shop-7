@@ -11,4 +11,8 @@ class Application < ApplicationRecord
   def full_address
     "#{self.street_address}, #{self.state}, #{self.city}, #{self.zip_code}"
   end
+
+  def add_pet(pet)
+    pets << pet
+  end
 end

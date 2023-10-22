@@ -1,7 +1,5 @@
 class ApplicationsController < ApplicationController
   def new
-    @application = Application.find(params[:application_id])
-    @pets = @application.pets
   end
   
   def show
@@ -24,9 +22,9 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:application_id])
-    @pets = @application.pets
-    @pets << params[:pet]
-    redirect_to "/applications/#{application.id}"
+    selected_pet = Pet.find(params[:pet_id])
+    @application.add_pet(selected_pet)
+    redirect_to "/applications/#{@application.id}"
   end
 
   private
