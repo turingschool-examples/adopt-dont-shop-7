@@ -131,4 +131,24 @@ RSpec.describe "the application show" do
       end
     end
   end
+
+  describe "US 9 - Applications show page" do
+    describe "I visit an application's show page" do 
+      describe "I search for Pets by name" do 
+        it "My search is case insensitive" do 
+          visit "/applications/#{@application.id}"
+
+          fill_in "Search for Pets", with: "scoob"
+          click_button "Submit"
+
+          expect(page).to have_content "Scooby"
+          click_button("Adopt this Pet")
+
+          expect(current_path).to eq("/applications/#{@application.id}")
+          expect(page).to have_content("#{@pet.name}")
+          
+        end
+      end
+    end
+  end
 end
