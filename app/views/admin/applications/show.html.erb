@@ -1,0 +1,29 @@
+<h1>Admin Applications View</h1>
+
+  <p><b>Applicant's Name:</b> <%= @application.name %></p>
+  <p><b>Applicant's Address:</b> <%= @application.address %></p>
+  <p><b>Description:</b> <%= @application.description %></p>
+  <p><b>Application Status:</b> <%= @application.status %></p>
+
+<table id="table">
+<tr>
+  <th>Pet Name</th>
+  <th>Application Approval</th>
+</tr>
+<% @application.pets.each do |pet|  %>
+    <tr><p><td><%= pet.name %></td></p>
+      <% if @application.status == "Pending" %>
+        <%= form_with method: :patch, data: { turbo: false } do |f| %>
+        <td><%= f.submit "Approve" %></td>
+        <% end %>
+        <% elsif @application.status == "Approved" %>
+        <td><%= @application.status %></td>
+      <% end %>
+    <% end %>
+  </tr>
+</table>
+
+
+
+
+
