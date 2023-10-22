@@ -8,6 +8,12 @@ class ApplicationPetsController < ApplicationController
       application_pet.update({
         approved: true,
       })
+      # is this restful?
+      if application.application_pets.all? { |app_pet| app_pet[:approved] }
+        application.update({
+          status: "Approved"
+        })
+      end
     elsif params[:app_rej] == "reject"
       application_pet.update({
         rejected: true,

@@ -223,7 +223,7 @@ RSpec.describe "the application show" do
     click_button("Approve Application for #{@pet_1.name}")
     expect(page).to have_content("Pending")
     click_button("Approve Application for #{@pet_2.name}")
-    save_and_open_page
+    expect(page).to_not have_content("Pending")
     expect(page).to have_content("Application Status: Approved")
   end
 end
