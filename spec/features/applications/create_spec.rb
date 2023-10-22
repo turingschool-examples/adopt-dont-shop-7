@@ -5,9 +5,9 @@ RSpec.describe "application creation" do
   describe "the application new" do
     it "renders the new form" do
       visit "/pets"
-      expec(page).to have_link("Start an Application")
+      expect(page).to have_link("Start an Application")
       click_link("Start an Application")
-      expect(curren_path).to eq("applications/new")
+      expect(current_path).to eq("/applications/new")
 
       expect(page).to have_content("New Application")
       expect(page).to have_field("Name")
@@ -25,14 +25,15 @@ RSpec.describe "application creation" do
         
         visit "applications/new"
 
-        fill_in "Name", with; "Dave"
-        fill_in "Street Address", with; "1924 North Coria Street"
-        fill_in "City", with; "Brownsville"
-        fill_in "State", with; "Texas"
-        fill_in "Zip Code", with; "78521"
-        fill_in "Description", with; "Because I say so!"
+        fill_in "Name", with: "Dave"
+        fill_in "Street Address", with: "1924 North Coria Street"
+        fill_in "City", with: "Brownsville"
+        fill_in "State", with: "Texas"
+        fill_in "Zip Code", with: "78521"
+        fill_in "Description", with: "Because I say so!"
         click_button("Submit")
-        expect(current path).to eq("applications/show")
+        application = Application.last
+        expect(current_path).to eq("applications/#{application.id}")
 
         pending "Show page must be completed prior to testing"
         expect(page).to have_content("Dave")
