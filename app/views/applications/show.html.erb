@@ -16,7 +16,8 @@
   <% @pets.each do |pet| %>
   <div id="pet-<%= pet.id %>">
     <%= pet.name %>
-    <%= form_with url: "/applications/#{@application.id}/update", method: :patch, data: { turbo: false } do |f| %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
+    <%= f.hidden_field :pet_id, value: pet.id %>
       <%= f.submit "Adopt this Pet" %>
     <% end %>
   </div>

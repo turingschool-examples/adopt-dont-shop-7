@@ -124,6 +124,8 @@ RSpec.describe "Application Show Page" do
               click_button("Adopt this Pet")
             end
 
+            # save_and_open_page
+            
             expect(current_path).to eq("/applications/#{@application_1.id}")
 
             expect(page.find("#petlist-#{@pet_1.id}")).to be(true)

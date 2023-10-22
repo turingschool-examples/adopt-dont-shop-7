@@ -20,6 +20,11 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    @application = Application.find(params[:id])
+    @application.pets << Pet.find(params[:pet_id])
+  end
+
   private
     def application_params
       params.permit(:name, :street, :city, :state, :zip, :description, :status)
