@@ -5,9 +5,10 @@ RSpec.describe "the shelters index" do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
-    @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
-    @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
-    @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
+    @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+    @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+    @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
+
   end
 
   it "lists all the shelter names" do
@@ -114,8 +115,20 @@ RSpec.describe "the shelters index" do
   end
 
   it "I see a section for shelters with pending applications" do
+    application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Pending")
+    application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I like fish", status: "Rejected")
+
+    application1.pets << @pet_1 
+    application1.pets << @pet_2 
+    application2.pets << @pet_2 
+    application2.pets << @pet_3 
+
     visit "/admin/shelters"
 
-    require 'pry'; binding.pry
+    within("div#admin") do
+      expect(page).to have_content("Shelters with Pending Applications")
+      expect(page).to have_content(@shelter_1.name)
+      expect(page).to_not have_content("Fancy pets of Colorado")
+    end
   end
 end
