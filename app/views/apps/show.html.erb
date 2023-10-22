@@ -9,11 +9,23 @@
 <% end %>
 
 
-<h2>Add a Pet to this Application</h2>
-<%= form_with url: "/apps/search", method: :get do |form| %>
-  <%= form.label :search, "Search pets by name here:" %>
-  <%= form.text_field :search %>
-  <%# <%= form.hidden_field :pet_id, value: @pet.id %>  
-  <%= form.hidden_field :app_id, value: @app.id %> 
-  <%= form.submit "Submit" %>
+<% if @app.status == "In Progress" %>
+<h2>Search a pet</h2>
+  <%= form_with url: "/apps/#{@app.id}?pet_name=#{params[:pet_name]}&commit=Search", method: :get do %>
+  <%= text_field_tag "pet_name", params[:pet_name], placeholder: "Search pets by name here" %>
+  <%= submit_tag "Submit" %>
+  <% end %>
 <% end %>
+
+<h3>Pets matching search</h3>
+  <% if params[:pet_name].present? %>
+    <% @pets = Pet.search(params[:pet_name]) %>
+    <% @pets.each do |pet| %>
+      <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+      <% if @app.pets.include?(pet) %>
+        <p>This pet is already on this application</p>
+      <% else %>
+        <%= button_to "Adopt #{pet.name}", "/apps/#{pet.id}?app_id=#{params[:app_id]}&commit=Add+Pet", method: :patch %>
+      <% end %>
+    <% end %>
+  <% end %>

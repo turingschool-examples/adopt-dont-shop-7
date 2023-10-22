@@ -55,9 +55,34 @@ RSpec.describe "the applications show" do
     # And I click submit,
     click_button "Submit"
     # Then I am taken back to the application show page
-    expect(page).to have_current_path("/apps/#{@timmy.id}")
+    expect(current_path).to eq("/apps/#{@timmy.id}")
+    
+    # expect(page).to have_content("Add Lobster to this application")
+
+    # click_link "Add Lobster to this application"
     # And under the search bar I see any Pet whose name matches my search
     expect(page).to have_content("Lobster")
+  end
 
+  describe "adopting pets" do
+    it "can adopt pets" do
+
+#       Add a Pet to an Application
+        # As a visitor
+        # When I visit an application's show page
+        visit "/apps/#{@timmy.id}"
+        # And I search for a Pet by name
+        fill_in "Search pets by name here", with: "Lobster"
+        # And I see the names Pets that match my search
+        expect(page).to have_content("Lobster")
+        # Then next to each Pet's name I see a button to "Adopt this Pet"
+        expect(page).to have_button("Adopt #{@pet1.name}")
+        # When I click one of these buttons
+        click_button "Adopt #{@pet1.name}"
+        # Then I am taken back to the application show page
+        expect(current_path).to eq("/apps/#{@timmy.id}")
+        # And I see the Pet I want to adopt listed on this application
+        expect(page).to have_content("Lobster")
+    end
   end
 end

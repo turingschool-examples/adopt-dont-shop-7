@@ -9,16 +9,25 @@ class AppsController < ApplicationController
   end
 
   def show
+    @app = App.find(params[:id])
+
     if params[:search].present?
-      @app = App.search(params[:search])
-    else
-      @app = App.find(params[:id])
+      @matching_pets = Pet.adoptable_search(params[:pet_name])
     end
   end
 
   def create
     app = App.create(app_params)
     redirect_to "/apps/#{app.id}"
+  end
+
+  def update
+    # require 'pry'; binding.pry
+    @app = App.find(params[:app_id])
+    @pet = Pet.find(params[:id])
+    @app.pets << @pet
+    require 'pry'; binding.pry
+    redirect_to "/apps/#{params[:id]}"
   end
 
   def add_pet

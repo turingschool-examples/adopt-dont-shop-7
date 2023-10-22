@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get "/apps/search", to: "apps#show"
   get "apps/:id", to: "apps#show"
   post "/apps", to: "apps#create"
+  patch "/apps/:id", to: "apps#update"
  
 
   # get "/apps_pets", to: "apps_pets#index"
