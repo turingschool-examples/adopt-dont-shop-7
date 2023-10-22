@@ -121,4 +121,37 @@ RSpec.describe "the application show" do
     expect(page).to_not have_button("Submit Application")
     expect(@application3.status).to eq("In Progress")
   end
+
+  it "When visiting a page as an admin, I see a button to accept an application" do
+    visit "/applications/#{@application1.id}"
+    expect(page).to_not have_content("Approve Application for #{@pet_1.name}")
+    expect(page).to_not have_content("Approve Application for #{@pet_2.name}")
+
+    visit "/admin/applications/#{@application1.id}"
+    expect(page).to have_content(@application1.name)
+    expect(page).to have_content(@application1.full_address)
+    expect(page).to have_content(@application1.good_home)
+    expect(page).to have_content(@application1.good_owner)
+    expect(page).to have_content(@application1.status)
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to_not have_content("Finalize Application")
+    expect(page).to_not have_button("Submit Application")
+    expect(page).to_not have_content("Add a Pet to this Application")
+    expect(page).to have_button("Approve Application for #{@pet_1.name}")
+    expect(page).to have_button("Approve Application for #{@pet_2.name}")
+  end
+
+  it "As an admin, I can click to accept an application, and I wil be shown that the application is accepted on this page" do
+    visit "/admin/applications/#{@application1.id}"
+    expect(page).to_not have_content("Adoption of #{@pet_1.name} has been approved")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been approved")
+    click_button("Approve Application for #{@pet_1.name}")
+    expect(current_path).to eq("/admin/applications/#{@application1.id}")
+    expect(page).to have_content("Adoption of #{@pet_1.name} has been approved")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been approved")
+    click_button("Approve Application for #{@pet_2.name}")
+    expect(current_path).to eq("/admin/applications/#{@application1.id}")
+    expect(page).to have_content("Adoption of #{@pet_1.name} has been approved")
+    expect(page).to have_content("Adoption of #{@pet_2.name} has been approved")
+  end
 end

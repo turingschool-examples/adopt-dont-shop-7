@@ -4,12 +4,24 @@
 <p>Why would I make a good owner for these pet(s)?: <%= @application.good_owner %></p>
 <p>This application is for the following pets: </p>
 <% @application.pets.each do |pet| %>
-<p> <%= link_to pet.name, "/pets/#{pet.id}" %></p>
+  <%= link_to pet.name, "/pets/#{pet.id}" %>
+  <% if @admin %>
+    <% if @approvals.include?(pet.id) %>
+      <%= "Adoption of #{pet.name} has been approved" %>
+    <% else %>
+      <%= form_with url: "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch, local: :true do |f| %>
+        <%= f.submit "Approve Application for #{pet.name}" %>
+      <% end %>
+    <% end %>
+    <%= form_with url: "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, local: :true do |f| %>
+      <%= f.submit "Reject Application for #{pet.name}" %>
+    <% end %>
+  <% end %>
 <% end %>
 <p>Application Status: <%= @application.status %></p>
 
 
-<% if @application.status == "In Progress" %>
+<% if @application.status == "In Progress" && @admin.nil? %>
   <h4>Add a Pet to this Application</h4>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.text_field :search %>
