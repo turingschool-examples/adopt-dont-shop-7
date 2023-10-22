@@ -9,7 +9,11 @@ class AppsController < ApplicationController
   end
 
   def show
-    @app = App.find(params[:id])
+    if params[:search].present?
+      @app = App.search(params[:search])
+    else
+      @app = App.find(params[:id])
+    end
   end
 
   def create
@@ -18,6 +22,7 @@ class AppsController < ApplicationController
   end
 
   def add_pet
+
     @app = App.find(params[:app_id])
     @pet = Pet.where(name: params[:query]).first
     @app.pets << @pet

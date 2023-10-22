@@ -58,5 +58,6 @@ RSpec.describe "the applications show" do
     expect(page).to have_current_path("/apps/#{@timmy.id}")
     # And under the search bar I see any Pet whose name matches my search
     expect(page).to have_content("Lobster")
+
   end
 end
