@@ -10,12 +10,12 @@ RSpec.describe "application creation" do
       expect(curren_path).to eq("applications/new")
 
       expect(page).to have_content("New Application")
-      expect(find("form")).to have_content("Name")
-      expect(find("form")).to have_content("Street Address")
-      expect(find("form")).to have_content("City")
-      expect(find("form")).to have_content("State")
-      expect(find("form")).to have_content("Zip Code")
-      expect(find("form")).to have_content("Description")
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Street Address")
+      expect(page).to have_field("City")
+      expect(page).to have_field("State")
+      expect(page).to have_field("Zip Code")
+      expect(page).to have_field("Description")
     end
   end
 
@@ -34,13 +34,14 @@ RSpec.describe "application creation" do
         click_button("Submit")
         expect(current path).to eq("applications/show")
 
-        # expect(page).to have_content("Dave")
-        # expect(page).to have_content("1924 North Coria Street")
-        # expect(page).to have_content("Brownsville")
-        # expect(page).to have_content("Texas")
-        # expect(page).to have_content("78521")
-        # expect(page).to have_content("Because I say so!")
-        # expect(page).to have_content("In Progress")
+        pending "Show page must be completed prior to testing"
+        expect(page).to have_content("Dave")
+        expect(page).to have_content("1924 North Coria Street")
+        expect(page).to have_content("Brownsville")
+        expect(page).to have_content("Texas")
+        expect(page).to have_content("78521")
+        expect(page).to have_content("Because I say so!")
+        expect(page).to have_content("In Progress")
       end
     end
   end
