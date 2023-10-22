@@ -7,9 +7,9 @@
   <%= link_to pet.name, "/pets/#{pet.id}" %>
   <% if @admin %>
     <% if @approvals.include?(pet.id) %>
-      <%= "Adoption of #{pet.name} has been approved" %>
+      <%= "Adoption of #{pet.name} has been approved" %> <br>
     <% elsif @rejections.include?(pet.id)%>
-      <%= "Adoption of #{pet.name} has been rejected" %>
+      <%= "Adoption of #{pet.name} has been rejected" %> <br>
     <% else %>
       <%= form_with url: "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch, local: :true do |f| %>
         <%= f.submit "Approve Application for #{pet.name}" %>
