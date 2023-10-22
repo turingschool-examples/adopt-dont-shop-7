@@ -226,4 +226,26 @@ RSpec.describe "the application show" do
     expect(page).to_not have_content("Pending")
     expect(page).to have_content("Application Status: Approved")
   end
+
+  it "As an admin, rejecting any pet on an application will change the status of an application to 'Rejected'" do
+    @application1.pets << @pet_3
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_1.name}")
+    expect(page).to have_content("Pending")
+    click_button("Approve Application for #{@pet_2.name}")
+    expect(page).to have_content("Pending")
+    click_button("Reject Application for #{@pet_3.name}")
+    expect(page).to have_content("Application Status: Rejected")
+  end
+
+  it "As an admin, rejecting any pet on an application will change the status of an application to 'Rejected' (different order)" do
+    @application1.pets << @pet_3
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Reject Application for #{@pet_1.name}")
+    expect(page).to have_content("Application Status: Rejected")
+    click_button("Approve Application for #{@pet_2.name}")
+    expect(page).to have_content("Application Status: Rejected")
+    click_button("Reject Application for #{@pet_3.name}")
+    expect(page).to have_content("Application Status: Rejected")
+  end
 end
