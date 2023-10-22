@@ -17,6 +17,7 @@ class ApplicationsController < ApplicationController
     if params[:admin]
       @admin = true
       @approvals = @application.find_approvals
+      @rejections = @application.find_rejections
     end
   end
 

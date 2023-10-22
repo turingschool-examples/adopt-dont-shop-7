@@ -8,13 +8,15 @@
   <% if @admin %>
     <% if @approvals.include?(pet.id) %>
       <%= "Adoption of #{pet.name} has been approved" %>
+    <% elsif @rejections.include?(pet.id)%>
+      <%= "Adoption of #{pet.name} has been rejected" %>
     <% else %>
       <%= form_with url: "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch, local: :true do |f| %>
         <%= f.submit "Approve Application for #{pet.name}" %>
       <% end %>
-    <% end %>
-    <%= form_with url: "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, local: :true do |f| %>
-      <%= f.submit "Reject Application for #{pet.name}" %>
+      <%= form_with url: "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, local: :true do |f| %>
+        <%= f.submit "Reject Application for #{pet.name}" %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
