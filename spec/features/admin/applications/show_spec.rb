@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'admin/shelters' do
+RSpec.describe '/admin/applications/:id' do
   before :each do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -17,29 +17,25 @@ RSpec.describe 'admin/shelters' do
     @application1.pets << @pet_3
     @application2.pets << @pet_2
   end
-
   
   describe 'as a visitor' do
-    describe 'when I visit admin/shelters' do
-      it 'shows shelters in reverse alphabetical order' do
-        # US 10
-        visit '/admin/shelters'
-        expect(@shelter_2.name).to appear_before(@shelter_3.name)
-        expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    describe 'when I visit /admin/applications/:id' do
+      it 'has displays button to approve for adoption' do 
+        visit "/admin/applications/#{@application1.id}"
+
+        expect(page).to have_button("Approve", count: 2)
       end
 
-      it 'shows shelters with pending applications' do 
-        # US 11 
-        visit '/admin/shelters'
-        expect(page).to have_content("Shelters with Pending Applications")
+      it 'approves a pet for adoption' do
+        visit "/admin/applications/#{@application1.id}"
 
-        within "#pending_shelter-#{@shelter_1.id}" do 
-          expect(page).to have_content(@shelter_1.name)
-          expect(page).to_not have_content(@shelter_2.name)
-          expect(page).to_not have_content(@shelter_3.name)
-        end 
+        within("tr:contains('#{@pet_1.name}')") do
+          click_button "Approve"
+          expect(current_path).to eq("/admin/applications/#{@application1.id}")
+          expect(page).to_not have_button("Approve")
+          expect(page).to have_content("Approved")
+        end
       end
     end
   end
-
 end
