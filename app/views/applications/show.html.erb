@@ -4,7 +4,7 @@
 <p>Why would I make a good owner for these pet(s)?: <%= @application.good_owner %></p>
 <p>This application is for the following pets: </p>
 <% @application.pets.each do |pet| %>
-<p><%= pet.name %></p>
+<p> <%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <% end %>
 <p>Application Status: <%= @application.status %></p>
 
@@ -31,7 +31,7 @@
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: :true do |f| %>
       <%= f.label "Why would you make a good owner for these pet(s)?" %><br>
       <%= f.text_field :good_owner %>
-      <%= f.submit "Submit" %>
+      <%= f.submit "Submit Application" %>
     <% end %>
   <% end %>
 
