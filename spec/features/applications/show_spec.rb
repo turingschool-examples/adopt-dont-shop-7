@@ -106,8 +106,27 @@ RSpec.describe "the application show" do
       describe "I have not added any pets to the application" do 
         it "I do not see a section to submit my application" do 
           visit "/applications/#{@application.id}"
-save_and_open_page 
           expect(page).not_to have_button("Submit Application")
+        end
+      end
+    end
+  end
+
+  describe "US 8 - Applications show page" do
+    describe "I visit an application's show page" do 
+      describe "I search for Pets by name" do 
+        it "I see any pet whose name PARTIALLY matches my search" do 
+          visit "/applications/#{@application.id}"
+
+          fill_in "Search for Pets", with: "Scoob"
+          click_button "Submit"
+
+          expect(page).to have_content "Scooby"
+          click_button("Adopt this Pet")
+
+          expect(current_path).to eq("/applications/#{@application.id}")
+          expect(page).to have_content("#{@pet.name}")
+          
         end
       end
     end
