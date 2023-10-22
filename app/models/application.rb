@@ -33,4 +33,12 @@ class Application < ApplicationRecord
     self.pets.count > 0
     # require 'pry'; binding.pry
   end
+
+  def find_approvals
+    pets = self.pets.map { |pet| pet.id }
+    approved_pets = pets.reduce([]) do |app_pets, pet|
+      app_pets << pet if ApplicationPet.where("pet_id = '#{pet}' and application_id = '#{self.id}' and approved = true") != []
+      app_pets
+    end
+  end
 end
