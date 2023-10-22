@@ -16,6 +16,18 @@
     <%= form.submit "Search" %>
   <% end %>
   <% if @search_results %>
-      <p>Search Results: <%= @search_results.join(" | ") %></p>
+      <p>Search Results:</p>
+    <% @search_results.each do |pet| %>
+      <section id="pet-<%= pet.id %>">
+        <div style="display: inline-block;">
+          <%= pet.name %>
+        </div>
+        <div style="display: inline-block;">
+          <%= form_for "Adopt", url: "/applications/#{@app.id}?adopt=#{pet.id}", method: :patch, data: {turbo: false} do |form| %>
+            <%= form.submit "Adopt" %>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
   <% end %>
 <% end %>

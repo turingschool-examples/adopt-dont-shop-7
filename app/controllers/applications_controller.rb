@@ -20,8 +20,15 @@ class ApplicationsController < ApplicationController
   def show
     @app = Application.find(id)
     if params[:q]
-      @search_results = Pet.where("name ILIKE ?", "%#{params[:q]}%").pluck(:name)
+      @search_results = Pet.where("name ILIKE ?", "%#{params[:q]}%")
     end
+  end
+
+  def update
+    # use silent create here so if unique combination isn't entered, then just reloads page
+    PetApplication.create(application_id: params[:id], pet_id: params[:adopt])
+
+    redirect_to "/applications/#{params[:id]}"
   end
 
   private
