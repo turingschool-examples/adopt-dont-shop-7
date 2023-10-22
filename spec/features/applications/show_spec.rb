@@ -76,7 +76,7 @@ RSpec.describe "the application show" do
             click_button "Submit"
 
             click_button "Adopt this Pet"
-            save_and_open_page
+            
             expect(page).to have_content("Why would you make a good owner for these pet(s)?")
             expect(page).to have_button("Submit Application")
 
@@ -91,13 +91,23 @@ RSpec.describe "the application show" do
             end
 
             within("#app-status") do
-              expect(page).to have_content("Application's Status: Pending")
+              expect(page).to have_content("Application's status: Pending")
             end
-
             expect(page).not_to have_content("Add a Pet to this Application")
             expect(page).not_to have_content("Search for Pets")
-            expect(page).not_to have_button("Submit")
           end
+        end
+      end
+    end
+  end
+
+  describe "US 7 - Applications show page" do
+    describe "I visit an application's show page" do 
+      describe "I have not added any pets to the application" do 
+        it "I do not see a section to submit my application" do 
+          visit "/applications/#{@application.id}"
+save_and_open_page 
+          expect(page).not_to have_button("Submit Application")
         end
       end
     end
