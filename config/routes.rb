@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   delete "/shelters/:id", to: "shelters#destroy"
 
   get "/pets", to: "pets#index"
-  get "/pets/:id", to: "pets#show"
+  get "/pets/:id", to: "pets#show", as: "pet_show"
   get "/pets/:id/edit", to: "pets#edit"
   patch "/pets/:id", to: "pets#update"
   delete "/pets/:id", to: "pets#destroy"
@@ -39,9 +39,11 @@ Rails.application.routes.draw do
 
   get "/apps", to: "apps#index"
   get "apps/new", to: "apps#new"
+  get "/apps/search", to: "apps#show"
   get "apps/:id", to: "apps#show"
   post "/apps", to: "apps#create"
+ 
 
   # get "/apps_pets", to: "apps_pets#index"
-  # get "/search", to: "apps_pets#index"
+
 end
