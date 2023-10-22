@@ -36,9 +36,17 @@ class Application < ApplicationRecord
 
   def find_approvals
     pets = self.pets.map { |pet| pet.id }
-    approved_pets = pets.reduce([]) do |app_pets, pet|
+    pets.reduce([]) do |app_pets, pet|
       app_pets << pet if ApplicationPet.where("pet_id = '#{pet}' and application_id = '#{self.id}' and approved = true") != []
       app_pets
+    end
+  end
+
+  def find_rejections
+    pets = self.pets.map { |pet| pet.id }
+    pets.reduce([]) do |rej_pets, pet|
+      rej_pets << pet if ApplicationPet.where("pet_id = '#{pet}' and application_id = '#{self.id}' and rejected = true") != []
+      rej_pets
     end
   end
 end

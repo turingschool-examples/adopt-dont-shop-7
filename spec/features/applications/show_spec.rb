@@ -95,7 +95,7 @@ RSpec.describe "the application show" do
 
   end
   
-  xit "Add reason on why I would be a good parent and allows to submit application" do
+  it "Add reason on why I would be a good parent and allows to submit application" do
     @application3.pets << @pet_4
     @application3.pets << @pet_5
     visit "/applications/#{@application3.id}"
@@ -109,7 +109,7 @@ RSpec.describe "the application show" do
     click_button("Submit Application")
     expect(current_path).to eq("/applications/#{@application3.id}")
     expect(page).to have_content("Why would I make a good owner for these pet(s)?: I like cats")
-    expect(@application3.status).to eq("Pending")
+    expect(page).to have_content("Pending")
   end
   
   it "The field and button to submit are not shown if there are not pets on the application" do
@@ -153,5 +153,29 @@ RSpec.describe "the application show" do
     expect(current_path).to eq("/admin/applications/#{@application1.id}")
     expect(page).to have_content("Adoption of #{@pet_1.name} has been approved")
     expect(page).to have_content("Adoption of #{@pet_2.name} has been approved")
+  end
+
+  it "When visiting a page as an admin, I see a button to accept an application" do
+    visit "/applications/#{@application1.id}"
+    expect(page).to_not have_content("Reject Application for #{@pet_1.name}")
+    expect(page).to_not have_content("Reject Application for #{@pet_2.name}")
+
+    visit "/admin/applications/#{@application1.id}"
+    expect(page).to have_button("Reject Application for #{@pet_1.name}")
+    expect(page).to have_button("Reject Application for #{@pet_2.name}")
+  end
+
+  it "As an admin, I can click to accept an application, and I wil be shown that the application is accepted on this page" do
+    visit "/admin/applications/#{@application1.id}"
+    expect(page).to_not have_content("Adoption of #{@pet_1.name} has been rejected")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been rejected")
+    click_button("Reject Application for #{@pet_1.name}")
+    expect(current_path).to eq("/admin/applications/#{@application1.id}")
+    expect(page).to have_content("Adoption of #{@pet_1.name} has been rejected")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been rejected")
+    click_button("Reject Application for #{@pet_2.name}")
+    expect(current_path).to eq("/admin/applications/#{@application1.id}")
+    expect(page).to have_content("Adoption of #{@pet_1.name} has been rejected")
+    expect(page).to have_content("Adoption of #{@pet_2.name} has been rejected")
   end
 end
