@@ -105,4 +105,11 @@ RSpec.describe "the shelters index" do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
+
+  it "Admin page will list shelter in reverse alphabetical order" do
+    visit "/admin/shelters"
+
+    expect("RGV animal shelter").to appear_before("Fancy pets of Colorado")
+    expect("Fancy pets of Colorado").to appear_before("Aurora shelter")
+  end
 end
