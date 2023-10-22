@@ -11,10 +11,11 @@ RSpec.describe "Application Show Page" do
     @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
+    @pet_4 = @shelter_1.pets.create(name: "Mr. Bond", breed: "tabby", age: 3, adoptable: true)
   end
+
   describe "visiting the application show page" do 
     it 'shows the applicant and all the applicants details' do 
-      
       visit "/applications/#{@application1.id}"
 
       expect(page).to have_content("Name: #{@application1.name}")
@@ -40,20 +41,45 @@ RSpec.describe "Application Show Page" do
       expect(current_path).to eq("/applications/#{@application1.id}")
       expect(page).to have_content("Mr. Pirate")
     end
+
+    context "Partial Matches/Case Insensitive for Pet Names" do
+      it "can search for pets whose name partially match the search" do
+        visit "/applications/#{@application1.id}"
+
+        within("#pet_search") do
+          fill_in(:search, with: "Mr.")
+          click_button("Search")
+        end
+
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_content(@pet_4.name)
+      end
+
+      it "can search for pets with case insensitive terms" do
+        visit "/applications/#{@application1.id}"
+
+        within("#pet_search") do
+          fill_in(:search, with: "mr. pirate")
+          click_button("Search")
+        end
+
+        expect(page).to have_content(@pet_1.name)
+      end
+    end
+
     describe "When I visit an application's show page and I search for a Pet by name" do 
       it "has a button to adopt a pet, next to each pets name that will add that pet to the application" do 
         visit "/applications/#{@application1.id}"
         
-      within("#pet_search") do
-        fill_in(:search, with: "Mr. Pirate")
-        click_button("Search")
-      end
-      expect(page).to have_button("Adopt this Pet")
+        within("#pet_search") do
+          fill_in(:search, with: "Mr. Pirate")
+          click_button("Search")
+        end
+        expect(page).to have_button("Adopt this Pet")
 
-      click_button("Adopt this Pet")
-      expect(current_path).to eq("/applications/#{@application1.id}")
-      expect(page).to have_content("Applying to Adopt: #{@pet_1.name}")
-
+        click_button("Adopt this Pet")
+        expect(current_path).to eq("/applications/#{@application1.id}")
+        expect(page).to have_content("Applying to Adopt: #{@pet_1.name}")
       end
     end
     context "Submit an Application" do
@@ -72,7 +98,7 @@ RSpec.describe "Application Show Page" do
         fill_in :description, with: "I need to find the One Piece"
         click_button "Submit"
         end
-        save_and_open_page
+        
         expect(current_path).to eq("/applications/#{@application1.id}")
         expect(page).to have_content("Status: Pending")
         expect(page).to have_content("Mr. Pirate")
