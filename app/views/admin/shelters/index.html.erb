@@ -1,0 +1,7 @@
+<h1>All Shelters</h1>
+
+<p><% @shelters.each do |shelter| %></p>
+  <div id="shelter-<%= shelter.id %>">
+  <%= shelter.name %>
+  </div>
+  <% end %>
