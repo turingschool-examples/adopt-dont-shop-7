@@ -79,7 +79,13 @@ RSpec.describe "Application Show Page" do
         expect(page).to_not have_content("#pet_search")
       end
 
+      context "No Pets on an Application" do
+        it 'does not show a section to submit my application if I have not added any pets to the application' do 
+          visit "/applications/#{@application1.id}"
 
+          expect(page).to_not have_content("#submit_application")
+        end
+      end
     end
   end
 end 
