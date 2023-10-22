@@ -217,4 +217,13 @@ RSpec.describe "the application show" do
     visit "/admin/applications/#{@application1.id}"
     expect(page).to have_content("Adoption of #{@pet_2.name} has been rejected")
   end
+
+  it "As an admin, approving all pets on an application will change the status of an application to 'Approved'" do
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_1.name}")
+    expect(page).to have_content("Pending")
+    click_button("Approve Application for #{@pet_2.name}")
+    save_and_open_page
+    expect(page).to have_content("Application Status: Approved")
+  end
 end
