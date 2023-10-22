@@ -1,6 +1,9 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    if params[:search].present?
+      @pets = Pet.adoptable.search(params[:search])
+    end
   end
 
   def new
@@ -15,6 +18,11 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.pets << Pet.find(params[:pet_id])
   end
 
   private
