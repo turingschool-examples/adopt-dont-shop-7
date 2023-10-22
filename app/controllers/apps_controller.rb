@@ -23,10 +23,10 @@ class AppsController < ApplicationController
 
   def update
     # require 'pry'; binding.pry
-    @app = App.find(params[:app_id])
-    @pet = Pet.find(params[:id])
+    @app = App.find(params[:id])
+    @pet = Pet.find(params[:pet_id])
+    # require 'pry'; binding.pry
     @app.pets << @pet
-    require 'pry'; binding.pry
     redirect_to "/apps/#{params[:id]}"
   end
 
