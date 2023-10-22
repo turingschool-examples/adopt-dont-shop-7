@@ -112,4 +112,10 @@ RSpec.describe "the shelters index" do
     expect("RGV animal shelter").to appear_before("Fancy pets of Colorado")
     expect("Fancy pets of Colorado").to appear_before("Aurora shelter")
   end
+
+  it "I see a section for shelters with pending applications" do
+    visit "/admin/shelters"
+
+    require 'pry'; binding.pry
+  end
 end

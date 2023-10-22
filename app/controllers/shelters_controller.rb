@@ -7,6 +7,7 @@ class SheltersController < ApplicationController
     elsif params[:admin]
       @admin = true
       @shelters = Shelter.order_by_sql
+      @shelters_with_applications = Shelter.pending_applications
     else
       @shelters = Shelter.order_by_recently_created
     end
