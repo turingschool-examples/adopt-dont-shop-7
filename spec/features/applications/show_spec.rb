@@ -74,25 +74,39 @@ RSpec.describe 'Application Show Page' do
   end
 
   ## USER STORY 6
-  it "can include multiple pets on the application" do
-    @application = Application.first
-    visit "/applications/#{@application.id}"
+  describe "multiple pets on application" do
+    before :each do
+      @application = Application.first
+      visit "/applications/#{@application.id}"
 
-    fill_in "Search for Pets", with: "Babe"
-    click_button "Submit"
-    expect(current_path).to eq("/applications/#{@application.id}")
-    expect(page).to have_content(@pet_2.name)
-    click_button "Adopt #{@pet_2.name}"
-    expect(current_path).to eq("/applications/#{@application.id}")
-    expect(page).to have_content(@pet_2.name)
+      fill_in "Search for Pets", with: "Babe"
+      click_button "Submit"
+      click_button "Adopt #{@pet_2.name}"
 
-    fill_in "Search for Pets", with: "Chispa"
-    click_button "Submit"
-    expect(current_path).to eq("/applications/#{@application.id}")
-    expect(page).to have_content(@pet_4.name)
-    click_button "Adopt #{@pet_4.name}"
-    expect(current_path).to eq("/applications/#{@application.id}")
-    expect(page).to have_content(@pet_4.name)
+      fill_in "Search for Pets", with: "Chispa"
+      click_button "Submit"
+      click_button "Adopt #{@pet_4.name}"
+    end
+
+    it "can include multiple pets on the application" do
+      visit "/applications/#{@application.id}"
+
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_content(@pet_4.name)
+    end
+
+    it "has an input section during final submission to explain why user wants to adopt pet(s) and after submission removes option to add more pets" do
+      visit "/applications/#{@application.id}"
+      fill_in "Why should I be chosen to adopt pet(s)", with: "I work remote and have the resources and financial ability to support an animal"
+      click_button "Submit This Application"
+      expect(current_path).to eq("/applications/#{@application.id}")
+      expect(page).to_not have_content("In Progress")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_content(@pet_4.name)
+      expect(page).to_not have_content("Search for Pets")
+    end
+
   end
 
 end
