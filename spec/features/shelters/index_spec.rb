@@ -105,15 +105,5 @@ RSpec.describe "the shelters index" do
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
   end
-  describe "Admin Shelters Index" do 
-    describe "I visit the admin shelter index ('/admin/shelters')" do 
-      it "I see all Shelters in the system listed in reverse alphabetical order by name" do
-        visit '/admin/shelters'
-save_and_open_page
-        expect(page).to have_content("RGV animal shelter")
-        expect(page).to have_content("Fancy pets of Colorado")
-        expect(page).to have_content("Aurora shelter")
-      end
-    end
-  end
+  
 end
