@@ -16,14 +16,6 @@ class Application < ApplicationRecord
     pets << pet
   end
 
-  def pet_added
-    true
-  end
-
-  def submitted
-    false
-  end
-
   def approve_pet(pet)
     status = "Approved"
     pet.adoptable = false
