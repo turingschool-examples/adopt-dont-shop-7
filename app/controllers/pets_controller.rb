@@ -31,9 +31,15 @@ class PetsController < ApplicationController
 
   def update
     pet = Pet.find(params[:id])
-    if pet.update(pet_params)
+    if params[:approve]
+      # approve == true ==== adoptable == false
+      pet.update(adoptable: !ActiveRecord::Type::Boolean.new.cast(params[:approve]))
+      pet.save
+      redirect_to "/admin/applications/#{params[:app_id]}"
+    elsif pet.update(pet_params)
       redirect_to "/pets/#{pet.id}"
     else
+      # require "byebug"; byebug
       redirect_to "/pets/#{pet.id}/edit"
       flash[:alert] = "Error: #{error_message(pet.errors)}"
     end
