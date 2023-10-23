@@ -17,8 +17,9 @@
     <%= form.submit "Submit" %>
   <% end %>
 <% end %>
+
 <% if !@pets.nil? %>
   <% @pets.each do |pet| %>
-  <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch, data: { turbo: false } %>
+  <%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", method: :patch, data: { turbo: false } %>
   <% end %>
 <% end %>

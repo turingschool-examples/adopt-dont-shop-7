@@ -8,17 +8,9 @@ class ApplicationsController < ApplicationController
     else
       @pets = []
     end
-
-    # if params[:pet_name].present? 
-    #   pet_name = params[:pet_name]
-    #   @search_pets = Pet.where("name ILIKE ?", "%#{pet_name}%")
-    # else 
-    #   @search_pets = []
-    # end
   end
 
   def new
-    
   end
 
   def create
@@ -38,28 +30,5 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Please Fill In All Fields"
       redirect_to "/applications/new"
     end
-  end
-
-  def update 
-    # application = Application.find(params[:id])
-    
-    
-    # pet = Pet.update({name: params[:pet_name]})
-    # application.pets << pet
-    # redirect_to "/applications/#{application.id}"
-
-
-
-    # application = Application.find(params[:application_id])
-    # applicant_pets = application.pets
-    # applicant_pets.update(applicant_params)
-    # applicant_pets.update(status: "Pending")
-    # redirect_to "/applications/#{application.id}"
-  end
-
-  private
-
-  def applicant_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end
