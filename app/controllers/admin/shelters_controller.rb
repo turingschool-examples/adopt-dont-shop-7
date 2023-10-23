@@ -1,8 +1,6 @@
 class Admin::SheltersController < ApplicationController
   def index
-    @shelters = Shelter.find_by_sql("
-      SELECT * FROM shelters
-      ORDER BY name DESC
-    ")
+    @shelters = Shelter.reverse_abc
+    @shelters_pending_applications = Shelter.pending_applications
   end
 end
