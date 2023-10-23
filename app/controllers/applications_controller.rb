@@ -8,7 +8,7 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @searched = Pet.search_for_pet(params[:search])
     end
-    if params[:good_home_reason].present?
+    if params[:reason].present?
       #Show the application as "Pending"
       @application.status = "Pending"
     end
@@ -26,11 +26,13 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:application_id])
-    selected_pet = Pet.find(params[:pet_id])
-    @application.add_pet(selected_pet)
-    if params[:good_home_reason] != nil
-      @application.submitted = true
-      redirect_to "/applications/#{application.id}"
+    if params[:pet_id].present?
+      selected_pet = Pet.find(params[:pet_id])
+      @application.add_pet(selected_pet)
+    end
+    if params[:reason].present?
+      #Show the application as "Pending"
+      @application.update(status: "Pending")
     end
     redirect_to "/applications/#{@application.id}"
   end
