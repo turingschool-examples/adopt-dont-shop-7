@@ -29,12 +29,11 @@
   <% end %>
 <% end %>
 
-<% if @application.pets == []%>
+<% if @application.pets.empty?%>
 <% elsif !@application.pets.nil? %>
   <h3><%= "Please include why you would be a good owner for the pet(s) applied for:" %></h3>
-    <%= form_with url: "/applications/#{@application.id}", method: :post, data: { turbo: false } do |f| %>
-      <%= f.label :application_input %>
-      <%= f.text_field :application_input, placeholder: "" %> 
-      <%= f.submit 'Submit This Application', class: 'button' %> ## Add logic to pass that status is 'Pending' and update button route to update the application, PATCH and POST to admin?
-    <% end %>
+    <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %>
+      <input type="text" id="reason" name="reason"> <br>
+      <%= f.submit "Submit this Application" %>
+      <% end %>
 <% end %>

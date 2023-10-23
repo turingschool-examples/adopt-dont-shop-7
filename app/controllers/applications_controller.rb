@@ -33,9 +33,16 @@ class ApplicationsController < ApplicationController
   end
 
   def update 
-    application = Application.find(params[:application_id])
-    pet = Pet.find(params[:pet_id])
-    application.pets << pet
-    redirect_to "/applications/#{application.id}"
+    if params[:pet_id]
+      application = Application.find(params[:application_id])
+      pet = Pet.find(params[:pet_id])
+      application.pets << pet
+      redirect_to "/applications/#{application.id}"
+    elsif params[:reason].present?
+      application = Application.find(params[:application_id])
+      application.description = params[:reason] + " and " + application.description
+      application.status = "Pending"
+      redirect_to "/applications/#{application.id}"
+    end
   end
 end

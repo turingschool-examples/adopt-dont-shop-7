@@ -99,12 +99,12 @@ RSpec.describe 'Application Show Page' do
 
     it "has an input section during final submission to explain why user wants to adopt pet(s) and after submission removes option to add more pets" do
       visit "/applications/#{@application.id}"
-      save_and_open_page
-      fill_in "Application input", with: "I work remote and have the resources and financial ability to support an animal"
-      save_and_open_page
-      click_button "Submit This Application"
+      fill_in "reason", with: "I work remote and have the resources and financial ability to support an animal"
+      click_button "Submit this Application"
       expect(current_path).to eq("/applications/#{@application.id}")
+      # expect(page).to have_content("I work remote and have the resources and financial ability to support an animal")
       expect(page).to_not have_content("In Progress")
+      save_and_open_page
       expect(page).to have_content("Pending")
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@pet_4.name)
