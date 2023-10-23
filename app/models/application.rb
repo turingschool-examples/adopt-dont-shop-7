@@ -5,7 +5,7 @@ class Application < ApplicationRecord
   validates :street_address, presence: true
   validates :city, presence: true
   validates :state, presence: true
-  validates :zip_code, presence: true
+  validates :zip_code, presence: true, numericality: true, length: {minimum: 5, maximum: 5}
   validates :description, presence: true
 
   def full_address
@@ -14,14 +14,6 @@ class Application < ApplicationRecord
 
   def add_pet(pet)
     pets << pet
-  end
-
-  def pet_added
-    true
-  end
-
-  def submitted
-    false
   end
 
   def approve_pet(pet)
