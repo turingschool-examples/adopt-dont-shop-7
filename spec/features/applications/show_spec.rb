@@ -7,7 +7,9 @@ RSpec.describe 'Application Show Page' do
     @pet_2 = @shelter_1.pets.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe", shelter_id: @shelter_1.id)
     @pet_3 = Pet.create(adoptable: true, age: 4, breed: "chihuahua", name: "Elle", shelter_id: @shelter_1.id)
     @application = Application.create!(name: "Stacy Chapman", street_address: "1870 Canopy Rd", city: "Los Angeles", state: "CA", zip_code: 90001, description: "I grew up with dachshunds and felt really connected", status: "In Progress")
-    
+    @pet_4 = @shelter_1.pets.create(adoptable: true, age: 5, breed: "catahoula", name: "Chispa", shelter_id: @shelter_1.id)
+    @pet_5 = @shelter_1.pets.create(adoptable: true, age: 9, breed: "chihuahua", name: "Tiny", shelter_id: @shelter_1.id)
+
     #After creatings pets, put the pet link in place of pets for Stacy
   end
 
@@ -70,4 +72,7 @@ RSpec.describe 'Application Show Page' do
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(page).to have_content(@pet_2.name)
   end
+
+  ## USER STORY 6
+
 end
