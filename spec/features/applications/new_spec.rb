@@ -11,9 +11,9 @@ RSpec.describe "New Application Form", type: :feature do
     PetApplication.create!(application: @app2, pet: @p1)
   end
 
-  # US 2 Part 2
   describe "As a visitor" do
     describe "when I visit /applications index page" do
+      # US 2 Part 2
       it "displays a form to create a new application" do
         # As a visitor
         # When I visit the pet index page
@@ -38,7 +38,7 @@ RSpec.describe "New Application Form", type: :feature do
         fill_in "Street Address", with: "444 Berry Way"
         fill_in "City", with: "Boulder"
         fill_in "State", with: "CO"
-        fill_in "Zip Code", with: "88888"
+        fill_in "Zip", with: "88888"
         fill_in "Description of why I would make a good home", with: "A loving family."
         fill_in "Status", with: "In Progress"
         click_button "Submit"
@@ -52,6 +52,7 @@ RSpec.describe "New Application Form", type: :feature do
       end
     end
 
+    # US 3
     it "handles invalid input in the new form field" do
       # As a visitor
       # When I visit the new application page
@@ -60,13 +61,14 @@ RSpec.describe "New Application Form", type: :feature do
       # Then I am taken back to the new applications page
       # And I see a message that I must fill in those fields.
   
-      visit "/applications/#{@app1.id}/new"
+      visit "/applications/new"
   
-      fill "Name", with: "Sir TP"
+      fill_in "Name", with: "Sir TP"
   
       click_button "Submit"
       
-      expect(page).to have_content "You must fill in each field"
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_content("Each field must be complete")
     end
   end
 end
