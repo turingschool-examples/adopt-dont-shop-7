@@ -81,4 +81,16 @@ RSpec.describe 'Application Show Page' do
 
     expect(page).to have_content(@pet_1.name)
   end
+
+  # USER STORY 9
+  it "displays case insensitive matches for pet names in search" do
+
+    visit "/applications/#{@application.id}"
+    fill_in "Search for Pets", with: "BARE-Y MANILOW"
+    click_button "Submit"
+    click_button "Adopt"
+
+    expect(page).to have_content(@pet_1.name)
+    
+  end
 end
