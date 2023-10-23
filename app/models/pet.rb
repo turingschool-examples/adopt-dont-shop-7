@@ -18,33 +18,13 @@ class Pet < ApplicationRecord
     pets_adopted = Pet.joins([{application_pets: :application}]).where("applications.status = 'Approved'").distinct
 
     pets.each do |pet|
-      if pets_adopted.include?(pet)
+      if pets_adopted.include?(pet) && pet.id == pet_id
         pet.adoptable = false
-        if pet.id == pet_id
-          return pet
-        end
+        return pet
       else
         pet.adoptable = true
-        if pet.id == pet_id
-          return pet
-        end
+        return pet
       end
     end
-
-
-    # require 'pry'; binding.pry
-    # # require 'pry'; binding.pry
-    # pets_up_for_adoption.each do |pet|
-    #   # require 'pry'; binding.pry
-    #   pet.adoptable = false
-    #   if pet.id == pet_id
-    #     return pet
-    #   else
-    #     require 'pry'; binding.pry
-    #     pet.adoptable = true
-    #     return pet
-    #   end
-    # end
-    # # require 'pry'; binding.pry
   end
 end
