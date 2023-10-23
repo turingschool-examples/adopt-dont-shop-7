@@ -39,4 +39,13 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: #{error_message(@application.errors)}"
     end
   end
+
+  def edit
+    @application = Application.find(params[:id])
+    @application.update({
+      application_status: params[:application_status]
+    })
+
+    redirect_to "/applications/#{params[:id]}"
+  end
 end
