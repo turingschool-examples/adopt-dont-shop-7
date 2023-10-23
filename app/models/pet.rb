@@ -14,7 +14,7 @@ class Pet < ApplicationRecord
   end
 
   def self.filter_by_name(threshold)
-    where('name > ?', threshold)
+    where("name ILIKE ?", "%#{threshold}%")
   end
 
 end

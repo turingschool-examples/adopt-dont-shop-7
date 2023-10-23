@@ -5,17 +5,13 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-
     if params[:search_by_name].present?
-      
       threshold = params[:search_by_name].to_s
-      @pets = Pet.where('name = ?', threshold)
-      #require 'pry'; binding.pry
+      @pets = Pet.filter_by_name(threshold)
     end
   end
 
-  def add_pet_to_application
-    
+  def update
     @application = Application.find(params[:id])
     @adopted_pet = Pet.find(params[:pet_id])
     @application.pets << @adopted_pet
