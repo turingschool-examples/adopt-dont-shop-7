@@ -93,7 +93,7 @@ RSpec.describe "applications show page" do
       expect(page).to have_content "Pets: Buster"
     end
 
-    # US6
+    # US 6
     # As a visitor
     # When I visit an application's show page
     # And I have added one or more pets to the application
