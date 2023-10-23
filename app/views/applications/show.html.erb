@@ -5,6 +5,9 @@
 <h3><%= @application.zip_code %></h3>
 <h3><%= @application.application_status %></h3>
 <h3><%= @application.description %></h3>
+<h3><% @application.pets.each do |pet| %></h3>
+  <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+<% end %>
 
 <% if @application.application_status == "in progress" %>
   <%= form_with url: "/applications/#{@application.id}", method: :get, data: {turbo: false} do |form| %>
@@ -12,9 +15,13 @@
     <%= form.text_field :search_by_name, value: params[:search_by_name] %>
     <%= form.submit 'submit' %>
   <% end %>
-  <p></p>
-  <% @pets.each do |pet| %>
-  <%= pet.name %>
-  <% end %>
-<% end %>
 
+  <p></p>
+  <% if @pets.present?%>
+  <% @pets.each do |pet| %>
+    <%= pet.name %>
+    <p><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", params: {pet_id: pet.id}, method: :patch %></p>
+  <% end %>
+  <% end %>
+
+<% end %>

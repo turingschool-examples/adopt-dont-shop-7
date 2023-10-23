@@ -5,10 +5,6 @@ class PetsController < ApplicationController
     else
       @pets = Pet.adoptable
     end
-    if params[:search_by_name].present?
-      threshold = params[:search_by_name].to_s
-      @pets = @pets.where('name = ?', threshold)
-    end
   end
 
   def show
