@@ -3,5 +3,31 @@
 <p>Name: <%= @app.name %></p>
 <p>Address: <%= @app.full_address %></p>
 <p>Description: <%= @app.description %></p>
-<p>Pets: <%= @app.pet_names %></p>
+<p>Pets: <%= @app.pet_names.join(" | ") %></p>
 <p>Application Status: <%= @app.status %></p>
+
+<% if @app.status == "In Progress" %>
+  <hr>
+  <h3>Add a Pet</h3>
+  <%= form_with url: "/applications/#{@app.id}", method: :get, turbo: false do |form| %>
+    <%= form.label :q, "Name:" %>
+    <%= form.search_field :q %>
+
+    <%= form.submit "Search" %>
+  <% end %>
+  <% if @search_results %>
+      <p>Search Results:</p>
+    <% @search_results.each do |pet| %>
+      <section id="pet-<%= pet.id %>">
+        <div style="display: inline-block;">
+          <%= pet.name %>
+        </div>
+        <div style="display: inline-block;">
+          <%= form_for "Adopt", url: "/applications/#{@app.id}?adopt=#{pet.id}", method: :patch, data: {turbo: false} do |form| %>
+            <%= form.submit "Adopt" %>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+  <% end %>
+<% end %>
