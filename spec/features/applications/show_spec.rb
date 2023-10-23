@@ -152,6 +152,29 @@ RSpec.describe "Application Show Page", type: :feature do
           expect(page).to have_content("Rue")
         end
       end
+
+      #User Story 9
+      describe "And I search for Pets by name" do
+        it "Then my search is case insensitive" do
+          visit "/applications/#{@application_1.id}"
+
+          fill_in "Search for Pets", with: "aug"
+
+          click_button "Submit"
+
+          expect(page).to have_content("Auggie")
+
+          click_button "Adopt this Pet"
+
+          fill_in "Search for Pets", with: "RU"
+          
+          click_button "Submit"
+          
+          expect(current_path).to eq("/applications/#{@application_1.id}")
+          expect(page).to have_content("Auggie")
+          expect(page).to have_content("Rue")
+        end
+      end
     end 
   end 
 end
