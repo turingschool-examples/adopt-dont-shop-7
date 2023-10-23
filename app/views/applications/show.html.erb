@@ -1,13 +1,14 @@
-<h1><%= @application.name %></h1>
-<h3><%= @application.street_address %></h3>
-<h3><%= @application.city %></h3>
-<h3><%= @application.state %></h3>
-<h3><%= @application.zip_code %></h3>
-<h3><% @application.pets.each do |pet| %></h3>
-<h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+<h3> Applicant Form</h3>
+<h3> Name: <%= @application.name %></h3>
+<h3> Street Address: <%= @application.street_address %></h3>
+<h3> City: <%= @application.city %></h3>
+<h3> State: <%= @application.state %></h3>
+<h3> Zipcode: <%= @application.zip_code %></h3>
+<h3> Application Status: <%= @application.application_status %></h3>
+<h3> Description: <%= @application.description %></h3>
+<h3> Pets Willing to Adopt: <% @application.pets.each do |pet| %></h3>
+  <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
 <% end %>
-<h3><%= @application.description %></h3>
-<h3><%= @application.application_status %></h3>
 
 <% if @application.pets.count > 0 && @application.application_status == "in progress" %>
   <%= form_with url: "/applications", method: :put, data: { turbo: false } do |form| %>
@@ -18,4 +19,21 @@
   <%= form.hidden_field :application_status, value: "pending"%>
   <%= form.submit "submit application"%>
   <% end %>
+
+<% if @application.application_status == "in progress" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, data: {turbo: false} do |form| %>
+    <p><%= form.label :search_by_name, 'search for a pet:' %></p>
+    <%= form.text_field :search_by_name, value: params[:search_by_name] %>
+    <%= form.submit 'submit' %>
+  <% end %>
+
+  <p></p>
+  <% if @pets.present?%>
+    <% @pets.each do |pet| %>
+      <%= pet.name %>
+      <% #binding.pry %>
+      <p><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", params: {pet_id: pet.id}, method: :patch %></p>
+    <% end %>
+  <% end %>
+
 <% end %>

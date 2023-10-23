@@ -1,10 +1,24 @@
 class ApplicationsController < ApplicationController
-  def new
+  def index
+    @application = Application.all
   end
 
   def show
-    # require'pry';binding.pry
     @application = Application.find(params[:id])
+    if params[:search_by_name].present?
+      threshold = params[:search_by_name].to_s
+      @pets = Pet.filter_by_name(threshold)
+    end
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @adopted_pet = Pet.find(params[:pet_id])
+    @application.pets << @adopted_pet
+    redirect_to "/applications/#{@application.id}"
+  end
+
+  def new
   end
 
   def create
