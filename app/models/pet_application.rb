@@ -1,6 +1,6 @@
 class PetApplication < ApplicationRecord
-  validates :name, presence: true
-  validates :age, presence: true, numericality: true
+  validates :pet_id, presence: true
+  validates :application_id, presence: true
   
   belongs_to :application
   belongs_to :pet

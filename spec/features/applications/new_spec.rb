@@ -50,4 +50,18 @@ RSpec.describe "As a visitor" do
       expect(page).to have_content("I love dogs")
     end
   end
+  #3 Application error
+  describe "When I visit the new application page And I fail to fill in any of the form fields And I click submit" do
+    it "I am taken back to the new applications page And I see a message that I must fill in those fields." do
+      visit "/applications/new"
+
+      fill_in("name", with: "Jackie")
+      click_button("Submit Application")
+
+      expect(current_path).to eq("/applications/new")
+
+      expect(page).to have_content("Error: Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number, Description can't be blank")
+    end
+  end
+
 end
