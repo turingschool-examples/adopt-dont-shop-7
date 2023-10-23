@@ -2,7 +2,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @applicant_pets = @application.pets
-
+    
     if params[:pet_name].present?
       @pets = Pet.search(params[:pet_name])
     else
@@ -30,5 +30,11 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Please Fill In All Fields"
       redirect_to "/applications/new"
     end
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @application.update(status: "Pending")
+    redirect_to "/applications/#{@application.id}"
   end
 end
