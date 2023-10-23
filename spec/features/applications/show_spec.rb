@@ -149,6 +149,70 @@ RSpec.describe "Application Show Page" do
           end
         end
       end
+
+      describe "User Story 6. Submit an Application: As a visitor," do
+        before(:each) do
+          @application_1 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
+          
+          @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    
+          @pet_1 = Pet.create(adoptable: true, age: 7, breed: "sphynx", name: "Bare-y Manilow", shelter_id: @shelter.id)
+          @pet_2 = Pet.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe", shelter_id: @shelter.id)
+          @pet_3 = Pet.create(adoptable: true, age: 4, breed: "chihuahua", name: "Elle", shelter_id: @shelter.id)
+        end
+
+        describe "When I visit an application's show page, and I have added one or more pets to the application" do
+          it "I see a section to submit my application and in that section I see an input to enter why I would make a good owner for these pet(s)" do
+            visit "/applications/#{@application_1.id}"
+            fill_in "Search", with: "Ba"
+            click_on("Search")
+            
+            within "#pet-#{@pet_1.id}" do
+              click_button("Adopt this Pet")
+            end
+
+            within "#appliedPets" do
+              expect(page).to have_link("Bare-y Manilow", :href=> "/pets/#{@pet_1.id}")
+              expect(page).to have_content("Why are you qualified to adopt these pets?")
+              expect(find("form")).to have_content("Qualifications")
+            end
+          end
+
+          it "When I fill in that input, and click a button to submit this application, I am taken back to the application's show page and see an indicator that the application is 'Pending', I see all the pets that I want to adopt, and I do not see a section to add more pets to this application" do
+            visit "/applications/#{@application_1.id}"
+            fill_in "Search", with: "Ba"
+            click_on("Search")
+
+            expect(page).to have_content("In Progress")
+            expect(page).to_not have_content("I also have a dog named Lola who is a showgirl.")
+
+            within "#pet-#{@pet_1.id}" do
+              click_button("Adopt this Pet")
+            end
+            # save_and_open_page
+
+            within "#appliedPets" do
+              fill_in("add_qualifications", with: "I also have a dog named Lola who is a showgirl.")
+              click_button("Submit")
+            end
+
+            expect(current_path).to eq("/applications/#{@application_1.id}")
+            expect(page).to_not have_content("In Progress")
+            expect(page).to have_content("Pending")
+            expect(page).to have_content("I also have a dog named Lola who is a showgirl.")
+            expect(page).to have_no_button("Search")
+
+            within "#appliedPets" do
+              expect(page).to_not have_content("Why are you qualified to adopt these pets?")
+              expect(page).to_not have_content("Add a Pet")
+              expect(page).to have_no_button("Submit")
+            end
+          end
+        end
+      end
+
+
+
     end
   end
 end

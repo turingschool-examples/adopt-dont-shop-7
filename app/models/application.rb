@@ -6,7 +6,13 @@ class Application < ApplicationRecord
   validates :zip, presence: true
   validates :description, presence: true
   validates :status, presence: true
+  # validates :qualifications, presence: false
 
   has_many :application_pets
   has_many :pets, through: :application_pets
+
+  def status_in_progress
+    self.status == "In Progress"
+  end
 end
+
