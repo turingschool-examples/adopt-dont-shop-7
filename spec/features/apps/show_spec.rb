@@ -129,4 +129,18 @@ RSpec.describe "the applications show" do
       expect(page).to_not have_content("Submit my application")
     end
   end
+
+  describe "Partial Matches" do
+    it "can search for partial matches" do
+      # As a visitor
+      # When I visit an application show page
+      visit "/apps/#{@timmy.id}"
+      # And I search for Pets by name
+      fill_in "Search pets by name here", with: "Lob"
+      click_button "Submit"
+      # Then I see any pet whose name PARTIALLY matches my search
+      expect(page).to have_content("Lobster")
+      # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+    end
+  end
 end
