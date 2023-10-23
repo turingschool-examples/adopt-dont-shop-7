@@ -20,9 +20,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_213753) do
     t.string "city"
     t.integer "zip"
     t.string "description"
-    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
   end
 
   create_table "apps_pets", force: :cascade do |t|
