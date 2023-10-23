@@ -14,11 +14,12 @@ class ApplicationsController < ApplicationController
     else
       @has_pets = @application.has_pets?
     end
-    if params[:admin]
+    if params[:admin] == "admin"
       @admin = true
       @approvals = @application.find_approvals
       @rejections = @application.find_rejections
     end
+    # require 'pry'; binding.pry
   end
 
   def new

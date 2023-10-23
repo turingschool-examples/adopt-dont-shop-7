@@ -23,7 +23,6 @@ class Application < ApplicationRecord
     "#{params[:street_address]}, #{params[:city]}, #{params[:state]}, #{params[:zip_code]}"
   end
 
-
   def self.searched_pet(params)
     pets = Pet.all
     pets.where("name ilike ?", "%#{params[:search]}%")
@@ -31,7 +30,6 @@ class Application < ApplicationRecord
 
   def has_pets?
     self.pets.count > 0
-    # require 'pry'; binding.pry
   end
 
   def find_approvals

@@ -4,7 +4,7 @@ class SheltersController < ApplicationController
       @shelters = Shelter.order_by_number_of_pets
     elsif params[:search].present?
       @shelters = Shelter.search(params[:search])
-    elsif params[:admin]
+    elsif params[:admin] == "admin"
       @admin = true
       @shelters = Shelter.order_by_sql
       @shelters_with_applications = Shelter.pending_applications
