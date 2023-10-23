@@ -265,16 +265,40 @@ RSpec.describe "the application show" do
   end
 
   it "A pet that has been approved for adoption cannot be approved on other applications (and is communicated)" do
-    visit "/admin/applications/#{@application1.id}"
-    click_button("Approve Application for #{@pet_1.name}")
-    click_button("Approve Application for #{@pet_2.name}")
-    visit "/admin/applications/#{@application2.id}"
-    expect(page).to_not have_content("Approve Application for #{@pet_1.name}")
-    expect(page).to have_content("#{@pet_1.name} has been approved for adoption on another application")
-    expect(page).to have_content("Reject Application for #{@pet_1.name}")
+    shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "one eyed cats!!", status: "Pending")
+    application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I woudln't", status: "Pending")
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 2, breed: "saint bernard", name: "Beethoven", shelter_id: shelter.id)
+    application1.pets << pet_1 
+    application1.pets << pet_2 
+    application2.pets << pet_2 
+    application2.pets << pet_3
+    
+    visit "/admin/applications/#{application2.id}"
+    expect(page).to have_button("Approve Application for #{pet_2.name}")
+    visit "/admin/applications/#{application1.id}"
+    click_button("Approve Application for #{pet_1.name}")
+    click_button("Approve Application for #{pet_2.name}")
+    visit "/admin/applications/#{application2.id}"
+    expect(page).to_not have_button("Approve Application for #{pet_2.name}")
+    expect(page).to have_content("#{pet_2.name} has been approved for adoption on another application")
+    expect(page).to have_button("Reject Application for #{pet_2.name}")
   end
-
+  
   it "Once a pet is on an application that is fully approved it will have approval removed from all other application" do
+    shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "one eyed cats!!", status: "Pending")
+    application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I woudln't", status: "Pending")
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 2, breed: "saint bernard", name: "Beethoven", shelter_id: shelter.id)
+    application1.pets << pet_1 
+    application1.pets << pet_2 
+    application2.pets << pet_2 
+    application2.pets << pet_3
+
     visit "/admin/applications/#{@application1.id}"
     click_button("Approve Application for #{@pet_2.name}")
     visit "/admin/applications/#{@application2.id}"
@@ -283,8 +307,8 @@ RSpec.describe "the application show" do
     visit "/admin/applications/#{@application1.id}"
     click_button("Approve Application for #{@pet_1.name}")
     visit "/admin/applications/#{@application2.id}"
-    expect(page).to have_content("#{@pet_1.name} has been approved for adoption on another application")
-    expect(page).to_not have_content("Approve Application for #{@pet_1.name}")
-    expect(page).to have_content("Reject Application for #{@pet_1.name}")
+    expect(page).to have_content("#{@pet_2.name} has been approved for adoption on another application")
+    expect(page).to_not have_button("Approve Application for #{@pet_2.name}")
+    expect(page).to have_button("Reject Application for #{@pet_2.name}")
   end
 end
