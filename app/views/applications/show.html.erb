@@ -4,12 +4,9 @@
 <p> <b>Address: </b> <%= @application.address_join %></p>
 <p> <b>Description of Qualification: </b><%= @application.description %></p> 
 <p> <b>Pets Applied For: </b></p>
-<p><%= @application.pets.each do |pet| %></p> 
-<p><%= pet.name%></p> 
-<p><% end %></p>
 <ul>
   <% @application.pets.each do |pet| %>
-    <li><%= link_to pet.name, "/pets" %></li> 
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li> 
   <% end %>
 </ul>
 <p> <b>Application Status: </b><%= @application.status %></p>
