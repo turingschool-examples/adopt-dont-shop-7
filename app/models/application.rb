@@ -2,21 +2,8 @@ class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
 
-  def pet_show
-    @pet = Pet.find(params[:id])
+  def self.find_pet_by_name(name)
+    Pet.find_by(name: name)
   end
 
-  def status
-    if pet_names.length == ""
-      "In Progress"
-    else
-      "Pending"
-    end
-  end
-
-  def in_progress?
-    status == "In Progress"
-  end
-
-endclass Application <ApplicationRecord
 end

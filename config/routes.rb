@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'hello_world/index'
   get "/", to: "application#welcome"
 
-  get "/applications/:id", to: "applications#show"
+  post "/pet_applications", to: "pet_applications#create"
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   delete "/pets/:id", to: "pets#destroy"
 
   get "/applications/new", to: "applications#new"
+  get "/applications/:id", to: "applications#show"
   post "/applications", to: "applications#create"
 
   get "/veterinary_offices", to: "veterinary_offices#index"

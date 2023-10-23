@@ -1,16 +1,18 @@
 <h1>Application Show Page</h1>
 <p>Name: <%= @application.name %></p>
-<p>Street: <%= @application.street_addr %></p>
+<p>Street: <%= @application.street_address %></p>
 <p>City: <%= @application.city %></p>
 <p>State: <%= @application.state %></p>
-<p>Zip: <%= @application.zip %></p>
+<p>Zip: <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
-<p>Status: <%= @application.status %></p>
 
-
-<% if @application.in_progress? %>
+<p>Status: <%= @application.application_status %></p>
+<% if @application.application_status == "In Progress" %>
   <h1>Add a Pet</h1>
-    <%= form_with "/applications", method: :get, data: {turbo: false} do |form| %>
-    <%= form.label "Search for:" %>
-    <%= form.text_field :query %>
+    <%= form_with url: "/applications/#{@application.id}", params: {name: } , local: true do |form| %>
+      <%= form.label "Search for Pet:" %>
+      <%= form.text_field :name %>
+      <%= form.submit "Add Pet" %>
+    <% end %>
+  <li><%= link_to "#{@pet.name}'s info page", "/pets/#{@pet.id}", method: :get %> </li>
 <% end %>
