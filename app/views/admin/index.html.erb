@@ -1,5 +1,11 @@
-<h1>All Shelters</h1>
+<h1>Admin view Shelters</h1>
 
+<h3>All Shelters</h3>
 <% @shelters.each do |shelter| %>
   <p><%= shelter["name"] %></p>
 <% end %>
+
+<div id="pending"><h3>Shelters with Apps Pending</h3>
+<% @pendingshelters.each do |shelter| %>
+  <p><%= shelter["name"] %></p>
+<% end %></div>
