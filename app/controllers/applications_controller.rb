@@ -25,10 +25,13 @@ class ApplicationsController < ApplicationController
   end
 
   def update
-    # use silent create here so if unique combination isn't entered, then just reloads page
-    PetApplication.create(application_id: params[:id], pet_id: params[:adopt])
-
-    redirect_to "/applications/#{params[:id]}"
+    application = Application.find(params[:id])
+    application.update({
+      status: "Pending",
+      reason_for_good_owner: params[:reason_for_good_owner]
+    })
+    application.save
+    redirect_to "/applications/#{application.id}"
   end
 
   private
