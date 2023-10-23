@@ -28,13 +28,24 @@ RSpec.describe "the application show" do
       expect(page).to have_content("This Adoption has been Approved")
     end
 
-    #User Story 15, All Pets Accepted on an Application
+    # User Story 15, All Pets Accepted on an Application
     it 'approves all pets for an application' do
       visit "/admin/applications/#{@trevor.id}"
+      # change this when we know what an approved button will say
       click_button(@bruiser.id)
       click_button(@trixie.id)
 
       expect(@trevor.status).to eq("Approved")
+    end
+
+    # User Story 16, One or More Pets Rejected on an Application
+    it 'shows rejected if at least one pet is rejected' do
+      visit "/admin/applications/#{@trevor.id}"
+      # change this when we know what a rejected button will say
+      click_button(@bruiser.id)
+      click_button(@trixie.id)
+
+      expect(@trevor.status).to eq("Rejected")
     end
   end
 end
