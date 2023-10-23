@@ -2,7 +2,7 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @applicant_pets = @application.pets
-
+    
     if params[:pet_name].present?
       @pets = Pet.search(params[:pet_name])
     else
@@ -32,9 +32,9 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def submit
+  def update
     @application = Application.find(params[:id])
-    @application.status = "Pending"
+    @application.update(status: "Pending")
     redirect_to "/applications/#{@application.id}"
   end
 end
