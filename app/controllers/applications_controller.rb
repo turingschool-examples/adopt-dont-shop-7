@@ -15,7 +15,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @adopted_pet = Pet.find(params[:pet_id])
     @application.pets << @adopted_pet
-    redirect_to '/applications/:id'
+    redirect_to "/applications/#{@application.id}"
   end
 
   def new

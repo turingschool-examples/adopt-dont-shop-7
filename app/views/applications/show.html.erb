@@ -1,11 +1,12 @@
-<h1><%= @application.name %></h1>
-<h3><%= @application.street_address %></h3>
-<h3><%= @application.city %></h3>
-<h3><%= @application.state %></h3>
-<h3><%= @application.zip_code %></h3>
-<h3><%= @application.application_status %></h3>
-<h3><%= @application.description %></h3>
-<h3><% @application.pets.each do |pet| %></h3>
+<h3> Applicant Form</h3>
+<h3> Name: <%= @application.name %></h3>
+<h3> Street Address: <%= @application.street_address %></h3>
+<h3> City: <%= @application.city %></h3>
+<h3> State: <%= @application.state %></h3>
+<h3> Zipcode: <%= @application.zip_code %></h3>
+<h3> Application Status: <%= @application.application_status %></h3>
+<h3> Description: <%= @application.description %></h3>
+<h3> Pets Willing to Adopt: <% @application.pets.each do |pet| %></h3>
   <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
 <% end %>
 
@@ -18,10 +19,11 @@
 
   <p></p>
   <% if @pets.present?%>
-  <% @pets.each do |pet| %>
-    <%= pet.name %>
-    <p><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", params: {pet_id: pet.id}, method: :patch %></p>
-  <% end %>
+    <% @pets.each do |pet| %>
+      <%= pet.name %>
+      <% #binding.pry %>
+      <p><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}", params: {pet_id: pet.id}, method: :patch %></p>
+    <% end %>
   <% end %>
 
 <% end %>
