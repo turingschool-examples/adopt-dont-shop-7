@@ -9,10 +9,14 @@
 <p>Status: <%= @application.application_status %></p>
 <% if @application.application_status == "In Progress" %>
   <h1>Add a Pet</h1>
-    <%= form_with url: "/applications/#{@application.id}", params: {name: } , local: true do |form| %>
-      <%= form.label "Search for Pet:" %>
-      <%= form.text_field :name %>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+      <%= form.label "Search for Pet" %>
+      <%= form.text_field :pet_name %>
       <%= form.submit "Add Pet" %>
     <% end %>
-  <li><%= link_to "#{@pet.name}'s info page", "/pets/#{@pet.id}", method: :get %> </li>
+    <% if @pet %>
+      <li><%= link_to "#{@pet.name}'s info page", "/pets/#{@pet.id}", method: :get %> </li>
+    <% else %>
+    <%= "Please add a pet to the adoption list" %>
+  <% end %>
 <% end %>
