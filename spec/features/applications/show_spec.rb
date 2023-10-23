@@ -2,7 +2,7 @@ require 'rails_helper'
 RSpec.describe "the application show" do
   before :each do
     shelter = Shelter.create(name: "North Shelter", city: "Irvine CA", foster_program: false, rank: 9)
-    @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: [], status: "In Progress")
+    @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: nil, status: "In Progress")
     @trevor = Application.create!(name: "Trevor Smith", street_address: "815 Ardsma Ave", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: [], status: "In Progress")  
     @bruiser = Pet.create!(adoptable: true, age: 1, breed: "huskey", name: "Bruiser", shelter_id: shelter.id)
     @bruno = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Bruno", shelter_id: shelter.id)
@@ -21,10 +21,9 @@ RSpec.describe "the application show" do
     expect(page).to have_content(@john.zip_code)
     expect(page).to have_content(@john.description)
 
-    expect(@john.pet_names).to eq("[]")
+    expect(@john.pet_names).to be(nil)
 
     expect(page).to have_content("Pets I'd Like to Adopt")
-
     expect(page).to have_content(@john.status)
   end
 
@@ -57,35 +56,39 @@ RSpec.describe "the application show" do
   # User Story 5, Add a Pet to an Application
   it 'Allows for pet adoption' do
     visit "/applications/#{@john.id}"
-    fill_in "search", with: "Bruno"
+    fill_in "search", with: "Bruiser"
     click_button("Search")
-    expect(page).to have_content("Adopt This Pet")
 
-    click_button("#{@bruno.id}")
+    expect(page).to have_content(@bruiser.name)
+    expect(page).to have_button("Adopt This Pet")
+
+    click_button("Adopt This Pet")
 
     expect(current_path).to eq("/applications/#{@john.id}")
-    expect(page).to have_content(@bruno.name)
+    expect(page).to have_content(@bruiser.name)
+    expect(@john.pets).to eq([@bruiser])
   end
 
   # User Story 6, Submit an Application
   it 'allows app submission' do
     visit "/applications/#{@john.id}"
-
-    expect(@john.pet_names).to eq(@bruno)
+    fill_in "search", with: "Bruiser"
+    click_button("Search")
+    click_button("Adopt This Pet")
+    expect(@john.pets).to eq([@bruiser])
     expect(page).to have_content("Submit Application")
-    expect(page).to have_content("Please state why you would make a good owner.")
+    expect(page).to have_content("Why would you be a good home for these pets?")
 
-    fill_in("Description", with: "I would like a dog")
+    fill_in("Why would you be a good home for these pets?", with: "I would like a dog")
     
-    click_button("Submit")
     expect(page).to have_button("Submit")
-
     click_button("Submit")
 
     expect(current_path).to eq("/applications/#{@john.id}")
     expect(page).to have_content("Pending")
-    expect(page).to have_content(@bruno.name)
+    expect(page).to have_content(@bruiser.name)
     expect(page).to_not have_content(@trixie.name)
+    expect(page).to_not have_content("Add a pet to this application")
   end
 
   # User Story 7, No Pets on an Application

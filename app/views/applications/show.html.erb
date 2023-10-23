@@ -24,13 +24,14 @@
   <%end%>   
 <%end%>
 
-<% if @searched != nil %>
-  <h4><u><%="Search Results"%></u></h4>
+<% if @searched.present? %>
+  <h4><u><%= "Search Results" %></u></h4>
   <% @searched.each do |pet| %>
-    <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %>  
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
-    <p>Adopt This Pet<%= f.submit "Adopt this Pet", name: 'pet_id', value: pet.id, class: "btn btn-primary" %></p>
-  <% end %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: :true do |f| %>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
+      <%= f.hidden_field :pet_id, value: "#{pet.id}" %>
+      <%= f.submit "Adopt This Pet" %>
+    <% end %>
   <% end %>
 <% end %>
 
