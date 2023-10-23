@@ -12,10 +12,10 @@ Shelter.destroy_all
 VeterinaryOffice.destroy_all
 Veterinarian.destroy_all
 
-john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: "Bruno", status: "In Progress")
-regan = Application.create!(name: "Regan Ocean", street_address: "46 N. Old York Road", city: "Willoughby", state: "OH", zip_code: "44094", description: "I like cats.", pet_names: [], status: "In Progress")
-zoe = Application.create!(name: "Zoe Ali", street_address: "376 Amherst Street", city: "Simpsonville", state: "SC", zip_code: "29680", description: "I like dogs.", pet_names: [], status: "In Progress")
-lon = Application.create!(name: "Lon Sharise", street_address: "934 Wintergreen St.", city: "North Kingstown", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: [], status: "In Progress")
+john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", status: "In Progress")
+regan = Application.create!(name: "Regan Ocean", street_address: "46 N. Old York Road", city: "Willoughby", state: "OH", zip_code: "44094", description: "I like cats.", status: "In Progress")
+zoe = Application.create!(name: "Zoe Ali", street_address: "376 Amherst Street", city: "Simpsonville", state: "SC", zip_code: "29680", description: "I like dogs.", status: "In Progress")
+lon = Application.create!(name: "Lon Sharise", street_address: "934 Wintergreen St.", city: "North Kingstown", state: "RI", zip_code: "02904", description: "I am a good person.", status: "In Progress")
 
 north_shelter = Shelter.create(name: "North Shelter", city: "Irvine CA", foster_program: false, rank: 9)
 east_shelter = Shelter.create(name: "East shelter", city: "Aurora, CO", foster_program: false, rank: 9)

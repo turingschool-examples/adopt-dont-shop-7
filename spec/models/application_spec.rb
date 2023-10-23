@@ -19,7 +19,7 @@ RSpec.describe Application, type: :model do
 
   describe '#full_address' do
     it 'can make an address' do
-      application = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: "Bruno", status: "In Progress")
+      application = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", status: "In Progress")
       expect(application.full_address).to eq("376 Amherst Street, RI, Providence, 02904")
     end
   end
