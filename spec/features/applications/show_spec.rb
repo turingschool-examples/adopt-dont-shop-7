@@ -248,4 +248,19 @@ RSpec.describe "the application show" do
     click_button("Reject Application for #{@pet_3.name}")
     expect(page).to have_content("Application Status: Rejected")
   end
+
+  it "Updates pet adoptability status" do
+    visit "/pets/#{@pet_1.id}"
+    expect(page).to_not have_content("Adoptable: false")
+
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_1.name}")
+    click_button("Approve Application for #{@pet_2.name}")
+
+    expect(page).to have_content("Application Status: Approved")
+
+    click_link("Lucille Bald")
+    expect(current_path).to eq("/pets/#{@pet_1.id}")
+    expect(page).to have_content("Adoptable: false")
+  end
 end
