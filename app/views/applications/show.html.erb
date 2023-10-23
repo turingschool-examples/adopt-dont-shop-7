@@ -1,5 +1,5 @@
 <style>
-  #good_home_reason {
+  #reason {
     width: 300px;
     height: 100px; 
   }
@@ -37,9 +37,9 @@
 
 <% if !@pets.empty? && @application.pet_added && @application.status == "In Progress"%>
   <h4><u>Submit Application</u></h4>
-    <%= form_with url:"/applications/#{@application.id}", method: :get, local: :true do |f| %> 
-      <label for="good_home_reason">Why would you be a good home for these pets?</label><br>
-      <input type="text" id="good_home_reason" name="good_home_reason"> <br>
+    <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %> 
+      <label for="reason">Why would you be a good home for these pets?</label><br>
+      <input type="text" id="reason" name="reason"> <br>
         <%= f.submit "Submit" %>
       <% end %>
 <% end %>
