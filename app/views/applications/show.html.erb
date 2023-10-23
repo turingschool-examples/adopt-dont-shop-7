@@ -35,7 +35,7 @@
       <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 
-<% if @application.status_in_progress %>
+<% if @application.has_pets && !@application.status_in_progress %>
   <h3>Why are you qualified to adopt these pets?</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
     <%= f.label :qualifications %>
