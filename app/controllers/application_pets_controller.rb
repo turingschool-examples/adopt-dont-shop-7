@@ -13,6 +13,7 @@ class ApplicationPetsController < ApplicationController
         application.update({
           status: "Approved"
         })
+        Pet.update_adoptable(application.id)
       end
     elsif params[:app_rej] == "reject"
       application_pet.update({
