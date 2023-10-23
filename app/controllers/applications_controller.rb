@@ -25,4 +25,8 @@ class ApplicationsController < ApplicationController
       flash[:alert] = "Error: #{error_message(@application.errors)}"
     end
   end
+
+  def update
+    
+  end
 end

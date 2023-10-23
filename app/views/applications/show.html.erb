@@ -9,4 +9,11 @@
 <h3><%= @application.description %></h3>
 <h3><%= @application.application_status %></h3>
 
-
+<% if @application.pets.count > 0 %>
+  <%= form_with url: "/applicatons", method: :patch, local: true do |form| %>
+  <%= form.label "why would you make a good owner for these pet(s)" %>
+  <%= form.text_field :whywouldyoumakeagoodownerforthesepets%>
+  <br>
+  <%= form.submit "submit application"%>
+  <% end %>
+<% end %>
