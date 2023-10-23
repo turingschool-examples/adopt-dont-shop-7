@@ -74,5 +74,25 @@ RSpec.describe 'Application Show Page' do
   end
 
   ## USER STORY 6
+  it "can include multiple pets on the application" do
+    @application = Application.first
+    visit "/applications/#{@application.id}"
+
+    fill_in "Search for Pets", with: "Babe"
+    click_button "Submit"
+    expect(current_path).to eq("/applications/#{@application.id}")
+    expect(page).to have_content(@pet_2.name)
+    click_button "Adopt #{@pet_2.name}"
+    expect(current_path).to eq("/applications/#{@application.id}")
+    expect(page).to have_content(@pet_2.name)
+
+    fill_in "Search for Pets", with: "Chispa"
+    click_button "Submit"
+    expect(current_path).to eq("/applications/#{@application.id}")
+    expect(page).to have_content(@pet_4.name)
+    click_button "Adopt #{@pet_4.name}"
+    expect(current_path).to eq("/applications/#{@application.id}")
+    expect(page).to have_content(@pet_4.name)
+  end
 
 end
