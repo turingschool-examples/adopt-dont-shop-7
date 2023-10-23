@@ -2,6 +2,7 @@ class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
 
+  enum status: { "In Progress" => 0, "Pending" => 1, "Accepted" => 2, "Rejected" => 3 }  
   validates_presence_of :name, :street_address, :city,
                         :state, :zip_code, :description,
                         :status
@@ -9,7 +10,4 @@ class Application < ApplicationRecord
   def address
     self.street_address + ", " + self.city + ", " + self.state + " " + self.zip_code
   end
-
-
-
 end
