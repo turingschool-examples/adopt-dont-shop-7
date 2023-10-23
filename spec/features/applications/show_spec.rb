@@ -12,12 +12,29 @@ RSpec.describe 'Application Show Page' do
   end
 
   it 'displays the attribute of the applicant' do
-    visit "/applications/#{@application.id}"
+    application_1 = @application
+    visit "/applications/#{application_1.id}"
     expect(page).to have_content("Name of Applicant")
     expect(page).to have_content("Address")
     expect(page).to have_content("Description of Qualification")
     expect(page).to have_content("Pets Applied For")
     expect(page).to have_content("Application Status")
+  end
+
+  it 'displays pets applied for as a button that will redirect to the pet show page' do
+    application_1 = @application
+    pet_test = @pet_2
+    visit "/applications/#{application_1.id}"
+    expect(page).to have_content("Add a Pet to this Application")
+    fill_in "Search for Pets", with: "Babe"
+    click_button "Submit"
+    expect(current_path).to eq("/applications/#{application_1.id}")
+    expect(page).to have_content(pet_test.name)
+    click_button "Adopt #{pet_test.name}"
+    expect(current_path).to eq("/applications/#{application_1.id}")
+    expect(page).to have_content(pet_test.name)
+    click_link "#{pet_test.name}"
+    expect(current_path).to eq("/pets/#{pet_test.id}")
   end
 
   it 'puts the address together for applicant' do
@@ -42,6 +59,7 @@ RSpec.describe 'Application Show Page' do
 
   ## USER STORY 5
   it "has an adopt this pet button after each pet" do
+    @application = Application.first
     visit "/applications/#{@application.id}"
     expect(page).to have_content("Add a Pet to this Application")
     fill_in "Search for Pets", with: "Babe"
@@ -51,6 +69,5 @@ RSpec.describe 'Application Show Page' do
     click_button "Adopt #{@pet_2.name}"
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(page).to have_content(@pet_2.name)
-    save_and_open_page
   end
 end
