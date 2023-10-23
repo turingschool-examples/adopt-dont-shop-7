@@ -1,0 +1,31 @@
+<h3>Pet Application</h3>
+
+<%= form_with modle: @application, url: "/applications", method: :post, local: true do |form| %>
+  <%= form.label :name%>
+  <%= form.text_field :name %>
+
+  <br>
+  <%= form.label :street_address%>
+  <%= form.text_field :street_address %>
+
+  <br>
+  <%= form.label :city%>
+  <%= form.text_field :city %>
+
+  <br>
+  <%= form.label :state%>
+  <%= form.text_field :state %>
+
+  <br>
+  <%= form.label :zip_code %>
+  <%= form.number_field :zip_code%>
+
+  <br>
+  <%= form.label :description %>
+  <%= form.text_field :description%>
+
+  <br>
+  <%= form.hidden_field :application_status, value: "in progress"%>
+
+  <%= form.submit "Submit Application"%>
+<% end%>
