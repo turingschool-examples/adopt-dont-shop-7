@@ -101,6 +101,33 @@ RSpec.describe "Application Show Page", type: :feature do
           end
         end
       end 
+
+      #User Story 6
+      describe "Submit an Application" do
+        describe "I have added one or more pets to the application" do
+          it "Then I see a section to submit my application - And a input to enter why I would make a good owner for these petes" do
+            visit "/applications/#{@application_1.id}"
+
+            expect(page).to_not have_content("Submit Application")
+
+            fill_in "Search for Pets", with: "Auggie"
+
+            click_button "Submit"
+
+            click_button "Adopt this Pet"
+
+            fill_in "Why you would make a good owner for these pet(s)?", with: "I've always loved dogs."
+
+            click_button "Submit Application"
+
+            expect(current_path).to eq("/applications/#{@application_1.id}")
+            expect(page).to have_content("Pending")
+            expect(page).to have_link(@pet_1.name)
+            expect(page).to_not have_content("Add a Pet to this Application")
+            expect(page).to_not have_content("Search for Pets")
+          end
+        end
+      end
     end 
   end 
 end
