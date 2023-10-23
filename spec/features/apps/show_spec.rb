@@ -5,7 +5,7 @@ RSpec.describe "the applications show" do
     @timmy = App.create(name: "Timmy", address: "123 Main St", city: "Aurora, CO", zip: 80111, description: "I love dogs", status: "In Progress")
     shelter1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @pet1 = shelter1.pets.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
-    @timmy.pets << @pet1
+    
     @pet2 = shelter1.pets.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster")
   end
 
@@ -15,6 +15,7 @@ RSpec.describe "the applications show" do
     # Application Show Page
     # As a visitor
     # When I visit an applications show page
+    @timmy.pets << @pet1
     visit "/apps/#{@timmy.id}"
     # Then I can see the following:
 
@@ -94,6 +95,7 @@ RSpec.describe "the applications show" do
       #  Submit an Application
       # As a visitor
       # When I visit an application's show page
+      @timmy.pets << @pet1
       visit "/apps/#{@timmy.id}"
       # And I have added one or more pets to the application
       expect(@timmy.pets.count > 0 ).to eq(true)
@@ -113,6 +115,18 @@ RSpec.describe "the applications show" do
       expect(page).to have_content(@pet1.name)
       # And I do not see a section to add more pets to this application
       expect(page).to_not have_content("Search a pet")
+    end
+  end
+
+  describe "cant submit without pets" do
+    it "makes sure you have pets before submitting" do
+#     As a visitor
+#     When I visit an application's show page
+      visit "/apps/#{@timmy.id}"
+#     And I have not added any pets to the application
+      expect(@timmy.pets.count).to eq(0)
+#     Then I do not see a section to submit my application
+      expect(page).to_not have_content("Submit my application")
     end
   end
 end
