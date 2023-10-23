@@ -116,7 +116,7 @@ RSpec.describe "Application Show Page", type: :feature do
 
             click_button "Adopt this Pet"
 
-            fill_in "Why you would make a good owner for these pet(s)?", with: "I've always loved dogs."
+            fill_in "Why would you make a good owner for these pet(s)?", with: "I've always loved dogs."
 
             click_button "Submit Application"
 

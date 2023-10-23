@@ -31,4 +31,10 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
     end
   end
+
+  def submit
+    @application = Application.find(params[:id])
+    @application.status = "Pending"
+    redirect_to "/applications/#{@application.id}"
+  end
 end
