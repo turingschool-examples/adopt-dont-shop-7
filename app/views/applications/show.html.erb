@@ -35,7 +35,7 @@
     <% @searched.each do |pet| %>
       
       <%= pet.name %> 
-      <%= button_to "Adopt this Pet", { action: "show" }, params: {:adopt => "#{pet.id}"}, method: :get , remote: true %>
+      <%= button_to "Adopt this Pet", { action: "show" }, params: {:adopt => "#{pet.id}"}, method: :get %>
 
     <% end %>
   <% end %>
