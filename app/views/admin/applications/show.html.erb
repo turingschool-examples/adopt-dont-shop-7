@@ -1,0 +1,12 @@
+<p><u>Name</u>: <%= @application.name %></p>
+<p><u>Address</u>: <%= @application.full_address %> </p>
+<p><u>Why would you make a good home?</u>: <%= @application.description %> </p>
+<p><u>Status</u>: <%= @application.status %> </p>
+
+<p><u>Pets I'd Like to Adopt</u>:</p>
+<% @pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
+  <%= form_with url:"/admin/applications/#{@application.id}", method: :patch, local: :true do |f| %>
+  <p>Approve Adoption <%= f.submit "Approve Adoption", name: "pet_id", value: pet.id, class: "btn btn-primary" %></p>
+<%end%>
+<%end%>

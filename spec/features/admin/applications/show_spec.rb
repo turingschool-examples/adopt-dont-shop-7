@@ -6,28 +6,24 @@ RSpec.describe "the application show" do
     @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: "Bruno", status: "In Progress")
     @trevor = Application.create!(name: "Trevor Smith", street_address: "815 Ardsma Ave", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: [], status: "In Progress")  
     @bruiser = Pet.create!(adoptable: true, age: 1, breed: "huskey", name: "Bruiser", shelter_id: @shelter.id)
-    @bruno = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Bruno", shelter_id: @shelter.id)
+    @bruno = @john.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Bruno", shelter_id: @shelter.id)
     @trixie = Pet.create!(adoptable: true, age: 7, breed: "pitbull", name: "Trixie", shelter_id: @shelter.id)
+    
   end
 
   describe 'Admin Application Show Page' do
     # User Story 12, Approving a Pet for Adoption
     it 'has a button to approve the application for a specific pet' do
       visit "/admin/applications/#{@john.id}"
+      # save_and_open_page
+      expect(page).to have_content("Approve Adoption")
 
-      within(@bruno.id) do
-        expect(page).to have_content("Approve Adoption")
-      end
+      click_button(@bruno.id)
 
-      within(@bruno.id) do
-        click_button("Approve Adoption")
-      end
-
-      expect(current_path).to eq('/admin/applications')
-
-      within(@bruno.id) do
-        expect(page).to_not have_content("Adopt This Pet")
-      end
+      expect(current_path).to eq("/admin/applications/#{@john.id}")
+      expect(@john.status).to eq("Approved")
+      expect(@bruno.adoptable).to eq(false)
+      expect(page).to_not have_content("Adopt This Pet")
 
       expect(page).to have_content("This Adoption has been Approved")
     end
