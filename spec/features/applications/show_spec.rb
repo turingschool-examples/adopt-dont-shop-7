@@ -52,15 +52,13 @@ RSpec.describe "Applications show page" do
 
         visit "/applications/#{application_1.id}"
 
+        expect(page).to have_content("Search for pet")
         expect(page).to have_button("Add Pet")
-        expect(page).to have_content("Add a Pet")
-        expect(page).to have_content("Search for Pet:")
-        expect(page).to have_content("Add Pet")
 
-        fill_in("Name", with: "Lobster")
+        fill_in(:pet_name, with: "Lobster")
         click_button("Add Pet")
 
-        save_and_open_page
+        # save_and_open_page
 
         application_2 = Application.create!({
 
@@ -80,7 +78,6 @@ RSpec.describe "Applications show page" do
         expect(page).not_to have_content("Search for Pet:")
         expect(page).not_to have_content("Add Pet")
 
-  
       end
 
       # it "each pet name is a link to its show page" do
