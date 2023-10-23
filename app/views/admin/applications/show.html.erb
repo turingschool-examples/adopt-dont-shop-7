@@ -5,8 +5,11 @@
 
 <p><u>Pets I'd Like to Adopt</u>:</p>
 <% @pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
   <%= form_with url:"/admin/applications/#{@application.id}", method: :patch, local: :true do |f| %>
-  <p>Approve Adoption <%= f.submit "Approve Adoption", name: "pet_id", value: pet.id, class: "btn btn-primary" %></p>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
+      <%= f.hidden_field :pet_id, value: "#{pet.id}" %>
+      <%= f.submit "Approve Adoption" %>
+  <%end%>
 <%end%>
-<%end%>
+
+

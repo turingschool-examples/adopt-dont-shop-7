@@ -32,13 +32,13 @@ class ApplicationsController < ApplicationController
     end
     if params[:reason].present?
       #Show the application as "Pending"
-      @application.update(status: "Pending")
+      @application.update(status: 1)
     end
     redirect_to "/applications/#{@application.id}"
   end
 
   private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :pet_names, status: "In Progress", submitted: false)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end

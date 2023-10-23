@@ -35,7 +35,7 @@
   <% end %>
 <% end %>
 
-<% if !@pets.empty? && @application.pet_added && @application.status == "In Progress"%>
+<% if !@pets.empty? && @application.status == "In Progress"%>
   <h4><u>Submit Application</u></h4>
     <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %> 
       <label for="reason">Why would you be a good home for these pets?</label><br>
