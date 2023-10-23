@@ -89,7 +89,7 @@ RSpec.describe "the application show" do
   it 'does not have section to submit app if no pets added' do
     visit "/applications/#{@trevor.id}"
 
-    expect(@trevor.pet_names).to eq([])
+    expect(@trevor.pets).to eq([])
     expect(page).to_not have_content("Submit Application")
   end
 

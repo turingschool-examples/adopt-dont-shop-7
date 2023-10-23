@@ -16,15 +16,14 @@ RSpec.describe "the application show" do
     it 'has a button to approve the application for a specific pet' do
       visit "/admin/applications/#{@john.id}"
       # save_and_open_page
-      expect(page).to have_button("Approve Adoption")
+      expect(page).to have_content("Approve Adoption")
 
-      click_button("Approve Adoption")
+      click_button(@bruno.id)
 
-      expect(current_path).to eq('/admin/applications')
-
-      within(@bruno.id) do
-        expect(page).to_not have_content("Adopt This Pet")
-      end
+      expect(current_path).to eq("/admin/applications/#{@john.id}")
+      expect(@john.status).to eq("Approved")
+      expect(@bruno.adoptable).to eq(false)
+      expect(page).to_not have_content("Adopt This Pet")
 
       expect(page).to have_content("This Adoption has been Approved")
     end
