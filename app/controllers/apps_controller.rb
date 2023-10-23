@@ -9,7 +9,6 @@ class AppsController < ApplicationController
   end
 
   def show
-    
     @app = App.find(params[:id])
     # require 'pry'; binding.pry
     if params[:search].present?
@@ -19,7 +18,12 @@ class AppsController < ApplicationController
 
   def create
     app = App.create(app_params)
-    redirect_to "/apps/#{app.id}"
+    if app.save
+      redirect_to "/apps/#{app.id}"
+    else
+      redirect_to "/apps/"
+      flash[:alert] = "Error: Please fill out this field}"
+    end
   end
 
   def update
