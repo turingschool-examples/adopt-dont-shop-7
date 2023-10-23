@@ -70,4 +70,15 @@ RSpec.describe 'Application Show Page' do
     expect(current_path).to eq("/applications/#{@application.id}")
     expect(page).to have_content(@pet_2.name)
   end
+
+  # USER STORY 8
+
+  it "displays partial matches for pet names in search" do
+    visit "/applications/#{@application.id}"
+    fill_in("pet_search", with: "Bare")
+    click_button("Search")
+    click_button("Adopt this Pet")
+
+    expect(page).to have_content("#{@pet_1.name}")
+  end
 end
