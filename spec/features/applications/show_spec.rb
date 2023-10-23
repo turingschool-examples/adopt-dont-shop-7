@@ -107,7 +107,7 @@ RSpec.describe "applications show page" do
     # And I do not see a section to add more pets to this application
     it "can submit application with a reason and changes the application status to 'pending' displaying all added pets" do
       visit "/applications/#{@app1.id}"
-
+      
       fill_in :q, with: "Kyo"
       click_button "Search"
 
