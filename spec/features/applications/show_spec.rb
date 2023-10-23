@@ -42,7 +42,7 @@ RSpec.describe "applications show page" do
   end
 
   describe "unsubmitted applications" do
-    # US 4
+    # US4
     # As a visitor
     # When I visit an application's show page
     # And that application has not been submitted,
@@ -71,7 +71,7 @@ RSpec.describe "applications show page" do
       expect(page).to have_content "Search Results:\nBuster"
     end
 
-    # US 5
+    # US5
     # As a visitor
     # When I visit an application's show page
     # And I search for a Pet by name
@@ -107,7 +107,7 @@ RSpec.describe "applications show page" do
     # And I do not see a section to add more pets to this application
     it "can submit application with a reason and changes the application status to 'pending' displaying all added pets" do
       visit "/applications/#{@app1.id}"
-      
+
       fill_in :q, with: "Kyo"
       click_button "Search"
 
@@ -124,6 +124,19 @@ RSpec.describe "applications show page" do
       expect(page).to have_content("Application Status: Pending")
       expect(page).to have_content("Pets: Kyo")
       expect(page).to_not have_content("Add a Pet")
+    end
+
+    # US7
+    # As a visitor
+    # When I visit an application's show page
+    # And I have not added any pets to the application
+    # Then I do not see a section to submit my application
+    it "does not display a section to submit application if a pet has not been added" do
+      visit "/applications/#{@app1.id}"
+
+      expect(@app1.pet_names).to be([])
+
+      expect(page).to_not have_content("Submit Application")
     end
   end
 end
