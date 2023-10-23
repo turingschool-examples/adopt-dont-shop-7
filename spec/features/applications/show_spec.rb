@@ -74,8 +74,8 @@ RSpec.describe "the application show" do
     click_button("Search")
     expect("Add a Pet to this Application").to appear_before("Clawdia")
     expect("Clawdia").to appear_before("Adopt this Pet")
-    # click_button("Adopt this Pet")
-    click_link("Adopt this Pet")
+    click_button("Adopt this Pet")
+    # click_link("Adopt this Pet")
     expect(current_path).to eq("/applications/#{@application3.id}")
     expect("Clawdia").to appear_before("Add a Pet to this Application")
   end
@@ -85,12 +85,12 @@ RSpec.describe "the application show" do
     expect(page).to_not have_content("Already on Application")
     fill_in(:search, with: "Clawdia")
     click_button("Search")
-    # click_button("Adopt this Pet")
-    click_link("Adopt this Pet")
+    click_button("Adopt this Pet")
+    # click_link("Adopt this Pet")
     expect(page).to_not have_content("Already on Application")
     fill_in(:search, with: "Clawdia")
     click_button("Search")
-    click_link("Adopt this Pet")
+    click_button("Adopt this Pet")
     expect(page).to have_content("Already on Application")
 
   end
@@ -177,5 +177,75 @@ RSpec.describe "the application show" do
     expect(current_path).to eq("/admin/applications/#{@application1.id}")
     expect(page).to have_content("Adoption of #{@pet_1.name} has been rejected")
     expect(page).to have_content("Adoption of #{@pet_2.name} has been rejected")
+  end
+
+  it "Accepting a pet on one application will not affect it's status on other applications" do
+    visit "/admin/applications/#{@application2.id}"
+    expect(page).to have_button("Approve Application for #{@pet_2.name}")
+    expect(page).to have_button("Reject Application for #{@pet_2.name}")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been approved")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been rejected")
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_2.name}")
+    visit "/admin/applications/#{@application2.id}"
+    expect(page).to have_button("Approve Application for #{@pet_2.name}")
+    expect(page).to have_button("Reject Application for #{@pet_2.name}")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been approved")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been rejected")
+    click_button("Approve Application for #{@pet_2.name}")
+    expect(page).to_not have_button("Approve Application for #{@pet_2.name}")
+    expect(page).to_not have_button("Reject Application for #{@pet_2.name}")
+    expect(page).to have_content("Adoption of #{@pet_2.name} has been approved")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been rejected")
+    visit "/admin/applications/#{@application1.id}"
+    expect(page).to have_content("Adoption of #{@pet_2.name} has been approved")
+  end
+
+  it "Rejcting a pet on one application will not affect it's status on other applications" do
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Reject Application for #{@pet_2.name}")
+    visit "/admin/applications/#{@application2.id}"
+    expect(page).to have_button("Approve Application for #{@pet_2.name}")
+    expect(page).to have_button("Reject Application for #{@pet_2.name}")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been approved")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been rejected")
+    click_button("Approve Application for #{@pet_2.name}")
+    expect(page).to_not have_button("Approve Application for #{@pet_2.name}")
+    expect(page).to_not have_button("Reject Application for #{@pet_2.name}")
+    expect(page).to have_content("Adoption of #{@pet_2.name} has been approved")
+    expect(page).to_not have_content("Adoption of #{@pet_2.name} has been rejected")
+    visit "/admin/applications/#{@application1.id}"
+    expect(page).to have_content("Adoption of #{@pet_2.name} has been rejected")
+  end
+
+  it "As an admin, approving all pets on an application will change the status of an application to 'Approved'" do
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_1.name}")
+    expect(page).to have_content("Pending")
+    click_button("Approve Application for #{@pet_2.name}")
+    expect(page).to_not have_content("Pending")
+    expect(page).to have_content("Application Status: Approved")
+  end
+
+  it "As an admin, rejecting any pet on an application will change the status of an application to 'Rejected'" do
+    @application1.pets << @pet_3
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_1.name}")
+    expect(page).to have_content("Pending")
+    click_button("Approve Application for #{@pet_2.name}")
+    expect(page).to have_content("Pending")
+    click_button("Reject Application for #{@pet_3.name}")
+    expect(page).to have_content("Application Status: Rejected")
+  end
+
+  it "As an admin, rejecting any pet on an application will change the status of an application to 'Rejected' (different order)" do
+    @application1.pets << @pet_3
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Reject Application for #{@pet_1.name}")
+    expect(page).to have_content("Application Status: Rejected")
+    click_button("Approve Application for #{@pet_2.name}")
+    expect(page).to have_content("Application Status: Rejected")
+    click_button("Reject Application for #{@pet_3.name}")
+    expect(page).to have_content("Application Status: Rejected")
   end
 end

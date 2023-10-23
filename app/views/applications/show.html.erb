@@ -33,8 +33,10 @@
   <% if @searched != nil %>
     <%= "Results:" %> <br>
     <% @searched.each do |pet| %>
+      
       <%= pet.name %> 
-      <%= link_to "Adopt this Pet", :adopt => "#{pet.id}" %> <br>
+      <%= button_to "Adopt this Pet", { action: "show" }, params: {:adopt => "#{pet.id}"}, method: :get %>
+
     <% end %>
   <% end %>
 
