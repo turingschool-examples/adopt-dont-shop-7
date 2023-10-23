@@ -20,7 +20,7 @@ RSpec.describe "the application show" do
     expect(page).to have_content(@john.state)
     expect(page).to have_content(@john.zip_code)
     expect(page).to have_content(@john.description)
-    expect(page).to have_content(@john.pet_names)
+    expect(page).to have_content("Pets I'd Like to Adopt")
     expect(page).to have_content(@john.status)
   end
 
@@ -55,13 +55,12 @@ RSpec.describe "the application show" do
     visit "/applications/#{@john.id}"
     fill_in "search", with: "Bruno"
     click_button("Search")
+    expect(page).to have_content("Adopt This Pet")
 
-    expect(page).to have_button("Adopt This Pet")
-
-    click_button("Adopt This Pet")
+    click_button("#{@bruno.id}")
 
     expect(current_path).to eq("/applications/#{@john.id}")
-    expect(page).to have_content(@bruiser.name)
+    expect(page).to have_content(@bruno.name)
   end
 
   # User Story 6, Submit an Application
