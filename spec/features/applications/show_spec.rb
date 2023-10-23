@@ -263,4 +263,28 @@ RSpec.describe "the application show" do
     expect(current_path).to eq("/pets/#{@pet_1.id}")
     expect(page).to have_content("Adoptable: false")
   end
+
+  it "A pet that has been approved for adoption cannot be approved on other applications (and is communicated)" do
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_1.name}")
+    click_button("Approve Application for #{@pet_2.name}")
+    visit "/admin/applications/#{@application2.id}"
+    expect(page).to_not have_content("Approve Application for #{@pet_1.name}")
+    expect(page).to have_content("#{@pet_1.name} has been approved for adoption on another application")
+    expect(page).to have_content("Reject Application for #{@pet_1.name}")
+  end
+
+  it "Once a pet is on an application that is fully approved it will have approval removed from all other application" do
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_2.name}")
+    visit "/admin/applications/#{@application2.id}"
+    expect(page).to_not have_content("#{@pet_1.name} has been approved for adoption on another application")
+    click_button("Approve Application for #{@pet_2.name}")
+    visit "/admin/applications/#{@application1.id}"
+    click_button("Approve Application for #{@pet_1.name}")
+    visit "/admin/applications/#{@application2.id}"
+    expect(page).to have_content("#{@pet_1.name} has been approved for adoption on another application")
+    expect(page).to_not have_content("Approve Application for #{@pet_1.name}")
+    expect(page).to have_content("Reject Application for #{@pet_1.name}")
+  end
 end
