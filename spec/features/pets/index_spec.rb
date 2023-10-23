@@ -81,4 +81,37 @@ RSpec.describe "the pets index" do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  before :each do
+    @app1 = Application.create!({name: "Charles", address: "123 S Monroe", city: "Denver", state: "CO", zip: "80102", description: "Good home for good boy", status: "In Progress"})
+    @app2 = Application.create!({name: "TP", address: "1080 Pronghorn", city: "Del Norte", state: "CO", zip: "81132", description: "Good home for good boy", status: "In Progress"})
+    @s1 = Shelter.create!({foster_program: true, name: "Paw Patrol", city: "Denver", rank: 2})
+    @p1 = Pet.create!({name: "Buster", adoptable: true, age: 7, breed: "mut", shelter_id: @s1.id})
+    @p2 = Pet.create!({name: "Kyo", adoptable: false, age: 1, breed: "calico", shelter_id: @s1.id})
+    PetApplication.create!(application: @app1, pet: @p2)
+    PetApplication.create!(application: @app2, pet: @p1)
+  end
+
+  # US 2 Part 1
+  describe "As a visitor" do
+    describe "when I visit /pets index page" do
+      it "displays a form to create a new application" do
+        # As a visitor
+        # When I visit the pet index page
+        # Then I see a link to "Start an Application"
+        # When I click this link
+        # Then I am taken to the new application page where I see a form
+
+        visit "/pets"
+
+        expect(page).to have_link("Start an Application")
+
+        click_link("Start an Application")
+
+        expect(current_path).to eq("/applications/new")
+
+        expect(page).to have_content("New Application Form")
+      end
+    end
+  end
 end
