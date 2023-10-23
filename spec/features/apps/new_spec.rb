@@ -52,9 +52,10 @@ RSpec.describe "New Application" do
     # And I click submit
     click_button("Submit")
     # Then I am taken back to the new application's page
-    # expect(current_path).to eq("/apps/new")
+    expect(current_path).to eq("/apps/")
     # And I see a message that I must fill in those fields.
-    # assert_text "Please fill out this field"
+    # page.should have_error "Please fill out this field"
+     expect(page).to have_content("Error: Please fill out this field")
   end
 
 
