@@ -5,7 +5,7 @@ RSpec.describe "new application" do
   describe 'application new page' do
     # User Story 2, Starting an Application
     it 'it will show a new application for the user to fill out' do
-      application = Application.create(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: "Bruno", status: "In Progress")
+      application = Application.create(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", status: "In Progress")
       
       visit '/applications/new'
       expect(page).to have_content("Name")
