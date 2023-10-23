@@ -24,8 +24,10 @@
   <% end %>
 <% end %>
 
-<% @application.pets.each do |pet| %>
-  <div id="petlist-<%= pet.id %>">
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  </div>
-<% end %>
+<div id=appliedPets>
+  <h2>Pets You Have Applied For</h2>
+
+  <% @application.pets.each do |pet| %>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <% end %>
+</div>

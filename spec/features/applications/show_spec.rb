@@ -120,15 +120,32 @@ RSpec.describe "Application Show Page" do
             fill_in "Search", with: "Ba"
             click_on("Search")
 
+            within "#appliedPets" do
+              expect(page).to_not have_link("Bare-y Manilow", :href=> "/pets/#{@pet_1.id}")
+            end
+
             within "#pet-#{@pet_1.id}" do
               click_button("Adopt this Pet")
             end
 
-            # save_and_open_page
-            
             expect(current_path).to eq("/applications/#{@application_1.id}")
 
-            expect(page.find("#petlist-#{@pet_1.id}")).to be(true)
+            within "#appliedPets" do
+              expect(page).to have_link("Bare-y Manilow", :href=> "/pets/#{@pet_1.id}")
+            end
+
+            visit "/applications/#{@application_1.id}"
+            fill_in "Search", with: "Ba"
+            click_on("Search")
+
+            within "#pet-#{@pet_2.id}" do
+              click_button("Adopt this Pet")
+            end
+
+            within "#appliedPets" do
+              expect(page).to have_link("Bare-y Manilow", :href=> "/pets/#{@pet_1.id}")
+              expect(page).to have_link("Babe", :href=> "/pets/#{@pet_2.id}")
+            end
           end
         end
       end
