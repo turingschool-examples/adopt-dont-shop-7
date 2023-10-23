@@ -201,7 +201,7 @@ RSpec.describe "Application Show Page" do
             expect(page).to have_content("Pending")
             expect(page).to have_content("I also have a dog named Lola who is a showgirl.")
             expect(page).to have_no_button("Search")
-
+save_and_open_page
             within "#appliedPets" do
               expect(page).to_not have_content("Why are you qualified to adopt these pets?")
               expect(page).to_not have_content("Add a Pet")
@@ -209,7 +209,20 @@ RSpec.describe "Application Show Page" do
             end
           end
         end
+
+        describe "User Story 7. No Pets on an Application. As a visitor," do
+          it " When I visit an application's show page and I have not added any pets to the application, I do not see a section to submit my application" do
+            visit "/applications/#{@application_1.id}"
+        
+            expect(page).to_not have_content("Why are you qualified to adopt these pets?")
+            expect(page).to have_no_button("Submit")
+
+
+          end
+        end
       end
+
+    
 
 
 

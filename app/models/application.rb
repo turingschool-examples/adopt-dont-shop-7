@@ -14,5 +14,9 @@ class Application < ApplicationRecord
   def status_in_progress
     self.status == "In Progress"
   end
+
+  def has_pets
+    self.pets.count > 0
+  end
 end
 

@@ -20,6 +20,7 @@ RSpec.describe Application, type: :model do
   describe "instance method" do
     before(:each) do
       @application_1 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
+      @application_2 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
       
       @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
@@ -30,9 +31,16 @@ RSpec.describe Application, type: :model do
       @application_1.pets << @pet_1
     end
 
-    describe '#status_in_progress' do
+    describe "#status_in_progress" do
       it 'gets status for application' do
         expect(@application_1.status_in_progress).to eq(true)
+      end
+    end
+
+    describe "#has_pets" do
+      it 'returns true if has pets, false if none' do
+        expect(@application_1.has_pets).to be(true)    
+        expect(@application_2.has_pets).to be(false)    
       end
     end
   end
