@@ -14,6 +14,10 @@ RSpec.describe "applications show page" do
       name: "Robby", address: "1080 Pronghorn", city: "Del Norte", state: "CO", zip: "81132",
       description: "Good home for good boy", status: "Accepted"
     )
+    @app_no_pets = Application.create!(
+      name: "Bobby", address: "1111 Longhorn", city: "Dela Mar", state: "NY", zip: "11101",
+      description: "Good home for good boy", status: "In Progress"
+    )
     @s1 = Shelter.create!(foster_program: true, name: "Paw Patrol", city: "Denver", rank: 2)
     @p1 = Pet.create!(name: "Buster", adoptable: true, age: 7, breed: "mut", shelter_id: @s1.id)
     @p2 = Pet.create!(name: "Kyo", adoptable: false, age: 1, breed: "calico", shelter_id: @s1.id)
@@ -71,7 +75,7 @@ RSpec.describe "applications show page" do
       expect(page).to have_content "Search Results:\nBuster"
     end
 
-    # US5
+    # US 5
     # As a visitor
     # When I visit an application's show page
     # And I search for a Pet by name
@@ -81,7 +85,7 @@ RSpec.describe "applications show page" do
     # Then I am taken back to the application show page
     # And I see the Pet I want to adopt listed on this application
     it "shows a button inline with pet to adopt pet after search match" do
-      visit "/applications/#{@app2.id}"
+      visit "/applications/#{@app_no_pets.id}"
 
       fill_in :q, with: "Buster"
       click_button "Search"
@@ -108,21 +112,21 @@ RSpec.describe "applications show page" do
     it "can submit application with a reason and changes the application status to 'pending' displaying all added pets" do
       visit "/applications/#{@app1.id}"
 
-      fill_in :q, with: "Kyo"
+      fill_in :q, with: "Buster"
       click_button "Search"
 
-      within("#pet-#{@p2.id}") do
+      within("#pet-#{@p1.id}") do
         click_button "Adopt"
       end
 
-      expect(page).to have_content("Pets: Kyo")
+      expect(page).to have_content("Pets: Buster | Kyo")
 
       fill_in :reason_for_good_owner, with: "A loving family."
       click_button "Submit Application"
-
+      save_and_open_page
       expect(current_path).to eq("/applications/#{@app1.id}")
       expect(page).to have_content("Application Status: Pending")
-      expect(page).to have_content("Pets: Kyo")
+      expect(page).to have_content("Pets: Buster | Kyo")
       expect(page).to_not have_content("Add a Pet")
     end
 
@@ -132,10 +136,10 @@ RSpec.describe "applications show page" do
     # And I have not added any pets to the application
     # Then I do not see a section to submit my application
     it "does not display a section to submit application if a pet has not been added" do
-      visit "/applications/#{@app1.id}"
+      visit "/applications/#{@app_no_pets.id}"
 
-      expect(@app1.pet_names).to be([])
-
+      expect(@app_no_pets.pet_names).to eq([])
+      
       expect(page).to_not have_content("Submit Application")
     end
   end
