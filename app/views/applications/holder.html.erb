@@ -1,0 +1,11 @@
+  <%  if @pets.present? %>
+   <% @pets.each do |pet| %>
+    <p><%= button_to "Adopt #{pet.name}", add_pet_to_application(@application, pet_id: pet.id), method: :get %></p>
+    <% end %>
+  <% end %>
+
+  <h3><% #@application.pets.each do |pet| %></h3>
+    <h3><%=# link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
+  <% #end %>
+
+<% end %>
