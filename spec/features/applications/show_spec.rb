@@ -135,9 +135,9 @@ RSpec.describe "applications show page" do
     # And I have not added any pets to the application
     # Then I do not see a section to submit my application
     it "does not display a section to submit application if a pet has not been added" do
-      visit "/applications/#{@app_no_pets.id}"
+      visit "/applications/#{@app1.id}"
 
-      expect(@app_no_pets.pet_names).to eq([])
+      expect(@app1.pet_names).to be([])
 
       expect(page).to_not have_content("Submit Application")
     end
