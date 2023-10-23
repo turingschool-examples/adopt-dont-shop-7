@@ -2,15 +2,19 @@
 
 <p><%= "#{@application.street} #{@application.city} #{@application.state} #{@application.zip}" %></p>
 <p><%= @application.description %></p>
+<p><%= @application.qualifications %></p>
 <p><%= @application.status %></p>
 
 <h2>Add a Pet</h2>
 
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<% if @application.status_in_progress %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
 <% end %>
+
 
 <% if params[:search].present? %>
   <% @pets.each do |pet| %>
@@ -31,11 +35,16 @@
       <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 
+<% if @application.status_in_progress %>
   <h3>Why are you qualified to adopt these pets?</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
     <%= f.label :qualifications %>
-    <%= f.text_field :qualifications %>
+    <%= f.text_field :add_qualifications %>
+
+    <%= f.hidden_field :status_update, value: "Pending" %>
     <%= f.submit "Submit" %>
 
   <% end %>
+<% end %>
+
 </div>
