@@ -11,7 +11,7 @@ RSpec.describe "admin shelter index" do
     visit "/admin/shelters"
 
     # Then I see all Shelters in the system listed in reverse alphabetical order by name
-save_and_open_page
+
     expect("Denver shelter").to appear_before("Boulder shelter")
     expect("Boulder shelter").to appear_before("Aurora shelter")
   end
