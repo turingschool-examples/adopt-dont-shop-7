@@ -86,4 +86,32 @@ RSpec.describe "the applications show" do
         expect(page).to have_content("Lobster")
     end
   end
+
+  describe "submitting applications" do
+    it "Needs 1 or more pets to submit" do
+      #user story 6
+      #  Submit an Application
+      # As a visitor
+      # When I visit an application's show page
+      visit "/apps/#{@timmy.id}"
+      # And I have added one or more pets to the application
+      expect(@timmy.pets.count > 0 ).to eq(true)
+      # Then I see a section to submit my application
+      expect(page).to have_content("Submit my application")
+      # And in that section I see an input to enter why I would make a good owner for these pet(s)
+      expect(page).to have_field("Why I would make a good owner for these pet(s)")
+      # When I fill in that input
+      fill_in "Why I would make a good owner for these pet(s)", with: "I love frogs"
+      # And I click a button to submit this application
+      click_button "Submit my application"
+      # Then I am taken back to the application's show page
+      expect(current_path).to eq("/apps/#{@timmy.id}")
+      # And I see an indicator that the application is "Pending"
+      expect(page).to have_content("Pending")
+      # And I see all the pets that I want to adopt
+      expect(page).to have_content(@pet1.name)
+      # And I do not see a section to add more pets to this application
+      expect(page).to_not have_content("Search a pet")
+    end
+  end
 end

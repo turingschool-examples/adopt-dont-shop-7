@@ -10,7 +10,7 @@ class AppsController < ApplicationController
 
   def show
     @app = App.find(params[:id])
-
+    # require 'pry'; binding.pry
     if params[:search].present?
       @matching_pets = Pet.adoptable_search(params[:pet_name])
     end
@@ -41,6 +41,6 @@ class AppsController < ApplicationController
   
   private
   def app_params
-    params.permit(:name, :address, :city, :zip, :description)
+    params.permit(:name, :address, :city, :zip, :description, status: "In Progress")
   end
 end
