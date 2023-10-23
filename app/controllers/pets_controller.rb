@@ -10,7 +10,8 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
-    @pet = Pet.adoptable
+    require 'pry'; binding.pry
+    # @pet = Pet.adoptable
   end
 
   def new

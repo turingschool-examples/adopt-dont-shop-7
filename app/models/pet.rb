@@ -10,12 +10,15 @@ class Pet < ApplicationRecord
   end
 
   def self.adoptable
-    pets_up_for_adoption = self.left_joins([{application_pets: :application}]).where("applications.status != 'Accepted'").distinct
+    where(adoptable: true)
+  end
+
+  def self.update_adoptable
+    # pets_up_for_adoption = self.joins([{application_pets: :application}]).where("application.status == 'Approved'").distinct.pluck("pets")
     # require 'pry'; binding.pry
-    pets_up_for_adoption.each do |pet|
-      pet[:adoptable] = true
-    end
-    pets_up_for_adoption
-    # where(adoptable: true)
+    # pets_up_for_adoption.each do |pet|
+    #   pet[:adoptable] = false
+    # end
+    # pets_up_for_adoption
   end
 end
