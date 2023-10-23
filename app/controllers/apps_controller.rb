@@ -9,6 +9,7 @@ class AppsController < ApplicationController
   end
 
   def show
+    
     @app = App.find(params[:id])
     # require 'pry'; binding.pry
     if params[:search].present?
@@ -22,12 +23,14 @@ class AppsController < ApplicationController
   end
 
   def update
-    # require 'pry'; binding.pry
     @app = App.find(params[:id])
-    @pet = Pet.find(params[:pet_id])
-    # require 'pry'; binding.pry
-    @app.pets << @pet
-    redirect_to "/apps/#{params[:id]}"
+    if !params[:good_owner].present?
+      @pet = Pet.find(params[:pet_id])
+      @app.pets << @pet
+    else 
+      @app.update(status: 1)
+    end
+      redirect_to "/apps/#{params[:id]}"
   end
 
   def add_pet
@@ -41,6 +44,6 @@ class AppsController < ApplicationController
   
   private
   def app_params
-    params.permit(:name, :address, :city, :zip, :description, status: "In Progress")
+    params.permit(:name, :address, :city, :zip, :description)
   end
 end
