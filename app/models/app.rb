@@ -3,6 +3,7 @@ class App < ApplicationRecord
   has_many :pets, through: :apps_pets
 
   def status
-    self.status = "In Progress"
+    
+      self.status = "In Progress"
   end
 end
