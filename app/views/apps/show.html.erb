@@ -6,13 +6,13 @@
 </style>
 
 <h1><%=@app.name%>'s Application</h1>
-<p><%=@app.address%>, <%=@app.city%>, <%=@app.zip%></p>
-<p><%=@app.description%></p>
-<p><%=@app.status%></p>
+<p><u>Address</u>: <%=@app.address%>, <%=@app.city%>, <%=@app.zip%></p>
+<p><u>Description</u>: <%=@app.description%></p>
+<p><u>Status</u>: <%=@app.status%></p>
 
 
 <% @app.pets.each do |pet| %>
-  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+  <p><u>Pets on your application</u>: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
 
 
@@ -24,8 +24,8 @@
   <% end %>
 <% end %>
 
-<h3>Pets matching search</h3>
   <% if params[:pet_name].present? %>
+<h3>Pets matching search</h3>
     <% @pets = Pet.search(params[:pet_name]) %>
     <% @pets.each do |pet| %>
       <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
@@ -39,8 +39,8 @@
 
 <% if @app.pets.count > 0 && @app.status == "In Progress"%>
   <h3>Submit my application</h3>
-  <%= form_with url: "/apps/#{@app.id}&status=app.status?commit=Submit+Application", method: :patch, local: true do |form|%>
-    <%= form.label :good_owner, 'Why would you make a good owner to these pet(s)?' %>
+  <%= form_with url: "/apps/#{@app.id}?commit=Submit+Application", method: :patch, local: true do |form|%>
+    <%= form.label :good_owner, 'Why I would make a good owner for these pet(s)' %>
     <p><%= form.text_area :good_owner %></p>
     <%= form.submit "Submit my application" %>
     <% end %>
