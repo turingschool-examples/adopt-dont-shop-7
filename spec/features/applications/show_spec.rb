@@ -102,9 +102,8 @@ RSpec.describe 'Application Show Page' do
       fill_in "reason", with: "I work remote and have the resources and financial ability to support an animal"
       click_button "Submit this Application"
       expect(current_path).to eq("/applications/#{@application.id}")
-      # expect(page).to have_content("I work remote and have the resources and financial ability to support an animal")
+      expect(page).to have_content("I work remote and have the resources and financial ability to support an animal")
       expect(page).to_not have_content("In Progress")
-      save_and_open_page
       expect(page).to have_content("Pending")
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@pet_4.name)
