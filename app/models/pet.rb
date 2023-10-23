@@ -16,4 +16,8 @@ class Pet < ApplicationRecord
   def self.search_for_pet(search)
     pet = where("lower(name) like ?", "%#{search.downcase}%")
   end
+
+  # def self.pets_with_pending_apps
+  #   Pet.select("pets.*").joins([:applications]).where("applications.status = 'pending'").distinct
+  # end
 end

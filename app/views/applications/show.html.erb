@@ -29,7 +29,7 @@
   <% @searched.each do |pet| %>
     <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %>  
     <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
-    <%= f.submit "Adopt this Pet", name: 'pet_id', value: pet.id, class: "btn btn-primary" %>
+    <p>Adopt This Pet<%= f.submit "Adopt this Pet", name: 'pet_id', value: pet.id, class: "btn btn-primary" %></p>
   <% end %>
   <% end %>
 <% end %>

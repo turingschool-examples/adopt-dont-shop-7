@@ -24,4 +24,21 @@ class Application < ApplicationRecord
   def submitted
     false
   end
+
+  def approve_pet(pet)
+    status = "Approved"
+    pet.adoptable = false
+  end
+
+  def approved
+    status == "Approved"
+  end
+
+  def rejected
+   status == "Rejected"
+  end
+
+  def reject_pet(pet)
+    self.status = "Rejected"
+  end
 end
