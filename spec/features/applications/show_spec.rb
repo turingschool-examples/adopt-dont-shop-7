@@ -20,7 +20,11 @@ RSpec.describe "the application show" do
     expect(page).to have_content(@john.state)
     expect(page).to have_content(@john.zip_code)
     expect(page).to have_content(@john.description)
+
+    expect(@john.pet_names).to eq("[]")
+
     expect(page).to have_content("Pets I'd Like to Adopt")
+
     expect(page).to have_content(@john.status)
   end
 
