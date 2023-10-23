@@ -13,20 +13,11 @@ class Application < ApplicationRecord
     pets << pet
   end
 
-  def approve_pet(pet)
-    status = "Approved"
-    pet.adoptable = false
+  def approve(pet)
+    pet.update(adoptable: false)
   end
+  
+  def reject(pet)
 
-  def approved
-    status == "Approved"
-  end
-
-  def rejected
-   status == "Rejected"
-  end
-
-  def reject_pet(pet)
-    self.status = "Rejected"
   end
 end
