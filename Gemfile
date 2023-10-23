@@ -59,6 +59,7 @@ group :development, :test do
   gem "simplecov"
   gem "orderly"
   gem "standardrb"  # linter
+  gem "byebug"
 end
 
 group :development do
