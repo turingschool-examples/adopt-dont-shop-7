@@ -14,5 +14,14 @@ class Application < ApplicationRecord
 
   def add_pet(pet)
     pets << pet
+    #WRITE IF PET IS ALRDY IN PET THEN NOTICE
+  end
+
+  def pet_added
+    true
+  end
+
+  def submitted
+    false
   end
 end

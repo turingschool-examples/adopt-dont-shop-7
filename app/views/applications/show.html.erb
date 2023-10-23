@@ -1,3 +1,10 @@
+<style>
+  #good_home_reason {
+    width: 300px;
+    height: 100px; 
+  }
+</style>
+
 <p><u>Name</u>: <%= @application.name %></p>
 <p><u>Address</u>: <%= @application.full_address %> </p>
 <p><u>Why would you make a good home?</u>: <%= @application.description %> </p>
@@ -8,14 +15,16 @@
   <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
 <%end%>
 
-<h2><u>Add a pet to this application</u>:</h2>
-<%= form_with url:"/applications/#{@application.id}", method: :get, local: :true do |f| %>
-  <%= f.label "#{:search} for a pet's name:" %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<% if @application.status == "In Progress" %>
+  <h2><u>Add a pet to this application</u>:</h2>
+  <%= form_with url:"/applications/#{@application.id}", method: :get, local: :true do |f| %>
+    <%= f.label "Search for a pet's name:" %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <%end%>   
 <%end%>
 
-<% if @searched != nil%>
+<% if @searched != nil %>
   <h4><u><%="Search Results"%></u></h4>
   <% @searched.each do |pet| %>
     <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %>  
@@ -25,4 +34,12 @@
   <% end %>
 <% end %>
 
+<% if !@pets.empty? && @application.pet_added && @application.status == "In Progress"%>
+  <h4><u>Submit Application</u></h4>
+    <%= form_with url:"/applications/#{@application.id}", method: :get, local: :true do |f| %> 
+      <label for="good_home_reason">Why would you be a good home for these pets?</label><br>
+      <input type="text" id="good_home_reason" name="good_home_reason"> <br>
+        <%= f.submit "Submit" %>
+      <% end %>
+<% end %>
 
