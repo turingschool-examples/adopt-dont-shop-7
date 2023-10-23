@@ -30,4 +30,12 @@
   <% @application.pets.each do |pet| %>
       <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
+
+  <h3>Why are you qualified to adopt these pets?</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
+    <%= f.label :qualifications %>
+    <%= f.text_field :qualifications %>
+    <%= f.submit "Submit" %>
+
+  <% end %>
 </div>
