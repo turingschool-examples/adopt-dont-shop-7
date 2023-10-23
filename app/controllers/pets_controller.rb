@@ -16,7 +16,7 @@ class PetsController < ApplicationController
   end
 
   def create
-    pet = Pet.new(pet_params)
+    pet = Pet.create(pet_params)
     if pet.save
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
     else

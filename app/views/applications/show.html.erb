@@ -6,7 +6,7 @@
 <p> <b>Pets Applied For: </b></p>
 <ul>
   <% @application.pets.each do |pet| %>
-    <li><%= link_to pet.name, "/pets" %></li> 
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li> 
   <% end %>
 </ul>
 <p> <b>Application Status: </b><%= @application.status %></p>
@@ -24,5 +24,6 @@
 <% if !@search_pets.nil? && @search_pets.any? %>
   <% @search_pets.each do |pet| %>
   <p><b><%= pet.name %> the <%= pet.breed %></b> / Age: <%= pet.age %></p>
+  <%= button_to "Adopt #{pet.name}", {controller: "applications", action: "update", application_id: @application.id, pet_id: pet.id}, method: :patch %>
   <% end %>
 <% end %>
