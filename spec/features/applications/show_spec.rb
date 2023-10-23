@@ -138,10 +138,13 @@ RSpec.describe "Application Show Page", type: :feature do
           fill_in "Search for Pets", with: "aug"
 
           click_button "Submit"
+
           expect(page).to have_content("Auggie")
+
           click_button "Adopt this Pet"
 
           fill_in "Search for Pets", with: "ru"
+          
           click_button "Submit"
           
           expect(current_path).to eq("/applications/#{@application_1.id}")
