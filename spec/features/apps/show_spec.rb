@@ -44,6 +44,7 @@ RSpec.describe "the applications show" do
     # As a visitor
     # When I visit an application's show page
     visit "/apps/#{@timmy.id}"
+    
     # And that application has not been submitted,
     expect(@timmy.status).to eq("In Progress")
     # Then I see a section on the page to "Search a pet"

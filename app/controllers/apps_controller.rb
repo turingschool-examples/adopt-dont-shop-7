@@ -9,6 +9,7 @@ class AppsController < ApplicationController
   end
 
   def show
+    require 'pry'; binding.pry
     @app = App.find(params[:id])
     # require 'pry'; binding.pry
     if params[:search].present?
@@ -27,6 +28,9 @@ class AppsController < ApplicationController
     @pet = Pet.find(params[:pet_id])
     # require 'pry'; binding.pry
     @app.pets << @pet
+    if @app.pets.empty? == false
+      @app.update(status: 1)
+    end
     redirect_to "/apps/#{params[:id]}"
   end
 
@@ -41,6 +45,6 @@ class AppsController < ApplicationController
   
   private
   def app_params
-    params.permit(:name, :address, :city, :zip, :description, status: "In Progress")
+    params.permit(:name, :address, :city, :zip, :description)
   end
 end
