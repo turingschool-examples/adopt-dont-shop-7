@@ -9,8 +9,6 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
-    # pet_id = @pet.id
-    # @pet = Pet.update_adoptable(pet_id)
   end
 
   def new

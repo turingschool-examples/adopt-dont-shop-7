@@ -16,10 +16,10 @@ class Pet < ApplicationRecord
   def self.update_adoptable(application_id)
     pets = Pet.all
     pets_adopted = Pet.joins(:application_pets).where("application_pets.application_id = #{application_id}").distinct
-    # require 'pry'; binding.pry
     pets_adopted.each do |pet|
-      pet.adoptable = false
+      pet.update({
+        adoptable: false
+      })
     end
-    # require 'pry'; binding.pry
   end
 end
