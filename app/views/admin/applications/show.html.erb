@@ -36,14 +36,7 @@
       <% if @approved_pets.include?(pet) %>
         <span class="approved-indicator">Approved</span>
       <% else %>
-        <% if !@approved_pets.include?(pet) %>
-  <form action="/admin/applications/<%= @application.id %>" method="post">
-    <input type="hidden" name="pet_id" value="<%= pet.id %>">
-    <input type="hidden" name="_method" value="patch">
-    <input type="submit" value="Approve" data-confirm="Are you sure you want to approve this pet?">
-  </form>
-<% end %>
-
+        <%= link_to "Approve", approve_pet_admin_application_path(id: @application.id, pet_id: pet.id), method: :post, data: { confirm: "Are you sure you want to approve this pet?" } %>
       <% end %>
     </li>
   <% end %>

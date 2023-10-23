@@ -14,11 +14,13 @@ RSpec.describe "the admin application show" do
         it " next to the pet that I approved, I do not see a button to approve this pet and instead I see an indicator next to the pet that they have been approved" do 
           @application.pets << [@pet, @pet_2]
           visit ("/admin/applications/#{@application.id}")
+          
+
           expect(page).to have_button("Approve #{@pet.name}") 
           expect(page).to have_button("Approve #{@pet_2.name}")
 
           click_button("Approve #{@pet.name}")
-
+save_and_open_page
           expect(page).to have_no_button("Approve #{@pet.name}")
           expect(page).to have_content("#{@pet.name} has been approved")
           expect(page).to have_button("Approve #{@pet_2.name}")
