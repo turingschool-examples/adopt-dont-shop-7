@@ -31,4 +31,12 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where("age >= ?", age_filter)
   end
+
+  def self.order_reverse_alphabetical
+    Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC;")
+  end
+
+  def pets_with_pending_apps
+    Pet.select("pets.*").joins([:applications]).where("applications.status = 'pending'").distinct
+  end
 end
