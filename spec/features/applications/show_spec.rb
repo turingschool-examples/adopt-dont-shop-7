@@ -74,6 +74,32 @@ RSpec.describe "Application Show Page", type: :feature do
             end
           end
         end
+
+        #User Story 5
+        describe "And I search for a Pet by name" do
+          describe "And I see the names Pets that match my search" do
+            describe "Then next to each Pet's name I see a button to 'Adopt this Pet'" do
+              it "Clicks 'Adopt this Pet' and then taken to application show page where I see that Pet listed on this application" do
+                visit "/applications/#{@application_1.id}"
+
+                fill_in "Search for Pets", with: "Rue"
+                click_button "Submit"
+
+                expect(current_path).to eq("/applications/#{@application_1.id}")
+                expect(page).to have_content("Rue")
+                expect(page).to have_content("Adopt this Pet")
+
+                click_button "Adopt this Pet"
+
+                expect(current_path).to eq("/applications/#{@application_1.id}")
+
+                expect(page).to have_link(@pet_2.name)
+                click_link("#{@pet_2.name}")
+                expect(current_path).to eq("/pets/#{@pet_2.id}")
+              end
+            end
+          end
+        end
       end 
     end 
   end 
