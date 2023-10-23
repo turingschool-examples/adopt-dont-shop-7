@@ -123,7 +123,6 @@ RSpec.describe "applications show page" do
 
       fill_in :reason_for_good_owner, with: "A loving family."
       click_button "Submit Application"
-      save_and_open_page
       expect(current_path).to eq("/applications/#{@app1.id}")
       expect(page).to have_content("Application Status: Pending")
       expect(page).to have_content("Pets: Buster | Kyo")
