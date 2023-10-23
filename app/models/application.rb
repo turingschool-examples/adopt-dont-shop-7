@@ -9,7 +9,4 @@ class Application < ApplicationRecord
   def address
     self.street_address + ", " + self.city + ", " + self.state + " " + self.zip_code
   end
-
-
-
 end
