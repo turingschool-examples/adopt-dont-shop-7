@@ -139,6 +139,7 @@ RSpec.describe "the application show" do
           visit "/applications/#{@application.id}"
 
           fill_in "Search for Pets", with: "scoob"
+          fill_in "Search for Pets", with: "SCOO"
           click_button "Submit"
 
           expect(page).to have_content "Scooby"

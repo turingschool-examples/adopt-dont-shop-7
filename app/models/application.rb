@@ -9,4 +9,10 @@ class Application < ApplicationRecord
   validates :zip_code, presence: true
   validates :description, presence: true
   validates :status, presence: :true, inclusion: {in: ["In Progress", "Accepted", "Rejected", "Pending"]}
+
+  def search_pets_by_name(pet_name)
+    return [] unless pet_name.present?
+
+    Pet.where("name ILIKE ?", "%#{pet_name}%")
+  end
 end
