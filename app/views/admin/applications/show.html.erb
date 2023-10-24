@@ -11,10 +11,13 @@
   <th>Application Approval</th>
 </tr>
 <% @application.pets.each do |pet|  %>
+    
     <tr><p><td><%= pet.name %></td></p>
       <% if @application.status == "Pending" %>
           <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
-          <td><%= f.submit "Approve" %></td>
+         <div id="pet-<%= pet.id %>"> 
+         <td><%= f.submit "Approve" %></td>
+          </div>
           <% end %>
     <% end %>
   <% end %>
