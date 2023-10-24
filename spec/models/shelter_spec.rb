@@ -50,6 +50,18 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.reverse_ordered).to eq [@shelter_2, @shelter_3, @shelter_1]
       end
     end
+
+    describe "#pending_applications" do
+      it "returns all distinct shelters that have atleast one application with status pending" do
+        # US 11
+        # As a visitor
+        # When I visit the admin shelter index ('/admin/shelters')
+        # Then I see a section for "Shelters with Pending Applications"
+        # And in this section I see the name of every shelter that has a pending application
+        # require 'pry';binding.pry
+        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_4])
+      end
+    end
   end
 
   describe "instance methods" do
