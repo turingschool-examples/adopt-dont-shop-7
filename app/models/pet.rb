@@ -14,7 +14,6 @@ class Pet < ApplicationRecord
   end
 
   def self.update_adoptable(application_id)
-    pets = Pet.all
     pets_adopted = Pet.joins(:application_pets).where("application_pets.application_id = #{application_id}").distinct
     pets_adopted.each do |pet|
       pet.update({

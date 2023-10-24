@@ -12,16 +12,22 @@
   <% if @admin %>
     <h3>Shelters with Pending Applications</h3>
     <% @shelters_with_applications.each do |shelter| %>
-      <%= shelter %>
+      <%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %>
     <% end %>
   <% end %>
 </div>
 
-<% @shelters.each do |shelter| %>
-  <div id="shelter-<%= shelter.id %>">
-    <h3><%= shelter.name %></h3>
-    <p>Created at: <%= shelter.created_at %></p>
-    <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
-    <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
-  </div>
-<% end %>
+<div id="user">
+  <% @shelters.each do |shelter| %>
+    <div id="shelter-<%= shelter.id %>">
+    <% if @admin %>
+      <%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %>
+    <% else %>
+      <h3><%= shelter.name %></h3>
+    <% end %>
+      <p>Created at: <%= shelter.created_at %></p>
+      <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
+      <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+    </div>
+  <% end %>
+</div>

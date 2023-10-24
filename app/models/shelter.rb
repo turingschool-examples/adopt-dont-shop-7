@@ -21,7 +21,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_applications
-    joins(pets: [{ application_pets: :application}]).where("applications.status = 'Pending'").distinct.order(name: :asc).pluck("shelters.name")
+    joins(pets: [{ application_pets: :application}]).where("applications.status = 'Pending'").distinct.order(name: :asc)
   end
 
   def self.name_and_address(shelter_id)
@@ -60,5 +60,13 @@ class Shelter < ApplicationRecord
 
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where("age >= ?", age_filter)
+  end
+
+  def pending_pets
+    pets.select do |pet|
+      pet.applications.any? do |application|
+        application.status == 'Pending'
+      end
+    end
   end
 end
