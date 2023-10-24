@@ -33,7 +33,13 @@ class Shelter < ApplicationRecord
   end
 
   def self.pet_count(shelter)
-    shelter.pets.count
+    counter = 0
+    shelter.pets.each do |pet|
+      if pet.adoptable == true
+        counter += 1
+      end
+    end
+    counter
   end
 
   def pet_count
