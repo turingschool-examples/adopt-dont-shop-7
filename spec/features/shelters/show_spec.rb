@@ -171,7 +171,6 @@ RSpec.describe "the shelter show" do
 
   it "Each pet in the action required section has a link that leads to the admin show page for the pending applications they are on" do
     shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
     application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "one eyed cats!!", status: "Pending")
     application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I woudln't", status: "Pending")
@@ -184,46 +183,40 @@ RSpec.describe "the shelter show" do
     application2.pets << pet_3
     
     visit "/admin/shelters/#{shelter_1.id}"
-    expect(page).to have_content("Clawdia")
-    expect(page).to have_content("To #{application1.name}'s application for #{pet_2}")
-    expect(page).to have_content("To #{application2.name}'s application for #{pet_2}")
     expect(page).to have_content("Mr. Pirate")
-    expect(page).to have_content("To #{application1.name}'s application for #{pet_1}")
+    expect(page).to have_content("To #{application1.name}'s application for #{pet_1.name}")
 
     visit "/admin/shelters/#{shelter_3.id}"
     expect(page).to have_content("Clawdia")
-    expect(page).to have_content("To #{application1.name}'s application for #{pet_2}")
-    expect(page).to have_content("To #{application2.name}'s application for #{pet_2}")
+    expect(page).to have_content("To #{application1.name}'s application for #{pet_2.name}")
+    expect(page).to have_content("To #{application2.name}'s application for #{pet_2.name}")
     expect(page).to have_content("Lucille Bald")
-    expect(page).to have_content("To #{application2.name}'s application for #{pet_3}")
+    expect(page).to have_content("To #{application2.name}'s application for #{pet_3.name}")
     
-    click_link("To #{application1.name}'s application for #{pet_2}")
-    expect(current_path).to eq("admin/applications/#{application1.id}")
+    click_link("To #{application2.name}'s application for #{pet_2.name}")
+    expect(current_path).to eq("/admin/applications/#{application2.id}")
     click_button("Approve Application for #{pet_2.name}")
     
     visit "/admin/shelters/#{shelter_3.id}"
     expect(page).to have_content("Clawdia")
-    expect(page).to have_content("To #{application1.name}'s application for #{pet_2}")
-    expect(page).to have_content("To #{application2.name}'s application for #{pet_2}")
+    expect(page).to have_content("To #{application1.name}'s application for #{pet_2.name}")
+    expect(page).to have_content("To #{application2.name}'s application for #{pet_2.name}")
     expect(page).to have_content("Lucille Bald")
-    expect(page).to have_content("To #{application2.name}'s application for #{pet_3}")
+    expect(page).to have_content("To #{application2.name}'s application for #{pet_3.name}")
 
-    click_link("To #{application1.name}'s application for #{pet_3}")
-    expect(current_path).to eq("admin/applications/#{application1.id}")
+    click_link("To #{application2.name}'s application for #{pet_3.name}")
+    expect(current_path).to eq("/admin/applications/#{application2.id}")
     click_button("Approve Application for #{pet_3.name}")
     
     visit "/admin/shelters/#{shelter_3.id}"
     expect(page).to have_content("Clawdia")
-    expect(page).to have_content("To #{application1.name}'s application for #{pet_2}")
-    expect(page).to_not have_content("To #{application2.name}'s application for #{pet_2}")
+    expect(page).to have_content("To #{application1.name}'s application for #{pet_2.name}")
+    expect(page).to_not have_content("To #{application2.name}'s application for #{pet_2.name}")
     expect(page).to_not have_content("Lucille Bald")
-    expect(page).to_not have_content("To #{application2.name}'s application for #{pet_3}")
+    expect(page).to_not have_content("To #{application2.name}'s application for #{pet_3.name}")
 
     visit "/admin/shelters/#{shelter_1.id}"
-    expect(page).to have_content("Clawdia")
-    expect(page).to have_content("To #{application1.name}'s application for #{pet_2}")
-    expect(page).to_not have_content("To #{application2.name}'s application for #{pet_2}")
     expect(page).to have_content("Mr. Pirate")
-    expect(page).to have_content("To #{application1.name}'s application for #{pet_1}")
+    expect(page).to have_content("To #{application1.name}'s application for #{pet_1.name}")
   end
 end
