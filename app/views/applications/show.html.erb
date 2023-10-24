@@ -18,33 +18,30 @@
 
 <% if params[:search].present? %>
   <% @pets.each do |pet| %>
-  <div id="pet-<%= pet.id %>">
-    <%= pet.name %>
-    <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
-    <%= f.hidden_field :pet_id, value: pet.id %>
-      <%= f.submit "Adopt this Pet" %>
-    <% end %>
-  </div>
+    <div id="pet-<%= pet.id %>">
+      <%= pet.name %>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
+      <%= f.hidden_field :pet_id, value: pet.id %>
+        <%= f.submit "Adopt this Pet" %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
 
 <div id=appliedPets>
   <h2>Pets You Have Applied For</h2>
-
   <% @application.pets.each do |pet| %>
-      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
   <% end %>
 
-<% if @application.has_pets && !@application.status_in_progress %>
-  <h3>Why are you qualified to adopt these pets?</h3>
-  <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
-    <%= f.label :qualifications %>
-    <%= f.text_field :add_qualifications %>
+  <% if @application.has_pets && @application.status_in_progress %>
+    <h3>Why are you qualified to adopt these pets?</h3>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
+      <%= f.label :qualifications %>
+      <%= f.text_field :add_qualifications %>
+      <%= f.hidden_field :status_update, value: "Pending" %>
 
-    <%= f.hidden_field :status_update, value: "Pending" %>
-    <%= f.submit "Submit" %>
-
+      <%= f.submit "Submit" %>
+    <% end %>
   <% end %>
-<% end %>
-
 </div>
