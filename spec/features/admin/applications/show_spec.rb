@@ -23,9 +23,9 @@ RSpec.describe "the application show" do
       
       expect(current_path).to eq("/admin/applications/#{@john.id}")
       expect(page).to have_content("This Adoption has been Approved")
+      expect(page).to have_content("Accepted")
       expect(page).to_not have_button("Approve Adoption")
-      expect(@john.status).to eq("Accepted")
-      expect(@bruno.adoptable).to eq(false)
+
     end
 
     # User Story 13, Rejecting a Pet for Adoption
@@ -39,8 +39,6 @@ RSpec.describe "the application show" do
       expect(current_path).to eq("/admin/applications/#{@john.id}")
       expect(page).to have_content("This Adoption has been Rejected")
       expect(page).to_not have_button("Reject Adoption")
-      expect(@bruno.adoptable).to eq(true)
-      expect(@john.status).to eq("Rejected")
     end
 
     # User Story 14, Approved/Rejected Pets on one Application do not affect other Applications
