@@ -1,22 +1,14 @@
 class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
-
-  def pet_show
-    @pet = Pet.find(params[:id])
-  end
-
-  def status
-    if pet_names.length == ""
-      "In Progress"
-    else
-      "Pending"
-    end
-  end
-
+  validates :name, :street_address, :city, :state, :zip_code, :description, presence: true
+  #enum application_status: {"In Progress": 0, "Pending": 1, "Accepted":2, "Rejected":3}
+  
   def in_progress?
-    status == "In Progress"
+    application_status == "In Progress"
+    #use an enum vs a method at the same level as the has_many
+    #validates status inclusion in progress, pending, approved
+    #
   end
 
-endclass Application <ApplicationRecord
 end
