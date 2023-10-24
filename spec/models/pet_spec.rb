@@ -18,6 +18,7 @@ RSpec.describe Pet, type: :model do
     @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
+    @application = Application.create!(name: "Jimmy John", street_address: "111 lonely road", city: "John City", state: "AR", zip_code: "90909", description: "I like animals", status: "In Progress")
   end
 
   describe "class methods" do
@@ -39,6 +40,13 @@ RSpec.describe Pet, type: :model do
       it "returns the shelter name for the given pet" do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
+    end
+  end
+
+  describe "application_pet" do
+    it "returns the correct application pet" do 
+      @application.pets << [@pet_1]
+      expect(@pet_1.application_pet(@application.id)).to be_a(ApplicationPet)
     end
   end
 end
