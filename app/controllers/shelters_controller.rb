@@ -29,6 +29,7 @@ class SheltersController < ApplicationController
     if params[:admin] == "admin"
       @admin = true
       @shelter = Shelter.name_and_address(params[:id])
+      @pending_pets = Shelter.find(params[:id]).pending_pets
     else
       @shelter = Shelter.find(params[:id])
     end

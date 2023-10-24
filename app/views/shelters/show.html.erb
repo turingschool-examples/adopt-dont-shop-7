@@ -1,6 +1,14 @@
 <% if @admin %>
-<%= @shelter.name %>
-<%= @shelter.city %>
+  <%= @shelter.name %>
+  <%= @shelter.city %>
+
+  <h3> <%= "Action Required" %> </h3>
+  <% @pending_pets.each do |pet| %>
+    <% if pet.adoptable && pet.applications != nil %>
+      <%= pet.name %>
+    <% end %>
+  <% end %>
+
 <% else %>
   <h1><%= @shelter.name %></h1>
   <p>Rank: <%= @shelter.rank %></p>

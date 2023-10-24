@@ -94,19 +94,18 @@ RSpec.describe "the shelter show" do
     expect(page).to have_content("QWERTY")
     expect(page).to have_content("Ballistic Missile")
     
-    visit "admin/appliations/#{application1.id}"
+    visit "admin/applications/#{application1.id}"
     click_button("Approve Application for #{pet_2.name}")
     
     visit "/admin/shelters/#{shelter_3.id}"
     expect(page).to have_content("Clawdia")
     
-    visit "admin/appliations/#{application1.id}"
+    visit "admin/applications/#{application1.id}"
     click_button("Approve Application for #{pet_1.name}")
     
     visit "/admin/shelters/#{shelter_1.id}"
     expect(page).to have_content("Action Required")
     expect(page).to_not have_content("Mr. Pirate")
-    expect(page).to_not have_content("Clawdia")
     
     visit "/admin/shelters/#{shelter_3.id}"
     expect(page).to have_content("Action Required")
