@@ -32,6 +32,16 @@ class Shelter < ApplicationRecord
     shelter.pets.average(:age).to_f.round(2)
   end
 
+  def self.pet_count(shelter)
+    counter = 0
+    shelter.pets.each do |pet|
+      if pet.adoptable == true
+        counter += 1
+      end
+    end
+    counter
+  end
+
   def pet_count
     pets.count
   end

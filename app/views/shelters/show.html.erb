@@ -1,9 +1,10 @@
 <% if @admin %>
-<h2><%= @shelter.name %></h2>
-<h2><%= @shelter.city %></h2>
+<h3><%= @shelter.name %></h3>
+<h3><%= @shelter.city %></h3>
 <div id="stats">
-<h4>Statistics</h3>
-  <%= "Average Pet Age: #{@age_stats}" %>
+<h4>Shelter Statistics</h3>
+  <%= "Average Pet Age: #{@age_stats}" %> <br>
+  <%= "Adoptable Pet Count: #{@pet_count}" %> <br>
 </div>
 <% else %>
   <h1><%= @shelter.name %></h1>
