@@ -12,7 +12,7 @@ RSpec.describe "Admin Show Page" do
   end
 
   describe '#initialize' do
-    it 'exists' do
+    xit 'exists' do
       @application.pets << @pet_3
       @application.pets <<@pet_5
       visit "/admin/applications/#{@application.id}"

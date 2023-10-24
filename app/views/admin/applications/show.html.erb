@@ -7,6 +7,6 @@
 <% @application.pets.each do |p| %>
     <h3><%= p.name %></h3>
     <p> Status: <%= "Adoptable" if p.adoptable%> <%= "Not Adoptable" if !p.adoptable%></p> 
-    <%= button_to "Approve Adoption for #{p.name}", {controller: "pets", action: "update", application_id: @application.id, pet_id: p.id}, method: :patch %>
+    <%# <%= button_to "Approve Adoption for #{p.name}", {controller: "pets", action: "update", application_id: @application.id, pet_id: p.id}, method: :patch %> 
 
 <% end %>
