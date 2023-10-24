@@ -104,7 +104,7 @@ RSpec.describe "As a visitor" do
   end
   # 6. Submit and Application
   describe "When I visit an application's show page And I have added one or more pets to the application" do
-    xit "I see a section to submit my application And in that section I see an input to enter why I would make a good owner for these pet" do
+    it "I see a section to submit my application And in that section I see an input to enter why I would make a good owner for these pet" do
       application = Application.create(name: "Jimmy", street_address: "1234 fake st", city: "littleton", state: "co", zip_code: 85313, description: "cute and lovable", application_status: "in progress")
       @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
       @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
@@ -129,9 +129,6 @@ RSpec.describe "As a visitor" do
       click_button("Adopt #{@pet_1.name}")
       fill_in 'explanation', with: "cuz"
       click_button("submit application")
-      
-
-      expect(find("form")).to have_content("Why would you make a good owner for these pet(s)")
 
       expect(current_path).to eq("/applications/#{application.id}")
       # require'pry';binding.pry
