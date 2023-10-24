@@ -10,7 +10,6 @@ class AppsController < ApplicationController
 
   def show
     @app = App.find(params[:id])
-    # require 'pry'; binding.pry
     if params[:search].present?
       @matching_pets = Pet.adoptable_search(params[:pet_name])
     end
