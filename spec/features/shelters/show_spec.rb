@@ -97,7 +97,7 @@ RSpec.describe "the shelter show" do
     end
   end
 
-<<<<<<< HEAD
+
   it "Has a statistics section showing the number of pets from this shelter that have been adopted." do
     shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
@@ -122,7 +122,8 @@ RSpec.describe "the shelter show" do
       expect(page).to have_content("Adoptable Pet Count: 4")
       expect(page).to have_content("Pets who have found a home!: 2")
     end
-=======
+  end 
+
   it "When visited by an admin, there is an action required section that shows a list of pets with pending application that have not been marked approved or rejected" do
     #Applications are automatically rejected when any pet is rejected so this will not be tested
     shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
@@ -192,7 +193,5 @@ RSpec.describe "the shelter show" do
     expect(page).to_not have_content("Ann")
     expect(page).to_not have_content("QWERTY")
     expect(page).to_not have_content("Ballistic Missile")
-
->>>>>>> main
   end
 end
