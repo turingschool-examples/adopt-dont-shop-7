@@ -3,7 +3,6 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    params[:application_status]= "In Progress"
     application = Application.new(application_params)
     if application.save
       redirect_to "/applications/#{application.id}"
@@ -22,7 +21,7 @@ class ApplicationsController < ApplicationController
   private
 
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :application_status)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
 
 end
