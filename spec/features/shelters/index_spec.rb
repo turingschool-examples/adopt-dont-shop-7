@@ -144,7 +144,6 @@ RSpec.describe "the shelters index" do
     application2.pets << pet_4
 
     visit "/admin/shelters"
-    save_and_open_page
     within("div#admin") do
       expect("Aurora shelter").to appear_before("Fancy pets of Colorado")
       expect("Fancy pets of Colorado").to appear_before("RGV animal shelter")
