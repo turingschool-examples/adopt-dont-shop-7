@@ -91,20 +91,21 @@ RSpec.describe 'application show page', type: :feature do
   describe 'submit an application' do
     it 'submits an application with valid data' do
       #US 6
-      # PetApplication.create!(pet_id: @pet_1.id, application_id: @application1.id)
       visit "/applications/#{@application1.id}"
       
       expect(page).to have_content("Pom Pom")
       expect(page).to have_button("Submit Application")
       expect(page).to have_content("Description of why I would make a good home")
       
-      fill_in "Enter answer", with: "I know how to take care pets!"
+      fill_in :description, with: "I know how to take care pets!"
 
       click_button "Submit Application"
 
       expect(current_path).to eq("/applications/#{@application1.id}")
+      @application1 = Application.find(@application1.id)
+      # save_and_open_page
+      expect(@application1.status).to eq "Pending"
       expect(page).to have_content("Pending")
-      expect(@application1.status).to eq 1
       expect(page).to have_content("#{@pet_3.name}")
       expect(page).to have_content("#{@pet_1.name}")
       expect(page).to have_content("I know how to take care pets!")

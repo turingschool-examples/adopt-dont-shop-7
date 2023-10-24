@@ -40,6 +40,7 @@
   <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
   <%= f.label :description %>
   <%= f.text_field :description, placeholder: 'Enter answer' %>
+  <%= f.hidden_field :status, :value=>"Pending" %>
   <p><%= f.submit "Submit Application" %></p>
   <% end %>
 <% end %>

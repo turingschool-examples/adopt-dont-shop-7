@@ -1,15 +1,17 @@
 class Admin::ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
+    # require 'pry'; binding.pry  
   end
 
   def update
     application = Application.find(params[:id])
+    pet_app = application.pet_applications
     
     if params[:commit] == "Approve"
-      application.update(status: "Approved")
+      pet_app.update(adoption_approved: true)
     elsif params[:commit] == "Reject"
-      application.update(status: "Rejected")
+      pet_app.update(adoption_approved: false)
     end
 
     redirect_to "/admin/applications/#{application.id}"

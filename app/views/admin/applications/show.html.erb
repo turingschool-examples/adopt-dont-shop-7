@@ -13,13 +13,11 @@
 <% @application.pets.each do |pet|  %>
     <tr><p><td><%= pet.name %></td></p>
       <% if @application.status == "Pending" %>
-        <%= form_with method: :patch, data: { turbo: false } do |f| %>
-        <td><%= f.submit "Approve" %></td>
-        <% end %>
-        <% elsif @application.status == "Approved" %>
-        <td><%= @application.status %></td>
-      <% end %>
+          <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
+          <td><%= f.submit "Approve" %></td>
+          <% end %>
     <% end %>
+  <% end %>
   </tr>
 </table>
 
