@@ -1,13 +1,21 @@
-<h1>Edit Veterinarian</h1>
-<%= form_with url: "/veterinarians/#{@veterinarian.id}", method: :patch, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<%= render partial: 'application/header', layout: 'header' %>
+<%= render partial: 'application/body', layout: 'body' %>
 
-  <%= f.label :on_call %>
-  <%= f.check_box :on_call %>
+<div class="myDiv" >
+  <h1>Edit Veterinarian</h1>
+</div>
 
-  <%= f.label :review_rating %>
-  <%= f.number_field :review_rating %>
+<div class="body" >
+  <%= form_with url: "/veterinarians/#{@veterinarian.id}", method: :patch, local: true do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
 
-  <%= f.submit %>
-<% end %>
+    <%= f.label :on_call %>
+    <%= f.check_box :on_call %>
+
+    <%= f.label :review_rating %>
+    <%= f.number_field :review_rating %>
+
+    <%= f.submit %>
+  <% end %>
+</div>
