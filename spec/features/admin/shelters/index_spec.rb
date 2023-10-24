@@ -26,10 +26,10 @@ RSpec.describe "Admin Index Page" do
     fill_in "Search for Pets", with: "Elle"
     click_button "Submit"
     click_button "Adopt #{pet_3.name}"
+    fill_in "reason", with: "I love chihuahuas and I work remotely"
+    click_button "Submit this Application"
     visit '/admin/shelters'
-    save_and_open_page
     expect(page).to have_content("Shelters with Pending Applications")
     expect(page).to have_content(@shelter_1.name)
-    
   end
 end
