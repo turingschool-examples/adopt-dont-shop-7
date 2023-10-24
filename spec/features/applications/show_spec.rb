@@ -138,7 +138,7 @@ RSpec.describe "applications show page" do
       visit "/applications/#{@app_no_pets.id}"
 
       expect(@app_no_pets.pet_names).to eq([])
-      
+
       expect(page).to_not have_content("Submit Application")
     end
   end
