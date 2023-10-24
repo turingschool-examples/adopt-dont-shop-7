@@ -10,16 +10,19 @@
   <th>Pet Name</th>
   <th>Application Approval</th>
 </tr>
-<% @application.pets.each do |pet|  %>
+<% @application.pet_applications.each do |pet_app|  %>
     
-    <tr><p><td><%= pet.name %></td></p>
-      <% if @application.status == "Pending" %>
+    <tr><p><td><%= pet_app.pet.name %></td></p>
+      <% if pet_app.pet.adoptable == true  %>
           <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
-         <div id="pet-<%= pet.id %>"> 
-         <td><%= f.submit "Approve" %></td>
-          </div>
+          <div id="pet_app-<%= pet_app.id %>"> 
+          <td><%= f.submit "Approve" %></td></div>
           <% end %>
-    <% end %>
+        <% elsif pet_app.pet_applications == true %>
+          <p>Approved</p>
+           
+          <% end %>
+ 
   <% end %>
   </tr>
 </table>
