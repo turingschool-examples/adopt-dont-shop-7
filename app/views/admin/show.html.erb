@@ -1,0 +1,14 @@
+<h1><%=@app.name%>'s Application (admin view)</h1>
+<p><u>Address</u>: <%=@app.address%>, <%=@app.city%>, <%=@app.zip%></p>
+<p><u>Description</u>: <%=@app.description%></p>
+<p><u>Status</u>: <%=@app.status%></p>
+
+
+<% @app.pets.each do |pet| %>
+  <p><u>Pets on this application</u>: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <%= button_to "approve application to adopt #{pet.name}", "/admin/apps/#{@app.id}?approved=true", method: :patch%></p>
+
+
+<% if @app.status == "Accepted" %>
+  <p><u>Pets on this application</u>: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> Approved! </p>
+  <% end %>
+<% end %>
