@@ -5,7 +5,13 @@
 
   <h4> <%= "Action Required" %> </h4>
   <% @pending_pets.each do |pet| %>
-    <%= pet.name %> <br>
+    <%= pet.name %> 
+    <% pet.applications.each do |application| %>
+      <% if application.status == "Pending" %>
+        <%= link_to "To #{application.name}'s application for #{pet.name}", "/admin/applications/#{application.id}" %>
+      <% end %>
+    <% end %>
+    <br>
   <% end %>
 
 <div id="stats">
