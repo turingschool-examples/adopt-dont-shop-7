@@ -8,22 +8,28 @@
 
 
 <h2>Application Approval</h2>
+
+
 <% @application.pet_applications.each do |pet_app|  %>
-    <p>Pet Name: <%= pet_app.pet.name %>
+  <tr>
+    <td><p>Pet Name: <%= pet_app.pet.name %></td>
+    <td>  
       <% if pet_app.pet.adoptable != false && pet_app.adoption_approved == nil %>
           <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
           <%= f.hidden_field :pet_id, :value => pet_app.pet.id %>
           <%= f.submit "Approve" %>
           <% end %>
         <% end %>
-
+    </td>
+    <td>
         <% if pet_app.adoption_approved == nil %>
           <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
           <%= f.hidden_field :pet_id, :value => pet_app.pet.id %>
           <%= f.submit "Reject" %></p>
         <% end %>
       <% end %>
-
+    </td>
+    <td>
       <% if pet_app.adoption_approved == true || pet_app.pet.adoptable == false %>
         <%= "Approved" %>
       <% elsif pet_app.adoption_approved == false %>
@@ -31,6 +37,8 @@
       <% elsif pet_app.adoption_approved == nil %>
         <%= "Awaiting Approval" %>
       <% end %>
+    </td>
+</tr>
   <% end %>
 
 <h2> Status: <%= @application.status %></h2>
