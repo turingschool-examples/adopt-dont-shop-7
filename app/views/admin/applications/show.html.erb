@@ -11,22 +11,31 @@
   <th>Application Approval</th>
 </tr>
 <% @application.pet_applications.each do |pet_app|  %>
-    
-    <tr><p><td><%= pet_app.pet.name %></td></p>
-      <% if pet_app.pet.adoptable == true  %>
+  <tr id="pet_app-<%= pet_app.id %>">
+    <td><%= pet_app.pet.name %></td>
+    <td>
+      <% if pet_app.pet.adoptable != false && pet_app.adoption_approved == nil %>
           <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
           <div id="pet_app-<%= pet_app.id %>"> 
           <td><%= f.submit "Approve" %></td></div>
           <% end %>
-        <% elsif pet_app.pet_applications == true %>
-          <p>Approved</p>
-           
-          <% end %>
- 
+        <% end %>
+
+        <% if pet_app.adoption_approved == nil %>
+          <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
+          <div id="pet_app-<%= pet_app.id %>"> 
+          <tr><%= f.submit "Reject" %></tr></div>
+        <% end %>
+      <% end %>
+
+      <% if pet_app.adoption_approved == true || pet_app.pet.adoptable == false %>
+        <%= "Approved" %>
+      <% elsif pet_app.adoption_approved == false %>
+        <%= "Rejected" %>
+      <% elsif pet_app.adoption_approved == nil %>
+        <%= "Awaiting Approval" %>
+      <% end %>
   <% end %>
   </tr>
 </table>
-
-
-
-
+<h2> Status: <%= @application.status %></h2>

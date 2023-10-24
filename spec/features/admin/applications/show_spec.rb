@@ -49,14 +49,14 @@ RSpec.describe '/admin/applications/:id' do
         click_button "Submit Application"
         visit "/admin/applications/#{application1.id}"
 
-        within("#pet_app-#{application1.pet_applications.id}") do
-        click_button "Approve"
-          expect(current_path).to eq("/admin/applications/#{application1.id}")
-          save_and_open_page
-          expect(page).to have_content("Approved")
-          expect(page).to_not have_button("Approve")
+        application1.pet_applications.each do |pet_application|
+          within("pet_app-#{pet_application.id}") do
+            click_button "Approve"
+            expect(current_path).to eq("/admin/applications/#{application1.id}")
+            expect(page).to have_content("Approved")
+            expect(page).to_not have_button("Approve")
+          end
         end
-        
       end
     end
   end
