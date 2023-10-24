@@ -1,0 +1,15 @@
+<h1><%= @application.name + "'s Application" %></h1>
+<p>Name: <%= @application.name %></p>
+<p>Street Address: <%= @application.street_address %></p>
+  <li><%= @application.city %></li>
+  <li><%= @application.state %></li>
+  <li><%= @application.zip_code %></li>
+
+  <h3>Pets Applied For</h3>
+  <% @application.pets.each do |pet| %>
+  <h3><%= pet.name %></h3>
+    <% if @application.pending? %>
+      <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"}, local: true, data: {turbo: false} %>
+      <%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Rejected"}, local: true, data: {turbo: false} %>
+    <% end %>
+  <% end %>
