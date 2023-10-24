@@ -10,7 +10,14 @@ class AdminController < ApplicationController
 
   def update
     @app = App.find(params[:id])
-    @app.update!(status: 2)
-    redirect_to "/admin/apps/#{params[:id]}"
+    # require 'pry'; binding.pry
+    if params[:approved] == true
+      require 'pry'; binding.pry
+      @app.update!(status: 2)
+      redirect_to "/admin/apps/#{params[:id]}"
+    else params[:approved] == false
+      @app.update!(status: 3)
+      redirect_to "/admin/apps/#{params[:id]}"
+    end
   end
 end
