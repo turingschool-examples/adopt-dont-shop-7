@@ -99,10 +99,15 @@ RSpec.describe "the shelter show" do
 
   it "Has a statistics section showing the number of pets from this shelter that have been adopted." do
     shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
+    pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     pet_2 = shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     pet_3 = shelter_1.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     pet_4 = shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+
+    application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Approved")
+    application1.pets << pet_1 
+    application1.pets << pet_2 
+
 
     visit "/admin/shelters/#{shelter_1.id}"
     
