@@ -42,7 +42,7 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @application.update({
+    @application.update!({
       name: @application.name,
       full_address: @application.full_address,
       good_home: @application.good_home,

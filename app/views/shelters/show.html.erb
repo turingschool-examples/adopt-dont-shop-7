@@ -4,9 +4,7 @@
 
   <h3> <%= "Action Required" %> </h3>
   <% @pending_pets.each do |pet| %>
-    <% if pet.adoptable && pet.applications != nil %>
-      <%= pet.name %>
-    <% end %>
+    <%= pet.name %> <br>
   <% end %>
 
 <% else %>

@@ -109,11 +109,22 @@ RSpec.describe "the shelter show" do
     
     visit "/admin/shelters/#{shelter_3.id}"
     expect(page).to have_content("Action Required")
-    expect(page).to_not have_content("Clawdia")
+    expect(page).to have_content("Clawdia")
     expect(page).to have_content("Lucille Bald")
     expect(page).to have_content("Ann")
     expect(page).to have_content("QWERTY")
     expect(page).to have_content("Ballistic Missile")
     
+    visit "admin/applications/#{application2.id}"
+    click_button("Reject Application for #{pet_2.name}")
+
+    visit "/admin/shelters/#{shelter_3.id}"
+    expect(page).to have_content("Action Required")
+    expect(page).to_not have_content("Clawdia")
+    expect(page).to_not have_content("Lucille Bald")
+    expect(page).to_not have_content("Ann")
+    expect(page).to_not have_content("QWERTY")
+    expect(page).to_not have_content("Ballistic Missile")
+
   end
 end

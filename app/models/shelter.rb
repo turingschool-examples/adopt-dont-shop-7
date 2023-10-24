@@ -46,7 +46,9 @@ class Shelter < ApplicationRecord
 
   def pending_pets
     pets.select do |pet|
-      Pet.joins(application_id: :application).where("status = 'pending'")
+      pet.applications.any? do |application|
+        application.status == 'Pending'
+      end
     end
   end
 end
