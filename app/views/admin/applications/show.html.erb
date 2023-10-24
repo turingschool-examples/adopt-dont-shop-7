@@ -14,8 +14,8 @@
 
 <br>
 
-<section id="pets-applied-for">
-<h2>Pets Applied for:</h2>
+<section id="pets-for-adoption">
+<h2>Pets for Adoption:</h2>
 <ul>
   <% @application.pets.each do |pet| %>
     <li><%= link_to pet.name, "/pets/#{pet.id}" %></li> 
@@ -23,11 +23,11 @@
 </ul>
 </section>
 
-<h2>Pets for Adoption</h2>
+<h2>Pets Applied for</h2>
 <ul>
   <% @application.pets.each do |pet| %>
  <br><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <%# <% if pet.app_status(@application.id).status.nil? %>
+  <% if !pet.application_pet(@application.id).application.status.nil? %>
         <%= render partial: 'button', locals: {
                                       url: "/admin/applications/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=approved",
                                       method: :patch,
@@ -38,19 +38,12 @@
                                       method: :patch,
                                       button_text: "Reject #{pet.name}"
         } %>
-        <%# <% elsif pet.app_status(@application.id).status == "Approved" %>
-            <%# <%= "#{pet.name} has been approved" %>
-        <%# <% elsif pet.app_status(@application.id).status == "Rejected" %>
-            <%# <%= "#{pet.name} has been rejected" %>
-    <%# <% end %>
+        <% elsif pet.application_pet(@application.id).application.status == "Approved" %>
+            <%= "#{pet.name} has been approved" %>
+        <% elsif pet.application_pet(@application.id).application.status == "Rejected" %>
+            <%= "#{pet.name} has been rejected" %>
+    <% end %>
   <% end %>
-
-
-      <%# <% if @approved_pets.include?(pet) %>
-        <%# <span class="approved-indicator">Approved</span>
-      <% else %>
-        <%# <%= link_to "Approve", approve_pet_admin_application_path(id: @application.id, pet_id: pet.id), method: :post, data: { confirm: "Are you sure you want to approve this pet?" } %>
-      <%# <% end %>
 </ul>
 
 <section id="app-status">

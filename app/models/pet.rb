@@ -13,7 +13,7 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def app_status(application_id)
+  def application_pet(application_id)
     ApplicationPet.where("pet_id = ? AND application_id = ?", id, application_id).first
   end
 end
