@@ -20,26 +20,42 @@ RSpec.describe '/admin/applications/:id' do
   
   describe 'as a visitor' do
     describe 'when I visit /admin/applications/:id' do
-      it 'has displays button to approve for adoption' do 
+      it 'has displays button to approve for adoption' do
+        shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        application1 = Application.create!(name: "Hannah Banana", street_address: "1234 Sugarwood Cir", city: "Newport", state: "Kentucky", zip_code: "41071", description: "I already have a cat and my cat Dave needs a friend. Dave is very friendly and other cat would be a great addition for our household!")
+        pet_1 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald") 
+        pet_3 = shelter_1.pets.create!(adoptable: true, age: 5, breed: "nebelong", name: "Pom Pom") 
+        application1.pets << pet_1
+        application1.pets << pet_3
+
+        visit "/applications/#{@application1.id}"
+        fill_in :description, with: "I know how to take care pets!"
+        click_button "Submit Application"
+
         visit "/admin/applications/#{@application1.id}"
         expect(page).to have_button("Approve", count: 2)
       end
 
       it 'approves a pet for adoption' do
-      visit "/applications/#{@application1.id}"
-      fill_in "Enter pet name", with: "Pom Pom"
-      click_button "Search"
-      click_button "Adopt this Pet"
-      fill_in "Enter answer", with: "I know how to take care pets!"
-      click_button "Submit Application"
-      visit "/admin/applications/#{@application1.id}"
-        # require 'pry'; binding.pry
-        within("tr:contains('#{@pet_1.name}')") do
+        shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        application1 = Application.create!(name: "Hannah Banana", street_address: "1234 Sugarwood Cir", city: "Newport", state: "Kentucky", zip_code: "41071", description: "I already have a cat and my cat Dave needs a friend. Dave is very friendly and other cat would be a great addition for our household!")
+        pet_1 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald") 
+        pet_3 = shelter_1.pets.create!(adoptable: true, age: 5, breed: "nebelong", name: "Pom Pom")  
+        application1.pets << pet_1
+        application1.pets << pet_3
+        
+        visit "/applications/#{application1.id}"
+        fill_in :description, with: "I know how to take care pets!"
+        click_button "Submit Application"
+        visit "/admin/applications/#{application1.id}"
+
+        within("#pet-#{pet_1.id}") do
           click_button "Approve"
-          expect(current_path).to eq("/admin/applications/#{@application1.id}")
+          expect(current_path).to eq("/admin/applications/#{application1.id}")
           expect(page).to_not have_button("Approve")
           expect(page).to have_content("Approved")
         end
+        
       end
     end
   end

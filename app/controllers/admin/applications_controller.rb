@@ -1,7 +1,6 @@
 class Admin::ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    # require 'pry'; binding.pry  
   end
 
   def update
@@ -18,4 +17,3 @@ class Admin::ApplicationsController < ApplicationController
   end
 end
 
-Pet.joins(:applications).where("application_id = 1").pluck(:status)
