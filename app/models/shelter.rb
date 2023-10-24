@@ -29,7 +29,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.age_stats(shelter)
-    shelter.pets.average(:age)
+    shelter.pets.average(:age).to_f.round(2)
   end
 
   def self.pet_count(shelter)

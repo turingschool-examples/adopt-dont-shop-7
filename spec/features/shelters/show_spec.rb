@@ -93,7 +93,7 @@ RSpec.describe "the shelter show" do
     within("div#stats") do
       expect(page).to have_content("Shelter Statistics")
       expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age)}")
-      expect(page).to have_content("Pet Count: 3")
+      expect(page).to have_content("Adoptable Pet Count: 3")
     end
   end
 end
