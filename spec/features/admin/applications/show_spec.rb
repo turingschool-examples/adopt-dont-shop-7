@@ -50,7 +50,7 @@ RSpec.describe '/admin/applications/:id' do
         visit "/admin/applications/#{application1.id}"
 
         application1.pet_applications.each do |pet_application|
-          within("tr:contains('#{@pet_3.name}')") do
+          within("pet_app-#{pet_application.id}") do
             click_button "Approve"
             expect(current_path).to eq("/admin/applications/#{application1.id}")
             expect(page).to have_content("Approved")
