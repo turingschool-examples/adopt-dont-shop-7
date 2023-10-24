@@ -16,7 +16,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{application.id}" 
     else 
       flash[:error] = "Error: All fields must be filled in to submit"
-      redirect_to "/applications/new" 
+      render :new
     end 
   end
 
