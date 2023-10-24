@@ -27,7 +27,7 @@ RSpec.describe "As a visitor" do
       visit "/applications/#{application.id}"
       save_and_open_page
       
-      expect(find("form")).to have_content("why would you make a good owner for these pet(s)")
+      expect(find("form")).to have_content("Why would you make a good owner for these pet(s)")
     end
   end
 end
