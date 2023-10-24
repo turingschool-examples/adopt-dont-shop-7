@@ -149,4 +149,43 @@ RSpec.describe "the shelters index" do
       expect("Fancy pets of Colorado").to appear_before("RGV animal shelter")
     end
   end
+
+  it "Every Shelter name on the admin index page is a link to the admin shelter page" do 
+
+    application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Pending")
+    application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I like fish", status: "Rejected")
+
+    application1.pets << @pet_1 
+    application1.pets << @pet_2 
+    application2.pets << @pet_2 
+    application2.pets << @pet_3
+
+    visit "/admin/shelters"
+
+
+    within("div#admin") do
+      save_and_open_page
+      click_link("Aurora shelter")
+      expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
+    end
+
+    visit "/admin/shelters"
+    within("div#user") do
+      click_link("Aurora shelter")
+      expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
+    end
+
+    visit "/admin/shelters"
+    within("div#user") do
+      click_link("Fancy pets of Colorado")
+      expect(current_path).to eq("/admin/shelters/#{@shelter_3.id}")
+    end
+
+    visit "/admin/shelters"
+    within("div#user") do
+      click_link("RGV animal shelter")
+      expect(current_path).to eq("/admin/shelters/#{@shelter_2.id}")
+    end
+  end
+
 end
