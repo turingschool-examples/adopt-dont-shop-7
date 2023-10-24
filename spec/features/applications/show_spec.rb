@@ -201,7 +201,7 @@ RSpec.describe "Application Show Page" do
             expect(page).to have_content("Pending")
             expect(page).to have_content("I also have a dog named Lola who is a showgirl.")
             expect(page).to have_no_button("Search")
-save_and_open_page
+
             within "#appliedPets" do
               expect(page).to_not have_content("Why are you qualified to adopt these pets?")
               expect(page).to_not have_content("Add a Pet")
@@ -216,8 +216,6 @@ save_and_open_page
         
             expect(page).to_not have_content("Why are you qualified to adopt these pets?")
             expect(page).to have_no_button("Submit")
-
-
           end
         end
       end
