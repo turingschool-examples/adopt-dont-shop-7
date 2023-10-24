@@ -22,7 +22,6 @@ RSpec.describe '/admin/applications/:id' do
     describe 'when I visit /admin/applications/:id' do
       it 'has displays button to approve for adoption' do 
         visit "/admin/applications/#{@application1.id}"
-
         expect(page).to have_button("Approve", count: 2)
       end
 

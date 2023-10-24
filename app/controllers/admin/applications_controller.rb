@@ -5,11 +5,10 @@ class Admin::ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    
     if params[:commit] == "Approve"
-      application.update(status: "Approved")
+      application.update(status: params[:status].to_i)
     elsif params[:commit] == "Reject"
-      application.update(status: "Rejected")
+      application.update(status: params[:status].to_i)
     end
 
     redirect_to "/admin/applications/#{application.id}"
