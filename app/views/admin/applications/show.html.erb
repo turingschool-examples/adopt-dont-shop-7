@@ -27,20 +27,20 @@
 <ul>
   <% @application.pets.each do |pet| %>
  <br><%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-  <% if !pet.application_pet(@application.id).application.status.nil? %>
+  <% if pet.application_pet(@application.id).status.nil? %>
         <%= render partial: 'button', locals: {
-                                      url: "/admin/applications/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=approved",
+                                      url: "/admin/application_pets/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=approved",
                                       method: :patch,
                                       button_text: "Approve #{pet.name}"
         } %>
         <%= render partial: 'button', locals: {
-                                      url: "/admin/applications/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=rejected",
+                                      url: "/admin/application_pets/#{@application.id}?pet_id=#{pet.id}&application_id=#{@application.id}&status=rejected",
                                       method: :patch,
                                       button_text: "Reject #{pet.name}"
         } %>
-        <% elsif pet.application_pet(@application.id).application.status == "Approved" %>
+        <% elsif pet.application_pet(@application.id).status == "Approved" %>
             <%= "#{pet.name} has been approved" %>
-        <% elsif pet.application_pet(@application.id).application.status == "Rejected" %>
+        <% elsif pet.application_pet(@application.id).status == "Rejected" %>
             <%= "#{pet.name} has been rejected" %>
     <% end %>
   <% end %>
