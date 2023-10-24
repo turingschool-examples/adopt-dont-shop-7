@@ -49,6 +49,7 @@ RSpec.describe Pet, type: :model do
       it 'shows if pet is adoptable' do
         expect(Pet.adoptable_search("Clawdia")).to eq([@pet_2])
         expect(Pet.adoptable_search("Mr.")).to eq([@pet_1])
+        expect(Pet.adoptable_search("Ann")).to eq([])
       end
     end
   end
