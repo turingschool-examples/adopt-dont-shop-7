@@ -1,11 +1,11 @@
 <h1>Application Show Page</h1>
 <p>Name: <%= @application.name %></p>
-<p>Street: <%= @application.street_addr %></p>
+<p>Street: <%= @application.street_address %></p>
 <p>City: <%= @application.city %></p>
 <p>State: <%= @application.state %></p>
-<p>Zip: <%= @application.zip %></p>
+<p>Zip: <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
-<p>Status: <%= @application.status %></p>
+<p>Status: <%= @application.application_status %></p>
 
 
 <% if @application.in_progress? %>
@@ -13,4 +13,5 @@
     <%= form_with "/applications", method: :get, data: {turbo: false} do |form| %>
     <%= form.label "Search for:" %>
     <%= form.text_field :query %>
+    <% end %>
 <% end %>
