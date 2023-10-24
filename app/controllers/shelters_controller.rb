@@ -31,6 +31,7 @@ class SheltersController < ApplicationController
       @current_shelter = Shelter.find(params[:id])
       @shelter = Shelter.name_and_address(params[:id])
       @age_stats = Shelter.age_stats(@current_shelter)
+      require 'pry'; binding.pry
     else
       @shelter = Shelter.find(params[:id])
     end
