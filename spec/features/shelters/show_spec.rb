@@ -92,10 +92,37 @@ RSpec.describe "the shelter show" do
 
     within("div#stats") do
       expect(page).to have_content("Shelter Statistics")
-      expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age)}")
+      expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age).to_f.round(1)}")
       expect(page).to have_content("Adoptable Pet Count: 3")
     end
   end
+
+
+  it "Has a statistics section showing the number of pets from this shelter that have been adopted." do
+    shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+    pet_2 = shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+    pet_3 = shelter_1.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
+    pet_4 = shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+
+    application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Approved")
+    application1.pets << pet_1 
+    application1.pets << pet_2 
+
+    visit "/admin/shelters/#{shelter_1.id}"
+    
+    expect(page).to have_content(shelter_1.name)
+    expect(page).to have_content(shelter_1.city)
+    expect(page).to_not have_content(shelter_1.foster_program)
+    expect(page).to_not have_content(shelter_1.rank)
+
+    within("div#stats") do
+      expect(page).to have_content("Shelter Statistics")
+      expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age).to_f.round(1)}")
+      expect(page).to have_content("Adoptable Pet Count: 4")
+      expect(page).to have_content("Pets who have found a home!: 2")
+    end
+  end 
 
   it "When visited by an admin, there is an action required section that shows a list of pets with pending application that have not been marked approved or rejected" do
     #Applications are automatically rejected when any pet is rejected so this will not be tested
@@ -166,7 +193,6 @@ RSpec.describe "the shelter show" do
     expect(page).to_not have_content("Ann")
     expect(page).to_not have_content("QWERTY")
     expect(page).to_not have_content("Ballistic Missile")
-
   end
 
   it "Each pet in the action required section has a link that leads to the admin show page for the pending applications they are on" do

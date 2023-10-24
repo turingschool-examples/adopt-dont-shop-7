@@ -29,17 +29,21 @@ class Shelter < ApplicationRecord
   end
 
   def self.age_stats(shelter)
-    shelter.pets.average(:age).to_f.round(2)
+    shelter.pets.average(:age).to_f.round(1)
   end
 
   def self.pet_count(shelter)
-    counter = 0
-    shelter.pets.each do |pet|
-      if pet.adoptable == true
-        counter += 1
+    shelter.pets.select do |pet|
+      pet.adoptable
+    end.count
+  end
+
+  def self.pets_with_homes(shelter)
+    shelter.pets.flat_map do |pet|
+      pet.applications.select do |application|
+        application.status == "Approved"
       end
-    end
-    counter
+    end.count
   end
 
   def pet_count
