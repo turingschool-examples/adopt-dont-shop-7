@@ -12,6 +12,7 @@
 <p> <b>Application Status: </b><%= @application.status %></p>
 
 <% if @application.status == "In Progress" %>
+<br>
   <h3>Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
     <%= form.hidden_field :search, value: "pet" %>
@@ -26,4 +27,13 @@
   <p><b><%= pet.name %> the <%= pet.breed %></b> / Age: <%= pet.age %></p>
   <%= button_to "Adopt #{pet.name}", {controller: "applications", action: "update", application_id: @application.id, pet_id: pet.id}, method: :patch %>
   <% end %>
+<% end %>
+
+<% if @application.pets.empty? %>
+<% elsif !@application.pets.nil? && @application.status == "In Progress"%>
+  <h3><%= "Please include why you would be a good owner for the pet(s) applied for:" %></h3>
+    <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %>
+      <input type="text" id="reason" name="reason"> <br>
+      <%= f.submit "Submit this Application" %>
+      <% end %>
 <% end %>

@@ -10,7 +10,6 @@ RSpec.describe "Admin Index Page" do
   # USER STORY 10
   it "lists all the shelter names in reverse alphabetical order" do
     visit "/admin/shelters"
-    save_and_open_page
     first = find("#shelter-#{@shelter_2.id}")
     second = find("#shelter-#{@shelter_3.id}")
     third = find("#shelter-#{@shelter_1.id}")
