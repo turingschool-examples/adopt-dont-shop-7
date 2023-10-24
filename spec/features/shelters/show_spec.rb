@@ -48,11 +48,11 @@ RSpec.describe "the shelter show" do
     shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
 
-    visit "/admin/shelter/#{shelter_1.id}"
+    visit "/admin/shelters/#{shelter_1.id}"
 
     expect(page).to have_content(shelter_1.name)
     expect(page).to have_content(shelter_1.city)
-    expect(page).to_not have_content(shelter_1.forster_program)
+    expect(page).to_not have_content(shelter_1.foster_program)
     expect(page).to_not have_content(shelter_1.rank)
   end
 end
