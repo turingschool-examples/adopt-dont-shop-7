@@ -24,10 +24,10 @@ RSpec.describe "Applications show page" do
       visit "/applications/#{application.id}"
 
       expect(page).to have_content(application.name)
-      expect(page).to have_content(application.street_addr)
+      expect(page).to have_content(application.street_address)
       expect(page).to have_content(application.city)
       expect(page).to have_content(application.state)
-      expect(page).to have_content(application.zip)
+      expect(page).to have_content(application.zip_code)
       expect(page).to have_content(application.description)
     end
       
@@ -64,6 +64,17 @@ RSpec.describe "Applications show page" do
       # it "each pet name is a link to its show page" do
       #   visit "/pets/#{@pet.id}"
       # end
+
+      it "will return partial matches in a Pet name's search" do
+        # 8. Partial Matches for Pet Names
+        # As a visitor
+        # When I visit an application show page
+        visit "/applications/#{application.id}"
+        # And I search for Pets by name
+        # Then I see any pet whose name PARTIALLY matches my search
+        # For example, if I search for "fluff", my search would 
+        # match pets with names "fluffy", "fluff", and "mr. fluff"
+      end
   end
 end 
 
