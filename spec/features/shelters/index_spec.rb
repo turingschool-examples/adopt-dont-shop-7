@@ -131,4 +131,23 @@ RSpec.describe "the shelters index" do
       expect(page).to_not have_content("Fancy pets of Colorado")
     end
   end
+
+  it "Pending Applications appear in alphabetical order" do
+    application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Pending")
+    application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I like fish", status: "Rejected")
+    pet_4 = @shelter_2.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
+
+    application1.pets << @pet_1 
+    application1.pets << @pet_2 
+    application2.pets << @pet_2 
+    application2.pets << @pet_3 
+    application2.pets << pet_4
+
+    visit "/admin/shelters"
+    
+    within("div#admin") do
+      expect("Aurora shelter").to appear_before("Fancy pets of Colorado")
+      expect("Fancy pets of Colorado").to appear_before("RGV animal shelter")
+    end
+  end
 end
