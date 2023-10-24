@@ -27,5 +27,20 @@ RSpec.describe "the application show" do
       expect(@john.status).to eq("Accepted")
       expect(@bruno.adoptable).to eq(false)
     end
+
+    # User Story 13, Rejecting a Pet for Adoption
+    it 'allows pet rejection' do
+      visit "/admin/applications/#{@john.id}"
+      
+      expect(page).to have_button("Reject Adoption")
+      
+      click_button("Reject Adoption")
+      
+      expect(current_path).to eq("/admin/applications/#{@john.id}")
+      expect(page).to have_content("This Adoption has been Rejected")
+      expect(page).to_not have_button("Reject Adoption")
+      expect(@bruno.adoptable).to eq(true)
+      expect(@john.status).to eq("Rejected")
+    end
   end
 end
