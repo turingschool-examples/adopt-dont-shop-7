@@ -21,7 +21,25 @@ RSpec.describe Pet, type: :model do
   describe "class methods" do
     describe "#search" do
       it "returns partial matches" do
+        # As a visitor US8
+        # When I visit an application show page
+        # And I search for Pets by name
+        # Then I see any pet whose name PARTIALLY matches my search
+        # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
         expect(Pet.search("Claw")).to eq([@pet_2])
+      end
+
+      it "returns case insensitive matches" do
+        # As a visitor US9
+        # When I visit an application show page
+        # And I search for Pets by name
+        # Then my search is case insensitive
+        # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+        expect(Pet.search("pirate")).to eq([@pet_1])
+      end
+
+      it "returns all animals on empty query" do
+        expect(Pet.search("")).to eq([@pet_1, @pet_2, @pet_3])
       end
     end
 
