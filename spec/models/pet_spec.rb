@@ -35,11 +35,11 @@ RSpec.describe Pet, type: :model do
         # And I search for Pets by name
         # Then my search is case insensitive
         # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
-        expect(Pet.search("pirate")).to eq [@pet_1]
+        expect(Pet.search("pirate")).to eq([@pet_1])
       end
 
       it "returns all animals on empty query" do
-        expect(Pet.search("")).to eq [@pet_1, @pet_2, @pet_3]
+        expect(Pet.search("")).to eq([@pet_1, @pet_2, @pet_3])
       end
     end
 
