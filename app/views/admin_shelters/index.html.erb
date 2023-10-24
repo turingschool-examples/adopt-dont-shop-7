@@ -5,3 +5,6 @@
 <% end %><br>
 
 <h3>Shelters with Pending Applications</h3>
+<% @shelters_with_pending_applications.each do |shelter| %>
+  <%= shelter.name %>
+<% end %>
