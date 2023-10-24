@@ -110,9 +110,33 @@ RSpec.describe "As a visitor" do
       @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
 
       visit "/applications/#{application.id}"
-      save_and_open_page
+      fill_in 'search for a pet', with: "Mr. Pirate"
+      click_button("submit")
+      click_button("Adopt #{@pet_1.name}")
+ 
+      expect(page).to have_content("Why would you make a good owner for these pet(s)")
+    end
+  end
+  describe "When I fill in that input And I click a button to submit this application" do
+    it "I am taken back to the application's show page And I see an indicator that the application is 'Pending' And I see all the pets that I want to adopt And I do not see a section to add more pets to this application" do
+      application = Application.create(name: "Jimmy", street_address: "1234 fake st", city: "littleton", state: "co", zip_code: 85313, description: "cute and lovable", application_status: "in progress")
+      @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+
+      visit "/applications/#{application.id}"
+      fill_in 'search for a pet', with: "Mr. Pirate"
+      click_button("submit")
+      click_button("Adopt #{@pet_1.name}")
+      fill_in 'explanation', with: "cuz"
+      click_button("submit application")
       
-      expect(find("form")).to have_content("why would you make a good owner for these pet(s)")
+
+      expect(current_path).to eq("/applications/#{application.id}")
+      # require'pry';binding.pry
+      expect(page).to have_content("pending")
+      expect(page).to have_content("Pets")
+      expect(page).to_not have_content("Why would you make a good owner for these pet(s)")
+      expect(page).to_not have_content("search for a pet")
     end
   end
 end
