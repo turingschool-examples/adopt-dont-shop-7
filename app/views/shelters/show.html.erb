@@ -1,11 +1,19 @@
 <% if @admin %>
-<h3><%= @shelter.name %></h3>
-<h3><%= @shelter.city %></h3>
+
+  <h3><%= @shelter.name %></h3>
+  <h3><%= @shelter.city %></h3>
+
+  <h4> <%= "Action Required" %> </h4>
+  <% @pending_pets.each do |pet| %>
+    <%= pet.name %> <br>
+  <% end %>
+
 <div id="stats">
 <h4>Shelter Statistics</h3>
   <%= "Average Pet Age: #{@age_stats}" %> <br>
   <%= "Adoptable Pet Count: #{@pet_count}" %> <br>
 </div>
+
 <% else %>
   <h1><%= @shelter.name %></h1>
   <p>Rank: <%= @shelter.rank %></p>

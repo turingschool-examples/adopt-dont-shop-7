@@ -57,4 +57,12 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where("age >= ?", age_filter)
   end
+
+  def pending_pets
+    pets.select do |pet|
+      pet.applications.any? do |application|
+        application.status == 'Pending'
+      end
+    end
+  end
 end
