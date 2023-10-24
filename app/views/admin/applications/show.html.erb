@@ -6,7 +6,7 @@
   margin-right: 8px;
 }
 </style>
-
+<h2>Application Administrator Tools</h2>
 <p><u>Name</u>: <%= @application.name %></p>
 <p><u>Address</u>: <%= @application.full_address %> </p>
 <p><u>Why would you make a good home?</u>: <%= @application.description %> </p>
@@ -15,16 +15,28 @@
 <p><u>Pets I'd Like to Adopt</u>:</p>
 <% @pets.each do |pet| %>
 <div class= "buttons">
-  <%= form_with url:"/admin/applications/#{@application.id}", method: :patch, local: :true do |f| %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %> 
-    <%= hidden_field_tag :pet_id, "#{pet.id}" %>
-    <%= hidden_field_tag :approved?, "Yes" %>
-    <%= f.submit "Approve Adoption", class: "margin" %>
-  <%end%>
-  <%= form_with url:"/admin/applications/#{@application.id}", method: :patch, local: :true do |f| %>
-    <%= hidden_field_tag :pet_id, "#{pet.id}" %>
-    <%= hidden_field_tag :approved?, "No" %>
-    <%= f.submit "Reject Adoption" %>
+  <% if @application.status == "Pending" %>
+    <%= form_with url:"/admin/applications/#{@application.id}", method: :patch, local: :true do |f| %>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %> 
+      <%= hidden_field_tag :pet_id, "#{pet.id}" %>
+      <%= hidden_field_tag :approved?, "Yes" %>
+      <%= f.submit "Approve Adoption", class: "margin" %>
+    <%end%>
+    <%= form_with url:"/admin/applications/#{@application.id}", method: :patch, local: :true do |f| %>
+      <%= hidden_field_tag :pet_id, "#{pet.id}" %>
+      <%= hidden_field_tag :approved?, "No" %>
+      <%= f.submit "Reject Adoption" %>
+    <%end%>
+  <% elsif @application.status == "Accepted" %>
+    <p>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %> 
+      This Adoption has been Approved.
+    </p>
+  <% elsif @application.status == "Rejected" %>
+    <p>
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %> 
+      This Adoption has been Rejected.
+    </p>
   <%end%>
 </div>
 <%end%>

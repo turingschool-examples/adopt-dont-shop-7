@@ -5,16 +5,21 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def update
-    @application = Application.find(params[:application_id])
+    application = Application.find(params[:application_id])
     selected_pet = Pet.find(params[:pet_id])
-    require 'pry'; binding.pry
     if params[:approved?] == "Yes"
-      approve(selected_pet)
+      application.update(status: 2)
+      selected_pet.update(adoptable: false)
+    elsif params[:approved?] == "No"
+      application.update(status: 3)
+    else
+      application.update(status: 1)
     end
-    if params[:approved?] == "No"
-      reject(selected_pet)
-    end
-    @application.update(status: 2)
-    redirect_to "/admin/applications/#{@application.id}"
+    redirect_to "/admin/applications/#{application.id}"
+  end
+
+  private
+  def application_params
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end
