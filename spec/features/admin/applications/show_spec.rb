@@ -42,5 +42,20 @@ RSpec.describe "the application show" do
       expect(@bruno.adoptable).to eq(true)
       expect(@john.status).to eq("Rejected")
     end
+
+    # User Story 14, Approved/Rejected Pets on one Application do not affect other Applications
+    it 'will not affect other pets' do
+      visit "/admin/applications/#{@john.id}"
+      @regan.add_pet(@bruno)
+
+      expect(page).to have_button("Approve Adoption")
+      
+      click_button("Approve Adoption")
+
+      visit "/admin/applications/#{@regan.id}"
+
+      expect(page).to have_button("Reject Adoption")
+      expect(page).to have_button("Approve Adoption")
+    end
   end
 end
