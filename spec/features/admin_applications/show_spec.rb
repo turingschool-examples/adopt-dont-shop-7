@@ -22,6 +22,7 @@ RSpec.describe "admin applications show page" do
   end
 
   it "allows admin to approve pet on application" do
+    # US 12
     # As a visitor
     # When I visit an admin application show page ('/admin/applications/:id')
     # For every pet that the application is for, I see a button to approve the application for that specific pet
