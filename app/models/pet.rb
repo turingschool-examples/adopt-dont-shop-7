@@ -22,4 +22,18 @@ class Pet < ApplicationRecord
       })
     end
   end
+
+  def self.update_rejected_apps(application)
+    adopted_pets = application.pets
+    adopted_pets.each do |pet|
+      app_pets = ApplicationPet.where("pet_id = ?", pet.id)
+      app_pets.each do |app_pet|
+        unless app_pet.application_id == application.id
+          app_pet.update({
+            approved: false
+          })
+        end
+      end
+    end
+  end
 end
