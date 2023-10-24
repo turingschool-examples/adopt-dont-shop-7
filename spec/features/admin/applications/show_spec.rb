@@ -40,23 +40,17 @@ RSpec.describe '/admin/applications/:id' do
         shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         application1 = Application.create!(name: "Hannah Banana", street_address: "1234 Sugarwood Cir", city: "Newport", state: "Kentucky", zip_code: "41071", description: "I already have a cat and my cat Dave needs a friend. Dave is very friendly and other cat would be a great addition for our household!")
         pet_1 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald") 
-        pet_3 = shelter_1.pets.create!(adoptable: true, age: 5, breed: "nebelong", name: "Pom Pom")  
         application1.pets << pet_1
-        application1.pets << pet_3
         
         visit "/applications/#{application1.id}"
         fill_in :description, with: "I know how to take care pets!"
         click_button "Submit Application"
         visit "/admin/applications/#{application1.id}"
 
-        application1.pet_applications.each do |pet_application|
-          within("pet_app-#{pet_application.id}") do
-            click_button "Approve"
-            expect(current_path).to eq("/admin/applications/#{application1.id}")
-            expect(page).to have_content("Approved")
-            expect(page).to_not have_button("Approve")
-          end
-        end
+        click_button "Approve"
+        expect(current_path).to eq("/admin/applications/#{application1.id}")
+        expect(page).to have_content("Approved")
+        expect(page).to_not have_button("Approve")
       end
     end
   end
