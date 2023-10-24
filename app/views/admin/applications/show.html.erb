@@ -20,6 +20,21 @@
           <td><%= f.submit "Approve" %></td></div>
           <% end %>
         <% end %>
+
+        <% if pet_app.adoption_approved == nil %>
+          <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
+          <div id="pet_app-<%= pet_app.id %>"> 
+          <tr><%= f.submit "Reject" %></tr></div>
+        <% end %>
+      <% end %>
+
+      <% if pet_app.adoption_approved == true || pet_app.pet.adoptable == false %>
+        <%= "Approved" %>
+      <% elsif pet_app.adoption_approved == false %>
+        <%= "Rejected" %>
+      <% elsif pet_app.adoption_approved == nil %>
+        <%= "Awaiting Approval" %>
+      <% end %>
   <% end %>
   </tr>
 </table>
