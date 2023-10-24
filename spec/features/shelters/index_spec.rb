@@ -144,10 +144,36 @@ RSpec.describe "the shelters index" do
     application2.pets << pet_4
 
     visit "/admin/shelters"
-    save_and_open_page
     within("div#admin") do
       expect("Aurora shelter").to appear_before("Fancy pets of Colorado")
       expect("Fancy pets of Colorado").to appear_before("RGV animal shelter")
     end
   end
+
+  it "Every Shelter name on the admin index page is a link to the admin shelter page" do 
+    visit "/admin/shelters"
+    within("div#admin") do
+      click_link("Aurora shelter")
+      expect(current_path).to eq("/admin/shelters/#{@shelter1.name}")
+    end
+
+    visit "/admin/shelters"
+    within("div#user") do
+      click_link("Aurora shelter")
+      expect(current_path).to eq("/admin/shelters/#{@shelter1.name}")
+    end
+
+    visit "/admin/shelters"
+    within("div#user") do
+      click_link("Fancy pets of Colorado")
+      expect(current_path).to eq("/admin/shelters/#{@shelter3.name}")
+    end
+
+    visit "/admin/shelters"
+    within("div#user") do
+      click_link("RGV animal shelter")
+      expect(current_path).to eq("/admin/shelters/#{@shelter2.name}")
+    end
+  end
+
 end
