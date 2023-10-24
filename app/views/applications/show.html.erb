@@ -10,16 +10,6 @@
   <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
 <% end %>
 
-<% if @application.pets.count > 0 && @application.application_status == "in progress" %>
-  <%= form_with url: "/applications", method: :put, data: { turbo: false } do |form| %>
-  <%= form.label "why would you make a good owner for these pet(s)" %>
-  <%= form.text_field :explanation%>
-  <br>
-  <%= form.hidden_field :id, value: "#{@application.id}"%>
-  <%= form.hidden_field :application_status, value: "pending"%>
-  <%= form.submit "submit application"%>
-  <% end %>
-
 <% if @application.application_status == "in progress" %>
   <%= form_with url: "/applications/#{@application.id}", method: :get, data: {turbo: false} do |form| %>
     <p><%= form.label :search_by_name, 'search for a pet:' %></p>
@@ -36,4 +26,15 @@
     <% end %>
   <% end %>
 
+<% end %>
+
+<% if @application.pets.count > 0 && @application.application_status == "in progress" %>
+  <%= form_with url: "/applications", method: :put, data: {turbo: false}, local: true do |form| %>
+  <%= form.label "why would you make a good owner for these pet(s)" %>
+  <%= form.text_field :explanation%>
+  <br>
+  <%= form.hidden_field :id, value: "#{@application.id}"%>
+  <%= form.hidden_field :application_status, value: "pending"%>
+  <%= form.submit "submit application"%>
+  <% end %>
 <% end %>

@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    if params[:search_by_name].present?
+    if params[:search_by_name].present? 
       threshold = params[:search_by_name].to_s
       @pets = Pet.filter_by_name(threshold)
     end
@@ -45,7 +45,7 @@ class ApplicationsController < ApplicationController
     @application.update({
       application_status: params[:application_status]
     })
-
+    # require'pry';binding.pry
     redirect_to "/applications/#{params[:id]}"
   end
 end
