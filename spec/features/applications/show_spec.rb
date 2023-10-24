@@ -42,7 +42,7 @@ RSpec.describe "applications show page" do
   end
 
   describe "unsubmitted applications" do
-    # US4
+    # US 4
     # As a visitor
     # When I visit an application's show page
     # And that application has not been submitted,
@@ -71,7 +71,7 @@ RSpec.describe "applications show page" do
       expect(page).to have_content "Search Results:\nBuster"
     end
 
-    # US5
+    # US 5
     # As a visitor
     # When I visit an application's show page
     # And I search for a Pet by name
@@ -93,7 +93,7 @@ RSpec.describe "applications show page" do
       expect(page).to have_content "Pets: Buster"
     end
 
-    # US6
+    # US 6
     # As a visitor
     # When I visit an application's show page
     # And I have added one or more pets to the application
@@ -107,22 +107,21 @@ RSpec.describe "applications show page" do
     # And I do not see a section to add more pets to this application
     it "can submit application with a reason and changes the application status to 'pending' displaying all added pets" do
       visit "/applications/#{@app1.id}"
-      
-      fill_in :q, with: "Kyo"
+
+      fill_in :q, with: "Buster"
       click_button "Search"
 
-      within("#pet-#{@p2.id}") do
+      within("#pet-#{@p1.id}") do
         click_button "Adopt"
       end
 
-      expect(page).to have_content("Pets: Kyo")
+      expect(page).to have_content("Pets: Buster | Kyo")
 
       fill_in :reason_for_good_owner, with: "A loving family."
       click_button "Submit Application"
-
       expect(current_path).to eq("/applications/#{@app1.id}")
       expect(page).to have_content("Application Status: Pending")
-      expect(page).to have_content("Pets: Kyo")
+      expect(page).to have_content("Pets: Buster | Kyo")
       expect(page).to_not have_content("Add a Pet")
     end
 
@@ -132,9 +131,9 @@ RSpec.describe "applications show page" do
     # And I have not added any pets to the application
     # Then I do not see a section to submit my application
     it "does not display a section to submit application if a pet has not been added" do
-      visit "/applications/#{@app1.id}"
+      visit "/applications/#{@app_no_pets.id}"
 
-      expect(@app1.pet_names).to be([])
+      expect(@app_no_pets.pet_names).to eq([])
 
       expect(page).to_not have_content("Submit Application")
     end
