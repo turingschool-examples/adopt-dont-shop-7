@@ -12,9 +12,8 @@
 </tr>
 <% @application.pets.each do |pet|  %>
     <tr><p><td><%= pet.name %></td></p>
-      <% if @application.status == "Pending" && pet.adoptable == true %>
+      <% if @application.status == "Pending" %>
           <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
-          <%= f.hidden_field :status, :value=>2 %>
           <td><%= f.submit "Approve" %></td>
           <% end %>
     <% end %>

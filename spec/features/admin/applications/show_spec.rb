@@ -10,8 +10,8 @@ RSpec.describe '/admin/applications/:id' do
     @pet_2 = @shelter_1.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster") 
     @pet_3 = @shelter_1.pets.create!(adoptable: true, age: 5, breed: "nebelong", name: "Pom Pom") 
 
-    @application1 = Application.create!(name: "Hannah Banana", street_address: "1234 Sugarwood Cir", city: "Newport", state: "Kentucky", zip_code: "41071", description: "I already have a cat and my cat Dave needs a friend. Dave is very friendly and other cat would be a great addition for our household!",status: "Pending")
-    @application2 = Application.create!(name: "Britney Spears", street_address: "250 Zimmerman Rd", city: "Hamburg", state: "New York", zip_code: "14075", description: "I am looking for my first dog. I am always home, because I am working from home. Since I am always around, I will be a great responsible dog owner!",status: "Pending")
+    @application1 = Application.create!(name: "Hannah Banana", street_address: "1234 Sugarwood Cir", city: "Newport", state: "Kentucky", zip_code: "41071", description: "I already have a cat and my cat Dave needs a friend. Dave is very friendly and other cat would be a great addition for our household!")
+    @application2 = Application.create!(name: "Britney Spears", street_address: "250 Zimmerman Rd", city: "Hamburg", state: "New York", zip_code: "14075", description: "I am looking for my first dog. I am always home, because I am working from home. Since I am always around, I will be a great responsible dog owner!", status: "Pending")
 
     @application1.pets << @pet_1
     @application1.pets << @pet_3
@@ -26,8 +26,14 @@ RSpec.describe '/admin/applications/:id' do
       end
 
       it 'approves a pet for adoption' do
-        visit "/admin/applications/#{@application1.id}"
-
+      visit "/applications/#{@application1.id}"
+      fill_in "Enter pet name", with: "Pom Pom"
+      click_button "Search"
+      click_button "Adopt this Pet"
+      fill_in "Enter answer", with: "I know how to take care pets!"
+      click_button "Submit Application"
+      visit "/admin/applications/#{@application1.id}"
+        # require 'pry'; binding.pry
         within("tr:contains('#{@pet_1.name}')") do
           click_button "Approve"
           expect(current_path).to eq("/admin/applications/#{@application1.id}")

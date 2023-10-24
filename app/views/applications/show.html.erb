@@ -37,10 +37,10 @@
 
 <% if @application.status == "In Progress" && @application.pets.exists? %>
   <h3>Why I would make a good owner for these pet(s):</h3>
-  <%= form_with url: "/applications/#{@application.id}?change=:status", method: :patch, data: { turbo: false } do |f| %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
   <%= f.label :description %>
   <%= f.text_field :description, placeholder: 'Enter answer' %>
-  <%= f.hidden_field :status, :value=>1 %>
+  <%= f.hidden_field :status, :value=>"Pending" %>
   <p><%= f.submit "Submit Application" %></p>
   <% end %>
 <% end %>
