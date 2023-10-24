@@ -29,12 +29,12 @@ class Shelter < ApplicationRecord
   end
 
   def self.age_stats(shelter)
-    shelter.pets.average(:age).to_f.round(2)
+    shelter.pets.average(:age).to_f.round(1)
   end
 
   def self.pet_count(shelter)
     shelter.pets.select do |pet|
-      pet.adoptable == true
+      pet.adoptable
     end.count
   end
 

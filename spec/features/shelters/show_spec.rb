@@ -97,7 +97,7 @@ RSpec.describe "the shelter show" do
     end
   end
 
-  xit "Has a statistics section showing the number of pets from this shelter that have been adopted." do
+  it "Has a statistics section showing the number of pets from this shelter that have been adopted." do
     shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     pet_2 = shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
@@ -108,7 +108,7 @@ RSpec.describe "the shelter show" do
     application1.pets << pet_1 
     application1.pets << pet_2 
 
-
+    # require 'pry'; binding.pry
     visit "/admin/shelters/#{shelter_1.id}"
     
     expect(page).to have_content(shelter_1.name)
