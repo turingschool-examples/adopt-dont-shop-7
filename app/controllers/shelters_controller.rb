@@ -28,7 +28,9 @@ class SheltersController < ApplicationController
   def show
     if params[:admin] == "admin"
       @admin = true
+      @current_shelter = Shelter.find(params[:id])
       @shelter = Shelter.name_and_address(params[:id])
+      @age_stats = Shelter.age_stats(@current_shelter)
     else
       @shelter = Shelter.find(params[:id])
     end
