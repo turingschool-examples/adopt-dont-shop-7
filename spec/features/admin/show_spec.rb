@@ -16,8 +16,8 @@ RSpec.describe "admin application show page" do
     # As a visitor
     # When I visit an admin application show page ('/admin/applications/:id')
     visit "/admin/apps/#{@app1.id}"
+    
     # For every pet that the application is for, I see a button to approve the application for that specific pet
- 
     expect(page).to have_button("approve application to adopt #{@pet2.name}")
     # When I click that button
     click_button("approve application to adopt #{@pet2.name}")
@@ -26,7 +26,7 @@ RSpec.describe "admin application show page" do
     # And next to the pet that I approved, I do not see a button to approve this pet
 
     expect(page).to_not have_button("approve application to adopt #{@pet2}")
-    save_and_open_page
+  
     # And instead I see an indicator next to the pet that they have been approved
     expect(page).to have_content("Approved!")
   end
