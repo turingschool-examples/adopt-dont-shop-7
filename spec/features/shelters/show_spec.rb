@@ -91,9 +91,9 @@ RSpec.describe "the shelter show" do
     expect(page).to_not have_content(shelter_1.rank)
 
     within("div#stats") do
-      expect(page).to have_content("Statistics")
-      expect(page).to have_content("Average Pet Age:")
-      expect(page).to have_content("Pet Count:")
+      expect(page).to have_content("Shelter Statistics")
+      expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age)}")
+      expect(page).to have_content("Pet Count: #{shelter_1.pets.count}")
     end
   end
 end
