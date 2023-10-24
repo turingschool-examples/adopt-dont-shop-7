@@ -1,15 +1,22 @@
-<h1>All veterinarians</h1>
+<%= render partial: 'application/header', layout: 'header' %>
+<%= render partial: 'application/body', layout: 'body' %>
+
+<div class="myDiv" >
+  <h1>All veterinarians</h1>
+</div>
 
 <%= link_to "Sort alphabetically", "/veterinary_offices/#{@veterinary_office.id}/veterinarians?sort=alphabetical" %>
 
 <% @office_vets.each do |vet| %>
-  <section id="veterinarian-<%= vet.id %>">
-    <h3><%= vet.name %></h3>
-    <p>Rating: <%= vet.review_rating %></p>
-    <p>Practice: <%= vet.office_name %></p>
-    <%= link_to "Edit #{vet.name}", "/veterinarians/#{vet.id}/edit" %>
-    <%= link_to "Delete #{vet.name}", "/veterinarians/#{vet.id}", method: :delete %>
-  </section>
+  <div class="body" >
+    <section id="veterinarian-<%= vet.id %>">
+      <h3><%= vet.name %></h3>
+      <p>Rating: <%= vet.review_rating %></p>
+      <p>Practice: <%= vet.office_name %></p>
+      <%= link_to "Edit #{vet.name}", "/veterinarians/#{vet.id}/edit" %>
+      <%= link_to "Delete #{vet.name}", "/veterinarians/#{vet.id}", method: :delete %>
+    </section>
+  </div>
 <% end %>
 
 <%= form_with url: "/veterinary_offices/#{@veterinary_office.id}/veterinarians", method: :get do |form| %>
