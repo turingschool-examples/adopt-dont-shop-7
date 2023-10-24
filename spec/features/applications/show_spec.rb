@@ -27,6 +27,7 @@ RSpec.describe "Application Show Page" do
       expect(page).to have_content("Status: #{@application1.status}")
     end
     
+
     it "shows a search for pets and lists matches to that pet name" do
       visit "/applications/#{@application1.id}"
 
@@ -72,7 +73,6 @@ RSpec.describe "Application Show Page" do
         fill_in :description, with: "I need to find the One Piece"
         click_button "Submit"
         end
-        save_and_open_page
         expect(current_path).to eq("/applications/#{@application1.id}")
         expect(page).to have_content("Status: Pending")
         expect(page).to have_content("Mr. Pirate")

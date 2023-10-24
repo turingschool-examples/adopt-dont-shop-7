@@ -61,8 +61,6 @@ RSpec.describe "Application New Page" do
 
       expect(current_path).to eq("/applications/new")
       expect(page).to have_content("Error: Name can't be blank")
-      save_and_open_page
     end
-
   end
 end
