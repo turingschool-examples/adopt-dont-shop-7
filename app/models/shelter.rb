@@ -38,6 +38,18 @@ class Shelter < ApplicationRecord
     end.count
   end
 
+  def self.pets_with_homes(shelter)
+    counter = 0
+    shelter.pets.each do |pet|
+      pet.applications.each do |application|
+        if application.status == "Approved"
+          counter += 1
+        end
+      end
+    end
+    counter
+  end
+
   def pet_count
     pets.count
   end

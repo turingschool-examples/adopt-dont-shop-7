@@ -92,7 +92,7 @@ RSpec.describe "the shelter show" do
 
     within("div#stats") do
       expect(page).to have_content("Shelter Statistics")
-      expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age)}")
+      expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age).to_f.round(1)}")
       expect(page).to have_content("Adoptable Pet Count: 3")
     end
   end
@@ -108,7 +108,6 @@ RSpec.describe "the shelter show" do
     application1.pets << pet_1 
     application1.pets << pet_2 
 
-    # require 'pry'; binding.pry
     visit "/admin/shelters/#{shelter_1.id}"
     
     expect(page).to have_content(shelter_1.name)
@@ -118,9 +117,9 @@ RSpec.describe "the shelter show" do
 
     within("div#stats") do
       expect(page).to have_content("Shelter Statistics")
-      expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age)}")
+      expect(page).to have_content("Average Pet Age: #{shelter_1.pets.average(:age).to_f.round(1)}")
       expect(page).to have_content("Adoptable Pet Count: 4")
-      expect(page).to have_content("Pets who have found a home!: ")
+      expect(page).to have_content("Pets who have found a home!: 2")
     end
   end
 end

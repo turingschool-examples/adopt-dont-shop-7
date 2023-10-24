@@ -5,6 +5,7 @@
 <h4>Shelter Statistics</h3>
   <%= "Average Pet Age: #{@age_stats}" %> <br>
   <%= "Adoptable Pet Count: #{@pet_count}" %> <br>
+  <%= "Pets who have found a home!: #{@pets_with_homes}" %>
 </div>
 <% else %>
   <h1><%= @shelter.name %></h1>

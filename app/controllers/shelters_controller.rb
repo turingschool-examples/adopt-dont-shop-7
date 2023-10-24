@@ -32,6 +32,7 @@ class SheltersController < ApplicationController
       @shelter = Shelter.name_and_address(params[:id])
       @age_stats = Shelter.age_stats(@current_shelter)
       @pet_count = Shelter.pet_count(@current_shelter)
+      @pets_with_homes = Shelter.pets_with_homes(@current_shelter)
     else
       @shelter = Shelter.find(params[:id])
     end
