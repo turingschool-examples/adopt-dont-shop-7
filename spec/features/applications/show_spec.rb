@@ -220,10 +220,50 @@ RSpec.describe "Application Show Page" do
         end
       end
 
+      describe "User Story 8/9 Partial and Case Insensitive Matches for Pet Names" do
+        before(:each) do
+          @application_1 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
+          
+          @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     
+          @pet_1 = Pet.create(adoptable: true, age: 7, breed: "sphynx", name: "Bare-y Manilow", shelter_id: @shelter.id)
+          @pet_2 = Pet.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe", shelter_id: @shelter.id)
+          @pet_3 = Pet.create(adoptable: true, age: 4, breed: "chihuahua", name: "Elle", shelter_id: @shelter.id)
+        end
 
+        it "As a visitor, when I visit an application show page, and search for Pets by name, I see any pet whose name PARTIALLY matches my search" do
+          visit "/applications/#{@application_1.id}"
+          fill_in "Search", with: "Ba"
+          click_on("Search")
 
+          within "#pet-#{@pet_1.id}" do
+            expect(page).to have_selector(:link_or_button, "Adopt this Pet")
+          end
 
+          within "#pet-#{@pet_2.id}" do
+            expect(page).to have_selector(:link_or_button, "Adopt this Pet")
+          end
+
+          
+        end
+
+        it "if I search for Pets by name, my search is case insensitive" do
+          visit "/applications/#{@application_1.id}"
+          fill_in "Search", with: "ba"
+          click_on("Search")
+
+          within "#pet-#{@pet_1.id}" do
+            expect(page).to have_selector(:link_or_button, "Adopt this Pet")
+          end
+
+          within "#pet-#{@pet_2.id}" do
+            expect(page).to have_selector(:link_or_button, "Adopt this Pet")
+          end
+
+        end
+      end
+
+    
     end
   end
 end
