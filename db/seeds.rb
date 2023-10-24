@@ -14,7 +14,9 @@ Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
 
 # Shelters
-@shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+@shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+@shelter_2 = Shelter.create!(name: "Lakewood shelter", city: "Lakewood, CO", foster_program: true, rank: 7)
+@shelter_3 = Shelter.create!(name: "Westminster shelter", city: "Westminster, CO", foster_program: false, rank: 2)
 
 # Pets
 @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "doberman", name: "Auggie", shelter_id: @shelter_1.id)
