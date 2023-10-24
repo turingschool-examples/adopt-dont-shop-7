@@ -39,15 +39,11 @@ class Shelter < ApplicationRecord
   end
 
   def self.pets_with_homes(shelter)
-    counter = 0
-    shelter.pets.each do |pet|
-      pet.applications.each do |application|
-        if application.status == "Approved"
-          counter += 1
-        end
+    shelter.pets.flat_map do |pet|
+      pet.applications.select do |application|
+        application.status == "Approved"
       end
-    end
-    counter
+    end.count
   end
 
   def pet_count
