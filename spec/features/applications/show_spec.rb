@@ -14,10 +14,6 @@ RSpec.describe "applications show page" do
       name: "Robby", address: "1080 Pronghorn", city: "Del Norte", state: "CO", zip: "81132",
       description: "Good home for good boy", status: "Accepted"
     )
-    @app_no_pets = Application.create!(
-      name: "Bobby", address: "1111 Longhorn", city: "Dela Mar", state: "NY", zip: "11101",
-      description: "Good home for good boy", status: "In Progress"
-    )
     @s1 = Shelter.create!(foster_program: true, name: "Paw Patrol", city: "Denver", rank: 2)
     @p1 = Pet.create!(name: "Buster", adoptable: true, age: 7, breed: "mut", shelter_id: @s1.id)
     @p2 = Pet.create!(name: "Kyo", adoptable: false, age: 1, breed: "calico", shelter_id: @s1.id)
@@ -85,7 +81,7 @@ RSpec.describe "applications show page" do
     # Then I am taken back to the application show page
     # And I see the Pet I want to adopt listed on this application
     it "shows a button inline with pet to adopt pet after search match" do
-      visit "/applications/#{@app_no_pets.id}"
+      visit "/applications/#{@app2.id}"
 
       fill_in :q, with: "Buster"
       click_button "Search"
