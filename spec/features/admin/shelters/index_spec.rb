@@ -44,7 +44,6 @@ RSpec.describe "the admin shelters index" do
         click_button("Submit Application")
 
         visit '/admin/shelters'
-save_and_open_page
         expect(page).to have_content(@shelter_1.name)
 
       end
