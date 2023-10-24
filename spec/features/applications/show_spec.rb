@@ -46,7 +46,7 @@ RSpec.describe "applications show page" do
   end
 
   describe "unsubmitted applications" do
-    # US4
+    # US 4
     # As a visitor
     # When I visit an application's show page
     # And that application has not been submitted,
