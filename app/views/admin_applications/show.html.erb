@@ -9,14 +9,28 @@
   <h2>Pets You Have Applied For</h2>
   <% @application.application_pets.each do |application_pet| %>
   <div id="pet-<%= application_pet.pet_id %>">
-    <%=application_pet.status %>
-    <%= link_to "#{application_pet.pet.name}", "/pets/#{application_pet.pet_id}" %>
-    <%= form_with url: "/applications/#{@application.id}/pets", method: :patch, data: { turbo: false } do |f| %>
-    <%= f.hidden_field :status_update, value: 1 %>
-    <%= f.hidden_field :aid, value: @application.id %>
-    <%= f.hidden_field :pid, value: application_pet.pet_id %>
-    <%= f.submit "Approve" %>
+    
+    <% if application_pet.pending? %>
+      <%= link_to "#{application_pet.pet.name}", "/pets/#{application_pet.pet_id}" %>
+      <%= form_with url: "/applications/#{@application.id}/pets", method: :patch, data: { turbo: false } do |f| %>
+        <%= f.hidden_field :status_update, value: 1 %>
+        <%= f.hidden_field :aid, value: @application.id %>
+        <%= f.hidden_field :pid, value: application_pet.pet_id %>
+        <%= f.submit "Approve" %>
+      <% end %>
+
+      <%= form_with url: "/applications/#{@application.id}/pets", method: :patch, data: { turbo: false } do |f| %>
+        <%= f.hidden_field :status_update, value: 2 %>
+        <%= f.hidden_field :aid, value: @application.id %>
+        <%= f.hidden_field :pid, value: application_pet.pet_id %>
+        <%= f.submit "Reject" %>
+      <% end %>
     <% end %>
+
+    <% if !application_pet.pending? %>
+      <p><%= "#{application_pet.pet.name} : #{application_pet.status}" %></p>
+    <% end %>
+
   </div>
   <% end %>
 </div>
