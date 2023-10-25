@@ -90,7 +90,7 @@ RSpec.describe "the admin shelters index" do
         expect(page).to have_link("#{@shelter_3.name}")
 
         click_link("#{@shelter_1.name}")
-
+        save_and_open_page
         expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
       end
     end
