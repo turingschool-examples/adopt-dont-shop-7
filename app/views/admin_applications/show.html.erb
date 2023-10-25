@@ -7,5 +7,12 @@
 <h3> Application Status: <%= @application.application_status %></h3>
 <h3> Description: <%= @application.description %></h3>
 <h3> Pets Willing to Adopt: <% @application.pets.each do |pet| %></h3>
-  <h3><%= button_to "Approve application for #{pet.name}", "/admin/applications/#{@application.id}", method: :patch %></h3>
+  <div>
+  <h2><%= pet.name %></h2>
+  <% if pet.approved? %>
+    <p>Approved</p>
+  <% else %>
+    <h3><%= button_to "Approve application for #{pet.name}", "/admin/applications/#{@application.id}", method: :patch %></h3>
+  </div>
+  <% end %>
 <% end %>
