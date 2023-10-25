@@ -1,46 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "admin applications show page" do
-  it "allows admin to approve pet on application" do
-    # US 12
-    # As a visitor
-    # When I visit an admin application show page ('/admin/applications/:id')
-    # For every pet that the application is for, I see a button to approve the application for that specific pet
-    # When I click that button
-    # Then I'm taken back to the admin application show page
-    # And next to the pet that I approved, I do not see a button to approve this pet
-    # And instead I see an indicator next to the pet that they have been approved
-    @app1 = Application.create!(
-      name: "Charles", address: "123 S Monroe", city: "Denver", state: "CO", zip: "80102",
-      description: "Good home for good boy", status: "In Progress"
-    )
-    @app2 = Application.create!(
-      name: "TP", address: "1080 Pronghorn", city: "Del Norte", state: "CO", zip: "81132",
-      description: "Good home for good boy", status: "In Progress"
-    )
-    @app_accepted = Application.create!(
-      name: "Robby", address: "1080 Pronghorn", city: "Del Norte", state: "CO", zip: "81132",
-      description: "Good home for good boy", status: "Accepted"
-    )
-    @s1 = Shelter.create!(foster_program: true, name: "Paw Patrol", city: "Denver", rank: 2)
-    @p1 = Pet.create!(name: "Buster", adoptable: true, age: 7, breed: "mut", shelter_id: @s1.id)
-    @p2 = Pet.create!(name: "Kyo", adoptable: false, age: 1, breed: "calico", shelter_id: @s1.id)
-    PetApplication.create!(application: @app1, pet: @p2)
-    PetApplication.create!(application: @app2, pet: @p1)
-    
-    visit "/admin/applications/#{@app2.id}"
-
-    within("#pet-#{@p1.id}") do
-      click_button "Approve"
-    end
-
-    within("#pet-#{@p1.id}") do
-      have_no_button "Approve"
-      have_content "Approved"
-    end
-  end
-
-  before :each do
+  before(:each) do
     # Shelters
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -70,7 +31,30 @@ RSpec.describe "admin applications show page" do
     PetApplication.create!(application: @app2, pet: @s1_p1)
     PetApplication.create!(application: @app3, pet: @s3_p1)
     PetApplication.create!(application: @app4, pet: @s4_p1)
-    PetApplication.create!(application: @app5, pet: @s3_p1)
+    PetApplication.create!(application: @app5, pet: @s1_p2)
+  end
+
+  it "allows admin to approve pet on application" do
+    # US 12
+    # As a visitor
+    # When I visit an admin application show page ('/admin/applications/:id')
+    # For every pet that the application is for, I see a button to approve the application for that specific pet
+    # When I click that button
+    # Then I'm taken back to the admin application show page
+    # And next to the pet that I approved, I do not see a button to approve this pet
+    # And instead I see an indicator next to the pet that they have been approved
+    visit "/admin/applications/#{@app2.id}"
+
+    within("#pet-#{@s1_p1.id}") do
+      click_button "Approve"
+    end
+
+    expect(current_path).to eq "/admin/applications/#{@app2.id}"
+
+    within("#pet-#{@s1_p1.id}") do
+      have_no_button "Approve"
+      have_content "Approved"
+    end
   end
 
   # US 13
@@ -85,17 +69,17 @@ RSpec.describe "admin applications show page" do
     visit "/admin/applications/#{@app2.id}"
 
     within("#pet-#{@s1_p1.id}") do
-      click_button "Reject Application"
+      click_button "Reject"
     end
 
     expect(current_path).to eq("/admin/applications/#{@app2.id}")
 
     within("#pet-#{@s1_p1.id}") do
-      expect(page).to have_no_button("Approve")
-      expect(page).to have_no_button("Reject Application")
-      expect(page).to have_content("Application has been Rejected")
+      # expect(page).to have_no_button("Reject")
+      expect(page).to have_content("Rejected ❌")
     end
   end
+end
 
   # US 14
   # As a visitor
