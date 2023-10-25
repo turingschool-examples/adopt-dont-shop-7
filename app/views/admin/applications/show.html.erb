@@ -1,4 +1,4 @@
-<br><h2>Application <%= @application.id %></h2>
+<br><h2>Admin View for Application <%= @application.id %></h2>
 <p> <b>Applicant Name: </b><%= @application.name  %></p> 
 <p> <b>Address: </b> <%= @application.address_join %></p>
 <p> <b>Description of Qualification: </b><%= @application.description %></p> 
@@ -7,6 +7,9 @@
 <% @application.pets.each do |p| %>
     <h3><%= p.name %></h3>
     <p> Status: <%= "Adoptable" if p.adoptable%> <%= "Not Adoptable" if !p.adoptable%></p> 
-    <%# <%= button_to "Approve Adoption for #{p.name}", {controller: "pets", action: "update", application_id: @application.id, pet_id: p.id}, method: :patch %> 
+    <%= button_to "Approve #{p.name}", {controller: "application_pets", action: "update", application_id: @application.id, pet_id: p.id}, method: :patch %>
+
+
+
 
 <% end %>

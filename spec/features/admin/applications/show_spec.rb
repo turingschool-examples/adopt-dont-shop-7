@@ -16,22 +16,21 @@ RSpec.describe "Admin Show Page" do
       @application.pets << @pet_3
       @application.pets << @pet_5
     end
-    xit 'when viewing the admin application show page, there are buttons to approve the application for each pet' do
+    it 'when viewing the admin application show page, there are buttons to approve the application for each pet' do
       visit "/admin/applications/#{@application.id}"
       expect(page).to have_content(@pet_3.name)
       expect(page).to have_content(@pet_5.name)
-      expect(page).to have_content("Accept Adoption for #{@pet_3.name}")
-      expect(page).to have_content("Accept Adoption for #{@pet_5.name}")
-      save_and_open_page
+      expect(page).to have_content("Approve #{@pet_3.name}")
+      expect(page).to have_content("Approve #{@pet_5.name}")
     end
 
-    xit 'admin may click the adoption and it will change the status of the pet to approved and status as not adoptable' do
+    it 'admin may click the adoption and it will change the status of the pet to approved and status as not adoptable' do
       visit "/admin/applications/#{@application.id}"
-      click_button "Accept Adoption for #{@pet_3.name}"
-      expect(page).to_not have_content("Accept Adoption for #{@pet_3.name}")
+      click_button "Approve #{@pet_3.name}"
+      expect(page).to_not have_content("Approve #{@pet_3.name}")
       expect(page).to have_content("Not Adoptable")
       expect(page).to have_content("Approved")
-      expect(page).to have_content("Accept Adoption for #{@pet_5.name}")
+      expect(page).to have_content("Approve #{@pet_5.name}")
     end
   end
 
