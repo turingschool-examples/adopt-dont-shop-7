@@ -5,11 +5,12 @@
 
 
 <% @app.pets.each do |pet| %>
+  <p><u>Pets on this application</u>: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> 
   <%if @app.status == "Accepted" %>
     <p>your application for <%=pet.name %> has been Approved!</p>
   <%elsif @app.status == "Rejected"%>
     <p>your application for <%=pet.name %> has been Rejected!</p>
-  <p><u>Pets on this application</u>: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <% else @app.status == "Pending" %>
+  <% else @app.status == "Pending" %>
     <%= button_to "approve application to adopt #{pet.name}", "/admin/apps/#{@app.id}?approved=true", method: :patch%></p>
     <%= button_to "reject application to adopt #{pet.name}", "/admin/apps/#{@app.id}?rejected=true", method: :patch%></p>
   <% end %>
