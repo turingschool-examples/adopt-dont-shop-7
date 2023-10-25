@@ -1,6 +1,6 @@
 <h1>Adoption Form</h1>
 
-<%= form_with url: "/applications", method: :post, local: true do |form| %>
+<%= form_with url: "/applications", method: :post, data: {turbo: false}, local: true do |form| %>
   <%= form.label "Name:" %>
   <%= form.text_field :name %>
   <%= "You must fill in this field" if params[:name] == "true" %></br>

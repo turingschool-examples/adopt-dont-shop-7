@@ -34,9 +34,13 @@ class ApplicationsController < ApplicationController
         full_address: Application.create_full_address(params),
         good_home: params[:good_home],
         status: "In Progress"
-      })
-      application.save
-      redirect_to "/applications/#{application.id}"
+        })
+      if application.save
+        redirect_to "/applications/#{application.id}"
+      else
+        flash[:notice] = "How tf did you mess up this bad"
+        render :new
+      end
     end
   end
 
