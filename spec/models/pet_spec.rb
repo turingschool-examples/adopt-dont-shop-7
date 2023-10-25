@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe Pet, type: :model do
   describe "relationships" do
     it { should belong_to(:shelter) }
+    it { should have_many :pet_applications }
+    it { should have_many(:applications).through(:pet_applications) }
   end
 
   describe "validations" do
@@ -43,10 +45,12 @@ RSpec.describe Pet, type: :model do
       end
     end
 
-    # describe '#adoptable_search' do
-    #   it 'shows if pet is adoptable' do
-    #     expect(Pet.adoptable_search(@pet_3.name)).to eq(@pet_3)
-    #   end
-    # end
+    describe '#adoptable_search' do
+      it 'shows if pet is adoptable' do
+        expect(Pet.adoptable_search("Clawdia")).to eq([@pet_2])
+        expect(Pet.adoptable_search("Mr.")).to eq([@pet_1])
+        expect(Pet.adoptable_search("Ann")).to eq([])
+      end
+    end
   end
 end
