@@ -189,7 +189,6 @@ RSpec.describe "Application Show Page" do
             within "#pet-#{@pet_1.id}" do
               click_button("Adopt this Pet")
             end
-            # save_and_open_page
 
             within "#appliedPets" do
               fill_in("add_qualifications", with: "I also have a dog named Lola who is a showgirl.")
@@ -213,13 +212,16 @@ RSpec.describe "Application Show Page" do
         describe "User Story 7. No Pets on an Application. As a visitor," do
           it " When I visit an application's show page and I have not added any pets to the application, I do not see a section to submit my application" do
             visit "/applications/#{@application_1.id}"
-        
+
             expect(page).to_not have_content("Why are you qualified to adopt these pets?")
             expect(page).to have_no_button("Submit")
           end
         end
       end
 
+<<<<<<< HEAD
+  
+=======
       describe "User Story 8/9 Partial and Case Insensitive Matches for Pet Names" do
         before(:each) do
           @application_1 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
@@ -264,6 +266,7 @@ RSpec.describe "Application Show Page" do
       end
 
     
+>>>>>>> ec0b208e63252d95a8763c03f513140901aeb7af
     end
   end
 end
