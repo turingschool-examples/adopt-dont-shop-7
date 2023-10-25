@@ -1,10 +1,14 @@
 class ApplicationsController < ApplicationController
+  def index
+    @applications = Application.all
+  end
+
   def show
     @application = Application.find(params[:id])
-    if params[:search] == "pet" && params[:pet_name].present?
-      @search_pets = @application.search_pets_by_name(params[:pet_name])
+    @search_pets = if params[:search] == "pet" && params[:pet_name].present?
+      @application.search_pets_by_name(params[:pet_name])
     else
-      @search_pets = []
+      []
     end
   end
 
@@ -40,6 +44,4 @@ class ApplicationsController < ApplicationController
 
     redirect_to "/applications/#{@application.id}"
   end
-
-
 end
