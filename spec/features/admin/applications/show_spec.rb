@@ -6,6 +6,7 @@ RSpec.describe "Application Show Page" do
 
     @application1 = Application.create(name: "John", street_address: "123 makebelieve dr.", city: "fakesville", state: "NA", zip_code: 12345, description: "I need a companion!", status: "In Progress")
     @application2 = Application.create(name: "Sally", street_address: "333 Not Real Pl.", city: "Pleasentville", state: "PO", zip_code: 12345, description: "I need a companion!", status: "In Progress")
+    @application3 = Application.create(name: "Jack Skellington", street_address: "Ooky Spooky Lane", city: "Halloweentown", state: "PO", zip_code: 12345, description: "I love pets!", status: "In Progress")
 
     @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
@@ -15,6 +16,7 @@ RSpec.describe "Application Show Page" do
     @pet_app_1 = PetApplication.create!(application_id: "#{@application1.id}", pet_id: "#{@pet_1.id}", status: "Pending")
     @pet_app_2 = PetApplication.create!(application_id: "#{@application2.id}", pet_id: "#{@pet_2.id}", status: "Pending")
     @pet_app_3 = PetApplication.create!(application_id: "#{@application2.id}", pet_id: "#{@pet_3.id}", status: "Pending")
+    @pet_app_4 = PetApplication.create!(application_id: "#{@application3.id}", pet_id: "#{@pet_1.id}", status: "Pending")
 
   end
 
@@ -49,24 +51,59 @@ RSpec.describe "Application Show Page" do
       visit "/admin/applications/#{@application2.id}"
 
       within("#pet_applied_for-#{@pet_2.id}") do
-      click_button("Approve Application")
-      expect(page).to have_current_path("/admin/applications/#{@application2.id}")
-      expect(page).to have_content(@pet_2.name)
-      # save_and_open_page
-      expect(page).to have_content("#{@pet_2.name} Pet Status: Approved")
+        click_button("Approve Application")
+        expect(page).to have_current_path("/admin/applications/#{@application2.id}")
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content("#{@pet_2.name}\nPet Status: Approved")
       end
 
       within("#pet_applied_for-#{@pet_3.id}") do
         expect(page).to have_current_path("/admin/applications/#{@application2.id}")
         expect(page).to have_content(@pet_3.name)
-        # expect(page).to have_content("Pet Status: Pending" )
+        expect(page).to have_content("Pet Status: Pending" )
       end
 
     end
 
+    it "when the 'Reject Application' button is clicked, it
+    updates the application to show that pet is rejected :(" do
+      visit "/admin/applications/#{@application2.id}"
 
-    
+      within("#pet_applied_for-#{@pet_2.id}") do
+        click_button("Reject Application")
+        expect(page).to have_current_path("/admin/applications/#{@application2.id}")
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content("#{@pet_2.name}\nPet Status: Rejected")
+      end
 
+      within("#pet_applied_for-#{@pet_3.id}") do
+        expect(page).to have_current_path("/admin/applications/#{@application2.id}")
+        expect(page).to have_content(@pet_3.name)
+        expect(page).to have_content("Pet Status: Pending" )
+      end
+    end
 
+    it "shows that an application for a specific pet marked 'Approved'
+    does not show the pet as 'Approved on another application for that
+    pet" do
+      visit "/admin/applications/#{@application1.id}"
+      # save_and_open_page
+
+      within("#pet_applied_for-#{@pet_1.id}") do
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_button("Approve Application")
+        expect(page).to have_button("Reject Application")
+        click_button("Approve Application")
+        expect(page).to have_content("#{@pet_1.name}\nPet Status: Approved")
+      end
+
+      visit "/admin/applications/#{@application3.id}"
+
+      within("#pet_applied_for-#{@pet_1.id}") do
+        expect(page).to have_content(@pet_1.name)
+        expect(page).to have_button("Approve Application")
+        expect(page).to have_button("Reject Application")
+      end
+    end
   end
 end
