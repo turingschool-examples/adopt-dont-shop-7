@@ -18,7 +18,6 @@ RSpec.describe "admin application show page" do
     visit "/admin/apps/#{@app1.id}"
     
     # For every pet that the application is for, I see a button to approve the application for that specific pet
-    save_and_open_page
     expect(page).to have_button("approve application to adopt #{@pet2.name}")
     # When I click that button
     click_button("approve application to adopt #{@pet2.name}")
