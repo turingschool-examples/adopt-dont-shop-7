@@ -25,7 +25,7 @@
 <% end %>
 
   <% if params[:pet_name].present? %>
-<h3>Pets matching search</h3>
+    <h3>Pets matching search</h3>
     <% @pets = Pet.search(params[:pet_name]) %>
     <% @pets.each do |pet| %>
       <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
