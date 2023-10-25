@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   patch "/veterinarians/:id", to: "veterinarians#update"
   delete "/veterinarians/:id", to: "veterinarians#destroy"
 
-  get "/shelters/:shelter_id/pets", to: "shelters#pets"
+  get "/shelters/:shelter_id/pets", to: "shelter_pets#index"
   get "/shelters/:shelter_id/pets/new", to: "pets#new"
   post "/shelters/:shelter_id/pets", to: "pets#create"
 
