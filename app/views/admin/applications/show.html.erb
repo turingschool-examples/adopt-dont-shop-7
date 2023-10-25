@@ -4,12 +4,23 @@
   <li><%= @application.city %></li>
   <li><%= @application.state %></li>
   <li><%= @application.zip_code %></li>
+<p>Why I would make a good home: <%= @application.description %></p>
+<p>Applying to Adopt: 
 
-  <h3>Pets Applied For</h3>
+<%#this is different than the regular show page will want to refactor%>
   <% @application.pets.each do |pet| %>
+    <%= pet.name %>
+  <% end %>
+</p>
+<p>Status: <%= @application.status %></p>
+
+  <h3>Pets Applied For:</h3>
+  <% @application.pets.each do |pet| %>
+<section id="pet_applied_for-<%= pet.id %>">
   <h3><%= pet.name %></h3>
-    <% if @application.pending? %>
+    <% if @application.status == "In Progress" %>
       <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"}, local: true, data: {turbo: false} %>
       <%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Rejected"}, local: true, data: {turbo: false} %>
     <% end %>
+</section>
   <% end %>
