@@ -1,5 +1,5 @@
 <div class="body" >
-  <%= form_with url: path, method: method, local: true do |f| %>
+  <%= form_with url: path, method: method, local: true, data: {turbo: false} do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
 
