@@ -58,7 +58,7 @@ RSpec.describe "Admin Show Page" do
       visit "/admin/applications/#{@application.id}"
       click_button "Approve #{@pet_3.name}"
       click_button "Reject #{@pet_5.name}"
-
+    
       visit "/admin/applications/#{@application_2.id}"
 
       expect(page).to have_content("Approve #{@pet_3.name}")
