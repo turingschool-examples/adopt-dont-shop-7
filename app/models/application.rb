@@ -13,12 +13,4 @@ class Application < ApplicationRecord
   def add_pet(pet)
     pets << pet
   end
-
-  def approve(pet)
-    pet.update(adoptable: false)
-  end
-  
-  def reject(pet)
-
-  end
 end

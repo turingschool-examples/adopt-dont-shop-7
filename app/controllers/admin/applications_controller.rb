@@ -12,14 +12,7 @@ class Admin::ApplicationsController < ApplicationController
       selected_pet.update(adoptable: false)
     elsif params[:approved?] == "No"
       application.update(status: 3)
-    else
-      application.update(status: 1)
     end
     redirect_to "/admin/applications/#{application.id}"
-  end
-
-  private
-  def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end
