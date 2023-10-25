@@ -14,7 +14,7 @@
   <tbody>
     <% @shelters.each do |shelter| %>
       <tr>
-        <td><br><%= link_to "#{shelter.name}", "/admin/shelter/#{shelter.id}" %></td>
+        <td><br><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></td>
         <td><%= shelter.city %></td>
         <td><%= shelter.foster_program ? 'Yes' : 'No' %></td>
         <td><%= shelter.rank %></td>

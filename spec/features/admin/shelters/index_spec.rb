@@ -54,10 +54,14 @@ RSpec.describe "the admin shelters index" do
     describe "every shelter name is a link" do
       it "I click a link and an taken to that shelters show page" do
         visit "/admin/shelters"
-        save_and_open_page
+
         expect(page).to have_link("#{@shelter_1.name}")
         expect(page).to have_link("#{@shelter_2.name}")
         expect(page).to have_link("#{@shelter_3.name}")
+
+        click_link("#{@shelter_1.name}")
+
+        expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
       end
     end
   end
