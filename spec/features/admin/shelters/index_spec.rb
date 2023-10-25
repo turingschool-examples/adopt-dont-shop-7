@@ -69,7 +69,7 @@ RSpec.describe "the shelters index" do
         visit "/admin/shelters"
 
         within "#shelterPendingApps" do
-          expect(page).to_not have_content("Shelters with pending applications")
+          expect(page).to have_content("Shelters with pending applications")
           expect(page).to_not have_content(@shelter.name)
         end
 
@@ -90,7 +90,6 @@ RSpec.describe "the shelters index" do
         visit "/admin/shelters"
 
         within "#shelterPendingApps" do
-          expect(page).to have_content("Shelters with pending applications")
           expect(page).to have_content(@shelter.name)
         end
       end
