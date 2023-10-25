@@ -14,7 +14,7 @@ RSpec.describe "the shelters index" do
 
   context "User Story 12: Approving a Pet for Adoption" do
     describe "As a visitor, when I visit an admin application page" do
-      it "For every pet on the application, I see a button to approve the application for that pet" do
+      it "For every pet on the application, I see a button to approve the application for that pet, after approve redirects to admin show, button is gone, and status shown" do
         visit "/applications/#{@application_1.id}"
         fill_in "Search", with: "Ba"
         click_on("Search")
@@ -52,7 +52,7 @@ RSpec.describe "the shelters index" do
 
   context "User Story 13: Rejecting a Pet for Adoption" do
     describe "As a visitor, when I visit an admin application page" do
-      it "For every pet on the application, I see a button to reject the application for that pet" do
+      it "For every pet on the application, I see a button to reject the application for that pet, after reject redirects to admin show, button is gone, and status shown" do
         visit "/applications/#{@application_1.id}"
         fill_in "Search", with: "Ba"
         click_on("Search")
@@ -90,7 +90,7 @@ RSpec.describe "the shelters index" do
 
   context "User Story 14: Accepting/Rejecting is specific to an application" do
     describe "As a visitor, when I visit an admin application page" do
-      it "For every pet on the application, I see a button to reject the application for that pet" do
+      it "Accepting/Rejecting a pet application does not change the status of those same pets on another applicaton" do
         
         @application_1.pets << @pet_1
         @application_1.pets << @pet_2
