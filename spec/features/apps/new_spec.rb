@@ -57,8 +57,8 @@ RSpec.describe "New Application" do
     expect(current_path).to eq("/apps")
     # And I see a message that I must fill in those fields.
     # page.should have_error "Please fill out this field"
-     expect(page).to have_content("Error: Please fill out this field")
-  end
+     expect(page).to have_content("Error: Please fill out all fields")
+      end
 
 
 end

@@ -11,8 +11,7 @@ class AppsController < ApplicationController
 
   def show
     @app = App.find(params[:id])
-    if params[:search].present?
-    end
+    params[:search].present?
   end
 
   def create
