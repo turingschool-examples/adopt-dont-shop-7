@@ -3,6 +3,10 @@ class AdminApplicationsController < ApplicationController
     @app = Application.find(id)
   end
 
+  def update
+    require 'pry';binding.pry
+  end
+
   private
 
   def id

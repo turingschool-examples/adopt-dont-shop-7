@@ -33,7 +33,11 @@ class PetsController < ApplicationController
     pet = Pet.find(params[:id])
     if params[:approve]
       # approve == true ==== adoptable == false
-      pet.update(adoptable: !ActiveRecord::Type::Boolean.new.cast(params[:approve]))
+      pet.update(adoptable: !ActiveRecord::Type::Boolean.new.cast(params[:approve]), name: params[:name])
+      pet.save
+      redirect_to "/admin/applications/#{params[:app_id]}"
+    elsif !params[:approve]
+      pet.update(adoptable: ActiveRecord::Type::Boolean.new.cast(params[:approve]), name: params[:name])
       pet.save
       redirect_to "/admin/applications/#{params[:app_id]}"
     elsif pet.update(pet_params)

@@ -51,15 +51,46 @@ RSpec.describe "admin applications show page" do
   # And next to the pet that I rejected, I do not see a button to approve or reject this pet
   # And instead I see an indicator next to the pet that they have been rejected
   it "displays a button to reject the application for a specific pet" do
-    visit "/admin/applications/#{@app1.id}"
+    # Shelters
+    @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
+    @shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
+    @shelter_4 = Shelter.create(name: "Small Paws Rescue", city: "Boulder, CO", foster_program: true, rank: 7)
 
-    within("#pet-#{@p2.id}") do
+    # Pets
+    @s1_p1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+    @s1_p2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+    @s3_p1 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
+    @s4_p1 = @shelter_4.pets.create(name: "Whiskers", breed: "siamese", age: 2, adoptable: true)
+
+    # Applications
+    @app1 = Application.create!({name: "Charles", address: "123 S Monroe", city: "Denver", state: "CO", zip: "80102",
+                              description: "Good home for good boy", status: "In Progress"})
+    @app2 = Application.create!({name: "TP", address: "1080 Pronghorn", city: "Del Norte", state: "CO", zip: "81132",
+                              description: "Good home for good boy", status: "Pending"})
+    @app3 = Application.create!({name: "Alice", address: "456 N Lincoln", city: "Aurora", state: "CO", zip: "80203",
+                              description: "I love cats", status: "Accepted"})
+    @app4 = Application.create!({name: "Bob", address: "789 W Colfax", city: "Denver", state: "CO", zip: "80204",
+                              description: "Dogs are my favorite", status: "Pending"})
+    @app5 = Application.create!({name: "Eve", address: "111 E 3rd Ave", city: "Denver", state: "CO", zip: "80205",
+                              description: "Looking for a buddy", status: "Pending"})
+
+    # Pet-Application links
+    PetApplication.create!(application: @app1, pet: @s1_p2)
+    PetApplication.create!(application: @app2, pet: @s1_p1)
+    PetApplication.create!(application: @app3, pet: @s3_p1)
+    PetApplication.create!(application: @app4, pet: @s4_p1)
+    PetApplication.create!(application: @app5, pet: @s1_p2)
+
+    visit "/admin/applications/#{@app2.id}"
+
+    within("#pet-#{@s1_p1.id}") do
       click_button "Reject Application"
     end
 
-    expect(current_path).to eq("/admin/applications/#{@app1.id}")
+    expect(current_path).to eq("/admin/applications/#{@app2.id}")
 
-    within("#pet-#{@p2.id}") do
+    within("#pet-#{@s1_p1.id}") do
       expect(page).to have_no_button("Approve")
       expect(page).to have_no_button("Reject Application")
       expect(page).to have_content("Application has been Rejected")
