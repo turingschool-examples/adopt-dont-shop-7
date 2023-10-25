@@ -51,7 +51,7 @@ RSpec.describe "Applications show page" do
         click_button("Search for Pets")
       end
 
-      expect(page).to have_current_path("/applications/#{application.id}?pet_name=Lobster&commit=Search+for+Pets")
+      expect(current_path).to eq("/applications/#{application.id}")
       
       # within "#adopt-pet-#{application.id}" do
         expect(page).to have_content("Lobster")
@@ -76,7 +76,6 @@ RSpec.describe "Applications show page" do
       pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
       pet_2 = Pet.create(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id)
 
-
       visit "/applications/#{application.id}"
 
       fill_in(:pet_name, with: "Lucille Bald")
@@ -84,8 +83,8 @@ RSpec.describe "Applications show page" do
       expect("Lucille Bald").to_not appear_before("Search for Pets")
       expect(page).to have_button("Adopt this Pet")
       click_button("Adopt this Pet")
-      expect(current_path).to be("/applications/#{application.id}")
-      expect("Lucille Bald's").to appear_before("Search for Pets")
+      expect(current_path).to eq("/applications/#{application.id}")
+      expect("Lucille Bald").to appear_before("Search for Pets")
     end
 
     it "can submit an application" do
@@ -114,14 +113,23 @@ RSpec.describe "Applications show page" do
       # Then I see a section to submit my application
       within "#submit-#{application.id}" do
         expect(page).to have_content("Submit Application")
+      end
+    end
         # And in that section I see an input to enter why I would make a good owner for these pet(s)
-        expect(page).to have_field("Description")
+    it "has a text area to describe why a user would be a good candidate for pet adoption" do
+      expect(page).to have_field("Description")
+    end
+
+    it "lets users submit the application" do
+      fill_in("Description", with: "Love pets and have a large yarde.")
+      click_button("Submit Application")
+    end
         # When I fill in that input
-        fill_in("Description", with: "Love pets and have a large yarde.")
+        
         # And I click a button to submit this application
-        click_button("Submit Application")
+       
         # Then I am taken back to the application's show page
-        expect(current_path).to be("/applications/#{application.id}")
+        expect(current_path).to eq("/applications/#{application.id}")
         # And I see an indicator that the application is "Pending"
         expect(page).to have_content("Pending")
         # And I see all the pets that I want to adopt

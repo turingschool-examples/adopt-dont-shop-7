@@ -1,8 +1,6 @@
 class PetApplicationsController < ApplicationController
   def create
-    application = Application.find(params[:application_id])
-    pet = Pet.find(params[:pet_id])
-    pet_application = PetApplication.new({application: application, pet: pet})
+    pet_application = PetApplication.new({application: params[:application_id], params[:pet_id]})
     if pet_application.save
       redirect_to "/applications/#{application.id}"
     else
