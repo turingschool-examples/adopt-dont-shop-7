@@ -7,15 +7,14 @@
 <p>Description: <%= @application.description %></p>
 <p>Status: <%= @application.application_status %></p>
 
-<% if @pets.present? %>
+<% unless @application.pets.empty? %>
     <h2>Pets You've Applied For:</h2>
-      <% @pets.each do |pet| %>
+      <% @application.pets.each do |pet| %>
         <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
       <% end %>
 <% end %>
 
 <% if @application.application_status == "In Progress" %>
-  <div id="search-pet-<%= @application.id %>">
     <h1>Add a pet to this application</h1>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
       <%= form.label "Search for Pet" %>
@@ -24,24 +23,25 @@
     <% end %>
     <br>
     <br>
-  </div>
 <% end %>
 <br>
 
-<% if @pets_search.present? %>
-  <div id="adopt-pet-"<%= @application.id %>>
-    <% @pets_search.each do |pet| %>
-      <%= form_with url: "/pet_applications", data: { turbo: false }, local: true do |form| %>
-        <%= form.hidden_field :application_id, value: @application.id %>
-        <%= form.hidden_field :pet_id, value: pet.id %>
-        <%= link_to pet.name, "/pets/#{pet.id}" %> <%= form.submit "Adopt this Pet" %>
-      <% end %>
+<% if @pets_search.present? && @application.application_status == "In Progress" %>
+  <% @pets_search.each do |pet| %>
+    <%= form_with url: "/pet_applications", data: { turbo: false }, local: true do |form| %>
+      <%= form.hidden_field :application_id, value: @application.id %>
+      <%= form.hidden_field :pet_id, value: pet.id %>
+      <%= pet.name %> <%= form.submit "Adopt this Pet" %>
     <% end %>
-  </div>
+  <% end %>
 <% end %>
 
-<%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false }, local: true do |form| %>
-  <p><%= form.label :why_good_owner, "Why would you make a good owner?" %></p>
-  <p><%= form.text_area :why_good_owner %></p>
-      <%= form.submit "Submit Application" %>
+<% if !@application.pets.empty? && @application.application_status == "In Progress" %>
+  <section class="submit-section">
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false }, local: true do |form| %>
+      <p><%= form.label :why_good_owner, "Why would you make a good owner?" %></p>
+      <p><%= form.text_area :why_good_owner %></p>
+        <%= form.submit "Submit Application" %>
+    <% end %>
+  </section>
 <% end %>
