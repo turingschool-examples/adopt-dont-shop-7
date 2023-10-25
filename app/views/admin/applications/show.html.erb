@@ -6,8 +6,6 @@
   <li><%= @application.zip_code %></li>
 <p>Why I would make a good home: <%= @application.description %></p>
 <p>Applying to Adopt: 
-
-<%#this is different than the regular show page will want to refactor%>
   <% @application.pets.each do |pet| %>
     <%= pet.name %>
   <% end %>
@@ -19,13 +17,13 @@
 <section id="pet_applied_for-<%= pet.id %>">
   <h3><%= pet.name %></h3>
     <% if @application.pet_app_status(pet) == "Pending" %>
-      <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"}, local: true, data: {turbo: false} %>
+      <%= button_to "Approve Application", "/applications/#{@application.id}/pets/#{pet.id}", method: :patch, params: { status: "Approved"} %>
 
-      <%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Rejected"}, local: true, data: {turbo: false} %>
+      <%= button_to "Reject Application", "/applications/#{@application.id}/pets/#{pet.id}", method: :patch, params: { status: "Rejected"} %>
     <% end %>
-    
+
     <% if @application.pet_app_status(pet) == "Approved" || "Rejected" %>
-      <p>Pet Status:<%= @application.pet_app_status(pet)%></p>
+      <p>Pet Status: <%= @application.pet_app_status(pet)%></p>
     <% end %>
 </section>
   <% end %>
