@@ -24,26 +24,26 @@
   <% end %>
 <% end %>
 
-  <% if params[:pet_name].present? %>
+<% if params[:pet_name].present? %>
 <h3>Pets matching search</h3>
-    <% @pets = Pet.search(params[:pet_name]) %>
-    <% @pets.each do |pet| %>
-      <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-      <% if @app.pets.include?(pet) %>
-        <p>This pet is already on this application</p>
-      <% else %>
-        <%= button_to "Adopt #{pet.name}", "/apps/#{@app.id}?app_id=#{params[:id]}&pet_id=#{pet.id}&commit=Add+Pet", method: :patch %>
-      <% end %>
+  <% @pets = Pet.search(params[:pet_name]) %>
+  <% @pets.each do |pet| %>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+    <% if @app.pets.include?(pet) %>
+      <p>This pet is already on this application</p>
+    <% else %>
+      <%= button_to "Adopt #{pet.name}", "/apps/#{@app.id}?app_id=#{params[:id]}&pet_id=#{pet.id}&commit=Add+Pet", method: :patch %>
     <% end %>
   <% end %>
+<% end %>
 
 <% if @app.pets.count > 0 && @app.status == "In Progress"%>
-  <h3>Submit my application</h3>
+<h3>Submit my application</h3>
   <%= form_with url: "/apps/#{@app.id}?commit=Submit+Application", method: :patch, local: true do |form|%>
     <%= form.label :good_owner, 'Why I would make a good owner for these pet(s)' %>
     <p><%= form.text_area :good_owner %></p>
     <%= form.submit "Submit my application" %>
-    <% end %>
+  <% end %>
 <% end %>
 
 <%= render partial: 'footer'%>
