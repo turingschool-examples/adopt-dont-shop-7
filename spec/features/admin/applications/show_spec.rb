@@ -14,6 +14,8 @@ RSpec.describe "Admin Application Show Page", type: :feature do
         @applicant_1 = PetApplication.create(application_id: @application_1.id, pet_id: @pet_1.id)
         @applicant_2 = PetApplication.create(application_id: @application_1.id, pet_id: @pet_3.id)
         @applicant_3 = PetApplication.create(application_id: @application_2.id, pet_id: @pet_2.id)
+        @applicant_4 = PetApplication.create(application_id: @application_2.id, pet_id: @pet_1.id)
+        @applicant_5 = PetApplication.create(application_id: @application_2.id, pet_id: @pet_3.id)
       end 
 
       it "For every pet that the application is for, I see a button to approve the application for that specific pet" do
@@ -93,6 +95,49 @@ RSpec.describe "Admin Application Show Page", type: :feature do
         end
 
         expect(page).to_not have_css(".button-group")
+      end
+
+      describe "When there are two applications in the system for the same pet" do
+        describe "When I visit the admin application show page for one of the applications" do
+          it "and I approve or reject the pet for that application, it does not affect the same pets on another application" do
+  
+            visit "admin/applications/#{@application_1.id}"
+  
+            within("#Auggie") do
+              click_button("Reject")
+              expect(page).to have_content("Rejected")
+            end
+  
+            within("#Ann") do
+              click_button("Approve")
+              expect(page).to have_content("Approved")
+            end
+  
+            expect(page).to_not have_css(".button-group")
+  
+            visit "admin/applications/#{@application_2.id}" 
+  
+            within("#Auggie") do
+              expect(page).to have_content(@pet_1.name)
+              expect(page).to have_button("Approve")
+              expect(page).to have_button("Reject")
+            end 
+  
+            within("#Ann") do
+              expect(page).to have_content(@pet_3.name)
+              expect(page).to have_button("Approve")
+              expect(page).to have_button("Reject")
+            end
+
+            within("#Rue") do
+              expect(page).to have_content(@pet_2.name)
+              expect(page).to have_button("Approve")
+              expect(page).to have_button("Reject")
+            end
+  
+            expect(page).to have_css(".button-group")
+          end
+        end
       end
     end
   end

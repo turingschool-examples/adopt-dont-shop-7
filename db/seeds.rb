@@ -31,5 +31,7 @@ VeterinaryOffice.destroy_all
 @applicant_1 = PetApplication.create(application_id: @application_1.id, pet_id: @pet_1.id)
 @applicant_2 = PetApplication.create(application_id: @application_1.id, pet_id: @pet_3.id)
 @applicant_3 = PetApplication.create(application_id: @application_2.id, pet_id: @pet_2.id)
+@applicant_4 = PetApplication.create(application_id: @application_2.id, pet_id: @pet_1.id)
+@applicant_5 = PetApplication.create(application_id: @application_2.id, pet_id: @pet_3.id)
 
 
