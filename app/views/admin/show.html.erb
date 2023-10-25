@@ -3,14 +3,20 @@
 <p><u>Description</u>: <%=@app.description%></p>
 <p><u>Status</u>: <%=@app.status%></p>
 
-
+<p><h2><u>Pets on this application</u></h2></p> 
 <% @app.pets.each do |pet| %>
-  <p><u>Pets on this application</u>: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <% if @app.status != "Accepted" %>
-  <%= button_to "approve application to adopt #{pet.name}", "/admin/apps/#{@app.id}?approved=true", method: :patch%></p>
-  <%else%>
-  <p>your application for <%=pet.name %> has been Approved!</p>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> 
+  <%if @app.status == "Accepted" %>
+    <p>your application for <%=pet.name %> has been Approved!</p>
+  <%elsif @app.status == "Rejected"%>
+    <p>your application for <%=pet.name %> has been Rejected!</p>
+  <% else @app.status == "Pending" %>
+    <%= button_to "approve application to adopt #{pet.name}", "/admin/apps/#{@app.id}?approved=true", method: :patch%></p>
+    <%= button_to "reject application to adopt #{pet.name}", "/admin/apps/#{@app.id}?rejected=true", method: :patch%></p>
+  <% end %>
 <% end %>
-<% end %>
+
+
 
 
 

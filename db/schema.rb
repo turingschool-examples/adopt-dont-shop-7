@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_213753) do
     t.string "name"
     t.string "address"
     t.string "city"
+    t.string "state"
     t.integer "zip"
     t.string "description"
     t.datetime "created_at", null: false

@@ -10,7 +10,11 @@ class AdminController < ApplicationController
 
   def update
     @app = App.find(params[:id])
-    @app.update!(status: 2)
+    if params[:approved] == "true"
+      @app.update!(status: 2)
+    elsif params[:rejected] == "true"
+      @app.update!(status: 3)
+    end
     redirect_to "/admin/apps/#{params[:id]}"
   end
 end
