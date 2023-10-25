@@ -14,7 +14,7 @@
     <%= form.label :city %>
     <%= form.text_field :city %>
     <%= form.label :state %>
-    <%= form.text_field :state %>
+    <%= form.select(:state, options_for_select(us_states, "CA")) %>
     <%= form.label :zip_code %>
     <%= form.text_field :zip_code %>
     <p><%= form.label :"Why would you be a good home?" %></p>

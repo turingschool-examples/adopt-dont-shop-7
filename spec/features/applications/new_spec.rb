@@ -18,13 +18,13 @@ RSpec.describe "new application" do
       fill_in("Name", with: "Arthur")
       fill_in("Street address", with: "108 Clay St")
       fill_in("City", with: "Hialeah")
-      fill_in("State", with: "FL")
+      select "Florida"
       fill_in("Zip code", with: "33010")
       fill_in(:description, with: "I would like a dog")
       click_button("Submit")
       
       expect(page).to have_content("Arthur")
-      expect(page).to have_content("108 Clay St, FL, Hialeah, 33010")
+      expect(page).to have_content("108 Clay St, Hialeah, FL 33010")
       expect(page).to have_content("I would like a dog")
       expect(page).to have_content("In Progress")
     end
@@ -36,7 +36,7 @@ RSpec.describe "new application" do
       fill_in("Name", with: "Arthur")
       fill_in("Street address", with: "108 Clay St")
       fill_in("City", with: "Hialeah")
-      fill_in("State", with: "FL")
+      select "Florida"
       fill_in("Zip code", with: "33010")
 
       click_button("Submit")
