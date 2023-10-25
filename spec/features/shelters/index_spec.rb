@@ -129,6 +129,7 @@ RSpec.describe "the shelters index" do
       expect(page).to have_content("Shelters with Pending Applications")
       expect(page).to have_content(@shelter_1.name)
       expect(page).to_not have_content("Fancy pets of Colorado")
+      expect(page).to_not have_content("RGV animal shelter")
     end
   end
 
