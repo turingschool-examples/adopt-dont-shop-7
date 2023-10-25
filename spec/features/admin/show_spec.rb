@@ -18,6 +18,7 @@ RSpec.describe "admin application show page" do
     visit "/admin/apps/#{@app1.id}"
     
     # For every pet that the application is for, I see a button to approve the application for that specific pet
+    save_and_open_page
     expect(page).to have_button("approve application to adopt #{@pet2.name}")
     # When I click that button
     click_button("approve application to adopt #{@pet2.name}")
@@ -29,6 +30,7 @@ RSpec.describe "admin application show page" do
   
     # And instead I see an indicator next to the pet that they have been approved
     expect(page).to have_content("Approved!")
+    expect(page).to_not have_content("Rejected!")
   end
 
   describe "rejecting applications" do
@@ -47,6 +49,7 @@ RSpec.describe "admin application show page" do
       expect(page).to_not have_button("reject application to adopt #{@pet2.name}")
       # And instead I see an indicator next to the pet that they have been rejected
       expect(page).to have_content("Rejected!")
+      expect(page).to_not have_content("Approved!")
     end
   end
 end
