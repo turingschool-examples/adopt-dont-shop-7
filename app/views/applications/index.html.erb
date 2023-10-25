@@ -3,7 +3,7 @@
 <% @applications.each do |application| %>
       <tr>
           <h3><td><br><%= link_to "Name: #{application.name}", "/applications/#{application.id}" %>
-        <td><%= "Street: #{application.street_address}" %></td>
+        <td><br><%= "Street: #{application.street_address}" %></td>
         <td><br><%= "City: #{application.city}" %></td>
         <td><br><%= "State: #{application.state}" %></td>
         <td><br><%= "Zip: #{application.zip_code}" %></td>
