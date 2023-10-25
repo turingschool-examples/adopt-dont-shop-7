@@ -5,15 +5,20 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    
   end
-  
+
   def show
-    require 'pry'; binding.pry
     @application = Application.find(params[:id])
+    @pets = @application.pets
     if params[:pet_name]
-      @pet = @application.search(params[:name])
+      @pets_search = Pet.search(params[:pet_name])
     end
+  end
+
+  def update
+    application = Application.find(params[:id])
+    application.update(status: 1)
+    application.update(description: params[:why_good_owner])
   end
 
 end

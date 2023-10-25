@@ -5,18 +5,43 @@
 <p>State: <%= @application.state %></p>
 <p>Zip: <%= @application.zip_code %></p>
 <p>Description: <%= @application.description %></p>
-
 <p>Status: <%= @application.application_status %></p>
+
+<% if @pets.present? %>
+    <h2>Pets You've Applied For:</h2>
+      <% @pets.each do |pet| %>
+        <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+      <% end %>
+<% end %>
+
 <% if @application.application_status == "In Progress" %>
-  <h1>Add a Pet</h1>
+  <div id="search-pet-<%= @application.id %>">
+    <h1>Add a pet to this application</h1>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
       <%= form.label "Search for Pet" %>
       <%= form.text_field :pet_name %>
-      <%= form.submit "Add Pet" %>
+      <%= form.submit "Search for Pets" %>
     <% end %>
-    <% if @pet %>
-      <li><%= link_to "#{@pet.name}'s info page", "/pets/#{@pet.id}", method: :get %> </li>
-    <% else %>
-    <%= "Please add a pet to the adoption list" %>
-  <% end %>
+    <br>
+    <br>
+  </div>
+<% end %>
+<br>
+
+<% if @pets_search.present? %>
+  <div id="adopt-pet-"<%= @application.id %>>
+    <% @pets_search.each do |pet| %>
+      <%= form_with url: "/pet_applications", data: { turbo: false }, local: true do |form| %>
+        <%= form.hidden_field :application_id, value: @application.id %>
+        <%= form.hidden_field :pet_id, value: pet.id %>
+        <%= link_to pet.name, "/pets/#{pet.id}" %> <%= form.submit "Adopt this Pet" %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false }, local: true do |form| %>
+  <p><%= form.label :why_good_owner, "Why would you make a good owner?" %></p>
+  <p><%= form.text_area :why_good_owner %></p>
+      <%= form.submit "Submit Application" %>
 <% end %>
