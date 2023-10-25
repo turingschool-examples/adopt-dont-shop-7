@@ -37,6 +37,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.show_pending
-    self.select("shelters.*").joins(pets: :application_pets).where("application_pets.application_id > ?", 0)
+    self.select("shelters.*").joins(pets: :application_pets).where("application_pets.status = ?", 0)
   end
 end
