@@ -1,13 +1,4 @@
-<h1>Applicants Name: <%= @application.name %></h1>
-<p>Applicants Address: <%= @application.address %></p>
-<p>Applicants Reasoning: <%= @application.description %></p>
-<p> Pet Names: </p> 
-<section id="mypets-<%= @application.id %>">
-<% @applicant_pets.each do |pet| %> 
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
-<% end %>
-</section>
-<p>Applicants Status: <%= @application.status %></p>
+<%= render partial: "layouts/app_details" %>
 
 <% if @application.status == "In Progress" %>
   <h3>Add a Pet to this Application</h3>

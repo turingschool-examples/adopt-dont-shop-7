@@ -10,8 +10,10 @@ class AdminApplicationsController < ApplicationController
     pet_update = PetApplication.find(params[:application_pet_id])
     if params[:value] == "Approved"
       pet_update.update(status: "Approved")
+      flash[:notice] = "Approved!"
     else params[:value] == "Rejected" 
       pet_update.update(status: "Rejected")
+      flash[:notice] = "Rejected! Sorry."
     end
     redirect_to "/admin/applications/#{params[:application_id]}"
   end

@@ -1,14 +1,4 @@
-<h1>Applicants Name: <%= @application.name %></h1>
-<p>Applicants Address Line 1: <%= @application.street_address %></p>
-<p>Applicants Address Line 2: <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %></p>
-<p>Applicants Reasoning: <%= @application.description %></p>
-<p> Pet Names: </p> 
-<section id="mypets-<%= @application.id %>">
-<% @applicant_pets.each do |pet| %> 
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
-<% end %>
-</section>
-<p>Applicants Status: <%= @application.status %></p>
+<%= render partial: "layouts/app_details" %>
 
 <% @application.pet_applications.each do |admin_pet| %>
   <section id="<%= admin_pet.pet.name %>">
