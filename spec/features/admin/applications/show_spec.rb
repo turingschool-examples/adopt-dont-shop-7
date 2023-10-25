@@ -44,7 +44,55 @@ RSpec.describe "Admin Application Show Page", type: :feature do
         within("#Ann") do
           expect(page).to_not have_content("Approved")
         end
-        save_and_open_page
+      end
+
+      it "For every pet that the application is for, I see a button to reject the application for that specific pet" do
+
+        visit "admin/applications/#{@application_1.id}"
+
+        within("#Auggie") do
+          expect(page).to have_content(@pet_1.name)
+          expect(page).to have_button("Approve")
+          expect(page).to have_button("Reject")
+        end 
+
+        within("#Ann") do
+          expect(page).to have_content(@pet_3.name)
+          expect(page).to have_button("Approve")
+          expect(page).to have_button("Reject")
+        end
+      end
+
+      it "when I click that button (reject), then I am taken back to the application show page" do
+
+        visit "admin/applications/#{@application_1.id}"
+
+        within("#Auggie") do
+          click_button("Reject")
+          expect(page).to have_content("Rejected")
+          expect(page).to have_current_path("/admin/applications/#{@application_1.id}")
+        end
+
+        within("#Ann") do
+          expect(page).to_not have_content("Rejected")
+        end
+      end
+
+      it "When I click approve or reject buttons, they update the pets status and disappear from the view page" do
+
+        visit "admin/applications/#{@application_1.id}"
+
+        within("#Auggie") do
+          click_button("Reject")
+          expect(page).to have_content("Rejected")
+        end
+
+        within("#Ann") do
+          click_button("Approve")
+          expect(page).to have_content("Approved")
+        end
+
+        expect(page).to_not have_css(".button-group")
       end
     end
   end
