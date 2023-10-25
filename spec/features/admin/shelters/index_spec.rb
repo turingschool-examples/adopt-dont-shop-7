@@ -44,15 +44,6 @@ RSpec.describe "the shelters index" do
     end
   end
 
-#   For this story, you should fully leverage ActiveRecord methods in your query.
-
-# 11. Shelters with Pending Applications
-
-# As a visitor
-# When I visit the admin shelter index ('/admin/shelters')
-# Then I see a section for "Shelters with Pending Applications"
-# And in this section I see the name of every shelter that has a pending application
-
   describe "User Story 11: Shelters with Pending Applications" do
     before(:each) do
       @application_1 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
@@ -69,7 +60,7 @@ RSpec.describe "the shelters index" do
         visit "/admin/shelters"
 
         within "#shelterPendingApps" do
-          expect(page).to_not have_content("Shelters with pending applications")
+          expect(page).to have_content("Shelters with pending applications")
           expect(page).to_not have_content(@shelter.name)
         end
 
@@ -90,7 +81,6 @@ RSpec.describe "the shelters index" do
         visit "/admin/shelters"
 
         within "#shelterPendingApps" do
-          expect(page).to have_content("Shelters with pending applications")
           expect(page).to have_content(@shelter.name)
         end
       end

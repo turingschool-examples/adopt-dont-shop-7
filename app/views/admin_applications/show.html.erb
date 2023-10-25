@@ -1,0 +1,18 @@
+<h1><%= @application.name %></h1>
+
+<p><%= "#{@application.street} #{@application.city} #{@application.state} #{@application.zip}" %></p>
+<p><%= @application.description %></p>
+<p><%= @application.qualifications %></p>
+<p><%= @application.status %></p>
+
+<div id=appliedPets>
+  <h2>Pets You Have Applied For</h2>
+  <% @application.pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    <%= form_with url: "/applications/#{pet.id}", method: :patch, data: { turbo: false } do |f| %>
+    <%= f.submit "Approve" %>
+    <% end %>
+  </div>
+  <% end %>
+</div>
