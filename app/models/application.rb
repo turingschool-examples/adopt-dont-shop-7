@@ -15,5 +15,4 @@ class Application < ApplicationRecord
 
     Pet.where("name ILIKE ?", "%#{pet_name}%")
   end
-
 end
