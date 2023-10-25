@@ -44,11 +44,42 @@ RSpec.describe "Admin Show Page" do
 
     it 'admin may reject a pet from being adopted and neither button is available' do
       visit "/admin/applications/#{@application.id}"
-      click_button "Reject #{@pet_5.name}"
-      expect(page).to_not have_content("Approve #{@pet_5.name}")
-      expect(page).to_not have_content("Reject #{@pet_5.name}")
+
+      within(@pet_5.id) do
+      click_button "Reject Pet"
+      expect(page).to_not have_content("Approve Pet")
+      expect(page).to_not have_content("Reject Pet")
       expect(page).to have_content("Rejected")
     end
   end
+
+  # USER STORY 14
+  xit "approved/rejected pets on one application do not affect other applications" do
+
+    visit "/admin/applications/#{@application_1.id}"
+
+    within(@pet_1) do
+      click_button("Reject")
+      expect(page).to have_content("Rejected")
+    end
+
+    within(@pet_2) do
+      click_button("Approve")
+      expect(page).to have_content("Approved")
+    end
+
+    visit "/admin/applications/#{@application_2.id}"
+
+    within(@pet_1) do
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_button("Approve")
+      expect(page).to have_button("Reject")
+    end
+
+    within(@pet_2) do
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_button("Approve")
+      expect(page).to have_button("Reject")
+    end
 
 end
