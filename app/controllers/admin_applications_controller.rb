@@ -4,9 +4,9 @@ class AdminApplicationsController < ApplicationController
   end
 
   def update
-    require'pry';binding.pry
+    # require'pry';binding.pry
     @application = Application.find(params[:id])
-    @pet_application = PetApplication.find(params[:pet_app_id])
+    @pet_application = PetApplication.where("application_id = #{@application.id}")
 
     if params[:status] == "approved"
       @pet_application.update(app_status: "approved")

@@ -24,12 +24,12 @@ RSpec.describe "As a visitor", type: :feature do
     end
   end
   describe "When I visit the admin applications show page" do
-    xit "Then I see button to reject pet for application" do
+    it "Then I see button to reject pet for application" do
       @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
       @shelter_2 = Shelter.create(name: "Littleton shelter", city: "Littleton, CO", foster_program: false, rank: 9)
       @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
       @application = Application.create(name: "Jimmy", street_address: "1234 fake st", city: "littleton", state: "co", zip_code: 85313, description: "cute and lovable", application_status: "in progress")
-      PetApplication.create(application: @application, pet: @pet_1)
+      @petapp = PetApplication.create(application: @application, pet: @pet_1)
       
       visit "/admin/applications/#{@application.id}"
 
@@ -43,6 +43,29 @@ RSpec.describe "As a visitor", type: :feature do
       expect(page).to_not have_button("Reject application for #{@pet_1.name}")
       # And instead I see an indicator next to the pet that they have been approved
       expect(page).to have_content("Rejected")
+    end
+  end
+  describe "When I visit the other application's admin show page" do
+    it "I do not see that the pet has been accepted or rejected for that application And instead I see buttons to approve or reject the pet for this specific application" do
+      @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      @shelter_2 = Shelter.create(name: "Littleton shelter", city: "Littleton, CO", foster_program: false, rank: 9)
+      @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+      @application = Application.create(name: "Jimmy", street_address: "1234 fake st", city: "littleton", state: "co", zip_code: 85313, description: "cute and lovable", application_status: "in progress")
+      @application2 = Application.create(name: "johnny", street_address: "1234 fake st", city: "littleton", state: "co", zip_code: 85313, description: "cute and lovable", application_status: "in progress")
+      @petapp = PetApplication.create(application: @application, pet: @pet_1)
+      @petapp2 = PetApplication.create(application: @application2, pet: @pet_1)
+
+      visit "/admin/applications/#{@application.id}"
+
+      click_button("Approve application for #{@pet_1.name}")
+
+      expect(page).to_not have_button("Approve application for #{@pet_1.name}")
+      expect(page).to_not have_button("Reject application for #{@pet_1.name}")
+
+      visit "/admin/applications/#{@application2.id}"
+
+      expect(page).to have_button("Approve application for #{@pet_1.name}")
+      expect(page).to have_button("Reject application for #{@pet_1.name}")
     end
   end
 end
