@@ -44,20 +44,15 @@ RSpec.describe "Applications show page" do
 
       visit "/applications/#{application.id}"
 
-      within "#search-pet-#{application.id}" do
-        expect(page).to have_content("Add a pet to this application")
-        expect(page).to have_field(:pet_name)
-        fill_in(:pet_name, with: "Lobster")
-        click_button("Search for Pets")
-      end
+      expect(page).to have_content("Add a pet to this application")
+      expect(page).to have_field(:pet_name)
+      fill_in(:pet_name, with: "Lobster")
+      click_button("Search for Pets")
+
 
       expect(current_path).to eq("/applications/#{application.id}")
-      
-      # within "#adopt-pet-#{application.id}" do
-        expect(page).to have_content("Lobster")
-        expect(page).to have_button("Adopt this Pet")
-        save_and_open_page
-      # end
+      expect(page).to have_content("Lobster")
+      expect(page).to have_button("Adopt this Pet")
     end
 
     it "can add a pet to an application" do
@@ -87,7 +82,7 @@ RSpec.describe "Applications show page" do
       expect("Lucille Bald").to appear_before("Search for Pets")
     end
 
-    it "can submit an application" do
+    it "can submit an application with one or more pets" do
       shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
       pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
@@ -103,40 +98,50 @@ RSpec.describe "Applications show page" do
         application_status: "In Progress"
       })
 
-      # When I visit an application's show page
+      application.pets << pet_1
+
       visit "/applications/#{application.id}"
 
-      # And  I have added one or more pets to the application
-      fill_in(:pet_name, with: "Lucille Bald")
-      fill_in(:pet_name, with: "Lobster")
+      expect(page).to have_button("Submit Application")
 
-      # Then I see a section to submit my application
-      within "#submit-#{application.id}" do
-        expect(page).to have_content("Submit Application")
-      end
-    end
-        # And in that section I see an input to enter why I would make a good owner for these pet(s)
-    it "has a text area to describe why a user would be a good candidate for pet adoption" do
-      expect(page).to have_field("Description")
-    end
+      expect(page).to have_field(:why_good_owner)
 
-    it "lets users submit the application" do
-      fill_in("Description", with: "Love pets and have a large yarde.")
+      fill_in("Why would you make a good owner?", with: "Love pets and have a large yard.")
+
       click_button("Submit Application")
+
+      expect(current_path).to eq("/applications/#{application.id}")
+
+      expect(page).to_not have_content("In Progress")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content("Lucille Bald")
+
+      expect(page).not_to have_content("Search for Pets")
     end
-        # When I fill in that input
-        
-        # And I click a button to submit this application
-       
-        # Then I am taken back to the application's show page
-        expect(current_path).to eq("/applications/#{application.id}")
-        # And I see an indicator that the application is "Pending"
-        expect(page).to have_content("Pending")
-        # And I see all the pets that I want to adopt
-        expect(page).to have_content("Lucille Bald, Lobster")
-      end
-        # And I do not see a section to add more pets to this app
-        expect(page).to_not have_content("add-pet-#{application.id}")
+
+    it "won't display a submit section until a pet has been added to the application" do
+      application = Application.create!({
+        name: "Joe Smith", 
+        street_address: "2323 Wysteria Ln.",
+        city: "Littleton",
+        state: "CO",
+        zip_code: "89321",
+        description: "Love pets; live on farm",
+        application_status: "In Progress"
+       })
+
+      shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
+
+      visit "/applications/#{application.id}"
+      
+      expect(page).not_to have_css(".submit-section")
+
+      application.pets << pet_1
+
+      visit "/applications/#{application.id}"
+      
+      expect(page).to have_css(".submit-section")
     end
   end
 end 
