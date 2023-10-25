@@ -18,6 +18,13 @@
         <%= f.hidden_field :pid, value: application_pet.pet_id %>
         <%= f.submit "Approve" %>
       <% end %>
+
+      <%= form_with url: "/applications/#{@application.id}/pets", method: :patch, data: { turbo: false } do |f| %>
+        <%= f.hidden_field :status_update, value: 2 %>
+        <%= f.hidden_field :aid, value: @application.id %>
+        <%= f.hidden_field :pid, value: application_pet.pet_id %>
+        <%= f.submit "Reject" %>
+      <% end %>
     <% end %>
 
     <% if !application_pet.pending? %>

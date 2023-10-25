@@ -11,7 +11,7 @@ RSpec.describe "the shelters index" do
     @pet_3 = Pet.create(adoptable: true, age: 4, breed: "chihuahua", name: "Elle", shelter_id: @shelter.id)
   end
 
-  describe "User Story 12: Approving a Pet for Adoption" do
+  context "User Story 12: Approving a Pet for Adoption" do
     describe "As a visitor, when I visit an admin application page" do
       it "For every pet on the application, I see a button to approve the application for that pet" do
         visit "/applications/#{@application_1.id}"
@@ -26,7 +26,13 @@ RSpec.describe "the shelters index" do
           fill_in("add_qualifications", with: "I also have a dog named Lola who is a showgirl.")
           click_button("Submit")
         end
+
+        @application_1.pets << @pet_2
         visit "/admin/applications/#{@application_1.id}"
+
+        within "#pet-#{@pet_2.id}" do
+          expect(page).to have_button("Approve")
+        end
 
         within "#pet-#{@pet_1.id}" do
           expect(page).to have_button("Approve")
@@ -39,11 +45,44 @@ RSpec.describe "the shelters index" do
           expect(page).to have_content("#{@pet_1.name} : #{@application_1.application_pets.first.status}")       
           expect(page).to_not have_selector(:link_or_button, "Approve")
         end
-
       end
+    end
+  end
 
-      it "When I click the button, I am taken back to the admin app show page where I don't see a button to approve, but do see an indicator saying the pet has been approved" do
+  context "User Story 13: Rejecting a Pet for Adoption" do
+    describe "As a visitor, when I visit an admin application page" do
+      it "For every pet on the application, I see a button to reject the application for that pet" do
+        visit "/applications/#{@application_1.id}"
+        fill_in "Search", with: "Ba"
+        click_on("Search")
+        
+        within "#pet-#{@pet_1.id}" do
+          click_button("Adopt this Pet")
+        end
 
+        within "#appliedPets" do
+          fill_in("add_qualifications", with: "I also have a dog named Lola who is a showgirl.")
+          click_button("Submit")
+        end
+
+        @application_1.pets << @pet_2
+        visit "/admin/applications/#{@application_1.id}"
+
+        within "#pet-#{@pet_2.id}" do
+          expect(page).to have_button("Reject")
+        end
+
+        within "#pet-#{@pet_1.id}" do
+          expect(page).to have_button("Reject")
+          click_button("Reject")
+        end
+
+        expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+
+        within "#pet-#{@pet_1.id}" do
+          expect(page).to have_content("#{@pet_1.name} : #{@application_1.application_pets.first.status}")       
+          expect(page).to_not have_selector(:link_or_button, "Reject")
+        end
       end
     end
   end
