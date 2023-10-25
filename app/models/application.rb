@@ -16,7 +16,15 @@ class Application < ApplicationRecord
     "#{street_address}, #{city}, #{state}, #{zip_code}"
   end
 
-  def adopt
-    ##For storing a pet into a specific application <<
+  def change_status
+    count = 0
+    application_pets.each{|pet| count +=1 if !pet.status.nil?}
+    check_values = application_pets.map{|pet| pet.status}
+    if count == application_pets.count && !check_values.include?(false)
+      self.update(status: "Approved")
+    elsif check_values.include?(false)
+      self.update(status: "Rejected")
+    end
   end
+
 end
