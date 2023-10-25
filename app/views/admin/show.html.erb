@@ -3,9 +3,9 @@
 <p><u>Description</u>: <%=@app.description%></p>
 <p><u>Status</u>: <%=@app.status%></p>
 
-
+<p><h2><u>Pets on this application</u></h2></p> 
 <% @app.pets.each do |pet| %>
-  <p><u>Pets on this application</u>: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> 
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> 
   <%if @app.status == "Accepted" %>
     <p>your application for <%=pet.name %> has been Approved!</p>
   <%elsif @app.status == "Rejected"%>
