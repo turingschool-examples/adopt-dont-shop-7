@@ -1,4 +1,4 @@
 class ApplicationPet < ApplicationRecord
-  belongs_to :application, dependent: :destroy
-  belongs_to :pet, dependent: :destroy
+  belongs_to :application
+  belongs_to :pet
 end

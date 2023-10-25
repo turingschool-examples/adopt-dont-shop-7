@@ -9,7 +9,7 @@ RSpec.describe "the admin application show" do
     @application_2 = Application.create!(name: "Papa John", street_address: "222 lonely road", city: "John City", state: "AR", zip_code: "90909", description: "I like animals", status: "In Progress")
   end
 
-  describe "I visit an admin application show page ('/admin/applications/:id')" do
+  describe "US 12 - I visit an admin application show page ('/admin/applications/:id')" do
     describe "For every pet that the application is for, I see a button to approve the application for that specific pet" do
       describe "I click that button and I'm taken back to the admin application show page" do
         it " next to the pet that I approved, I do not see a button to approve this pet and instead I see an indicator next to the pet that they have been approved" do
@@ -28,7 +28,7 @@ RSpec.describe "the admin application show" do
     end
   end
 
-  describe "I visit an admin application show page ('/admin/applications/:id')" do
+  describe "US 13 - I visit an admin application show page ('/admin/applications/:id')" do
     describe "For every pet that the application is for, I see a button to reject the application for that specific pet" do
       describe "I click that button and I'm taken back to the admin application show page" do
         it " next to the pet that I rejected, I do not see a button to reject this pet and instead I see an indicator next to the pet that they have been rejected" do
