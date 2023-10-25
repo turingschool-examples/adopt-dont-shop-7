@@ -15,7 +15,6 @@ RSpec.describe "the New application page", type: :feature do
         fill_in("State", with: "FL")
         fill_in("Zipcode", with: "56987")
         fill_in("Description", with: "I have three other dogs to be friends with.")
-
         click_button("Submit")
 
         expect(current_path).not_to eq("/applications/new")
@@ -24,6 +23,7 @@ RSpec.describe "the New application page", type: :feature do
         expect(page).to have_content("100 Apple Ave")
         expect(page).to have_content("Orlando")
         expect(page).to have_content("FL")
+        expect(page).to have_content("56987")
         expect(page).to have_content("I have three other dogs to be friends with.")
         expect(page).to have_content("In Progress")
       end
