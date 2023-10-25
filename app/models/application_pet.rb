@@ -16,4 +16,12 @@ class ApplicationPet < ApplicationRecord
     end
   end
 
+  def approve
+    self.update(status: true)
+  end
+
+  def reject
+    self.update(status: false)
+  end
+
 end

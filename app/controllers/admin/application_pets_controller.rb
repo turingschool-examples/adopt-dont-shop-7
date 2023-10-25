@@ -5,12 +5,12 @@ class Admin::ApplicationPetsController < ApplicationController
     pet = Pet.find(params[:pet_id])
     match = ApplicationPet.find_by(pet_id: pet.id, application_id: application.id)
     if params[:approve] == "true"
-      match.update(status: true)
-      pet.update(adoptable: false)
+      match.approve
+      pet.approve
       application.change_status
       redirect_to "/admin/applications/#{application.id}"
     else 
-      match.update!(status: false)
+      match.reject
       application.change_status
       redirect_to "/admin/applications/#{application.id}"
     end

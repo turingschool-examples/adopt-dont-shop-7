@@ -16,4 +16,9 @@ class Pet < ApplicationRecord
   def self.search(name)
     where("name ILIKE ?", "%#{name}%")
   end
+
+  def approve
+    self.update(adoptable: false)
+  end
+
 end
