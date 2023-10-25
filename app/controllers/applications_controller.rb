@@ -34,11 +34,8 @@ class ApplicationsController < ApplicationController
 
   def update 
     application = Application.find(params[:application_id])
-    binding.pry
-    # params[:reason].present?
-      application.update(description: params[:reason] + " and " + application.description)
-      application.update(status: "Pending") 
-      redirect_to "/applications/#{application.id}"
-    # end
+    application.update(description: params[:reason] + " and " + application.description)
+    application.update(status: "Pending") 
+    redirect_to "/applications/#{application.id}"
   end
 end

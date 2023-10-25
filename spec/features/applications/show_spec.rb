@@ -35,6 +35,7 @@ RSpec.describe 'Application Show Page' do
     expect(current_path).to eq("/applications/#{application_1.id}")
     expect(page).to have_content(pet_test.name)
     click_button "Adopt #{pet_test.name}"
+    save_and_open_page
     expect(current_path).to eq("/applications/#{application_1.id}")
     expect(page).to have_content(pet_test.name)
     click_link "#{pet_test.name}"
