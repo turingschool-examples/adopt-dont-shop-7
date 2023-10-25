@@ -1,6 +1,6 @@
 class Application < ApplicationRecord
-  has_many :application_pets, dependent: :destroy_all
-  has_many :pets, through: :application_pets, dependent: :destroy_all
+  has_many :application_pets, dependent: :destroy
+  has_many :pets, through: :application_pets, dependent: :destroy
 
   def self.empty_params_link(params)
     queries = Application.empty_params(params)
