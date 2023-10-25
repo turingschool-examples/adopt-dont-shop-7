@@ -1,23 +1,36 @@
-<div class="All Shelters">
-<h1>All Shelters</h1>
-<% @shelters.each do |shelter| %>
-  <div id="shelter-<%= shelter.id %>">
-    <h3><%= shelter.name %></h3>
-    <p>Created at: <%= shelter.created_at %></p>
-    <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
-    <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
-  </div>
-<% end %>
-</div>
+<%= render partial: 'application/header', layout: 'header' %>
+<%= render partial: 'application/body', layout: 'body' %>
 
-<div class="Shelters with Pending Applications">
-  <h1>Shelters with Pending Applications</h1>
-  <% @shelters_with_pending.each do |shelter| %>
-    <div id="shelter-<%= shelter.id %>">
-      <h3><%= shelter.name %></h3>
-      <p>Created at: <%= shelter.created_at %></p>
-      <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
-      <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+<section class="All Shelters">
+  <div class="myDiv" >
+    <h1>All Shelters</h1>
+  </div>
+
+  <% @shelters.each do |shelter| %>
+    <div class="body" >
+      <div id="shelter-<%= shelter.id %>">
+        <h3><%= shelter.name %></h3>
+        <p>Created at: <%= shelter.created_at %></p>
+        <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
+        <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+      </div>
     </div>
   <% end %>
-</div>
+</section>
+
+<section class="Shelters with Pending Applications">
+  <div class="myDiv" >
+    <h1>Shelters with Pending Applications</h1>
+  </div>
+
+  <% @shelters_with_pending.each do |shelter| %>
+    <div class="body" >
+      <div id="shelter-<%= shelter.id %>">
+        <h3><%= shelter.name %></h3>
+        <p>Created at: <%= shelter.created_at %></p>
+        <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
+        <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+      </div>
+    </div>
+  <% end %>
+</section>

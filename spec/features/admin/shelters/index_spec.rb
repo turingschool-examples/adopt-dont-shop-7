@@ -9,7 +9,7 @@ RSpec.describe 'admin#shelters' do
     @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @shelter_3.pets.create!(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @bruno = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Bruno", shelter_id: @shelter_1.id)
-    @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: [@bruno.name], status: "Pending")
+    @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", status: "Pending")
     @john.add_pet(@bruno)
   end
 
@@ -18,8 +18,10 @@ RSpec.describe 'admin#shelters' do
     it 'shows all Shelters in the system listed in reverse alphabetical order by name' do
       visit '/admin/shelters'
       
-      expect(@shelter_2.name).to appear_before(@shelter_3.name)
-      expect(@shelter_3.name).to appear_before(@shelter_1.name)
+      within('section', :text => 'All Shelters') do
+        expect(@shelter_2.name).to appear_before(@shelter_3.name)
+        expect(@shelter_3.name).to appear_before(@shelter_1.name)
+      end
     end
   end
 
@@ -28,7 +30,7 @@ RSpec.describe 'admin#shelters' do
     visit '/admin/shelters'
 
     expect(page).to have_content("Shelters with Pending Applications")
-    within('div', :text => 'Shelters with Pending Applications') do
+    within('section', :text => 'Shelters with Pending Applications') do
       expect(page).to have_content(@shelter_1.name)
     end
   end
@@ -37,7 +39,7 @@ RSpec.describe 'admin#shelters' do
     visit '/admin/shelters'
 
     expect(page).to have_content("Shelters with Pending Applications")
-    within('div', :text => 'Shelters with Pending Applications') do
+    within('section', :text => 'Shelters with Pending Applications') do
       expect(page).to_not have_content(@shelter_2.name)
       expect(page).to_not have_content(@shelter_3.name)
     end

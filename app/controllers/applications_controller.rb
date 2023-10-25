@@ -8,10 +8,6 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @searched = Pet.search_for_pet(params[:search])
     end
-    if params[:reason].present?
-      #Show the application as "Pending"
-      @application.status = "Pending"
-    end
   end
 
   def create
@@ -29,16 +25,14 @@ class ApplicationsController < ApplicationController
     if params[:pet_id].present?
       selected_pet = Pet.find(params[:pet_id])
       @application.add_pet(selected_pet)
-    end
-    if params[:reason].present?
-      #Show the application as "Pending"
-      @application.update(status: "Pending")
+    elsif params[:reason].present?
+      @application.update(status: 1)
     end
     redirect_to "/applications/#{@application.id}"
   end
 
   private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :pet_names, status: "In Progress", submitted: false)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end

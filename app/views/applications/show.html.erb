@@ -5,7 +5,14 @@
   }
 </style>
 
-<p><u>Name</u>: <%= @application.name %></p>
+<%= render partial: 'application/header', layout: 'header' %>
+<%= render partial: 'application/body', layout: 'body' %>
+
+<div class="myDiv" >
+  <h1>Name on Application: <%= @application.name %></h1>
+</div>
+
+<div class="body" >
 <p><u>Address</u>: <%= @application.full_address %> </p>
 <p><u>Why would you make a good home?</u>: <%= @application.description %> </p>
 <p><u>Status</u>: <%= @application.status %> </p>
@@ -35,7 +42,7 @@
   <% end %>
 <% end %>
 
-<% if !@pets.empty? && @application.pet_added && @application.status == "In Progress"%>
+<% if !@pets.empty? && @application.status == "In Progress"%>
   <h4><u>Submit Application</u></h4>
     <%= form_with url:"/applications/#{@application.id}", method: :patch, local: :true do |f| %> 
       <label for="reason">Why would you be a good home for these pets?</label><br>
@@ -44,3 +51,4 @@
       <% end %>
 <% end %>
 
+</div>

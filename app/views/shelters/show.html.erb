@@ -1,8 +1,14 @@
-<h1><%= @shelter.name %></h1>
-<p>Rank: <%= @shelter.rank %></p>
-<p>City: <%= @shelter.city %></p>
+<%= render partial: 'application/header', layout: 'header' %>
+<%= render partial: 'application/body', layout: 'body' %>
 
-<p class="pet-count">Pets at <%= @shelter.name %>: <%= @shelter.pet_count %></p>
-<p><%= link_to "All pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %></p>
+<div class="myDiv" >
+  <h1><%= @shelter.name %></h1>
+  <p>Rank: <%= @shelter.rank %></p>
+  <p>City: <%= @shelter.city %></p>
+</div>
 
-<p><%= link_to "Delete #{@shelter.name}", "/shelters/#{@shelter.id}", method: :delete %></p>
+<div class="body" >
+  <p class="pet-count">Pets at <%= @shelter.name %>: <%= @shelter.pet_count %></p>
+  <p><%= link_to "All pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %></p>
+  <p><%= link_to "Delete #{@shelter.name}", "/shelters/#{@shelter.id}", method: :delete %></p>
+</div>

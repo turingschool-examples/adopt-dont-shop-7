@@ -2,8 +2,8 @@ require 'rails_helper'
 RSpec.describe "the application show" do
   before :each do
     shelter = Shelter.create(name: "North Shelter", city: "Irvine CA", foster_program: false, rank: 9)
-    @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: nil, status: "In Progress")
-    @trevor = Application.create!(name: "Trevor Smith", street_address: "815 Ardsma Ave", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", pet_names: [], status: "In Progress")  
+    @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", status: "In Progress")
+    @trevor = Application.create!(name: "Trevor Smith", street_address: "815 Ardsma Ave", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", status: "In Progress")  
     @bruiser = Pet.create!(adoptable: true, age: 1, breed: "huskey", name: "Bruiser", shelter_id: shelter.id)
     @bruno = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Bruno", shelter_id: shelter.id)
     @trixie = Pet.create!(adoptable: true, age: 7, breed: "pitbull", name: "Trixie", shelter_id: shelter.id)
@@ -21,7 +21,7 @@ RSpec.describe "the application show" do
     expect(page).to have_content(@john.zip_code)
     expect(page).to have_content(@john.description)
 
-    expect(@john.pet_names).to be(nil)
+    expect(@john.pets).to eq([])
 
     expect(page).to have_content("Pets I'd Like to Adopt")
     expect(page).to have_content(@john.status)

@@ -11,18 +11,20 @@
   </head>
 
   <body>
-  <% flash.each do |type, msg| %>
-    <div>
-      <%= msg %>
-    </div>
-  <% end %>
-    <section>
-      <p>Quick Links</p>
+    <%= render partial: 'application/body', layout: 'body' %>
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+
+    <div class="body" >
+      <h4>Quick Links</h4>
       <%= link_to "Pets", "/pets" %>
       <%= link_to "Shelters", "/shelters" %>
       <%= link_to "Veterinarians", "/veterinarians" %>
       <%= link_to "Veterinary Offices", "/veterinary_offices" %>
-    </section>
+    </div>
     <%= yield %>
   </body>
 </html>
