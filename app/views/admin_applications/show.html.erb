@@ -12,7 +12,7 @@
     <% if pet.approved? %>
       <p>Approved</p>
     <% else %>
-      <h3><%= button_to "Approve application for #{pet.name}", "/admin/applications/#{@application.id}", method: :patch %></h3>
+      <h3><%= button_to "Approve application for #{pet.name}", "/admin/applications/#{@application.id}", params: [@application, pet_id: pet.id], method: :patch %></h3>
     <% end %>
   </div>
 <% end %>

@@ -5,11 +5,8 @@ class AdminApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @pet = @application.pets.find(params[:id])
+    @pet = Pet.find(params[:pet_id])
     @pet.update(approved: true)
-    #1. if statement for button so it will disappear once pet adopted
-    #2. make a column in pet_applications
-    #3. finish this update method to populate that column
     redirect_to "/admin/applications/#{@application.id}"
   end
 end
