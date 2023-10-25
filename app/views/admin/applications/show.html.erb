@@ -17,6 +17,7 @@
       <% if pet_app.pet.adoptable != false && pet_app.adoption_approved == nil %>
           <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
           <%= f.hidden_field :pet_id, :value => pet_app.pet.id %>
+          <%= f.hidden_field :app_id, :value => pet_app.application_id %>
           <%= f.submit "Approve" %>
           <% end %>
         <% end %>
@@ -25,6 +26,7 @@
         <% if pet_app.adoption_approved == nil %>
           <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, data: { turbo: false } do |f| %>
           <%= f.hidden_field :pet_id, :value => pet_app.pet.id %>
+          <%= f.hidden_field :application_id, :value => pet_app.application_id %>
           <%= f.submit "Reject" %></p>
         <% end %>
       <% end %>

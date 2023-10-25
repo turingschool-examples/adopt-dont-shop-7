@@ -5,8 +5,9 @@ class Admin::ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    pet = Pet.find(params[:pet_id])
-    pet_app = pet.pet_applications
+    require 'pry'; binding.pry
+    pet_app = PetApplication.find(params[:application_id])
+    pet = pet_app
     if params[:commit] == "Approve"
       pet_app.update(adoption_approved: true)
     elsif params[:commit] == "Reject"
