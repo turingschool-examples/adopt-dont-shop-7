@@ -1,0 +1,22 @@
+<h2>Application Details</h2>
+
+<p>Application Status: <%= @app.status %></p>
+<p>Name: <%= @app.name %></p>
+<p>Address: <%= @app.full_address %></p>
+<p>Description: <%= @app.description %></p>
+<h4>Pets</h4>
+<% @app.pets.each do | pet | %>
+    <section id="pet-<%= pet.id %>">
+      <span><%= pet.name %></span>
+      <% if pet.adoptable && pet.approvable %>
+          <%= form_with url: "/admin/applications/#{@app.id}?pet_id=#{pet.id}&approve=true",
+                        method: :patch,
+                        data: {turbo: false},
+                        html: {style: "display: inline-block"} do |form| %>
+            <% form.submit "Approve"  %>
+          <% end %>
+      <% else %>
+        <span>| Approved ✅</span>
+      <% end %>
+    </section>
+<% end %>
