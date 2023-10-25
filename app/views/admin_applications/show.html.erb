@@ -6,13 +6,16 @@
 <h3> Zipcode: <%= @application.zip_code %></h3>
 <h3> Application Status: <%= @application.application_status %></h3>
 <h3> Description: <%= @application.description %></h3>
-<h3> Pets Willing to Adopt: <% @application.pets.each do |pet| %></h3>
+<h3> Pets Willing to Adopt: <% @application.pet_applications.each do |pet_app| %></h3>
   <div>
-    <h2><%= pet.name %></h2>
-    <% if pet.approved? %>
+    <h2><%= pet_app.pet.name %></h2>
+    <% if pet_app.app_status == "approved" && pet_app.application_id == @application.id %>
       <p>Approved</p>
-    <% else %>
-      <h3><%= button_to "Approve application for #{pet.name}", "/admin/applications/#{@application.id}", params: [@application, pet_id: pet.id], method: :patch %></h3>
+    <% elsif pet_app.app_status == "rejected" && pet_app.application_id == @application.id%>
+      <p>Rejected</p>
+    <% else %>    
+      <h3><%= button_to "Approve application for #{pet_app.pet.name}", "/admin/applications/#{@application.id}", params: [@application, pet_app_id: pet_app.application_id, status: "approved"], method: :patch %></h3>
+      <h3><%= button_to "Reject application for #{pet_app.pet.name}", "/admin/applications/#{@application.id}", params: [@application, pet_app_id: pet_app.application_id, status: "rejected"], method: :patch %></h3>
     <% end %>
   </div>
 <% end %>
