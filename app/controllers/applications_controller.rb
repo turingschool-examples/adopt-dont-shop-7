@@ -16,7 +16,6 @@ class ApplicationsController < ApplicationController
   end
   
   def show
-    require 'pry'; binding.pry
     @application = Application.find(params[:id])
     if params[:pet_name]
       @pet = @application.search(params[:name])
