@@ -108,6 +108,17 @@ RSpec.describe "Admin Show Page" do
       click_button "Reject #{@pet_5.name}"
       expect(page).to have_content("Application Status: Rejected")
     end
+
+    ## USER STORY 17
+    it "after all pets are approved, going to show page per each pet shows that each pet is no longer 'adoptable'" do
+      visit "/admin/applications/#{@application.id}"
+      click_button "Approve #{@pet_3.name}"
+      click_button "Approve #{@pet_5.name}"
+      visit "/pets/#{@pet_3.id}"
+      expect(page).to have_content("Status: Not Adoptable")
+      visit "/pets/#{@pet_5.id}"
+      expect(page).to have_content("Status: Not Adoptable")
+    end
   end
 end
 
