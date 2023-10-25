@@ -47,10 +47,10 @@ RSpec.describe "the admin application show" do
     end
   end
 
-  describe "When there are two applications in the system for the same pet" do 
-    describe "When I visit the admin application show page for one of the applications and I approve or reject the pet for that application" do 
-      describe "I visit the other application's admin show page" do 
-        it "I do not see that the pet has been accepted or rejected for that application and instead I see buttons to approve or reject the pet for this specific application" do 
+  describe "When there are two applications in the system for the same pet" do
+    describe "When I visit the admin application show page for one of the applications and I approve or reject the pet for that application" do
+      describe "I visit the other application's admin show page" do
+        it "I do not see that the pet has been accepted or rejected for that application and instead I see buttons to approve or reject the pet for this specific application" do
           @application.pets << [@pet, @pet_2]
           @application_2.pets << [@pet, @pet_2]
           visit("/admin/applications/#{@application.id}")

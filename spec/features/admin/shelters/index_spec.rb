@@ -10,10 +10,10 @@ RSpec.describe "the admin shelters index" do
     @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
   end
 
-  describe "Admin Shelters Index" do 
-    describe "I visit the admin shelter index ('/admin/shelters')" do 
+  describe "Admin Shelters Index" do
+    describe "I visit the admin shelter index ('/admin/shelters')" do
       it "I see all Shelters in the system listed in reverse alphabetical order by name" do
-        visit '/admin/shelters'
+        visit "/admin/shelters"
 
         expect(page).to have_content("RGV animal shelter")
         expect(page).to have_content("Fancy pets of Colorado")
@@ -22,9 +22,9 @@ RSpec.describe "the admin shelters index" do
     end
   end
 
-  describe "I visit the admin shelters index" do 
-    describe "Then I see a section for 'Shelters with Pending Applications'" do 
-      it "I see the name of every shelter that has a pending application" do 
+  describe "I visit the admin shelters index" do
+    describe "Then I see a section for 'Shelters with Pending Applications'" do
+      it "I see the name of every shelter that has a pending application" do
         @application = Application.create!(name: "Jimmy John", street_address: "111 lonely road", city: "John City", state: "AR", zip_code: "90909", description: "I like animals", status: "In Progress")
 
         visit "/applications/#{@application.id}"
@@ -34,7 +34,7 @@ RSpec.describe "the admin shelters index" do
         click_button "Submit"
 
         click_button "Adopt this Pet"
-        
+
         expect(page).to have_content("Why would you make a good owner for these pet(s)?")
 
         expect(page).to have_button("Submit Application")
@@ -43,9 +43,21 @@ RSpec.describe "the admin shelters index" do
 
         click_button("Submit Application")
 
-        visit '/admin/shelters'
-        expect(page).to have_content(@shelter_1.name)
+        visit "/admin/shelters"
 
+        expect(page).to have_content(@shelter_1.name)
+      end
+    end
+  end
+
+  describe "US 21 - Show Page Links" do
+    describe "every shelter name is a link" do
+      it "I click a link and an taken to that shelters show page" do
+        visit "/admin/shelters"
+        save_and_open_page
+        expect(page).to have_link("#{@shelter_1.name}")
+        expect(page).to have_link("#{@shelter_2.name}")
+        expect(page).to have_link("#{@shelter_3.name}")
       end
     end
   end
