@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "New Application Page" do
-  # User story 2
+  # USER STORY 2
   it 'user fills out the form, submits, gets directed to new applications show page where user input is shown and application status is changed to in progress' do
     visit '/applications/new'
     
