@@ -34,10 +34,10 @@ RSpec.describe "the shelters index" do
         end
 
         expect(current_path).to eq("/admin/applications/#{@application_1.id}")
-save_and_open_page
+
         within "#pet-#{@pet_1.id}" do
           expect(page).to have_content("#{@pet_1.name} : #{@application_1.application_pets.first.status}")       
-          expect(page).to_not have_button("Approve")
+          expect(page).to_not have_selector(:link_or_button, "Approve")
         end
 
       end
