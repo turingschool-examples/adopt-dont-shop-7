@@ -18,7 +18,7 @@ RSpec.describe "New Application Page" do
     expect(page).to have_content('In Progress') 
   end
 
-  #USER STORY 3
+  # USER STORY 3
   it 'redirects you to the application form page if you do not fill it out properly' do
     visit '/applications/new'
     
