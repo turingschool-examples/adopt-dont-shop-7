@@ -20,7 +20,7 @@ class AppsController < ApplicationController
     if app.save
       redirect_to "/apps/#{app.id}"
     else
-      flash[:notice] = "Error: Please fill out this field"
+      flash[:alert] = "Error: Please fill out all fields"
       render :new
     end
   end
