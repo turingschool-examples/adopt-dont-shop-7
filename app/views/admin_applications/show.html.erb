@@ -20,7 +20,11 @@
                       method: :patch,
                       data: { turbo: false } %>
     <% else %>
-        <span>| Approved ✅</span>
+        <% if  %>
+            <span>| Approved ✅</span>
+        <% else %>
+
+        <% end %>
       <% end %>
     </section>
 <% end %>
