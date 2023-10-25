@@ -39,7 +39,8 @@ RSpec.describe Pet, type: :model do
       end
     end
   end
-
+  
+  # USER STORY 8
   it "returns partial match for pet names" do
     expect(Pet.search("Mr.")).to eq([@pet_1])
   end
