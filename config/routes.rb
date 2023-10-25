@@ -44,5 +44,6 @@ Rails.application.routes.draw do
 
   get "/admin/shelters", to: "admin_shelters#index"
   get "/admin/applications/:id", to: "admin_applications#show"
+  patch "applications/:application_id/pets", to: "application_pets#update"
 
 end

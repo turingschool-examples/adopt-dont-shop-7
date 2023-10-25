@@ -28,11 +28,18 @@ RSpec.describe "the shelters index" do
         end
         visit "/admin/applications/#{@application_1.id}"
 
-        save_and_open_page
-
         within "#pet-#{@pet_1.id}" do
           expect(page).to have_button("Approve")
+          click_button("Approve")
         end
+
+        expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+save_and_open_page
+        within "#pet-#{@pet_1.id}" do
+          expect(page).to have_content("#{@pet_1.name} : #{@application_1.application_pets.first.status}")       
+          expect(page).to_not have_button("Approve")
+        end
+
       end
 
       it "When I click the button, I am taken back to the admin app show page where I don't see a button to approve, but do see an indicator saying the pet has been approved" do

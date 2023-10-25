@@ -7,10 +7,14 @@
 
 <div id=appliedPets>
   <h2>Pets You Have Applied For</h2>
-  <% @application.pets.each do |pet| %>
-  <div id="pet-<%= pet.id %>">
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-    <%= form_with url: "/applications/#{pet.id}", method: :patch, data: { turbo: false } do |f| %>
+  <% @application.application_pets.each do |application_pet| %>
+  <div id="pet-<%= application_pet.pet_id %>">
+    <%=application_pet.status %>
+    <%= link_to "#{application_pet.pet.name}", "/pets/#{application_pet.pet_id}" %>
+    <%= form_with url: "/applications/#{@application.id}/pets", method: :patch, data: { turbo: false } do |f| %>
+    <%= f.hidden_field :status_update, value: 1 %>
+    <%= f.hidden_field :aid, value: @application.id %>
+    <%= f.hidden_field :pid, value: application_pet.pet_id %>
     <%= f.submit "Approve" %>
     <% end %>
   </div>

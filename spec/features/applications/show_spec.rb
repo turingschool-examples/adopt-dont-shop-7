@@ -219,9 +219,6 @@ RSpec.describe "Application Show Page" do
         end
       end
 
-<<<<<<< HEAD
-  
-=======
       describe "User Story 8/9 Partial and Case Insensitive Matches for Pet Names" do
         before(:each) do
           @application_1 = Application.create!(name: "Billy", street: "Maritime Lane", city: "Springfield", state: "Virginia", zip: "22153", description: "Loving and likes to walk", status: "In Progress")
@@ -266,7 +263,6 @@ RSpec.describe "Application Show Page" do
       end
 
     
->>>>>>> ec0b208e63252d95a8763c03f513140901aeb7af
     end
   end
 end
