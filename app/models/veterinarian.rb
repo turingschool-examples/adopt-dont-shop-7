@@ -1,7 +1,7 @@
 class Veterinarian < ApplicationRecord
   validates :name, presence: true
   validates :review_rating, presence: true, numericality: true
-  belongs_to :veterinary_office, dependent: :destroy
+  belongs_to :veterinary_office
 
   def office_name
     veterinary_office.name
