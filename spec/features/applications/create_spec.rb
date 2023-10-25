@@ -22,7 +22,6 @@ RSpec.describe "application creation" do
   describe "the application create form" do
     context "given valid data" do
       it "creates the application and redirects to the application's show page" do
-        pending "Show page must be completed prior to testing"
 
         visit "applications/new"
 
