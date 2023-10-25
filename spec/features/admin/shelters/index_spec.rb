@@ -50,6 +50,36 @@ RSpec.describe "the admin shelters index" do
     end
   end
 
+  describe "US 20 - Pending apps alphabetical" do
+    describe "on the admin shelter index page" do
+      it "shelters with pending applications are listed alphabetically" do
+        @application = Application.create!(name: "Jimmy John", street_address: "111 lonely road", city: "John City", state: "AR", zip_code: "90909", description: "I like animals", status: "In Progress")
+        @application_2 = Application.create!(name: "Papa John", street_address: "222 lonely road", city: "John City", state: "AR", zip_code: "90909", description: "I like animals", status: "In Progress")
+
+        visit "/applications/#{@application.id}"
+
+        fill_in "Search for Pets", with: "Lucille Bald"
+        click_button "Submit"
+        click_button "Adopt this Pet"
+        fill_in "Why would you make a good owner for these pet(s)?", with: "I love animals"
+        click_button("Submit Application")
+
+        visit "/applications/#{@application_2.id}"
+
+        fill_in "Search for Pets", with: "Clawdia"
+        click_button "Submit"
+        click_button "Adopt this Pet"
+        fill_in "Why would you make a good owner for these pet(s)?", with: "Because."
+        click_button("Submit Application")
+
+        visit "/admin/shelters"
+
+        expect(page).to have_content(@shelter_3.name)
+        expect(page).to have_content(@shelter_1.name)
+      end
+    end
+  end
+
   describe "US 21 - Show Page Links" do
     describe "every shelter name is a link" do
       it "I click a link and an taken to that shelters show page" do

@@ -25,7 +25,7 @@
 <section id="pending-apps">
   <h2> Shelters With Pending Applications </h2>
   <ul> 
-    <% @shelters_pending_applications.uniq.each do |shelter| %>
+    <% @shelters_pending_applications.each do |shelter| %>
       <%= shelter.name %>
       <br>
       <% end %>
