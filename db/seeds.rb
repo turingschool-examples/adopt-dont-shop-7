@@ -20,3 +20,5 @@ VeterinaryOffice.destroy_all
 @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
 @application = Application.create(name: "Jimmy", street_address: "1234 fake st", city: "littleton", state: "co", zip_code: 85313, description: "cute and lovable", application_status: "pending")
 PetApplication.create(application: @application, pet: @pet_1)
+@veterinaryoffice1 = VeterinaryOffice.create(boarding_services: true, max_patient_capacity: 30, name: "Nathan's Office")
+@veterinarian1 = @veterinaryoffice1.veterinarians.create(on_call: true, review_rating: 5, name: "nathan")

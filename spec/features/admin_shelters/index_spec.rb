@@ -22,6 +22,8 @@ RSpec.describe "As a visitor" do
       visit "/admin/shelters"
 
       expect(page).to have_content("Shelters with pending applications")
+      expect(page).to have_content("Aurora shelter")
+      expect(page).to have_content("Littleton shelter")
     end
   end
 end
