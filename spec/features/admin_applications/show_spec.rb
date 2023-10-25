@@ -41,4 +41,28 @@ RSpec.describe "admin applications show page" do
       have_content "Approved"
     end
   end
+
+  # US 13
+  # As a visitor
+  # When I visit an admin application show page ('/admin/applications/:id')
+  # For every pet that the application is for, I see a button to reject the application for that specific pet
+  # When I click that button
+  # Then I'm taken back to the admin application show page
+  # And next to the pet that I rejected, I do not see a button to approve or reject this pet
+  # And instead I see an indicator next to the pet that they have been rejected
+  it "displays a button to reject the application for a specific pet" do
+    visit "/admin/applications/#{@app1.id}"
+
+    within("#pet-#{@p2.id}") do
+      click_button "Reject Application"
+    end
+
+    expect(current_path).to eq("/admin/applications/#{@app1.id}")
+
+    within("#pet-#{@p2.id}") do
+      expect(page).to have_no_button("Approve")
+      expect(page).to have_no_button("Reject Application")
+      expect(page).to have_content("Application has been Rejected")
+    end
+  end
 end
