@@ -14,10 +14,12 @@ class Pet < ApplicationRecord
   end
 
   def approvable
-    # require 'pry'; binding.pry
-    # ensure pet_
     raise "Only access #approvable from application instance" if pet_applications.count != 1
 
-    pet_applications.first != "Approved"
+    pet_applications.first.status != "Approved"
+  end
+
+  def application_approved
+    pet_applications.first.status == "Approved"
   end
 end

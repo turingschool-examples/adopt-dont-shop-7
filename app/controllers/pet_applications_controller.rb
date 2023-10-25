@@ -7,7 +7,7 @@ class PetApplicationsController < ApplicationController
 
   def update
     pet_app = PetApplication.where(application_id: params[:id], pet_id: params[:pet_id])
-    pet_app.update!(status: !ActiveRecord::Type::Boolean.new.cast(params[:approve]))
+    pet_app.update!(status: params[:status])
 
     redirect_to "/admin/applications/#{params[:id]}"
   end

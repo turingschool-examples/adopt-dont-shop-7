@@ -79,5 +79,27 @@ RSpec.describe Pet, type: :model do
         expect { @pet_1.approvable }.to raise_error("Only access #approvable from application instance")
       end
     end
+
+    describe "#application_approved" do
+      before(:each) do
+        @app1 = Application.create!(
+          name: "Charles", address: "123 S Monroe", city: "Denver", state: "CO", zip: "80102",
+          description: "Good home for good boy", status: "In Progress"
+        )
+        @app2 = Application.create!(
+          name: "TP", address: "1080 Pronghorn", city: "Del Norte", state: "CO", zip: "81132",
+          description: "Good home for good boy", status: "In Progress"
+        )
+        @pa = PetApplication.create!(application: @app1, pet: @pet_1)
+      end
+      it "returns false if PetApplications status is anything but 'Approved'" do
+        expect(@pet_1.application_approved).to eq false
+      end
+
+      it "returns true if status is Approved" do
+        @pa.update!(status: "Approved")
+        expect(@pet_1.application_approved).to eq true
+      end
+    end
   end
 end
