@@ -17,4 +17,8 @@ class Pet < ApplicationRecord
     where("name ILIKE ?", "%#{threshold}%")
   end
 
+  def approved?
+    self.approved
+  end
+
 end

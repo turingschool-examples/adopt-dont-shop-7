@@ -7,4 +7,7 @@ class AdminSheltersController < ApplicationController
 
     # require'pry';binding.pry
   end
+
+  def show
+  end
 end
