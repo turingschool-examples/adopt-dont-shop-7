@@ -18,9 +18,14 @@
   <% @application.pets.each do |pet| %>
 <section id="pet_applied_for-<%= pet.id %>">
   <h3><%= pet.name %></h3>
-    <% if @application.status == "In Progress" %>
+    <% if @application.pet_app_status(pet) == "Pending" %>
       <%= button_to "Approve Application", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"}, local: true, data: {turbo: false} %>
+
       <%= button_to "Reject Application", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Rejected"}, local: true, data: {turbo: false} %>
+    <% end %>
+    
+    <% if @application.pet_app_status(pet) == "Approved" || "Rejected" %>
+      <p>Pet Status:<%= @application.pet_app_status(pet)%></p>
     <% end %>
 </section>
   <% end %>

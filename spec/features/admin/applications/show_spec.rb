@@ -48,12 +48,12 @@ RSpec.describe "Application Show Page" do
     updates the application to show that pet is approved" do
       visit "/admin/applications/#{@application2.id}"
 
-      # save_and_open_page
       within("#pet_applied_for-#{@pet_2.id}") do
-        click_button("Approve Application")
-        expect(page).to have_current_path("/admin/applications/#{@application2.id}")
-        expect(page).to have_content(@pet_2.name)
-        # expect(page).to have_content("Pet Status: Approved")
+      click_button("Approve Application")
+      expect(page).to have_current_path("/admin/applications/#{@application2.id}")
+      expect(page).to have_content(@pet_2.name)
+      # save_and_open_page
+      expect(page).to have_content("#{@pet_2.name} Pet Status: Approved")
       end
 
       within("#pet_applied_for-#{@pet_3.id}") do

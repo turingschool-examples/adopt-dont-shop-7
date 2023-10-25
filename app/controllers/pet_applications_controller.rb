@@ -13,9 +13,11 @@ class PetApplicationsController < ApplicationController
   end
 
   def update
+    @pet_application = PetApplication.find(params[:id])
     @application = Application.find(params[:id])
-    @pet = Pet.find(params[:pet_id])
-    @pet_application = PetApplication.update!(status: params[:status])
+    
+    @pet_application.update!(status: params[:status])
+   
     # require 'pry';binding.pry
     
     redirect_to "/admin/applications/#{params[:id]}"

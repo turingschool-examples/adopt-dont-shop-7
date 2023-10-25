@@ -11,8 +11,9 @@ class Application < ApplicationRecord
   has_many :pets, through: :pet_applications
   
 
-  def pet_app_id(pet)
+  def pet_app_status(pet)
     # require 'pry';binding.pry
-    pet_applications.find{ |pet_app| pet_app.pet_id == pet.id}.id
+    PetApplication.where(application_id: self.id, pet_id: pet.id).pluck(:status).first
+    # pet_applications.find{ |pet_app| pet_app.pet_id == pet.id}.id
   end
 end
