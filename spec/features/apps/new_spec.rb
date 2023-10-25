@@ -15,7 +15,8 @@ RSpec.describe "New Application" do
     # When I fill in this form with my:
     fill_in("Name", with: "Timmy")
     fill_in("Address", with: "123 Main St")
-    fill_in("City", with: "Aurora, CO")
+    fill_in("City", with: "Aurora")
+    fill_in("State", with: "CO")
     fill_in("Zip", with: 80111)
     fill_in("Description", with: "I love dogs")
     # Name
@@ -46,7 +47,8 @@ RSpec.describe "New Application" do
     # And I fail to fill in any of the form fields
     fill_in("Name", with: "Timmy")
     fill_in("Address", with: "123 Main St")
-    fill_in("City", with: "Aurora, CO")
+    fill_in("City", with: "Aurora")
+    fill_in("State", with: "CO")
     fill_in("Zip", with: 80111)
     fill_in("Description", with: "")
     # And I click submit

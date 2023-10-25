@@ -1,5 +1,5 @@
 class App < ApplicationRecord
-  validates :name, :address, :city, :zip, :description, presence: true
+  validates :name, :address, :city, :state, :zip, :description, presence: true
   has_many :apps_pets
   has_many :pets, through: :apps_pets
 
