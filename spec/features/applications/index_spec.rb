@@ -7,9 +7,9 @@ RSpec.describe "the applications index" do
       @application_2 = Application.create!(name: "Papa John", street_address: "222 lonely road", city: "John City", state: "AR", zip_code: "90909", description: "I like animals", status: "In Progress")
 
       visit "/applications"
-      save_and_open_page
-      expect(page).to have_content("#{@application.name}")
-      expect(page).to have_content("#{@application_2.name}")
+
+      expect(page).to have_link("#{@application.name}")
+      expect(page).to have_link("#{@application_2.name}")
     end
   end
 end
