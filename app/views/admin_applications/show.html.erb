@@ -8,23 +8,24 @@
 <% @app.pets.each do | pet | %>
     <section id="pet-<%= pet.id %>">
       <span><%= pet.name %></span>
-      <% if pet.adoptable && pet.approvable %>
-          <%= form_with url: "/admin/applications/#{@app.id}?pet_id=#{pet.id}&approve=true",
+
+      <% if pet.application_approved %>
+        <span>| Approved ✅</span>
+      <% else %>
+        <span>| Rejected ❌</span>
+      <% end %><br>
+
+      <% if pet.adoptable %>
+        <%= form_with url: "/admin/applications/#{@app.id}?pet_id=#{pet.id}&status=Approved",
                         method: :patch,
                         data: {turbo: false},
                         html: {style: "display: inline-block"} do |form| %>
-            <% form.submit "Approve"  %>
-          <% end %>
+          <% form.submit "Approve"  %>
+        <% end %>
         <%= button_to "Reject",
-                      url: "/admin/applications/#{@app.id}?pet_id=#{pet.id}&approve=false",
+                      "/admin/applications/#{@app.id}?pet_id=#{pet.id}&status=Rejected",
                       method: :patch,
                       data: { turbo: false } %>
-    <% else %>
-        <% if  %>
-            <span>| Approved ✅</span>
-        <% else %>
-
-        <% end %>
       <% end %>
     </section>
 <% end %>
