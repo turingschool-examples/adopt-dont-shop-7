@@ -31,7 +31,7 @@ RSpec.describe "admin applications show page" do
     PetApplication.create!(application: @app2, pet: @s1_p1)
     PetApplication.create!(application: @app3, pet: @s3_p1)
     PetApplication.create!(application: @app4, pet: @s4_p1)
-    PetApplication.create!(application: @app5, pet: @s1_p2)
+    PetApplication.create!(application: @app5, pet: @s3_p1)
   end
 
   it "allows admin to approve pet on application" do
@@ -79,7 +79,7 @@ RSpec.describe "admin applications show page" do
       expect(page).to have_content("Rejected ❌")
     end
   end
-end
+
 
   # US 14
   # As a visitor
@@ -102,7 +102,7 @@ end
 
     within("#pet-#{@s3_p1.id}") do
       expect(page).to have_button("Approve")
-      expect(page).to have_button("Reject Application")
+      expect(page).to have_button("Reject")
     end
   end
 end
