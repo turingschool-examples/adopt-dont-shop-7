@@ -20,6 +20,6 @@
   pet5 = shelter3.pets.create(adoptable: true, age: 5, breed: "saint bernard", name: "Saint")
   pet6 = shelter3.pets.create(adoptable: true, age: 6, breed: "saint bernard", name: "Bernie")
 
-  app1 = App.create(name: "Timmy", address: "123 Main St", city: "Aurora, CO", zip: 80111, description: "I love dogs")
-  app2 = App.create(name: "Jimmy", address: "123 Main St", city: "Aurora, CO", zip: 80111, description: "I love beavers")
-  app3 = App.create(name: "Kimmy", address: "123 Main St", city: "Aurora, CO", zip: 80111, description: "I love cats")
+  app1 = App.create(name: "Timmy", address: "123 Main St", city: "Aurora", state: "CO", zip: 80111, description: "I love dogs")
+  app2 = App.create(name: "Jimmy", address: "123 Main St", city: "Aurora", state: "CO", zip: 80111, description: "I love beavers")
+  app3 = App.create(name: "Kimmy", address: "123 Main St", city: "Aurora", state: "CO", zip: 80111, description: "I love cats")
