@@ -1,0 +1,12 @@
+<h1>Admin Applications Index</h1>
+
+<% @applications.each do |application| %>
+      <tr>
+        <td><br><%= application.name %></td>
+        <td><br><%= application.street_address %></td>
+        <td><br><%= application.city %></td>
+        <td><br><%= application.state %></td>
+        <td><br><%= application.zip_code %></td>
+        <td><br><%= application.description %></td>
+      </tr>
+    <% end %>
