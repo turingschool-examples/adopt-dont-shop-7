@@ -34,5 +34,5 @@ RSpec.describe "Admin Show Page" do
       expect(page).to have_content("Accept Adoption for #{@pet_5.name}")
     end
   end
-  
+
 end
