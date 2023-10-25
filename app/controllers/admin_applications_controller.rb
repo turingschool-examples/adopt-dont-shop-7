@@ -3,6 +3,7 @@ class AdminApplicationsController < ApplicationController
     @app = Application.find(id)
   end
 
+
   private
 
   def id

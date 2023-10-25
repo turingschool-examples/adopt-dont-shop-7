@@ -8,8 +8,8 @@
 <% @app.pets.each do | pet | %>
     <section id="pet-<%= pet.id %>">
       <span><%= pet.name %></span>
-      <% if pet.adoptable %>
-          <%= form_with url: "/pets/#{pet.id}?approve=true&app_id=#{@app.id}",
+      <% if pet.adoptable && pet.approvable %>
+          <%= form_with url: "/admin/applications/#{@app.id}?pet_id=#{pet.id}&approve=true",
                         method: :patch,
                         data: {turbo: false},
                         html: {style: "display: inline-block"} do |form| %>
