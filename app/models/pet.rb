@@ -20,6 +20,6 @@ class Pet < ApplicationRecord
   end
 
   def application_approved
-    pet_applications.first.status == "Approved"
+    pet_applications.first.status == "Approved" && !pet_applications.first.nil?
   end
 end
