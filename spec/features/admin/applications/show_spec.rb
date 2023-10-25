@@ -9,14 +9,17 @@ RSpec.describe "Admin Show Page" do
     @pet_5 = @shelter_1.pets.create(adoptable: true, age: 9, breed: "chihuahua", name: "Tiny", shelter_id: @shelter_1.id)
 
     @application = Application.create!(name: "Stacy Chapman", street_address: "1870 Canopy Rd", city: "Los Angeles", state: "CA", zip_code: 90001, description: "I grew up with dachshunds and felt really connected", status: "In Progress")
+    @application_2 = Application.create!(name: "Charlie Moon", street_address: "340 Walker St", city: "San Diego", state: "CA", zip_code: 91911, description: "I really am hoping to find a new companion for my parrot", status: "In Progress")
+
+    @petapp_1 = ApplicationPet.create!(application_id: @application.id, pet_id: @pet_3.id)
+    @petapp_2 = ApplicationPet.create!(application_id: @application.id, pet_id: @pet_5.id)
+    @petapp_3 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_3.id)
+    @petapp_4 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_5.id)
   end
 
   describe '#Managing Approvals' do
-    before :each do
-      @application.pets << @pet_3
-      @application.pets << @pet_5
-    end
 
+  end
   ## USER STORY 12
     it 'when viewing the admin application show page, there are buttons to approve the application for each pet' do
       visit "/admin/applications/#{@application.id}"
@@ -41,45 +44,54 @@ RSpec.describe "Admin Show Page" do
     end
 
   ## USER STORY 13
-
     it 'admin may reject a pet from being adopted and neither button is available' do
       visit "/admin/applications/#{@application.id}"
-
-      within(@pet_5.id) do
-      click_button "Reject Pet"
-      expect(page).to_not have_content("Approve Pet")
-      expect(page).to_not have_content("Reject Pet")
-      expect(page).to have_content("Rejected")
+      # within(@pet_5.name) do
+        click_button "Reject #{@pet_5.name}"
+        expect(page).to_not have_content("Approve #{@pet_5.name}")
+        expect(page).to_not have_content("Reject #{@pet_5.name}")
+        expect(page).to have_content("Rejected")
+      # end
     end
-  end
 
   # USER STORY 14
-  xit "approved/rejected pets on one application do not affect other applications" do
+  it "approved/rejected pets on one application do not affect other applications" do
 
-    visit "/admin/applications/#{@application_1.id}"
-
-    within(@pet_1) do
-      click_button("Reject")
-      expect(page).to have_content("Rejected")
-    end
-
-    within(@pet_2) do
-      click_button("Approve")
-      expect(page).to have_content("Approved")
-    end
+    
+    visit "/admin/applications/#{@application.id}"
+    click_button "Approve #{@pet_3.name}"
+    click_button "Reject #{@pet_5.name}"
 
     visit "/admin/applications/#{@application_2.id}"
 
-    within(@pet_1) do
-      expect(page).to have_content(@pet_1.name)
-      expect(page).to have_button("Approve")
-      expect(page).to have_button("Reject")
-    end
+    expect(page).to have_content("Approve #{@pet_3.name}")
+    expect(page).to have_content("Reject #{@pet_3.name}")
+    expect(page).to have_content("Approve #{@pet_5.name}")
+    expect(page).to have_content("Reject #{@pet_5.name}")
 
-    within(@pet_2) do
-      expect(page).to have_content(@pet_2.name)
-      expect(page).to have_button("Approve")
-      expect(page).to have_button("Reject")
-    end
+    # within(@pet_1) do
+    #   click_button("Reject")
+    #   expect(page).to have_content("Rejected")
+    # end
+    
+    # within(@pet_2) do
+    #   click_button("Approve")
+    #   expect(page).to have_content("Approved")
+    # end
 
+    # visit "/admin/applications/#{@application_2.id}"
+
+    # within(@pet_1) do
+    #   expect(page).to have_content(@pet_1.name)
+    #   expect(page).to have_button("Approve")
+    #   expect(page).to have_button("Reject")
+    # end
+
+    # within(@pet_2) do
+    #   expect(page).to have_content(@pet_2.name)
+    #   expect(page).to have_button("Approve")
+    #   expect(page).to have_button("Reject")
+    # end
+  end
 end
+
