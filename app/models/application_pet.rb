@@ -18,10 +18,12 @@ class ApplicationPet < ApplicationRecord
 
   def approve
     self.update(status: true)
+    self.application.change_status
   end
 
   def reject
     self.update(status: false)
+    self.application.change_status
   end
 
 end
