@@ -41,5 +41,11 @@ class Shelter < ApplicationRecord
     joins(:applications).where(applications: {status: "Pending"}).distinct
   end
 
-
+  def self.name_by_sql(id)
+    find_by_sql(["SELECT name FROM shelters where shelters.id = ?", id]).first[:name]
+  end
+  
+  def self.city_by_sql(id)
+    find_by_sql(["SELECT city FROM shelters where shelters.id = ?", id]).first[:city]
+  end
 end
