@@ -9,8 +9,9 @@
 <% @application.application_pets.each do |app_p| %>
     <h3><%= app_p.pet.name %></h3>
     <h4><%= "** Approved!**" if app_p.approved(@application.id) %></h4>
+    <h4><%= "Pet has been approved on a different application!" if app_p.pet.application_approved? && !app_p.approved(@application.id) %></h4>
     <h4><%= "** Rejected **" if app_p.rejected(@application.id) %></h4>
     <p> <%= "Status: Adoptable" if app_p.pet.adoptable%> <%= "Status: Not Adoptable" if !app_p.pet.adoptable && !app_p.approved(@application.id)%></p> 
-    <%= button_to "Approve #{app_p.pet.name}", {controller: "application_pets", action: "update", application_id: @application.id, pet_id: app_p.pet.id, approve: true}, method: :patch if !app_p.approved(@application.id) && !app_p.rejected(@application.id)%>
-    <%= button_to "Reject #{app_p.pet.name}", {controller: "application_pets", action: "update", application_id: @application.id, pet_id: app_p.pet.id, approve: false}, method: :patch if !app_p.approved(@application.id) && !app_p.rejected(@application.id)%>
+    <%= button_to "Approve #{app_p.pet.name}", {controller: "application_pets", action: "update", application_id: @application.id, pet_id: app_p.pet.id, approve: true}, method: :patch if !app_p.pet.application_approved? && !app_p.approved(@application.id) && !app_p.rejected(@application.id)%>
+    <%= button_to "Reject #{app_p.pet.name}", {controller: "application_pets", action: "update", application_id: @application.id, pet_id: app_p.pet.id, approve: false}, method: :patch if !app_p.pet.application_approved? && !app_p.approved(@application.id) && !app_p.rejected(@application.id)%>
 <% end %>

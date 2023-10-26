@@ -10,11 +10,17 @@ RSpec.describe "Admin Show Page" do
 
     @application = Application.create!(name: "Stacy Chapman", street_address: "1870 Canopy Rd", city: "Los Angeles", state: "CA", zip_code: 90001, description: "I grew up with dachshunds and felt really connected", status: "In Progress")
     @application_2 = Application.create!(name: "Charlie Moon", street_address: "340 Walker St", city: "San Diego", state: "CA", zip_code: 91911, description: "I really am hoping to find a new companion for my parrot", status: "In Progress")
+    @application_3 = Application.create!(name: "Marianne Bird", street_address: "3254 Love Ave", city: "Las Vegas", state: "NM", zip_code: 87701, description: "I want to get another pet for my dog who's getting older", status: "In Progress")
+    @application_4 = Application.create!(name: "Matthew Gorzy", street_address: "1030 18th Ave", city: "Las Cruces", state: "NM", zip_code: 87718, description: "I'm really outdoorsy and want a partner in crime", status: "In Progress")
+
 
     @petapp_1 = ApplicationPet.create!(application_id: @application.id, pet_id: @pet_3.id)
     @petapp_2 = ApplicationPet.create!(application_id: @application.id, pet_id: @pet_5.id)
     @petapp_3 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_3.id)
     @petapp_4 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_5.id)
+    @petapp_5 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_4.id)
+    @petapp_6 = ApplicationPet.create!(application_id: @application_4.id, pet_id: @pet_4.id)
+
   end
 
   describe '#Managing Approvals for Pending Applications' do
@@ -44,12 +50,10 @@ RSpec.describe "Admin Show Page" do
     ## USER STORY 13
       it 'admin may reject a pet from being adopted and neither button is available' do
         visit "/admin/applications/#{@application.id}"
-        # within(@pet_5.name) do
           click_button "Reject #{@pet_5.name}"
           expect(page).to_not have_content("Approve #{@pet_5.name}")
           expect(page).to_not have_content("Reject #{@pet_5.name}")
           expect(page).to have_content("Rejected")
-        # end
       end
 
     # USER STORY 14
@@ -65,30 +69,6 @@ RSpec.describe "Admin Show Page" do
       expect(page).to have_content("Reject #{@pet_3.name}")
       expect(page).to have_content("Approve #{@pet_5.name}")
       expect(page).to have_content("Reject #{@pet_5.name}")
-
-      # within(@pet_1) do
-      #   click_button("Reject")
-      #   expect(page).to have_content("Rejected")
-      # end
-      
-      # within(@pet_2) do
-      #   click_button("Approve")
-      #   expect(page).to have_content("Approved")
-      # end
-
-      # visit "/admin/applications/#{@application_2.id}"
-
-      # within(@pet_1) do
-      #   expect(page).to have_content(@pet_1.name)
-      #   expect(page).to have_button("Approve")
-      #   expect(page).to have_button("Reject")
-      # end
-
-      # within(@pet_2) do
-      #   expect(page).to have_content(@pet_2.name)
-      #   expect(page).to have_button("Approve")
-      #   expect(page).to have_button("Reject")
-      # end
     end
   end
 
@@ -118,6 +98,16 @@ RSpec.describe "Admin Show Page" do
       expect(page).to have_content("Status: Not Adoptable")
       visit "/pets/#{@pet_5.id}"
       expect(page).to have_content("Status: Not Adoptable")
+    end
+
+    ## USER STORY 18
+    it "can only have one approved application per pet at a time" do
+      @petapp_5.approve
+      visit "/admin/applications/#{@application_3.id}"
+      expect(page).to have_content("Application Status: Approved")
+      visit "/admin/applications/#{@application_4.id}"
+      expect(page).to_not have_content("Approve #{@petapp_5.pet.name}")
+      expect(page).to have_content("Pet has been approved on a different application")      # click_button "Approve #{@pet_3.name}"
     end
   end
 end

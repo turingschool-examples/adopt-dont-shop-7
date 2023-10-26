@@ -25,11 +25,11 @@ RSpec.describe Pet, type: :model do
       end
     end
 
-    describe "#adoptable" do
-      it "returns adoptable pets" do
-        expect(Pet.adoptable).to eq([@pet_1, @pet_2])
-      end
+  describe "#adoptable" do
+    it "returns adoptable pets" do
+      expect(Pet.adoptable).to eq([@pet_1, @pet_2])
     end
+  end
   end
 
   describe "instance methods" do
@@ -43,5 +43,14 @@ RSpec.describe Pet, type: :model do
   # USER STORY 8
   it "returns partial match for pet names" do
     expect(Pet.search("Mr.")).to eq([@pet_1])
+  end
+
+  it "has an application approval verification for the pet" do
+    @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    @pet_1 = Pet.create(adoptable: true, age: 7, breed: "sphynx", name: "Bare-y Manilow", shelter_id: @shelter_1.id)
+    @application_1 = Application.create!(name: "Stacy Chapman", street_address: "1870 Canopy Rd", city: "Los Angeles", state: "CA", zip_code: 90001, description: "I grew up with dachshunds and felt really connected", status: "In Progress")
+    @app_pet_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id)
+    @app_pet_1.approve
+    expect(@pet_1.application_approved?).to eq(true)
   end
 end

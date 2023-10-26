@@ -21,4 +21,7 @@ class Pet < ApplicationRecord
     self.update(adoptable: false)
   end
 
+  def application_approved?
+    applications.map{|app| app.status}.include?("Approved")
+  end
 end
