@@ -10,4 +10,10 @@ class Application < ApplicationRecord
   has_many :pet_applications
   has_many :pets, through: :pet_applications
   
+
+  def pet_app_status(pet)
+    # require 'pry';binding.pry
+    PetApplication.where(application_id: self.id, pet_id: pet.id).pick(:status)
+    # pet_applications.find{ |pet_app| pet_app.pet_id == pet.id}.id
+  end
 end
