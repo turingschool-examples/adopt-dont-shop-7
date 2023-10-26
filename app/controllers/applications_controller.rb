@@ -24,7 +24,7 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @application.update({ description: :why_good_owner, application_status: "Pending" })
+    @application.update({ description: params[:why_good_owner], application_status: "Pending" })
 
     redirect_to "/applications/#{@application.id}"
   end
