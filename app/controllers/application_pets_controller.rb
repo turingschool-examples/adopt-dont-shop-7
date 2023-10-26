@@ -16,9 +16,14 @@ class ApplicationPetsController < ApplicationController
   end
 
   def update_application(application)
-    if application.rejected_pets
+    application = Application.find(params[:id])
+    application_pets = application.application_pets
+    if application.has_rejected_pets
       application.update(status: 3)
-    else application.update(status: 2)
+    elsif application.has_pending_pets
+      application.update(status: 1)
+    else 
+      application.update(status: 2)
     end
   end
 end
