@@ -58,6 +58,37 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe "#update_rejected_apps" do
+      it "will remove approval on all pets on all other application except the one just approved" do
+        application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Pending")
+        application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I like fish", status: "Pending")
+
+        shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
+        shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
+
+        pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+        pet_2 = shelter_3.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+        application1.pets << pet_1
+        application1.pets << pet_2
+        application2.pets << pet_1
+        application2.pets << pet_2
+        
+        app_pet1 = ApplicationPet.where("pet_id = '#{pet_1.id}' and application_id = '#{application1.id}'").first
+        app_pet1.update({approved: true})
+        expect(app_pet1.approved).to be true
+        app_pet2 = ApplicationPet.where("pet_id = '#{pet_2.id}' and application_id = '#{application1.id}'").first
+        app_pet2.update({approved: true})
+        expect(app_pet2.approved).to be true
+        Pet.update_rejected_apps(application2)
+        app_pet1 = ApplicationPet.where("pet_id = '#{pet_1.id}' and application_id = '#{application1.id}'").first
+        app_pet2 = ApplicationPet.where("pet_id = '#{pet_2.id}' and application_id = '#{application1.id}'").first
+        expect(app_pet1.approved).to be false
+        expect(app_pet2.approved).to be false
+
+      end
+    end
   end
 
   describe "instance methods" do
