@@ -41,6 +41,10 @@ RSpec.describe Pet, type: :model do
         expect(Pet.search("ClAw")).to eq([@pet_2])
         expect(Pet.search("ClAw")).to_not eq([@pet_3])
       end
+
+      it 'returns no matches if no matches found' do
+        expect(Pet.search("charlie")).to eq([])
+      end
     end
 
     describe "#adoptable" do

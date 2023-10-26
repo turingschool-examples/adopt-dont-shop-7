@@ -11,6 +11,10 @@ class Application < ApplicationRecord
   end
 
   def add_pet(pet)
-    pets << pet
+    ApplicationPet.create(application: self, pet: pet, name: pet.name, application_pet_status: 1, adoptable: true)
+  end
+
+  def has_rejected_pets
+    application_pets.where(application_pet_status: 3).present?
   end
 end
