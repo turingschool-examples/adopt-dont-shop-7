@@ -142,6 +142,55 @@ RSpec.describe "Applications show page" do
       visit "/applications/#{application.id}"
       
       expect(page).to have_css(".submit-section")
+      
+    it "will return partial matches in a Pet name's search" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9) 
+      application = Application.create!(name: 'Taylor', street_address: '123 Side St', city: 'Denver', state: 'CO', zip_code: '80202', description: 'I love animals', application_status: 'In Progress')
+      shelter.pets.create!(name: 'fluffy', age: 1, breed: 'Golden', adoptable: true) 
+      shelter.pets.create!(name: 'fluff', age: 1, breed: 'Golden', adoptable: true) 
+      shelter.pets.create!(name: 'mr. fluff', age: 1, breed: 'Golden', adoptable: true) 
+
+
+      # 8. Partial Matches for Pet Names
+      # As a visitor
+      # When I visit an application show page
+      visit "/applications/#{application.id}"
+      # And I search for Pets by name
+      fill_in 'Search', with: "fluff"
+      click_on("Search")
+
+      # Then I see any pet whose name PARTIALLY matches my search
+      # For example, if I search for "fluff", my search would 
+      # match pets with names "fluffy", "fluff", and "mr. fluff"
+
+
+      expect(page).to have_content("fluffy")
+      expect(page).to have_content("fluff")
+      expect(page).to have_content("mr. fluff")
+    end
+
+    it "return case insensitive partial matches in a Pet name's search" do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9) 
+      application = Application.create!(name: 'Taylor', street_address: '123 Side St', city: 'Denver', state: 'CO', zip_code: '80202', description: 'I love animals', application_status: 'In Progress')
+      shelter.pets.create!(name: 'Fluffy', age: 1, breed: 'Golden', adoptable: true) 
+      shelter.pets.create!(name: 'FLUFF', age: 1, breed: 'Golden', adoptable: true) 
+      shelter.pets.create!(name: 'Mr. FlUfF', age: 1, breed: 'Golden', adoptable: true) 
+
+      # 9. Case Insensitive Matches for Pet Names
+
+      # As a visitor
+      # When I visit an application show page
+      visit "/applications/#{application.id}"
+      # And I search for Pets by name
+      fill_in 'Search', with: "fluff"
+      click_on("Search")
+      # Then my search is case insensitive
+      # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+      
+
+      expect(page).to have_content("Fluffy")
+      expect(page).to have_content("FLUFF")
+      expect(page).to have_content("Mr. FlUfF")
     end
   end
 end 

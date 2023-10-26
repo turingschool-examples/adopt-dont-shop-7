@@ -10,33 +10,33 @@ RSpec.describe "application creation" do
       expect(current_path).to eq("/applications/new")
 
       expect(page).to have_content("New Application")
-      expect(page).to have_field("Name")
-      expect(page).to have_field("Street Address")
-      expect(page).to have_field("City")
-      expect(page).to have_field("State")
-      expect(page).to have_field("Zip Code")
-      expect(page).to have_field("Description")
+      expect(page).to have_field(:name)
+      expect(page).to have_field(:street_address)
+      expect(page).to have_field(:city)
+      expect(page).to have_field(:state)
+      expect(page).to have_field(:zip_code)
+      expect(page).to have_field(:description)
     end
   end
 
   describe "the application create form" do
     context "given valid data" do
       it "creates the application and redirects to the application's show page" do
-        
+
         visit "applications/new"
 
-        fill_in "Name", with: "Dave"
-        fill_in "Street Address", with: "1924 North Coria Street"
-        fill_in "City", with: "Brownsville"
-        fill_in "State", with: "Texas"
-        fill_in "Zip Code", with: "78521"
-        fill_in "Description", with: "Because I say so!"
+        fill_in "name", with: "Dave"
+        fill_in "street_address", with: "1924 North Coria Street"
+        fill_in "city", with: "Brownsville"
+        fill_in "state", with: "Texas"
+        fill_in "zip_code", with: "78521"
+        fill_in "description", with: "Because I say so!"
         click_button("Submit")
         application = Application.last
         
         expect(current_path).to eq("applications/#{application.id}")
+        expect(current_path).to eq("/applications/#{application.id}")
 
-        pending "Show page must be completed prior to testing"
         expect(page).to have_content("Dave")
         expect(page).to have_content("1924 North Coria Street")
         expect(page).to have_content("Brownsville")
@@ -44,6 +44,23 @@ RSpec.describe "application creation" do
         expect(page).to have_content("78521")
         expect(page).to have_content("Because I say so!")
         expect(page).to have_content("In Progress")
+      end
+    end
+
+    context "given invalid data" do
+      it "re-renders the new form" do
+        # 3. Starting an Application, Form not Completed
+
+        # As a visitor
+        # When I visit the new application page
+        visit "/applications/new"
+        # And I fail to fill in any of the form fields
+        # And I click submit
+        click_button("Submit")
+        # Then I am taken back to the new applications page
+        expect(current_path).to eq("/applications/new")
+        # And I see a message that I must fill in those fields.
+        expect(page).to have_content("Please fill in all required fields")
       end
     end
   end
