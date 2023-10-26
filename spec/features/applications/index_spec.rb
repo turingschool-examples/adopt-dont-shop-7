@@ -17,7 +17,7 @@ RSpec.describe "the applications index" do
   it "has link to application show page" do
     visit "/admin/applications"
     click_link "#{@application_1.name}"
-    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(current_path).to eq("/admin/applications/#{@application_1.id}")
   end
 
   it 'returns all of the applications' do
