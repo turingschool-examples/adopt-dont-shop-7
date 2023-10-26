@@ -37,7 +37,7 @@ RSpec.describe "Application Show Page" do
     it "shows every pet that the application is for and
     buttons to Approve or Reject the adoption" do
       visit "/admin/applications/#{@application1.id}"
-      # save_and_open_page
+      # 
 
       within("#pet_applied_for-#{@pet_1.id}") do
         expect(page).to have_content(@pet_1.name)
@@ -87,7 +87,7 @@ RSpec.describe "Application Show Page" do
     does not show the pet as 'Approved on another application for that
     pet" do
       visit "/admin/applications/#{@application1.id}"
-      # save_and_open_page
+      # 
 
       within("#pet_applied_for-#{@pet_1.id}") do
         expect(page).to have_content(@pet_1.name)
