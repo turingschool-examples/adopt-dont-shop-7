@@ -13,4 +13,8 @@ class Application < ApplicationRecord
   def add_pet(pet)
     pets << pet
   end
+
+  def rejected_pets
+    application_pets.where(application_pet_status: 3).present?
+  end
 end
