@@ -12,8 +12,6 @@ class Application < ApplicationRecord
   
 
   def pet_app_status(pet)
-    # require 'pry';binding.pry
     PetApplication.where(application_id: self.id, pet_id: pet.id).pick(:status)
-    # pet_applications.find{ |pet_app| pet_app.pet_id == pet.id}.id
   end
 end
