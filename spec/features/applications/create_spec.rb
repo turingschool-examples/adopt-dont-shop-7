@@ -33,6 +33,7 @@ RSpec.describe "application creation" do
         fill_in "Description", with: "Because I say so!"
         click_button("Submit")
         application = Application.last
+        
         expect(current_path).to eq("applications/#{application.id}")
 
         pending "Show page must be completed prior to testing"
