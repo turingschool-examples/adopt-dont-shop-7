@@ -22,10 +22,13 @@
                         html: {style: "display: inline-block"} do |form| %>
           <% form.submit "Approve"  %>
         <% end %>
-        <%= button_to "Reject",
-                      "/admin/applications/#{@app.id}?pet_id=#{pet.id}&status=Rejected",
-                      method: :patch,
-                      data: { turbo: false } %>
+        <span> /// </span>
+        <span style="display: inline-block">
+            <%= button_to "Reject",
+                          "/admin/applications/#{@app.id}?pet_id=#{pet.id}&status=Rejected",
+                          method: :patch,
+                          data: { turbo: false } %>
+        </span>
       <% end %>
     </section>
 <% end %>
