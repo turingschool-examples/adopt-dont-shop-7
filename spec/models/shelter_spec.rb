@@ -99,18 +99,22 @@ RSpec.describe Shelter, type: :model do
     end
 
     describe ".shelter_pets_filtered_by_age" do
-      it "filters the shelter pets based on given params" do
-        expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([@pet_4])
+      it "filters the shelter pets based on given params: Adoptable pets by age" do
+        expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([ @pet_4])
+        expect(@shelter_1.shelter_pets_filtered_by_age(3)).to eq([@pet_2])
       end
     end
 
     describe ".pet_count" do
       it "returns the number of pets at the given shelter" do
         expect(@shelter_1.pet_count).to eq(3)
+        expect(@shelter_2.pet_count).to eq(0)
+        expect(@shelter_3.pet_count).to eq(1)
       end
     end
 
     it "Will list all the pets with pedning applications" do
+      expect(@shelter_1.pending_pets).to eq([])
       application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Pending")
       @pet_2.applications << application1
       expect(@shelter_1.pending_pets).to eq([@pet_2])
