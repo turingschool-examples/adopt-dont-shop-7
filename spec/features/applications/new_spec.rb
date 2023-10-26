@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "new application" do
-
   describe 'application new page' do
     # User Story 2, Starting an Application
     it 'it will show a new application for the user to fill out' do
