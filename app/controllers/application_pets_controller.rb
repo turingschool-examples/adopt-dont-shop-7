@@ -1,8 +1,6 @@
 class ApplicationPetsController < ApplicationController
-
   def update
     application = Application.find(params[:id])
-    application_pets = application.application_pets
     selected_app_pet = ApplicationPet.find(params[:pet_id])
     if params[:approved?] == "Yes"
       selected_app_pet.update(application_pet_status: 2)
@@ -16,13 +14,9 @@ class ApplicationPetsController < ApplicationController
   end
 
   def update_application(application)
-    application = Application.find(params[:id])
-    application_pets = application.application_pets
     if application.has_rejected_pets
       application.update(status: 3)
-    elsif application.has_pending_pets
-      application.update(status: 1)
-    else 
+    else
       application.update(status: 2)
     end
   end

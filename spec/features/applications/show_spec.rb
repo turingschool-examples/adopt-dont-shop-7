@@ -49,8 +49,8 @@ RSpec.describe "the application show" do
     fill_in "search", with: "Lester"
     click_button("Search")
     
-  expect(page).to_not have_content(@bruno.name)
-  expect(page).to_not have_content("Lester")
+    expect(page).to_not have_content(@bruno.name)
+    expect(page).to_not have_content("Lester")
   end
 
   # User Story 5, Add a Pet to an Application
