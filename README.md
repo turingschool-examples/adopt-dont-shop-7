@@ -2,6 +2,9 @@
 
 This is a paired project used in Turing School's Backend Program Module 2.
 
+## Pair Trello Board
+Can be found [here](https://trello.com/b/c28dYIdX/adopt-dont-shop-pair-project).
+
 ## Learning Goals
 
 In this project, students will build upon the code in this repo to create a Pet Adoption Platform. Users will be able to apply to adopt pets, and Admins will be able to approve or reject applications and see statistics for the Shelters, Pets, and Applications in the system.

@@ -8,8 +8,8 @@ RSpec.describe "the application show" do
     @regan = Application.create!(name: "Regan Ocean", street_address: "46 N. Old York Road", city: "Willoughby", state: "OH", zip_code: "44094", description: "I like cats.", status: "Pending")
     @bruiser = Pet.create!(adoptable: true, age: 1, breed: "huskey", name: "Bruiser", shelter_id: @shelter.id)
     @bruno = @john.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Bruno", shelter_id: @shelter.id)
-    @trixie = Pet.create!(adoptable: true, age: 7, breed: "pitbull", name: "Trixie", shelter_id: @shelter.id)
-    
+    @trixie = @trevor.pets.create!(adoptable: true, age: 7, breed: "pitbull", name: "Trixie", shelter_id: @shelter.id)
+    @scrappy = @regan.pets.create!(name: "Scrappy", age: 1, breed: "Golden Retreiver", adoptable: true, shelter_id: @shelter.id)
   end
 
   describe 'Admin Application Show Page' do

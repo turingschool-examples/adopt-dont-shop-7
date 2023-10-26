@@ -1,0 +1,22 @@
+<%= render partial: 'application/header', layout: 'header' %>
+<%= render partial: 'application/body', layout: 'body' %>
+
+<div class="myDiv" >
+  <h1><%= @shelter_name %></h1>
+  <h3><%= @shelter_city %></h3>
+</div>
+
+<div class="body" >
+  <h3>Statistics:</h3>
+  <p>Average Pet Age: <%= @shelter.avg_pet_age %> </p>
+  <p>Adoptable Pets at this Location: <%= @shelter.adoptable_pets_total %> </p>
+  <p>Pets that have been adopted: <%= @shelter.adopted_pets_total %> </p>
+
+  <section class="Action Required" >
+    <h3>Action Required:</h3>
+      <% @shelter.action_required.each do |pet|%> 
+        <p><%= pet %></p>
+      <% end %>
+  </section>
+</div>
+

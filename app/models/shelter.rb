@@ -38,8 +38,30 @@ class Shelter < ApplicationRecord
   end
 
   def self.with_pending_apps
-    joins(:applications).where(applications: {status: "Pending"}).distinct
+    joins(:applications).where(applications: {status: "Pending"}).distinct.order(:name)
   end
 
+  def self.name_by_sql(id)
+    find_by_sql(["SELECT name FROM shelters where shelters.id = ?", id]).first[:name]
+  end
+  
+  def self.city_by_sql(id)
+    find_by_sql(["SELECT city FROM shelters where shelters.id = ?", id]).first[:city]
+  end
 
+  def avg_pet_age
+    self.pets.average(:age).round
+  end
+
+  def adoptable_pets_total
+    self.pets.where(adoptable: true).count
+  end
+
+  def adopted_pets_total
+    self.pets.where(adoptable: false).count
+  end
+
+  def action_required
+    self.pets.joins(:applications).where(applications: {status: "Pending"}).pluck(:name)
+  end
 end
