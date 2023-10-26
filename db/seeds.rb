@@ -10,8 +10,8 @@ PetApplication.destroy_all
 Application.destroy_all
 Pet.destroy_all
 Shelter.destroy_all
-Vetrinarian.destroy_all
-Veterinary_office.destroy_all
+Veterinarian.destroy_all
+VeterinaryOffice.destroy_all
 
   aurora_shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
   rgv_animal_shelter = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -19,8 +19,8 @@ Veterinary_office.destroy_all
       
   mr_pirate = aurora_shelter.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
   clawdia = aurora_shelter.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
-  lucille_bald = shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
-  ann = fancy_pets_colorado.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+  lucille_bald = fancy_pets_colorado.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
+  ann = aurora_shelter.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
 
   john = Application.create(name: "John", street_address: "123 makebelieve dr.", city: "fakesville", state: "NA", zip_code: 12345, description: "I need a companion!", status: "Pending")
   jessica = Application.create(name: "Jessica", street_address: "123 makebelieve dr.", city: "fakesville", state: "NA", zip_code: 12345, description: "I need a companion!", status: "Pending")
@@ -28,7 +28,7 @@ Veterinary_office.destroy_all
   hope = Application.create(name: "Hope", street_address: "123 makebelieve dr.", city: "fakesville", state: "NA", zip_code: 12345, description: "I need a companion!", status: "In Progress")
 
   pet_app_1 = PetApplication.create!(application_id: "#{john.id}", pet_id: "#{lucille_bald.id}", status: "Pending")
-  pet_app_2 = PetApplication.create!(application_id: "#{jessica.id}", pet_id: "#{pmr_pirate.id}", status: "Pending")
+  pet_app_2 = PetApplication.create!(application_id: "#{jessica.id}", pet_id: "#{mr_pirate.id}", status: "Pending")
   pet_app_3 = PetApplication.create!(application_id: "#{craig.id}", pet_id: "#{lucille_bald.id}", status: "Pending")
   pet_app_4 = PetApplication.create!(application_id: "#{hope.id}", pet_id: "#{clawdia.id}", status: "Pending")
 
