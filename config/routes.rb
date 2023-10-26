@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get "/", to: "application#welcome"
   get "/applications/new", to: "applications#new", as: "new_application"
   patch "/applications/:application_id", to: "applications#update"
+  get "/applications", to: "applications#index"
   post "/applications", to: "applications#create"
   get "/applications/:id", to: "applications#show"
   get "/applications", to: "applications#show"
@@ -47,6 +48,7 @@ Rails.application.routes.draw do
   post "/veterinary_offices/:veterinary_office_id/veterinarians", to: "veterinarians#create"
 
   get "/admin/shelters", to: "admin/shelters#index"
+  get "/admin/applications", to: "admin/applications#index"
   get "/admin/applications/:id", to: "admin/applications#show"
   patch "/admin/applications/:id", to: "admin/application_pets#update"
   
