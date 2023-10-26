@@ -8,10 +8,10 @@
 <% @app.pets.each do | pet | %>
     <section id="pet-<%= pet.id %>">
       <span><%= pet.name %></span>
-
-      <% if pet.application_approved %>
+      <%# require "pry"; binding.pry %>
+      <% if @app.pet_approved(pet.id) %>
         <span>| Approved ✅</span>
-      <% else %>
+      <% elsif @app.pet_rejected(pet.id) %>
         <span>| Rejected ❌</span>
       <% end %><br>
 
@@ -22,10 +22,13 @@
                         html: {style: "display: inline-block"} do |form| %>
           <% form.submit "Approve"  %>
         <% end %>
-        <%= button_to "Reject",
-                      "/admin/applications/#{@app.id}?pet_id=#{pet.id}&status=Rejected",
-                      method: :patch,
-                      data: { turbo: false } %>
+        <span> /// </span>
+        <span style="display: inline-block">
+            <%= button_to "Reject",
+                          "/admin/applications/#{@app.id}?pet_id=#{pet.id}&status=Rejected",
+                          method: :patch,
+                          data: { turbo: false } %>
+        </span>
       <% end %>
     </section>
 <% end %>
