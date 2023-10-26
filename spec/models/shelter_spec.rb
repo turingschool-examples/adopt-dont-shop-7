@@ -13,6 +13,9 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
+    @application1 = Application.create!(name: "Mike", full_address: "9999 Street Road, Denver, CO 80231", good_home: "Gimme", good_owner: "I like cats", status: "Pending")
+    @application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I like fish", status: "Pending")
+
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
@@ -59,26 +62,26 @@ RSpec.describe Shelter, type: :model do
 
       it "Has a brag board about how many pets from a shelter have found a new home" do
         application2 = Application.create!(name: "Eric", full_address: "888 Road Street, Salt Lake City, UT 88231", good_home: "5 solid meals a day", good_owner: "I like fish", status: "Approved")
-
         expect(Shelter.pets_with_homes(@shelter_1)).to eq(0)
-
         @pet_2.applications << application2
-        
         expect(Shelter.pets_with_homes(@shelter_1)).to eq(1)
-        
         @pet_1.applications << application2
-
         expect(Shelter.pets_with_homes(@shelter_1)).to eq(2)
       end
     end
 
     it "Finds shelter name and address returned via SQL" do
-      expect(Shelter.name_and_address(@shelter_2.id)).to eq("RGV animal shelter Harlingen, TX")
+      expect(Shelter.name_and_address(@shelter_2.id)).to eq("#{@shelter_2.name} #{@shelter_2.city}")
+      expect(Shelter.name_and_address(@shelter_1.id)).to eq("#{@shelter_1.name} #{@shelter_1.city}")
+      expect(Shelter.name_and_address(@shelter_3.id)).to eq("#{@shelter_3.name} #{@shelter_3.city}")
     end
 
-    xit "Will find pending applicaitons per shelter" do
-      require 'pry'; binding.pry
-      expect(Shelter.pending_applications).to eq(1)
+    it "Will find pending applicaitons per shelter" do
+      expect(Shelter.pending_applications).to eq([])
+      @application1.pets << @pet_1
+      expect(Shelter.pending_applications).to eq([@shelter_1])
+      @application2.pets << @pet_3
+      expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
     end
   end
 
