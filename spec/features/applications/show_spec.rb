@@ -194,5 +194,4 @@ RSpec.describe "Applications show page" do
       expect(page).to have_content("Mr. FlUfF")
     end
   end
-end 
-
+end
