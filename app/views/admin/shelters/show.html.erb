@@ -1,6 +1,12 @@
 <%= render partial: 'application/header', layout: 'header' %>
+<%= render partial: 'application/body', layout: 'body' %>
 
 <div class="myDiv" >
   <h1><%= @shelter_name %></h1>
   <h3><%= @shelter_city %></h3>
+</div>
+
+<div class="body" >
+  <h3>Statistics:</h3>
+  <p>Average Pet Age: <%= @shelter.avg_pet_age %> </p>
 </div>

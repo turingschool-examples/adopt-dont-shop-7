@@ -48,4 +48,8 @@ class Shelter < ApplicationRecord
   def self.city_by_sql(id)
     find_by_sql(["SELECT city FROM shelters where shelters.id = ?", id]).first[:city]
   end
+
+  def avg_pet_age
+    self.pets.average(:age)
+  end
 end
