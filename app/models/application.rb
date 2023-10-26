@@ -1,4 +1,8 @@
 class Application < ApplicationRecord
+  validates :name, presence: true
+  validates :full_address, presence: true
+  validates :good_home, presence: true
+  validates :status, presence: true
   has_many :application_pets, dependent: :destroy
   has_many :pets, through: :application_pets, dependent: :destroy
 
