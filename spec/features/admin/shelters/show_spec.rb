@@ -58,11 +58,28 @@ RSpec.describe 'admin#shelters' do
 
 
       expect(page).to have_content("Action Required")
-      save_and_open_page
+
       within('section', :text => "Action Required") do
         expect(page).to have_content(@clawdia.name)
         expect(page).to have_content(@bruno.name)
       end
+    end
+
+    # 26. Action Required Links to Application Show Page
+    it 'has a link to the admin application show page' do
+      @trevor.add_pet(@clawdia)
+      visit "/admin/shelters/#{@shelter_1.id}"
+
+      within('section', :text => "Action Required") do
+        expect(page).to have_link("Process Clawdia's Application")
+        expect(page).to have_content("Process Bruno's Application")
+      end
+
+      within('section', :text => "Action Required") do
+        click_link("Process Clawdia's Application")
+      end
+
+      expect(current_path).to eq("/admin/applications/#{@trevor.id}")
     end
   end
 end
