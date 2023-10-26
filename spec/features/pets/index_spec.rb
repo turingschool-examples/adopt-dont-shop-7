@@ -84,7 +84,7 @@ RSpec.describe "the pets index" do
 
   it "shows a link to start an application" do
     visit "/pets"
-    # save_and_open_page
+  
     expect(page).to have_link("Start an Application")
 
     click_link("Start an Application")
