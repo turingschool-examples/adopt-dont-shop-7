@@ -28,7 +28,6 @@ RSpec.describe "Application Show Page" do
       expect(page).to have_content("Status: #{@application1.status}")
     end
     
-
     it "shows a search for pets and lists matches to that pet name" do
       visit "/applications/#{@application1.id}"
 
@@ -86,7 +85,7 @@ RSpec.describe "Application Show Page" do
     context "Submit an Application" do
       it "has a button to submit the applications that appears after adding a Pet" do 
         visit "/applications/#{@application1.id}"
-          
+      
         within("#pet_search") do
         fill_in(:search, with: "Mr. Pirate")
         click_button("Search")
