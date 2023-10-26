@@ -41,7 +41,6 @@ RSpec.describe Application, type: :model do
         expect(@application2.pet_app_status(@pet_2)).to eq("Approved")
         expect(@application2.pet_app_status(@pet_3)).to eq("Rejected")
         expect(@application3.pet_app_status(@pet_1)).to eq("Rejected")
-
       end
     end
   end

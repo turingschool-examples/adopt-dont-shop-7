@@ -23,7 +23,6 @@ RSpec.describe "Application Show Page" do
   describe "visiting the admin/application show page" do 
     it "shows the applicant and all the applicants details" do 
       visit "/admin/applications/#{@application1.id}"
-      save_and_open_page
       expect(page).to have_content("Name: #{@application1.name}")
       expect(page).to have_content("Street Address: #{@application1.street_address}")
       expect(page).to have_content("#{@application1.city}")

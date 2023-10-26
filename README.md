@@ -34,3 +34,15 @@ In this project, students will build upon the code in this repo to create a Pet 
 
 This project will have one Check In. During your Check In, you should be prepared to review your database schema for the many to many relationship, your deployment to the internet, and your GitHub Projects board.
 
+# Description:
+This project is a brownfield project, meaning that it was not created from scratch but was inherited by us and we built on top of a legacy code base. When we recieved the repo we were able to deploy(see Additional Documentation below for deployment link) with working functionality of the Pets, Shelters, Vetrinarians, and Veterinary Offices sections of the site. We were tasked with creating a Pet Adoption Platform for this existing site. We wanted Users to be able to apply to adopt pets, and Admins would be able to approve or reject applications, as well as see statistics for the Shelters, Pets, and Applications.
+
+
+## Contributers:
+
+- Cory Powell - [Github](https://github.com/coryrpow) || [LinkedIn](https://www.linkedin.com/in/coryrpow/)
+- Xander Hendry - [Github](https://github.com/XanderHendry) || [LinkedIn](https://www.linkedin.com/in/xander-hendry-70b804289/)
+
+## Additional Documentation:
+
+- [Deployment Site](https://radiant-stream-44896-3ff5823d7e85.herokuapp.com/)
