@@ -69,8 +69,6 @@ RSpec.describe 'admin#shelters' do
       expect(page).to have_link(@shelter_2.name)
       expect(page).to have_link(@shelter_3.name)
       expect(page).to have_link(@shelter_4.name)
-      save_and_open_page
-
 
       click_link(@shelter_1.name)
 

@@ -59,6 +59,18 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.with_pending_apps).to eq([@shelter_1, @shelter_3])
       end
     end
+
+    describe "#name_by_sql" do
+      it "finds shelters name using SQL" do
+        expect(Shelter.name_by_sql(@shelter_1.id)).to eq("Aurora shelter")
+      end
+    end
+
+    describe "#city_by_sql" do
+      it "finds shelters city using SQL" do
+        expect(Shelter.city_by_sql(@shelter_1.id)).to eq("Aurora, CO")
+      end
+    end
   end
 
   describe "instance methods" do
@@ -83,6 +95,30 @@ RSpec.describe Shelter, type: :model do
     describe ".pet_count" do
       it "returns the number of pets at the given shelter" do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe ".avg_pet_age" do
+      it "finds average of all pets' ages" do
+        expect(@shelter_1.avg_pet_age).to eq(4)
+      end
+    end
+
+    describe ".adoptable_pets_total" do
+      it "returns number of adoptable pets in shelter" do
+        expect(@shelter_1.adoptable_pets_total).to eq(2)
+      end
+    end
+
+    describe ".adopted_pets_total" do
+      it "returns number of adopted pets in shelter" do
+        expect(@shelter_1.adopted_pets_total).to eq(1)
+      end
+    end
+
+    describe ".action_required" do
+      it "returns shelter pets with pending applications" do
+        expect(@shelter_1.action_required).to eq(["Mr. Pirate"])
       end
     end
   end
