@@ -1,7 +1,7 @@
 <h1>Applications</h1>
 
 <% @application.each do |application| %>
-  <h3><%= link_to "#{application.name}", "/applications/#{application.id}" %></h3>
+  <h3><%= link_to "#{application.name}", "/admin/applications/#{application.id}" %></h3>
   <p> <b>Address: </b> <%= application.address_join %></p>
   <p> <b>Description of Qualification: </b><%= application.description %></p> 
   <p> <b>Application Status: </b><%= application.status %></p> 

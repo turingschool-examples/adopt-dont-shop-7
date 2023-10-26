@@ -4,5 +4,5 @@
 <p><%= "Status: Adoptable" if @pet.adoptable%> <%= "Status: Not Adoptable" if !@pet.adoptable%></p>
 <p>Shelter Pet Belongs To: <%= @pet.shelter_name %></p>
 
-<p><%= link_to "Update #{@pet.name}", "pets/#{@pet.id}/edit" %></p>
+<p><%= link_to "Update #{@pet.name}", "/pets/#{@pet.id}/edit", method: :get %></p>
 <p><%= link_to "Delete #{@pet.name}", "/pets/#{@pet.id}", method: :delete %></p>
