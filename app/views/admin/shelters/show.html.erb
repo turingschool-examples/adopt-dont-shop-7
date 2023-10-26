@@ -11,4 +11,12 @@
   <p>Average Pet Age: <%= @shelter.avg_pet_age %> </p>
   <p>Adoptable Pets at this Location: <%= @shelter.adoptable_pets_total %> </p>
   <p>Pets that have been adopted: <%= @shelter.adopted_pets_total %> </p>
+
+  <section class="Action Required" >
+    <h3>Action Required:</h3>
+      <% @shelter.action_required.each do |pet|%> 
+        <p><%= pet %></p>
+      <% end %>
+  </section>
 </div>
+

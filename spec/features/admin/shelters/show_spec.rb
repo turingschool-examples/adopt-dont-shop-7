@@ -5,13 +5,14 @@ RSpec.describe 'admin#shelters' do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
-    @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
-    @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
-    @shelter_1.pets.create!(name: "Pickle", breed: "tuxedo shorthair", age: 5, adoptable: false)
-    @shelter_1.pets.create!(name: "Luna", breed: "shorthair", age: 3, adoptable: false)
+    @pirate = Pet.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true, shelter_id: @shelter_1.id)
+    @clawdia = Pet.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true, shelter_id: @shelter_1.id)
+    @pickle = Pet.create!(name: "Pickle", breed: "tuxedo shorthair", age: 5, adoptable: false, shelter_id: @shelter_1.id)
+    @luna = Pet.create!(name: "Luna", breed: "shorthair", age: 3, adoptable: false, shelter_id: @shelter_1.id)
     @shelter_3.pets.create!(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @bruno = Pet.create!(adoptable: true, age: 4, breed: "doberman", name: "Bruno", shelter_id: @shelter_1.id)
     @john = Application.create!(name: "John Smith", street_address: "376 Amherst Street", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", status: "Pending")
+    @trevor = Application.create!(name: "Trevor Smith", street_address: "815 Ardsma Ave", city: "Providence", state: "RI", zip_code: "02904", description: "I am a good person.", status: "Pending") 
     @john.add_pet(@bruno)
   end
 
@@ -48,6 +49,20 @@ RSpec.describe 'admin#shelters' do
 
       expect(page).to have_content("Statistics")
       expect(page).to have_content("Pets that have been adopted: 2")
+    end
+
+    # 25. Action Required
+    it "lists pets that have a pending application and have not yet been marked" do
+      @trevor.add_pet(@clawdia)
+      visit "/admin/shelters/#{@shelter_1.id}"
+
+
+      expect(page).to have_content("Action Required")
+      save_and_open_page
+      within('section', :text => "Action Required") do
+        expect(page).to have_content(@clawdia.name)
+        expect(page).to have_content(@bruno.name)
+      end
     end
   end
 end
