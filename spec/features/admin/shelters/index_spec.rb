@@ -61,5 +61,20 @@ RSpec.describe 'admin#shelters' do
         expect(@shelter_1.name).to appear_before(@shelter_4.name)
       end
     end
+
+    # 21. Admin Shelters Show Page Links
+    it 'has links to admin shelter show pages on index' do
+      visit '/admin/shelters'
+      expect(page).to have_link(@shelter_1.name)
+      expect(page).to have_link(@shelter_2.name)
+      expect(page).to have_link(@shelter_3.name)
+      expect(page).to have_link(@shelter_4.name)
+      save_and_open_page
+
+
+      click_link(@shelter_1.name)
+
+      expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
+    end
   end
 end
