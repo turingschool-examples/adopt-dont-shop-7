@@ -116,7 +116,7 @@ And I see the Pet I want to adopt listed on this application
 As a visitor
 When I visit an application's show page
 And I have added one or more pets to the application
-Then I see a section to submit my application
+Then I see a section to submit my applicationa
 And in that section I see an input to enter why I would make a good owner for these pet(s)
 When I fill in that input
 And I click a button to submit this application

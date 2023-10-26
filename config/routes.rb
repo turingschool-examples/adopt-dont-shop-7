@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get 'hello_world/index'
   get "/", to: "application#welcome"
+
+  get "/admin/shelters", to: "admin/shelters#index"
 
   post "/pet_applications", to: "pet_applications#create"
 
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
   get "/applications/new", to: "applications#new"
   get "/applications/:id", to: "applications#show"
   post "/applications", to: "applications#create"
+  patch "/applications/:id", to: "applications#update"
 
 
   get "/veterinary_offices", to: "veterinary_offices#index"

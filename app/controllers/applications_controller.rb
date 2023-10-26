@@ -14,18 +14,23 @@ class ApplicationsController < ApplicationController
       # render :new
     end
   end
-  
+
   def show
     @application = Application.find(params[:id])
     if params[:pet_name]
-      @pet = @application.search(params[:name])
+      @pets_search = Pet.search(params[:pet_name])
     end
   end
 
+ feat_admin_index
+  def update
+    @application = Application.find(params[:id])
+    @application.update({ description: :why_good_owner, application_status: "Pending" })
+
+    redirect_to "/applications/#{@application.id}"
   private
 
   def application_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
-
 end

@@ -33,6 +33,8 @@ RSpec.describe "application creation" do
         fill_in "description", with: "Because I say so!"
         click_button("Submit")
         application = Application.last
+        
+        expect(current_path).to eq("applications/#{application.id}")
         expect(current_path).to eq("/applications/#{application.id}")
 
         expect(page).to have_content("Dave")
