@@ -25,8 +25,10 @@ class Shelter < ApplicationRecord
   end
 
   def self.name_and_address(shelter_id)
-    # find_by_sql("SELECT CONCAT(name,' ', city) AS result FROM shelters WHERE shelters.id = #{shelter_id}").first
-    find_by_sql("SELECT name, city FROM shelters WHERE shelters.id = #{shelter_id}").first
+    result = find_by_sql("SELECT CONCAT(name,' ', city) AS result FROM shelters WHERE shelters.id = #{shelter_id}")
+    name_and_address = result.first.result
+    
+    # find_by_sql("SELECT name, city FROM shelters WHERE shelters.id = #{shelter_id}").first
   end
 
   def self.age_stats(shelter)

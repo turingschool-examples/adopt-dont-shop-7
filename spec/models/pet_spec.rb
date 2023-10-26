@@ -25,6 +25,12 @@ RSpec.describe Pet, type: :model do
       it "returns partial matches" do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
+
+      describe '#method_name' do
+        it 'does stuff' do
+          expect().to eq()
+        end
+      end
     end
 
     describe "#adoptable" do

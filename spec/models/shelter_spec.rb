@@ -72,7 +72,7 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    xit "Finds shelter name and address returned via SQL" do
+    it "Finds shelter name and address returned via SQL" do
       expect(Shelter.name_and_address(@shelter_2.id)).to eq("RGV animal shelter Harlingen, TX")
     end
 
