@@ -19,7 +19,6 @@ class ApplicationsController < ApplicationController
       @approvals = @application.find_approvals
       @rejections = @application.find_rejections
     end
-    # require 'pry'; binding.pry
   end
 
   def new
