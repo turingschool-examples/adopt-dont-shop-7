@@ -19,9 +19,9 @@ class Application < ApplicationRecord
   def change_status
     check_values = application_pets.map{|pet| pet.status}
     if !check_values.include?(nil) && !check_values.include?(false)
-      self.update(status: "Approved")
+      self.update!(status: "Approved")
     elsif check_values.include?(false)
-      self.update(status: "Rejected")
+      self.update!(status: "Rejected")
     end
   end
 
