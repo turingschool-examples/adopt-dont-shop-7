@@ -142,6 +142,7 @@ RSpec.describe "Applications show page" do
       visit "/applications/#{application.id}"
       
       expect(page).to have_css(".submit-section")
+    end
       
     it "will return partial matches in a Pet name's search" do
       shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9) 
@@ -156,8 +157,8 @@ RSpec.describe "Applications show page" do
       # When I visit an application show page
       visit "/applications/#{application.id}"
       # And I search for Pets by name
-      fill_in 'Search', with: "fluff"
-      click_on("Search")
+      fill_in :pet_name, with: "fluff"
+      click_on("Search for Pets")
 
       # Then I see any pet whose name PARTIALLY matches my search
       # For example, if I search for "fluff", my search would 
@@ -182,8 +183,8 @@ RSpec.describe "Applications show page" do
       # When I visit an application show page
       visit "/applications/#{application.id}"
       # And I search for Pets by name
-      fill_in 'Search', with: "fluff"
-      click_on("Search")
+      fill_in :pet_name, with: "fluff"
+      click_on("Search for Pets")
       # Then my search is case insensitive
       # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
       
@@ -193,5 +194,4 @@ RSpec.describe "Applications show page" do
       expect(page).to have_content("Mr. FlUfF")
     end
   end
-end 
-
+end
