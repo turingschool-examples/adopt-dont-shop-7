@@ -15,7 +15,11 @@ RSpec.describe "the application show" do
   describe 'Admin Application Show Page' do
     # User Story 12, Approving a Pet for Adoption
     it 'has a button to approve the application for a specific pet' do
+      require 'pry'; binding.pry
       visit "/admin/applications/#{@john.id}"
+
+      expect(page).to have_content("Bruno")
+      expect(page).to have_content("Bruiser")
       
       expect(page).to have_button("Approve Bruno")
       

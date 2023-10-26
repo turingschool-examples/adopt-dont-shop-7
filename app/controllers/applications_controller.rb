@@ -24,7 +24,8 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:application_id])
     if params[:pet_id].present?
       selected_pet = Pet.find(params[:pet_id])
-      @application.add_pet(selected_pet)
+      application_pet = ApplicationPet.create(application: @application, pet: selected_pet, name: selected_pet.name, application_pet_status: 1, adoptable: true)
+      @application.add_pet(application_pet)
     elsif params[:reason].present?
       @application.update(status: 1)
     end

@@ -17,6 +17,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_214940) do
   create_table "application_pets", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.bigint "application_id", null: false
+    t.string "name"
+    t.boolean "adoptable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "application_pet_status", default: 1

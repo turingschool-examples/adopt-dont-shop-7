@@ -1,13 +1,15 @@
 class ApplicationPetsController < ApplicationController
+
   def update
     application = Application.find(params[:id])
-    application_pet = ApplicationPet.where("application_id = #{application.id}")
+    application_pets = application.application_pets
+    selected_app_pet = ApplicationPet.find(params[:pet_id])
     if params[:approved?] == "Yes"
-      application_pet.update(application_pet_status: 2)
-      application_pet.pet.update(adoptable: false)
+      selected_app_pet.update(application_pet_status: 2)
+      selected_app_pet.update(adoptable: false)
     else
-      application_pet.update(application_pet_status: 3)
-      application_pet.pet.update(adoptable: true)
+      selected_app_pet.update(application_pet_status: 3)
+      selected_app_pet.pet.update(adoptable: true)
     end
     update_application(application)
     redirect_to "/admin/applications/#{application.id}"

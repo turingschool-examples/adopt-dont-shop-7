@@ -11,7 +11,7 @@ class Application < ApplicationRecord
   end
 
   def add_pet(pet)
-    pets << pet
+    application_pets << pet
   end
 
   def rejected_pets

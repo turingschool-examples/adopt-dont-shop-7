@@ -19,7 +19,7 @@
 <p><u>Status</u>: <%= @application.status %> </p>
 
 <p><u>Pets I'd Like to Adopt</u>:</p>
-<% @pets.each do |pet| %>
+<% @application.application_pets.each do |pet| %>
 <div class= "buttons">
   <% if pet.application_pet_status == "Pending" && pet.adoptable == true %>
     <%= form_with url:"/application_pets/#{@application.id}", method: :patch, local: :true do |f| %>
