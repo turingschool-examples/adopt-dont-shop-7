@@ -17,4 +17,16 @@ class Application < ApplicationRecord
   def pet_names
     pets.pluck(:name)
   end
+
+  def pet_status
+    pet_applications.pluck(:pet_id, :status).to_h
+  end
+
+  def pet_approved(id)
+    pet_status[id] == "Approved" && !pet_status[id].nil?
+  end
+
+  def pet_rejected(id)
+    pet_status[id] == "Rejected" && !pet_status[id].nil?
+  end
 end

@@ -8,10 +8,10 @@
 <% @app.pets.each do | pet | %>
     <section id="pet-<%= pet.id %>">
       <span><%= pet.name %></span>
-
-      <% if pet.application_approved %>
+      <%# require "pry"; binding.pry %>
+      <% if @app.pet_approved(pet.id) %>
         <span>| Approved ✅</span>
-      <% else %>
+      <% elsif @app.pet_rejected(pet.id) %>
         <span>| Rejected ❌</span>
       <% end %><br>
 
