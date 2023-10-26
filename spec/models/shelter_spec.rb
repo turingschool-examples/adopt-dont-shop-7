@@ -101,7 +101,7 @@ RSpec.describe Shelter, type: :model do
     describe ".shelter_pets_filtered_by_age" do
       it "filters the shelter pets based on given params: Adoptable pets by age" do
         expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([ @pet_4])
-        expect(@shelter_1.shelter_pets_filtered_by_age(3)).to eq([@pet_2])
+        expect(@shelter_1.shelter_pets_filtered_by_age(3)).to eq([@pet_2, @pet_4])
       end
     end
 
