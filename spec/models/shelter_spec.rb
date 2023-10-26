@@ -21,6 +21,9 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+
+    @app_1 = App.create!(name: "John Smith", address: "1234 Example St.", city: "Denver", state: "CO", zip: "80202", description: "I love animals!")
+    @app_1.pets << @pet_1
   end
 
   describe "class methods" do
@@ -59,6 +62,12 @@ RSpec.describe Shelter, type: :model do
     describe ".shelter_pets_filtered_by_age" do
       it "filters the shelter pets based on given params" do
         expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([@pet_4])
+      end
+    end
+
+    describe ".shelters_apps_in_progress" do
+      it "returns shelters with pending applications" do
+      expect(Shelter.shelters_apps_in_progress).to eq([@shelter_1])
       end
     end
 
