@@ -1,0 +1,21 @@
+<h1>Admin Application Show Page</h1>
+
+<section>
+  <% @application.pets.each do |pet| %>
+    pet_app = @application.search(pet.id, @application.id)
+    <% binding.pry %>
+    <div id=<%= "approve-#{pet.id}" %>>
+      <% if pet_app.status != "Approved" %>
+      <% binding.pry %>
+        <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
+          <%= f.hidden_field :pet_id, value: pet.id %>
+          <%= f.hidden_field :app_id, value: @application.id %>
+          <%= f.label "#{pet.name}" %>
+          <%= f.submit "Approve" %>
+        <% end %>
+      <% else %>
+        <%= "#{pet.name}: #{@pet_application.status}" %>
+      <% end %>
+    </div>
+  <% end %>
+</section>
