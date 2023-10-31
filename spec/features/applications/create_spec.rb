@@ -23,7 +23,7 @@ RSpec.describe "application creation" do
     context "given valid data" do
       it "creates the application and redirects to the application's show page" do
         
-        visit "applications/new"
+        visit "/applications/new"
 
         fill_in "Name", with: "Dave"
         fill_in "Street Address", with: "1924 North Coria Street"
@@ -32,11 +32,11 @@ RSpec.describe "application creation" do
         fill_in "Zip Code", with: "78521"
         fill_in "Description", with: "Because I say so!"
         click_button("Submit")
+
         application = Application.last
         
-        expect(current_path).to eq("applications/#{application.id}")
+        expect(current_path).to eq("/applications/#{application.id}")
 
-        pending "Show page must be completed prior to testing"
         expect(page).to have_content("Dave")
         expect(page).to have_content("1924 North Coria Street")
         expect(page).to have_content("Brownsville")
@@ -44,7 +44,23 @@ RSpec.describe "application creation" do
         expect(page).to have_content("78521")
         expect(page).to have_content("Because I say so!")
         expect(page).to have_content("In Progress")
+        # expect(page).to have_content(application.application_status)
+      end
+    end
+
+    context "given invalid data" do 
+      it "it does not create the application, and alerts the user that required fields are missing. It redirects them back to the current page" do
+
+        visit "/applications/new"
+
+        fill_in "Name", with: " "
+
+        click_button("Submit")
+
+        expect(current_path).to eq("/applications/new")
+        expect(page).to have_content("All fields must be filled in before you can proceed")
       end
     end
   end
+
 end
