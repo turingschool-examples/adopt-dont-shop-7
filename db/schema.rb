@@ -44,6 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_24_213052) do
     t.index ["veterinary_office_id"], name: "index_veterinarians_on_veterinary_office_id"
   end
 
+  
   create_table "veterinary_offices", force: :cascade do |t|
     t.boolean "boarding_services"
     t.integer "max_patient_capacity"
