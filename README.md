@@ -35,9 +35,8 @@ In this project, students will build upon the code in this repo to create a Pet 
 This project will have one Check In. During your Check In, you should be prepared to review your database schema for the many to many relationship, your deployment to the internet, and your GitHub Projects board.
 
 ## Project Links
-- [DTR]()
-- [Repo]()
-- [Project Management Board]()
+- [DTR](https://docs.google.com/document/d/1bfgZCGiJp456yc7_rbAtZvbGP-fpUswVMmygUdUI-yg/edit)
+- [Project Management Board](https://github.com/users/megroth2/projects/2/views/1)
 
 ## Database Design Doc
 ![schema](adopt-dont-shop-schema.png)
