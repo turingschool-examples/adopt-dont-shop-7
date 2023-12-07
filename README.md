@@ -38,3 +38,4 @@ This project will have one Check In. During your Check In, you should be prepare
 
 https://dbdesigner.page.link/cxXa3wsL9DYfJx287
 
+![adopt_dont_shop](https://gist.github.com/assets/142750940/22151bc5-faf4-4f3b-be1d-b7033ee48f80)
