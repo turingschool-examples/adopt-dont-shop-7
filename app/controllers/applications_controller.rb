@@ -13,10 +13,7 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"   
     else
-      flash[:alert] = "Please fill in all required fields"
-      redirect_to "/applications/new"
-      # puts @application.errors.full_messages
-      # render "new"
+      render "new"
     end
   end
 
