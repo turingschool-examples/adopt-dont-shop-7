@@ -19,6 +19,7 @@ RSpec.describe "the application index" do
     expect(page).to have_content("Israel") 
     expect(page).to have_content("9103401")
     expect(page).to have_content("Because I'm rich! :)")
+
     expect(page).to have_content("In Progress")
   end
 end
