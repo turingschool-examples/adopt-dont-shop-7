@@ -18,7 +18,10 @@ RSpec.describe "the application show" do
     # - Name of the Applicant
     expect(page).to have_content("Applicant Name: Victor Antonio Sanchez")
     # - Full Address of the Applicant including street address, city, state, and zip code
-    expect(page).to have_content("Address: 97 Jaffa Road Jerusalem, Israel 9103401")
+    expect(page).to have_content("Address: 97 Jaffa Road")
+    expect(page).to have_content("City: Jerusalem")
+    expect(page).to have_content("State: Israel")
+    expect(page).to have_content("Zip code: 9103401")
     # - Description of why the applicant says they'd be a good home for this pet(s)
     expect(page).to have_content("Description: Because I'm rich! :)")
     # - names of all pets that this application is for (all names of pets should be links to their show page)
@@ -27,6 +30,5 @@ RSpec.describe "the application show" do
     expect(page).to_not have_link("Ann")
     # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
     expect(page).to have_content("Application Status: In Progress")
-    save_and_open_page
   end
 end
