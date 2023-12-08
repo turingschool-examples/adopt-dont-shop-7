@@ -1,12 +1,16 @@
 <h1> Application Show Page! </h1>
 
 <h3>Applicant Info</h3>
-<%= @application.name %>
-<%= @application.street %>
-<%= @application.city %>
+<p><%= @application.name %></p>
+<p><%= @application.street %>,
+<%= @application.city %>,
 <%= @application.state %>
-<%= @application.zip %>
-<%= @application.descr %>
+<%= @application.zip %></p>
+<p><%= @application.descr %></p>
+
+<p><% @application.pets.each do |pet| %></p>
+  <p><%= pet.name %></p>
+<p><% end %></p>
 
 
 

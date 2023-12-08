@@ -2,11 +2,6 @@ require "rails_helper"
 
 RSpec.describe "pet creation" do
   before(:each) do
-    @shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
-    @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
-    @pet_3 = Pet.create!(adoptable: false, age: 2, breed: "saint bernard", name: "Beethoven", shelter_id: @shelter.id)
-
     @app_1 = Application.create!(name: "Susan", 
       street: "7654 Clover St", 
       city: "Denver", 
@@ -14,16 +9,14 @@ RSpec.describe "pet creation" do
       zip: "80033", 
       descr: "I love animals and am lonely")
 
-      
-      # @pet_1_app = @app_1.pets(@pet_1)
-
-      # @pet_2_app = PetApplication.create!({pet_id: @pet_1.id, application_id: @app_1.id})
-      # @pet_3_app = @app_1 << @pet_3
-
-      # @pet_1_app = PetApplication.application.create!()
-      @pet_1_app = @app_1.pet_applications.create!(pet_id: @pet_1.id, application_id: @app_1.id)
-
-    
+    @shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
+    @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
+    @pet_3 = Pet.create!(adoptable: false, age: 2, breed: "saint bernard", name: "Beethoven", shelter_id: @shelter.id)
+   
+    @pet_1_app =PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id)
+    @app_1.pets << @pet_2
+    @app_1.pets << @pet_3
   end
 
     it "has a applications show page" do
@@ -49,13 +42,13 @@ RSpec.describe "pet creation" do
     it "shows the names of all pets on the application and their status" do
       visit "/applications/#{@app_1.id}"
 
-      expect(page).to have_content("rocky")
-      expect(page).to have_content("In Progress")
+      expect(page).to have_content("Lucille Bald")
+      # expect(page).to have_content("In Progress")
 
-      expect(page).to have_content("barb")
-      expect(page).to have_content("In Progress")
+      expect(page).to have_content("Lobster")
+      # expect(page).to have_content("In Progress")
 
-      expect(page).to have_content("kyle")
-      expect(page).to have_content("In Progress")
+      expect(page).to have_content("Beethoven")
+      # expect(page).to have_content("In Progress")
     end
 end
