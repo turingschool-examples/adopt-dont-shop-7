@@ -45,7 +45,7 @@ RSpec.describe "the application create" do
     # And I click submit
     click_button "Submit"
     # Then I am taken back to the new applications page
-    expect(current_path).to eq("/applications/new")
+    expect(current_path).to eq("/applications")
     # And I see a message that I must fill in those fields.
     expect(page).to have_content("Please fill in all required fields")
   end
