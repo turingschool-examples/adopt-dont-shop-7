@@ -1,3 +1,9 @@
+$ git commit -m "
+>
+>
+Co-authored-by: lambo1986 <lambertones@gmail.com>
+Co-authored-by: s2an <A141100397+s2an@users.noreply.github.com>"
+
 # Adopt, don't Shop
 
 This is a paired project used in Turing School's Backend Program Module 2.
