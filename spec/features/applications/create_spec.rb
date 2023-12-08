@@ -26,7 +26,6 @@ RSpec.describe "the application create" do
     new_application = Application.last
     visit "/applications/#{new_application.id}"
     #And I see my Name, address information, and description of why I would make a good home
-
     expect(page).to have_content("Sam Puttman")
     expect(page).to have_content("1940 Key West Drive")
     expect(page).to have_content("Arnold")

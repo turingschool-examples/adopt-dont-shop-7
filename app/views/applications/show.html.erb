@@ -1,6 +1,6 @@
-<h1> Application Details <h1>
+<h1> Application Details </h1>
 
-<p><strong>Applicant Name:</strong> <%= @applicant.applicant_name %></h1>
+<p><strong>Applicant Name:</strong> <%= @applicant.applicant_name %>
 <p><strong>Address:</strong> <%= @applicant.address %>
 <p><strong>City:</strong> <%= @applicant.city %>
 <p><strong>State:</strong> <%=@applicant.state %> 
@@ -10,6 +10,6 @@
 <p><strong>Pet Names:</strong>
 <% @applicant.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-<% end %>
+<% end %></p>
 
-<p><strong>Application Status:</strong> <%= @applicant.application_status %></h3>
+<p><strong>Application Status:</strong> <%= @applicant.application_status %><p>
