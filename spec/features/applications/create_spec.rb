@@ -35,4 +35,18 @@ RSpec.describe "the application create" do
     #And I see an indicator that this application is "In Progress"
     expect(page).to have_content("In Progress")
   end
+
+  it "displays a message with required action" do
+    # 3. Starting an Application, Form not Completed
+    # As a visitor
+    # When I visit the new application page
+    visit "/applications/new"
+    # And I fail to fill in any of the form fields
+    # And I click submit
+    click_button "Submit"
+    # Then I am taken back to the new applications page
+    expect(current_path).to eq("/applications/new")
+    # And I see a message that I must fill in those fields.
+    expect(page).to have_content("Please fill in all required fields")
+  end
 end
