@@ -13,7 +13,6 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to "/applications/#{@application.id}"   
     else
-      Rails.logger.debug @application.errors.full_messages
       render :new
     end
   end
