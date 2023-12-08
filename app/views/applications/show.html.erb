@@ -1,8 +1,15 @@
-<h1>Applicant Name: <%= "#{@applicant.applicant_name}" %></h1>
-<h3>Address: <%= "#{@applicant.address} #{@applicant.city}, #{@applicant.state} #{@applicant.zip_code}" %></h3>
-<h3>Description: <%= "#{@applicant.description}"%></h3>
-<h3><% @applicant.pets.each do |pet|%></h3>
-<h3>Pet Names: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
-<% end %>
-<h3>Application Status: <%= "#{@applicant.application_status}" %></h3>
+<h1> Application Details </h1>
 
+<p><strong>Applicant Name:</strong> <%= @applicant.applicant_name %>
+<p><strong>Address:</strong> <%= @applicant.address %>
+<p><strong>City:</strong> <%= @applicant.city %>
+<p><strong>State:</strong> <%=@applicant.state %> 
+<p><strong>Zip code:</strong> <%=@applicant.zip_code %>
+<p><strong>Description:</strong> <%= @applicant.description %>
+
+<p><strong>Pet Names:</strong>
+<% @applicant.pets.each do |pet| %>
+  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end %></p>
+
+<p><strong>Application Status:</strong> <%= @applicant.application_status %><p>

@@ -5,14 +5,16 @@
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
+<p><%= link_to "Start an Application", "/applications/new" %></p>
+
 
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: <%= pet.adoptable %></p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+  <p><strong>Age:</strong> <%= pet.age %></p>
+  <p><strong>Breed:</strong> <%= pet.breed %></p>
+  <p><strong>Adoptable:</strong> <%= pet.adoptable %></p>
+  <p><strong>You can find</strong> <%= pet.name %> <strong>at</strong> <%= pet.shelter_name %><strong>!</strong></p>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
   <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
 <% end %>
