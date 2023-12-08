@@ -1,6 +1,12 @@
 <h1>New Application</h1>
 
-<%= form_with url: "/applications", method: :post, html: { id: 'form' }, local: true do |form| %>
+<%= form_with url: "/applications", method: :post, html: { id: 'form' }, data: { turbo: false }, local: true do |form| %>
+
+  <% if @application.errors.any? %>
+    <div style="color: red;">
+      <p>Please fill in all required fields.</p>
+    </div>
+  <% end %> 
   
   <div class="form-field">
   <%= form.label :applicant_name %>
