@@ -24,4 +24,13 @@ RSpec.describe Application, type: :model do
       expect(@application_1.list_of_pets).to eq([@dog, @cat])
     end
   end
+
+  describe "#set_status_in_progress" do
+    it "can set status to in progress" do 
+      @application_1.set_status_in_progress
+
+      expect(@application_1.status).to eq("In Progress")
+    end
+  end
+
 end

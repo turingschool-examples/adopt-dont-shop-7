@@ -8,7 +8,10 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-
+    @application = Application.new(application_params)
+    @application.set_status_in_progress
+    @application.save
+    redirect_to "/applications/#{@application.id}"
   end
 
   def edit
@@ -20,11 +23,15 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    
     @application = Application.find(params[:id])
   end
 
   def destroy
 
+  end
+
+  private
+  def application_params
+    params.permit(:name, :street_address, :city, :state, :zipcode, :description)
   end
 end
