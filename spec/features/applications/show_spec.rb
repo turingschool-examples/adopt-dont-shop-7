@@ -84,4 +84,14 @@ RSpec.describe "pet creation" do
       expect(page).to_not have_content("Hoser")
     end
 
-end
+    it "has a button to adopt a pet next to each pet search result" do
+      visit "/applications/#{@app_1.id}"
+      fill_in(:pet_name, with: "Hoser")
+      click_button "Search"
+
+
+
+    end
+
+
+  end
