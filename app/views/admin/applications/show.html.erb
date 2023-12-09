@@ -2,17 +2,16 @@
 
 <section>
   <% @application.pets.each do |pet| %>
-    pet_app = @application.search(pet.id, @application.id)
     <div id=<%= "approve-#{pet.id}" %>>
-      <% if pet_app.status != "Approved" %>
-        <%= form_with url: "/admin/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <% if pet.app_status(@application) && pet.app_status(@application) == "Pending" %>
+        <%= form_with url: "/admin/applications/#{@application.id}", data: {turbo: false}, method: :patch, local: true do |f| %>
           <%= f.hidden_field :pet_id, value: pet.id %>
           <%= f.hidden_field :app_id, value: @application.id %>
           <%= f.label "#{pet.name}" %>
           <%= f.submit "Approve" %>
         <% end %>
       <% else %>
-        <%= "#{pet.name}: #{@pet_application.status}" %>
+        <%= "#{pet.name}: #{pet.app_status(@application)}" %>
       <% end %>
     </div>
   <% end %>

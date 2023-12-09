@@ -9,6 +9,10 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def app_status(app)
+    PetApplication.where(pet_id: self.id).where(application_id: app.id).first.status
+  end
+
   def self.adoptable
     where(adoptable: true)
   end

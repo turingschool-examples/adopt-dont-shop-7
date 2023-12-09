@@ -5,12 +5,20 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def update
-    pet_application = Application.search(params[:pet_id], params[:id])
-    if pet_application.update(shelter_params)
-      redirect_to "/admin/applications/#{applications.id}"
+    pet = Pet.find(params[:pet_id])
+    
+    application = Application.find(params[:app_id])
+    pet_application = PetApplication.pet_app(params[:pet_id], params[:app_id])
+    
+    if pet_application.status == "In Progress" || pet_application.status == "Pending"
+      if
+        pet_application.update!(status: "Approved")
+        redirect_to "/admin/applications/#{application.id}"
+        flash[:notice] = "#{pet.name}'s application has been updated"
+      end
     else
-      redirect_to "/admin/applications/#{applications.id}"
-      flash[:alert] = "Error: #{error_message(pet_application.errors)}"
+      redirect_to "/admin/applications/#{pet_app.id}"
+      flash[:alert] = "Error: There was a problem and your updates did not take effect"
     end
   end
 

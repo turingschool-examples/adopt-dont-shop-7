@@ -16,11 +16,11 @@ RSpec.describe "Admin Show page" do
     @luna = @shelter.pets.create!(name: 'Luna', age: 4, breed: 'Pitbull', adoptable: true) 
     @jimmy = @shelter_2.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
 
-    @pa_1 = PetApplication.create!(pet: @bella, application: @application)
-    @pa_2 = PetApplication.create!(pet: @rigby, application: @application)
-    @pa_3 = PetApplication.create!(pet: @luna, application: @application)
-    @pa_4 = PetApplication.create!(pet: @jimmy, application: @application_2)
-    @pa_5 = PetApplication.create!(pet: @jimmy, application: @application_3)
+    @pa_1 = PetApplication.create!(pet: @bella, application: @application, status: "Pending")
+    @pa_2 = PetApplication.create!(pet: @rigby, application: @application, status: "In Progress")
+    @pa_3 = PetApplication.create!(pet: @luna, application: @application, status: "In Progress")
+    @pa_4 = PetApplication.create!(pet: @jimmy, application: @application_2, status: "Pending")
+    @pa_5 = PetApplication.create!(pet: @jimmy, application: @application_3, status: "Rejected")
   end
 
   describe "Approving a pet for adoption" do
@@ -34,8 +34,8 @@ RSpec.describe "Admin Show page" do
 
         click_button "Approve"
 
-        visit "/pet_applications/#{@application.id}"
-        save_and_open_page
+        expect(current_path).to eq("/admin/applications/#{@application.id}")
+        
         expect(page).to have_content("Bella")
         expect(page).to_not have_button("Approve")
         
