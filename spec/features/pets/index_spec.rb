@@ -89,5 +89,4 @@ RSpec.describe "the pets index" do
 
     expect(page).to have_current_path("/applications/new")
   end
-
 end
