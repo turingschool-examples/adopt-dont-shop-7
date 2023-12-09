@@ -39,7 +39,6 @@ RSpec.describe "Application Show Page" do
 
       visit "/applications/#{@application_1.id}"
 
-      save_and_open_page
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to have_content("Search for Pets by name:")
       expect(page).to have_no_content("Hamster")
@@ -69,8 +68,7 @@ RSpec.describe "Application Show Page" do
     end
   end
 
-
-  xit "has a section to submit my application" do
+  it "has a section to submit my application" do
     visit "/applications/#{@application_1.id}"
     # Add one or more pets to the application (waiting on user story 5)
 
@@ -81,7 +79,10 @@ RSpec.describe "Application Show Page" do
     click_button("Submit Application")
 
     expect(current_path).to eq("/applications/#{@application_1.id}")
-    expect(page).to not_have_content("Search") # may need to adjust this based on how user stories 4 and 5 are written
+
+    save_and_open_page
+    
+    expect(page).to have_no_content("Search") # may need to adjust this based on how user stories 4 and 5 are written
   end
 
 end

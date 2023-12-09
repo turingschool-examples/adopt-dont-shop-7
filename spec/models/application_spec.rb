@@ -53,27 +53,27 @@ RSpec.describe Application, type: :model do
     end
   end
 
-  describe "#set_status_pending" do
-    it "can set status to pending" do
-      @application_1.good_owner_comments = "We bonded at the shelter."
-      @application_1.set_status_pending
+  # describe "#set_status_pending" do
+  #   it "can set status to pending" do
+  #     @application_1.good_owner_comments = "We bonded at the shelter."
+  #     @application_1.set_status_pending
 
-      expect(@application_1.status).to eq("Pending")
-    end
-  end
+  #     expect(@application_1.status).to eq("Pending")
+  #   end
+  # end
 
-  xdescribe "#has_good_owner_comments?" do
-    it "has good owner comments" do
-      @application_1.good_owner_comments = "We bonded at the shelter."
+  # xdescribe "#has_good_owner_comments?" do
+  #   it "has good owner comments" do
+  #     @application_1.good_owner_comments = "We bonded at the shelter."
 
-      expect(@application_1.has_good_owner_comments?).to eq(true)
-    end
+  #     expect(@application_1.has_good_owner_comments?).to eq(true)
+  #   end
 
-    it "does not have good owner comments" do
-      @application_1.good_owner_comments == nil
+  #   it "does not have good owner comments" do
+  #     @application_1.good_owner_comments == nil
 
-      expect(@application_1.has_good_owner_comments?).to eq(false)
-    end
-  end
+  #     expect(@application_1.has_good_owner_comments?).to eq(false)
+  #   end
+  # end
 
 end

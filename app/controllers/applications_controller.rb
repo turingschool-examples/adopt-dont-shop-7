@@ -25,12 +25,19 @@ class ApplicationsController < ApplicationController
   end
 
   def update
+    application = Application.find(params[:id])
+    if params[:good_owner_comments].present?
+      application.update(
+        good_owner_comments: [params[:good_owner_comments]],
+        status: "Pending"
+      )
+    end
 
+    redirect_to show_application_path
   end
 
   def show
     @application = Application.find(params[:id])
-    @application.set_status_pending
   end
 
   def destroy
@@ -39,6 +46,6 @@ class ApplicationsController < ApplicationController
 
   private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zipcode, :description, :good_owner_comments)
+    params.permit(:name, :street_address, :city, :state, :zipcode, :description, :good_owner_comments, status: "In Progress")
   end
 end

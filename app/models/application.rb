@@ -21,14 +21,6 @@ class Application < ApplicationRecord
     self.status = "In Progress"
   end
 
-  def set_status_pending
-    self.status = "Pending" if self.has_good_owner_comments?
-  end
-
-  def has_good_owner_comments?
-    self.good_owner_comments #something is off here, I'm too tired to think through it at the moment and have to run!
-  end
-
   def find_pet(name)
     Pet.where(name: name)
   end
