@@ -9,6 +9,8 @@ class ApplicationPetsController < ApplicationController
 
   def create
     @application_pet = ApplicationPet.create(application_pet_params)
+    require 'pry'; binding.pry
+
     redirect_to show_application_path
   end
 

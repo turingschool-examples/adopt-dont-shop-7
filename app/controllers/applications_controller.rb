@@ -30,6 +30,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @application.set_status_pending
   end
 
   def destroy
@@ -38,6 +39,6 @@ class ApplicationsController < ApplicationController
 
   private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zipcode, :description)
+    params.permit(:name, :street_address, :city, :state, :zipcode, :description, :good_owner_comments)
   end
 end
