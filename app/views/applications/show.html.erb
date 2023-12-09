@@ -16,6 +16,6 @@
 
 <% if params[:pet_name].present? %>
   <% @application.find_pet(params[:pet_name]).each do |pet| %>
-  <%= pet %>
+  <%= pet.name %>
   <% end %>
 <% end %>

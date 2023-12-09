@@ -21,7 +21,7 @@ class Application < ApplicationRecord
   end
 
   def find_pet(name)
-    Pet.joins(application_pets: :application).where(name: name).pluck(:name)
+    Pet.where(name: name)
   end
 
 end
