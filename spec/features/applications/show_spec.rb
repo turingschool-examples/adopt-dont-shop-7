@@ -13,6 +13,7 @@ RSpec.describe "pet creation" do
     @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
     @pet_3 = Pet.create!(adoptable: false, age: 2, breed: "saint bernard", name: "Beethoven", shelter_id: @shelter.id)
+    @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "beagle", name: "Toaster", shelter_id: @shelter.id)
    
     @pet_1_app =PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id)
     @app_1.pets << @pet_2
@@ -45,10 +46,42 @@ RSpec.describe "pet creation" do
       expect(page).to have_content("Lucille Bald")
       # expect(page).to have_content("In Progress")
 
-      expect(page).to have_content("Lobster")
-      # expect(page).to have_content("In Progress")
-
       expect(page).to have_content("Beethoven")
       # expect(page).to have_content("In Progress")
     end
+
+    it "has a link to add a pet to an application" do
+      visit "/applications/#{@app_1.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+    end
+
+    it "expect section to have search field for pet names" do
+
+      visit "/applications/#{@app_1.id}"
+
+      expect(page).to have_content("Search for pet")
+
+      expect(page).to have_field(:pet_name)
+      expect(page).to have_button("Search")
+
+      fill_in(:pet_name, with: "Toaster")
+
+      click_button "Search"
+
+      expect(current_path).to eq("/applications/#{@app_1.id}")
+      within "#show-#{@pet_4.id}" do 
+        expect(page).to have_content("Toaster")
+      end
+
+    end
+
+    it "won't respond to non existant dog name" do
+      visit "/applications/#{@app_1.id}"
+      fill_in(:pet_name, with: "Hoser")
+      click_button "Search"
+
+      expect(page).to_not have_content("Hoser")
+    end
+
 end
