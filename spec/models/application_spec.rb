@@ -53,6 +53,17 @@ RSpec.describe Application, type: :model do
     end
   end
 
+  describe "#added_pets?" do
+    it "will check if there are any pets in #list_of_pets and return true or false" do
+
+      expect(@application_1.added_pets?).to eq true
+
+      application_2 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
+
+      expect(application_2.added_pets?).to eq false
+    end
+  end
+
   # describe "#set_status_pending" do
   #   it "can set status to pending" do
   #     @application_1.good_owner_comments = "We bonded at the shelter."
