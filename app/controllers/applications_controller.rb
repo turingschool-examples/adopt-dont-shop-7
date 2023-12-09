@@ -18,10 +18,11 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-        @applicant = Application.find(params[:id])
-        @pets = @applicant.pets
+    @application = Application.find(params[:id])
+    @pets = @application.pets
   end
 end
+
 
 private
 
