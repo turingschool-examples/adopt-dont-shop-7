@@ -10,8 +10,12 @@ class ApplicationsController < ApplicationController
   def create
     @application = Application.new(application_params)
     @application.set_status_in_progress
-    @application.save
-    redirect_to "/applications/#{@application.id}"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: All fields are required." # Is this the correct location? Or should we move this error message text to application_controller.rb or another file?
+    end
   end
 
   def edit

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Application Show Page" do
   before(:each) do
-    @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321")
+    @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
 
     @shelter = Shelter.create(foster_program: true, name: "Turing", city: "Backend", rank: 3)
 
