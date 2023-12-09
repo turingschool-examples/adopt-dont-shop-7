@@ -24,7 +24,7 @@ RSpec.describe "the application show" do
     expect(page).to have_content("State: Israel")
     expect(page).to have_content("Zip code: 9103401")
     # - Description of why the applicant says they'd be a good home for this pet(s)
-    expect(page).to have_content("Description: Because I'm rich! :)")
+    expect(page).to have_content("Because I'm rich! :)")
     # - names of all pets that this application is for (all names of pets should be links to their show page)
     expect(page).to have_link("Mr. Pirate")
     expect(page).to have_link("Clawdia")

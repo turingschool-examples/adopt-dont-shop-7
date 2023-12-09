@@ -17,4 +17,9 @@ class Application < ApplicationRecord
     pet = Pet.find(id)
     self.pets << pet
   end
+
+  def submit_application
+    update(application_status: 'Pending')
+  end
+
 end

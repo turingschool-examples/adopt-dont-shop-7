@@ -39,6 +39,19 @@ RSpec.describe Application, type: :model do
       victor_app.adopt_pet(pet_1.id)
 
       expect(victor_app.pets).to include(pet_1)
+      expect(victor_app.pets).not_to include(pet_2)
     end
   end
+
+  describe '#submit_application' do
+    it 'updates the application status to Pending' do
+      victor_app = Application.create!(applicant_name: "Victor Antonio Sanchez", address: "97 Jaffa Road", city: "Jerusalem", state: "Israel", zip_code: "9103401", description: "Because I'm rich! :)")
+
+      victor_app.submit_application
+
+      expect(victor_app.reload.application_status).to eq('Pending')
+    end
+  end
+
+  
 end

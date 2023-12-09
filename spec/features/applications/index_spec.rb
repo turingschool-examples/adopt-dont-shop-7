@@ -7,7 +7,7 @@ RSpec.describe "the application index" do
     @pet_1 = @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
-    @victor_app.pets << [@pet_1, @pet_2]# Associates pets with the application
+    @victor_app.pets << [@pet_1, @pet_2]
   end
   it "display's the applicants info" do
 

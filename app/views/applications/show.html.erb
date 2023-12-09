@@ -1,31 +1,47 @@
 <h1> Application Details </h1>
 
-<p><strong>Add a Pet to this Application</strong></p>
-<%= form_with url: "/applications/#{@application.id}/search_pets", method: :get do |form| %>
-  <%= form.label :name, "Search Pets by Name:" %>
-  <%= form.text_field :name %>
-  <%= form.submit "Search" %>
-<% end %>
 
-<% if @search_results %>
-  <% @search_results.each do |pet| %>
-    <p>
-      <%= pet.name %>
-      <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/adopt_pet?pet_id=#{pet.id}", method: :patch %>
-    </p>
+<% if @application.application_status != "Pending" %>
+  <p><strong>Add a Pet to this Application</strong></p>
+  <%= form_with url: "/applications/#{@application.id}/search_pets", method: :get do |form| %>
+    <%= form.label :name, "Search Pets by Name:" %>
+    <%= form.text_field :name %>
+    <%= form.submit "Search" %>
+  <% end %>
+
+  <% if @search_results %>
+    <% @search_results.each do |pet| %>
+      <p>
+        <%= pet.name %>
+        <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/adopt_pet?pet_id=#{pet.id}", method: :patch %>
+      </p>
+    <% end %>
   <% end %>
 <% end %>
 
+<h3>Applicant Details</h3>
 <p><strong>Applicant Name:</strong> <%= @application.applicant_name %></p>
 <p><strong>Address:</strong> <%= @application.address %></p>
 <p><strong>City:</strong> <%= @application.city %></p>
 <p><strong>State:</strong> <%= @application.state %></p>
-<p><strong>Zip code:</strong> <%=@application.zip_code %>
-<p><strong>Description:</strong> <%= @application.description %>
+<p><strong>Zip code:</strong> <%= @application.zip_code %></p>
+<p><strong>Why I would make a good pet owner:</strong> <%= @application.description %></p>
 
-<p><strong>Pet Names:</strong>
+
+<p><strong>Applying to adopt:</strong>
 <% @application.pets.each do |pet| %>
-  <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+  <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %></p>
+<% if @application.application_status != "Pending" %>
+  <p><strong>Application Status:</strong> <%= @application.application_status %></p>
+<% end %>
 
-<p><strong>Application Status:</strong> <%= @application.application_status %><p>
+<% if @application.pets.any? && @application.application_status != "Pending" %>  <h2>Submit your application</h2>
+  <%= form_with url: "/applications/#{@application.id}/submit", method: :patch do |form| %>
+    <%= form.label :description, "Why your home would be a good fit for a new pet:" %>
+    <p><%= form.text_area :description %></p>
+    <%= form.submit "Submit Application" %>
+  <% end %>
+<% else %>
+  <p><strong>Application Status:</strong> <%= @application.application_status %></p>
+<% end %>
