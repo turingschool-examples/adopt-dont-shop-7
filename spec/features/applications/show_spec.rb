@@ -26,3 +26,8 @@ RSpec.describe 'application show spec', type: :feature do
 
   end
 end
+
+
+it 'has readable attributes' do
+  expect(@).to eq()
+end
