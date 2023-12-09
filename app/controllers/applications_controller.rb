@@ -21,6 +21,12 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
   end
+
+  def search_pets
+    @application = Application.find(params[:id])
+    @search_results = @application.search_pets_by_name(params[:name])
+    render 'show'
+  end
 end
 
 

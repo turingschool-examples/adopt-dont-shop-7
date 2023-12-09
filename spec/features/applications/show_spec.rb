@@ -9,6 +9,7 @@ RSpec.describe "the application show" do
     @pet_3 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
     @victor_app.pets << [@pet_1, @pet_2]# Associates pets with the application
   end
+  
   it "display's the applicants info" do
     # 1. Application Show Page
     # As a visitor

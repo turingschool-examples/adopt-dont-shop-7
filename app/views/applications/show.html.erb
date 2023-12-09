@@ -1,5 +1,21 @@
 <h1> Application Details </h1>
 
+<p><strong>Add a Pet to this Application</strong></p>
+<%= form_with url: "/applications/#{@application.id}/search_pets", method: :get do |form| %>
+  <%= form.label :name, "Search Pets by Name:" %>
+  <%= form.text_field :name %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @search_results %>
+  <% @search_results.each do |pet| %>
+    <p>
+      <%= pet.name %>
+      <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/adopt_pet?pet_id=#{pet.id}", method: :patch %>
+    </p>
+  <% end %>
+<% end %>
+
 <p><strong>Applicant Name:</strong> <%= @application.applicant_name %></p>
 <p><strong>Address:</strong> <%= @application.address %></p>
 <p><strong>City:</strong> <%= @application.city %></p>
