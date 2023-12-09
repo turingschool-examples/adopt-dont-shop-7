@@ -1,0 +1,21 @@
+
+<section class='app-info'>
+  <h1><%=@app.name%></h1>
+  <p><%=@app.street_address%></p>
+  <p><%=@app.city%></p>
+  <p><%=@app.state%></p>
+  <p><%=@app.zip%></p>
+  <p><%=@app.description%></p>
+  <p><%=@app.status%></p>
+</section>
+
+<section class="pets-on-apps">
+  <% @app.pets.each do |pet| %>
+    <div id="pet-<%= pet.id %>">
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
+    </div>
+  <% end %>
+</section>
+
+
+
