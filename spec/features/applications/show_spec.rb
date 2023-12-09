@@ -35,4 +35,23 @@ RSpec.describe "Application Show Page" do
     expect(page.current_path).to eq("/pets/#{@cat.id}")
   end
 
+  describe "searching for pets for an application" do
+    it "has a search bar" do
+      application = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321")
+      visit "/applications/#{application.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_content("Search for Pets by name:")
+      expect(page).to have_no_content("Dog")
+      expect(page).to have_button("Submit")
+
+      fill_in("Search for Pets by name:", with: "Dog")
+      click_button("Submit")
+
+      expect(page.current_path).to eq("/applications/#{application.id}")
+      expect(page).to have_content("Dog")
+      save_and_open_page
+    end
+  end
+
 end

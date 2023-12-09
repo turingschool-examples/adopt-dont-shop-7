@@ -14,4 +14,8 @@ has_many :application_pets
     self.status = "In Progress"
   end
 
+  def find_pet(name)
+    Pet.joins(application_pets: :application).where(name: name).pluck(:name)
+  end
+
 end

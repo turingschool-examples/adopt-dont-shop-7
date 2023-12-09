@@ -26,10 +26,17 @@ RSpec.describe Application, type: :model do
   end
 
   describe "#set_status_in_progress" do
-    it "can set status to in progress" do 
+    it "can set status to in progress" do
       @application_1.set_status_in_progress
 
       expect(@application_1.status).to eq("In Progress")
+    end
+  end
+
+  describe "#find_pet()" do
+    it "can find pets with a matching name" do
+
+      expect(@application_1.find_pet("Dog")).to eq([@dog.name])
     end
   end
 

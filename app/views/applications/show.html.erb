@@ -6,3 +6,16 @@
 <% @application.list_of_pets.each do |pet| %>
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
+
+<h2>Add a Pet to this Application</h2>
+<%= form_with url: "/applications/#{@application.id}", method: :get do |f| %>
+  <%= f.label :pet_name, 'Search for Pets by name:' %>
+  <%= f.text_field :pet_name %>
+  <%= f.submit "Submit" %>
+<% end %>
+
+<% if params[:pet_name].present? %>
+  <% @application.find_pet(params[:pet_name]).each do |pet| %>
+  <%= pet %>
+  <% end %>
+<% end %>
