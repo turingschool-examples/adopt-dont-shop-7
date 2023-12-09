@@ -12,6 +12,7 @@
 
 @dog = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "Dog")
 @cat = @shelter.pets.create(adoptable: true, age: 1, breed: "Tabby", name: "Cat")
+@hamster = @shelter.pets.create(adoptable: true, age: 1, breed: "Tabby", name: "Hamster")
 
 @application_pet_1 = ApplicationPet.create(application_id: @application_1.id, pet_id: @dog.id)
 @application_pet_2 = ApplicationPet.create(application_id: @application_1.id, pet_id: @cat.id)
