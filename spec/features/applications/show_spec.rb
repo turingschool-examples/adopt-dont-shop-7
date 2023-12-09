@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Application Show Page" do
   before(:each) do
     @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
+    @application_with_no_pets = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
 
     @shelter = Shelter.create(foster_program: true, name: "Turing", city: "Backend", rank: 3)
 
@@ -80,9 +81,16 @@ RSpec.describe "Application Show Page" do
 
     expect(current_path).to eq("/applications/#{@application_1.id}")
 
-    save_and_open_page
-    
     expect(page).to have_no_content("Search") # may need to adjust this based on how user stories 4 and 5 are written
+  end
+
+  it "will not show the submit section if I have not added any pets" do
+    visit "/applications/#{@application_with_no_pets.id}"
+
+    save_and_open_page
+
+    expect(page).to have_no_content("Why I would make a good owner")
+    expect(page).to have_no_button("Submit Application")
   end
 
 end

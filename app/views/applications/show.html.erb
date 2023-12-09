@@ -33,7 +33,7 @@
   <%= f.submit "Submit Application" %>
   <% end %>
     <!-- Add a statement here to check if pets have been added before showing the Submit Application part -->
-<% elsif @application.status == "In Progress" && @application.added_pets? %>
+<% elsif @application.status == "In Progress" %>
 
   <h2>Add a Pet to this Application</h2>
   <%= form_with url: show_application_path, method: :get do |f| %>
@@ -50,8 +50,8 @@
     <% end %>
   <% end %>
 
-<% end %> 
+<% elsif @application.status == "Pending" %>
 
-<% if @application.status == "Pending" %>
   <p>Why I would make a good owner: <%= @application.good_owner_comments %></p>
+  
 <% end %> 

@@ -17,6 +17,7 @@ class Application < ApplicationRecord
   end
 
   # would it make sense to refactor these into one "status" method or leave as smaller separate methods? Could see pros and cons to both...
+  ## Yes, took away set_status_pending, I did that in the Controller's #update
   def set_status_in_progress
     self.status = "In Progress"
   end
