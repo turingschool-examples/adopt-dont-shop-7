@@ -79,16 +79,28 @@ RSpec.describe "Application Show Page" do
 
       expect(page).to have_content("Hamster")
 
-      dog = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "Mr. Fluff")
       cat = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "fluffy")
       fluff = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "fluff")
+
+      fill_in("Search for Pets by name:", with: "fluf")
+      click_button("Submit")
+
+      expect(page).to have_content("fluffy")
+      expect(page).to have_content("fluff")
+    end
+
+    it "is case insensitive" do
+      # User Story 9
+      visit "/applications/#{@application_with_no_pets.id}"
+
+      fluffy = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "FLUFF")
+      dog = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "Mr. Fluff")
 
       fill_in("Search for Pets by name:", with: "fluff")
       click_button("Submit")
 
+      expect(page).to have_content("FLUFF")
       expect(page).to have_content("Mr. Fluff")
-      expect(page).to have_content("fluffy")
-      expect(page).to have_content("fluff")
     end
   end
 
