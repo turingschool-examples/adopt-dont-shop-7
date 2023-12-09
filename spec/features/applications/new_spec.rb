@@ -28,4 +28,17 @@ RSpec.describe "new application page" do
     # expect(current_path).to eq("/applications/#{@application.id}")
   end
 
+  it "shows an error if all fields are not completed" do 
+    visit "/applications/new"
+
+    fill_in("street_address", with: "1234 ABC Lane")
+    fill_in("city", with: "Turing")
+    fill_in("state", with: "Backend")
+    fill_in("zipcode", with: "54321")
+    fill_in("description", with: "I love animals")
+    click_button("Submit")
+
+    expect(page).to have_content("Error: All fields are required.")
+  end
+
 end
