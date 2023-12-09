@@ -7,7 +7,10 @@
 <%= @application.state %>
 <%= @application.zip %></p>
 <p><%= @application.descr %></p>
-
+<h3> Application Status </h3>
+<% if @application.pets.empty? %>
+  <p>In Progress</p>
+<% end %>
 <p><% @application.pets.each do |pet| %></p>
   <p><%= pet.name %></p>
 <p><% end %></p>
