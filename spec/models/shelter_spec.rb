@@ -17,6 +17,7 @@ RSpec.describe Shelter, type: :model do
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
 
+
     @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
@@ -65,6 +66,24 @@ RSpec.describe Shelter, type: :model do
     describe ".pet_count" do
       it "returns the number of pets at the given shelter" do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe ".order_by_reverse_alphabetically" do
+      it "returns all Shelters listed in reverse alphabetical order by name" do
+        @turing = Shelter.create(foster_program: true, name: "Turing", city: "Backend", rank: 3)
+        @fsa = Shelter.create(foster_program: true, name: "Fullstack Academy", city: "Backend", rank: 3)
+        @codesmith = Shelter.create(foster_program: true, name: "Codesmith", city: "Backend", rank: 3)
+        @rithm = Shelter.create(foster_program: true, name: "Rithm School", city: "Backend", rank: 3)
+        @hackreactor = Shelter.create(foster_program: true, name: "Hack Reactor", city: "Backend", rank: 3)
+
+        @shelters = Shelter.order_by_reverse_alphabetically
+        first = @shelters.first
+        last = @shelters.last
+
+        expect(@shelters).to eq [@turing, @rithm, @shelter_2, @hackreactor, @fsa, @shelter_3, @codesmith, @shelter_1]
+        expect(first.name).to eq("Turing")
+        expect(last.name).to eq("Aurora shelter")
       end
     end
   end
