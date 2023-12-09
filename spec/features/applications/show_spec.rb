@@ -35,4 +35,18 @@ RSpec.describe "Application Show Page" do
     expect(page.current_path).to eq("/pets/#{@cat.id}")
   end
 
+  xit "has a section to submit my application" do
+    visit "/applications/#{@application_1.id}"
+    # Add one or more pets to the application (waiting on user story 5)
+
+    expect(page).to have_content("Why I would make a good owner")
+    expect(page).to have_button("Submit Application")
+
+    fill_in("good_owner_comments", with: "We bonded when I visited the shelter") # we'll want to display this form field on the application show page only if status is "In Progress"
+    click_button("Submit Application")
+
+    expect(current_path).to eq("/applications/#{@application_1.id}")
+    expect(page).to not_have_content("Search") # may need to adjust this based on how user stories 4 and 5 are written
+  end
+
 end
