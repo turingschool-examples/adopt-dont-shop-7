@@ -52,5 +52,37 @@ RSpec.describe "New Application Page" do
     expect(page).to have_content("B/c I'm awesome!")
     expect(page).to have_content("In Progress")
   end
-  
+  it "can not create an application with any field empty" do 
+    visit "/applications/new"
+
+    fill_in(:name, with: "")
+    fill_in(:street, with: "2636 Vrain St.")
+    fill_in(:city, with: "Denver")
+    fill_in(:state, with: "CO")
+    fill_in(:zip, with: "80212")
+    fill_in(:good_owner, with: "B/c I'm awesome!")
+
+    click_button "Submit" 
+
+    expect(current_path).to eq("/applications/new")
+    
+    expect(page).to have_content("Application not created: Required information missing.")
+    expect(page).to have_button("Submit")
+
+    visit "/applications/new"
+
+    fill_in(:name, with: "Matt")
+    fill_in(:street, with: "2636 Vrain St.")
+    fill_in(:city, with: "Denver")
+    fill_in(:state, with: "")
+    fill_in(:zip, with: "80212")
+    fill_in(:good_owner, with: "B/c I'm awesome!")
+
+    click_button "Submit" 
+
+    expect(current_path).to eq("/applications/new")
+    
+    expect(page).to have_content("Application not created: Required information missing.")
+    expect(page).to have_button("Submit")
+  end
 end 
