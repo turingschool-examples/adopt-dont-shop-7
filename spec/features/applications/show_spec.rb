@@ -55,7 +55,7 @@ RSpec.describe "Application Show Page" do
     it "will let me add a pet to my application" do
       visit "/applications/#{@application_1.id}"
 
-      expect(page).to have_content("Hamster")
+      expect(page).to have_no_content("Hamster")
 
       fill_in("Search for Pets by name:", with: "Hamster")
       click_button("Submit")
@@ -65,14 +65,30 @@ RSpec.describe "Application Show Page" do
       click_button("Adopt this pet")
 
       expect(page.current_path).to eq("/applications/#{@application_1.id}")
-      # expect(page).to have_content("Hamster")
+      expect(page).to have_content("Hamster")
     end
 
     it "returns any pet whose name PARTIALLY matches my search" do
       # User Story 8
       visit "/applications/#{@application_with_no_pets.id}"
 
+      expect(page).to have_no_content("Hamster")
 
+      fill_in("Search for Pets by name:", with: "ham")
+      click_button("Submit")
+
+      expect(page).to have_content("Hamster")
+
+      dog = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "Mr. Fluff")
+      cat = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "fluffy")
+      fluff = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "fluff")
+
+      fill_in("Search for Pets by name:", with: "fluff")
+      click_button("Submit")
+
+      expect(page).to have_content("Mr. Fluff")
+      expect(page).to have_content("fluffy")
+      expect(page).to have_content("fluff")
     end
   end
 

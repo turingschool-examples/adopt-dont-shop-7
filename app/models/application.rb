@@ -23,7 +23,7 @@ class Application < ApplicationRecord
   end
 
   def find_pet(name)
-    Pet.where(name: name)
+    Pet.where("name ILIKE ?", "%#{name}%")
   end
 
   def added_pets?

@@ -51,6 +51,12 @@ RSpec.describe Application, type: :model do
 
       expect(@application_1.find_pet("Dog")).to eq([@dog])
     end
+
+    it "can find pets with a PARTIALLY matching name" do
+      
+      expect(@application_1.find_pet("dog")).to eq([@dog])
+      expect(@application_1.find_pet("do")).to eq([@dog])
+    end
   end
 
   describe "#added_pets?" do
