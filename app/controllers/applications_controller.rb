@@ -10,7 +10,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create 
-    application = Application.create!({
+    application = Application.new({
       name: params[:name],
       street: params[:street],
       city: params[:city],
@@ -18,7 +18,13 @@ class ApplicationsController < ApplicationController
       zip: params[:zip],
       descr: params[:good_owner]
     })
-    
-    redirect_to "/applications/#{application.id}"
+
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else 
+      flash[:alert] = "Application not created: Required information missing."
+
+      redirect_to "/applications/new"
+    end
   end
 end
