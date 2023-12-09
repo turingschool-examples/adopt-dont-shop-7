@@ -1,0 +1,7 @@
+<h1>Admin Shelters</h1>
+<% @shelters.reverse_alpha.each do |shelter| %>
+  <h3><%= shelter.name %></h3>
+   <p>City: <%= shelter.city %></p>
+   <p>Foster Program: <%= shelter.foster_program %></p>
+   <p>Rank: <%= shelter.rank %></p>
+<% end %>
