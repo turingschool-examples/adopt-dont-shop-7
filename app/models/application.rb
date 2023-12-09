@@ -25,4 +25,7 @@ class Application < ApplicationRecord
     Pet.where(name: name)
   end
 
+  def added_pets?
+    list_of_pets.present?
+  end
 end
