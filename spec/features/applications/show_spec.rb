@@ -16,14 +16,12 @@ RSpec.describe "Application Show Page" do
 
   it "has application details" do
     visit "/applications/#{@application_1.id}"
-#  When I visit an applications show page
-#  Then I can see the following:
     expect(page).to have_content(@application_1.name)
-    expect(page).to have_content(@application_1.full_address) #instance method to put together address
+    expect(page).to have_content(@application_1.full_address)
     expect(page).to have_content(@application_1.description)
-    expect(page).to have_link("#{@dog.name}") #instance method to query application_pets
+    expect(page).to have_link("#{@dog.name}")
     expect(page).to have_link("#{@cat.name}")
-    # expect(page).to have_content(@application_1.status)
+    expect(page).to have_content(@application_1.status)
 
     click_link("#{@dog.name}")
 
@@ -40,7 +38,6 @@ RSpec.describe "Application Show Page" do
 
       visit "/applications/#{@application_1.id}"
 
-
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to have_content("Search for Pets by name:")
       expect(page).to have_no_content("Hamster")
@@ -51,7 +48,6 @@ RSpec.describe "Application Show Page" do
 
       expect(page.current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Hamster")
-      save_and_open_page
     end
   end
 
