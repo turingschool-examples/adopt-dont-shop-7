@@ -133,7 +133,7 @@ RSpec.describe "the pets index" do
     expect(page).to have_button("Submit")
 
     click_button "Submit" 
-    save_and_open_page
+    
     expect(page).to have_content("Matt")
     expect(page).to have_content("2636 Vrain St.")
     expect(page).to have_content("Denver")
