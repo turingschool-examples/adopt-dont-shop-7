@@ -7,14 +7,18 @@
 <%= @application.state %>
 <%= @application.zip %></p>
 <p><%= @application.descr %></p>
-<h3> Application Status </h3>
-<% if @application.pets.empty? %>
-  <p>In Progress</p>
-<% end %>
+
+<section id='show-pets-on-app'> 
+<h4> My Pets </h4>
 <p><% @application.pets.each do |pet| %></p>
 
   <p><%= pet.name %></p>
 <p><% end %></p>
+<h3> Application Status </h3>
+<% if @application.pets.empty? %>
+  <p>In Progress</p>
+<% end %>
+</section> 
 
 <section> 
   <h1>Add a Pet to this Application</h2>
@@ -28,8 +32,12 @@
   <% @pets.each do |pet| %>
     <p id=<%= "show-#{pet.id}" %>>
       <%= pet.name %> 
+<%= button_to "Adopt this pet", "/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch %>
+
     </p>
   <% end %>
+
+
 
 
 </section>
