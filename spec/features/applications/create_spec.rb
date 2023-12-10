@@ -50,7 +50,7 @@ RSpec.describe "New Application Page" do
     expect(page).to have_content("CO")
     expect(page).to have_content("80212")
     expect(page).to have_content("B/c I'm awesome!")
-    expect(page).to have_content("In Progress")
+    expect(page).to have_content("In progress")
   end
   it "can not create an application with any field empty" do 
     visit "/applications/new"
