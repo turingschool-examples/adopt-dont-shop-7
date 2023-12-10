@@ -47,7 +47,7 @@ RSpec.describe "applications show page", type: :feature do
     fill_in "Search", with: "#{pet1.name}"
     click_button("Submit")
 
-    expect(current_path).to eq("/applications/#{application1.id}/")
+    expect(current_path).to eq("/applications/#{application1.id}")
     expect(page).to have_content(pet1.name)
   end
 end

@@ -1,9 +1,9 @@
 class ApplicationsController < ApplicationController
+  
   def show
-    if params[:search]
-      search_for_pet
-    else
       @application = Application.find(params[:id])
+    if params[:search]
+      @result = @application.search_for_pet(params[:search])
     end
   end
 
@@ -27,12 +27,6 @@ class ApplicationsController < ApplicationController
     )
 
     redirect_to "/applications/#{@application.id}"
-  end
-
-  def search_for_pet
-      @parameter = params[:search].downcase
-      @result = Pet.all.where("lower(name) LIKE :search", search: "%#{@parameter}")
-      redirect_to "/applications/#{params[:id]}/"
   end
 
   private
