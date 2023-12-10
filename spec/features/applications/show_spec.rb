@@ -66,9 +66,8 @@ RSpec.describe "applications show page", type: :feature do
 
     click_button("Adopt this Pet")
 
-    application1.pets << pet2
-
     expect(current_path).to eq("/applications/#{application1.id}")
     expect(page).to have_content(pet2.name)
+  save_and_open_page
   end
 end
