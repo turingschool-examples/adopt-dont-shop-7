@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_10_173414) do
     t.bigint "shelter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "application_id", null: false
+    t.bigint "application_id"
     t.index ["application_id"], name: "index_pets_on_application_id"
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
   end
