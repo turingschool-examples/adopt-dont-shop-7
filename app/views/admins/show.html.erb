@@ -1,0 +1,18 @@
+
+<h1>Pending Pet Application For <%= @application.name %> </h1>
+<p>Pets applied for:</p>
+<ul>
+  <% @application.list_of_pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
+    <li><%= pet.name %></li>
+      <ul>
+        <% if params[:filter] == "#{pet.id}-approved" %>
+        <li>Pet Approved</li>
+      <% else %>
+        <li><%= button_to 'Approve', show_admin_applications_path, method: :get, params: {:filter => "#{pet.id}-approved"} %></li>
+      <% end %>
+      </ul>
+      <br/>
+  </div>
+  <% end %>
+</ul>

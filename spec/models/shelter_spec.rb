@@ -97,7 +97,7 @@ RSpec.describe Shelter, type: :model do
     describe ".pending_applications" do
       it "returns a list of shelters that have pending applications" do
 
-        expect(Shelter.pending_applications).to eq ([@shelter_1.name, @shelter_3.name])
+        expect(Shelter.pending_applications).to eq ([@shelter_1, @shelter_3])
       end
     end
   end

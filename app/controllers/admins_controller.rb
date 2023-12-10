@@ -20,7 +20,7 @@ class AdminsController < ActionController::Base
   end
 
   def show
-
+    @application = Application.find(params[:id])
   end
 
   def destroy

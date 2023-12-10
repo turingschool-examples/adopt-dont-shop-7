@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Admins Shelter Index" do
+RSpec.describe "Admin Shelter Index" do
   before(:each) do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -44,10 +44,14 @@ RSpec.describe "Admins Shelter Index" do
 
     it "has a list of every shelter with a pending application" do
       visit "/admin/shelters"
-      within "Pending Applications-#{@shelter.name}" do
+      within "#pending-#{@shelter_1.id}" do
         expect(page).to have_content("Aurora shelter")
+      end
+
+      within "#pending-#{@shelter_3.id}" do
         expect(page).to have_content("Fancy pets of Colorado")
       end
     end
   end
+
 end
