@@ -30,19 +30,22 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
+    @pets = @application.pets
+
     if params[:pet_id]
       @pet = Pet.find(params[:pet_id])
-    else
-      @pet = Pet.all.first
+      @pet_application = PetApplication.create!({
+        pet_id: @pet.id,
+        application_id: @application.id
+      })
     end
 
-    @pet_application = PetApplication.create!({
-      pet_id: @pet.id,
-      application_id: @application.id
-    })
+    if params[:app_submit] 
+      @application.update!({status: "Pending"})
+    end
 
-    @pets = @application.pets
-  
+    # render :show
     redirect_to "/applications/#{@application.id}"
   end
+
 end
