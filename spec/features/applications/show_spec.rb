@@ -145,7 +145,6 @@ RSpec.describe "pet creation" do
       expect(page).to_not have_content("Add a Pet to this Application")
       expect(page).to_not have_field(:pet_name)
       expect(page).to_not have_content("Search for pet")
-      save_and_open_page
     end
 
 end
