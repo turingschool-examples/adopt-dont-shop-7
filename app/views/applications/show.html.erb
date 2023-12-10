@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "application.css" %>
+
 <h1> Application Show Page! </h1>
 
 <h3>Applicant Info</h3>
@@ -15,7 +17,7 @@
   <p><%= pet.name %></p>
 <p><% end %></p>
 <h3> Application Status </h3>
-<% if @application.pets.empty? %>
+<% if !@application.pets.empty? %>
   <p>In Progress</p>
 <% end %>
 </section> 
@@ -33,15 +35,24 @@
     <p id=<%= "show-#{pet.id}" %>>
       <%= pet.name %> 
 <%= button_to "Adopt this pet", "/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch %>
-
     </p>
   <% end %>
-
-
-
-
 </section>
 
 
+<% if @application.status == "In progress" && !@application.pets.empty?%>
+  <section>
+    <h3>Submit this Application</h3>
+    <%= button_to "Submit this application", "/applications/#{@application.id}", method: :patch %>
+  </section>
+  <br>
+
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label "Why would you make a good owner?" %>
+    <p id="good_owner">
+      <%= form.text_area :good_owner, size: "70x5", value: nil %> 
+    </p>
+  <% end %>
+<% end %>
 
 
