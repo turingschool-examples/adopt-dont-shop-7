@@ -32,4 +32,32 @@ RSpec.describe "the application show" do
     # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
     expect(page).to have_content("Application Status: In Progress")
   end
+  it "returns partial matches in a Pet name's search" do
+    # 8. Partial Matches for Pet Names
+
+    # As a visitor
+    # When I visit an application show page
+    visit "/applications/#{application.id}"
+    # And I search for Pets by name
+    fill_in :pet_name, with: "fluff"
+    click_on("Searach for Pets")
+    # Then I see any pet whose name PARTIALLY matches my search
+    # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+    expect(page).to have_content("fluffy")
+    expect(page).to have_content("fluff")
+    expect(page).to have_content("mr. fluff")
+    # 9. Case Insensitive Matches for Pet Names
+  end
+
+  it "returns Case Insensitive Matches for Pet name's search" do
+    # As a visitor
+    # When I visit an application show page
+    visit "/applications/#{application.id}"
+    # And I search for Pets by name
+    # Then my search is case insensitive
+    # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+    expect(page).to have_content("Fluffy")
+    expect(page).to have_content("FLUFF")
+    expect(page).to have_content("Mr. FlUfF")
+  end
 end
