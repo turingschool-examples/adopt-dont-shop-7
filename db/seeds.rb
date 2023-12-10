@@ -23,6 +23,6 @@ app_1 = Application.create!(name: "Susan",
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: shelter.id)
     pet_3 = Pet.create!(adoptable: false, age: 2, breed: "saint bernard", name: "Beethoven", shelter_id: shelter.id)
    
-    pet_1_app =PetApplication.create!(pet_id: pet_1.id, application_id: app_1.id)
-    app_1.pets << pet_2
-    app_1.pets << pet_3
+    # pet_1_app =PetApplication.create!(pet_id: pet_1.id, application_id: app_1.id)
+    # app_1.pets << pet_2
+    # app_1.pets << pet_3
