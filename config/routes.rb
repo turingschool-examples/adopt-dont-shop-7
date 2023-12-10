@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   patch   "/applications/:application_id/adopt_pet", to: "applications#adopt_pet"
   patch   "/applications/:id/submit",                to: "applications#submit"
 
-
-
+  get     "/admin/shelters",    to: "admin/shelters#index"
 
   get     "/shelters",          to: "shelters#index"
   get     "/shelters/new",      to: "shelters#new"
