@@ -1,6 +1,10 @@
 class ApplicationsController < ApplicationController
+  
   def show
-    @application = Application.find(params[:id])
+      @application = Application.find(params[:id])
+    if params[:search]
+      @result = @application.search_for_pet(params[:search])
+    end
   end
 
   def new
@@ -25,7 +29,7 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{@application.id}"
   end
 
-    private
+  private
   def application_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
