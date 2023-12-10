@@ -13,7 +13,7 @@ RSpec.describe 'The Application Show Page', type: :feature do
       PetApp.create!(application_id: @app_1.id, pet_id: @pet_1.id)
     end
 
-      # 1. Application Show Page
+    # 1. Application Show Page
     it "displays the applicant information" do
       # When I visit an applications show page
       visit "/applications/#{@app_1.id}"

@@ -4,8 +4,7 @@ class Application < ApplicationRecord
                         :city, 
                         :state,
                         :zip,
-                        :description,
-                        :status
+                        :description
 
   enum status: ['In Progress', 'Pending', 'Accepted', 'Rejected']
 
