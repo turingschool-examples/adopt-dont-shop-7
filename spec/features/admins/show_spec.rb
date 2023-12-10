@@ -56,5 +56,9 @@ RSpec.describe "Admin Application Show Page" do
         expect(page).to have_content("Pet Rejected")
       end
     end
+
+    describe "14. Approved/Rejected Pets on one Application do not affect other Applications" do
+      
+    end
   end
 end

@@ -12,8 +12,7 @@ class Application < ApplicationRecord
   end
 
   def list_of_pets
-    pet_ids = application_pets.where("application_id = ?", self.id).pluck(:pet_id)
-    Pet.where(id: pet_ids)
+    Application.select("pets.*").joins(application_pets: :pet)
   end
 
   # would it make sense to refactor these into one "status" method or leave as smaller separate methods? Could see pros and cons to both...

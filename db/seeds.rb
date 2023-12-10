@@ -31,3 +31,7 @@
 
 @application_pet_1 = ApplicationPet.create(application_id: @application_1.id, pet_id: @dog.id)
 @application_pet_2 = ApplicationPet.create(application_id: @application_1.id, pet_id: @cat.id)
+@application_pet_3 = ApplicationPet.create(application_id: @application_3.id, pet_id: @dog.id)
+@application_pet_4 = ApplicationPet.create(application_id: @application_2.id, pet_id: @dog.id)
+@application_pet_5 = ApplicationPet.create(application_id: @application_3.id, pet_id: @hamster.id)
+@application_pet_6 = ApplicationPet.create(application_id: @application_3.id, pet_id: @cat.id)
