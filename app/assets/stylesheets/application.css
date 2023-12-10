@@ -13,13 +13,46 @@
  *= require_tree .
  *= require_self
  */
-/* 
- #good_owner {
-  margin-top: 20px;
- 
- } */
 
- body {
-  font-size: 100px;
-  color:blueviolet;
+ h3 {
+  margin-bottom: 10px;
  }
+
+#applicant-name {
+  line-height: 0px;
+  margin-left: 10px;
+}
+
+#app-descr {
+  margin-top: -5px;
+  margin-left: 20px;
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+#good-owner-label {
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+#hdr1-pets {
+  margin-top: -10px;
+}
+
+#why-good-owner {
+  margin-left: 10px;
+  font-size: larger;
+  color: #303030;
+}
+
+#app-addr, #app-name,
+#app-address, #app-status,
+#pet-name {
+  margin-left: 10px;
+  line-height: 70%;
+  font-size: large;
+}
+
+#hdr1-show {
+  margin-bottom: 50px;
+}
