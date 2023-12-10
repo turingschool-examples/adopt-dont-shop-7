@@ -23,10 +23,12 @@
 <% if @result %>
   <% @result.each do |pet| %>
   <ul>
-    <li><%= pet.name %></li>
+    <li><%= pet.name %><%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :patch %></li>
   </ul>
   <% end %>
 <% end %>
+
+
 
 
 

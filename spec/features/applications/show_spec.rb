@@ -50,4 +50,25 @@ RSpec.describe "applications show page", type: :feature do
     expect(current_path).to eq("/applications/#{application1.id}")
     expect(page).to have_content(pet1.name)
   end
+
+  it  "after searching for pet, there's a button next to the pet name to add the pet to the application" do
+    application1 = Application.create!(name: "Fred Flintstone", address: "123 Main St, city: New York, state: NY, zip: 70117", description: "Worked with dinosaurs", status: "In Progress")
+    shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet2 = shelter.pets.create!(name: "fido", breed: "mutt", adoptable: true, age: 2)
+
+    visit "/applications/#{application1.id}"
+
+    fill_in "Search", with: "#{pet2.name}"
+    click_button("Submit")
+
+    expect(current_path).to eq("/applications/#{application1.id}")
+    expect(page).to have_content(pet2.name)
+
+    click_button("Adopt this Pet")
+
+    application1.pets << pet2
+
+    expect(current_path).to eq("/applications/#{application1.id}")
+    expect(page).to have_content(pet2.name)
+  end
 end
