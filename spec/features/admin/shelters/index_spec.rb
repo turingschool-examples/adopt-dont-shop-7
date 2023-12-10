@@ -29,6 +29,5 @@ RSpec.describe "Admin Shelters Index page" do
     expect("RGV animal shelter").to appear_before("Fancy pets of Colorado")
     expect("Fancy pets of Colorado").to appear_before("Aurora shelter")
     
-    save_and_open_page
   end
 end 
