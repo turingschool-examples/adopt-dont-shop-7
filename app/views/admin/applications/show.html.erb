@@ -18,4 +18,16 @@
   </div>
 <% end %>
 
+<% @application.pets.each do |pet| %>
+  <div id="pet_<%= pet.id %>">
+    <p><%= pet.name %></p>
+    <% if pet.approved.nil? %>
+      <%= button_to 'Approve', "/admin/applications/#{@application.id}/pets/#{pet.id}/approve", method: :patch %>
+      <%= button_to 'Reject', "/admin/applications/#{@application.id}/pets/#{pet.id}/reject", method: :patch %>
+    <% else %>
+      <p><%= pet.approved %></p>
+    <% end %>
+  </div>
+<% end %>
+
 <p><strong>Application Status:</strong> <%= @application.application_status %></p>

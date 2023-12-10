@@ -21,4 +21,8 @@ class Pet < ApplicationRecord
   def approve
     update(approved: true)
   end
+
+  def reject
+    update(approved: false)
+  end
 end
