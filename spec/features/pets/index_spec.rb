@@ -81,4 +81,40 @@ RSpec.describe "the pets index" do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
+
+  # 2. Starting an Application
+  it "can create a new application" do 
+    # When I visit the pet index page
+    visit "/pets"
+    # Then I see a link to "Start an Application"
+    expect(page).to have_link("Start an Application")
+    # When I click this link
+    click_on("Start an Application")
+    # Then I am taken to the new application page where I see a form
+    expect(current_path).to eq("/applications/new")
+    # When I fill in this form with my: Name, Street Address, City, State, Zip Code, Description of why I would make a good home
+    fill_in(:name, with: "Martha")
+    fill_in(:street_address, with: "15 happy day lane")
+    fill_in(:city , with: "Mankato")
+    fill_in(:state, with: "CO")
+    fill_in(:zip, with: "56001")
+    fill_in(:description, with: "Martha's story")
+    
+    # And I click submit
+    click_on("submit")
+
+    new_app = Application.last
+    # Then I am taken to the new application's show page
+    expect(current_path).to eq("/applications/#{new_app.id}")
+    # And I see my Name, address information, and description of why I would make a good home
+    # And I see an indicator that this application is "In Progress"
+    expect(page).to have_content(new_app.name)
+    expect(page).to have_content(new_app.street_address)
+    expect(page).to have_content(new_app.city)
+    expect(page).to have_content(new_app.state)
+    expect(page).to have_content(new_app.zip)
+    expect(page).to have_content(new_app.description)
+    expect(page).to have_content("Martha")
+    expect(page).to have_content("In Progress")
+  end
 end
