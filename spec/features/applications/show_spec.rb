@@ -9,6 +9,7 @@ RSpec.describe "the application show" do
     @pet_3 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
     @victor_app.pets << [@pet_1, @pet_2]# Associates pets with the application
   end
+  
   it "display's the applicants info" do
     # 1. Application Show Page
     # As a visitor
@@ -23,7 +24,7 @@ RSpec.describe "the application show" do
     expect(page).to have_content("State: Israel")
     expect(page).to have_content("Zip code: 9103401")
     # - Description of why the applicant says they'd be a good home for this pet(s)
-    expect(page).to have_content("Description: Because I'm rich! :)")
+    expect(page).to have_content("Because I'm rich! :)")
     # - names of all pets that this application is for (all names of pets should be links to their show page)
     expect(page).to have_link("Mr. Pirate")
     expect(page).to have_link("Clawdia")

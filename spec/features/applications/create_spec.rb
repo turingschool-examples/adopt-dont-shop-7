@@ -18,7 +18,7 @@ RSpec.describe "the application create" do
     fill_in "City", with: "Arnold"
     fill_in "State", with: "Missouri"
     fill_in "Zip code", with: 63042
-    fill_in "Description of why I would make a good home", with: "Castiel needs a new friend!"
+    fill_in "Description of why I would be a good pet owner:", with: "Castiel needs a new friend!"
 
     #And I click submit
     click_button "Submit"
