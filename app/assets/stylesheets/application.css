@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+/* 
+ #good_owner {
+  margin-top: 20px;
+ 
+ } */
+
+ body {
+  font-size: 100px;
+  color:blueviolet;
+ }
