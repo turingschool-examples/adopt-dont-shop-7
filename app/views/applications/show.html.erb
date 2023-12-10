@@ -1,0 +1,18 @@
+<h1><%= @application.name %></h1>
+
+<h3>Street Address: <%= @application.street_address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zip Code: <%= @application.zip_code %></h3>
+<h3>Reason for applying: <%= @application.description %></h3>
+<h3>Application Status: <%= @application.status %></h3>
+
+<h3>Applying for pets: </h3>
+<ul>
+    <% @application.pets.each do |pet| %>
+        <li><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p></li>
+    <% end %>
+</ul>
+
+<p><%= link_to "Update #{@application.name}", "pets/#{@application.id}/edit" %></p>
+<p><%= link_to "Delete #{@application.name}", "/pets/#{@application.id}", method: :delete %></p>
