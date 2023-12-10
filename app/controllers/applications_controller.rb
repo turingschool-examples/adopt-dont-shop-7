@@ -38,14 +38,13 @@ class ApplicationsController < ApplicationController
   end
 
   def adopt_pet
-    application = Application.find(params[:application_id])
+    application = Application.find(params[:id])
     pet_id = params[:pet_id]
     application.adopt_pet(pet_id)
     redirect_to "/applications/#{application.id}"
   end
 
 end
-
 
 private
 
