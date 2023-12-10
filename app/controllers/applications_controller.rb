@@ -30,7 +30,11 @@ class ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @pet = Pet.find(params[:pet_id])
+    if params[:pet_id]
+      @pet = Pet.find(params[:pet_id])
+    else
+      @pet = Pet.all.first
+    end
 
     @pet_application = PetApplication.create!({
       pet_id: @pet.id,
