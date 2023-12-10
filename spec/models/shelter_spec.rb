@@ -21,6 +21,45 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+    @pet_5 = Pet.create!(adoptable: true, age: 4, breed: "pitbull", name: "Hoser", shelter_id: @shelter_3.id)
+
+    @app_1 = Application.create!(
+      name: "Susan", 
+      street: "7654 Clover St", 
+      city: "Denver", 
+      state: "CO", 
+      zip: "80033", 
+      descr: "I love animals and am lonely.",
+      status: 1
+    )
+
+    @app_2 = Application.create!(
+      name: "Bryan", 
+      street: "8888 Hampden Ave", 
+      city: "Aurora", 
+      state: "CO", 
+      zip: "80265", 
+      descr: "I am buff af.",
+      status: 1
+    )
+
+    @app_3 = Application.create!(
+      name: "Chris", 
+      street: "2484 Yates St", 
+      city: "Arlington", 
+      state: "TX", 
+      zip: "78215", 
+      descr: "Work from home, will always be with them.",
+      status: 2
+    )
+
+    @pet_app_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id, status: 3)
+    @pet_app_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @app_1.id, status: 1)
+    @pet_app_3 = PetApplication.create!(pet_id: @pet_4.id, application_id: @app_1.id, status: 1)
+    @pet_app_4 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_2.id, status: 2)
+    @pet_app_5 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_2.id, status: 1)
+    @pet_app_6 = PetApplication.create!(pet_id: @pet_3.id, application_id: @app_3.id, status: 2)
+    @pet_app_7 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_3.id, status: 1)
   end
 
   describe "class methods" do
@@ -45,6 +84,12 @@ RSpec.describe Shelter, type: :model do
     describe "#reverse_alpha" do 
       it "displays shelters in reverse alphabetical order using shelter name" do 
         expect(Shelter.reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#pending_apps" do 
+      it "has a section where only shelters that have a pet(s) with a 'pending' application status are displayed" do 
+        expect(Shelter.pending_apps).to eq([@shelter_1, @shelter_3])
       end
     end
   end
