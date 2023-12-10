@@ -1,0 +1,21 @@
+<h3>Applicant Details</h3>
+<p><strong>Applicant Name:</strong> <%= @application.applicant_name %></p>
+<p><strong>Address:</strong> <%= @application.address %></p>
+<p><strong>City:</strong> <%= @application.city %></p>
+<p><strong>State:</strong> <%= @application.state %></p>
+<p><strong>Zip code:</strong> <%= @application.zip_code %></p>
+<p><strong>Why I would make a good pet owner:</strong> <%= @application.description %></p>
+
+<p><strong>Applying for pets:</strong></p>
+<% @application.pets.each do |pet| %>
+  <div id="pet_<%= pet.id %>">
+    <p><%= pet.name %></p>
+    <% if pet.approved.nil? %>
+      <%= button_to 'Approve', "/admin/applications/#{@application.id}/pets/#{pet.id}/approve", method: :patch %>
+    <% else %>
+      <p><strong>Approved</strong></p>
+    <% end %>
+  </div>
+<% end %>
+
+<p><strong>Application Status:</strong> <%= @application.application_status %></p>

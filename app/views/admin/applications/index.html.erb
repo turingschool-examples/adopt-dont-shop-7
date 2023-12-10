@@ -1,0 +1,14 @@
+<%#it didn't call for an index, but I made one anyway. %>
+<h1>Applications Index</h1>
+
+<% @applications.each do |application| %>
+  <div>
+    <h3><%= application.applicant_name %></h3>
+    <p><strong>Applicant address:</strong> <%= application.address %>
+    <p><strong>City:</strong> <%= application.city %> 
+    <p><strong>State:</strong> <%= application.state %>
+    <p><strong>Zip:</strong> <%=application.zip_code %></p>
+    <p><strong>Description:</strong> <%= application.description %></p>
+    <p><strong>Status:</strong> <%= application.application_status %></p>
+  </div>
+<% end %>
