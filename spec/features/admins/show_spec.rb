@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "the admins shelter index" do
+RSpec.describe "Admin Application Show Page" do
   before(:each) do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -23,5 +23,5 @@ RSpec.describe "the admins shelter index" do
     @application_pet_1 = ApplicationPet.create(application_id: @application_2.id, pet_id: @pet_1.id)
     @application_pet_2 = ApplicationPet.create(application_id: @application_3.id, pet_id: @pet_3.id)
   end
-  
+
 end
