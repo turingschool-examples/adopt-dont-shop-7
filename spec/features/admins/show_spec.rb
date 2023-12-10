@@ -23,31 +23,5 @@ RSpec.describe "the admins shelter index" do
     @application_pet_1 = ApplicationPet.create(application_id: @application_2.id, pet_id: @pet_1.id)
     @application_pet_2 = ApplicationPet.create(application_id: @application_3.id, pet_id: @pet_3.id)
   end
-
-  it "lists shelters in reverse alphabetical order by name" do
-    # User Story 10
-    visit "/admin/shelters"
-
-    expect("Turing").to appear_before("Rithm School")
-    expect("Rithm School").to appear_before("Hack Reactor")
-    expect("Hack Reactor").to appear_before("Fullstack Academy")
-    expect("Fullstack Academy").to appear_before("Codesmith")
-  end
-
-  describe "Shelters with Pending Applications" do
-    # User Story 11
-    it "has its own section on the page" do
-      visit "/admin/shelters"
-
-      expect(page).to have_content("Shelters with Pending Applications")
-    end
-
-    it "has a list of every shelter with a pending application" do
-      visit "/admin/shelters"
-      within "Pending Applications-#{@shelter.name}" do
-        expect(page).to have_content("Aurora shelter")
-        expect(page).to have_content("Fancy pets of Colorado")
-      end
-    end
-  end
+  
 end

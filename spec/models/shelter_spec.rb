@@ -22,6 +22,13 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+
+    @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love cats")
+    @application_2 = Application.create(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: "Pending")
+    @application_3 = Application.create(name: "Jerry", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: "Pending")
+
+    @application_pet_1 = ApplicationPet.create(application_id: @application_2.id, pet_id: @pet_1.id)
+    @application_pet_2 = ApplicationPet.create(application_id: @application_3.id, pet_id: @pet_3.id)
   end
 
   describe "class methods" do
@@ -84,6 +91,13 @@ RSpec.describe Shelter, type: :model do
         expect(@shelters).to eq [@turing, @rithm, @shelter_2, @hackreactor, @fsa, @shelter_3, @codesmith, @shelter_1]
         expect(first.name).to eq("Turing")
         expect(last.name).to eq("Aurora shelter")
+      end
+    end
+
+    describe ".pending_applications" do
+      it "returns a list of shelters that have pending applications" do
+
+        expect(Shelter.pending_applications).to eq ([@shelter_1.name, @shelter_3.name])
       end
     end
   end
