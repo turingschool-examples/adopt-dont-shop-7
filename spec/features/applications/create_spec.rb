@@ -26,15 +26,15 @@ RSpec.describe "New Application Page" do
     expect(page).to have_field(:state)
     expect(page).to have_content("Zip code:")
     expect(page).to have_field(:zip)
-    expect(page).to have_content("What makes me a good owner:")
-    expect(page).to have_field(:good_owner)
+    expect(page).to have_content("How can I provide a good home?:")
+    expect(page).to have_field(:good_home)
 
     fill_in(:name, with: "Matt")
     fill_in(:street, with: "2636 Vrain St.")
     fill_in(:city, with: "Denver")
     fill_in(:state, with: "CO")
     fill_in(:zip, with: "80212")
-    fill_in(:good_owner, with: "B/c I'm awesome!")
+    fill_in(:good_home, with: "B/c I'm awesome!")
 
     expect(page).to have_button("Submit")
 
@@ -60,7 +60,7 @@ RSpec.describe "New Application Page" do
     fill_in(:city, with: "Denver")
     fill_in(:state, with: "CO")
     fill_in(:zip, with: "80212")
-    fill_in(:good_owner, with: "B/c I'm awesome!")
+    fill_in(:good_home, with: "B/c I'm awesome!")
 
     click_button "Submit" 
 
@@ -76,7 +76,7 @@ RSpec.describe "New Application Page" do
     fill_in(:city, with: "Denver")
     fill_in(:state, with: "")
     fill_in(:zip, with: "80212")
-    fill_in(:good_owner, with: "B/c I'm awesome!")
+    fill_in(:good_home, with: "B/c I'm awesome!")
 
     click_button "Submit" 
 
