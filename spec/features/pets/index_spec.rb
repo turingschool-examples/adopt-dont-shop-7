@@ -95,7 +95,7 @@ RSpec.describe "the pets index" do
     # When I fill in this form with my: Name, Street Address, City, State, Zip Code, Description of why I would make a good home
     fill_in(:name, with: "Martha")
     fill_in(:street_address, with: "15 happy day lane")
-    fill_in(:city , with: "Mankato")
+    fill_in(:city, with: "Mankato")
     fill_in(:state, with: "CO")
     fill_in(:zip, with: "56001")
     fill_in(:description, with: "Martha's story")
