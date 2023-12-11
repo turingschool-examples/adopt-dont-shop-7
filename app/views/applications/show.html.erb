@@ -17,5 +17,26 @@
   <% end %>
 </section>
 
+<section class='find-pets'>
+  <h3> Add a Pet to this Application </h3>
+  <%= form_with url: "/applications/#{@app.id}", method: :get do |f| %>
+    <%= f.label :search_name, "Search for Pet:" %>
+    <%= f.text_field :search_name %>
+
+    <%= f.submit "submit"%>
+  <% end %>
+</section>
+
+<section class='found-pets'>
+  <% if @found_pets != nil %>
+    <h3> Found pets:</h3>
+    <% @found_pets.each do |pet| %>
+      <div id="pet-<%= pet.id %>">
+        <h4><%= pet.name %></h4>
+      </div>
+    <% end %>
+  <% end %>
+</section>
+
 
 
