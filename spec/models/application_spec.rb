@@ -53,7 +53,7 @@ RSpec.describe Application, type: :model do
     end
 
     it "can find pets with a PARTIALLY matching name" do
-      
+
       expect(@application_1.find_pet("dog")).to eq([@dog])
       expect(@application_1.find_pet("do")).to eq([@dog])
     end
@@ -61,7 +61,6 @@ RSpec.describe Application, type: :model do
 
   describe "#added_pets?" do
     it "will check if there are any pets in #list_of_pets and return true or false" do
-
       expect(@application_1.added_pets?).to eq true
 
       application_2 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
