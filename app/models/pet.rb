@@ -18,11 +18,11 @@ class Pet < ApplicationRecord
     where("name ILIKE ?", "%#{name}%")
   end
 
-  def approve
+  def approved
     update(approved: true)
   end
 
-  def reject
+  def rejected
     update(approved: false)
   end
 end
