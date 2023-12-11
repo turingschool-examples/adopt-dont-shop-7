@@ -21,4 +21,14 @@ RSpec.describe Application, type: :model do
 
     expect(result).to include(pet1)
   end
+
+  it "has a method to check if an application has a pet" do
+    application1 = Application.create!(name: "Fred Flintstone", address: "123 Main St, city: New York, state: NY, zip: 70117", description: "Worked with dinosaurs", status: "In Progress")
+    shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet1 = shelter.pets.create!(name: "garfield", breed: "shorthair", adoptable: true, age: 1)
+
+    application1.pets << pet1
+
+    expect(application1.has_pet?).to eq(true)
+  end
 end
