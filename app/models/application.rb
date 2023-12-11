@@ -10,4 +10,8 @@ class Application < ApplicationRecord
     Pet.where("name = ?", name)
   end
 
+  # def pet_search_partial(name)
+  #   Pet.search(name)
+  # end
+
 end
