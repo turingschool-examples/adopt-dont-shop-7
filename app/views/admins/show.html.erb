@@ -1,23 +1,25 @@
-
-<h1>Pending Pet Application For <%= @application.name %> </h1>
-<p>Pets applied for:</p>
-<ul>
-
-  <% @application.list_of_pets.each do |pet| %>
-  <div id="pet-<%= pet.id %>">
-    <li><%= pet.name %></li>
-      <ul>
-        <% if pet.application_pet_approved(params[:id]) == true %>
-          <li>Pet Approved</li>
-          <li><%= button_to 'Reject', show_admin_applications_path, method: :get, params: {:filter => "denied", :pet_id => pet.id} %></li>
-        <% elsif pet.application_pet_approved(params[:id]) == false %>
-          <li>Pet Rejected</li>
-        <% else %>
-          <li><%= button_to 'Approve', show_admin_applications_path, method: :get, params: {:filter => "approved", :pet_id => pet.id} %></li>
-          <li><%= button_to 'Reject', show_admin_applications_path, method: :get, params: {:filter => "denied", :pet_id => pet.id} %></li>
-        <% end %>
-      </ul>
-      <br/>
-  </div>
-  <% end %>
-</ul>
+<% if @application.all_pets_approved? %>
+  <h1>Pet Application For <%= @application.name %> Is Approved </h1>
+<% else %>
+  <h1>Pending Pet Application For <%= @application.name %> </h1>
+  <p>Pets applied for:</p>
+  <ul>
+    <% @application.list_of_pets.each do |pet| %>
+    <div id="pet-<%= pet.id %>">
+      <li><%= pet.name %></li>
+        <ul>
+          <% if pet.application_pet_approved(params[:id]) == true %>
+            <li>Pet Approved</li>
+            <li><%= button_to 'Reject', show_admin_applications_path, method: :get, params: {:filter => "denied", :pet_id => pet.id} %></li>
+          <% elsif pet.application_pet_approved(params[:id]) == false %>
+            <li>Pet Rejected</li>
+          <% else %>
+            <li><%= button_to 'Approve', show_admin_applications_path, method: :get, params: {:filter => "approved", :pet_id => pet.id} %></li>
+            <li><%= button_to 'Reject', show_admin_applications_path, method: :get, params: {:filter => "denied", :pet_id => pet.id} %></li>
+          <% end %>
+        </ul>
+        <br/>
+    </div>
+    <% end %>
+  </ul>
+<% end %>

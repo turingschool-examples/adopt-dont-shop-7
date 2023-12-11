@@ -23,6 +23,7 @@ RSpec.describe "Admin Application Show Page" do
     @application_pet_1 = ApplicationPet.create(application_id: @application_2.id, pet_id: @pet_1.id)
     @application_pet_2 = ApplicationPet.create(application_id: @application_3.id, pet_id: @pet_3.id)
     @application_pet_2 = ApplicationPet.create(application_id: @application_2.id, pet_id: @pet_3.id)
+    @application_pet_2 = ApplicationPet.create(application_id: @application_3.id, pet_id: @pet_4.id)
   end
 
   it "has a button to approve an application for every pet that the application pet is for" do
@@ -66,7 +67,6 @@ RSpec.describe "Admin Application Show Page" do
           expect(page).to have_button("Approve")
 
           click_button("Approve")
-          save_and_open_page
           expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
           expect(page).to have_content("Pet Approved")
         end
@@ -78,7 +78,7 @@ RSpec.describe "Admin Application Show Page" do
           expect(page).to have_button("Approve")
 
           click_button("Approve")
-
+          save_and_open_page
           expect(page.current_path).to eq("/admin/applications/#{@application_3.id}")
           expect(page).to have_content("Pet Approved")
         end
@@ -86,8 +86,16 @@ RSpec.describe "Admin Application Show Page" do
     end
 
     describe "15. All Pets Accepted on an Application - Completed Applications" do
-      it "allows me to approve more than one pet at a time" do
-
+      it "when all pets have been approved, application status changes to 'approved'" do
+        visit "/admin/applications/#{@application_2.id}"
+          within "#pet-#{@pet_3.id}" do
+            click_button("Approve")
+          end
+          within "#pet-#{@pet_1.id}" do
+            click_button("Approve")
+          end
+          expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
+          expect(page).to have_content("Approved")
       end
     end
   end

@@ -20,6 +20,7 @@ class Application < ApplicationRecord
   ## Yes, took away set_status_pending, I did that in the Controller's #update
   def set_status_in_progress
     self.status = "In Progress"
+    self.save
   end
 
   def find_pet(name)
@@ -28,5 +29,18 @@ class Application < ApplicationRecord
 
   def added_pets?
     list_of_pets.present?
+  end
+
+  def all_pets_approved?
+    if status_of_application_pet.uniq.count == 1 && status_of_application_pet.first == true
+      true
+    else
+      false
+    end
+
+  end
+
+  def status_of_application_pet
+    ApplicationPet.where(application_id: self.id).pluck(:application_approved)
   end
 end
