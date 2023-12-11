@@ -20,6 +20,10 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT shelters.* FROM shelters ORDER BY shelters.name DESC")
   end
 
+  def self.pending_apps 
+    find_by_sql("SELECT DISTINCT shelters.* FROM shelters INNER JOIN pets ON pets.shelter_id = shelters.id INNER JOIN pet_applications ON pet_applications.pet_id = pets.id WHERE (pet_applications.status = 1)")
+  end
+
   def pet_count
     pets.count
   end
@@ -35,4 +39,5 @@ class Shelter < ApplicationRecord
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where("age >= ?", age_filter)
   end
+
 end

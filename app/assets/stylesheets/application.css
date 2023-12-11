@@ -53,6 +53,11 @@
   font-size: large;
 }
 
+#shelters-pending {
+  font-size: large;
+  margin-top: -10px
+}
+
 #hdr1-show {
   margin-bottom: 50px;
 }
