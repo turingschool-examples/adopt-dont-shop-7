@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   patch   "/admin/applications/:application_id/pets/:pet_id/approve", to: "admin/applications#approve_pet"
   patch   "/admin/applications/:application_id/pets/:pet_id/reject",  to: "admin/applications#reject_pet"
 
-
   get     "/shelters",          to: "shelters#index"
   get     "/shelters/new",      to: "shelters#new"
   get     "/shelters/:id",      to: "shelters#show"
