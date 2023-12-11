@@ -5,32 +5,38 @@
 
 <h2>Links To Pets On Application</h2>
 
-<p><% @application.pets.each do |pet| %>
+<% @application.pets.each do |pet| %>
   <ul>
     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
   </ul>
+<% end %>
+
+<% if @application.has_pet? %>
+  <h3>Reason for adopting this pet:</h3>
+
+  <%= form_with url: "/applications/#{@application.id}", method: :patch, data: { turbo: false }, local: true do |form| %> 
+    <%= form.label :reason %>
+    <%= form.text_field :reason %> 
+      <br></br>
+    <%= form.submit "Submit Application" %>
   <% end %>
 
-  <% if @application.has_pet? %>
-  <h3>Reason for adopting this pet:</h3>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %> <!-- *********** -->
-  <%= form.label :reason %>
-  <%= form.text_field :reason %> 
-    <br></br>
-  <%= form.submit "Submit Application" %>
-<% end %>
   <p>No pets associated with this application.</p>
 <% end %>
 
 <% if @application.status == "In Progress" %>
-<h4>Add a Pet to this Application</h4>
+  <h4>Add a Pet to this Application</h4>
 
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-  <%= form.label :search %>
-  <%= form.text_field :search %> 
-    <br></br>
-  <%= form.submit "Search Pets" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label :search %>
+    <%= form.text_field :search %> 
+      <br></br>
+    <%= form.submit "Search Pets" %>
+  <% end %>
 <% end %>
+
+<% if @application.status == "Pending" %>
+  <p>Application is Pending</p>
 <% end %>
 
 <% if @result %>
@@ -38,7 +44,7 @@
     <ul>
       <li><%= pet.name %></li>
       <li>
-        <%= form_with url: "/applications/#{@application.id}/#{pet.id}", method: :patch, local: true do |form| %>
+        <%= form_with url: "/applications/#{@application.id}/pets/#{pet.id}", method: :patch, local: true do |form| %>
           <%= form.submit "Adopt this Pet" %>
         <% end %>
       </li>

@@ -4,8 +4,13 @@ class ApplicationsController < ApplicationController
       @application = Application.find(params[:id])
     if params[:search]
       @result = @application.search_for_pet(params[:search])
-    elsif params[:reason]
-      @application.update(description: params[:reason], status: 'Pending')
+    end
+  end
+
+  def update
+    if params[:reason]
+      @application = Application.find(params[:id])
+      @application.update!(description: params[:reason], status: 'Pending')
       redirect_to "/applications/#{@application.id}"
     end
   end
