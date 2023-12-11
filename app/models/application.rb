@@ -8,7 +8,7 @@ class Application < ApplicationRecord
   has_many :pets, through: :application_pets
 
   def search_for_pet(search)
-    @result = Pet.where("name ILIKE :search", search: "%#{search}")
+    @result = Pet.where("name ILIKE :search", search: "%#{search}%")
   end
 
   def has_pet?
