@@ -4,15 +4,16 @@ class ApplicationsController < ApplicationController
       @application = Application.find(params[:id])
     if params[:search]
       @result = @application.search_for_pet(params[:search])
+    elsif params[:reason]
+      @application.update(description: params[:reason], status: 'Pending')
+      redirect_to "/applications/#{@application.id}"
     end
   end
 
   def adopt_pet
     @application = Application.find(params[:id])
     pet = Pet.find(params[:pet_id])
-
     @application.pets << pet
-    
     redirect_to "/applications/#{@application.id}"
   end
 
@@ -21,7 +22,6 @@ class ApplicationsController < ApplicationController
 
   def create
     address = "#{application_params[:street_address]}, city: #{application_params[:city]}, state: #{application_params[:state]}, zip: #{application_params[:zip_code]}"
-
     if application_params.values.any?(&:blank?)
       flash[:alert] = "All fields are required."
       redirect_to "/applications/new"
@@ -34,7 +34,6 @@ class ApplicationsController < ApplicationController
       description: application_params[:description],
       status: "In Progress"
     )
-
     redirect_to "/applications/#{@application.id}"
   end
 

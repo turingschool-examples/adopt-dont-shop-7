@@ -11,13 +11,27 @@
   </ul>
   <% end %>
 
-<h2>Add a Pet to this Application</h2>
+  <% if @application.has_pet? %>
+  <h3>Reason for adopting this pet:</h3>
+<%= form_with url: "/applications/#{@application.id}/submitted", method: :get, local: true do |form| %>
+  <%= form.label :reason %>
+  <%= form.text_field :reason %> 
+    <br></br>
+  <%= form.submit "Submit Application" %>
+<% end %>
+  <p>No pets associated with this application.</p>
+<% end %>
+
+<% if @application.status == "In Progress" %>
+<h4>Add a Pet to this Application</h4>
+
 
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
   <%= form.label :search %>
   <%= form.text_field :search %> 
-  <br></br>
-  <%= form.submit "Submit" %>
+    <br></br>
+  <%= form.submit "Search Pets" %>
+<% end %>
 <% end %>
 
 <% if @result %>
@@ -32,6 +46,11 @@
     </ul>
   <% end %>
 <% end %>
+
+
+
+
+
 
 
 
