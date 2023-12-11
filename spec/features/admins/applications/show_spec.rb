@@ -78,7 +78,7 @@ RSpec.describe "Admins Application Show Page" do
           expect(page).to have_button("Approve")
 
           click_button("Approve")
-          
+
           expect(page.current_path).to eq("/admins/applications/#{@application_3.id}")
           expect(page).to have_content("Pet Approved")
         end
@@ -96,6 +96,18 @@ RSpec.describe "Admins Application Show Page" do
           end
           expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
           expect(page).to have_content("Approved")
+      end
+    end
+
+    describe "16. One or More Pets Rejected on an Application" do
+      it "takes me back to 'admin/applications/:id' when I've rejected one or more pet and other pets have been approved" do
+        visit "/admins/applications/#{@application_2.id}"
+        within "#pet-#{@pet_3.id}" do
+          click_button("Approve")
+        end
+        within "#pet-#{@pet_1.id}" do
+          click_button("Reject")
+        end
       end
     end
   end

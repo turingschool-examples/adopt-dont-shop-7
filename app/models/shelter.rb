@@ -21,8 +21,9 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_applications
-    Shelter.select("shelters.*").joins(pets: {application_pets: :application}).distinct.order(:name)
+    Shelter.joins(pets: :applications).where("applications.status = ?", "Pending").order(:name).distinct
   end
+
 
   def pet_count
     pets.count
