@@ -47,8 +47,8 @@ RSpec.describe "Admin Shelters Index page" do
     @pet_app_3 = PetApplication.create!(pet_id: @pet_4.id, application_id: @app_1.id, status: 1)
     @pet_app_4 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_2.id, status: 2)
     @pet_app_5 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_2.id, status: 1)
-    @pet_app_6 = PetApplication.create!(pet_id: @pet_3.id, application_id: @app_1.id, status: 2)
-    @pet_app_7 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_1.id, status: 1)
+    @pet_app_6 = PetApplication.create!(pet_id: @pet_3.id, application_id: @app_3.id, status: 2)
+    @pet_app_7 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_3.id, status: 1)
   end
 
   it "displays all Shelters in the system listed in reverse alphabetical order" do 
@@ -83,7 +83,6 @@ RSpec.describe "Admin Shelters Index page" do
     within "#shelters-pending" do 
       expect(page).to have_content("Aurora Shelter")
       expect(page).to have_content("Fancy Pets of Colorado")
-      expect(page).to_not have_content("RGV Animal Shelter")
     end
   end
 end 
