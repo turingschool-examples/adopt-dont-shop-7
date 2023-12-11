@@ -32,16 +32,14 @@
 <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %></p>
-<% if @application.application_status != "Pending" %>
-  <p><strong>Application Status:</strong> <%= @application.application_status %></p>
-<% end %>
 
-<% if @application.pets.any? && @application.application_status != "Pending" %>  <h2>Submit your application</h2>
+<% if @application.pets.any? && @application.application_status != "Pending" %>  
+  <h2>Submit your application</h2>
   <%= form_with url: "/applications/#{@application.id}/submit", method: :patch do |form| %>
     <%= form.label :description, "Why your home would be a good fit for a new pet:" %>
     <p><%= form.text_area :description %></p>
     <%= form.submit "Submit Application" %>
   <% end %>
-<% else %>
-  <p><strong>Application Status:</strong> <%= @application.application_status %></p>
 <% end %>
+
+<p><strong>Application Status:</strong> <%= @application.application_status %></p>
