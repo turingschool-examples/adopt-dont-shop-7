@@ -81,8 +81,8 @@ RSpec.describe "pet creation" do
       expect(current_path).to eq("/applications/#{@app_1.id}")
       within "#show-#{@pet_4.id}" do 
         expect(page).to have_content("Toaster")
+        expect(page).to have_button("Adopt this pet")
       end
-
     end
 
     it "won't respond to non existent dog name" do
