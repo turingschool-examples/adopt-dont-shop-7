@@ -39,6 +39,32 @@ RSpec.describe "the application show page" do
     expect(current_path).to eq("/pets/#{pet.id}")
   end
 
+  it "shows a pets search field" do 
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+    applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks")
+    pet = applicant.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{applicant.id}"
+    
+    expect(page).to have_content("Search for a pet to add")
+    
+  end
+  
+   xit "shows pets matching user search input" do 
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+    applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+    pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{applicant.id}"
+    # save_and_open_page
+    fill_in "Search", with: "scoob"
+
+    click_button "Search"
+    # save_and_open_page
+    expect(page).to have_content("Scooby")
+    
+  end
+
   # it "allows the user to delete a pet" do
   #   shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
   #   pet = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
