@@ -14,5 +14,15 @@
     <% end %>
 </ul>
 
-<p><%= link_to "Update #{@application.name}", "pets/#{@application.id}/edit" %></p>
-<p><%= link_to "Delete #{@application.name}", "/pets/#{@application.id}", method: :delete %></p>
+<%# <p><%= link_to "Update #{@application.name}", "pets/#{@application.id}/edit" %></p>
+<%# #<p><%= link_to "Delete #{@application.name}", "/pets/#{@application.id}", method: :delete %></p>
+
+<%= form_with url: "/applications/#{application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+
+
+
