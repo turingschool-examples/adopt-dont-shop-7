@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.describe "new application page" do
 
-  before(:each) do 
+  before(:each) do
     @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
   end
 
-  it "has a form to create an application" do 
+  it "has a form to create an application" do
     visit "/applications/new"
 
     expect(page).to have_content("Name")
@@ -28,7 +28,7 @@ RSpec.describe "new application page" do
     # expect(current_path).to eq("/applications/#{@application.id}")
   end
 
-  it "shows an error if all fields are not completed" do 
+  it "shows an error if all fields are not completed" do
     visit "/applications/new"
 
     fill_in("street_address", with: "1234 ABC Lane")

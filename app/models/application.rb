@@ -7,6 +7,17 @@ class Application < ApplicationRecord
   validates :description, presence: true
   has_many :application_pets
 
+
+  def self.application(id)
+    Application.find(id)
+  end
+
+  def self.approve_or_deny_application_pet(pet_id, application_id, filter)
+    application_pet_id = ApplicationPet.where(pet_id: pet_id, application_id: application_id).pluck(:id).first
+    application_pet = ApplicationPet.find(application_pet_id)
+    application_pet.approve_or_deny(filter)
+  end
+
   def full_address
     street_address << " " << city << ", " << state << " " << zipcode
   end
@@ -16,8 +27,34 @@ class Application < ApplicationRecord
     Pet.where(id: pet_ids)
   end
 
+  # would it make sense to refactor these into one "status" method or leave as smaller separate methods? Could see pros and cons to both...
+  ## Yes, took away set_status_pending, I did that in the Controller's #update
   def set_status_in_progress
     self.status = "In Progress"
+    self.save
+  end
+
+  def find_pet(name)
+    Pet.where("name ILIKE ?", "%#{name}%")
+  end
+
+  def added_pets?
+    list_of_pets.present?
+  end
+
+  def all_pets_approved?
+    if status_of_application_pet.uniq.count == 1 && status_of_application_pet.first == true
+      true
+    else
+      false
+    end
+
+  end
+
+private
+
+  def status_of_application_pet
+    ApplicationPet.where(application_id: self.id).pluck(:application_approved)
   end
 
 end
