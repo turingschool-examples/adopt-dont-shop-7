@@ -6,7 +6,7 @@
 
 <h3>Shelters with Pending Applications</>
 <div id="pending_applications">
-  <% @shelters.pending_applications.each do |shelter|%>
+  <% Shelter.pending_applications.each do |shelter|%>
     <%= shelter.name%>
   <% end %>
 </div>
