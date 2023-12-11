@@ -241,6 +241,9 @@ And instead I see buttons to approve or reject the pet for this specific applica
 ```
 
 ---
+## Extensions
+
+_Note: It is recommended that these extensions only be attempted after ALL user stories above are 100% completed, and your project is satisfactorily refactored._ 
 
 ## Completed Applications
 
@@ -403,9 +406,8 @@ Then next to each pet's name I see a link to the admin application show page whe
 
 ---
 
-## Extensions
+## More Extensions
 
-_Note: It is recommended that these extensions only be attempted after ALL user stories above are 100% completed, and your project is satisfactorily refactored._ 
 
 ### ActiveRecord Extensions
 
