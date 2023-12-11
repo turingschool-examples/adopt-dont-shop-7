@@ -12,7 +12,7 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def application_pet_approved
-    ApplicationPet.where(pet_id: self.id).pluck(:application_approved).first
+  def application_pet_approved(id)
+    ApplicationPet.where(pet_id: self.id, application_id: id).pluck(:application_approved).first
   end
 end

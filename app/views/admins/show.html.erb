@@ -7,10 +7,10 @@
   <div id="pet-<%= pet.id %>">
     <li><%= pet.name %></li>
       <ul>
-        <% if pet.application_pet_approved == true %>
+        <% if pet.application_pet_approved(params[:id]) == true %>
           <li>Pet Approved</li>
           <li><%= button_to 'Reject', show_admin_applications_path, method: :get, params: {:filter => "denied", :pet_id => pet.id} %></li>
-        <% elsif pet.application_pet_approved == false %>
+        <% elsif pet.application_pet_approved(params[:id]) == false %>
           <li>Pet Rejected</li>
         <% else %>
           <li><%= button_to 'Approve', show_admin_applications_path, method: :get, params: {:filter => "approved", :pet_id => pet.id} %></li>
