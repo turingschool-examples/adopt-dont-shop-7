@@ -35,13 +35,14 @@
       <%= form.submit "Search" %>
     <% end %>
 
-    <% @pets.each do |pet| %>
-
-      <p id=<%= "show-#{pet.id}" %>>
-        <%= pet.name %> 
-        <%= button_to "Adopt this pet", "/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch %>
-      </p>
+    <% @pets.each do |pet| %> 
+      <%= form_with url: "/pet_applications?app_id=#{@application.id}", method: :post, id: "show-#{pet.id}", local: true do |form| %>
+        <%= form.hidden_field :pet_id, value: pet.id %> 
+        <%= form.label pet.name %>
+        <%= form.submit "Adopt this pet" %>
+      <% end %>
     <% end %>
+  
   </section>
 
   <% if !@application.pets.empty? %>
