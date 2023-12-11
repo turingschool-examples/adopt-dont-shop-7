@@ -147,5 +147,17 @@ RSpec.describe "pet creation" do
       expect(page).to_not have_content("Search for pet")
     end
 
+    it "has a partial match when searching for available pets" do
+      visit "/applications/#{@app_2.id}"
+      expect(page).to have_field(:pet_name)
+
+      fill_in(:pet_name, with: "Lob")
+      click_button "Search"
+
+      expect(Pet.search("Lob")).to eq([@pet_2])
+      expect(page).to have_content("Lobster")
+
+    end
+
 end
 
