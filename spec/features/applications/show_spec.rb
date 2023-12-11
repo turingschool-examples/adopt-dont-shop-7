@@ -9,6 +9,13 @@ RSpec.describe "pet creation" do
       zip: "80033", 
       descr: "I love animals and am lonely")
 
+      @app_2 = Application.create!(name: "Bryan", 
+      street: "8888 Hampden", 
+      city: "Denver", 
+      state: "CO", 
+      zip: "80265", 
+      descr: "I am buff af")
+
     @shelter = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
@@ -19,7 +26,7 @@ RSpec.describe "pet creation" do
 
     @pet_1_app =PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id)
     @app_1.pets << @pet_2
-    # @app_1.pets << @pet_3
+    @app_1.pets << @pet_3
   end
 
     it "has a applications show page" do
@@ -78,12 +85,12 @@ RSpec.describe "pet creation" do
 
     end
 
-    it "won't respond to non existant dog name" do
+    it "won't respond to non existent dog name" do
       visit "/applications/#{@app_1.id}"
-      fill_in(:pet_name, with: "Hoser")
+      fill_in(:pet_name, with: "Hosehead")
       click_button "Search"
 
-      expect(page).to_not have_content("Hoser")
+      expect(page).to_not have_content("Hosehead")
     end
 
     it "has a button to adopt a pet next to each pet search result" do
@@ -99,9 +106,47 @@ RSpec.describe "pet creation" do
       expect(current_path).to eq("/applications/#{@app_1.id}")
       within '#show-pets-on-app' do
       expect(page).to have_content("Hoser")
-      save_and_open_page
       end
     end
 
+    it "has a section to submit application after adding pets" do
+      visit "/applications/#{@app_2.id}"
+      expect(page).to_not have_button("Submit this application")
+      expect(page).to_not have_content("Why would you make a good owner?")
+      expect(page).to_not have_field("Howdy")
+
+      expect(@app_2.status).to eq("In progress")
+
+      fill_in(:pet_name, with: "Lobster")
+      click_button "Search"
+      click_button("Adopt this pet")
+
+      fill_in(:pet_name, with: "Hoser")
+      click_button "Search"
+      click_button("Adopt this pet")
+      
+      expect(page).to have_field(:good_owner)
+      expect(page).to have_content("Why would you make a good owner?")
+      fill_in(:good_owner, with: "I'm lonely but also cool")
+
+      expect(page).to have_button("Submit this application")
+      click_button("Submit this application")
+
+      expect(current_path).to eq("/applications/#{@app_2.id}")
+      
+      expect(page).to have_content("Hoser")
+      expect(page).to have_content("Lobster")
+      
+      expect(page).to have_content("Pending")
+      
+      expect(page).to_not have_button("Adopt this pet")
+      expect(page).to_not have_button("Submit this application")
+      expect(page).to_not have_button("Search")
+      expect(page).to_not have_content("Add a Pet to this Application")
+      expect(page).to_not have_field(:pet_name)
+      expect(page).to_not have_content("Search for pet")
+      save_and_open_page
+    end
 
 end
+
