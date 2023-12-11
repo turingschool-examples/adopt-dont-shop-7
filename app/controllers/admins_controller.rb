@@ -1,6 +1,6 @@
 class AdminsController < ActionController::Base
   def index
-    @shelters = Shelter.order_by_reverse_alphabetically
+    @shelters = Admin.shelters
   end
 
   def new
@@ -20,7 +20,10 @@ class AdminsController < ActionController::Base
   end
 
   def show
-    @application = Application.find(params[:id])
+    @application = Admin.application(params[:id])
+    if params[:filter].present?
+      pet_application = Admin.approve_or_deny_application_pet(params[:pet_id], params[:id], params[:filter])
+    end
   end
 
   def destroy

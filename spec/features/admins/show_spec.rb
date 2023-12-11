@@ -32,7 +32,6 @@ RSpec.describe "Admin Application Show Page" do
     within "#pet-#{@pet_1.id}" do
       expect(page).to have_content("Mr. Pirate")
       expect(page).to have_button("Approve")
-
       click_button("Approve")
 
       expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
@@ -67,7 +66,7 @@ RSpec.describe "Admin Application Show Page" do
           expect(page).to have_button("Approve")
 
           click_button("Approve")
-
+          save_and_open_page
           expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
           expect(page).to have_content("Pet Approved")
         end
@@ -83,6 +82,12 @@ RSpec.describe "Admin Application Show Page" do
           expect(page.current_path).to eq("/admin/applications/#{@application_3.id}")
           expect(page).to have_content("Pet Approved")
         end
+      end
+    end
+
+    describe "15. All Pets Accepted on an Application - Completed Applications" do
+      it "allows me to approve more than one pet at a time" do
+
       end
     end
   end

@@ -11,4 +11,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def application_pet_approved
+    ApplicationPet.where(pet_id: self.id).pluck(:application_approved).first
+  end
 end
