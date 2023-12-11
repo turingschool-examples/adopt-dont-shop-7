@@ -21,7 +21,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_apps 
-    find_by_sql("SELECT DISTINCT shelters.* FROM shelters INNER JOIN pets ON pets.shelter_id = shelters.id INNER JOIN pet_applications ON pet_applications.pet_id = pets.id WHERE (pet_applications.status = 1)")
+    select("shelters.*").distinct.joins(pets: { pet_applications: :application }).where("applications.status = ?", 1)
   end
 
   def pet_count
