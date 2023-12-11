@@ -17,11 +17,20 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_alpha 
-    find_by_sql("SELECT shelters.* FROM shelters ORDER BY shelters.name DESC")
+    find_by_sql(
+      "SELECT shelters.*
+      FROM shelters 
+      ORDER BY shelters.name DESC"
+    )
   end
 
   def self.pending_apps 
-    find_by_sql("SELECT DISTINCT shelters.* FROM shelters INNER JOIN pets ON pets.shelter_id = shelters.id INNER JOIN pet_applications ON pet_applications.pet_id = pets.id WHERE (pet_applications.status = 1)")
+    find_by_sql(
+      "SELECT DISTINCT shelters.* FROM shelters INNER JOIN pets 
+      ON pets.shelter_id = shelters.id INNER JOIN 
+      pet_applications ON pet_applications.pet_id = pets.id 
+      WHERE (pet_applications.status = 1)"
+    )
   end
 
   def pet_count
