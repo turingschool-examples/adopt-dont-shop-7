@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Admin Shelter Index" do
+RSpec.describe "Admins Shelter Index" do
   before(:each) do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -26,8 +26,9 @@ RSpec.describe "Admin Shelter Index" do
 
   it "lists shelters in reverse alphabetical order by name" do
     # User Story 10
-    visit "/admin/shelters"
+    visit "/admins/shelters"
 
+    save_and_open_page
     expect("Turing").to appear_before("Rithm School")
     expect("Rithm School").to appear_before("Hack Reactor")
     expect("Hack Reactor").to appear_before("Fullstack Academy")
@@ -37,13 +38,13 @@ RSpec.describe "Admin Shelter Index" do
   describe "Shelters with Pending Applications" do
     # User Story 11
     it "has its own section on the page" do
-      visit "/admin/shelters"
+      visit "/admins/shelters"
 
       expect(page).to have_content("Shelters with Pending Applications")
     end
 
     it "has a list of every shelter with a pending application" do
-      visit "/admin/shelters"
+      visit "/admins/shelters"
       within "#pending-#{@shelter_1.id}" do
         expect(page).to have_content("Aurora shelter")
       end

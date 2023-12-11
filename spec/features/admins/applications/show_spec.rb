@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Admin Application Show Page" do
+RSpec.describe "Admins Application Show Page" do
   before(:each) do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -28,32 +28,32 @@ RSpec.describe "Admin Application Show Page" do
 
   it "has a button to approve an application for every pet that the application pet is for" do
     # User Story 12
-    visit "/admin/applications/#{@application_2.id}"
+    visit "/admins/applications/#{@application_2.id}"
 
     within "#pet-#{@pet_1.id}" do
       expect(page).to have_content("Mr. Pirate")
       expect(page).to have_button("Approve")
       click_button("Approve")
 
-      expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
+      expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
       expect(page).to have_content("Pet Approved")
     end
   end
 
   describe "13. Rejecting a Pet for Adoption" do
     it "has a button to reject the application for a pet" do
-      visit "/admin/applications/#{@application_2.id}"
+      visit "/admins/applications/#{@application_2.id}"
       within "#pet-#{@pet_1.id}" do
         expect(page).to have_button("Reject")
       end
     end
 
-    it "takes me back to the admin/show page and does not show approval or rejection button when I click on reject" do
-      visit "/admin/applications/#{@application_2.id}"
+    it "takes me back to the admins/show page and does not show approval or rejection button when I click on reject" do
+      visit "/admins/applications/#{@application_2.id}"
       within "#pet-#{@pet_1.id}" do
         click_button("Reject")
 
-        expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
+        expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
         expect(page.has_button?).to be false
         expect(page).to have_content("Pet Rejected")
       end
@@ -61,25 +61,25 @@ RSpec.describe "Admin Application Show Page" do
 
     describe "14. Approved/Rejected Pets on one Application do not affect other Applications" do
       it "makes sure that approving one pet for an application does not affect another application that also has the same pet" do
-      visit "/admin/applications/#{@application_2.id}"
+      visit "/admins/applications/#{@application_2.id}"
         within "#pet-#{@pet_3.id}" do
           expect(page).to have_content("Lucille Bald")
           expect(page).to have_button("Approve")
 
           click_button("Approve")
-          expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
+          expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
           expect(page).to have_content("Pet Approved")
         end
 
 
-      visit "/admin/applications/#{@application_3.id}"
+      visit "/admins/applications/#{@application_3.id}"
         within "#pet-#{@pet_3.id}" do
           expect(page).to have_content("Lucille Bald")
           expect(page).to have_button("Approve")
 
           click_button("Approve")
-          save_and_open_page
-          expect(page.current_path).to eq("/admin/applications/#{@application_3.id}")
+          
+          expect(page.current_path).to eq("/admins/applications/#{@application_3.id}")
           expect(page).to have_content("Pet Approved")
         end
       end
@@ -87,14 +87,14 @@ RSpec.describe "Admin Application Show Page" do
 
     describe "15. All Pets Accepted on an Application - Completed Applications" do
       it "when all pets have been approved, application status changes to 'approved'" do
-        visit "/admin/applications/#{@application_2.id}"
+        visit "/admins/applications/#{@application_2.id}"
           within "#pet-#{@pet_3.id}" do
             click_button("Approve")
           end
           within "#pet-#{@pet_1.id}" do
             click_button("Approve")
           end
-          expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
+          expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
           expect(page).to have_content("Approved")
       end
     end

@@ -11,7 +11,13 @@ class Application < ApplicationRecord
   def self.application(id)
     Application.find(id)
   end
-  
+
+  def self.approve_or_deny_application_pet(pet_id, application_id, filter)
+    application_pet_id = ApplicationPet.where(pet_id: pet_id, application_id: application_id).pluck(:id).first
+    application_pet = ApplicationPet.find(application_pet_id)
+    application_pet.approve_or_deny(filter)
+  end
+
   def full_address
     street_address << " " << city << ", " << state << " " << zipcode
   end
@@ -50,4 +56,5 @@ private
   def status_of_application_pet
     ApplicationPet.where(application_id: self.id).pluck(:application_approved)
   end
+
 end
