@@ -7,6 +7,11 @@ class Application < ApplicationRecord
   validates :description, presence: true
   has_many :application_pets
 
+
+  def self.application(id)
+    Application.find(id)
+  end
+  
   def full_address
     street_address << " " << city << ", " << state << " " << zipcode
   end
@@ -39,6 +44,8 @@ class Application < ApplicationRecord
     end
 
   end
+
+private
 
   def status_of_application_pet
     ApplicationPet.where(application_id: self.id).pluck(:application_approved)

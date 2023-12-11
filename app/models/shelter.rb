@@ -24,6 +24,10 @@ class Shelter < ApplicationRecord
     Shelter.select("shelters.*").joins(pets: {application_pets: :application}).distinct.order(:name)
   end
 
+  def self.shelters
+    Shelter.order_by_reverse_alphabetically
+  end
+
   def pet_count
     pets.count
   end
