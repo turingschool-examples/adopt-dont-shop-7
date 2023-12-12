@@ -55,6 +55,7 @@ RSpec.describe 'The Application Show Page', type: :feature do
         # And I click submit,
         click_on("submit")
       end
+      
       # Then I am taken back to the application show page
       expect(current_path).to eq("/applications/#{@app_1.id}")
       # And under the search bar I see any Pet whose name matches my search
@@ -74,7 +75,7 @@ RSpec.describe 'The Application Show Page', type: :feature do
         click_on("submit")
       end
         
-      within  '.found-pets' do
+      within '.found-pets' do
         # And I see the names Pets that match my search
         expect(page).to have_content(@pet_2.name)
 
