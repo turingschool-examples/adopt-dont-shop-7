@@ -35,7 +35,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.alphabetical_shelters_desc
-    @shelters = Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
+    Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
   end
 
   def self.pending_applications

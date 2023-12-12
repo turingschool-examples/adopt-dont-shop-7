@@ -42,7 +42,22 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe "#alphbetical_shelters_desc" do
+      it "returns the shelters in alphabetical order by name, descending" do
+        expect(Shelter.alphabetical_shelters_desc).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#pending_application" do
+      it "shows the shelters that have pending applications" do
+        application = Application.create!(name: "Fred Flintstone", address: "123 Main St, city: New York, state: NY, zip: 70117", description: "Worked with dinosaurs", status: "Pending")
+        application.pets << @pet_1
+        expect(Shelter.pending_applications).to eq([@shelter_1])
+      end
+    end
   end
+
 
   describe "instance methods" do
     describe ".adoptable_pets" do
