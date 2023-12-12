@@ -20,10 +20,20 @@ RSpec.describe "the admin shelter index", type: :feature do
     application1 = pet1.applications.create!(name: "Fred Flintstone", address: "123 Main St, city: New York, state: NY, zip: 70117", description: "Worked with dinosaurs", status: "Pending")
     
     visit "/admin/shelters"
-
     expect(page).to have_content("Shelters with Pending Applications")
+  end
+
+  it "shows the section with the shelters with pending applications populated" do
+    shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
+    pet1 = shelter_1.pets.create!(name: "garfield", breed: "shorthair", adoptable: true, age: 1)
+    application1 = pet1.applications.create!(name: "Fred Flintstone", address: "123 Main St, city: New York, state: NY, zip: 70117", description: "Worked with dinosaurs", status: "Pending")
+    
+    visit "/admin/shelters"
+    
+    within("#pending-applications") do
     expect(page).to have_content("Aurora shelter")
-    # need to revisit this part of the test for finding in this section
     expect(page).to_not have_content("RGV animal shelter")
+    end
   end
 end

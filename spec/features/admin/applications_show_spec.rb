@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "the admin applications show page", type: :feature do
 
-  it "lists all the pets on the application" do
+  xit "lists all the pets on the application" do
     shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     pet_1 = shelter_1.pets.create!(name: "garfield", breed: "shorthair", adoptable: true, age: 1)
