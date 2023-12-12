@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_150026) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_222241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,7 +18,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_150026) do
     t.bigint "application_id", null: false
     t.bigint "pet_id", null: false
     t.string "status"
-
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["application_id", "pet_id"], name: "index_application_pets_on_application_id_and_pet_id", unique: true
@@ -41,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_150026) do
     t.bigint "shelter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "rejected"
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
   end
 
