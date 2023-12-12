@@ -17,7 +17,11 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_alpha 
-    find_by_sql("SELECT shelters.* FROM shelters ORDER BY shelters.name DESC")
+    find_by_sql(
+      "SELECT shelters.*
+      FROM shelters 
+      ORDER BY shelters.name DESC"
+    )
   end
 
   def self.pending_apps 

@@ -14,9 +14,9 @@
  *= require_self
  */
 
- h3 {
+h3 {
   margin-bottom: 10px;
- }
+}
 
 #applicant-name {
   line-height: 0px;
@@ -39,7 +39,7 @@
   margin-top: -10px;
 }
 
-#why-good-owner {
+#why-good-home {
   margin-left: 10px;
   font-size: larger;
   color: #303030;
@@ -61,3 +61,7 @@
 #hdr1-show {
   margin-bottom: 50px;
 }
+
+
+
+

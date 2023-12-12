@@ -1,5 +1,4 @@
 class ApplicationsController < ApplicationController
-
   def show
     @application = Application.find(params[:id])
     if params[:pet_name].present?
@@ -20,7 +19,7 @@ class ApplicationsController < ApplicationController
       city: params[:city],
       state: params[:state],
       zip: params[:zip],
-      descr: params[:good_owner]
+      descr: params[:good_home]
     })
 
     if application.save
@@ -32,7 +31,7 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def update
+  def update 
     @application = Application.find(params[:id])
     @pets = @application.pets
 

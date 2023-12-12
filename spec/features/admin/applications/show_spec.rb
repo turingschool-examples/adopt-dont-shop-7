@@ -1,17 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require "rails_helper" 
 
-PetApplication.destroy_all
-Pet.destroy_all
-Application.destroy_all
-Shelter.destroy_all
-
-@app_1 = Application.create!(
+RSpec.describe "Admin Application Show Page" do 
+  before(:each) do 
+    @app_1 = Application.create!(
       name: "Susan", 
       street: "7654 Clover St", 
       city: "Denver", 
@@ -38,9 +29,9 @@ Shelter.destroy_all
       state: "TX", 
       zip: "78215", 
       descr: "Work from home, will always be with them.",
-      status: 1
+      status: 2
     )
-      
+
     @shelter_1 = Shelter.create(name: "Aurora Shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV Animal Shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: "Fancy Pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
@@ -51,10 +42,38 @@ Shelter.destroy_all
     @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "beagle", name: "Toaster", shelter_id: @shelter_3.id)
     @pet_5 = Pet.create!(adoptable: true, age: 4, breed: "pitbull", name: "Hoser", shelter_id: @shelter_3.id)
 
-    @pet_app_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id, status: 3)
+    @pet_app_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id, status: 1)
     @pet_app_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @app_1.id, status: 1)
     @pet_app_3 = PetApplication.create!(pet_id: @pet_4.id, application_id: @app_1.id, status: 1)
-    @pet_app_4 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_2.id, status: 2)
+    @pet_app_4 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_2.id, status: 1)
     @pet_app_5 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_2.id, status: 1)
-    @pet_app_6 = PetApplication.create!(pet_id: @pet_3.id, application_id: @app_3.id, status: 2)
+    @pet_app_6 = PetApplication.create!(pet_id: @pet_3.id, application_id: @app_3.id, status: 1)
     @pet_app_7 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_3.id, status: 1)
+  end
+
+  describe "approving a pet on an application" do 
+    it "there is an 'Approve' button next to every pet on the application" do 
+      visit "/admin/applications/#{@app_1.id}"
+      @app_1.pets.each do |pet| 
+        within "#approve-#{pet.id}" do 
+          expect(page).to have_content(pet.name)
+          expect(page).to have_button("Approve")
+        end
+      end
+    end
+
+    it "when the 'Approve' button is clicked it removes the button and indicates pet application was 'approved'" do 
+      visit "/admin/applications/#{@app_1.id}" 
+    
+      @app_1.pets.each do |pet| 
+        within "#approve-#{pet.id}" do 
+          click_button("Approve")
+          expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+          expect(page).to_not have_button("Approve")
+          expect(page).to have_content("Approved")
+        end
+      end
+    end
+  end
+
+end 
