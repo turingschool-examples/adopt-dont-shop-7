@@ -9,6 +9,10 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def set_adoptable_false
+    self.adoptable == false
+    self.save
+  end
   def self.adoptable
     where(adoptable: true)
   end
