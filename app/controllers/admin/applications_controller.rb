@@ -1,6 +1,14 @@
 class Admin::ApplicationsController < ApplicationController
   def show
-    # require 'pry'; binding.pry
-    @applications = Application.find(params[:id])
+    @application = Application.find(params[:id])
+    @pets = @application.pets
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    @pets = @application.pets
+    if params[:commit].starts_with?('Approve')
+      redirect_to "/admin/applications/#{@application.id}"
+    end
   end
 end
