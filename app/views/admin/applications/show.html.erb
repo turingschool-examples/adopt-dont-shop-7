@@ -1,6 +1,5 @@
 <h1>Approve a Pet?</h1>
 
-
 <% @pets.each do |pet| %>
   <% if pet.adoptable == false %>
   <ul>
@@ -9,13 +8,23 @@
       <%= form_with url: "admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
         <%= form.submit "Approve #{pet.name}!" %>
       <% end %>
+      <%= form_with url: "admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
+        <%= form.submit "Reject #{pet.name}!" %>
+      <% end %>
     </li>
   </ul>
   <% elsif pet.adoptable == true %>
   <ul>
     <li><%= pet.name %></li>
     <li>
-    Pet Approved
+      Pet Approved
+    </li>
+  </ul>
+  <% elsif pet.adoptable == false && pet.rejected == true %>
+  <ul>
+    <li><%= pet.name %></li>
+    <li>
+      Pet Rejected
     </li>
   </ul>
   <% end %>
