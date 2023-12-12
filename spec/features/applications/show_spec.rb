@@ -33,7 +33,7 @@ RSpec.describe 'The Application Show Page', type: :feature do
       expect(page).to have_link(@pet_1.name)
       # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
       expect(page).to have_content("In Progress")
-      within '.pets-on-apps' do
+      within '.pets-on-app' do
         click_on(@pet_1.name)
         expect(current_path).to eq("/pets/#{@pet_1.id}")
       end
@@ -55,6 +55,7 @@ RSpec.describe 'The Application Show Page', type: :feature do
         # And I click submit,
         click_on("submit")
       end
+
       # Then I am taken back to the application show page
       expect(current_path).to eq("/applications/#{@app_1.id}")
       # And under the search bar I see any Pet whose name matches my search
@@ -62,5 +63,36 @@ RSpec.describe 'The Application Show Page', type: :feature do
         expect(page).to have_content(@pet_2.name)
       end
     end
+
+    # 5. Add a Pet to an Application
+    it "adds an adpot button to pets" do
+      # When I visit an application's show page
+      visit "/applications/#{@app_1.id}"
+
+      within '.find-pets' do
+        # And I search for a Pet by name
+        fill_in :search_name, with: "Spot"
+        click_on("submit")
+      end
+        
+      within '.found-pets' do
+        # And I see the names Pets that match my search
+        expect(page).to have_content(@pet_2.name)
+
+        within "#pet-#{@pet_2.id}" do
+          # Then next to each Pet's name I see a button to "Adopt this Pet"
+          expect(page).to have_button("Adopt this Pet")
+          # When I click one of these buttons
+          click_on("Adopt this Pet")
+        end
+      end
+      # Then I am taken back to the application show page
+      expect(current_path).to eq("/applications/#{@app_1.id}")
+      # And I see the Pet I want to adopt listed on this application
+      within '.pets-on-app' do
+        expect(page).to have_content(@pet_2.name)
+      end
+    end
   end
 end
+#delete this
