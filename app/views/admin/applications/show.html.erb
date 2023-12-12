@@ -5,6 +5,7 @@
       <%= f.label :pet_name, "#{pet.name}" %>
       <% if @application.get_pet_app(pet.id).status == "Pending" %>
         <%= f.submit "Approve" %>
+        <%= f.submit "Reject" %>
       <% else %>
         <%= f.label @application.get_pet_app(pet.id).status %>
       <% end %>
