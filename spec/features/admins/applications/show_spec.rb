@@ -117,10 +117,21 @@ RSpec.describe "Admins Application Show Page" do
 
   describe "17. Application Approval makes Pets not adoptable" do
     it "can change the status of a pet from `adoptable` to `not adoptable`" do
+      visit "pets/#{@pet_3.id}"
+
+      expect(page).to have_content("adoptable")
+
       visit "/admins/applications/#{@application_2.id}"
+
       within "#pet-#{@pet_3.id}" do
         click_button("Approve")
       end
+
+
+
+
+
+
       within "#pet-#{@pet_1.id}" do
         click_button("Approve")
       end
