@@ -32,13 +32,13 @@ class PetApplicationsController < ApplicationController
     #   flash[:alert] = "There was a problem and #{pet.name}'s adoption has not yet been approved. Please try again later."
     # end
     # if application.pet_applications.all? { |pet_app| pet_app.status == "Approved" }
+    
     if @application.all_pets_apps_appr?
       @application.update!(status: "Approved")
     elsif !@application.all_pets_apps_appr?
       @application.update!(status: "Rejected")
     end
-    # end 
-
+  
     redirect_to "/admin/applications/#{@application.id}"
   end
 
