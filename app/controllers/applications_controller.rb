@@ -4,9 +4,6 @@ class ApplicationsController < ApplicationController
       @application = Application.find(params[:id])
     if params[:search]
       @result = @application.search_for_pet(params[:search])
-    elsif params[:reason]
-      @application.update(description: params[:reason], status: 'Pending')
-      redirect_to "/applications/#{@application.id}"
     end
   end
 
@@ -26,12 +23,20 @@ class ApplicationsController < ApplicationController
       address: address,
       description: application_params[:description],
       status: "In Progress"
-    )
+      )
     redirect_to "/applications/#{@application.id}"
+  end
+
+  def update
+    if params[:reason]
+      @application = Application.find(params[:id])
+      @application.update!(description: params[:reason], status: "Pending")
+      redirect_to "/applications/#{@application.id}"
+    end
   end
 
   private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
   end
 end

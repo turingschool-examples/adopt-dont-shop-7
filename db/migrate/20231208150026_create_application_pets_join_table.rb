@@ -3,8 +3,8 @@ class CreateApplicationPetsJoinTable < ActiveRecord::Migration[7.0]
     create_table :application_pets, id: false do |t|
       t.bigint :application_id, null: false
       t.bigint :pet_id, null: false
-      t.integer "status", default: 0
-      
+      t.string :status
+
       t.timestamps
     end
 
