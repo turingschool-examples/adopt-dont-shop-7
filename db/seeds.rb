@@ -18,7 +18,7 @@ Shelter.destroy_all
       state: "CO", 
       zip: "80033", 
       descr: "I love animals and am lonely.",
-      status: 0
+      status: 1
     )
 
     @app_2 = Application.create!(
@@ -28,7 +28,7 @@ Shelter.destroy_all
       state: "CO", 
       zip: "80265", 
       descr: "I am buff af.",
-      status: 0
+      status: 1
     )
 
     @app_3 = Application.create!(
@@ -38,7 +38,7 @@ Shelter.destroy_all
       state: "TX", 
       zip: "78215", 
       descr: "Work from home, will always be with them.",
-      status: 0
+      status: 1
     )
       
     @shelter_1 = Shelter.create(name: "Aurora Shelter", city: "Aurora, CO", foster_program: false, rank: 9)
