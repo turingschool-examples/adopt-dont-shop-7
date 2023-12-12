@@ -91,7 +91,6 @@ RSpec.describe "Application Show Page" do
       click_button("Submit Application")
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Pending")
-      require 'pry'; binding.pry
       #expect(@application_1.status).to eq("Pending")
     end
 

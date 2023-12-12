@@ -125,11 +125,11 @@ RSpec.describe "Admins Application Show Page" do
         click_button("Approve")
       end
 
-      visit "pets/#{pet_3.id}"
+      visit "pets/#{@pet_3.id}"
 
       expect(page).to have_no_content("adoptable")
 
-      visit "pets/#{pet_1.id}"
+      visit "pets/#{@pet_1.id}"
 
       expect(page).to have_no_content("adoptable")
     end
