@@ -45,13 +45,12 @@ class Application < ApplicationRecord
   def all_pets_approved?
     if status_of_application_pet.uniq.count == 1 && status_of_application_pet.first == true
       true
+    elsif status_of_application_pet.include?(nil)
+      nil
     else
       false
     end
-
   end
-
-private
 
   def status_of_application_pet
     ApplicationPet.where(application_id: self.id).pluck(:application_approved)

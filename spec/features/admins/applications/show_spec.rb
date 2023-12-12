@@ -29,7 +29,6 @@ RSpec.describe "Admins Application Show Page" do
   it "has a button to approve an application for every pet that the application pet is for" do
     # User Story 12
     visit "/admins/applications/#{@application_2.id}"
-
     within "#pet-#{@pet_1.id}" do
       expect(page).to have_content("Mr. Pirate")
       expect(page).to have_button("Approve")
@@ -91,6 +90,7 @@ RSpec.describe "Admins Application Show Page" do
           within "#pet-#{@pet_3.id}" do
             click_button("Approve")
           end
+          
           within "#pet-#{@pet_1.id}" do
             click_button("Approve")
           end
@@ -108,6 +108,9 @@ RSpec.describe "Admins Application Show Page" do
         within "#pet-#{@pet_1.id}" do
           click_button("Reject")
         end
+
+        expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
+        expect(page).to have_content("Pet Application For #{@application_2.name} Is Rejected")
       end
     end
   end
