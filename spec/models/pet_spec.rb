@@ -53,7 +53,9 @@ RSpec.describe Pet, type: :model do
   describe "application_pet_approved" do
     it "checks to see if the pet has been approved for an application" do
       expect(@dog.application_pet_approved(@application_1.id)).to eq nil
+
       @application_pet_1.set_application_approved
+
       expect(@dog.application_pet_approved(@application_1.id)).to eq true
     end
   end
