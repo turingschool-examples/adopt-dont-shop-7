@@ -6,6 +6,15 @@ RSpec.describe Application, type: :model do
     it { should have_many(:pets).through(:pet_applications) }
   end
 
+  describe "validations" do
+    it { should validate_presence_of(:applicant_name) }
+    it { should validate_presence_of(:address) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:state) }
+    it { should validate_presence_of(:zip_code) }
+    it { should validate_presence_of(:description) }
+  end
+
   describe "search_pets_by_name" do
     it 'returns pets that match the search tearm' do
 
