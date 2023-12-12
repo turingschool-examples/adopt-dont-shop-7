@@ -49,8 +49,9 @@ RSpec.describe "the application show page" do
     expect(page).to have_content("Search for a pet to add")
     
   end
+
   
-   xit "shows pets matching user search input" do 
+  it "shows pets matching user search input" do 
     shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
     applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
     pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
@@ -60,7 +61,7 @@ RSpec.describe "the application show page" do
     fill_in "Search", with: "scoob"
 
     click_button "Search"
-    # save_and_open_page
+    save_and_open_page
     expect(page).to have_content("Scooby")
     
   end
