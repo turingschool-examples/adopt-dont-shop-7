@@ -99,7 +99,8 @@ RSpec.describe "applications show page", type: :feature do
 
     expect(current_path).to eq("/applications/#{application1.id}")
 
-    #expect(application1.status).to eq("Pending")
+    # where it breaks
+    # expect(application1.status).to eq("Pending")
     expect(page).to have_content("Pending")
     expect(page).to have_content(pet2.name)
     expect(page).to_not have_content("Add a Pet to this Application")
