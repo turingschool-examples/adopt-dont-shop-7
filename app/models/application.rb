@@ -14,8 +14,4 @@ class Application < ApplicationRecord
     PetApplication.where(pet_id: pet_id, application_id: self.id).first
   end
 
-  # def find_pet_app(p_id) 
-  #   where("pet_id = ?", p_id).where("application_id = ?", app_id)
-  # end
-
 end
