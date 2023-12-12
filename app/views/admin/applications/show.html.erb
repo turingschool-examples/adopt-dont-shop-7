@@ -2,6 +2,7 @@
 
 
 <% @pets.each do |pet| %>
+  <% if pet.adoptable == false %>
   <ul>
     <li><%= pet.name %></li>
     <li>
@@ -10,4 +11,12 @@
       <% end %>
     </li>
   </ul>
+  <% elsif pet.adoptable == true %>
+  <ul>
+    <li><%= pet.name %></li>
+    <li>
+    Pet Approved
+    </li>
+  </ul>
+  <% end %>
 <% end %>
