@@ -20,7 +20,7 @@ RSpec.describe "the admin shelter index", type: :feature do
     application1 = pet1.applications.create!(name: "Fred Flintstone", address: "123 Main St, city: New York, state: NY, zip: 70117", description: "Worked with dinosaurs", status: "In Progress")
 
     visit "/admin/shelters"
-
+    #shelter.all.applications.where(status: "Pending")
     expect(page).to have_content("Shelters with Pending Applications")
     expect(page).to have_content("Aurora shelter")
     expect(page).to_not have_content("RGV animal shelter")
