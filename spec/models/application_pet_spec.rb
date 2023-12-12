@@ -32,6 +32,12 @@ RSpec.describe ApplicationPet, type: :model do
     end
   end
 
+  describe "#approve_or_deny" do
+    xit "" do
+      # placeholder
+    end
+  end
+
   describe "#set_application_denied" do
     it "will change the state of @application_approved to true" do
       expect(@application_pet_1.application_approved).to eq nil

@@ -38,7 +38,7 @@ RSpec.describe "new application page" do
     fill_in("description", with: "I love animals")
     click_button("Submit")
 
-    expect(page).to have_content("Error: All fields are required.")
+    expect(page).to have_content("Error: Application not created: Required information missing.")
   end
 
 end

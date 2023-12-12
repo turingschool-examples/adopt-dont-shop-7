@@ -23,11 +23,27 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of :description}
   end
 
+  describe "assocations" do
+    it {should have_many :application_pets}
+  end
+
   describe "#full_address" do
     it "will concatenate address fields" do
       address = ("1234 ABC Lane Turing, Backend 54321")
 
       expect(@application_1.full_address).to eq(address)
+    end
+  end
+
+  describe "#all_pets_approved" do
+    xit "" do
+      # placeholder
+    end
+  end
+
+  describe "#status_of_application_pet" do
+    xit "" do
+      # placeholder
     end
   end
 
