@@ -43,7 +43,7 @@ RSpec.describe "the admin applications show page", type: :feature do
 
       click_button "Reject #{pet_1.name}!"
       expect(current_path).to eq("/admin/applications/#{application.id}")
-
+save_and_open_page
       expect(page).to_not have_button("Reject #{pet_1.name}!")
       expect(page).to have_button("Reject #{pet_2.name}!")
     end

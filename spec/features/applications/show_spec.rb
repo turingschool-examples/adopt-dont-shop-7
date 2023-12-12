@@ -96,12 +96,13 @@ RSpec.describe "applications show page", type: :feature do
     expect(page).to have_button("Submit Application")
 
     click_button("Submit Application")
+    application1 = Application.find(application1.id)
 
     expect(current_path).to eq("/applications/#{application1.id}")
 
-    # where it breaks
-    # expect(application1.status).to eq("Pending")
+    expect(application1.status).to eq("Pending")
     expect(page).to have_content("Pending")
+    expect(page).to_not have_content("In Progress")
     expect(page).to have_content(pet2.name)
     expect(page).to_not have_content("Add a Pet to this Application")
     expect(page).to_not have_content("Search Pets")
