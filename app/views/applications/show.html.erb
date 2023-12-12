@@ -1,15 +1,16 @@
-
 <section class='app-info'>
-  <h1><%=@app.name%></h1>
-  <p><%=@app.street_address%></p>
-  <p><%=@app.city%></p>
-  <p><%=@app.state%></p>
-  <p><%=@app.zip%></p>
-  <p><%=@app.description%></p>
-  <p><%=@app.status%></p>
+  <h2>Applicant Info</h2>
+  <h3>Name: <%=@app.name%></h3>
+  <p>Address: <%=@app.street_address%></p>
+  <p>City: <%=@app.city%></p>
+  <p>State: <%=@app.state%></p>
+  <p>Zip: <%=@app.zip%></p>
+  <p>Description: <%=@app.description%></p>
+  <p>Status: <%=@app.status%></p>
 </section>
 
-<section class="pets-on-apps">
+<section class="pets-on-app">
+  <h2>Pets Applied for</h2>
   <% @app.pets.each do |pet| %>
     <div id="pet-<%= pet.id %>">
       <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
@@ -18,7 +19,7 @@
 </section>
 
 <section class='find-pets'>
-  <h3> Add a Pet to this Application </h3>
+  <h2> Add a Pet to this Application </h2>
   <%= form_with url: "/applications/#{@app.id}", method: :get do |f| %>
     <%= f.label :search_name, "Search for Pet:" %>
     <%= f.text_field :search_name %>
@@ -29,10 +30,11 @@
 
 <section class='found-pets'>
   <% if @found_pets != nil %>
-    <h3> Found pets:</h3>
+    <h2> Found pets:</h2>
     <% @found_pets.each do |pet| %>
       <div id="pet-<%= pet.id %>">
         <h4><%= pet.name %></h4>
+        <%=button_to "Adopt this Pet", "/pet_apps?pet_id=#{pet.id}&app_id=#{@app.id}", method: :post%>
       </div>
     <% end %>
   <% end %>
