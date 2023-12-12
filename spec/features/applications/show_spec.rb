@@ -55,7 +55,7 @@ RSpec.describe 'The Application Show Page', type: :feature do
         # And I click submit,
         click_on("submit")
       end
-      
+
       # Then I am taken back to the application show page
       expect(current_path).to eq("/applications/#{@app_1.id}")
       # And under the search bar I see any Pet whose name matches my search
@@ -95,3 +95,4 @@ RSpec.describe 'The Application Show Page', type: :feature do
     end
   end
 end
+##
