@@ -7,3 +7,13 @@
   </div>
 <% end %>
 </ul>
+
+<h2>Shelters with Pending Applications</h2>
+
+<ul>
+<% @shelters_with_pending_applications.each do |shelter| %>
+  <div>
+    <li><%= shelter.name %></li>
+  </div>
+<% end %>
+</ul>
