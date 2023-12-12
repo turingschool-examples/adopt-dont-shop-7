@@ -61,7 +61,12 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "#set_adoptable_false" do
+    it "changes the adoptable attribute of a Pet to false" do
+      expect(@dog.adoptable).to be true
 
-    
+      @dog.set_adoptable_false
+
+      expect(@dog.adoptable).to be false
+    end
   end
 end

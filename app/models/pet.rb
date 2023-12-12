@@ -10,7 +10,7 @@ class Pet < ApplicationRecord
   end
 
   def set_adoptable_false
-    self.adoptable == false
+    self.adoptable = false
     self.save
   end
   def self.adoptable
