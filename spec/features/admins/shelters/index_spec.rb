@@ -28,7 +28,6 @@ RSpec.describe "Admins Shelter Index" do
     # User Story 10
     visit "/admins/shelters"
 
-    save_and_open_page
     expect("Turing").to appear_before("Rithm School")
     expect("Rithm School").to appear_before("Hack Reactor")
     expect("Hack Reactor").to appear_before("Fullstack Academy")

@@ -23,7 +23,7 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@application_1.description)
     expect(page).to have_link("#{@dog.name}")
     expect(page).to have_link("#{@cat.name}")
-    expect(page).to have_content(@application_1.status)
+    expect(page).to have_content("In Progress")
 
     click_link("#{@dog.name}")
 
