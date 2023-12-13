@@ -150,7 +150,6 @@ RSpec.describe "Admins Application Show Page" do
         expect(page).to have_button("Approve")
       end
       visit "/pets/#{@pet_3.id}"
-      save_and_open_page
       expect(page).to have_content("Adoptable: false")
 
       visit "/admins/applications/#{@application_3.id}"
