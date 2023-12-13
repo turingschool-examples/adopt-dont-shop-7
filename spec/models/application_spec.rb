@@ -36,8 +36,18 @@ RSpec.describe Application, type: :model do
   end
 
   describe "#all_pets_approved" do
-    xit "" do
-      # placeholder
+    it "returns true, false, or nil depending on the approval status of all pets on a given application" do
+      expect(@application_1.all_pets_approved).to eq(nil)
+
+      @application_pet_1.update!(application_approved: true)
+      @application_pet_2.update!(application_approved: false)
+
+      expect(@application_1.all_pets_approved).to eq(false)
+
+      @application_pet_1.update!(application_approved: true)
+      @application_pet_2.update!(application_approved: true)
+
+      expect(@application_1.all_pets_approved).to eq(true)
     end
   end
 
@@ -47,7 +57,7 @@ RSpec.describe Application, type: :model do
 
       @application_pet_1.update!(application_approved: true)
       @application_pet_2.update!(application_approved: false)
-      
+
       expect(@application_1.status_of_application_pet).to eq([true, false])
     end
   end
