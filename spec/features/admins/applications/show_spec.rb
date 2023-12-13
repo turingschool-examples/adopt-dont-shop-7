@@ -85,7 +85,7 @@ RSpec.describe "Admins Application Show Page" do
   end
 
   describe "15. All Pets Accepted on an Application - Completed Applications" do
-    it "when all pets have been approved, application status changes to 'approved'" do
+    it "changes application status to 'approved' when all pets have been approved" do
       visit "/admins/applications/#{@application_2.id}"
         within "#pet-#{@pet_3.id}" do
           click_button("Approve")
