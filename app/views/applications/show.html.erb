@@ -10,13 +10,17 @@
   <% end %>
 
   <% if @search_results %>
-    <% @search_results.each do |pet| %>
-      <p>
-        <%= pet.name %>
-        <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/adopt_pet?pet_id=#{pet.id}", method: :patch %>
-      </p>
-    <% end %>
-  <% end %>
+    <% if @search_results.empty? %>
+     <p>No Pet Found. :/ Please try again.</p>
+    <% else %>
+      <% @search_results.each do |pet| %>
+        <p>
+          <%= pet.name %>
+          <%= button_to 'Adopt this Pet', "/applications/#{@application.id}/adopt_pet?pet_id=#{pet.id}", method: :patch %>
+        </p>
+      <% end %>
+    <% end  %>
+  <% end  %>  
 <% end %>
 
 <h3>Applicant Details</h3>
