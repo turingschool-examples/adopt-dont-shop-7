@@ -1,5 +1,9 @@
 require "simplecov"
-SimpleCov.start
+SimpleCov.start do
+  add_group 'Features', 'spec/features'
+  add_group 'Models', 'spec/models'
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
