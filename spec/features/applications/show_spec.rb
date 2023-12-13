@@ -57,11 +57,11 @@ RSpec.describe "the application show page" do
     pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
 
     visit "/applications/#{applicant.id}"
-    # save_and_open_page
+    
     fill_in "Search", with: "scoob"
 
     click_button "Search"
-    save_and_open_page
+    
     expect(page).to have_content("Scooby")
     
   end
@@ -75,8 +75,8 @@ RSpec.describe "the application show page" do
     fill_in "Search", with: "scoob"
     
     click_button "Search"
-    # save_and_open_page
-    # save_and_open_page
+    
+    
     expect(page).to have_button("Adopt Scooby")
     
   end
@@ -97,7 +97,7 @@ RSpec.describe "the application show page" do
     fill_in "Search", with: "z"
     click_button "Search"
     expect(page).to have_content("Scooby")
-    save_and_open_page
+    
   end
 
   it "shows a section to explain why I'd make a good owner if I have chosen pets to adopt (US-6)" do
@@ -179,11 +179,11 @@ RSpec.describe "the application show page" do
     pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
 
     visit "/applications/#{applicant.id}"
-    # save_and_open_page
+    
     fill_in "Search", with: "oob"
 
     click_button "Search"
-    # save_and_open_page
+    
     expect(page).to have_content("Scooby")
     
   end
@@ -194,11 +194,11 @@ RSpec.describe "the application show page" do
     pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
 
     visit "/applications/#{applicant.id}"
-    # save_and_open_page
+    
     fill_in "Search", with: "SCoOb"
 
     click_button "Search"
-    # save_and_open_page
+    
     expect(page).to have_content("Scooby")
   end
   # it "allows the user to delete a pet" do
