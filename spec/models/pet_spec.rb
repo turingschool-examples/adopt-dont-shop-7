@@ -70,7 +70,7 @@ RSpec.describe Pet, type: :model do
     end
   end
 
-  describe "#find_pet()" do
+  describe "#find_pet(id)" do
     it "finds the pet with a matching ID" do
       expect(Pet.find_pet(@dog.id)).to eq(@dog)
     end

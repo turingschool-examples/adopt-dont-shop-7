@@ -36,6 +36,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if params[:pet_name].present?
+        @pets = Pet.search(params[:pet_name])
+    end
   end
 
   def destroy
@@ -46,11 +49,11 @@ class ApplicationsController < ApplicationController
   def application_params
     params.permit(
       :name,
-      :street_address, 
-      :city, 
-      :state, 
-      :zipcode, 
-      :description, 
+      :street_address,
+      :city,
+      :state,
+      :zipcode,
+      :description,
       :good_owner_comments)
   end
 end

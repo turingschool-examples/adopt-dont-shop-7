@@ -32,10 +32,6 @@ class Application < ApplicationRecord
     self.save
   end
 
-  def find_pet(name)
-    Pet.where("name ILIKE ?", "%#{name}%")
-  end
-
   def added_pets?
     list_of_pets.present?
   end
