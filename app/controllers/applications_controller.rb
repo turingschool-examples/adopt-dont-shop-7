@@ -8,6 +8,10 @@ class ApplicationsController < ApplicationController
             pet_id = params[:added_pet]
             @application.add_pet_to_application(pet_id)
         end
+
+        if params[:pet_ownership_description].present?
+            @application.change_application_status("Pending")
+        end
     end
     
     def new 
