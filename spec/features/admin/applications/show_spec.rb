@@ -44,7 +44,7 @@ RSpec.describe "Admin Application Show Page" do
 
     @pet_app_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id, status: 1)
     @pet_app_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @app_1.id, status: 1)
-    @pet_app_3 = PetApplication.create!(pet_id: @pet_4.id, application_id: @app_1.id, status: 1)
+    # @pet_app_3 = PetApplication.create!(pet_id: @pet_4.id, application_id: @app_1.id, status: 1)
     @pet_app_4 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_2.id, status: 1)
     @pet_app_5 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_2.id, status: 1)
     @pet_app_6 = PetApplication.create!(pet_id: @pet_3.id, application_id: @app_3.id, status: 1)
@@ -104,4 +104,39 @@ RSpec.describe "Admin Application Show Page" do
     end
   end
 
+  describe "approving an application if all pets are approved" do
+    it " approves application if all pets are approved" do
+      visit "/admin/applications/#{@app_1.id}" 
+
+      @app_1.pets.each do |pet| 
+        within "#approve-#{pet.id}" do 
+          click_button("Approve")
+        end
+      end
+
+      expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+      application = Application.find(@app_1.id)
+      expect(application.status).to eq("Approved")
+      expect(page).to have_content("This Application is Approved!")
+    end
+
+    it "doesn't approve the application if one of the pets is rejected" do
+      visit "/admin/applications/#{@app_1.id}" 
+
+      first_pet = @app_1.pets.first
+        within "#approve-#{first_pet.id}" do
+          click_button("Approve")
+        end
+
+      last_pet = @app_1.pets.last
+          within "#approve-#{last_pet.id}" do
+            click_button("Reject")
+          end
+      
+      expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+      application = Application.find(@app_1.id)
+      expect(application.status).to eq("Rejected")
+      expect(page).to have_content("This Application is Rejected!")
+    end
+  end
 end 
