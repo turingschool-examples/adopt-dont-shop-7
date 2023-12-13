@@ -7,14 +7,18 @@
 <% end %>
 <p><%= link_to "Start an Application", "/applications/new" %></p>
 
-
-
-<% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p><strong>Age:</strong> <%= pet.age %></p>
-  <p><strong>Breed:</strong> <%= pet.breed %></p>
-  <p><strong>Adoptable:</strong> <%= pet.adoptable %></p>
-  <p><strong>You can find</strong> <%= pet.name %> <strong>at</strong> <%= pet.shelter_name %><strong>!</strong></p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+<% if @pets %>
+  <% if @pets.empty? %>
+    <p>No Pet Found. :/ Please try again.</p>
+  <% else %>
+    <% @pets.each do |pet| %>
+      <h3><%= pet.name %></h3>
+      <p><strong>Age:</strong> <%= pet.age %></p>
+      <p><strong>Breed:</strong> <%= pet.breed %></p>
+      <p><strong>Adoptable:</strong> <%= pet.adoptable %></p>
+      <p><strong>You can find</strong> <%= pet.name %> <strong>at</strong> <%= pet.shelter_name %><strong>!</strong></p>
+      <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
+      <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+    <% end %>
+  <% end %>
 <% end %>
