@@ -2,17 +2,17 @@ require "rails_helper"
 
 RSpec.describe "Application Show Page" do
   before(:each) do
-    @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
-    @application_with_no_pets = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
+    @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
+    @application_with_no_pets = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
 
-    @shelter = Shelter.create(foster_program: true, name: "Turing", city: "Backend", rank: 3)
+    @shelter = Shelter.create!(foster_program: true, name: "Turing", city: "Backend", rank: 3)
 
-    @dog = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "Dog")
-    @cat = @shelter.pets.create(adoptable: true, age: 1, breed: "Tabby", name: "Cat")
-    @hamster = @shelter.pets.create(adoptable: true, age: 1, breed: "Tabby", name: "Hamster")
+    @dog = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "Dog")
+    @cat = @shelter.pets.create!(adoptable: true, age: 1, breed: "Tabby", name: "Cat")
+    @hamster = @shelter.pets.create!(adoptable: true, age: 1, breed: "Tabby", name: "Hamster")
 
-    @application_pet_1 = ApplicationPet.create(application_id: @application_1.id, pet_id: @dog.id)
-    @application_pet_2 = ApplicationPet.create(application_id: @application_1.id, pet_id: @cat.id)
+    @application_pet_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @dog.id)
+    @application_pet_2 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @cat.id)
   end
 
   it "has application details" do
@@ -105,8 +105,8 @@ RSpec.describe "Application Show Page" do
 
       expect(page).to have_content("Hamster")
 
-      cat = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "fluffy")
-      fluff = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "fluff")
+      cat = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "fluffy")
+      fluff = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "fluff")
 
       fill_in("Search for Pets by name:", with: "fluf")
       click_button("Submit")
@@ -119,8 +119,8 @@ RSpec.describe "Application Show Page" do
       # User Story 9
       visit "/applications/#{@application_with_no_pets.id}"
 
-      fluffy = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "FLUFF")
-      dog = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "Mr. Fluff")
+      fluffy = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "FLUFF")
+      dog = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "Mr. Fluff")
 
       fill_in("Search for Pets by name:", with: "fluff")
       click_button("Submit")
