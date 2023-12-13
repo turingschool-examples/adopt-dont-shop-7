@@ -16,6 +16,7 @@ RSpec.describe "Application Show Page" do
   end
 
   it "has application details" do
+    # User Story 1
     visit "/applications/#{@application_1.id}"
 
     expect(page).to have_content(@application_1.name)
@@ -37,7 +38,7 @@ RSpec.describe "Application Show Page" do
 
   describe "searching for pets for an application" do
     it "has a search bar" do
-
+      # User Story 4
       visit "/applications/#{@application_1.id}"
 
       expect(page).to have_content("Add a Pet to this Application")
@@ -53,6 +54,7 @@ RSpec.describe "Application Show Page" do
     end
 
     it "will let me add a pet to my application" do
+      # User Story 5
       visit "/applications/#{@application_1.id}"
 
       expect(page).to have_no_content("Hamster")
@@ -69,7 +71,7 @@ RSpec.describe "Application Show Page" do
     end
 
     it "will show my application is 'pending' when I submit my application" do
-      ##### USER STORY 6 ######
+      # User Story 6 - Integration Test
       visit "/applications/#{@application_1.id}"
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Add a Pet to this Application")
@@ -131,24 +133,35 @@ RSpec.describe "Application Show Page" do
 
   describe "Submit Application" do
     it "has a section to submit my application" do
+      # User Story 6 - Unit Test
       visit "/applications/#{@application_1.id}"
-      # Add one or more pets to the application (waiting on user story 5)
+      expect(page).to have_content("Dog")
+      expect(page).to have_content("Cat")
+      expect(page).to have_content("In Progress")
 
       expect(page).to have_content("Why I would make a good owner")
       expect(page).to have_button("Submit Application")
 
-      fill_in("good_owner_comments", with: "We bonded when I visited the shelter") # we'll want to display this form field on the application show page only if status is "In Progress"
+      fill_in("good_owner_comments", with: "We bonded when I visited the shelter")
       click_button("Submit Application")
 
       expect(current_path).to eq("/applications/#{@application_1.id}")
 
-      expect(page).to have_no_content("Search") # may need to adjust this based on how user stories 4 and 5 are written
+      expect(page).to have_no_content("In Progress")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content("Pets Applied For:")
+      expect(page).to have_content("Dog")
+      expect(page).to have_content("Cat")
+
+      expect(page).to have_no_content("Add a Pet to this Application")
+      expect(page).to have_no_content("Search for Pets by name:")
+      expect(page).to have_no_content("Why I would make a good owner")
+      expect(page).to have_no_content("Submit Application")
     end
 
     it "will not show the submit section if I have not added any pets" do
       # User Story 7
       visit "/applications/#{@application_with_no_pets.id}"
-
 
       expect(page).to have_no_content("Why I would make a good owner")
       expect(page).to have_no_button("Submit Application")

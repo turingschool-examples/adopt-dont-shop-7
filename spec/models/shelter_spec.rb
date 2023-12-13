@@ -3,7 +3,12 @@ require "rails_helper"
 RSpec.describe Shelter, type: :model do
   describe "relationships" do
     it { should have_many(:pets) }
-    # maybe add a test for "dependent: destroy"
+    xit "should destroy associated pets when shelter is destroyed" do
+      @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+      @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
+  
+      expect{@shelter_1.destroy}.to change{Pet.count}.by(-1)
+    end
   end
 
   describe "validations" do
@@ -33,7 +38,7 @@ RSpec.describe Shelter, type: :model do
   end
 
   describe "class methods" do
-    describe "#search" do # I couldn't find this method in the pet.rb model - where is this test coming from?
+    describe "#search" do
       it "returns partial matches" do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
       end
@@ -101,5 +106,5 @@ RSpec.describe Shelter, type: :model do
       end
     end
   end
-  
+
 end
