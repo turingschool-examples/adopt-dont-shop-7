@@ -18,7 +18,7 @@ RSpec.describe 'the admin shelters index', type: :feature do
     end
 
     # 10. Admin Shelters Index (SQL Only Story)
-    it "orders all shelters in system in reverse alphabetical order by name " do 
+    it "orders all shelters in system in reverse alphabetical order by name" do 
       # For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
       # When I visit the admin shelter index ('/admin/shelters')
       visit "/admin/shelters"
