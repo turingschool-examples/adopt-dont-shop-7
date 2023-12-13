@@ -49,7 +49,7 @@ RSpec.describe "Application Show Page" do
       click_button("Submit")
 
       expect(page.current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content("Hamster") # This test doesn't work for some reason, during my testing, I think there is a problem with the "Submit" button on line 49
+      expect(page).to have_content("Hamster")
     end
 
     it "will let me add a pet to my application" do
@@ -66,6 +66,31 @@ RSpec.describe "Application Show Page" do
 
       expect(page.current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Hamster")
+    end
+
+    it "will show my application is 'pending' when I submit my application" do
+      ##### USER STORY 6 ######
+      visit "/applications/#{@application_1.id}"
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content("Add a Pet to this Application")
+
+      fill_in "Search for Pets by name", with: "#{@dog.name}"
+      click_button("Submit")
+
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content(@dog.name)
+
+      click_button("Adopt this pet")
+
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content(@dog.name)
+
+      fill_in "Why I would make a good owner:", with: "Worked with some more dinosaurs"
+      expect(page).to have_button("Submit Application")
+
+      click_button("Submit Application")
+      expect(current_path).to eq("/applications/#{@application_1.id}")
+      expect(page).to have_content("Pending")
     end
 
     it "returns any pet whose name PARTIALLY matches my search" do

@@ -9,11 +9,24 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def set_adoptable_false
+    self.adoptable = false
+    self.save
+  end
+
+  def self.find_pet(id)
+    Pet.find(id)
+  end
+
   def self.adoptable
     where(adoptable: true)
   end
 
   def application_pet_approved(id)
     ApplicationPet.where(pet_id: self.id, application_id: id).pluck(:application_approved).first
+  end
+
+  def already_approved?
+    adoptable ? false : true
   end
 end
