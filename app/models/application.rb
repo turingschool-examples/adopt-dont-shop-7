@@ -6,7 +6,7 @@ class Application < ApplicationRecord
 
   enum status: {"In progress": 0, "Pending": 1, "Approved": 2, "Rejected": 3}
 
-  def pet_search(name) 
+  def pet_search(name)
     Pet.where("name = ?", name)
   end
 
@@ -14,22 +14,9 @@ class Application < ApplicationRecord
     PetApplication.where(pet_id: pet_id, application_id: self.id).first
   end
 
-  # this was my first attempt, but using ruby, so i refactored below with AR
-  # def all_pet_apps_approved?
-  #   if self.pet_applications.all? {|pet_app| pet_app.status == "Approved"}
-  #     true
-  #   else 
-  #     false
-  #   end
-  # end
-
-  def all_pets_apps_appr?
-    if self.pet_applications.where('status = 2').count == self.pet_applications.count &&
-      self.pet_applications.where('status = 2').count > 0
-        true
-    elsif self.pet_applications.where('status = 3').count > 0 &&
-       (self.pet_applications.count - self.pet_applications.where('status = 3').count) == self.pet_applications.where('status = 2').count
-        false
-    end
+  def get_app_status 
+    return "Rejected" if self.pet_applications.where("status = 3").any?
+    return "Pending" if self.pet_applications.where("status = 1").any?
+    return "Approved"
   end
 end
