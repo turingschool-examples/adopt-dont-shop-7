@@ -77,7 +77,7 @@ RSpec.describe Application, type: :model do
     end
   end
 
-  xdescribe "#find_pet()" do
+  describe "#find_pet()" do
     it "can find pets with a matching name" do
 
       expect(@application_1.find_pet("Dog")).to eq([@dog])
