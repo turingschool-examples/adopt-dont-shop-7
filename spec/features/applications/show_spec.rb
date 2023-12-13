@@ -154,7 +154,6 @@ RSpec.describe "Application Show Page" do
       expect(page).to have_content("Cat")
 
       expect(page).to have_no_content("Add a Pet to this Application")
-      save_and_open_page
       expect(page).to have_no_content("Search for Pets by name:")
       expect(page).to have_no_content("Submit Application")
     end
