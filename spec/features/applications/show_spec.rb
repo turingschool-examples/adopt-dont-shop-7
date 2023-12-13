@@ -61,11 +61,44 @@ RSpec.describe "the application show page" do
     fill_in "Search", with: "scoob"
 
     click_button "Search"
-    save_and_open_page
+    # save_and_open_page
     expect(page).to have_content("Scooby")
     
   end
 
+  it 'shows a link to adopt a pet under each shown pet' do 
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+    applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+    pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{applicant.id}"
+    fill_in "Search", with: "scoob"
+    
+    click_button "Search"
+    # save_and_open_page
+    # save_and_open_page
+    expect(page).to have_button("Adopt Scooby")
+    
+  end
+
+  it "shows added pets to the application" do 
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+    applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+    pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{applicant.id}"
+    fill_in "Search", with: "scoob"
+    
+    click_button "Search"
+    click_button "Adopt #{pet.name}"
+    
+    visit "/applications/#{applicant.id}"
+    
+    fill_in "Search", with: "z"
+    click_button "Search"
+    expect(page).to have_content("Scooby")
+    save_and_open_page
+  end
   # it "allows the user to delete a pet" do
   #   shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
   #   pet = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
