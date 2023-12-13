@@ -80,7 +80,6 @@ RSpec.describe "Admin Application Show Page" do
   describe "rejecting a pet on an application" do 
     it "there is a 'Reject' button next to every pet on the application" do 
       visit "/admin/applications/#{@app_1.id}"
-      save_and_open_page
 
       @app_1.pets.each do |pet| 
         within "#approve-#{pet.id}" do 
@@ -104,6 +103,41 @@ RSpec.describe "Admin Application Show Page" do
     end
   end
 
+  describe "approving an application if all pets are approved" do
+    xit " approves application if all pets are approved" do
+      visit "/admin/applications/#{@app_1.id}" 
+
+      @app_1.pets.each do |pet| 
+        within "#approve-#{pet.id}" do 
+          click_button("Approve")
+        end
+      end
+
+      expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+      application = Application.find(@app_1.id)
+      expect(application.status).to eq("Approved")
+      expect(page).to have_content("This Application is Approved!")
+    end
+
+    xit "doesn't approve the application if one of the pets is rejected" do
+      visit "/admin/applications/#{@app_1.id}" 
+
+      first_pet = @app_1.pets.first
+        within "#approve-#{first_pet.id}" do
+          click_button("Approve")
+        end
+
+      last_pet = @app_1.pets.last
+          within "#approve-#{last_pet.id}" do
+            click_button("Reject")
+          end
+      
+      expect(current_path).to eq("/admin/applications/#{@app_1.id}")
+      application = Application.find(@app_1.id)
+      expect(application.status).to eq("Rejected")
+      expect(page).to have_content("This Application is Rejected!")
+    end
+  end
   describe "approving an application if all pets are approved" do
     it " approves application if all pets are approved" do
       visit "/admin/applications/#{@app_1.id}" 
