@@ -20,8 +20,8 @@ RSpec.describe "applications show page" do
     @s1 = Shelter.create!(foster_program: true, name: "Dogtopia", city: "Houston", rank: 2)
     @pet1 = Pet.create!(name: "Buddy", adoptable: true, age: 5, breed: "Shiba", shelter_id: @s1.id)
     @pet2 = Pet.create!(name: "Jackie", adoptable: false, age: 1, breed: "Inu", shelter_id: @s1.id)
-    PetApplication.create!(application: @app1, pet: @pet2)
-    PetApplication.create!(application: @app2, pet: @pet1)
+    @pet_app1=PetApplication.create!(application: @app1, pet: @pet2)
+    @pet_app2=PetApplication.create!(application: @app2, pet: @pet1)
   
   end 
 
@@ -49,11 +49,6 @@ RSpec.describe "applications show page" do
     expect(page).to have_content(@app1.status)
     #expect(page).to have_link('Buddy')
     #expect(page).to have_link('Jackie')
-
-
-
-
-
     expect(page).to have_content @app1.status
   end
 end
