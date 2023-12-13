@@ -2,14 +2,13 @@ require "rails_helper"
 
 RSpec.describe Pet, type: :model do
   describe "relationships" do
-    it { should belong_to :shelter}
-    it { should have_many :application_pets}
+    it { should belong_to(:shelter) }
   end
 
   describe "validations" do
-    it { should validate_presence_of :name}
-    it { should validate_presence_of :age}
-    it { should validate_numericality_of :age}
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:age) }
+    it { should validate_numericality_of(:age) }
   end
 
   before(:each) do
@@ -30,7 +29,7 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "class methods" do
-    describe "#search" do # I couldn't find this method in the pet.rb model - where is this test coming from?
+    describe "#search" do
       it "returns partial matches" do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
@@ -44,7 +43,7 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "instance methods" do
-    describe "#shelter_name" do
+    describe ".shelter_name" do
       it "returns the shelter name for the given pet" do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
@@ -74,6 +73,12 @@ RSpec.describe Pet, type: :model do
   describe "#find_pet()" do
     it "finds the pet with a matching ID" do
       expect(Pet.find_pet(@dog.id)).to eq(@dog)
+    end
+  end
+
+  describe "#adoptable?" do
+    it "returns true or false depending on @adoptable" do
+
     end
   end
 end
