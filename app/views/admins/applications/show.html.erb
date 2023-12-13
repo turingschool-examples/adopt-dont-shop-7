@@ -1,6 +1,6 @@
-<% if @application.all_pets_approved? %>
+<% if @application.all_pets_approved %>
   <h1>Pet Application For <%= @application.name %> Is Approved </h1>
-<% elsif @application.all_pets_approved? == nil %>
+<% elsif @application.all_pets_approved == nil %>
   <h1>Pending Pet Application For <%= @application.name %> </h1>
   <p>Pets applied for:</p>
   <ul>
@@ -25,6 +25,6 @@
     </div>
     <% end %>
   </ul>
-<% elsif @application.all_pets_approved? == false %>
+<% elsif @application.all_pets_approved == false %>
 <h1>Pet Application For <%= @application.name %> Is Rejected </h1>
 <% end %>
