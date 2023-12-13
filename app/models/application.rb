@@ -15,6 +15,7 @@ class Application < ApplicationRecord
   def self.approve_or_deny_application_pet(pet_id, application_id, filter)
     application_pet_id = ApplicationPet.where(pet_id: pet_id, application_id: application_id).pluck(:id).first
     application_pet = ApplicationPet.find(application_pet_id)
+    # Application.joins(:application_pets).where("application_id = ? AND pet_id = ?", 1, 2)
     application_pet.approve_or_deny(filter)
   end
 
