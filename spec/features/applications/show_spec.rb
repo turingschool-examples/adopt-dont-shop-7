@@ -75,4 +75,19 @@ RSpec.describe "the application show" do
     expect(page).to have_content("FLUFF")
     expect(page).to have_content("Mr. FlUfF")
   end
+
+  it "returns an error if search input does not match a pet" do
+    victor_app = Application.create!(applicant_name: "Victor Antonio Sanchez", address: "94 Jaffa Road", city: "Jerusalem", state: "Israel", zip_code: "9103401", description: "Because I'm rich! :)")
+    shelter_2 = Shelter.create(name: "Black Ice shelter", city: "Denver, CO", foster_program: true, rank: 7)
+    pet_4 = @shelter_1.pets.create!(name: 'fluffy', age: 1, breed: 'Golden', adoptable: true) 
+    pet_5 = @shelter_1.pets.create!(name: 'fluff', age: 1, breed: 'Golden', adoptable: true)
+    pet_6 = @shelter_1.pets.create!(name: 'mr. fluff', age: 1, breed: 'Golden', adoptable: true) 
+
+    visit "/applications/#{victor_app.id}"
+
+    fill_in :name, with: "Hello"
+    click_on("Search")
+
+    expect(page).to have_content("No Pet Found. :/ Please try again.")
+  end
 end
