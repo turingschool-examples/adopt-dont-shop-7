@@ -51,7 +51,7 @@ class Application < ApplicationRecord
   end
 
   def status_of_application_pet
-    self.application_pets.pluck(:application_approved)
+    application_pets.pluck(:application_approved)
   end
 
 end
