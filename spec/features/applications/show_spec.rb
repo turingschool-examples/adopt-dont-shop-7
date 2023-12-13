@@ -100,7 +100,7 @@ RSpec.describe "the application show page" do
     save_and_open_page
   end
 
-  it "shows a section to explain why I'd make a good owner if I have chosen pets to adopt" do
+  it "shows a section to explain why I'd make a good owner if I have chosen pets to adopt (US-6)" do
     shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
     applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
     pet = applicant.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
@@ -111,7 +111,7 @@ RSpec.describe "the application show page" do
     expect(page).to have_field("Why would you be a good owner to the pet(s)?")
   end
   
-  it "does NOT show a section to explain why I'd make a good owner if I have NOT chosen pets to adopt" do
+  it "does NOT show a section to explain why I'd make a good owner if I have NOT chosen pets to adopt (US-7)" do
     shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
     applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
     pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
@@ -120,6 +120,26 @@ RSpec.describe "the application show page" do
 
     expect(page).to_not have_content("Why would you be a good owner")
     expect(page).to_not have_field("Why would you be a good owner")
+  end
+
+  it "shows a 'Submit Application' button if I have chosen pets to adopt (US-6)" do
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+    applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+    pet = applicant.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{applicant.id}"
+
+    expect(page).to have_button("Submit Application")
+  end
+  
+  it "does NOT show a 'Submit Application' button if I have chosen pets to adopt (US-7)" do
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+    applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+    pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{applicant.id}"
+
+    expect(page).to_not have_button("Submit Application")
   end
 
   it "shows applicant's changed status from In Progress to Pending after application is submitted" do
