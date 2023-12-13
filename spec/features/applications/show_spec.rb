@@ -16,6 +16,7 @@ RSpec.describe "Application Show Page" do
   end
 
   it "has application details" do
+    # User Story 1
     visit "/applications/#{@application_1.id}"
 
     expect(page).to have_content(@application_1.name)
@@ -37,7 +38,7 @@ RSpec.describe "Application Show Page" do
 
   describe "searching for pets for an application" do
     it "has a search bar" do
-
+      # User Story 4
       visit "/applications/#{@application_1.id}"
 
       expect(page).to have_content("Add a Pet to this Application")
@@ -53,6 +54,7 @@ RSpec.describe "Application Show Page" do
     end
 
     it "will let me add a pet to my application" do
+      # User Story 5
       visit "/applications/#{@application_1.id}"
 
       expect(page).to have_no_content("Hamster")
@@ -106,8 +108,10 @@ RSpec.describe "Application Show Page" do
 
   describe "Submit Application" do
     it "has a section to submit my application" do
+      # User Story 6
       visit "/applications/#{@application_1.id}"
-      # Add one or more pets to the application (waiting on user story 5)
+      expect(page).to have_content("Dog")
+      expect(page).to have_content("Cat")
 
       expect(page).to have_content("Why I would make a good owner")
       expect(page).to have_button("Submit Application")
@@ -123,7 +127,6 @@ RSpec.describe "Application Show Page" do
     it "will not show the submit section if I have not added any pets" do
       # User Story 7
       visit "/applications/#{@application_with_no_pets.id}"
-
 
       expect(page).to have_no_content("Why I would make a good owner")
       expect(page).to have_no_button("Submit Application")

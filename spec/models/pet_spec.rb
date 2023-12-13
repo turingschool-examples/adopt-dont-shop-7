@@ -30,7 +30,7 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "class methods" do
-    describe "#search" do # I couldn't find this method in the pet.rb model - where is this test coming from?
+    describe "#search" do
       it "returns partial matches" do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
