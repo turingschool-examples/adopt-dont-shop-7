@@ -8,6 +8,7 @@ RSpec.describe 'The Application Show Page', type: :feature do
       # Pets
       @pet_1 = Pet.create!(name: 'Sparky', age: 4, breed: 'Chihuahua', adoptable: true, shelter_id: @puppy_hope.id )
       @pet_2 = Pet.create!(name: 'Spot', age: 1, breed: 'Angus', adoptable: true, shelter_id: @puppy_hope.id )
+      @pet_3 = Pet.create!(name: 'Spotty', age: 10, breed: 'Walrus', adoptable: true, shelter_id: @puppy_hope.id )
       # Applications 
       @app_1 = Application.create!(name: 'Megan Samuels', street_address: '505 E. Happy Pl', city: "Austin", state: "MN", zip: "55912", description: 'I love dogs', status: 0)
       # Pet Applications 
@@ -65,7 +66,7 @@ RSpec.describe 'The Application Show Page', type: :feature do
     end
 
     # 5. Add a Pet to an Application
-    it "adds an adpot button to pets" do
+    it "adds an adopt button to pets" do
       # When I visit an application's show page
       visit "/applications/#{@app_1.id}"
 
@@ -93,6 +94,34 @@ RSpec.describe 'The Application Show Page', type: :feature do
         expect(page).to have_content(@pet_2.name)
       end
     end
+
+    # 8. Partial Matches for Pet Names
+    it "can grab names that partially match" do 
+      # When I visit an application show page
+      visit "/applications/#{@app_1.id}"
+      # And I search for Pets by name
+      fill_in :search_name, with: "spo"
+      # Then I see any pet whose name PARTIALLY matches my search
+      click_on("submit")
+      # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+      within '.found-pets' do
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content(@pet_3.name)
+      end
+    end
+
+    # 9. Case Insensitive Matches for Pet Names
+    it "can search names regardless of case" do 
+      # When I visit an application show page
+      visit "/applications/#{@app_1.id}"
+      # And I search for Pets by name
+      fill_in :search_name, with: "SPOTTY"
+      # Then my search is case insensitive
+      click_on("submit")
+      # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+      within '.found-pets' do
+        expect(page).to have_content(@pet_3.name)
+      end
+    end
   end
 end
-#delete this
