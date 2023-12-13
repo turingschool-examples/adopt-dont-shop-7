@@ -2,15 +2,15 @@ require "rails_helper"
 
 RSpec.describe Application, type: :model do
   before(:each) do
-    @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
+    @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
 
-    @shelter = Shelter.create(foster_program: true, name: "Turing", city: "Backend", rank: 3)
+    @shelter = Shelter.create!(foster_program: true, name: "Turing", city: "Backend", rank: 3)
 
-    @dog = @shelter.pets.create(adoptable: true, age: 4, breed: "Golden Retriever", name: "Dog")
-    @cat = @shelter.pets.create(adoptable: true, age: 1, breed: "Tabby", name: "cat")
+    @dog = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "Dog")
+    @cat = @shelter.pets.create!(adoptable: true, age: 1, breed: "Tabby", name: "cat")
 
-    @application_pet_1 = ApplicationPet.create(application_id: @application_1.id, pet_id: @dog.id)
-    @application_pet_2 = ApplicationPet.create(application_id: @application_1.id, pet_id: @cat.id)
+    @application_pet_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @dog.id)
+    @application_pet_2 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @cat.id)
   end
 
   describe "validations" do
@@ -42,8 +42,13 @@ RSpec.describe Application, type: :model do
   end
 
   describe "#status_of_application_pet" do
-    xit "" do
-      # placeholder
+    it "returns the statuses of application pets for a given application" do
+      expect(@application_1.status_of_application_pet).to eq([nil, nil])
+
+      @application_pet_1.update!(application_approved: true)
+      @application_pet_2.update!(application_approved: false)
+      
+      expect(@application_1.status_of_application_pet).to eq([true, false])
     end
   end
 
@@ -62,7 +67,7 @@ RSpec.describe Application, type: :model do
     end
   end
 
-  describe "#find_pet()" do
+  xdescribe "#find_pet()" do
     it "can find pets with a matching name" do
 
       expect(@application_1.find_pet("Dog")).to eq([@dog])

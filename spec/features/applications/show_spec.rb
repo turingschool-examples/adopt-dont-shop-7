@@ -71,7 +71,7 @@ RSpec.describe "Application Show Page" do
     end
 
     it "will show my application is 'pending' when I submit my application" do
-      ##### USER STORY 6 ######
+      # User Story 6 - Integration Test
       visit "/applications/#{@application_1.id}"
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Add a Pet to this Application")
