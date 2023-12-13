@@ -173,6 +173,20 @@ RSpec.describe "the application show page" do
     expect(page).to_not have_button("Adopt Catdog")
   end
 
+  it " Successfully searches pets with partial inputs " do 
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+    applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+    pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+    visit "/applications/#{applicant.id}"
+    # save_and_open_page
+    fill_in "Search", with: "oob"
+
+    click_button "Search"
+    # save_and_open_page
+    expect(page).to have_content("Scooby")
+    
+  end
   # it "allows the user to delete a pet" do
   #   shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
   #   pet = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
