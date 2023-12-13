@@ -80,7 +80,6 @@ RSpec.describe "Admin Application Show Page" do
   describe "rejecting a pet on an application" do 
     it "there is a 'Reject' button next to every pet on the application" do 
       visit "/admin/applications/#{@app_1.id}"
-      save_and_open_page
 
       @app_1.pets.each do |pet| 
         within "#approve-#{pet.id}" do 
