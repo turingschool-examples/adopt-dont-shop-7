@@ -23,8 +23,10 @@ class Application < ApplicationRecord
   end
 
   def list_of_pets
-    pet_ids = application_pets.where("application_id = ?", self.id).pluck(:pet_id)
-    Pet.where(id: pet_ids)
+    # pet_ids = application_pets.where("application_id = ?", self.id).pluck(:pet_id)
+    # Pet.where(id: pet_ids)
+    # self.application_pets.select("pets.*").joins(:pet)
+    Pet.joins(:applications).where("application_id = ?", self.id)
   end
 
   def set_status_in_progress
