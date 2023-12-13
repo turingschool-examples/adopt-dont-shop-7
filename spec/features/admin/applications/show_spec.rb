@@ -104,7 +104,7 @@ RSpec.describe "Admin Application Show Page" do
   end
 
   describe "approving an application if all pets are approved" do
-    xit " approves application if all pets are approved" do
+    it " approves application if all pets are approved" do
       visit "/admin/applications/#{@app_1.id}" 
 
       @app_1.pets.each do |pet| 
@@ -119,7 +119,7 @@ RSpec.describe "Admin Application Show Page" do
       expect(page).to have_content("This Application is Approved!")
     end
 
-    xit "doesn't approve the application if one of the pets is rejected" do
+    it "doesn't approve the application if one of the pets is rejected" do
       visit "/admin/applications/#{@app_1.id}" 
 
       first_pet = @app_1.pets.first
