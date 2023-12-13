@@ -22,6 +22,7 @@ class ApplicationPetsController < ApplicationController
 
     if params[:filter] == "approved"
       application_pet.update(application_approved: true)
+      Pet.set_adoptable_false(params[:pet_id])
     else
       application_pet.update(application_approved: false)
     end
