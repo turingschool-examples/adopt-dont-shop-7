@@ -17,4 +17,8 @@ class Application < ApplicationRecord
     pet = Pet.find(pet_id)
     self.pets << pet
   end
+
+  def change_application_status(new_status)
+    self.status = new_status
+  end
 end

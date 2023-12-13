@@ -14,37 +14,46 @@
     <% end %>
 </ul>
 
-<%# <p><%= link_to "Update #{@application.name}", "pets/#{@application.id}/edit" %></p>
-<%# #<p><%= link_to "Delete #{@application.name}", "/pets/#{@application.id}", method: :delete %></p>
-<p>Search for a pet to add</p>
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<% if @application.pets.present? %>
+    <% if @application.status == "In Progress" %>
+        <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+            <h3><%= f.label :pet_ownership_description, "Why would you be a good owner to the pet(s)?" %></h3>
+            <%= f.text_area :pet_ownership_description %><br><br>
+            <%= f.submit "Submit Application" %>
+        <% end %>
+    <% end %> 
 <% end %>
 
-<h3>Adoptable Pets </h3>
+<%# <p><%= link_to "Update #{@application.name}", "pets/#{@application.id}/edit" %></p>
+<%# #<p><%= link_to "Delete #{@application.name}", "/pets/#{@application.id}", method: :delete %></p>
 
-<% if @pets.nil? %>
-    <p>No Pets Found </p>
-<% else %>
-    
-    <ol>
-        <% @pets.each do |pet| %>
+<% if @application.status == "In Progress" %>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+        <h3><%= f.label :search, "Search for a pet to add:" %></h3>
+        <%= f.text_field :search %>
+        <%= f.submit "Search" %>
+    <% end %>
 
-            <li><%= pet.name %></li>
-            <ul>
-                <li><%= pet.age %></li>
-                <li><%= pet.breed %></li>
-                <li><%= pet.adoptable %></li>
-            </ul>
-            </li>
-            <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-                <%= f.hidden_field :added_pet, value: pet.id %>
-                <%= f.submit "Adopt #{pet.name}" %>
-            <% end %>
-        <%end %> 
-    </ol>
+    <h3>Adoptable Pets:</h3>
+    <% if @pets.nil? %> 
+        <p>No Pets Found </p>
+    <% else %> 
+        <ol>
+            <% @pets.each do |pet| %>
+                <li><%= pet.name %></li>
+                <ul>
+                    <li><%= pet.age %></li>
+                    <li><%= pet.breed %></li>
+                    <li><%= pet.adoptable %></li>
+                </ul>
+                </li>
+                <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+                    <%= f.hidden_field :added_pet, value: pet.id %>
+                    <%= f.submit "Adopt #{pet.name}" %>
+                <% end %>
+            <%end %> 
+        </ol>
+    <% end %>
 <% end %>
 
 

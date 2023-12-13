@@ -32,5 +32,15 @@ RSpec.describe Application, type: :model do
       end
     end
 
+    describe "#change_application_status" do
+      it "changes status from In Progress to Pending when application is submitted" do
+        expect(@applicant.status).to eq("In Progress")
+
+        @applicant.change_application_status("Pending")
+
+        expect(@applicant.status).to eq("Pending")
+      end
+    end
+
     
 end
