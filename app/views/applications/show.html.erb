@@ -39,6 +39,10 @@
                 <li><%= pet.adoptable %></li>
             </ul>
             </li>
+            <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+                <%= f.hidden_field :added_pet, value: pet.id %>
+                <%= f.submit "Adopt #{pet.name}" %>
+            <% end %>
         <%end %> 
     </ol>
 <% end %>
