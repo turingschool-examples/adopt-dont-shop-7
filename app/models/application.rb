@@ -23,9 +23,6 @@ class Application < ApplicationRecord
   end
 
   def list_of_pets
-    # pet_ids = application_pets.where("application_id = ?", self.id).pluck(:pet_id)
-    # Pet.where(id: pet_ids)
-    # self.application_pets.select("pets.*").joins(:pet)
     Pet.joins(:applications).where("application_id = ?", self.id)
   end
 
@@ -39,7 +36,7 @@ class Application < ApplicationRecord
   end
 
   def all_pets_approved
-    if status_of_application_pet.uniq.count == 1 && status_of_application_pet.first == true
+    if status_of_application_pet.uniq.count == 1 && status_of_application_pet.first
       true
     elsif status_of_application_pet.include?(nil)
       nil
