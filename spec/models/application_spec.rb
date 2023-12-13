@@ -21,6 +21,15 @@ RSpec.describe Application, type: :model do
         @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
         @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
         @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
+        @applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+
+    end
+
+    describe "#add_pet_to_application" do 
+      it "adds a pet to the application" do 
+        @applicant.add_pet_to_application(@pet_1.id)
+        expect(@applicant.pets).to eq([@pet_1])
+      end
     end
 
     
