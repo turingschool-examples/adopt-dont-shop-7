@@ -71,7 +71,6 @@ RSpec.describe "Admin Application Show Page" do
           expect(current_path).to eq("/admin/applications/#{@app_1.id}")
           expect(page).to_not have_button("Approve")
           expect(page).to have_content("Approved")
-
         end
       end
     end
@@ -172,5 +171,28 @@ RSpec.describe "Admin Application Show Page" do
       expect(application.status).to eq("Rejected")
       expect(page).to have_content("This Application is Rejected!")
     end
+  end
+
+  it "when all pets on an application are approved, they are no longer adoptable" do 
+    visit "/admin/applications/#{@app_1.id}"
+
+    within "#approve-#{@app_1.pets.first.id}" do 
+      click_button "Approve"
+    end
+    
+
+    within "#approve-#{@app_1.pets.last.id}" do 
+      click_button "Reject"
+    end
+    
+    # @app_1.pets.each do |pet|
+    #   within "#approve-#{pet.id}" do 
+    #     click_button("Approve")
+        # visit "/pets/#{pet.id}"
+        # save_and_open_page
+      # end
+      # expect(@app_1.all_pets_apps_appr).to eq(true)
+      # expect(page).to have_content("Adoptable: false")
+    # end
   end
 end 
