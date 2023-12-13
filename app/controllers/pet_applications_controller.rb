@@ -16,6 +16,14 @@ class PetApplicationsController < ApplicationController
     pet = Pet.find(params[:pet_id])
     pet_application = @application.get_pet_app(pet.id)
 
+    
+    # TODO: can we test call to update!
+    #    i.e. if pet_application.update!({pet_id: pet.id, application_id: @application.id})
+    #           "Your update was successful and the change has been processed..."
+    #         else  
+    #           "There was a problem and we could not make the update you requested..."
+    #         end
+
     pet_application.update_pet_status(params[:commit])
 
     if pet_application.status == "Approved"
@@ -25,20 +33,15 @@ class PetApplicationsController < ApplicationController
     else
       flash[:alert] = "There was a problem and #{pet.name}'s adoption has not yet been approved. Please try again later."
     end
-
-    # if pet_application.update!(status: 2)
-    #   flash[:notice] = "The request to adopt #{pet.name} has been approved!!"
-    # else
-    #   flash[:alert] = "There was a problem and #{pet.name}'s adoption has not yet been approved. Please try again later."
-    # end
-    # if application.pet_applications.all? { |pet_app| pet_app.status == "Approved" }
     
-    if @application.all_pets_apps_appr?
+    if @application.get_app_status == "Approved"
       @application.update!(status: "Approved")
-    elsif !@application.all_pets_apps_appr?
+    elsif @application.get_app_status == "Rejected" 
       @application.update!(status: "Rejected")
+    else
+      @application.update!(status: "Pending")
     end
-  
+
     redirect_to "/admin/applications/#{@application.id}"
   end
 
