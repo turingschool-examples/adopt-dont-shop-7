@@ -160,7 +160,6 @@ RSpec.describe "Admins Application Show Page" do
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_no_button("Approve")
         expect(page).to have_content("This pet has already been approved for adoption")
-        save_and_open_page
         expect(page).to have_button("Reject")
       end
     end
