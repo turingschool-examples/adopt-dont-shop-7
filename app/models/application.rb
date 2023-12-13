@@ -40,7 +40,7 @@ class Application < ApplicationRecord
     list_of_pets.present?
   end
 
-  def all_pets_approved
+  def all_pets_approved?
     if status_of_application_pet.uniq.count == 1 && status_of_application_pet.first == true
       true
     elsif status_of_application_pet.include?(nil)
