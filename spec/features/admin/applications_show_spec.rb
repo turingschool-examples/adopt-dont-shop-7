@@ -66,14 +66,18 @@ RSpec.describe "the admin applications show page", type: :feature do
 
       # And I approve or reject the pet for that application
       click_button "Approve #{pet_1.name}!"
-      save_and_open_page
+      # require 'pry'; binding.pry
+      # save_and_open_page
       expect(page).to have_content("Pet Approved")
       
       # When I visit the other application's admin show page
       visit "/admin/applications/#{application_2.id}"
+      save_and_open_page
       # Then I do not see that the pet has been accepted or rejected for that application
+      # And instead I see buttons to approve or reject the pet for this specific application
       expect(page).to have_button("Approve #{pet_1.name}!")
       expect(page).to have_button("Reject #{pet_1.name}!")
+
 
     end
   end

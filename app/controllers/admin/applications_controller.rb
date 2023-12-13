@@ -16,7 +16,7 @@ class Admin::ApplicationsController < ApplicationController
       # creating the rejected attribute here, is like a different pet object/only in the admin, but I think it still carries back to the pet. we need the link to stay broken
       # approved_pet = @pets.find_by(adoptable: false)
       # approved_pet.update!(adoptable: true, rejected: false) if approved_pet
-      @application_pet.update!(status: "Approved")
+      @application_pet.update!(status: "Accepted")
       redirect_to "/admin/applications/#{@application.id}"
     elsif params[:commit].starts_with?('Reject')
       # no need to make a different pet object now
