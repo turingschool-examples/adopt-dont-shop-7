@@ -9,7 +9,7 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.new(application_params)
-    @application.set_status_in_progress
+    @application.update(status: "In Progress")
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else

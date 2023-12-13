@@ -50,16 +50,6 @@ RSpec.describe Pet, type: :model do
     end
   end
 
-  describe "#application_pet_approved" do
-    it "checks to see if the pet has been approved for an application" do
-      expect(@dog.application_pet_approved(@application_1.id)).to eq nil
-
-      @application_pet_1.set_application_approved
-
-      expect(@dog.application_pet_approved(@application_1.id)).to eq true
-    end
-  end
-
   describe "#set_adoptable_false" do
     it "changes the adoptable attribute of a Pet to false" do
       expect(@dog.adoptable).to be true

@@ -70,27 +70,6 @@ RSpec.describe Application, type: :model do
     end
   end
 
-  describe "#set_status_in_progress" do
-    it "can set status to in progress" do
-      @application_1.set_status_in_progress
-
-      expect(@application_1.status).to eq("In Progress")
-    end
-  end
-
-  # describe "#find_pet()" do
-  #   it "can find pets with a matching name" do
-
-  #     expect(@application_1.find_pet("Dog")).to eq([@dog])
-  #   end
-
-  #   it "can find pets with a PARTIALLY matching name" do
-
-  #     expect(@application_1.find_pet("dog")).to eq([@dog])
-  #     expect(@application_1.find_pet("do")).to eq([@dog])
-  #   end
-  # end
-
   describe "#added_pets?" do
     it "will check if there are any pets in #list_of_pets and return true or false" do
       expect(@application_1.added_pets?).to eq true
