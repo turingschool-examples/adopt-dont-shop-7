@@ -173,6 +173,9 @@ RSpec.describe "Admin Application Show Page" do
     end
   end
 
+
+  # TODO: US-17 FINISH UPDATING AND TESTING THE ADOPTABLE? PET ATTRIBUTE
+
   it "when all pets on an application are approved, they are no longer adoptable" do 
     visit "/admin/applications/#{@app_1.id}"
 
