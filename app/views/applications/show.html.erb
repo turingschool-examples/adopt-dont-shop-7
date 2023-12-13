@@ -25,7 +25,7 @@
 <p><strong>City:</strong> <%= @application.city %></p>
 <p><strong>State:</strong> <%= @application.state %></p>
 <p><strong>Zip code:</strong> <%= @application.zip_code %></p>
-<p><strong>Why I would make a good pet owner:</strong> <%= @application.description %></p>
+<p><strong>Why my home is a good fit for a new pet:</strong> <%= @application.description %></p>
 
 
 <p><strong>Applying to adopt:</strong>
@@ -36,7 +36,7 @@
 <% if @application.pets.any? && @application.application_status != "Pending" %>  
   <h2>Submit your application</h2>
   <%= form_with url: "/applications/#{@application.id}/submit", method: :patch do |form| %>
-    <%= form.label :description, "Why your home would be a good fit for a new pet:" %>
+    <%= form.label :description, "Why I would make a good owner for these pet(s):" %>
     <p><%= form.text_area :description %></p>
     <%= form.submit "Submit Application" %>
   <% end %>
