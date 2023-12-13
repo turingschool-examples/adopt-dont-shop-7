@@ -10,6 +10,7 @@
 # Pets
 @pet_1 = Pet.create!(name: 'Sparky', age: 4, breed: 'Chihuahua', adoptable: true, shelter_id: @puppy_hope.id )
 @pet_2 = Pet.create!(name: 'Spot', age: 1, breed: 'Angus', adoptable: true, shelter_id: @puppy_hope.id )
+@pet_3 = Pet.create!(name: 'Spotty', age: 10, breed: 'Walrus', adoptable: true, shelter_id: @puppy_hope.id )
 # Applications 
 @app_1 = Application.create!(name: 'Megan Samuels', street_address: '505 E. Happy Pl', city: "Austin", state: "MN", zip: "55912", description: 'I love dogs', status: 0)
 # Pet Applications 
