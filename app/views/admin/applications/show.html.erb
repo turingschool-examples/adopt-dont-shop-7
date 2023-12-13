@@ -1,31 +1,26 @@
 <h1>Approve a Pet?</h1>
 
-<% @pets.each do |pet| %>
-  <% if pet.adoptable == false && pet.rejected == false %>
+<% @application_pets.each do |application_pet| %>
+  <% pet = application_pet.pet %>
   <ul>
     <li><%= pet.name %></li>
     <li>
-      <%= form_with url: "admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
-        <%= form.submit "Approve #{pet.name}!" %>
-      <% end %>
-      <%= form_with url: "admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
-        <%= form.submit "Reject #{pet.name}!" %>
-      <% end %>
+      <% if application_pet.status == "Pending" %>
+        <%= form_with url: "admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
+         <%# lets us link by id instead of name (more accurate) %> 
+         <%= form.hidden_field :pet_id, value: pet.id %>
+         <%= form.submit "Approve #{pet.name}!" %>
+         <%= form.submit "Reject #{pet.name}!" %>
+        <% end %>
+      <% elsif application_pet.status == "Accepted" %>
+        Pet Approved
+      <% elsif application_pet.status == "Rejected" %>
+        Pet Rejected
+        <% end %>
     </li>
   </ul>
-  <% elsif pet.adoptable == true && pet.rejected == false %>
-  <ul>
-    <li><%= pet.name %></li>
-    <li>
-      Pet Approved
-    </li>
-  </ul>
-  <% elsif pet.adoptable == false && pet.rejected == true %>
-  <ul>
-    <li><%= pet.name %></li>
-    <li>
-      Pet Rejected
-    </li>
-  </ul>
-  <% end %>
 <% end %>
+
+
+<%# modify to search by application_pet instead of by pet so the pet's attribute isn't changed (couldn't figue out how to easily comment out the block, so I had to delete it) %>
+<%#  thats what this error message means!: undefined method `safe_append=' for nil:NilClass %>

@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_12_222241) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_13_183125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "application_pets", id: false, force: :cascade do |t|
+  create_table "application_pets", force: :cascade do |t|
     t.bigint "application_id", null: false
     t.bigint "pet_id", null: false
-    t.string "status"
+    t.string "status", default: "Pending"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["application_id", "pet_id"], name: "index_application_pets_on_application_id_and_pet_id", unique: true
