@@ -6,7 +6,7 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def update
-    # we want it to be approved/rejected at application_pets, not change the pets status? 
+    # we want it to be approved/rejected at application_pets, not change the pets status?
     @application = Application.find(params[:id])
     # @pets = @application.pets
     # @pet = Pet.find(params[:id])
@@ -25,6 +25,5 @@ class Admin::ApplicationsController < ApplicationController
       @application_pet.update!(status: "Rejected")
       redirect_to "/admin/applications/#{@application.id}"
     end
-
   end
 end

@@ -56,24 +56,18 @@ RSpec.describe "the admin applications show page", type: :feature do
 
       application_1.pets << [pet_1]
       application_2.pets << [pet_1]
-      # ApplicationPet status is nil...changed migration to default to "Pending"
-# require 'pry'; binding.pry
-      # When I visit the admin application show page for one of the applications
+
       visit "/admin/applications/#{application_1.id}"
-      # save_and_open_page
+
       expect(page).to have_button("Approve #{pet_1.name}!")
       expect(page).to have_button("Reject #{pet_1.name}!")
-      # And I approve or reject the pet for that application
+
       click_button "Approve #{pet_1.name}!"
-      # require 'pry'; binding.pry
-      
-      # save_and_open_page
+
       expect(page).to have_content("Pet Approved")
-      
-      # When I visit the other application's admin show page
+
       visit "/admin/applications/#{application_2.id}"
-      # Then I do not see that the pet has been accepted or rejected for that application
-      # And instead I see buttons to approve or reject the pet for this specific application
+
       expect(page).to have_button("Approve #{pet_1.name}!")
       expect(page).to have_button("Reject #{pet_1.name}!")
     end
@@ -91,11 +85,11 @@ RSpec.describe "the admin applications show page", type: :feature do
 
       expect(page).to have_button("Approve #{pet_1.name}!")
       expect(page).to have_button("Reject #{pet_1.name}!")
-      
+
       click_button "Reject #{pet_1.name}!"
-      
+
       expect(page).to have_content("Pet Rejected")
-      
+
       visit "/admin/applications/#{application_2.id}"
 
       expect(page).to have_button("Approve #{pet_1.name}!")
