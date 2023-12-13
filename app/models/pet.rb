@@ -15,7 +15,7 @@ class Pet < ApplicationRecord
   end
 
   def self.find_pet(id)
-    Pet.find(id)
+    find(id)
   end
 
   def self.adoptable

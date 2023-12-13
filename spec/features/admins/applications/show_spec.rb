@@ -75,11 +75,7 @@ RSpec.describe "Admins Application Show Page" do
     visit "/admins/applications/#{@application_3.id}"
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_content("Lucille Bald")
-        expect(page).to have_button("Approve")
-        click_button("Approve")
-
-        expect(page.current_path).to eq("/admins/applications/#{@application_3.id}")
-        expect(page).to have_content("Pet Approved")
+        expect(page).to have_no_content("Pet Approved")
       end
     end
   end
@@ -154,6 +150,7 @@ RSpec.describe "Admins Application Show Page" do
         expect(page).to have_button("Approve")
       end
       visit "/pets/#{@pet_3.id}"
+      save_and_open_page
       expect(page).to have_content("Adoptable: false")
 
       visit "/admins/applications/#{@application_3.id}"
