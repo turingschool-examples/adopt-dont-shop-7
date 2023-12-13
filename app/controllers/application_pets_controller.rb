@@ -25,6 +25,10 @@ class ApplicationPetsController < ApplicationController
     else
       application_pet.update(application_approved: false)
     end
+    # redirect_to pets_update_path
+    # redirect_to controller: :pets, action: :update, id: params[:pet_id], method: :patch
+    # redirect_to "_method"=>"patch", "filter"=>"approved", "controller"=>"pets", "action"=>"update", "id"=>"#{params[:pet_id]}"
+    # redirect_to  "/pets/#{params[:pet_id]}", method: :patch
 
     redirect_to show_admin_applications_path
   end
