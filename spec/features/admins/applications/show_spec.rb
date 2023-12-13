@@ -11,7 +11,7 @@ RSpec.describe "Admins Application Show Page" do
     @rithm = Shelter.create(foster_program: true, name: "Rithm School", city: "Backend", rank: 3)
     @hackreactor = Shelter.create(foster_program: true, name: "Hack Reactor", city: "Backend", rank: 3)
 
-    @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
+    @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
@@ -76,7 +76,6 @@ RSpec.describe "Admins Application Show Page" do
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_content("Lucille Bald")
         expect(page).to have_button("Approve")
-
         click_button("Approve")
 
         expect(page.current_path).to eq("/admins/applications/#{@application_3.id}")
@@ -128,8 +127,6 @@ RSpec.describe "Admins Application Show Page" do
 
       visit "pets/#{@pet_3.id}"
 
-      save_and_open_page
-
       expect(page).to have_no_content("Adoptable: true")
 
       visit "/admins/applications/#{@application_2.id}"
@@ -156,14 +153,14 @@ RSpec.describe "Admins Application Show Page" do
       within "#pet-#{@pet_1.id}" do
         expect(page).to have_button("Approve")
       end
-
       visit "/pets/#{@pet_3.id}"
       expect(page).to have_content("Adoptable: false")
 
       visit "/admins/applications/#{@application_3.id}"
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_no_button("Approve")
-        expect(page).to have_content("This pet has been approved for adoption")
+        expect(page).to have_content("This pet has already been approved for adoption")
+        save_and_open_page
         expect(page).to have_button("Reject")
       end
     end

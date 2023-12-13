@@ -69,4 +69,16 @@ RSpec.describe Pet, type: :model do
       expect(@dog.adoptable).to be false
     end
   end
+
+  describe "#find_pet()" do
+    it "finds the pet with a matching ID" do
+      expect(Pet.find_pet(@dog.id)).to eq(@dog)
+    end
+  end
+
+  describe "#adoptable?" do
+    it "returns true or false depending on @adoptable" do
+      
+    end
+  end
 end
