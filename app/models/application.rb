@@ -51,7 +51,8 @@ class Application < ApplicationRecord
   end
 
   def status_of_application_pet
-    ApplicationPet.where(application_id: self.id).pluck(:application_approved)
+    # ApplicationPet.where(application_id: self.id).pluck(:application_approved)
+    Application.joins(:application_pets).where(id: self.id).pluck(:application_approved)
   end
 
 end
