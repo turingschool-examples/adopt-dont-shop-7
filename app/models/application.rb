@@ -12,13 +12,6 @@ class Application < ApplicationRecord
     Application.find(id)
   end
 
-  def self.approve_or_deny_application_pet(pet_id, application_id, filter)
-    application_pet_id = ApplicationPet.where(pet_id: pet_id, application_id: application_id).pluck(:id).first
-    application_pet = ApplicationPet.find(application_pet_id)
-    # Application.joins(:application_pets).where("application_id = ? AND pet_id = ?", 1, 2)
-    application_pet.approve_or_deny(filter)
-  end
-
   def full_address
     street_address << " " << city << ", " << state << " " << zipcode
   end
@@ -27,10 +20,10 @@ class Application < ApplicationRecord
     Pet.joins(:applications).where("application_id = ?", self.id)
   end
 
-  def set_status_in_progress
-    self.status = "In Progress"
-    self.save
-  end
+  # def set_status_in_progress
+  #   self.status = "In Progress"
+  #   self.save
+  # end
 
   def added_pets?
     list_of_pets.present?

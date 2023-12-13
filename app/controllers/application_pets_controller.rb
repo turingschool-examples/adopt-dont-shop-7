@@ -18,7 +18,15 @@ class ApplicationPetsController < ApplicationController
   end
 
   def update
+    application_pet = ApplicationPet.where("pet_id = ? and application_id = ?", params[:pet_id], params[:id])
 
+    if params[:filter] == "approved"
+      application_pet.update(application_approved: true)
+    else
+      application_pet.update(application_approved: false)
+    end
+
+    redirect_to show_admin_applications_path
   end
 
   def show

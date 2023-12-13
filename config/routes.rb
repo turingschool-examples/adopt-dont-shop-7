@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
   patch "/applications:id", to: "application_pets#create", as: :create_application_pets
 
-  get "admins/shelters", to: "admins/shelters#index"
+  get "/admins/shelters", to: "admins/shelters#index"
   get "/admins/applications/:id", to: "admins/applications#show", as: :show_admin_applications
+  patch "/admins/applications/:id", to: "application_pets#update", as: :update_application_pets
 end
