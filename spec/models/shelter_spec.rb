@@ -4,8 +4,7 @@ RSpec.describe Shelter, type: :model do
   describe "relationships" do
     it { should have_many(:pets) }
 
-    # tried to write a test for the dependent destroy relationship, but couldn't get it working, so x'd it out
-    xit "should destroy associated pets when shelter is destroyed" do
+    it "should destroy associated pets when shelter is destroyed" do
       @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
       @pet_1 = @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
           
