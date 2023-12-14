@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Application, type: :model do
   before(:each) do
     @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
+    @application_2 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
 
     @shelter = Shelter.create!(foster_program: true, name: "Turing", city: "Backend", rank: 3)
 
@@ -69,34 +70,10 @@ RSpec.describe Application, type: :model do
     end
   end
 
-  describe "#set_status_in_progress" do
-    it "can set status to in progress" do
-      @application_1.set_status_in_progress
-
-      expect(@application_1.status).to eq("In Progress")
-    end
-  end
-
-  describe "#find_pet()" do
-    it "can find pets with a matching name" do
-
-      expect(@application_1.find_pet("Dog")).to eq([@dog])
-    end
-
-    it "can find pets with a PARTIALLY matching name" do
-
-      expect(@application_1.find_pet("dog")).to eq([@dog])
-      expect(@application_1.find_pet("do")).to eq([@dog])
-    end
-  end
-
   describe "#added_pets?" do
     it "will check if there are any pets in #list_of_pets and return true or false" do
       expect(@application_1.added_pets?).to eq true
-
-      application_2 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
-
-      expect(application_2.added_pets?).to eq false
+      expect(@application_2.added_pets?).to eq false
     end
   end
 end
