@@ -5,13 +5,15 @@ RSpec.describe "the shelters index" do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
-    @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+    @pirate = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
   end
 
   it "lists all the shelter names" do
-    visit "/shelters"
+
+    visit "/admin/shelters"
+
 
     expect(page).to have_content(@shelter_1.name)
     expect(page).to have_content(@shelter_2.name)
@@ -26,7 +28,8 @@ RSpec.describe "the shelters index" do
   end
 
   it "has a link to sort shelters by the number of pets they have" do
-    visit "/shelters"
+    visit "/admin/shelters"
+    
 
     expect(page).to have_link("Sort by number of pets")
     click_link("Sort by number of pets")
@@ -37,8 +40,7 @@ RSpec.describe "the shelters index" do
   end
 
   it "has a link to update each shelter" do
-    visit "/shelters"
-
+    visit "/admin/shelters"
     within "#shelter-#{@shelter_1.id}" do
       expect(page).to have_link("Update #{@shelter_1.name}")
     end
@@ -56,7 +58,7 @@ RSpec.describe "the shelters index" do
   end
 
   it "has a link to delete each shelter" do
-    visit "/shelters"
+    visit "/admin/shelters"
 
     within "#shelter-#{@shelter_1.id}" do
       expect(page).to have_link("Delete #{@shelter_1.name}")
@@ -76,17 +78,28 @@ RSpec.describe "the shelters index" do
   end
 
   it "has a text box to filter results by keyword" do
-    visit "/shelters"
+    visit "/admin/shelters"
     expect(page).to have_button("Search")
   end
 
   it "lists partial matches as search results" do
-    visit "/shelters"
+    visit "/admin/shelters"
 
     fill_in "Search", with: "RGV"
     click_on("Search")
 
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
+  end
+
+  it "shows the name of every shelter that has a pending application " do 
+    visit "/admin/shelters"
+
+    applicant1 = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks", status: "Pending")
+    applicant2 = Application.create(name: "daphe", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks", status: "Pending")
+    applicant1.add_pet_to_application(@pirate.id)
+    save_and_open_page
+    expect(page).to have_content("Has Applications: #{@shelter_1.name}")
+    expect(page).to_not have_content("Has Applications: #{@shelter_2.name}")
   end
 end
