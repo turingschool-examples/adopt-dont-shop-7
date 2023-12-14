@@ -13,4 +13,9 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def add_pet_to_application(pet_id)
+    pet = Pet.find(pet_id)
+    self.pets << pet
+  end
 end
