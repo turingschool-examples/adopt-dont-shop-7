@@ -47,9 +47,26 @@ RSpec.describe "applications show page" do
     expect(page).to have_content(@app1.zipcode)
     expect(page).to have_content(@app1.description)
     expect(page).to have_content(@app1.status)
-    #expect(page).to have_link('Buddy')
-    #expect(page).to have_link('Jackie')
+    expect(page).to have_link(@pet2.name)
+    #expect(page).to have_link(@pet1.name)
     expect(page).to have_content @app1.status
   end
-end
 
+  describe "Searching for Pets for an Application" do
+    it "can display a search box that can search pets before submitting application" do
+
+      visit "/applications/#{@app1.id}"
+
+      expect(current_path).to eq("/applications/#{@app1.id}")
+      expect(page).to have_content(@app1.name)
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_field("Search")
+
+      fill_in :search_name, with: "Jackie"
+      click_button("Submit")
+
+      expect(current_path).to eq("/applications/#{@app1.id}")
+      expect(page).to have_content(@pet2.name)
+    end
+  end
+end
