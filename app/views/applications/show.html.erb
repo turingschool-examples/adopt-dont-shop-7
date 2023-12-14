@@ -18,7 +18,7 @@
   <% end %>
 
   <% if params[:pet_name].present? %>
-    <% @application.find_pet(params[:pet_name]).each do |pet| %>
+    <% @pets.each do |pet| %>
     <ul>
       <li><%= pet.name %> <%= button_to "Adopt this pet", create_application_pets_path, method: :patch, params: {'pet_id' => pet.id, 'application_id' => params[:id], 'submit_app' => 'yes'} %></li>
     </ul>
@@ -43,7 +43,7 @@
   <% end %>
 
   <% if params[:pet_name].present? %>
-    <% @application.find_pet(params[:pet_name]).each do |pet| %>
+    <% @pets.each do |pet| %>
     <ul>
       <li><%= pet.name %> <%= button_to "Adopt this pet", create_application_pets_path, method: :patch, params: {'pet_id' => pet.id, 'application_id' => params[:id], 'submit_app' => 'yes'} %></li>
     </ul>
