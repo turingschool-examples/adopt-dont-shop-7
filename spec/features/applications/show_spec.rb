@@ -130,6 +130,16 @@ RSpec.describe 'The Application Show Page', type: :feature do
       # And I do not see a section to add more pets to this application
       expect(page).to_not have_content("Add a Pet to this Application")
     end
+
+    # 7. No Pets on an Application
+    it "7. No Pets on an Application" do
+      # When I visit an application's show page
+      visit "/applications/#{@app_1.id}"
+      # And I have not added any pets to the application
+      # Then I do not see a section to submit my application
+      expect(page).to_not have_content("Submit Application")
+      expect(page).to_not have_button("Submit Application")
+    end
     
     # 8. Partial Matches for Pet Names
     it "can grab names that partially match" do 
