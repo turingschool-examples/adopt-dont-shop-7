@@ -133,9 +133,10 @@ RSpec.describe 'The Application Show Page', type: :feature do
 
     # 7. No Pets on an Application
     it "7. No Pets on an Application" do
-      # When I visit an application's show page
-      visit "/applications/#{@app_1.id}"
       # And I have not added any pets to the application
+      @app_2 = Application.create!(name: 'Steven Hawking', street_address: '505 E. Happy Pl', city: "Austin", state: "MN", zip: "55912", description: 'I love dogs', status: 0)
+      # When I visit an application's show page
+      visit "/applications/#{@app_2.id}"
       # Then I do not see a section to submit my application
       expect(page).to_not have_content("Submit Application")
       expect(page).to_not have_button("Submit Application")
