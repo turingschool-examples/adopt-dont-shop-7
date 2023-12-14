@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "new application page" do
 
   before(:each) do
-    @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
+    @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
   end
 
   it "has a form to create an application" do
