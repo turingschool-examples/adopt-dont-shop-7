@@ -1,0 +1,19 @@
+<section class="pets">
+  <% @app.pet_apps.each do |pet_app| %>
+    <div id="pet_app-<%= pet_app.id %>">
+      <h3><%= pet_app.pet.name %></h3>
+      <% if pet_app.status == nil %>
+        <%= form_with url: "/pet_apps/#{pet_app.id}?app_id=#{@app.id}&pet_app_id=#{pet_app.id}&new_status=#{"Accepted"}", method: :patch do |f| %>
+          <%= f.submit "Approve Application" %>
+        <% end %>
+        <%= form_with url: "/pet_apps/#{pet_app.id}?app_id=#{@app.id}&pet_app_id=#{pet_app.id}&new_status=#{"Rejected"}", method: :patch do |f| %>
+          <%= f.submit "Reject Application" %>
+        <% end %>
+      <% elsif pet_app.status == "Accepted" %>
+        <%= "Application Approved" %>
+      <% elsif pet_app.status == "Rejected" %>
+        <%= "Application Rejected" %>
+      <% end %>
+    </div>
+  <% end %>
+</section>
