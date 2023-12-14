@@ -15,46 +15,7 @@ RSpec.describe "New Application Form", type: :feature do
     @pet_app2 = PetApplication.create!(application: @app2, pet: @pet1)
   end
 
-  describe "As a visitor" do
-    describe "when I visit /applications index page" do
-      # US 2 Part 2
-      xit "displays a form to create a new application" do
-        # As a visitor
-        # When I visit the pet index page
-        # Then I see a link to "Start an Application"
-        # When I click this link
-        # Then I am taken to the new application page where I see a form
-        # When I fill in this form with my:
-        #   - Name
-        #   - Street Address
-        #   - City
-        #   - State
-        #   - Zip Code
-        #   - Description of why I would make a good home
-        # And I click submit
-        # Then I am taken to the new application's show page
-        # And I see my Name, address information, and description of why I would make a good home
-        # And I see an indicator that this application is "In Progress"
-
-        visit "/applications/new"
-
-        fill_in "Name", with: "Chris"
-        fill_in "Street Address", with: "2900 Grimes Ranch Road"
-        fill_in "City", with: "Austin"
-        fill_in "State", with: "TX"
-        fill_in "zipcode", with: "70732"
-        fill_in "description", with: "Need an amazing buddy"
-        fill_in "Status", with: "In Progress"
-        click_button "Submit"
-
-        expect(current_path).to eq("/applications/#{@app4.id+1}")
-        expect(page).to have_content("Chris")
-        expect(page).to have_content("2900 Grimes Ranch Road")
-        expect(page).to have_content("Needs an amazing buddy")
-        expect(page).to have_content("In Progress")
-    end
-  end
- 
+  
   # USer Story 3
  it "handles invalid input in the new form field" do
   # As a visitor
@@ -71,7 +32,6 @@ RSpec.describe "New Application Form", type: :feature do
   click_button "Submit"
   
   expect(current_path).to eq("/applications/new")
-  expect(page).to have_content("Each field must be complete")
+  expect(page).to have_content("Each field must be complete")  
   end
- end
 end 

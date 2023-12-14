@@ -18,15 +18,13 @@ class ApplicationsController < ApplicationController
       state: params[:state],
       zipcode: params[:zipcode],
       description: params[:description],
-      status: params[:status]
+      status: "In Progress"
     })
-     #binding.pry
-    if application.save
-      #redirect_to "/applications/#{application.id}"
-      redirect_to "/applications/new"
+    if application.save && no_missing_params
+      redirect_to "/applications/#{application.id}"
     else
+      redirect_to "applications/new"
       flash.alert = "Each field must be complete"
-      render :new
     end
   end
 
@@ -34,5 +32,9 @@ class ApplicationsController < ApplicationController
   private 
   def id
     params[:id]
+  end
+
+  def no_missing_params 
+    params.values.all? {|p| !p.empty?}
   end
 end
