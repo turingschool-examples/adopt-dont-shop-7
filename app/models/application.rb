@@ -9,10 +9,6 @@ class Application < ApplicationRecord
   validates :zip_code, presence: true, numericality: true, length: { is: 5 }
   validates :description, presence: true
 
-  def self.order_by_recently_created
-    order(created_at: :desc)
-  end
-
   def add_pet_to_application(pet_id)
     pet = Pet.find(pet_id)
     self.pets << pet

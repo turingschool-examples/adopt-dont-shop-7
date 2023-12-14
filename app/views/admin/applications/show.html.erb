@@ -11,13 +11,19 @@
 <ul>
     <% @application.pets.each do |pet| %>
         <li><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p></li>
-        <% if ApplicationPet.where({pet_id: pet.id},{application_id: @application.id}).first.status != "Approved" %>
+        <% if ApplicationPet.where({pet_id: pet.id},{application_id: @application.id}).first.status == "Approved" %>
+            <%= "(#{pet.name} already approved)" %>
+        <% elsif ApplicationPet.where({pet_id: pet.id},{application_id: @application.id}).first.status == "Rejected" %>
+            <%= "(#{pet.name} already rejected)" %>
+        <% else %>
             <%= form_with url: "/admin/applications/#{@application.id}", method: :get, local: true do |f| %>
                 <%= f.hidden_field :approved_pet_id, value: pet.id %>
                 <%= f.submit "Approve #{pet.name}" %>
             <% end %>
-        <% else %>
-            <%= "(#{pet.name} already approved)" %>
+            <%= form_with url: "/admin/applications/#{@application.id}", method: :get, local: true do |f| %>
+                <%= f.hidden_field :rejected_pet_id, value: pet.id %>
+                <%= f.submit "Reject #{pet.name}" %>
+            <% end %>
         <% end %>   
     <% end %>
 </ul>
