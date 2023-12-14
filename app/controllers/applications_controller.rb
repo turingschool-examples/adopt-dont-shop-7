@@ -1,11 +1,4 @@
 class ApplicationsController < ApplicationController
-  def index
-
-  end
-
-  def new
-
-  end
 
   def create
     @application = Application.new(application_params)
@@ -16,10 +9,6 @@ class ApplicationsController < ApplicationController
       flash[:notice] = "Error: Application not created: Required information missing."
       redirect_to new_application_path
     end
-  end
-
-  def edit
-
   end
 
   def update
@@ -39,10 +28,6 @@ class ApplicationsController < ApplicationController
     if params[:pet_name].present?
         @pets = Pet.search(params[:pet_name])
     end
-  end
-
-  def destroy
-
   end
 
   private
