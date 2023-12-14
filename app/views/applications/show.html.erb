@@ -8,7 +8,7 @@
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
 
-<% if @application.status == "In Progress" && @application.added_pets?%>
+<% if @application.status == "In Progress" && @application.added_pets? %>
 
   <h2>Add a Pet to this Application</h2>
   <%= form_with url: show_application_path, method: :get do |f| %>
@@ -25,12 +25,13 @@
     <% end %>
   <% end %>
 
-  <h2>Submit Application</h2>
-  <%= form_with url: update_application_path, method: :patch, local: true do |f| %>
-  <%= f.label :good_owner_comments, "Why I would make a good owner: " %>
-  <%= f.text_field :good_owner_comments %>
-
-  <%= f.submit "Submit Application" %>
+  <section id="submit-application">
+    <h2>Submit Application</h2>
+    <%= form_with url: update_application_path, method: :patch, data: { turbo: false } do |f| %>
+    <%= f.label :good_owner_comments, "Why I would make a good owner: " %>
+    <%= f.text_field :good_owner_comments %>
+    <%= f.submit "Submit Application" %>
+  </section>
   <% end %>
 
 <% elsif @application.status == "Pending" %>
@@ -39,11 +40,13 @@
   
 <% else %>
 
-  <h2>Add a Pet to this Application</h2>
-  <%= form_with url: show_application_path, method: :get do |f| %>
-    <%= f.label :pet_name, 'Search for Pets by name:' %>
-    <%= f.text_field :pet_name %>
-    <%= f.submit "Submit" %>
+  <section id="add-pet">
+    <h2>Add a Pet to this Application</h2>
+    <%= form_with url: show_application_path, method: :get, data: { turbo: false } do |f| %>
+      <%= f.label :pet_name, "Search for Pets by name: " %>
+      <%= f.text_field :pet_name %>
+      <%= f.submit "Submit" %>
+  </section>
   <% end %>
 
   <% if params[:pet_name].present? %>

@@ -15,7 +15,7 @@ class ApplicationsController < ApplicationController
     application = Application.find(params[:id])
     if params[:good_owner_comments].present?
       application.update(
-        good_owner_comments: [params[:good_owner_comments]],
+        good_owner_comments: params[:good_owner_comments],
         status: "Pending"
       )
     end
