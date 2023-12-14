@@ -20,11 +20,6 @@ class Application < ApplicationRecord
     Pet.joins(:applications).where("application_id = ?", self.id)
   end
 
-  # def set_status_in_progress
-  #   self.status = "In Progress"
-  #   self.save
-  # end
-
   def added_pets?
     list_of_pets.present?
   end
