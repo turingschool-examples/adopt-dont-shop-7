@@ -11,9 +11,9 @@
 <ul>
     <% @application.pets.each do |pet| %>
         <li><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p></li>
-        <% if ApplicationPet.where({pet_id: pet.id},{application_id: @application.id}).first.status == "Approved" %>
+        <% if ApplicationPet.where({pet_id: pet.id,application_id: @application.id}).first.status == "Approved" %>
             <%= "(#{pet.name} already approved)" %>
-        <% elsif ApplicationPet.where({pet_id: pet.id},{application_id: @application.id}).first.status == "Rejected" %>
+        <% elsif ApplicationPet.where({pet_id: pet.id,application_id: @application.id}).first.status == "Rejected" %>
             <%= "(#{pet.name} already rejected)" %>
         <% else %>
             <%= form_with url: "/admin/applications/#{@application.id}", method: :get, local: true do |f| %>
