@@ -111,7 +111,6 @@ RSpec.describe "Admin Application Show Page" do
           click_button("Approve")
         end
       end
-
       expect(current_path).to eq("/admin/applications/#{@app_1.id}")
       application = Application.find(@app_1.id)
       expect(application.status).to eq("Approved")
@@ -176,17 +175,17 @@ RSpec.describe "Admin Application Show Page" do
 
   # TODO: US-17 FINISH UPDATING AND TESTING THE ADOPTABLE? PET ATTRIBUTE
 
-  it "when all pets on an application are approved, they are no longer adoptable" do 
-    visit "/admin/applications/#{@app_1.id}"
+  # it "when all pets on an application are approved, they are no longer adoptable" do 
+  #   visit "/admin/applications/#{@app_1.id}"
 
-    within "#approve-#{@app_1.pets.first.id}" do 
-      click_button "Approve"
-    end
+  #   within "#approve-#{@app_1.pets.first.id}" do 
+  #     click_button "Approve"
+  #   end
     
 
-    within "#approve-#{@app_1.pets.last.id}" do 
-      click_button "Reject"
-    end
+  #   within "#approve-#{@app_1.pets.last.id}" do 
+  #     click_button "Reject"
+  #   end
     
     # @app_1.pets.each do |pet|
     #   within "#approve-#{pet.id}" do 
@@ -197,5 +196,5 @@ RSpec.describe "Admin Application Show Page" do
       # expect(@app_1.all_pets_apps_appr).to eq(true)
       # expect(page).to have_content("Adoptable: false")
     # end
-  end
+  # end
 end 

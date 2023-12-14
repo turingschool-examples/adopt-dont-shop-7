@@ -9,8 +9,6 @@ class PetApplication < ApplicationRecord
       self.update!(status: 2)
     elsif button == "Reject"
       self.update!(status: 3)
-    else
-      self
    end
   end
 

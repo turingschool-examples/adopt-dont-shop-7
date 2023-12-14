@@ -14,9 +14,13 @@ class Application < ApplicationRecord
     PetApplication.where(pet_id: pet_id, application_id: self.id).first
   end
 
-  def get_app_status 
-    return "Rejected" if self.pet_applications.where("status = 3").any?
-    return "Pending" if self.pet_applications.where("status = 1").any?
-    return "Approved"
+  def all_pets_apps_appr?
+    if self.pet_applications.where('status = 2').count == self.pet_applications.count &&
+      self.pet_applications.where('status = 2').count > 0
+        true
+    elsif self.pet_applications.where('status = 3').count > 0 &&
+       (self.pet_applications.count - self.pet_applications.where('status = 3').count) == self.pet_applications.where('status = 2').count
+        false
+    end
   end
 end
