@@ -5,7 +5,7 @@ RSpec.describe "the shelters index" do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
-    @pirate = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+    @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
   end
@@ -92,13 +92,14 @@ RSpec.describe "the shelters index" do
     expect(page).to_not have_content(@shelter_1.name)
   end
 
-  it "shows the name of every shelter that has a pending application " do 
+  it "shows the name of every shelter that has a pending application" do 
+    applicant_1 = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks")
+    applicant_2 = Application.create(name: "daphe", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks")
+    new_pet = applicant_1.pets.create(name: "Bonkus", breed: "Definitely", age: 1, adoptable: true, shelter_id: @shelter_1.id)
+    applicant_1.change_application_status("Pending")
+
     visit "/admin/shelters"
 
-    applicant1 = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks", status: "Pending")
-    applicant2 = Application.create(name: "daphe", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks", status: "Pending")
-    applicant1.add_pet_to_application(@pirate.id)
-    save_and_open_page
     expect(page).to have_content("Has Applications: #{@shelter_1.name}")
     expect(page).to_not have_content("Has Applications: #{@shelter_2.name}")
   end

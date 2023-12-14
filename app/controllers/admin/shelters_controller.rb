@@ -9,6 +9,5 @@ class Admin::SheltersController < ApplicationController
     end
 
     @application_shelters = Shelter.list_shelters_with_pending_applications
-    # binding.pry
   end
 end
