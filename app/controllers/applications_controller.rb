@@ -18,9 +18,17 @@ class ApplicationsController < ApplicationController
     @found_pets = Pet.search(params[:search_name]) if params[:search_name]
   end
 
+  def update
+    @app = Application.find(params[:id])
+    if params[:reason_to_adopt]
+      @app.update!(status: 1)
+    end
+    redirect_to "/applications/#{@app.id}"
+  end
+
   private
 
   def app_params
-    params.permit(:name, :street_address, :city, :state, :zip, :description)
+    params.permit(:name, :street_address, :city, :state, :zip, :description, :reason_to_adopt, :status)
   end
 end

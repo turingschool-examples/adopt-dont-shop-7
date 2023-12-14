@@ -19,12 +19,14 @@
 </section>
 
 <section class='find-pets'>
-  <h2> Add a Pet to this Application </h2>
-  <%= form_with url: "/applications/#{@app.id}", method: :get do |f| %>
-    <%= f.label :search_name, "Search for Pet:" %>
-    <%= f.text_field :search_name %>
-
-    <%= f.submit "submit"%>
+  <% if @app.status != "Pending" %>
+    <h2> Add a Pet to this Application </h2>
+    <%= form_with url: "/applications/#{@app.id}", method: :get do |f| %>
+      <%= f.label :search_name, "Search for Pet:" %>
+      <%= f.text_field :search_name %>
+    
+      <%= f.submit "submit"%>
+    <% end %>
   <% end %>
 </section>
 
@@ -40,5 +42,12 @@
   <% end %>
 </section>
 
-
-
+<section class='submit-application'>
+  <% if @app.pets.count > 0 %>
+    <%= form_with url: "/applications/#{@app.id}/update", method: :patch do |f| %>
+      <%= f.label :reason_to_adopt, "Why I would make a good owner for these pet(s)?:" %>
+      <p><%= f.text_area :reason_to_adopt %></p>
+      <%= f.submit "Submit Application" %>
+    <% end %>
+  <% end %>
+</section>
