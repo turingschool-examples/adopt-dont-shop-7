@@ -44,7 +44,7 @@ RSpec.describe "Admin Application Show Page" do
 
     @pet_app_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id, status: 1)
     @pet_app_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @app_1.id, status: 1)
-    # @pet_app_3 = PetApplication.create!(pet_id: @pet_4.id, application_id: @app_1.id, status: 1)
+    @pet_app_3 = PetApplication.create!(pet_id: @pet_4.id, application_id: @app_1.id, status: 1)
     @pet_app_4 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_2.id, status: 1)
     @pet_app_5 = PetApplication.create!(pet_id: @pet_5.id, application_id: @app_2.id, status: 1)
     @pet_app_6 = PetApplication.create!(pet_id: @pet_3.id, application_id: @app_3.id, status: 1)
@@ -171,30 +171,5 @@ RSpec.describe "Admin Application Show Page" do
       expect(page).to have_content("This Application is Rejected!")
     end
   end
-
-
-  # TODO: US-17 FINISH UPDATING AND TESTING THE ADOPTABLE? PET ATTRIBUTE
-
-  # it "when all pets on an application are approved, they are no longer adoptable" do 
-  #   visit "/admin/applications/#{@app_1.id}"
-
-  #   within "#approve-#{@app_1.pets.first.id}" do 
-  #     click_button "Approve"
-  #   end
-    
-
-  #   within "#approve-#{@app_1.pets.last.id}" do 
-  #     click_button "Reject"
-  #   end
-    
-    # @app_1.pets.each do |pet|
-    #   within "#approve-#{pet.id}" do 
-    #     click_button("Approve")
-        # visit "/pets/#{pet.id}"
-        # save_and_open_page
-      # end
-      # expect(@app_1.all_pets_apps_appr).to eq(true)
-      # expect(page).to have_content("Adoptable: false")
-    # end
-  # end
+ 
 end 
