@@ -43,11 +43,18 @@ RSpec.describe "Application Show Page" do
 
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to have_content("Search for Pets by name:")
-      expect(page).to have_no_content("Hamster")
       expect(page).to have_button("Submit")
+      expect(page).to have_no_content("Hamster")
+      expect(page).to have_no_button("Adopt this pet")
 
       fill_in("Search for Pets by name:", with: "Hamster")
       click_button("Submit")
+
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_content("Search for Pets by name:")
+      expect(page).to have_button("Submit")
+      expect(page).to have_content("Hamster")
+      expect(page).to have_button("Adopt this pet")
 
       expect(page.current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Hamster")
@@ -69,7 +76,7 @@ RSpec.describe "Application Show Page" do
     end
 
     it "will show my application is 'pending' when I submit my application" do
-      # User Story 6 - Integration Test
+      # User Story 4, 5, 6 - Integration Test
       visit "/applications/#{@application_1.id}"
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Add a Pet to this Application")
@@ -137,8 +144,10 @@ RSpec.describe "Application Show Page" do
       expect(page).to have_content("Cat")
       expect(page).to have_content("In Progress")
 
-      expect(page).to have_content("Why I would make a good owner")
-      expect(page).to have_button("Submit Application")
+      within("#submit-application") do
+        expect(page).to have_content "Why I would make a good owner"
+        click_button "Submit Application"
+      end
 
       fill_in("good_owner_comments", with: "We bonded when I visited the shelter")
       click_button("Submit Application")
