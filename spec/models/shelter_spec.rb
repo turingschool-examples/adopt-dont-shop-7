@@ -73,5 +73,11 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pet_count).to eq(3)
       end
     end
+
+    describe ".pending_apps" do 
+      it "returns the shelters with pending applications" do
+        
+      end
+    end
   end
 end
