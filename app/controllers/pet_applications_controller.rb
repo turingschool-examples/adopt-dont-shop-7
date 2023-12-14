@@ -18,28 +18,13 @@ class PetApplicationsController < ApplicationController
 
     pet_application.update_pet_status(params[:commit])
 
-    if pet_application.status == "Approved"
-      flash[:notice] = "The request to adopt #{pet.name} has been approved!!"
-    elsif pet_application.status == "Rejected"
-      flash[:notice] = "The request to adopt #{pet.name} has been rejected :("
-    else
-      flash[:alert] = "There was a problem and #{pet.name}'s adoption has not yet been approved. Please try again later."
-    end
-
-    # if pet_application.update!(status: 2)
-    #   flash[:notice] = "The request to adopt #{pet.name} has been approved!!"
-    # else
-    #   flash[:alert] = "There was a problem and #{pet.name}'s adoption has not yet been approved. Please try again later."
-    # end
-    # if application.pet_applications.all? { |pet_app| pet_app.status == "Approved" }
-    
     if @application.all_pets_apps_appr?
       @application.update!(status: "Approved")
+      flash[:notice] = "The request to adopt #{pet.name} has been approved!!"
     elsif !@application.all_pets_apps_appr?
       @application.update!(status: "Rejected")
+      flash[:notice] = "The request to adopt #{pet.name} has been rejected :("
     end
-  
     redirect_to "/admin/applications/#{@application.id}"
   end
-
 end
