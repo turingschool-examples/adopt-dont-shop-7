@@ -26,7 +26,7 @@ RSpec.describe "Admins Shelter Index" do
 
   it "lists shelters in reverse alphabetical order by name" do
     # User Story 10
-    visit "/admins/shelters"
+    visit "/admin/shelters"
 
     expect("Turing").to appear_before("Rithm School")
     expect("Rithm School").to appear_before("Hack Reactor")
@@ -37,13 +37,13 @@ RSpec.describe "Admins Shelter Index" do
   describe "Shelters with Pending Applications" do
     # User Story 11
     it "has its own section on the page" do
-      visit "/admins/shelters"
+      visit "/admin/shelters"
 
       expect(page).to have_content("Shelters with Pending Applications")
     end
 
     it "has a list of every shelter with a pending application" do
-      visit "/admins/shelters"
+      visit "/admin/shelters"
       within "#pending-#{@shelter_1.id}" do
         expect(page).to have_content("Aurora shelter")
       end

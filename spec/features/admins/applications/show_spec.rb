@@ -28,31 +28,31 @@ RSpec.describe "Admins Application Show Page" do
 
   it "has a button to approve an application for every pet that the application pet is for" do
     # User Story 12
-    visit "/admins/applications/#{@application_2.id}"
+    visit "/admin/applications/#{@application_2.id}"
     within "#pet-#{@pet_1.id}" do
       expect(page).to have_content("Mr. Pirate")
       expect(page).to have_button("Approve")
       click_button("Approve")
 
-      expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
+      expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
       expect(page).to have_content("Pet Approved")
     end
   end
 
   describe "13. Rejecting a Pet for Adoption" do
     it "has a button to reject the application for a pet" do
-      visit "/admins/applications/#{@application_2.id}"
+      visit "/admin/applications/#{@application_2.id}"
       within "#pet-#{@pet_1.id}" do
         expect(page).to have_button("Reject")
       end
     end
 
     it "takes me back to the admins/show page and does not show approval or rejection button when I click on reject" do
-      visit "/admins/applications/#{@application_2.id}"
+      visit "/admin/applications/#{@application_2.id}"
       within "#pet-#{@pet_1.id}" do
         click_button("Reject")
 
-        expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
+        expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
         expect(page.has_button?).to be false
         expect(page).to have_content("Pet Rejected")
       end
@@ -61,19 +61,19 @@ RSpec.describe "Admins Application Show Page" do
 
   describe "14. Approved/Rejected Pets on one Application do not affect other Applications" do
     it "makes sure that approving one pet for an application does not affect another application that also has the same pet" do
-    visit "/admins/applications/#{@application_2.id}"
+    visit "/admin/applications/#{@application_2.id}"
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_content("Lucille Bald")
         expect(page).to have_button("Approve")
 
 
         click_button("Approve")
-        expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
+        expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
         expect(page).to have_content("Pet Approved")
       end
 
 
-    visit "/admins/applications/#{@application_3.id}"
+    visit "/admin/applications/#{@application_3.id}"
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_content("Lucille Bald")
         expect(page).to have_no_content("Pet Approved")
@@ -83,7 +83,7 @@ RSpec.describe "Admins Application Show Page" do
 
   describe "15. All Pets Accepted on an Application - Completed Applications" do
     it "changes application status to 'approved' when all pets have been approved" do
-      visit "/admins/applications/#{@application_2.id}"
+      visit "/admin/applications/#{@application_2.id}"
         within "#pet-#{@pet_3.id}" do
           click_button("Approve")
         end
@@ -91,14 +91,14 @@ RSpec.describe "Admins Application Show Page" do
         within "#pet-#{@pet_1.id}" do
           click_button("Approve")
         end
-        expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
+        expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
         expect(page).to have_content("Approved")
     end
   end
 
   describe "16. One or More Pets Rejected on an Application" do
     it "takes me back to 'admin/applications/:id' when I've rejected one or more pet and other pets have been approved" do
-      visit "/admins/applications/#{@application_2.id}"
+      visit "/admin/applications/#{@application_2.id}"
       within "#pet-#{@pet_3.id}" do
         click_button("Approve")
       end
@@ -106,7 +106,7 @@ RSpec.describe "Admins Application Show Page" do
         click_button("Reject")
       end
 
-      expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
+      expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
       expect(page).to have_content("Pet Application For #{@application_2.name} Is Rejected")
     end
   end
@@ -119,7 +119,7 @@ RSpec.describe "Admins Application Show Page" do
       visit "pets/#{@pet_3.id}"
       expect(page).to have_content("Adoptable: true")
 
-      visit "/admins/applications/#{@application_2.id}"
+      visit "/admin/applications/#{@application_2.id}"
 
       within "#pet-#{@pet_3.id}" do
         click_button("Approve")
@@ -129,7 +129,7 @@ RSpec.describe "Admins Application Show Page" do
 
       expect(page).to have_no_content("Adoptable: true")
 
-      visit "/admins/applications/#{@application_2.id}"
+      visit "/admin/applications/#{@application_2.id}"
 
       within "#pet-#{@pet_1.id}" do
         click_button("Approve")
@@ -143,7 +143,7 @@ RSpec.describe "Admins Application Show Page" do
 
   describe "18. Pets can only have one approved application on them at any time" do
     it "will not show a button to approve a pet if it has already been approved on another application" do
-      visit "/admins/applications/#{@application_2.id}"
+      visit "/admin/applications/#{@application_2.id}"
 
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_button("Approve")
@@ -156,7 +156,7 @@ RSpec.describe "Admins Application Show Page" do
       visit "/pets/#{@pet_3.id}"
       expect(page).to have_content("Adoptable: false")
 
-      visit "/admins/applications/#{@application_3.id}"
+      visit "/admin/applications/#{@application_3.id}"
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_no_button("Approve")
         expect(page).to have_content("This pet has already been approved for adoption")
