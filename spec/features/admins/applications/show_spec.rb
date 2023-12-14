@@ -66,6 +66,7 @@ RSpec.describe "Admins Application Show Page" do
         expect(page).to have_content("Lucille Bald")
         expect(page).to have_button("Approve")
 
+
         click_button("Approve")
         expect(page.current_path).to eq("/admins/applications/#{@application_2.id}")
         expect(page).to have_content("Pet Approved")
