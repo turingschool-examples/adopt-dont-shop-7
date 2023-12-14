@@ -9,12 +9,6 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
-  def self.set_adoptable_false(id)
-    pet = find_pet(id)
-    pet.adoptable = false
-    pet.save
-  end
-
   def self.find_pet(id)
     find(id)
   end
