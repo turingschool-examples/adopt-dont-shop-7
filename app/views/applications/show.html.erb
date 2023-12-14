@@ -26,7 +26,7 @@
   <% end %>
 
   <h2>Submit Application</h2>
-  <%= form_with url: update_application_path, method: :patch, local: true do |f| %>
+  <%= form_with url: update_application_path, method: :patch, data: { turbo: false } do |f| %>
   <%= f.label :good_owner_comments, "Why I would make a good owner: " %>
   <%= f.text_field :good_owner_comments %>
 
