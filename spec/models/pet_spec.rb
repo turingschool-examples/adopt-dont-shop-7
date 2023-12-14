@@ -38,5 +38,17 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe ".add_pet_to_application" do
+      it "adds a pet to an application" do
+        application = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because")
+
+        expect(application.pets).to_not include(@pet_1)
+
+        application.add_pet_to_application(@pet_1.id)
+
+        expect(application.pets).to include(@pet_1)
+      end
+    end
   end
 end

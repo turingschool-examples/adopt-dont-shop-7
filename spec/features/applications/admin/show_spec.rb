@@ -140,20 +140,24 @@ RSpec.describe "the admin application show page" do
     expect(page).to have_content("Scooby")
   end
 
-  it "shows a button to approve applicant's pets if pet is not already approved" do
+  it "shows a button to approve applicant's pets if pet is not already approved or rejected" do
     shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
     applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ", status: "Pending")
     pet = applicant.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
     pet_2 = applicant.pets.create(name: "Doinkus", age: 1, breed: "Cool", adoptable: true, shelter_id: shelter.id)
+    pet_3 = applicant.pets.create(name: "Booger", age: 400, breed: "Tree", adoptable: true, shelter_id: shelter.id)
     application_pet = ApplicationPet.where({pet_id: pet.id},{application_id: applicant.id}).first.change_application_pet_status("Approved")
+    application_pet_3 = ApplicationPet.where({pet_id: pet_3.id},{application_id: applicant.id}).first.change_application_pet_status("Rejected")
 
     visit "/admin/applications/#{applicant.id}"
 
-    # save_and_open_page
+    save_and_open_page
 
     expect(page).to_not have_button("Approve #{pet.name}")
     expect(page).to have_button("Approve #{pet_2.name}")
+    expect(page).to_not have_button("Approve #{pet_3.name}")
     expect(page).to have_content("#{pet.name} already approved)")
+    expect(page).to have_content("#{pet_3.name} already rejected)")
   end
 
   it "has a button that approves a pet for an applicant" do
@@ -171,8 +175,23 @@ RSpec.describe "the admin application show page" do
 
     expect(page).to_not have_button("Approve #{pet.name}")
     expect(page).to have_button("Approve #{pet_2.name}")
+  end
 
-    save_and_open_page
+  it "has a button that rejects a pet for an applicant" do
+    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+    applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ", status: "Pending")
+    pet = applicant.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+    pet_2 = applicant.pets.create(name: "Doinkus", age: 1, breed: "Cool", adoptable: true, shelter_id: shelter.id)
+
+    visit "/admin/applications/#{applicant.id}"
+
+    expect(page).to have_button("Reject #{pet.name}")
+    expect(page).to have_button("Reject #{pet_2.name}")
+
+    click_button "Reject #{pet.name}"
+
+    expect(page).to_not have_button("Reject #{pet.name}")
+    expect(page).to have_button("Reject #{pet_2.name}")
   end
 
   # it "allows the user to delete a pet" do

@@ -18,5 +18,11 @@ class Admin::ApplicationsController < ApplicationController
             application_pet = ApplicationPet.where({pet_id: pet_id},{application_id: @application.id}).first
             application_pet.change_application_pet_status("Approved")
         end
+
+        if params[:rejected_pet_id].present?
+            pet_id = params[:rejected_pet_id]
+            application_pet = ApplicationPet.where({pet_id: pet_id},{application_id: @application.id}).first
+            application_pet.change_application_pet_status("Rejected")
+        end
     end
 end
