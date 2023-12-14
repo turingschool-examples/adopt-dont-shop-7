@@ -18,11 +18,11 @@ class ApplicationPetsController < ApplicationController
   end
 
   def update
-    application_pet = ApplicationPet.where("pet_id = ? and application_id = ?", params[:pet_id], params[:id])
+    application_pet = ApplicationPet.find_by("pet_id = ? and application_id = ?", params[:pet_id], params[:id]) #move this to model method
 
     if params[:filter] == "approved"
       application_pet.update(application_approved: true)
-      Pet.set_adoptable_false(params[:pet_id])
+      Pet.set_adoptable_false(params[:pet_id]) #find_pet(name).update(adoptable: false)
     else
       application_pet.update(application_approved: false)
     end
