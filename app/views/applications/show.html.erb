@@ -33,8 +33,12 @@
     <%= f.submit "Submit Application" %>
   </section>
   <% end %>
+
+<% elsif @application.status == "Pending" %>
+
+  <p>Why I would make a good owner: <%= @application.good_owner_comments %></p>
   
-<% elsif @application.status == "In Progress" %>
+<% else %>
 
   <section id="add-pet">
     <h2>Add a Pet to this Application</h2>
@@ -52,9 +56,4 @@
     </ul>
     <% end %>
   <% end %>
-
-<% elsif @application.status == "Pending" %>
-
-  <p>Why I would make a good owner: <%= @application.good_owner_comments %></p>
-  
 <% end %> 
