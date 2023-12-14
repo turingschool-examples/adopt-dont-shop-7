@@ -11,7 +11,9 @@ RSpec.describe "the shelters index" do
   end
 
   it "lists all the shelter names" do
-    visit "/shelters"
+
+    visit "/admin/shelters"
+
 
     expect(page).to have_content(@shelter_1.name)
     expect(page).to have_content(@shelter_2.name)
@@ -26,7 +28,8 @@ RSpec.describe "the shelters index" do
   end
 
   it "has a link to sort shelters by the number of pets they have" do
-    visit "/shelters"
+    visit "/admin/shelters"
+    
 
     expect(page).to have_link("Sort by number of pets")
     click_link("Sort by number of pets")
@@ -37,8 +40,7 @@ RSpec.describe "the shelters index" do
   end
 
   it "has a link to update each shelter" do
-    visit "/shelters"
-
+    visit "/admin/shelters"
     within "#shelter-#{@shelter_1.id}" do
       expect(page).to have_link("Update #{@shelter_1.name}")
     end
@@ -56,7 +58,7 @@ RSpec.describe "the shelters index" do
   end
 
   it "has a link to delete each shelter" do
-    visit "/shelters"
+    visit "/admin/shelters"
 
     within "#shelter-#{@shelter_1.id}" do
       expect(page).to have_link("Delete #{@shelter_1.name}")
@@ -76,17 +78,29 @@ RSpec.describe "the shelters index" do
   end
 
   it "has a text box to filter results by keyword" do
-    visit "/shelters"
+    visit "/admin/shelters"
     expect(page).to have_button("Search")
   end
 
   it "lists partial matches as search results" do
-    visit "/shelters"
+    visit "/admin/shelters"
 
     fill_in "Search", with: "RGV"
     click_on("Search")
 
     expect(page).to have_content(@shelter_2.name)
     expect(page).to_not have_content(@shelter_1.name)
+  end
+
+  it "shows the name of every shelter that has a pending application" do 
+    applicant_1 = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks")
+    applicant_2 = Application.create(name: "daphe", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because Scoob and I love Scooby Snacks")
+    new_pet = applicant_1.pets.create(name: "Bonkus", breed: "Definitely", age: 1, adoptable: true, shelter_id: @shelter_1.id)
+    applicant_1.change_application_status("Pending")
+
+    visit "/admin/shelters"
+
+    expect(page).to have_content("Has Applications: #{@shelter_1.name}")
+    expect(page).to_not have_content("Has Applications: #{@shelter_2.name}")
   end
 end

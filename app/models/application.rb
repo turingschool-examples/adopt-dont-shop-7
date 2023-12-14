@@ -19,6 +19,6 @@ class Application < ApplicationRecord
   end
 
   def change_application_status(new_status)
-    self.status = new_status
+    self.update(status: new_status)
   end
 end

@@ -7,5 +7,7 @@ class Admin::SheltersController < ApplicationController
     else
       @shelters = Shelter.order_shelters_reverse_alphabetically
     end
+
+    @application_shelters = Shelter.list_shelters_with_pending_applications
   end
 end
