@@ -1,1 +1,3 @@
-class AdoptionApplicationPet 
+class AdoptionApplicationPet < ApplicationRecord
+   
+end
