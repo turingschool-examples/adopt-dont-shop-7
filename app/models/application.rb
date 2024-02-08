@@ -7,11 +7,6 @@ class Application < ApplicationRecord
   validates :description, presence: true
   has_many :application_pets
 
-
-  def self.application(id)
-    Application.find(id)
-  end
-
   def full_address
     street_address << " " << city << ", " << state << " " << zipcode
   end

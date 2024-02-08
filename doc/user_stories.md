@@ -3,7 +3,7 @@
 ## Deploy
 
 ```
-[ ] done
+[x] done
 
 0: Deploy your application to the internet
 
@@ -27,7 +27,7 @@ Continuous Integration / Deployment is not allowed for this project.
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[ ] done
+[X] done
 
 1. Application Show Page
 
