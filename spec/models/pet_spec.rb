@@ -50,9 +50,9 @@ RSpec.describe Pet, type: :model do
     end
   end
 
-  describe "#adoptable?" do
+  describe "#already_approved?" do
     it "returns true or false depending on @adoptable" do
-
+      expect(@pet_1.already_approved?).to eq(false)
     end
   end
 end
