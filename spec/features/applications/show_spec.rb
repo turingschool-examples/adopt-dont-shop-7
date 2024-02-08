@@ -49,9 +49,18 @@ RSpec.describe "Application Show Page" do
         expect(page).to_not have_content(application_2.description)
       end
 
-      it "lists pets on application" do
-        expect(page).to have_content(pet_1.name)
-        expect(page).to_not have_content(pet_2.name)
+      describe "pets applied for" do
+        it "lists pets names" do
+          expect(page).to have_content(pet_1.name)
+          expect(page).to_not have_content(pet_2.name)
+        end
+
+        it "links pet names' to pet's show page" do
+          expect(page).to have_link("Rover")
+
+          click_link "Rover"
+          expect(current_path).to eq("/pets/#{pet_1.id}")
+        end
       end
       
       it "applicantion's status" do
