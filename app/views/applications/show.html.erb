@@ -1,0 +1,14 @@
+<h1>Name: <%=@app.name%></h1>
+<p>Street address: <%=@app.street_address%></p>
+<p>City: <%=@app.city%></p>
+<p>State: <%=@app.state%></p>
+<p>Zipcode: <%=@app.zip%></p>
+<p>Description: <%=@app.description%></p>
+<p>Status: <%=@app.status%></p>
+	
+<h2>Applied for Pet(s)</h2>
+<% @pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
+    <h3>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %></h3>
+  </div>
+<% end %>
