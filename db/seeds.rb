@@ -5,3 +5,4 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+martin_shelter = Shelter.create!({foster_program: true, name: "Martin's Shelter", city: "Denver", rank: 5})
