@@ -4,7 +4,7 @@
 <p>Application Status: <%= @application.status %></p>
 
 <h2>Pets Applied For: </h2>
-<% @application.list_of_pets.each do |pet| %>
+<% @application.pets.each do |pet| %>
 <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
 <% end %>
 

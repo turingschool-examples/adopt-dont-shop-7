@@ -6,13 +6,10 @@ class Application < ApplicationRecord
   validates :zipcode, presence: true, numericality: true
   validates :description, presence: true
   has_many :application_pets
+  has_many :pets, through: :application_pets
 
   def full_address
     street_address << " " << city << ", " << state << " " << zipcode
-  end
-
-  def list_of_pets
-    Pet.joins(:applications).where("application_id = ?", self.id)
   end
 
   def added_pets?

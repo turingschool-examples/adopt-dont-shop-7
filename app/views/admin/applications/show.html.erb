@@ -4,7 +4,7 @@
   <h1>Pending Pet Application For <%= @application.name %> </h1>
   <p>Pets applied for:</p>
   <ul>
-    <% @application.list_of_pets.each do |pet| %>
+    <% @application.pets.each do |pet| %>
     <div id="pet-<%= pet.id %>">
       <li><%= pet.name %></li>
         <ul>
