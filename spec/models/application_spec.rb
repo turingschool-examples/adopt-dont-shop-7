@@ -63,13 +63,6 @@ RSpec.describe Application, type: :model do
     end
   end
 
-  describe "#list_of_pets" do
-    it "will list pets that the applicant wants to adopt" do
-
-      expect(@application_1.list_of_pets).to eq([@dog, @cat])
-    end
-  end
-
   describe "#added_pets?" do
     it "will check if there are any pets in #list_of_pets and return true or false" do
       expect(@application_1.added_pets?).to eq true

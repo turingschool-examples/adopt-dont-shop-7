@@ -13,7 +13,7 @@ class Application < ApplicationRecord
   end
 
   def added_pets?
-    list_of_pets.present?
+    self.pets.present?
   end
 
   def all_pets_approved
