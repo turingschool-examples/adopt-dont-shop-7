@@ -1,0 +1,16 @@
+<h1>Adoption Application</h1>
+
+<% @adoption_app.each do |application| %>
+   <section id="application-<%= application.id %>">
+      <h4><%= application.name %></h4>
+      <p><%= application.street_address %></p>
+      <p><%= application.city %></p>
+      <p><%= application.state %></p>
+      <p><%= application.zip_code %></p>
+      <p><%= application.status %></p>
+      <p><%= application.description %></p>
+      <%= application.pets.each do |pet| %>
+         <%= pet.name %>
+      <% end %>
+   </section>
+<% end %>
