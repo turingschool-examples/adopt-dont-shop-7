@@ -11,7 +11,7 @@ RSpec.describe 'Adoption Application Show page', type: :feature do
       shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
       pet_1 = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
       pet_2 = Pet.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
-      application = AdoptionApplication.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: "80303", description: "I have a fenced backyard and love dogs", pets_applied_for: pet_2, status: "Pending")
+      application = AdoptionApplication.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", pets_applied_for: pet_2, status: "Pending")
 
       visit "/applications/#{application.id}"
 
