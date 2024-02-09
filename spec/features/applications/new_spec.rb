@@ -28,7 +28,7 @@ RSpec.describe "Application New Page" do
 
         click_on "Create Application"
 
-        expect(current_path).to eq("/applications/#{application_1.id + 1}")
+        expect(current_path).to eq("/applications/#{Application.last.id}")
         save_and_open_page
         expect(page).to have_content(application_1.name)
         expect(page).to have_content(application_1.street_address)
@@ -36,14 +36,10 @@ RSpec.describe "Application New Page" do
         expect(page).to have_content("in_progress")
       end
     end
-  end
 
-  describe "User Story 3" do
-    describe "As a visitor" do
+    describe "User Story 3" do
       describe "When I visit the new application page" do
         it "can not submit the application without filling any form fields" do
-          visit "/applications/new"
-
           click_on "Create Application"
 
           expect(current_path).to eq("/applications/new")
