@@ -16,6 +16,7 @@ RSpec.describe Pet, type: :model do
     @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
+    @applicant1 = Application.create(name:"Tom Brady",street_address: "123 MVP drive", city: "Goat city", state: "CO", zip_code: 67878, description: "I'm the GOAT " )
   end
 
   describe "class methods" do
@@ -37,6 +38,15 @@ RSpec.describe Pet, type: :model do
       it "returns the shelter name for the given pet" do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
+    end
+  end
+
+  describe '#find_pet' do
+    it 'searches for specific name' do
+      # require 'pry'; binding.pry
+      @applicant1.pets.find_pet(@pet_3.id)
+      expect(Pet.find_pet("Ann")).to eq([@pet_3])
+    
     end
   end
 end
