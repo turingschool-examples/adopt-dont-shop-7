@@ -36,12 +36,7 @@ RSpec.describe 'Adoption Application Show page', type: :feature do
    end
 
      
-      # And I search for a Pet by name
-      # And I see the names Pets that match my search
-      # Then next to each Pet's name I see a button to "Adopt this Pet"
-      # When I click one of these buttons
-      # Then I am taken back to the application show page
-      # And I see the Pet I want to adopt listed on this application
+      # User Story 5
       it 'has a section to add a Pet to the application' do
          shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
          pet_1 = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
