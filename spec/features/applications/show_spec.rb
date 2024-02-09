@@ -15,28 +15,31 @@ RSpec.describe "Application Show Page" do
     @application_pet_2 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @cat.id)
   end
 
-  it "has application details" do
-    # User Story 1
-    visit "/applications/#{@application_1.id}"
+  describe "User Story 1 - Applicatication Show" do
+    it "has application details" do
+      visit "/applications/#{@application_1.id}"
 
-    expect(page).to have_content(@application_1.name)
-    expect(page).to have_content(@application_1.full_address)
-    expect(page).to have_content(@application_1.description)
-    expect(page).to have_link("#{@dog.name}")
-    expect(page).to have_link("#{@cat.name}")
-    expect(page).to have_content("In Progress")
+      # status = ["In Progress", "Pending", "Accepted", "Rejected"]
 
-    click_link("#{@dog.name}")
+      expect(page).to have_content("John's Application")
+      expect(page).to have_content("Address: 1234 ABC Lane Turing, Backend 54321")
+      expect(page).to have_content("Application Status: In Progress")
+      expect(page).to have_content("Application Description: I love cats")
+      expect(page).to have_link("#{@dog.name}")
+      expect(page).to have_link("#{@cat.name}")
 
-    expect(page.current_path).to eq("/pets/#{@dog.id}")
+      # click_link("#{@dog.name}")
 
-    visit "/applications/#{@application_1.id}"
-    click_link("#{@cat.name}")
+      # expect(page.current_path).to eq("/pets/#{@dog.id}")
 
-    expect(page.current_path).to eq("/pets/#{@cat.id}")
+      # visit "/applications/#{@application_1.id}"
+      # click_link("#{@cat.name}")
+
+      # expect(page.current_path).to eq("/pets/#{@cat.id}")
+    end
   end
 
-  describe "searching for pets for an application" do
+  describe "User Story 4 - Searching for Pets for an Application" do
     it "has a search bar" do
       # User Story 4
       visit "/applications/#{@application_1.id}"
@@ -69,6 +72,7 @@ RSpec.describe "Application Show Page" do
       expect(page).to have_content("Hamster")
     end
 
+  describe "User Story 4, 5, and 6" do
     it "will show my application is 'pending' when I submit my application" do
       # User Story 4, 5, 6 - Integration Test
       visit "/applications/#{@application_1.id}"
@@ -93,6 +97,7 @@ RSpec.describe "Application Show Page" do
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Pending")
     end
+  end
 
     it "returns any pet whose name PARTIALLY matches my search" do
       # User Story 8

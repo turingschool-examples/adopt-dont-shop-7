@@ -9,6 +9,7 @@ class Application < ApplicationRecord
   has_many :application_pets
   has_many :pets, through: :application_pets
 
+  enum status: [ :in_progress, :pending, :accepted, :rejected ]
   def full_address
     street_address << " " << city << ", " << state << " " << zipcode
   end
