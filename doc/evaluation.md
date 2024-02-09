@@ -3,6 +3,7 @@
 For the project eval, you should prepare a video presentation that clearly demonstrates the presentation points listed below. To create your video presentation, we suggest hopping on a zoom call with your partner, sharing your screen, and recording your meeting as you go through the presentation points. Then, upload that video to either your Google Drive or YouTube. Please include the link to your video in your submission.
 
 ### Presentation Points
+There are TWO main areas you should focus on for your video presentation. 1: The actual user story presentation, and 2: your questions & requested feedback. More details below...
 
 **1. User Story Presentation**
 
@@ -11,8 +12,8 @@ Each partner should present 1 user story. If your project has 2 partners, your t
 For each story:
 
 * Demonstrate the user story on your deployment site (Render or Heroku, or localhost if the feature is not functional in Production)
-* Show the test(s) for the user story
-* Show all code that implements the user story
+* Describe and show how you came up with the solution to this user story, including your tests & code that makes those tests pass
+* Discuss and/or show any stumbling blocks you encountered along the way, and talk about what you/your team did to solve them. 
 
 **2. Student Questions and Requested Feedback**
 
