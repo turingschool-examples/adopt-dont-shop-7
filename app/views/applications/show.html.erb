@@ -1,16 +1,15 @@
 <h1>Application</h1>
 <ul>
-    <li>Applicant's Name: <%= @applicant.name %>
-    <li>Street Address: <%= @applicant.street_address %>
-    <li>City: <%= @applicant.city %>
-    <li>State: <%= @applicant.state %>
-    <li>Zipcode: <%= @applicant.zip_code %>
+    <li>Applicant's Name: <%= @application.name %></li>
+    <li>Street Address: <%= @application.street_address %></li>
+    <li>City: <%= @application.city %></li>
+    <li>State: <%= @application.state %></li>
+    <li>Zipcode: <%= @application.zip_code %></li>
     <li>Name of pet(s): 
         <% @application.pets.each do |pet| %>
-            <li><%= link_to "#{@pet.name}", "pets/#{@pet.id}" %></li>
+            <li><%= link_to "#{pet.name}", "/applications/#{@application.id}/pets/#{pet.id}" %></li>
         <%end%>
-    <li>Reason why you want to adopt: <%= @applicant.description %>
-    <li>Status of Application: <%= @applicant.status %>
-    <li>Created at: <% @applicant.created_at %></li>
-    <li>Updated at: <% @applicant.updated_at %></li>
+    </li>
+    <li>Reason why you want to adopt: <%= @application.description %></li>
+    <li>Status of Application: <%= @application.status %></li>
 </ul>
