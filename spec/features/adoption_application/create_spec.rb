@@ -1,11 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "the adoption application create page", type: :feature do
-    
-    # As a visitor
-    # When I visit the pet index page
-    # Then I see a link to "Start an Application"
-    # When I click this link    
+      
     # User Story 2
     describe "can create new adoption applications" do
         before :each do 
