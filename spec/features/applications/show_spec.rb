@@ -80,6 +80,19 @@ RSpec.describe "Application Show Page" do
     end
   end
 
+  describe "User Story 7 - No Pets on an Application" do
+    it "has no section to submit my application" do
+      application = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: 0)
+
+      visit show_applications_path(application)
+      save_and_open_page
+      expect(page).to have_no_content("Dog")
+      expect(page).to have_no_content("Cat")
+      expect(page).to have_no_content("Submit Application")
+    end
+  end
+
+  describe "User Story 8 - Partial Matches for Pet Names"
     it "returns any pet whose name PARTIALLY matches my search" do
       # User Story 8
       visit "/applications/#{@application_with_no_pets.id}"
@@ -154,3 +167,8 @@ RSpec.describe "Application Show Page" do
     end
   end
 end
+
+# if status == in_progress && added_pets?
+# -
+
+# end

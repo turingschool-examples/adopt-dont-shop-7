@@ -1,0 +1,8 @@
+<div id="pets-applied-for">
+  <h2>Pets Applied For: </h2>
+  <% @application.pets.each do |pet| %>
+  <ul>
+    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+  </ul>
+  <% end %>
+</div>
