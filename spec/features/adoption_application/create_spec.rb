@@ -72,7 +72,6 @@ RSpec.describe "the adoption application create page", type: :feature do
             click_button "Submit Application"
 
             expect(AdoptionApplication.last.status).to eq("In Progress")
-            end
         end
     end
 end
