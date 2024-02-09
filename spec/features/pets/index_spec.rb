@@ -38,10 +38,10 @@ RSpec.describe "the pets index" do
 
     visit "/pets"
 
-    expect(page).to have_content("Edit #{pet_1.name}")
-    expect(page).to have_content("Edit #{pet_2.name}")
+    expect(page).to have_content("Edit Lucille Bald")
+    expect(page).to have_content("Edit Lobster")
 
-    click_link("Edit #{pet_1.name}")
+    click_button("Edit #{pet_1.name}")
 
     expect(page).to have_current_path("/pets/#{pet_1.id}/edit")
   end
@@ -56,7 +56,7 @@ RSpec.describe "the pets index" do
     expect(page).to have_content("Delete #{pet_1.name}")
     expect(page).to have_content("Delete #{pet_2.name}")
 
-    click_link("Delete #{pet_1.name}")
+    click_button("Delete #{pet_1.name}")
 
     expect(page).to have_current_path("/pets")
     expect(page).to_not have_content(pet_1.name)

@@ -3,7 +3,7 @@
 <%= link_to "Start an Application", "/applications/new" %>
 
 <%= form_with url: "/pets", method: :get, data: { turbo: false } do |f| %>
-  <%= f.label :searc, "Search Pets" %>
+  <%= f.label :search, "Search Pets" %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
