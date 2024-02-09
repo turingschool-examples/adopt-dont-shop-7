@@ -38,10 +38,10 @@ Rails.application.routes.draw do
   post "/veterinary_offices/:veterinary_office_id/veterinarians", to: "veterinarians#create"
 
   get "/applications", to: "applications#index", as: :applications
-  get "/applications/new", to: "applications#new", as: :new_application
-  get "/applications/:id", to: "applications#show", as: :show_application
-  post "/applications", to: "applications#create", as: :create_application
-  patch "/applications/:id", to: "applications#update", as: :update_application
+  get "/applications/new", to: "applications#new", as: :new_applications
+  get "/applications/:id", to: "applications#show", as: :show_applications
+  post "/applications", to: "applications#create", as: :create_applications
+  patch "/applications/:id", to: "applications#update", as: :update_applications
 
   patch "/applications/:id", to: "application_pets#create", as: :create_application_pets
 

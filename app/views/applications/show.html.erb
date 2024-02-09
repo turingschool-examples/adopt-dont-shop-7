@@ -11,7 +11,7 @@
 <% if @application.status == "In Progress" && @application.added_pets? %>
 
   <h2>Add a Pet to this Application</h2>
-  <%= form_with url: show_application_path, method: :get do |f| %>
+  <%= form_with url: show_applications_path, method: :get do |f| %>
     <%= f.label :pet_name, 'Search for Pets by name:' %>
     <%= f.text_field :pet_name %>
     <%= f.submit "Submit" %>
@@ -42,7 +42,7 @@
 
   <section id="add-pet">
     <h2>Add a Pet to this Application</h2>
-    <%= form_with url: show_application_path, method: :get, data: { turbo: false } do |f| %>
+    <%= form_with url: show_applications_path, method: :get, data: { turbo: false } do |f| %>
       <%= f.label :pet_name, "Search for Pets by name: " %>
       <%= f.text_field :pet_name %>
       <%= f.submit "Submit" %>

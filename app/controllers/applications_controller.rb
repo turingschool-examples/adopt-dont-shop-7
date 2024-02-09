@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/#{@application.id}"
     else
       flash[:notice] = "Error: Application not created: Required information missing."
-      redirect_to new_application_path
+      redirect_to new_applications_path
     end
   end
 
@@ -20,7 +20,7 @@ class ApplicationsController < ApplicationController
       )
     end
 
-    redirect_to show_application_path
+    redirect_to show_applications_path
   end
 
   def show

@@ -3,7 +3,7 @@ class ApplicationPetsController < ApplicationController
   def create
   @application_pet = ApplicationPet.create(application_pet_params)
 
-    redirect_to show_application_path
+    redirect_to show_applications_path
   end
 
   def update
