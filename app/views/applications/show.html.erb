@@ -18,35 +18,38 @@
 
 <div class="page-filter">
 <% if @application.status == "in_progress" %>
-  <div id="add-a-pet-to-application">
-    <h2>Add a Pet to this Application</h2>
-    <div id="search-bar">
-      <%= form_with url: show_applications_path, method: :get do |f| %>
-      <%= f.label :pet_name, 'Search for Pets by name:' %>
-      <%= f.text_field :pet_name %>
-      <%= f.submit "Submit" %>
-      <% end %>
-    </div>
-    <div id="search-results">
-      <% if params[:pet_name].present? %>
-        <% @pets.each do |pet| %>
-        <ul>
-          <li><%= pet.name %> <%= button_to "Adopt this pet", create_application_pets_path, method: :post, params: {'pet_id' => pet.id, 'application_id' => params[:id], 'submit_app' => 'yes'} %></li>
-        </ul>
+  <div id="in-progress">
+    <div id="add-a-pet-to-application">
+      <h2>Add a Pet to this Application</h2>
+      <div id="search-bar">
+        <%= form_with url: show_applications_path, method: :get do |f| %>
+        <%= f.label :pet_name, 'Search for Pets by name:' %>
+        <%= f.text_field :pet_name %>
+        <%= f.submit "Submit" %>
         <% end %>
+      </div>
+      <div id="search-results">
+        <% if params[:pet_name].present? %>
+          <% @pets.each do |pet| %>
+          <ul>
+            <li><%= pet.name %> <%= button_to "Adopt this pet", create_application_pets_path, method: :post, params: {'pet_id' => pet.id, 'application_id' => params[:id], 'submit_app' => 'yes'} %></li>
+          </ul>
+          <% end %>
+        <% end %>
+      </div>
+    </div
+    <div id="submit-application">
+      <h2>Submit Application</h2>
+      <%= form_with url: update_applications_path, method: :patch, data: { turbo: false } do |f| %>
+      <%= f.label :good_owner_comments, "Why #{@application.name} would make a good owner: " %>
+      <%= f.text_field :good_owner_comments %>
+      <%= hidden_field_tag :status, "pending" %>
+      <%= f.submit "Submit Application" %>
       <% end %>
     </div>
-  </div
-  <section id="submit-application">
-    <h2>Submit Application</h2>
-    <%= form_with url: update_applications_path, method: :patch, data: { turbo: false } do |f| %>
-    <%= f.label :good_owner_comments, "Why I would make a good owner: " %>
-    <%= f.text_field :good_owner_comments %>
-    <%= f.submit "Submit Application" %>
-    <% end %>
-  </section>
-<% elsif @application.status == "Pending" %>
-  <div>
+  </div>
+<% elsif @application.status == "pending" %>
+  <div id="pending">
     <p>Why I would make a good owner: <%= @application.good_owner_comments %></p>
   </div>
 <% else %>
@@ -56,7 +59,7 @@
         <%= f.label :pet_name, "Search for Pets by name: " %>
         <%= f.text_field :pet_name %>
         <%= f.submit "Submit" %>
-      <% end %> 
+      <% end %>
   </div>
 <% end %>
 </div>

@@ -16,7 +16,6 @@ class Application < ApplicationRecord
 
   def added_pets?
     self.pets.present?
-    require 'pry'; binding.pry
   end
 
   def all_pets_approved

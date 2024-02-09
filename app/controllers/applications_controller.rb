@@ -14,13 +14,10 @@ class ApplicationsController < ApplicationController
   def update
     application = Application.find(params[:id])
     if params[:good_owner_comments].present?
-      application.update(
-        good_owner_comments: params[:good_owner_comments],
-        status: 1
-      )
-    end
+      application.update(application_params)
 
-    redirect_to show_applications_path
+      redirect_to show_applications_path(application)
+    end
   end
 
   def show
@@ -39,6 +36,9 @@ class ApplicationsController < ApplicationController
       :state,
       :zipcode,
       :description,
-      :good_owner_comments)
+      :good_owner_comments,
+      :status)
+      # params[:status] = params[:status].to_i
+      # params
   end
 end

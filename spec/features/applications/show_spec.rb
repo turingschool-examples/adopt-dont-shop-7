@@ -51,7 +51,6 @@ RSpec.describe "Application Show Page" do
       fill_in("Search for Pets by name:", with: "Hamster")
       click_button("Submit")
         within "#search-results" do
-          save_and_open_page
           expect(page).to have_content("Hamster")
           expect(page).to have_button("Adopt this pet")
         end
@@ -66,27 +65,18 @@ RSpec.describe "Application Show Page" do
 
   describe "User Story 6 - Submit Application" do
     it "will show my application is 'pending' when I submit my application" do
+      expect(page).to have_content("Submit Application")
+      expect(page).to have_content("Why #{@application_1.name} would make a good owner")
 
-      expect(current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content("Add a Pet to this Application")
-
-      fill_in "Search for Pets by name", with: "#{@dog.name}"
-      click_button("Submit")
-
-      expect(current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content(@dog.name)
-
-      click_button("Adopt this pet")
-
-      expect(current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content(@dog.name)
-
-      fill_in "Why I would make a good owner:", with: "Worked with some more dinosaurs"
+      fill_in :good_owner_comments, with: "Worked with some dinosaurs"
       expect(page).to have_button("Submit Application")
 
       click_button("Submit Application")
       expect(current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content("Pending")
+      expect(page).to have_content("pending")
+      expect(page).to have_content("Dog")
+      expect(page).to have_content("Cat")
+      expect(page).to have_no_content("Add a Pet to this Application")
     end
   end
 
