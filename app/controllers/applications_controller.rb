@@ -13,7 +13,6 @@ class ApplicationsController < ApplicationController
 
   private
   def application_params
-    # params.require("application").permit(:name, :street_address, :city, :state, :zip_code, :description)
-    params[:application]
+    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
 end
