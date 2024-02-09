@@ -70,5 +70,21 @@ RSpec.describe "the adoption application create page", type: :feature do
 
             expect(AdoptionApplication.last.status).to eq("In Progress")
         end
+        
+        # User Story 3
+        it "displays user error if field is not filled out in form" do
+            visit "/applications/new"
+
+            # City is not filled in
+            fill_in "name", with: "Mel"
+            fill_in "street_address", with: "23 Main St"
+            fill_in "state", with: "CO"
+            fill_in "zip_code", with: "80303"
+            fill_in "description", with: "I have a fenced backyard and love dogs"
+
+            click_button "Submit Application"
+
+            expect(page).to have_content("Application incomplete. Please fill out all fields.")
+        end
     end
 end
