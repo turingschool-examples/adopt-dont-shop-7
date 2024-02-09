@@ -12,6 +12,10 @@ class AdoptionApplicationController < ApplicationController
          pet_id = params[:add_pet]
          @adoption_app.add_pet_to_app(pet_id)
       end
+
+      if params[:ownership_description].present?
+         @adoption_app.change_application_status("Pending")
+      end
    end
 
    def new
@@ -29,15 +33,14 @@ class AdoptionApplicationController < ApplicationController
 
    private
    def adoption_app_params 
-      params.permit(
-      :name,
-      :street_address,
-      :city,
-      :state,
-      :zip_code,
-      :description,
-      :status)
+      params.permit(:id, 
+                     :name,
+                     :street_address,
+                     :city,
+                     :state,
+                     :zip_code,
+                     :description,
+                     :status).merge(status: "In Progress")
       # when you use .merge directly on the result of params.permit, you're merging the additional parameters or default values into the hash returned by params.permit.
-            .merge(status: "In Progress")
    end
 end
