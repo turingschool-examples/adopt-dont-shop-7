@@ -7,8 +7,13 @@ class ApplicationsController < ApplicationController
   def new; end
 
   def create
-    new_app = Application.create!(strong_params)
-    redirect_to "/applications/#{new_app.id}"
+    new_app = Application.new(strong_params)
+    if new_app.save
+      redirect_to "/applications/#{new_app.id}"
+    else 
+      flash[:notice] = "Missing required inputs"
+      redirect_to "/applications/new"
+    end 
   end
 
   private 
