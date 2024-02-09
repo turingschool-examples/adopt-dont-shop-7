@@ -7,7 +7,7 @@
     <li>Zipcode: <%= @application.zip_code %></li>
     <li>Name of pet(s): 
         <% @application.pets.each do |pet| %>
-            <li><%= link_to "#{pet.name}", "/applications/#{@application.id}/pets/#{pet.id}" %></li>
+            <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
         <%end%>
     </li>
     <li>Reason why you want to adopt: <%= @application.description %></li>

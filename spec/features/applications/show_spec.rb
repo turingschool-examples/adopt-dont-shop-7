@@ -59,7 +59,7 @@ RSpec.describe "Application Show Page" do
           expect(page).to have_link("Rover")
 
           click_link "Rover"
-          expect(current_path).to eq("/applications/#{application_1.id}/pets/#{pet_1.id}")
+          expect(current_path).to eq("/pets/#{pet_1.id}")
         end
       end
 
