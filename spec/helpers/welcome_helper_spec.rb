@@ -11,5 +11,9 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe WelcomeHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#Welcome Index" do
+    it "" do
+      
+    end
+  end
 end
