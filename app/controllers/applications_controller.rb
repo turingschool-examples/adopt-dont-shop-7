@@ -10,10 +10,6 @@ class ApplicationsController < ApplicationController
     def create 
         application = Application.create!(application_params)
 
-        if params[:status] == "inprogress"
-            application
-        end
-
         redirect_to "/applications/#{application.id}"
     end
 
