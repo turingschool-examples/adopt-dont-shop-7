@@ -26,4 +26,24 @@ RSpec.describe 'Application show' do
             expect(current_path).to eq("/pets/#{pet1.id}")
         end
     end
+
+    describe 'US 4 Sad path' do
+      describe 'Searching for a pet that doesnt exist' do
+        it 'searches pets' do
+            visit "/applications/#{app1.id}"
+
+            within ".pet" do 
+                fill_in :pet_name, with: "Bob"
+                # save_and_open_page
+                click_on("Search")
+
+                expect(current_path).to eq("/applications/#{app1.id}")
+
+                expect(page).to_not have_content('Bob')
+            end
+        end
+      end
+    end
+
+ 
 end
