@@ -30,4 +30,23 @@ RSpec.describe "application new" do
       end
     end
   end
+
+  describe 'US 3' do
+    it 'displays flash message when all fields are not inputted' do
+      visit "/applications/new"
+
+        fill_in :street_address, with: "3455 DR"
+        fill_in :city, with: "LA"
+        fill_in :state, with: "Cali"
+        fill_in :zip_code, with: 7089
+        fill_in :description, with: "I'm here"
+
+        click_on("Submit")
+        
+        expect(current_path).to eq("/applications/new")
+
+        expect(page).to have_content('All fields must be filled in')
+
+    end
+  end
 end
