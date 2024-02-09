@@ -10,20 +10,26 @@ class AdoptionApplicationController < ApplicationController
    def new
    end
 
-   def create
+   def create      
       adoption_app = AdoptionApplication.create(adoption_app_params)
-      redirect_to "/applications/#{adoption_app.id}"
+      if adoption_app.save 
+         redirect_to "/applications/#{adoption_app.id}"
+      else
+         flash[:notice] = "Application incomplete. Please fill out all fields."
+         render :new
+      end
    end
 
    private
-   def adoption_app_params
-      params.permit(:name)
-      params.permit(:street_address)
-      params.permit(:city)
-      params.permit(:state)
-      params.permit(:zip_code)
-      params.permit(:description)
-      params.permit(:status)
+   def adoption_app_params 
+      params.permit(
+      :name,
+      :street_address,
+      :city,
+      :state,
+      :zip_code,
+      :description,
+      :status)
       # when you use .merge directly on the result of params.permit, you're merging the additional parameters or default values into the hash returned by params.permit.
             .merge(status: "In Progress")
    end
