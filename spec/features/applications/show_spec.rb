@@ -72,9 +72,10 @@ RSpec.describe "Application Show Page" do
     describe "User Story 4" do
       describe "a section on the page to 'Add a Pet to this Application' where I can search for Pets by name" do
         it "takes me back to the application show page and I see the pets whose name matches my search" do
+          visit "/applications/#{application_1.id}"
           expect(page).to have_content("Add a Pet to this Application")
 
-          fill_in "add_a_pet", with: "Rover"
+          fill_in "pet_name", with: "Rover"
           click_on "Submit"
 
           expect(current_path).to eq("/applications/#{application_1.id}")
