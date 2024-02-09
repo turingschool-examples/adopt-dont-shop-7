@@ -44,7 +44,6 @@ RSpec.describe Pet, type: :model do
   describe '#find_pet' do
     it 'searches for specific name' do
       # require 'pry'; binding.pry
-      @applicant1.pets.find_pet(@pet_3.id)
       expect(Pet.find_pet("Ann")).to eq([@pet_3])
     
     end
