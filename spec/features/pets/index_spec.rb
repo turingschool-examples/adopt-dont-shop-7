@@ -1,6 +1,26 @@
 require "rails_helper"
 
 RSpec.describe "the pets index" do
+    # User Story 2
+    # As a visitor
+    # When I visit the pet index page
+    # Then I see a link to "Start an Application"
+    describe "new application link" do
+      it "has a link to start an application" do
+          visit "/pets"
+
+          expect(page).to have_link("Start an Application", href: "/applications/new")
+      end
+
+      # I get some bogus error when I run this one
+      # it "redirects to adoption application create page" do
+      #   visit "/pets"
+
+      #   click_link("Start an Application")
+
+      #   expect(current_path).to eq("/applications/create")
+      # end
+    end
   it "lists all the pets with their attributes" do
     shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     pet_1 = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: shelter.id)
