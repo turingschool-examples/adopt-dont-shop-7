@@ -22,4 +22,16 @@ RSpec.describe 'Adoption Application Show page', type: :feature do
       expect(page).to have_content(application.status)
    end
 
+   # User Story 4
+   it 'has a section to add a Pet to the application' do
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      pet_1 = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      pet_2 = Pet.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
+      application = pet_2.adoption_applications.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", status: "Pending")
+
+      visit "/applications/#{application.id}"
+
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_content("Search Pets")
+   end
 end

@@ -1,10 +1,14 @@
 class AdoptionApplicationController < ApplicationController
    def index
       @adotpion_apps = AdoptionApplication.all
+      
    end
 
    def show
       @adoption_app = AdoptionApplication.find(params[:id])
+      if params[:search]
+         @pets = Pet.search(params[:search])
+      end
    end
 
    def new
