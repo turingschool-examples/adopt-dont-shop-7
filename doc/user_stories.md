@@ -94,7 +94,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done
+[X] done
 
 5. Add a Pet to an Application
 
@@ -109,7 +109,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done
+[ ] done - Igor
 
 6. Submit an Application
 
@@ -127,7 +127,7 @@ And I do not see a section to add more pets to this application
 ```
 
 ```
-[ ] done
+[ ] done - Igor
 
 7. No Pets on an Application
 
@@ -142,7 +142,7 @@ Then I do not see a section to submit my application
 These stories emphasize key database concepts.
 
 ```
-[ ] done
+[X] done - Mel # test for this
 
 8. Partial Matches for Pet Names
 
@@ -154,7 +154,7 @@ For example, if I search for "fluff", my search would match pets with names "flu
 ```
 
 ```
-[ ] done
+[X] done - Mel # test for this
 
 9. Case Insensitive Matches for Pet Names
 
@@ -166,13 +166,13 @@ For example, if I search for "fluff", my search would match pets with names "Flu
 ```
 
 ```
-[ ] done
+[ ] done - Mel 
 
 SQL Only Story
 
 For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
 
-10. Admin Shelters Index
+10. Admin Shelters Index - Mel
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -180,7 +180,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
-[ ] done
+[ ] done - Mel
 
 For this story, you should fully leverage ActiveRecord methods in your query.
 
