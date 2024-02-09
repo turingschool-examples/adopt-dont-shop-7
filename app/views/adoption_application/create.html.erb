@@ -3,11 +3,11 @@
 <p>Please fill out the following information:</p>
 <%= form_with url: "/applications", method: :post, data: { turbo: false } do |form| %>
   <%= form.label :application_information %>
-  <%= form.text_field :name %>
-  <%= form.text_field :street_address %>
-  <%= form.text_field :city %>
-  <%= form.text_field :state %>
-  <%= form.text_field :zip_code %>
-  <%= form.text_field :description %>
-  <%= form.submit 'Create Artist' %>
+  <p>Name: <%= form.text_field :name %></p>
+  <p>Street Address: <%= form.text_field :street_address %></p>
+  <p>City: <%= form.text_field :city %></p>
+  <p>State: <%= form.text_field :state %></p>
+  <p>Zip Code: <%= form.text_field :zip_code %></p>
+  <p>Description of why you are a good owner: <%= form.text_field :description %></p>
+  <%= form.submit 'Create Application' %>
 <% end %>
