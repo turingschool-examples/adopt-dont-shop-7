@@ -9,7 +9,7 @@ RSpec.describe "the pets index" do
       it "has a link to start an application" do
           visit "/pets"
 
-          expect(page).to have_link("Start an Application", href: "/applications/create")
+          expect(page).to have_link("Start an Application", href: "/applications/new")
       end
 
       # I get some bogus error when I run this one

@@ -7,9 +7,12 @@ class AdoptionApplicationController < ApplicationController
       @adoption_app = AdoptionApplication.find(params[:id])
    end
 
+   def new
+   end
+
    def create
       adoption_app = AdoptionApplication.create(adoption_app_params)
-      redirect_to "/applications/:id"
+      redirect_to "/applications/#{adoption_app.id}"
    end
 
    private

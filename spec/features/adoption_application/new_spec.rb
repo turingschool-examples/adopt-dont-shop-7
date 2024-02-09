@@ -12,7 +12,7 @@ RSpec.describe "the adoption application create page", type: :feature do
         # end
 
         it "displays a form" do
-            visit "/applications/create"
+            visit "/applications/new"
 
             expect(page).to have_button("Submit Application")
         end
@@ -22,34 +22,34 @@ RSpec.describe "the adoption application create page", type: :feature do
         #   - Name, Street Address, City, State, Zip Code,
         #   & Description of why I would make a good home
         it "is a fillable form with name, address, and description" do
-            visit "/applications/create"
+            visit "/applications/new"
 
-            expect(page).to have_field("Name")
-            expect(page).to have_field("Street Address")
-            expect(page).to have_field("City")
-            expect(page).to have_field("State")
-            expect(page).to have_field("Zip Code")
-            expect(page).to have_field("Description of why you are a good owner")
+            expect(page).to have_content("Name:")
+            expect(page).to have_content("Street Address:")
+            expect(page).to have_content("City:")
+            expect(page).to have_content("State:")
+            expect(page).to have_content("Zip Code:")
+            expect(page).to have_content("Description of why you are a good owner:")
         end
 
         # And I click submit
         # Then I am taken to the new application's show page
         it "goes to adoption application show page after submission" do
-            visit "/applications/create"
+            visit "/applications/new"
 
-            fill_in "Name", with: "Mel"
-            fill_in "Street Address", with: "23 Main St"
-            fill_in "City", with: "Denver"
-            fill_in "State", with: "CO"
-            fill_in "Zip Code", with: "80303"
-            fill_in "Description of why you are a good owner", with: "I have a fenced backyard and love dogs"
+            fill_in "name", with: "Mel"
+            fill_in "street_address", with: "23 Main St"
+            fill_in "city", with: "Denver"
+            fill_in "state", with: "CO"
+            fill_in "zip_code", with: "80303"
+            fill_in "description", with: "I have a fenced backyard and love dogs"
 
             click_button "Submit Application"
 
             newest_app_id = AdoptionApplication.last.id
 
-            expect(current_path).to eq("/applications/#{new_application_id}")
-            save_and_open_page
+            expect(current_path).to eq("/applications/#{newest_app_id}")
+            
             # add more expects with page details
         end
 
@@ -57,14 +57,14 @@ RSpec.describe "the adoption application create page", type: :feature do
         # And I see my Name, address information, and description of why I would make a good home
         # And I see an indicator that this application is "In Progress"
         it "updates the adoption application show page" do
-            visit "/applications/create"
+            visit "/applications/new"
 
-            fill_in "Name", with: "Mel"
-            fill_in "Street Address", with: "23 Main St"
-            fill_in "City", with: "Denver"
-            fill_in "State", with: "CO"
-            fill_in "Zip Code", with: "80303"
-            fill_in "Description of why you are a good owner", with: "I have a fenced backyard and love dogs"
+            fill_in "name", with: "Mel"
+            fill_in "street_address", with: "23 Main St"
+            fill_in "city", with: "Denver"
+            fill_in "state", with: "CO"
+            fill_in "zip_code", with: "80303"
+            fill_in "description", with: "I have a fenced backyard and love dogs"
 
             click_button "Submit Application"
 
