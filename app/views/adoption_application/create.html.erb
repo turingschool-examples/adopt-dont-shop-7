@@ -1,0 +1,13 @@
+<h1>Create a New Application</h1>
+
+<p>Please fill out the following information:</p>
+<%= form_with url: "/applications", method: :post, data: { turbo: false } do |form| %>
+  <%= form.label :application_information %>
+  <%= form.text_field :name %>
+  <%= form.text_field :street_address %>
+  <%= form.text_field :city %>
+  <%= form.text_field :state %>
+  <%= form.text_field :zip_code %>
+  <%= form.text_field :description %>
+  <%= form.submit 'Create Artist' %>
+<% end %>

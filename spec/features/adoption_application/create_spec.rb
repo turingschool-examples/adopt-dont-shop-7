@@ -4,12 +4,12 @@ RSpec.describe "the adoption application create page", type: :feature do
       
     # User Story 2
     describe "can create new adoption applications" do
-        before :each do 
-            @shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
-            @pet_1 = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
-            @pet_2 = Pet.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
-            @application = pet_2.adoption_applications.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", status: "Pending")
-        end
+        # before :each do 
+        #     shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        #     pet_1 = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+        #     pet_2 = Pet.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
+        #     application = pet_2.adoption_applications.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", status: "Pending")
+        # end
 
         it "displays a form" do
             visit "/applications/create"
@@ -49,6 +49,7 @@ RSpec.describe "the adoption application create page", type: :feature do
             newest_app_id = AdoptionApplication.last.id
 
             expect(current_path).to eq("/applications/#{new_application_id}")
+            save_and_open_page
             # add more expects with page details
         end
 
