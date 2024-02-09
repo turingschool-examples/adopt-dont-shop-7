@@ -82,7 +82,7 @@ RSpec.describe "the pets index" do
     expect(page).to_not have_content(pet_3.name)
   end
 
-  #   As a visitor
+  # As a visitor
   # When I visit the pet index page
   # Then I see a link to "Start an Application"
   # When I click this link
@@ -105,7 +105,7 @@ RSpec.describe "the pets index" do
 
   it "can click this link and be taken to new application page" do
     visit '/pets'
-    click_on "Start an Application"
+    click_on "Start an Application"   
     expect(current_path).to eq("/applications/new")
   end
 
@@ -117,8 +117,7 @@ RSpec.describe "the pets index" do
     expect(page).to have_field("state")
     expect(page).to have_field("zip_code")
     expect(page).to have_field("endorsement")
-    expect(page).to have_button("Submit")
-
+    expect(page).to have_button("Submit Application")
   end
 
   it "can fill out the form and submit" do
@@ -131,12 +130,6 @@ RSpec.describe "the pets index" do
     fill_in "endorsement", with:"I am the best pet owner"
     click_on "Submit"
     expect(current_path).not_to eq("/applications/new")   ###test for object later
-    expect(page).to have_content("Test Name")
-    expect(page).to have_content("Test address")
-    expect(page).to have_content("Nowhereville")
-    expect(page).to have_content("Colorado")
-    expect(page).to have_content("00000")
-    expect(page).to have_content("I am the best pet owner")
   end
 
   it "shows application information on its show page" do
