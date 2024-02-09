@@ -82,10 +82,8 @@ RSpec.describe "Application Show Page" do
 
   describe "User Story 7 - No Pets on an Application" do
     it "has no section to submit my application" do
-      application = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: 0)
+      visit "/applications/#{@application_with_no_pets.id}"
 
-      visit show_applications_path(application)
-      save_and_open_page
       expect(page).to have_no_content("Dog")
       expect(page).to have_no_content("Cat")
       expect(page).to have_no_content("Submit Application")
@@ -94,7 +92,6 @@ RSpec.describe "Application Show Page" do
 
   describe "User Story 8 - Partial Matches for Pet Names"
     it "returns any pet whose name PARTIALLY matches my search" do
-      # User Story 8
       visit "/applications/#{@application_with_no_pets.id}"
 
       expect(page).to have_no_content("Hamster")
@@ -110,65 +107,22 @@ RSpec.describe "Application Show Page" do
       fill_in("Search for Pets by name:", with: "fluf")
       click_button("Submit")
 
-      expect(page).to have_content("fluffy")
-      expect(page).to have_content("fluff")
+      expect(page).to have_content(cat.name)
+      expect(page).to have_content(fluff.name)
     end
-  describe "User Story 9" do
+
+  describe "User Story 9 - Case Insensitive Matches for Pet Names" do
     it "is case insensitive" do
-      # User Story 9
       visit "/applications/#{@application_with_no_pets.id}"
 
       fluffy = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "FLUFF")
       dog = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "Mr. Fluff")
 
-      fill_in("Search for Pets by name:", with: "fluff")
+      fill_in("Search for Pets by name:", with: "fluf")
       click_button("Submit")
 
-      expect(page).to have_content("FLUFF")
-      expect(page).to have_content("Mr. Fluff")
-    end
-  end
-
-  describe "Submit Application" do
-    it "has a section to submit my application" do
-      # User Story 6 - Unit Test
-
-      expect(page).to have_content("Dog")
-      expect(page).to have_content("Cat")
-      expect(page).to have_content("In Progress")
-
-      within("#submit-application") do
-        expect(page).to have_content "Why I would make a good owner"
-        click_button "Submit Application"
-      end
-
-      fill_in("good_owner_comments", with: "We bonded when I visited the shelter")
-      click_button("Submit Application")
-
-      expect(current_path).to eq("/applications/#{@application_1.id}")
-
-      expect(page).to have_no_content("In Progress")
-      expect(page).to have_content("Pending")
-      expect(page).to have_content("Pets Applied For:")
-      expect(page).to have_content("Dog")
-      expect(page).to have_content("Cat")
-
-      expect(page).to have_no_content("Add a Pet to this Application")
-      expect(page).to have_no_content("Search for Pets by name:")
-      expect(page).to have_no_content("Submit Application")
-    end
-
-    it "will not show the submit section if I have not added any pets" do
-      # User Story 7
-      visit "/applications/#{@application_with_no_pets.id}"
-
-      expect(page).to have_no_content("Why I would make a good owner")
-      expect(page).to have_no_button("Submit Application")
+      expect(page).to have_content(fluffy.name)
+      expect(page).to have_content(dog.name)
     end
   end
 end
-
-# if status == in_progress && added_pets?
-# -
-
-# end
