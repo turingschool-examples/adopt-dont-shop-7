@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Application Show Page" do
   before(:each) do
-    @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
-    @application_with_no_pets = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
+    @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: 0)
+    @application_with_no_pets = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: 0)
 
     @shelter = Shelter.create!(foster_program: true, name: "Turing", city: "Backend", rank: 3)
 
@@ -13,69 +13,60 @@ RSpec.describe "Application Show Page" do
 
     @application_pet_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @dog.id)
     @application_pet_2 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @cat.id)
+
+    visit "/applications/#{@application_1.id}"
   end
 
   describe "User Story 1 - Applicatication Show" do
     it "has application details" do
-      visit "/applications/#{@application_1.id}"
 
       # status = ["In Progress", "Pending", "Accepted", "Rejected"]
 
       expect(page).to have_content("John's Application")
       expect(page).to have_content("Address: 1234 ABC Lane Turing, Backend 54321")
-      expect(page).to have_content("Application Status: In Progress")
-      expect(page).to have_content("Application Description: I love cats")
+      expect(page).to have_content("Application Status: in_progress")
+      expect(page).to have_content("Application Description: I love animals")
       expect(page).to have_link("#{@dog.name}")
       expect(page).to have_link("#{@cat.name}")
-
-      # click_link("#{@dog.name}")
-
-      # expect(page.current_path).to eq("/pets/#{@dog.id}")
-
-      # visit "/applications/#{@application_1.id}"
-      # click_link("#{@cat.name}")
-
-      # expect(page.current_path).to eq("/pets/#{@cat.id}")
     end
   end
 
   describe "User Story 4 - Searching for Pets for an Application" do
     it "has a search bar" do
-      # User Story 4
-      visit "/applications/#{@application_1.id}"
-
+      expect(page).to have_content("in_progress")
       expect(page).to have_content("Add a Pet to this Application")
-      expect(page).to have_content("Search for Pets by name:")
-      expect(page).to have_button("Submit")
-      expect(page).to have_no_content("Hamster")
-      expect(page).to have_no_button("Adopt this pet")
+      expect(page).to have_field(:pet_name)
 
-      fill_in("Search for Pets by name:", with: "Hamster")
+      fill_in(:pet_name, with: "Hamster")
       click_button("Submit")
-
-      expect(page.current_path).to eq("/applications/#{@application_1.id}")
+      expect(page.current_path).to eq(show_applications_path(@application_1))
       expect(page).to have_content("Hamster")
     end
+  end
 
+  describe "User Story 5 - Add a Pet to this Application" do
     it "will let me add a pet to my application" do
-      # User Story 5
-      visit "/applications/#{@application_1.id}"
-
       expect(page).to have_no_content("Hamster")
 
       fill_in("Search for Pets by name:", with: "Hamster")
       click_button("Submit")
-      expect(page).to have_button("Adopt this pet")
+        within "#search-results" do
+          save_and_open_page
+          expect(page).to have_content("Hamster")
+          expect(page).to have_button("Adopt this pet")
+        end
+
       click_button("Adopt this pet")
-
       expect(page.current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content("Hamster")
+      within "#pets-applied-for" do
+        expect(page).to have_content("Hamster")
+      end
     end
+  end
 
-  describe "User Story 4, 5, and 6" do
+  describe "User Story 6 - Submit Application" do
     it "will show my application is 'pending' when I submit my application" do
-      # User Story 4, 5, 6 - Integration Test
-      visit "/applications/#{@application_1.id}"
+
       expect(current_path).to eq("/applications/#{@application_1.id}")
       expect(page).to have_content("Add a Pet to this Application")
 
@@ -119,7 +110,7 @@ RSpec.describe "Application Show Page" do
       expect(page).to have_content("fluffy")
       expect(page).to have_content("fluff")
     end
-
+  describe "User Story 9" do
     it "is case insensitive" do
       # User Story 9
       visit "/applications/#{@application_with_no_pets.id}"
@@ -138,7 +129,7 @@ RSpec.describe "Application Show Page" do
   describe "Submit Application" do
     it "has a section to submit my application" do
       # User Story 6 - Unit Test
-      visit "/applications/#{@application_1.id}"
+
       expect(page).to have_content("Dog")
       expect(page).to have_content("Cat")
       expect(page).to have_content("In Progress")
