@@ -6,6 +6,7 @@ RSpec.describe 'Application Show Page', type: :feature do
       @shel_1 = Shelter.create!(name: "Dog's Home", city: "Gustine", foster_program: true, rank: 1)
       
       @pet_1 = @shel_1.pets.create!(name: "Cito", age: 4, breed: "Lab", adoptable: true)
+      @pet_2 = @shel_1.pets.create!(name: "Charmander", age: 4, breed: "fire", adoptable: true)
 
       @app_1 = Application.create!(name: "Jack", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 0)
 
@@ -33,7 +34,29 @@ RSpec.describe 'Application Show Page', type: :feature do
 
       # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
       expect(page).to have_content(@app_1.status)
-      
+    end
+
+    # 4. Searching for Pets for an Application
+    it "can add pets to the application and search availible pets" do 
+      # When I visit an application's show page
+      visit "/applications/#{@app_1.id}"
+      # And that application has not been submitted,
+      expect(page).to_not have_content("Charmander")
+      # Then I see a section on the page to "Add a Pet to this Application"
+      expect(page).to have_content("Add a Pet to this Application")
+      # In that section I see an input where I can search for Pets by name
+      expect(page).to have_content("Search for Pet:")
+      # When I fill in this field with a Pet's name
+      fill_in 'search', with: 'Charmander'
+      # And I click submit,
+      click_button("submit")
+      # Then I am taken back to the application show page
+      expect(current_path).to eq("/applications/#{@app_1.id}")
+      # And under the search bar I see any Pet whose name matches my search 
+      within '.found-pets' do
+        expect(page).to have_content(@pet_2.name)
+      end
     end
   end
 end
+
