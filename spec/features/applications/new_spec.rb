@@ -60,4 +60,41 @@ RSpec.describe 'new application form page' do
     expect(page).to have_content(application.endorsement)
     expect(page).to have_content("In Progress")
   end
+
+# As a visitor
+# When I visit the new application page
+# And I fail to fill in any of the form fields
+# And I click submit
+# Then I am taken back to the new applications page
+# And I see a message that I must fill in those fields.
+
+  it 'will return the user to the new application page if the form is not fully filled out' do
+    visit '/applications/new'
+    fill_in "name", with:"Test Name"
+    fill_in "street_address", with:"Test address"
+    fill_in "city", with:"Nowhereville"
+    fill_in "state", with:"Colorado"
+    fill_in "zip_code", with:"00000"
+    click_on "Submit"
+
+    expect(page).to have_field("name")
+    expect(page).to have_field("street_address")
+    expect(page).to have_field("city")
+    expect(page).to have_field("state")
+    expect(page).to have_field("zip_code")
+    expect(page).to have_field("endorsement")
+    expect(page).to have_button("Submit Application")
+  end
+
+  it 'will show a message that it requires the user to fill in the blank fields' do
+    visit '/applications/new'
+    fill_in "name", with:"Test Name"
+    fill_in "street_address", with:"Test address"
+    fill_in "city", with:"Nowhereville"
+    fill_in "state", with:"Colorado"
+    fill_in "zip_code", with:"00000"
+    click_on "Submit"
+
+    expect(page).to have_content("Please fill out all fields of the application before trying to submit")
+  end
 end
