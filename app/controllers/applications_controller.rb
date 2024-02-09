@@ -1,10 +1,17 @@
 class ApplicationsController < ApplicationController
-  
-  def new; end
+  def new
+    @application = Application.new
+  end
 
   def create
-    application = Application.create(application_params)
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(application_params)
+
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:notice] = application.errors.full_messages.join(', ')
+      redirect_to "/applications/new"
+    end
   end
 
   def show
@@ -13,6 +20,6 @@ class ApplicationsController < ApplicationController
 
   private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :description)
+    params.require(:application).permit(:name, :street_address, :city, :state, :zip_code, :description)
   end
 end

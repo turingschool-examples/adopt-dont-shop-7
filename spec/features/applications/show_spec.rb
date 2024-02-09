@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Application Show Page" do
-  let!(:application_1) {Application.create!(name: "Sally", street_address: "112 W 9th St.", city: "Kansas City", state: "MO", zip_code: "64105", description: "I love animals. Please let me have one.", status: "Pending")}
-  let!(:application_2) {Application.create!(name: "Marcus", street_address: "100 Hennepin Ave.", city: "Minneapolis", state: "MN", zip_code: "55401", description: "Dogs are the best. Please let me have one.", status: "In Progress")}
+  let!(:application_1) {Application.create!(name: "Sally", street_address: "112 W 9th St.", city: "Kansas City", state: "MO", zip_code: "64105", description: "I love animals. Please let me have one.", status: "pending")}
+  let!(:application_2) {Application.create!(name: "Marcus", street_address: "100 Hennepin Ave.", city: "Minneapolis", state: "MN", zip_code: "55401", description: "Dogs are the best. Please let me have one.", status: "in_progress")}
 
   let!(:shelter_1) {Shelter.create!(foster_program: true, name: "Adopters Unite", city: "Minneapolis", rank: 1 ) }
   let!(:pet_1) {shelter_1.pets.create!(adoptable: true, age: 2, breed: "doberman", name: "Rover")}
@@ -59,7 +59,7 @@ RSpec.describe "Application Show Page" do
           expect(page).to have_link("Rover")
 
           click_link "Rover"
-          expect(current_path).to eq("/applications/#{application_1.id}/pets/#{pet_1.id}")
+          expect(current_path).to eq("/pets/#{pet_1.id}")
         end
       end
 

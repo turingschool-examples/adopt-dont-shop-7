@@ -1,4 +1,4 @@
-<%= form_with model: @application do |form|%>
+<%= form_with model: @application, data: {turbo: false} do |form|%>
   <%= form.label :name, "Applicant's Name" %>
   <%= form.text_field :name %><br>
   <%= form.label :street_address, "Street Address" %>
@@ -11,6 +11,6 @@
   <%= form.text_field :zip_code %><br>
   <%= form.label :description, "Reason why you want to adopt"%>
   <%= form.text_area :description %><br>
-  <%= form.submit "Submit" %>
+  <%= form.submit %>
 <%end%>
 

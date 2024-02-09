@@ -26,14 +26,26 @@ RSpec.describe "Application New Page" do
         fill_in "Zip Code", with: "55403"
         fill_in "Reason why you want to adopt", with: "I want a cat named Taco"
 
-        click_on "Submit"
+        click_on "Create Application"
 
-        expect(current_path).to eq("/applications/#{application_1.id + 1}")
+        expect(current_path).to eq("/applications/#{Application.last.id}")
         save_and_open_page
         expect(page).to have_content(application_1.name)
         expect(page).to have_content(application_1.street_address)
         expect(page).to have_content(application_1.description)
-        expect(page).to have_content("In Progress")
+        expect(page).to have_content("in_progress")
+      end
+    end
+
+    describe "User Story 3" do
+      describe "When I visit the new application page" do
+        it "can not submit the application without filling any form fields" do
+          click_on "Create Application"
+
+          expect(current_path).to eq("/applications/new")
+          expect(page).to have_content("Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank")
+          expect(page).to have_button("Create Application")
+        end
       end
     end
   end
