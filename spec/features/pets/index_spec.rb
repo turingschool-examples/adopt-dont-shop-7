@@ -81,28 +81,16 @@ RSpec.describe "the pets index" do
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_3.name)
   end
-
+  # User Story 2
   # As a visitor
   # When I visit the pet index page
   # Then I see a link to "Start an Application"
-  # When I click this link
-  # Then I am taken to the new application page where I see a form
-  # When I fill in this form with my:
-  #   - Name
-  #   - Street Address
-  #   - City
-  #   - State
-  #   - Zip Code
-  #   - Description of why I would make a good home
-  # And I click submit
-  # Then I am taken to the new application's show page
-  # And I see my Name, address information, and description of why I would make a good home
-  # And I see an indicator that this application is "In Progress"
   it "has a link to start an application" do
     visit "/pets"
     expect(page).to have_link("Start an Application", :href=>"/applications/new")
   end
-
+  # When I click this link
+  # Then I am taken to the new application page where I see a form
   it "can click this link and be taken to new application page" do
     visit '/pets'
     click_on "Start an Application"   
@@ -119,7 +107,15 @@ RSpec.describe "the pets index" do
     expect(page).to have_field("endorsement")
     expect(page).to have_button("Submit Application")
   end
-
+  # When I fill in this form with my:
+  #   - Name
+  #   - Street Address
+  #   - City
+  #   - State
+  #   - Zip Code
+  #   - Description of why I would make a good home
+  # And I click submit
+  # Then I am taken to the new application's show page
   it "can fill out the form and submit" do
     visit "/applications/new"
     fill_in "name", with:"Test Name"
@@ -131,7 +127,8 @@ RSpec.describe "the pets index" do
     click_on "Submit"
     expect(current_path).not_to eq("/applications/new")   ###test for object later
   end
-
+  # And I see my Name, address information, and description of why I would make a good home
+  # And I see an indicator that this application is "In Progress"
   it "shows application information on its show page" do
     application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
     visit "/applications/#{application.id}"
@@ -143,5 +140,4 @@ RSpec.describe "the pets index" do
     expect(page).to have_content(application.endorsement)
     expect(page).to have_content("In Progress")
   end
-
 end
