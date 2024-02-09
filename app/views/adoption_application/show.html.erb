@@ -1,0 +1,39 @@
+<h1>Adoption Application</h1>
+
+ <h2>Name: <%= @adoption_app.name %></h2>
+  <p>Street Address: <%= @adoption_app.street_address %></p>
+  <p>City: <%= @adoption_app.city %></p>
+  <p>State: <%= @adoption_app.state %></p>
+  <p>Zip Code: <%= @adoption_app.zip_code %></p>  
+  <p>Why I am a good fit: <br/><%= @adoption_app.description %></p>
+  <p>Status: <%= @adoption_app.status %></p>
+
+  <h3>Pets Applied For: <h3>
+  <ul>
+      <% @adoption_app.pets.each do |pet| %>
+        <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+      <% end %>
+  </ul>
+
+<h3>Add Pets to this Application:</h3>
+  <%= form_with url: "/applications/#{@adoption_app.id}?search", method: :get do |form| %>
+    <%= form.label :search, "Search Pet by Name: " %>
+    <%= text_field_tag(:search, params[:search]) %>
+    <%= form.submit "Search" %>
+  <% end %>
+
+<h3> Adoptable Pets: </h3>
+<% if @pets.nil? %>
+  <p>No pets found</p>
+<% else %> 
+  <ol>
+    <% @pets.each do |pet| %>
+      <li><%= pet.name %></li>
+        <ul>
+          <li>Breed: <%= pet.breed %></li>
+          <li>Age: <%= pet.age %></li>
+          <li>Adoptable: <%= pet.adoptable %></li>
+        </ul>
+    <% end %>
+  </ol>
+<% end %>
