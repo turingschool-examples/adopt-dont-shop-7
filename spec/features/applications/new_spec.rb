@@ -95,6 +95,6 @@ RSpec.describe 'new application form page' do
     fill_in "zip_code", with:"00000"
     click_on "Submit"
 
-    expect(page).to have_content("Please fill out all fields of the application before trying to submit")
+    expect(page).to have_content("Please fill out endorsement fields of the application before trying to submit")
   end
 end
