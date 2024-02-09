@@ -1,0 +1,15 @@
+<%= form_with model: @application do |form|%>
+  <%= form.label :name, "Applicant's Name" %>
+  <%= form.text_field :name %><br>
+  <%= form.label :street_address, "Street Address" %>
+  <%= form.text_field :street_address %><br>
+  <%= form.label :city%>
+  <%= form.text_field :city %><br>
+  <%= form.label :state %>
+  <%= form.text_field :state %><br>
+  <%= form.label :zip_code, "Zip Code"%>
+  <%= form.text_field :zip_code %><br>
+  <%= form.label :description, "Reason why you want to adopt"%>
+  <%= form.text_area :description %><br>
+<%end%>
+
