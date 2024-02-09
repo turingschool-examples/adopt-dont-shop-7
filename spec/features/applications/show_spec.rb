@@ -18,6 +18,12 @@ RSpec.describe 'Application show' do
             expect(page).to have_content(app1.status)
             expect(page).to have_content(pet1.name)
             expect(page).to have_content("Billy")
+
+            expect(page).to have_link("#{pet1.name}")
+
+            click_on("#{pet1.name}")
+
+            expect(current_path).to eq("/pets/#{pet1.id}")
         end
     end
 end

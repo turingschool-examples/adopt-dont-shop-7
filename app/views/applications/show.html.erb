@@ -5,6 +5,8 @@
 <%= @application.zip_code%>
 <%= @application.description%>
 <%= @application.status%>
+
+
 <% @application.pets.each do|pet|%>
-<%= pet.name%>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <%end%>
