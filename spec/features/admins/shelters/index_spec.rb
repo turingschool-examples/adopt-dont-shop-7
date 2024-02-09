@@ -4,7 +4,7 @@ RSpec.describe "Admins Shelter Index" do
   before(:each) do
     @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create!(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
+    @shelter_3 = Shelter.create!(name: "Fancy Pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
     @turing = Shelter.create!(foster_program: true, name: "Turing", city: "Backend", rank: 3)
     @fsa = Shelter.create!(foster_program: true, name: "Fullstack Academy", city: "Backend", rank: 3)
     @codesmith = Shelter.create!(foster_program: true, name: "Codesmith", city: "Backend", rank: 3)
@@ -22,34 +22,29 @@ RSpec.describe "Admins Shelter Index" do
 
     @application_pet_1 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_1.id)
     @application_pet_2 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_3.id)
-  end
 
-  it "lists shelters in reverse alphabetical order by name" do
-    # User Story 10
     visit "/admin/shelters"
-
-    expect("Turing").to appear_before("Rithm School")
-    expect("Rithm School").to appear_before("Hack Reactor")
-    expect("Hack Reactor").to appear_before("Fullstack Academy")
-    expect("Fullstack Academy").to appear_before("Codesmith")
   end
 
-  describe "Shelters with Pending Applications" do
-    # User Story 11
-    it "has its own section on the page" do
-      visit "/admin/shelters"
-
-      expect(page).to have_content("Shelters with Pending Applications")
+  describe "User Story 10 - Admin Shelters" do
+    it "lists shelters in reverse alphabetical order by name" do
+      expect("Turing").to appear_before("Rithm School")
+      expect("Rithm School").to appear_before("Hack Reactor")
+      expect("Hack Reactor").to appear_before("Fullstack Academy")
+      expect("Fullstack Academy").to appear_before("Codesmith")
     end
+  end
 
-    it "has a list of every shelter with a pending application" do
-      visit "/admin/shelters"
+  describe "User Story 11 - Shelters with Pending Applications" do
+    it "displays Shelters with Pending Applications" do
+      expect(page).to have_content("Shelters with Pending Applications")
+
       within "#pending-#{@shelter_1.id}" do
         expect(page).to have_content("Aurora shelter")
       end
 
       within "#pending-#{@shelter_3.id}" do
-        expect(page).to have_content("Fancy pets of Colorado")
+        expect(page).to have_content("Fancy Pets of Colorado")
       end
     end
   end

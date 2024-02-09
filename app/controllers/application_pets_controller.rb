@@ -1,7 +1,7 @@
 class ApplicationPetsController < ApplicationController
 
   def create
-   @application_pet = ApplicationPet.create(application_pet_params)
+    @application_pet = ApplicationPet.create(application_pet_params)
 
     redirect_to show_applications_path(params[:application_id])
   end
