@@ -3,7 +3,7 @@
 <%= link_to "Start an Application", "/applications/new" %>
 
 <%= form_with url: "/pets", method: :get, data: { turbo: false } do |f| %>
-  <%= f.label :search %>
+  <%= f.label :searc, "Search Pets" %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
@@ -11,10 +11,12 @@
 
 <% @pets.each do |pet| %>
   <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: <%= pet.adoptable %></p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+  <ul>
+    <li>Age: <%= pet.age %></li>
+    <li>Breed: <%= pet.breed %></li>
+    <li>Adoptable: <%= pet.adoptable %></li>
+    <li>You can find <%= pet.name %> at <%= pet.shelter_name %>!</li>
+  </ul>
+  <%= button_to "Edit #{pet.name}", edit_pets_path(pet), method: :get %>
+  <%= button_to "Delete #{pet.name}", delete_pets_path(pet), method: :delete %>
 <% end %>

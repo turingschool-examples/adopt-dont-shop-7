@@ -30,7 +30,7 @@ Visitors to the site will be able to create applications to adopt pets. An appli
 [X] done
 
 1. Application Show Page
-
+◊
 As a visitor
 When I visit an applications show page
 Then I can see the following:
