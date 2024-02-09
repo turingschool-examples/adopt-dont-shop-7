@@ -12,3 +12,23 @@
     <h3>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %></h3>
   </div>
 <% end %>
+
+<h2> Add a Pet to this Application </h2>
+<p> Search for Pet: </p>
+
+<%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.submit "submit" %>
+<% end %>
+
+<section class='found-pets'>
+  <% if @found_pets !=nil %>
+    <h2> Found pets: </h2>
+    <% @found_pets.each do |pet| %>
+      <div id="pet-<%= pet.id %>">
+        <h4><%= pet.name %></h4>
+      </div>
+    <% end %>
+  <% end %>
+</section>
