@@ -1,0 +1,17 @@
+<h1>Adoption Application</h1>
+
+ <h2>Name: <%= @adoption_app.name %></h2>
+  <p>Street Address: <%= @adoption_app.street_address %></p>
+  <p>City: <%= @adoption_app.city %></p>
+  <p>State: <%= @adoption_app.state %></p>
+  <p>Zip Code: <%= @adoption_app.zip_code %></p>
+  <p>Status: <%= @adoption_app.status %></p>
+  <p>Why I am a good fit: <br/><%= @adoption_app.description %></p>
+
+  <h3>Pets Applied For: <h3>
+  <ul>
+      <% @adoption_app.pets.each do |pet| %>
+        <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+      <% end %>
+  </ul>
+
