@@ -34,6 +34,10 @@
           <li>Age: <%= pet.age %></li>
           <li>Adoptable: <%= pet.adoptable %></li>
         </ul>
+        <%= form_with url: "/applications/#{@adoption_app.id}", method: :get do |form| %>
+          <%= form.hidden_field :add_pet, value: pet.id  %>
+          <%= form.submit "Adopt this Pet" %>
+        <% end %>
     <% end %>
   </ol>
 <% end %>
