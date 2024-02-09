@@ -57,6 +57,10 @@ RSpec.describe 'Application Show Page', type: :feature do
         expect(page).to have_content(@pet_2.name)
       end
     end
+
+    it "" do
+      
+    end
   end
 end
 
