@@ -58,8 +58,27 @@ RSpec.describe 'Application Show Page', type: :feature do
       end
     end
 
-    it "" do
-      
+    # 5. Add a Pet to an Application
+    it "searched pets have an adopt this pet link.button" do
+      # When I visit an application's show page
+      visit "/applications/#{@app_1.id}"
+      # And I search for a Pet by name
+      fill_in 'search', with: 'Charmander'
+      click_button("submit")
+      # And I see the names Pets that match my search
+      within '.found-pets' do
+        expect(page).to have_content(@pet_2.name)
+        # Then next to each Pet's name I see a button to "Adopt this Pet"
+        expect(page).to have_button("Adopt this Pet")
+        # When I click one of these buttons
+        click_button("Adopt this Pet")
+      end
+      # Then I am taken back to the application show page
+      expect(current_path).to eq("/applications/#{@app_1.id}")
+      # And I see the Pet I want to adopt listed on this application
+      within "#pet-#{@pet_2.id}" do
+        expect(page).to have_content(@pet_2.name)
+      end
     end
   end
 end

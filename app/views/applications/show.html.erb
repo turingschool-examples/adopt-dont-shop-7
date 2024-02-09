@@ -28,6 +28,7 @@
     <% @found_pets.each do |pet| %>
       <div id="pet-<%= pet.id %>">
         <h4><%= pet.name %></h4>
+        <%=button_to "Adopt this Pet", "/pet_apps?pet_id=#{pet.id}&app_id=#{@app.id}", method: :post%>
       </div>
     <% end %>
   <% end %>
