@@ -23,5 +23,8 @@ class AdoptionApplicationController < ApplicationController
       params.permit(:state)
       params.permit(:zip_code)
       params.permit(:description)
+      params.permit(:status)
+      # when you use .merge directly on the result of params.permit, you're merging the additional parameters or default values into the hash returned by params.permit.
+            .merge(status: "In Progress")
    end
 end
