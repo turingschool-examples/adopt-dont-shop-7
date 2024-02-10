@@ -68,4 +68,12 @@ RSpec.describe Shelter, type: :model do
       end
     end
   end
+
+  describe 'Admin Class Methods' do
+    describe '#reverse_alpha_order' do
+      it 'will return shelters in reverse alphabetical order' do
+        expect(Shelter.reverse_alpha_order).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+  end
 end
