@@ -1,0 +1,8 @@
+<h3> Shelters Admin Index Page </h3>
+
+<div id="reverse_alpha_shelters">
+<ul><% @admin_shelters.each do |shelter| %>
+    <li><%= shelter.name %></li>
+    <% end %>
+</ul>
+</div>
