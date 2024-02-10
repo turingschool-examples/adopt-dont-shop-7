@@ -11,4 +11,6 @@
 
 @app_1 = Application.create!(name: "Jack", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 0)
 
+@app_2 = Application.create!(name: "Jim", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 0)
+
 PetApp.create!(application_id: @app_1.id, pet_id: @pet_1.id)
