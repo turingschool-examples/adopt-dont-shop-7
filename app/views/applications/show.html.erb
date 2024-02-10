@@ -7,6 +7,49 @@
 <%= @application.status%>
 
 
+
+<section class="adoptpet">
+
+  <h1>Application Pets</h1>
+  <% @application.pets.each do |pet| %>
+    <%= pet.name%> 
+  <% end %>
+
+</section>
+
 <% @application.pets.each do|pet|%>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <%end%>
+
+
+
+
+<section class="pet">
+  <%= form_with url: "/applications/#{@application.id}", method: :get  do |f| %>
+    <div>
+      <%= f.label :pet_name%>
+      <%= f.text_field :pet_name %>
+    </div>
+    <div>
+      <%= f.submit 'Search' %>
+
+
+    </div>
+  <% end %>
+    
+  <% if @pets != nil  %>  
+    <% @pets.each do |pet| %>
+      <%= pet.name%>
+
+      <%= form_with(url:"/applications/#{@application.id}/pets", method: :post ) do |f| %>
+        <div>
+          <%= f.hidden_field :pet_id, value: pet.id %>
+          <%= f.submit 'Adopt this pet' %>
+        </div>
+      <% end %>
+
+    
+    <% end %>
+  <% end %>
+    
+</section>
