@@ -7,10 +7,7 @@ class Application < ApplicationRecord
   end
   
   def populate_address
-    street_address+", "+city+", "+state+", "+(zip_code.to_s)
+    "#{street_address}, #{city}, #{state}, #{zip_code}"
   end
 
-  def find_pets
-    self.pets
-  end
 end

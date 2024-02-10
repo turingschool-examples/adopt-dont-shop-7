@@ -6,16 +6,24 @@ RSpec.describe Application, type: :model do
   it { should have_many(:pets).through(:application_pets)}
  end
 
+ describe 'class methods' do
+  it "returns a correct number of applications" do
+
+    expect(Application.num_of_applications).to eq(3)
+
+    @application_1 = Application.create!(name: "Selena", street_address: "123 Street", city: "City", state: "State", zip_code: "8888", adopting_reason: "Love for cats, no job", status:"Pending")
+    @application_2 = Application.create!(name: "Laura", street_address: "58 Street", city: "City", state: "State", zip_code: "5555", adopting_reason: "Need company", status:"Rejected")
+    @application_3 = Application.create!(name: "Isaac", street_address: "456 Street", city: "City", state: "State", zip_code: "78", adopting_reason: "Lots of love to give", status:"Accepted")
+
+    expect(Application.num_of_applications).to eq(6)
+  end
+ end
+
  describe 'instance methods' do
-  it "returns an array of pet objects" do
-    @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-    @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
-    @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
-    @application_1 = Application.create!(name: "Selena", address: "123 Street City State Zip", adopting_reason: "Love for cats, no job", status:"Pending")
-    @application_pets_1 = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application_1.id)
-    @application_pets_2 = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_1.id)
+  it "returns a populated address" do
+    @application_1 = Application.create!(name: "Selena", street_address: "123 Street", city: "City", state: "State", zip_code: "8888", adopting_reason: "Love for cats, no job", status:"Pending")
     
-    expect(@application_1.find_pets).to eq ([@pet_1, @pet_2])
+    expect(@application_1.populate_address).to eq ("123 Street, City, State, 8888")
   end
  end
 end

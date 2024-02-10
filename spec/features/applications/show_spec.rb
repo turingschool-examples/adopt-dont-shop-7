@@ -29,7 +29,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
       
       # - Description of why the applicant says they'd be a good home for this pet(s)
       expect(page).to have_content("Description of why the applicant says they'd be a good home for this pet(s): #{@application_1.adopting_reason}")
-      save_and_open_page
+
       # - names of all pets that this application is for (all names of pets should be links to their show page)
       expect(page).to have_content("Pets that this application is for: #{@pet_1.name}")
       expect(page).to have_link("Lucille Bald", href: "/pets/#{@pet_1.id}")
