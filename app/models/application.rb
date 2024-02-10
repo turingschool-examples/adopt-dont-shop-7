@@ -18,18 +18,12 @@ class Application < ApplicationRecord
     self.pets.present?
   end
 
-  def all_pets_approved
-    if status_of_application_pet.uniq.count == 1 && status_of_application_pet.first
-      true
-    elsif status_of_application_pet.include?(nil)
-      nil
-    else
-      false
-    end
+  def all_pets_approved?
+    !self.application_pets.pluck(:application_approved).include?(false)
   end
 
-  def status_of_application_pet
-    application_pets.pluck(:application_approved)
+  def all_applications_reviewed?
+    !self.application_pets.pluck(:application_reviewed).include?(false)
   end
 
 end

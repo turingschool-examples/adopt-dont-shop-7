@@ -18,6 +18,7 @@ class ApplicationPetsController < ApplicationController
   def application_pet_params
     params.permit(:pet_id,
                   :application_id,
-                  :application_approved)
+                  :application_approved,
+                  :application_reviewed)
   end
 end
