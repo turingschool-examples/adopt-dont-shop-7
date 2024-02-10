@@ -101,14 +101,18 @@ RSpec.describe "Application Show Page" do
       end
 
       it "'Adopt this Pet' button adds that pet to application's show page" do
-        fill_in "pet_name", with: "Rover"
+        pet_4 = shelter_1.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Rosco")
+        fill_in "pet_name", with: "Rosco"
         click_on "Submit"
 
-        within "#pet_#{pet_1.id}" do
+        within "#pet_#{pet_4.id}" do
           click_on "Adopt this Pet"
         end
 
-        expect("#pet_#{pet_1.id}").to have_content("#{pet_1.name}")
+        within("#pet_name_#{pet_4.id}") do
+          expect(page).to have_content("#{pet_4.name}")
+        end
+        
         expect(current_path).to eq("/applications/#{application_1.id}")
       end
     end

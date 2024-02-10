@@ -7,11 +7,13 @@
     <li>Zipcode: <%= @application.zip_code %></li>
     <li >Name of pet(s): 
         <% @application.pets.each do |pet| %>
+            <ul>
             <li id="pet_name_<%=pet.id%>"><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+            </ul>
         <%end%>
     </li>
     <li>Reason why you want to adopt: <%= @application.description %></li>
-    <li>Status of Application: <%= @application.status %></li>
+    <li>Status of Application: <%= @application.status %></li><br>
     
     <%= form_with url: "/applications/#{@application.id}", method: :get do |form|%>
         <%= form.label :pet_name, "Add a Pet to this Application:" %>
@@ -25,7 +27,7 @@
                 <% @pets.each do |pet| %>
                 <div id="pet_<%=pet.id%>">
                     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}"%> 
-                    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets",  method: :post%>
+                    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets",  method: :post, params:{pet_key: pet.id}%>
                     <br>
                 </div>
             <%end%>
