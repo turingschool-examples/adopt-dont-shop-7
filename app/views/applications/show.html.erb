@@ -13,24 +13,33 @@
         <%end%>
     </li>
     <li>Reason why you want to adopt: <%= @application.description %></li>
-    <li>Status of Application: <%= @application.status %></li><br>
-    
-    <%= form_with url: "/applications/#{@application.id}", method: :get do |form|%>
-        <%= form.label :pet_name, "Add a Pet to this Application:" %>
-        <%= form.text_field :pet_name %>
-        <%= form.submit "Submit" %>
-    <% end %><br>
 
+    <li>Status of Application: <%= @application.status %></li><br>
     <div> 
-        <% if @pets %>
-            Search Result:
-                <% @pets.each do |pet| %>
-                <div id="pet_<%=pet.id%>">
-                    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}"%> 
-                    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets",  method: :post, params:{pet_key: pet.id}%>
-                    <br>
-                </div>
+        <%if @application.in_progress? %>
+            <%= form_with url: "/applications/#{@application.id}", method: :get do |form|%>
+                <%= form.label :pet_name, "Add a Pet to this Application:" %>
+                <%= form.text_field :pet_name %>
+                <%= form.submit "Search" %>
+            <% end %><br>
+
+            <% if @pets %>
+                Search Result:
+                    <% @pets.each do |pet| %>
+                    <div id="pet_<%=pet.id%>">
+                      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}"%> 
+                      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets",  method: :post, params:{pet_key: pet.id}%></li>
+                      <br>
+                     </div>
+                <%end%>
             <%end%>
+        
+
+            <%= form_with model: @application, data: {turbo: false} do |form|%>
+                <%= form.label :reason_for_adoption, "Why would you make a good owner for these pet(s)?" %>
+                <%= form.text_field :reason_for_adoption%><br>
+                <%= form.submit "Submit application" %>
+            <% end %><br>
         <%end%>
     </div>
 </ul>

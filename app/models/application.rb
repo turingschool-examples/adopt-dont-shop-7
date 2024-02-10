@@ -14,4 +14,10 @@ class Application < ApplicationRecord
   }
   has_many  :application_pets
   has_many  :pets, through: :application_pets
+
+  def submit_reason_for_adoption(reason)
+    self.reason_for_adoption = reason
+    self.status = "pending"
+    self.save!
+  end
 end
