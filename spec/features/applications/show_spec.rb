@@ -110,6 +110,7 @@ RSpec.describe 'applications show page' do
     expect(pet.name).to appear_before("Add a Pet To This Application")
   end    
 
+  #User story 6
 #   As a visitor
 # When I visit an application's show page
 # And I have added one or more pets to the application
@@ -134,12 +135,8 @@ RSpec.describe 'applications show page' do
     click_on "Search"
     click_on "Adopt this Pet"
 
-    expect(page).to have_field("endorsement")
+    expect(page).to have_field("owner_endorsement")
     expect(page).to have_button("Submit Application")
-
-    within("#edit_endorsement") do
-      expect(page).to have_content("I am the best pet owner")
-    end 
   end
 
   it 'can submit the application and be returned to application show page and see its status as Pending' do
@@ -147,15 +144,17 @@ RSpec.describe 'applications show page' do
     shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
 
-    visit "/applictions/#{application.id}"
+    visit "/applications/#{application.id}"
 
     expect(page).not_to have_button("Submit Application")
 
     fill_in "search", with:"#{pet.name}"
     click_on "Search"
     click_on "Adopt this Pet" 
-
-    expect(current_path).to eq("/applictions/#{application.id}")
+    fill_in "owner_endorsement", with: "I will be the best owner to this pet"
+    click_on "Submit Application"
+    
+    expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("Application Status: Pending")
   end
 
@@ -164,15 +163,15 @@ RSpec.describe 'applications show page' do
     shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
 
-    visit "/applictions/#{application.id}"
+    visit "/applications/#{application.id}"
 
     fill_in "search", with:"#{pet.name}"
     click_on "Search"
     click_on "Adopt this Pet" 
+    fill_in "owner_endorsement", with: "I will be the best owner to this pet"
+    click_on "Submit Application"
 
     expect(page).to have_content(pet.name)
     expect(page).not_to have_content("Add a Pet To This Application")
   end
-
-
 end
