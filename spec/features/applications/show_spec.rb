@@ -63,5 +63,39 @@ RSpec.describe 'Application show' do
     end
   end
 
+  describe 'US 5' do
+    describe 'Add a pet to an application' do
+      it 'adopts a pet' do
+        
+        app1 = Application.create!(name: "Odell", street_address: "123 Dog Lane", city: "Denver", state: "Colorado", zip_code: 70890, description: "Practicing for when I have kids", status: "In Progress")
+        pet = Pet.create!(adoptable: false, age: 10, breed:"Huski", name: "Pete",shelter_id: shelter1.id)
+
+
+        visit "/applications/#{app1.id}"
+
+
+        fill_in :pet_name, with: "#{pet.name}"
+          
+        click_on("Search")
+
+        expect(current_path).to eq("/applications/#{app1.id}")
+
+        save_and_open_page
+        expect(page).to have_content('Pete')
+
+        expect(page).to have_button('Adopt this pet')
+
+        click_button('Adopt this pet')
+
+        expect(current_path).to eq("/applications/#{app1.id}")
+
+        within ".adoptpet" do 
+          expect(page).to have_content('Pete')
+        end
+
+      end
+    end
+  end
+
     
 end

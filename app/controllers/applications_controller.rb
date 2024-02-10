@@ -7,6 +7,8 @@ class ApplicationsController < ApplicationController
         if params[:pet_name].present?
             @pets = Pet.search(params[:pet_name])
         end
+
+         
     end
 
     def new 
