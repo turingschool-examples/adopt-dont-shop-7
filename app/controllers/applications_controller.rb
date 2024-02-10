@@ -21,6 +21,13 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    application = Application.find(params[:id])
+    application.submit_reason_for_adoption(params[:reason_for_adoption])
+
+    redirect_to "/applications/#{application.id}"
+  end
+
   private
   def application_params
     params.require(:application).permit(:name, :street_address, :city, :state, :zip_code, :description)
