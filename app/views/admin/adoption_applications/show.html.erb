@@ -1,1 +1,26 @@
-<h3> Admin Shelters Show Page </h3>
+<h3>Admin Shelters Show Page</h3>
+<p>Application ID: <%= @application.id %></p>
+
+<h1>Pets Associated with <%= @application.id %></h1>
+<% if @application.pets.nil? %>
+    <p>No pets found.</p>
+<% else %>
+    <ol>
+    <% @application.pets.each do |pet| %>
+        <li><%= pet.name %></li>
+        <ul>
+            <li>Breed: <%= pet.breed %></li>
+            <li>Age: <%= pet.age %></li>
+            <li>Adoptable: <%= pet.adoptable %></li>
+        </ul>
+        <% if pet.adoptable %>
+            <%= form_with url: "/admin/applications/#{@application.id}", method: :patch do |form| %>
+                <%= form.hidden_field :approve_pet, value: pet.id  %>
+                <%= form.submit "Approve" %>
+            <% end %>
+        <% else %>
+            <p>This pet has been approved.</p>
+        <% end %>
+    <% end %>
+    </ol>
+<% end %>

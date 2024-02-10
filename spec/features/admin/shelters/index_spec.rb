@@ -48,8 +48,6 @@ RSpec.describe "AdminShelters", type: :feature do
             # Then I see a section for "Shelters with Pending Applications"
             # And in this section I see the name of every shelter that has a pending application
             within "#shelters_pending_apps"
-
-            save_and_open_page
                 expect(page).to have_content("All Shelters With")
                 expect(page).to have_content(shelter.name)
                 expect(page).to have_content("Mystery Building")
