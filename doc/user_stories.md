@@ -142,7 +142,7 @@ Then I do not see a section to submit my application
 These stories emphasize key database concepts.
 
 ```
-[X] done - Mel # test for this
+[X] done
 
 8. Partial Matches for Pet Names
 
@@ -154,7 +154,7 @@ For example, if I search for "fluff", my search would match pets with names "flu
 ```
 
 ```
-[X] done - Mel # test for this
+[X] done - Mel
 
 9. Case Insensitive Matches for Pet Names
 
