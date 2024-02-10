@@ -102,4 +102,20 @@ RSpec.describe 'Adoption Application Show page', type: :feature do
 
       expect(page).to_not have_content("Why would you be a good owner to the pet(s)?")
    end
+
+   it 'changes the status to pending once you submit your application' do
+      shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+      pet_1 = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+      pet_2 = Pet.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
+      application = pet_2.adoption_applications.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs")
+
+      visit "/applications/#{application.id}"
+
+      expect(application.status).to eq("In Progress")
+
+      fill_in "ownership_description", with: "Because I love pits"
+      click_button "Submit Application"
+
+      expect(page).to have_content("Status: Pending")
+   end
 end
