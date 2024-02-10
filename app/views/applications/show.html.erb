@@ -3,11 +3,17 @@
 <h3>Applicant name(s): <%= @application.name %></h3>
 <li>Applicant address: <%= @application.populate_address %></li>
 <li>Description of why the applicant says they'd be a good home for this pet(s): <%= @application.adopting_reason %></li>
+
+<section class="pets_in_application">
 <li>Pets that this application is for:<br>
 	<% @application.pets.each do |pet| %>
-	<a href="/pets/<%= pet.id %>"> <%= pet.name %></a><br>
+		<div id="pet-<%= pet.id %>">
+
+		<a href="/pets/<%= pet.id %>"> <%= pet.name %></a><br>
+		</div>
 	<% end %>
 </li>
+</section>
 <li>Application's status: <%= @application.status %></li><br>
 
 <section class="find_pet">
@@ -16,7 +22,7 @@
 	<%= f.label :add_pet_name %>
   <%= f.text_field :add_pet_name %>
 
-  <br><%= f.submit "Submit"%>
+  <%= f.submit "Submit"%>
 <% end %>
 </section>
 
@@ -24,6 +30,7 @@
 <% @pets.each do |pet|%>
 <div id="pet-<%= pet.id %>">
 <li><%= pet.name %></li>
-<% end %>
+<%= button_to "Adopt this Pet", "/applications/#{@application.id}?pet_id=#{pet.id}", method: :post, local: true%>
 </div>
+<% end %>
 </section>

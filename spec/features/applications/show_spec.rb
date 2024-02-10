@@ -39,7 +39,6 @@ RSpec.describe 'Applications Show Page', type: :feature do
       expect(page).to have_content("Application's status: #{@application_1.status}")
     end
 
-
     # User Story #4. Searching for Pets for an Application
     it "displays 'Add a Pet to this Application' when an application has not been submitted" do
       # As a visitor
@@ -56,13 +55,40 @@ RSpec.describe 'Applications Show Page', type: :feature do
         click_button("Submit")
       end
         # Then I am taken back to the application show page
-        expect(current_path).to eq("/applications/#{@application_4.id}")
-        within '.found_pet' do
-          # And under the search bar I see any Pet whose name matches my search  
-          within "#pet-#{@pet_3.id}" do
-          expect(page).to have_content(@pet_3.name)
-          end
+      expect(current_path).to eq("/applications/#{@application_4.id}")
+      within '.found_pet' do
+        # And under the search bar I see any Pet whose name matches my search  
+        within "#pet-#{@pet_3.id}" do
+        expect(page).to have_content(@pet_3.name)
         end
+      end
     end 
+
+    # User Story #5 Add a Pet to an Application
+    it "Displays button to adopt pet and lists it in the application" do
+      # When I visit an application's show page
+      visit "/applications/#{@application_4.id}"
+      # And I search for a Pet by name
+      fill_in(:add_pet_name, with: "Rocky")
+      click_button("Submit")
+      # And I see the names Pets that match my search
+      within '.found_pet' do
+        within "#pet-#{@pet_3.id}" do
+          # Then next to each Pet's name I see a button to "Adopt this Pet"
+          expect(page).to have_button("Adopt this Pet") 
+          # When I click one of these buttons
+          click_button("Adopt this Pet")
+        end
+      end
+      # Then I am taken back to the application show page
+      expect(current_path).to eq("/applications/#{@application_4.id}")
+      within '.pets_in_application' do
+        within "#pet-#{@pet_3.id}" do
+          # And I see the Pet I want to adopt listed on this application
+          save_and_open_page
+          expect(page).to have_content(@pet_3.name)
+        end
+      end
+    end
   end
 end
