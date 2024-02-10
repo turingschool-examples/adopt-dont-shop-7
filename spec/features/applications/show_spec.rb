@@ -7,6 +7,7 @@ RSpec.describe 'Application Show Page', type: :feature do
       
       @pet_1 = @shel_1.pets.create!(name: "Cito", age: 4, breed: "Lab", adoptable: true)
       @pet_2 = @shel_1.pets.create!(name: "Charmander", age: 4, breed: "fire", adoptable: true)
+      @pet_3 = @shel_1.pets.create!(name: "Char", age: 4, breed: "fire", adoptable: true)
 
       @app_1 = Application.create!(name: "Jack", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 0)
       @app_2 = Application.create!(name: "Jim", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 0)
@@ -123,6 +124,41 @@ RSpec.describe 'Application Show Page', type: :feature do
       expect(page).to_not have_content(@pet_2.name)
       expect(page).to_not have_css(".app-submission")
     end 
-  end
+  
+    # 8. Partial Matches for Pet Names
+    it "allows partial name searches" do 
+      # When I visit an application show page
+      visit "/applications/#{@app_2.id}"
+      # And I search for Pets by name
+      within '.pet-application' do
+        fill_in 'search', with: 'Ch'
+        click_button("submit")
+      end
+      # Then I see any pet whose name PARTIALLY matches my search
+      # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+      within '.found-pets' do
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content(@pet_3.name)
+      end
+    end
+    
+    # 9. Case Insensitive Matches for Pet Names
+    it "can search regardless of caps" do 
+      # When I visit an application show page
+      visit "/applications/#{@app_2.id}"
+      # And I search for Pets by name
+      within '.pet-application' do
+        # Then my search is case insensitive
+        # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+        fill_in 'search', with: 'cHaR'
+        click_button("submit")
+      end
+
+      within '.found-pets' do
+        expect(page).to have_content(@pet_2.name)
+        expect(page).to have_content(@pet_3.name)
+      end
+    end
+  end 
 end
 
