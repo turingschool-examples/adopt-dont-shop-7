@@ -166,7 +166,7 @@ For example, if I search for "fluff", my search would match pets with names "Flu
 ```
 
 ```
-[ ] done - Mel 
+[X] done - Mel 
 
 SQL Only Story
 
