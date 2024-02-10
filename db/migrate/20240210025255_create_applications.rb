@@ -2,7 +2,10 @@ class CreateApplications < ActiveRecord::Migration[7.1]
   def change
     create_table :applications do |t|
       t.string :name
-      t.string :address
+      t.string :street_address
+      t.string :city
+      t.string :state
+      t.integer :zip_code
       t.string :adopting_reason
       t.string :status
 
