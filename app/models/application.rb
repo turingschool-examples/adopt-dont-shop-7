@@ -12,4 +12,8 @@ class Application < ApplicationRecord
     @pets = Pet.joins(:applications).where("applications.id = #{self.id}")
   end
 
+  def has_pets?
+    find_pets.count > 0
+  end
+
 end
