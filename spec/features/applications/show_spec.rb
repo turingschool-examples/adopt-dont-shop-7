@@ -49,7 +49,7 @@ RSpec.describe 'Application Show Page', type: :feature do
       # When I fill in this field with a Pet's name
       fill_in 'search', with: 'Charmander'
       # And I click submit,
-      click_button("submit")
+      click_button("find pet")
       # Then I am taken back to the application show page
       expect(current_path).to eq("/applications/#{@app_1.id}")
       # And under the search bar I see any Pet whose name matches my search 
@@ -79,6 +79,33 @@ RSpec.describe 'Application Show Page', type: :feature do
       within "#pet-#{@pet_2.id}" do
         expect(page).to have_content(@pet_2.name)
       end
+    end
+
+    # 6. Submit an Application
+    it "can submit a application for review" do 
+      # When I visit an application's show page
+      visit "/applications/#{@app_1.id}"
+      # And I have added one or more pets to the application
+      expect(page).to have_content(@pet_1.name)
+
+      within '.app-submission' do
+        # Then I see a section to submit my application
+        expect(page).to have_content("submit my application")
+        # And in that section I see an input to enter why I would make a good owner for these pet(s)
+        expect(page).to have_content("Why are you a good fit?")
+        # When I fill in that input
+        fill_in 'description', with: 'Plausable lie'
+        # And I click a button to submit this application
+        click_button("submit")
+      end
+      # Then I am taken back to the application's show page
+      expect(current_path).to eq("/applications/#{@app_1.id}")
+      # And I see an indicator that the application is "Pending"
+      expect(page).to have_content("Status: Pending")
+      # And I see all the pets that I want to adopt
+      expect(page).to have_content(@pet_1.name)
+      # And I do not see a section to add more pets to this application
+      expect(page).to_not have_css(".pet-application")
     end
   end
 end
