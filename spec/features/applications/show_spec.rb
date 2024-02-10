@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Application Show Page" do
-  let!(:application_1) {Application.create!(name: "Sally", street_address: "112 W 9th St.", city: "Kansas City", state: "MO", zip_code: "64105", description: "I love animals. Please let me have one.", status: "pending")}
+  let!(:application_1) {Application.create!(name: "Sally", street_address: "112 W 9th St.", city: "Kansas City", state: "MO", zip_code: "64105", description: "I love animals. Please let me have one.", status: "in_progress")}
   let!(:application_2) {Application.create!(name: "Marcus", street_address: "100 Hennepin Ave.", city: "Minneapolis", state: "MN", zip_code: "55401", description: "Dogs are the best. Please let me have one.", status: "in_progress")}
 
   let!(:shelter_1) {Shelter.create!(foster_program: true, name: "Adopters Unite", city: "Minneapolis", rank: 1 ) }
@@ -73,13 +73,34 @@ RSpec.describe "Application Show Page" do
       describe "a section on the page to 'Add a Pet to this Application' where I can search for Pets by name" do
         it "takes me back to the application show page and I see the pets whose name matches my search" do
           visit "/applications/#{application_1.id}"
+
           expect(page).to have_content("Add a Pet to this Application")
 
           fill_in "pet_name", with: "Rover"
-          click_on "Submit"
+          click_on "Search"
 
           expect(current_path).to eq("/applications/#{application_1.id}")
           expect(page).to have_content("Rover")
+        end
+      end
+    end
+
+    describe "User Story 6" do
+      describe "a section to enter why I would make a good owner for these pet(s)" do
+        it "takes me back to the application's show page after submitting and
+            sees an indicator that the application is 'Pending' and all the pets that I want to adopt" do
+              visit "/applications/#{application_1.id}"
+
+              fill_in "pet_name", with: "Rover"
+              click_on "Search"
+              fill_in "application_reason_for_adoption", with: "I have a big backyard"
+              click_on "Submit application"
+
+              expect(current_path).to eq("/applications/#{application_1.id}")
+              expect(page).to have_content("pending")
+              expect(page).to have_content("Rover")
+              expect(page).not_to have_content("Add a Pet to this Application")
+              expect(page).not_to have_content("Why would you make a good owner for these pet(s)")
         end
       end
     end
