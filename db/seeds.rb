@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 @shel_1 = Shelter.create!(name: "Dog's Home", city: "Gustine", foster_program: true, rank: 1)
+@shel_2 = Shelter.create!(name: "Cat's Home", city: "Gustine", foster_program: true, rank: 1)
 		
 @pet_1 = @shel_1.pets.create!(name: "Cito", age: 4, breed: "Lab", adoptable: true)
 @pet_2 = @shel_1.pets.create!(name: "Charmander", age: 4, breed: "fire", adoptable: true)
