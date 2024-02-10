@@ -1,30 +1,19 @@
-<% if @application.all_pets_approved %>
-  <h1>Pet Application For <%= @application.name %> Is Approved </h1>
-<% elsif @application.all_pets_approved == nil %>
-  <h1>Pending Pet Application For <%= @application.name %> </h1>
-  <p>Pets applied for:</p>
-  <ul>
-    <% @application.pets.each do |pet| %>
-    <div id="pet-<%= pet.id %>">
-      <li><%= pet.name %></li>
-        <ul>
-          <% if pet.application_pet_approved(params[:id]) %>
-            <li>Pet Approved</li>
-            <li><%= button_to 'Reject', update_application_pets_path, method: :patch, params: {:filter => true, :pet_id => pet.id} %></li>
-          <% elsif pet.application_pet_approved(params[:id]) == false%>
-            <li>Pet Rejected</li>
-          <% elsif pet.already_approved? %>
-            <li>This pet has already been approved for adoption</li>
-            <li><%= button_to 'Reject', update_application_pets_path, method: :patch, params: {:filter => false, :pet_id => pet.id} %></li>
-          <% else %>
-            <li><%= button_to 'Approve', update_application_pets_path, method: :patch, params: {:filter => true, :pet_id => pet.id} %></li>
-            <li><%= button_to 'Reject', update_application_pets_path, method: :patch, params: {:filter => false, :pet_id => pet.id} %></li>
-          <% end %>
-        </ul>
-        <br/>
-    </div>
+<h1><%= @application.name %>'s Application Page</h1>
+
+<div id="list-of-pet-applications">
+    <% @application.application_pets.each do |pet_application| %>
+      <div id="pet-<%= pet_application.pet.id %>">
+        <h3>Application ID: <%= pet_application.id %></h3>
+        <p>Pet Name: <%= pet_application.pet.name %></p>
+        <% if !pet_application.application_approved? %>
+          <%= form_with url: update_application_pets_path(pet_application.id), method: :patch do |f| %>
+          <%= hidden_field_tag :application_approved, true %>
+          <%= hidden_field_tag :application_id, @application.id %>
+          <%= f.submit "Approve Pet Application" %>
+          <% end %><br>
+        <% else %>
+          <p>Pet Approved</p>
+        <% end %>
+      </div>
     <% end %>
-  </ul>
-<% elsif @application.all_pets_approved == false %>
-<h1>Pet Application For <%= @application.name %> Is Rejected </h1>
-<% end %>
+</div>

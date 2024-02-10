@@ -24,18 +24,21 @@ RSpec.describe "Admins Application Show Page" do
     @application_pet_2 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_3.id)
     @application_pet_2 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_3.id)
     @application_pet_2 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_4.id)
+
+    visit "/admin/applications/#{@application_2.id}"
   end
 
-  it "has a button to approve an application for every pet that the application pet is for" do
-    # User Story 12
-    visit "/admin/applications/#{@application_2.id}"
-    within "#pet-#{@pet_1.id}" do
-      expect(page).to have_content("Mr. Pirate")
-      expect(page).to have_button("Approve")
-      click_button("Approve")
+  describe "User Story 12 - Approving a Pet for Adoption" do
+    it "has a button to approve a Pet application for every pet that the application pet is for" do
+      save_and_open_page
+      within "#pet-#{@pet_1.id}" do
+        expect(page).to have_content("Mr. Pirate")
+        expect(page).to have_button("Approve Pet Application")
+        click_button("Approve Pet Application")
 
-      expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
-      expect(page).to have_content("Pet Approved")
+        expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
+        expect(page).to have_content("Pet Approved")
+      end
     end
   end
 
