@@ -12,15 +12,20 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    @application = Application.create!(
-      name: params[:name],
-      street_address: params[:street_address], 
-      city: params[:city], 
-      state: params[:state], 
-      zip_code: params[:zip_code], 
-      adopting_reason: params[:description], 
-      status: "In Progress", 
-      )
-    redirect_to "/applications/#{@application.id}"
+    @application = Application.new(applications_params)
+
+    if @application.save
+      @application.update(status: "In Progress")
+      redirect_to "/applications/#{@application.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(@application.errors)}"
+    end
   end
+
+  private
+    def applications_params
+      params.permit( :name, :street_address, :city, 
+      :state, :zip_code, :adopting_reason )
+    end
 end
