@@ -10,8 +10,8 @@ RSpec.describe "Application Show Page" do
   let!(:pet_3) {shelter_1.pets.create!(adoptable: true, age: 1, breed: "dalmatian", name: "Pongo II")}
 
   let!(:application_pet_1) {ApplicationPet.create!(pet: pet_1, application: application_1)}
-  # let!(:application_pet_1) {ApplicationPet.create!(pet: pet_3, application: application_1)}
   let!(:application_pet_2) {ApplicationPet.create!(pet: pet_2, application: application_2)}
+  let!(:application_pet_3) {ApplicationPet.create!(pet: pet_3, application: application_2)}
 
   before do 
     visit "/applications/#{application_1.id}"
@@ -101,12 +101,14 @@ RSpec.describe "Application Show Page" do
       end
 
       it "'Adopt this Pet' button adds that pet to application's show page" do
-        fill_in "pet_name", with: "Pongo"
-        within "#pet_#{pet_2.id}" do
-          click_button "Adopt this Pet"
+        fill_in "pet_name", with: "Rover"
+        click_on "Submit"
+
+        within "#pet_#{pet_1.id}" do
+          click_on "Adopt this Pet"
         end
 
-        expect(Name of pet(s)). to eq("#{pet_2.name}")
+        expect("#pet_#{pet_1.id}").to have_content("#{pet_1.name}")
         expect(current_path).to eq("/applications/#{application_1.id}")
       end
     end

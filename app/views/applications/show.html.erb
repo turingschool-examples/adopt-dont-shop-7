@@ -5,9 +5,9 @@
     <li>City: <%= @application.city %></li>
     <li>State: <%= @application.state %></li>
     <li>Zipcode: <%= @application.zip_code %></li>
-    <li>Name of pet(s): 
+    <li >Name of pet(s): 
         <% @application.pets.each do |pet| %>
-            <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+            <li id="pet_name_<%=pet.id%>"><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
         <%end%>
     </li>
     <li>Reason why you want to adopt: <%= @application.description %></li>
@@ -25,7 +25,8 @@
                 <% @pets.each do |pet| %>
                 <div id="pet_<%=pet.id%>">
                     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}"%> 
-                    <%= button_to "Adopt this Pet", "applications/#{@application.id}/pets", method: :post%></li><br>
+                    <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets",  method: :post%>
+                    <br>
                 </div>
             <%end%>
         <%end%>
