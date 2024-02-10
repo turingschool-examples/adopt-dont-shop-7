@@ -20,7 +20,18 @@ RSpec.describe "Application show" do
         expect(page).to have_content(@application_1.zip_code)
         expect(page).to have_content(@application_1.description)
         expect(page).to have_content(@application_1.status)
+        
+        expect(page).to_not have_content(@application_2.name)
+        expect(page).to_not have_content(@application_2.street_address)
+        expect(page).to_not have_content(@application_2.city)
+        expect(page).to_not have_content(@application_2.state)
+        expect(page).to_not have_content(@application_2.zip_code)
+        expect(page).to_not have_content(@application_2.description)
+    end
 
-       
+    xit 'links to dog show page' do
+        visit "/applications/#{@application_1.id}"
+
+        expect(page).to have_link()
     end
 end
