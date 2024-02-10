@@ -37,7 +37,8 @@ RSpec.describe "AdminShelters", type: :feature do
             end
         end
 
-        it 'has a displays all pending applications' do
+        # User Story 11
+        it 'has a displays all pending applications with the shelter name' do
             shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
             pet_1 = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
             pet_2 = Pet.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
@@ -46,9 +47,11 @@ RSpec.describe "AdminShelters", type: :feature do
             
             visit '/admin/shelters'
 
+            # Then I see a section for "Shelters with Pending Applications"
+            # And in this section I see the name of every shelter that has a pending application
             within "#shelters_pending_apps"
                 expect(page).to have_content("All Shelters With")
-                expect(page).to have_content(application_2.name)
+                expect(page).to have_content(shelter.name)
             end    
         end
     end

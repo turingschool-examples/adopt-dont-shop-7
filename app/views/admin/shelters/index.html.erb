@@ -13,5 +13,7 @@
 
 <div id="shelters_pending_apps">
 <h1> All Shelters With "Pending" Applications </h1>
-
+<ul><% @shelter_with_pending_apps.each do |shelter| %>
+        <li>Name: <%= shelter.name %></li>
+    <% end %>
 </div>

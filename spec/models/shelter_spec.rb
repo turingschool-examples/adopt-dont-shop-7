@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Shelter, type: :model do
   describe "relationships" do
     it { should have_many(:pets) }
+    # US 11
     it { should have_many(:adoption_applications).through(:pets) }
   end
 
