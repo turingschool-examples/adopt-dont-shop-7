@@ -96,7 +96,7 @@ RSpec.describe 'new application form page' do
     click_on "Submit"
 
     within("#flash") do
-      expect(page).to have_content("Please fill out all fields of the application before trying to submit")
+      expect(page).to have_content("Error: Endorsement can't be blank")
     end
   end
 end

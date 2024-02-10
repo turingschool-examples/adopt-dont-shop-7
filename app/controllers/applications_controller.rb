@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
     if application.save
       redirect_to "/applications/#{application.id}"
     else
-      flash.now[:notice] = "Please fill out all fields of the application before trying to submit"
+      flash.now[:notice] = "Error: #{error_message(application.errors)}"
       render :new
     end
   end
