@@ -42,4 +42,8 @@ Rails.application.routes.draw do
   get "/applications/new", to: "adoption_application#new"
   post "/applications", to: "adoption_application#create"
   get "/applications/:id", to: "adoption_application#show"
+
+  get "/admin/shelters/", to: "admin/shelters#index"
 end
+
+
