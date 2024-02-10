@@ -7,4 +7,9 @@ class Application < ApplicationRecord
   validates :state, presence: true
   validates :zip_code, presence: true
   validates :endorsement, presence: true
+
+  def find_pets
+    @pets = Pet.joins(:applications).where("applications.id = #{self.id}")
+  end
+
 end

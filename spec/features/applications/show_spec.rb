@@ -63,19 +63,50 @@ RSpec.describe 'applications show page' do
 
   it "displays pets whose name matches the search" do
     application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
-    
-    pet_1 = Pet.create(adoptable: true, age: 7, breed: "sphynx", name: "Bare-y Manilow", shelter_id: shelter.id)
-    pet_2 = Pet.create(adoptable: true, age: 3, breed: "domestic pig", name: "Babe", shelter_id: shelter.id)
-    pet_3 = Pet.create(adoptable: true, age: 4, breed: "chihuahua", name: "Elle", shelter_id: shelter.id)
+    shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
     
     # And under the search bar I see any Pet whose name matches my search
-    fill_in "Search", with: "Elle"
+    visit "/applications/#{application.id}"
+    fill_in "search", with: "Elle"
 
     click_on "Search"
-    expect(page).to have_content(pet_3.name)
-    expect(page).to have_content(pet_3.breed)
-    expect(page).to have_content(pet_3.age)
+    expect(page).to have_content(pet.name)
+    expect(page).to have_content(pet.breed)
+    expect(page).to have_content(pet.age)
   end
-    
-    
+
+# As a visitor
+# When I visit an application's show page
+# And I search for a Pet by name
+# And I see the names Pets that match my search
+# Then next to each Pet's name I see a button to "Adopt this Pet"
+# When I click one of these buttons
+# Then I am taken back to the application show page
+# And I see the Pet I want to adopt listed on this application
+  it "has an adopt this pet button next to each pet" do
+    application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
+    shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
+
+    visit "/applications/#{application.id}"
+    fill_in "search", with:"#{pet.name}"
+    click_on "Search"
+
+    expect(page).to have_button("Adopt this Pet")
+  end
+
+  it "can click the adopt this pet button, and that pet will be added to the application" do
+    application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
+    shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
+
+    visit "/applications/#{application.id}"
+    fill_in "search", with:"#{pet.name}"
+    click_on "Search"
+    click_on "Adopt this Pet"
+
+    expect(current_path).to eq("/applications/#{application.id}")
+    expect(pet.name).to appear_before("Add a Pet To This Application")
+  end    
 end
