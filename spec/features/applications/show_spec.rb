@@ -127,7 +127,7 @@ RSpec.describe 'applications show page' do
     shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
 
-    visit "/applictions/#{application.id}"
+    visit "/applications/#{application.id}"
 
     expect(page).not_to have_button("Submit Application")
 
