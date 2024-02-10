@@ -4,18 +4,28 @@
 <h4><%= @application.state %></h4>
 <h4><%= @application.zip_code %></h4>
 <p><%= @application.endorsement %></p>
+<h3>Pets on Application:</h3>
+<% @application.find_pets.each do |pet| %>
+  <h4><%= pet.name %></h4>
+  <p>Age: <%= pet.age %></p>
+  <p>Breed: <%= pet.breed %></p>
+<% end %>
 <h5>Application Status: In Progress</h5>
 
 <section>
-<p>Add a Pet To This Application</p>
+<h2>Add a Pet To This Application</h2>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true, data: {turbo: false} do |f| %>
   <%= f.label :search %>
   <%= f.text_field :search %>
   <%= f.submit "Search" %>
 <% end %>
-<% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-<% end %>
+<% if @pets %>
+  <p>Search Results:</p>
+    <% @pets.each do |pet| %>
+      <h3><%= pet.name %></h3>
+      <p>Age: <%= pet.age %></p>
+      <p>Breed: <%= pet.breed %></p>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}/new", method: :post %>
+    <% end %>
+  <% end %>
 </section>
