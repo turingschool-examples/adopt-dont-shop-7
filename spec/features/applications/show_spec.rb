@@ -135,10 +135,31 @@ RSpec.describe 'Applications Show Page', type: :feature do
     it 'doesnt show a section to submit an application' do
 
     # When I visit an application's show page
-      visit "/applications/#{@application_4}"
+      visit "/applications/#{@application_1}"
     # And I have not added any pets to the application
     # Then I do not see a section to submit my application
       expect(page).to_not have_button("Submit Application")
+    end
+
+    
+    # Partial Matches for Pet Names
+
+    # User story As a visitor
+    # Partial Matches for Pet Names
+    it 'displays any pet whose name PARTIALLY matches my search'
+
+    # When I visit an application show page
+      visit "/applications/#{@application_1}"
+
+    # And I search for Pets by name
+    # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+      fill_in "pet_name_search", with: "fluff"
+      click_button("Submit")
+
+    # Then I see any pet whose name PARTIALLY matches my search
+      expect(page).to have_content("fluffy")
+      expect(page).to have_content("fluff")
+      expect(page).to have_content("mr. fluff")
     end
   end
 end
