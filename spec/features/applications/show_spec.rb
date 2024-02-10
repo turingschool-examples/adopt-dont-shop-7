@@ -87,7 +87,7 @@ RSpec.describe "Application Show Page" do
     end
 
     describe "User Story 5 - add pet to application" do
-      it "has 'Adopt this Pet' button next to pet names" do
+      it "displays 'Adopt this Pet' button next to pet names" do
         fill_in "pet_name", with: "Pongo"
         click_on "Submit"
 
@@ -98,6 +98,16 @@ RSpec.describe "Application Show Page" do
         within "#pet_#{pet_3.id}" do
           expect(page).to have_content("Adopt this Pet")
         end
+      end
+
+      it "'Adopt this Pet' button adds that pet to application's show page" do
+        fill_in "pet_name", with: "Pongo"
+        within "#pet_#{pet_2.id}" do
+          click_button "Adopt this Pet"
+        end
+
+        expect(Name of pet(s)). to eq("#{pet_2.name}")
+        expect(current_path).to eq("/applications/#{application_1.id}")
       end
     end
   end
