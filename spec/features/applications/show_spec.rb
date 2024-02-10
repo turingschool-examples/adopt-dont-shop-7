@@ -109,4 +109,70 @@ RSpec.describe 'applications show page' do
     expect(current_path).to eq("/applications/#{application.id}")
     expect(pet.name).to appear_before("Add a Pet To This Application")
   end    
+
+#   As a visitor
+# When I visit an application's show page
+# And I have added one or more pets to the application
+# Then I see a section to submit my application
+# And in that section I see an input to enter why I would make a good owner for these pet(s)
+# When I fill in that input
+# And I click a button to submit this application
+# Then I am taken back to the application's show page
+# And I see an indicator that the application is "Pending"
+# And I see all the pets that I want to adopt
+# And I do not see a section to add more pets to this application
+  it 'has a section to submit application once a pet is added to it' do
+    application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
+    shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
+
+    visit "/applictions/#{application.id}"
+
+    expect(page).not_to have_button("Submit Application")
+
+    fill_in "search", with:"#{pet.name}"
+    click_on "Search"
+    click_on "Adopt this Pet"
+
+    expect(page).to have_field("endorsement")
+    expect(page).to have_button("Submit Application")
+
+    within("#edit_endorsement") do
+      expect(page).to have_content("I am the best pet owner")
+    end 
+  end
+
+  it 'can submit the application and be returned to application show page and see its status as Pending' do
+    application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
+    shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
+
+    visit "/applictions/#{application.id}"
+
+    expect(page).not_to have_button("Submit Application")
+
+    fill_in "search", with:"#{pet.name}"
+    click_on "Search"
+    click_on "Adopt this Pet" 
+
+    expect(current_path).to eq("/applictions/#{application.id}")
+    expect(page).to have_content("Application Status: Pending")
+  end
+
+  it 'will show pets on application and not show Add a Pet section' do
+    application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
+    shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
+
+    visit "/applictions/#{application.id}"
+
+    fill_in "search", with:"#{pet.name}"
+    click_on "Search"
+    click_on "Adopt this Pet" 
+
+    expect(page).to have_content(pet.name)
+    expect(page).not_to have_content("Add a Pet To This Application")
+  end
+
+
 end
