@@ -37,19 +37,19 @@
     </div>
   <% end %>
     
-    <% if @pets != nil  %>  
-      <% @pets.each do |pet| %>
-        <%= pet.name%>
+  <% if @pets != nil  %>  
+    <% @pets.each do |pet| %>
+      <%= pet.name%>
 
-        <%= form_with(url:"/applications/#{@application.id}/pets", method: :post ) do |f| %>
-          <div>
-            <%= f.hidden_field :pet_id, value: pet.id %>
-            <%= f.submit 'Adopt this pet' %>
-          </div>
-        <% end %>
-
-      
+      <%= form_with(url:"/applications/#{@application.id}/pets", method: :post ) do |f| %>
+        <div>
+          <%= f.hidden_field :pet_id, value: pet.id %>
+          <%= f.submit 'Adopt this pet' %>
+        </div>
       <% end %>
+
+    
     <% end %>
+  <% end %>
     
 </section>
