@@ -7,5 +7,9 @@
 <li>Zipcode: <%= @application.zipcode %></li>
 <li>Description: <%= @application.description %></li>
 <li>Status: <%= @application.application_status %></li>
-
+<br>
+<b>Pets Applied For:</b>
+<% @application.pets.each do |pet| %>
+  <%= link_to pet.name, "/pets/#{pet.id}" %>
+<% end %>
 
