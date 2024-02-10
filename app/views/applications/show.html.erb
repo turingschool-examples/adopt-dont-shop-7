@@ -5,13 +5,16 @@
     <li>City: <%= @application.city %></li>
     <li>State: <%= @application.state %></li>
     <li>Zipcode: <%= @application.zip_code %></li>
-    <li>Name of pet(s): 
+    <li >Name of pet(s): 
         <% @application.pets.each do |pet| %>
-            <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+            <ul>
+            <li id="pet_name_<%=pet.id%>"><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+            </ul>
         <%end%>
     </li>
     <li>Reason why you want to adopt: <%= @application.description %></li>
-    <li>Status of Application: <%= @application.status %></li>
+
+    <li>Status of Application: <%= @application.status %></li><br>
     <div> 
         <%if @application.in_progress? %>
             <%= form_with url: "/applications/#{@application.id}", method: :get do |form|%>
@@ -23,7 +26,11 @@
             <% if @pets %>
                 Search Result:
                     <% @pets.each do |pet| %>
-                    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+                    <div id="pet_<%=pet.id%>">
+                      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}"%> 
+                      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets",  method: :post, params:{pet_key: pet.id}%></li>
+                      <br>
+                     </div>
                 <%end%>
             <%end%>
         
