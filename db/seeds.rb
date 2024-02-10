@@ -1,10 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+
+adoption_app_1 = AdoptionApplication.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", status: "Pending")
+adoption_app_2 = AdoptionApplication.create!(name: "Amy", street_address: "32 Central St", city: "Milwaukee", state: "WI", zip_code: 50204, description: "I make a lot of money", status: "In Progress")
+adoption_app_3 = AdoptionApplication.create!(name: "Igor", street_address: "100 1st St", city: "Atlanta", state: "GA", zip_code: 30303, description: "I am a dog person with a lot of money and a fenced backyward", status: "Approved")
+adoption_app_4 = AdoptionApplication.create!(name: "Joe", street_address: "200 2nd St", city: "Phoenix", state: "AZ", zip_code: 12344, description: "I hate walking", status: "Rejected")
 
 shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
