@@ -5,5 +5,6 @@ class Admin::SheltersController < ApplicationController
 
         @shelters_with_pending_apps = Shelter.all.sort_by_pending
     end
+
 end
 

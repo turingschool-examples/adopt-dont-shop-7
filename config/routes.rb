@@ -44,6 +44,8 @@ Rails.application.routes.draw do
   get "/applications/:id", to: "adoption_application#show"
 
   get "/admin/shelters", to: "admin/shelters#index"
+
+  get "/admin/applications/:id", to: "admin/adoption_applications#show"
 end
 
 
