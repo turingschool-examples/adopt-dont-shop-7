@@ -1,17 +1,23 @@
 <h3><%= @application.name %></h3>
-<h4><%= @application.street_address %></h4>
-<h4><%= @application.city %></h4>
-<h4><%= @application.state %></h4>
-<h4><%= @application.zip_code %></h4>
+<h4><%= @application.street_address %>, <%= @application.city  %>, <%= @application.state %>, <%= @application.zip_code %></h4>
 <p><%= @application.endorsement %></p>
+
 <h3>Pets on Application:</h3>
 <% @application.find_pets.each do |pet| %>
   <h4><%= pet.name %></h4>
   <p>Age: <%= pet.age %></p>
   <p>Breed: <%= pet.breed %></p>
 <% end %>
-<h5>Application Status: In Progress</h5>
+<% if @application.has_pets? && @application.status == "In Progress" %>
+<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true, data: {turbo: false} do |f|%>
+<%= f.label :owner_endorsement %>
+<%= f.text_field :owner_endorsement %>
+<%= f.submit "Submit Application"%>
+<% end %>
+<% end %>
+<h5>Application Status: <%= @application.status %> </h5>
 
+<% if @application.status == "In Progress" %>
 <section>
 <h2>Add a Pet To This Application</h2>
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true, data: {turbo: false} do |f| %>
@@ -28,4 +34,6 @@
       <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}/new", method: :post %>
     <% end %>
   <% end %>
+<% end %>
+
 </section>
