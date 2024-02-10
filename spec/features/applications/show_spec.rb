@@ -125,9 +125,20 @@ RSpec.describe 'Applications Show Page', type: :feature do
       expect(page).to have_content("#{@pet_1.name}")
       expect(page).to have_content("#{@pet_2.name}")
       expect(page).to have_content("#{@pet_3.name}")
-      
+
     # And I do not see a section to add more pets to this application
       expect(page).to not_have_content("Add a Pet to this Application")
     end 
+
+    #User story As a visitor
+    # No Pets on an Application
+    it 'doesnt show a section to submit an application' do
+
+    # When I visit an application's show page
+      visit "/applications/#{@application_4}"
+    # And I have not added any pets to the application
+    # Then I do not see a section to submit my application
+      expect(page).to_not have_button("Submit Application")
+    end
   end
 end
