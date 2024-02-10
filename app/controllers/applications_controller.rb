@@ -19,6 +19,12 @@ class ApplicationsController < ApplicationController
     end 
   end
 
+  def update
+    app = Application.find(params[:id]) 
+    app.update!(description: params[:description], status: 1)
+    redirect_to "/applications/#{app.id}"
+  end
+
   private 
 
   def strong_params

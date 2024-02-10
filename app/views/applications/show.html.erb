@@ -13,14 +13,27 @@
   </div>
 <% end %>
 
-<h2> Add a Pet to this Application </h2>
-<p> Search for Pet: </p>
+<section class='app-submission'>
+  <h2> submit my application </h2>
+  <%= form_with url: "/applications/#{@app.id}", method: :patch, local: true do |f| %>
+    <%= f.label :description, "Why are you a good fit?" %>
+    <%= f.text_field :description %>
+    <%= f.submit "submit" %>
+  <% end %>
+</section>
 
-<%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "submit" %>
-<% end %>
+<%if @app.status == 0 %>
+  <section class='pet-application'>
+    <h2> Add a Pet to this Application </h2>
+    <p> Search for Pet: </p>
+
+    <%= form_with url: "/applications/#{@app.id}", method: :get, local: true do |f| %>
+      <%= f.label :search %>
+      <%= f.text_field :search %>
+      <%= f.submit "find pet" %>
+    <% end %>
+  </section>
+<% end %>  
 
 <section class='found-pets'>
   <% if @found_pets !=nil %>
