@@ -37,10 +37,10 @@ class Shelter < ApplicationRecord
   # admin
 
   def self.reverse_alphabetical_order
-    Shelter.find_by_sql("SELECT * FROM shelters ORDER BY name DESC;")
+    find_by_sql("SELECT * FROM shelters ORDER BY name DESC;")
   end
 
   def self.sort_by_pending
-    Shelter.joins(pets: :adoption_applications).where(adoption_applications: { status: "Pending" }).pluck(:name)
+    joins(pets: :adoption_applications).where(adoption_applications: { status: "Pending" }).pluck(:name)
   end
 end

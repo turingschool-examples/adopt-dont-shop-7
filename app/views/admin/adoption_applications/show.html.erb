@@ -1,5 +1,6 @@
 <h3>Admin Shelters Show Page</h3>
 <p>Application ID: <%= @adoption_app.id %></p>
+<p>Application Name: <%= @adoption_app.name %></p>
 
 <h1>Pets Associated with <%= @adoption_app.id %></h1>
 <% if @adoption_app.pets.nil? %>
@@ -13,7 +14,7 @@
             <li>Age: <%= pet.age %></li>
             <li>Adoptable: <%= pet.adoptable %></li>
         </ul>
-        <% if pet.adoptable = true %>
+        <% if pet.adoptable %>
             <%= form_with url: "/admin/applications/#{@adoption_app.id}", method: :patch do |form| %>
                 <%= form.submit "Approve" %>
             <% end %>

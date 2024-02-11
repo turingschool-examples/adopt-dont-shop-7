@@ -7,6 +7,7 @@ class Admin::AdoptionApplicationsController < ApplicationController
     def update
         @adoption_app = AdoptionApplication.find(params[:id])
         @adoption_app.approve_pet
+        redirect_to "/admin/applications/#{@adoption_app.id}"
     end
     
 end
