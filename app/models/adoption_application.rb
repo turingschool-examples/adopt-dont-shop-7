@@ -1,8 +1,10 @@
 class AdoptionApplication < ApplicationRecord
    has_many :adoption_application_pets
    has_many :pets, through: :adoption_application_pets
+
    
    # I removed the status from here, since we don't need to pass it anymore. 
+
    validates :name, :street_address, :city, :state, :zip_code, :description, presence: true
 
    def add_pet_to_app(pet_id)
@@ -26,4 +28,5 @@ class AdoptionApplication < ApplicationRecord
    #       end
    #    end
    # end
+
 end
