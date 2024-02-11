@@ -4,16 +4,16 @@ class Admin::AdoptionApplicationsController < ApplicationController
         @application = AdoptionApplication.find(params[:id])
     end
 
-    # def update
-    #     @application = AdoptionApplication.find(params[:id])
-    #     if update(adoption_app_params)
-    #         approve_pet
-    #         true
-    #     else
-    #         false
-    #         flash[:alert] = "Error: Could not approve or update"
-    #     end
-    # end
+    def update
+        @application = AdoptionApplication.find(params[:id])
+        if update(adoption_app_params)
+            approve_pet
+            true
+        else
+            false
+            flash[:alert] = "Error: Could not approve or update"
+        end
+    end
 end
 
 private
