@@ -143,7 +143,10 @@ RSpec.describe "Application Show Page" do
         application_3 = Application.create!(name: "Francis", street_address: "600 N 1st Ave", city: "Minneapolis", state: "MN", zip_code: "55403", description: "I want a cat named Taco")
 
         visit "/applications/#{application_3.id}"
-        expect(page).to_not have_button("Submit Application")
+        expect(page).to_not have_button("Submit Application") 
+
+        visit "/applications/#{application_1.id}"
+        expect(page).to have_button("Submit Application") 
       end
     end
   end
