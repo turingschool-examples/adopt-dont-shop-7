@@ -7,7 +7,8 @@ RSpec.describe "Application Show Page" do
     @pet_1 = Pet.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: @shelter_1.id)
 
     @application_pet_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id)
-  
+    @application_2 = Application.create!(name: "test", street_address: "test James St", city: "ena", state: "az", zipcode: "52332", description: "I love2 pets!",application_status: "In Progress")
+    
   end
 
   it "Show's a specific applicant's details" do
@@ -34,5 +35,23 @@ RSpec.describe "Application Show Page" do
 
     expect(current_path).to eq("/pets/#{@pet_1.id}")
   
+  end
+  
+  it "searches pets for pets in a not submitted application" do
+    visit "/applications/#{@application_2.id}"
+    expect(page).to have_content(@application_2.name)
+    expect(page).to have_content(@application_2.street_address)
+    expect(page).to have_content(@application_2.city)
+    expect(page).to have_content(@application_2.state)
+    expect(page).to have_content(@application_2.description)
+    expect(page).to have_content(@application_2.zipcode)
+    expect(page).to have_content("In Progress")
+    expect(page).to have_content("add a pet to this Application")
+    
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+
   end
 end

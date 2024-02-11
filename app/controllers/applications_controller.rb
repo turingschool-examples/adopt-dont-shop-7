@@ -29,7 +29,14 @@ class ApplicationsController < ApplicationController
 
   private
 
+  # def application_params
+  #   params.permit(:name, :street_address, :city, :state, :zipcode, :description, :application_status)
+  # end
+
   def application_params
+    
+    params[:application_status] ||= 'In Progress'
+
     params.permit(:name, :street_address, :city, :state, :zipcode, :description, :application_status)
   end
 

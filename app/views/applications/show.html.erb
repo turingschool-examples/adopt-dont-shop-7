@@ -1,3 +1,5 @@
+<% if @application.application_status == "In Progress" %>
+
 <h3> Applicant Details:</h3>
 
 <li>Name: <%= @application.name %></li>
@@ -13,3 +15,21 @@
   <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %>
 
+<%else%>
+
+<h3> Applicant Details:</h3>
+
+<li>Name: <%= @application.name %></li>
+<li>Address: <%= @application.street_address %></li>
+<li>City: <%= @application.city %></li>
+<li>State: <%= @application.state %></li>
+<li>Zipcode: <%= @application.zipcode %></li>
+<li>Description: <%= @application.description %></li>
+<li>Status: <%= @application.application_status %></li>
+<br>
+<b>Pets Applied For:</b>
+<% @application.pets.each do |pet| %>
+  <%= link_to pet.name, "/pets/#{pet.id}" %>
+<% end %>
+
+<%end%>
