@@ -17,8 +17,26 @@ RSpec.describe 'Admin Application Show Page', type: :feature do
       PetApp.create!(application_id: @app_2.id, pet_id: @pet_3.id)
     end
 
-    xit "" do 
+    # 12. Approving a Pet for Adoption
+    it "can approve individual pets on an app" do 
+      # When I visit an admin application show page ('/admin/applications/:id')
+      visit "/admin/applications/#{@app_2.id}"
 
+      within "#app-status-#{@app_2.id}" do 
+        # For every pet that the application is for, I see a button to approve the application for that specific pet
+        expect(page).to have_button("approve")
+        # When I click that button
+        click_button("approve")
+      end
+      # Then I'm taken back to the admin application show page
+      expect(current_path).to eq("/admin/applications/#{@app_2.id}")
+
+      within "#app-status-#{@app_2.id}" do 
+        # And next to the pet that I approved, I do not see a button to approve this pet
+        expect(page).to_not have_content("approve")
+        # And instead I see an indicator next to the pet that they have been approved
+        expect(page).to have_content("Status: Accepted")
+      end
     end
   end
 end 
