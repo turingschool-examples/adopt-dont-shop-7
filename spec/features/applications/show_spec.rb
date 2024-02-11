@@ -204,4 +204,28 @@ RSpec.describe 'applications show page' do
     expect(page).not_to have_content(pet_1.name)
     expect(page).not_to have_content(pet_2.name)
   end
+
+  it 'can search for a pet and get results regardless of capitalization' do
+    application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
+    shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+    pet_1 = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Elle")
+    pet_2 = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Eve")
+    pet_3 = shelter_1.pets.create!(adoptable: true, age: 4, breed: "chihuahua", name: "Buck")
+
+    visit "/applications/#{application.id}"
+
+    fill_in "search", with: "eLLe"
+    click_on "Search"
+
+    expect(page).to have_content(pet_1.name)
+    expect(page).not_to have_content(pet_2.name)
+    expect(page).not_to have_content(pet_3.name)
+
+    fill_in "search", with: "bUcK"
+    click_on "Search"
+
+    expect(page).to have_content(pet_3.name)
+    expect(page).not_to have_content(pet_1.name)
+    expect(page).not_to have_content(pet_2.name)
+  end
 end
