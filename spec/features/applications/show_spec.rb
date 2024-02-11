@@ -141,8 +141,6 @@ RSpec.describe 'Applications Show Page', type: :feature do
       expect(page).to_not have_button("Submit Application")
     end
 
-    
-    # Partial Matches for Pet Names
 
     # User story As a visitor
     # Partial Matches for Pet Names
@@ -160,6 +158,24 @@ RSpec.describe 'Applications Show Page', type: :feature do
       expect(page).to have_content("fluffy")
       expect(page).to have_content("fluff")
       expect(page).to have_content("mr. fluff")
+    end
+
+    #Case Insensitive Matches for Pet Names
+    # User story As a visitor
+    it 'makes search case insensitive' do 
+
+    # When I visit an application show page
+      visit "/applications/#{@application_1}"
+
+    # And I search for Pets by name
+    # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+      fill_in "pet_name_search", with: "fluff"
+      click_button("Submit")
+
+    # Then my search is case insensitive
+      expect(page).to have_content("Fluffy")
+      expect(page).to have_content("FLUFF")
+      expect(page).to have_content("Mr. FlUfF")
     end
   end
 end
