@@ -91,7 +91,7 @@ RSpec.describe "Application Show Page" do
     describe "User Story 5 - add pet to application" do
       it "displays 'Adopt this Pet' button next to pet names" do
         fill_in "pet_name", with: "Pongo"
-        click_on "Submit"
+        click_on "Search"
 
         within "#pet_#{pet_2.id}" do
           expect(page).to have_content("Adopt this Pet")
@@ -105,7 +105,7 @@ RSpec.describe "Application Show Page" do
       it "'Adopt this Pet' button adds that pet to application's show page" do
         pet_4 = shelter_1.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Rosco")
         fill_in "pet_name", with: "Rosco"
-        click_on "Submit"
+        click_on "Search"
 
         within "#pet_#{pet_4.id}" do
           click_on "Adopt this Pet"
