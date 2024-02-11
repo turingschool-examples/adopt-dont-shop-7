@@ -9,12 +9,18 @@ class AdoptionApplication < ApplicationRecord
       self.pets << pet
    end
 
-   
+   # admin
+
    #change adoptable? field on pet and application status
    def approve_pet
-      self.pets.each do |pet|
-         pet.update
+      update_pet_adoptable
+      redirect_to "/admin/applications/#{@adoption_app.id}"
+   end
+
+   def update_pet_adoptable
+      @application.pets.each do |pet|
+         pet.update(adoptable: false)
       end
-      redirect_to "/admin/applications/#{@application.id}"
+      # pets.joins(:adoption_application_pets).update('pet.adoptable = false')
    end
 end

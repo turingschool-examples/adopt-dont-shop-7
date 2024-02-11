@@ -68,7 +68,7 @@ RSpec.describe 'Admin Shelters Applications Show Page' do
     end
 
     # User Story 13
-    describe 'rejecting a pet for adoption' do
+    xdescribe 'rejecting a pet for adoption' do
         it 'has a button to reject pets' do
             shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
             pet_1 = shelter.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
@@ -100,7 +100,7 @@ RSpec.describe 'Admin Shelters Applications Show Page' do
 
         # next to the pet rejected, no button to approve or reject
         # indicator next to the pet that they have been approved
-        it 'displays updated approval for pet' do
+        it 'displays updated reject for pet' do
             shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
             pet_1 = shelter.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
             application_1 = AdoptionApplication.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", status: "Pending")

@@ -213,7 +213,7 @@ And instead I see an indicator next to the pet that they have been approved
 ```
 
 ```
-[ ] done
+[ ] done - test done in spec/features/admin/applications/show_spec
 
 13. Rejecting a Pet for Adoption
 
