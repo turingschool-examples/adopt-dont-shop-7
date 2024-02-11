@@ -41,6 +41,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.sort_by_pending
-    joins(pets: :adoption_applications).where(adoption_applications: { status: "Pending" }).pluck(:name)
+    joins(pets: :adoption_applications).where(adoption_applications: { status: "Pending" }).distinct.pluck(:name)
   end
 end

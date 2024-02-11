@@ -14,7 +14,7 @@ RSpec.describe "the adoption application create page", type: :feature do
         it "displays a form" do
             visit "/applications/new"
 
-            expect(page).to have_button("Submit Application")
+            expect(page).to have_button("Submit")
         end
 
         # Then I am taken to the new application page where I see a form
@@ -29,7 +29,7 @@ RSpec.describe "the adoption application create page", type: :feature do
             expect(page).to have_content("City:")
             expect(page).to have_content("State:")
             expect(page).to have_content("Zip Code:")
-            expect(page).to have_content("Description of why you are a good owner:")
+            expect(page).to have_content("Why you want to adopt?")
         end
 
         # And I click submit
@@ -44,7 +44,7 @@ RSpec.describe "the adoption application create page", type: :feature do
             fill_in "zip_code", with: "80303"
             fill_in "description", with: "I have a fenced backyard and love dogs"
 
-            click_button "Submit Application"
+            click_button "Submit"
 
             newest_app_id = AdoptionApplication.last.id
 
@@ -66,7 +66,7 @@ RSpec.describe "the adoption application create page", type: :feature do
             fill_in "zip_code", with: "80303"
             fill_in "description", with: "I have a fenced backyard and love dogs"
 
-            click_button "Submit Application"
+            click_button "Submit"
 
             expect(AdoptionApplication.last.status).to eq("In Progress")
         end
@@ -82,9 +82,9 @@ RSpec.describe "the adoption application create page", type: :feature do
             fill_in "zip_code", with: "80303"
             fill_in "description", with: "I have a fenced backyard and love dogs"
 
-            click_button "Submit Application"
+            click_button "Submit"
 
-            expect(page).to have_content("Application incomplete. Please fill out all fields.")
+            expect(page).to have_content("Error: City can't be blank")
         end
     end
 end
