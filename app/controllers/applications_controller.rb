@@ -1,11 +1,16 @@
 class ApplicationsController < ApplicationController
     
     def show
+        # require 'pry'; binding.pry
         @application = Application.find(params[:id])
         # require 'pry'; binding.pry
 
         if params[:pet_name].present?
             @pets = Pet.search(params[:pet_name])
+        end
+
+        if params[:why_i_would_make_a_good_owner].present?
+            @application.change_application_status("Pending")
         end
 
          

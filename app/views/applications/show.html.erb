@@ -48,8 +48,27 @@
         </div>
       <% end %>
 
-    
     <% end %>
   <% end %>
+</section>
+
+<section class="why_I_would_make_a_good_owner">
+  
+  <% if @application.pets.present? %>
+    <% if @application.status == "In Progress" %>
+        <%= form_with(url: "/applications/#{@application.id}", method: :get ) do |f| %>
+          <div>
+            <%= f.label :why_i_would_make_a_good_owner, "why I would make a good owner for the pet(s)?" %>
+            <%= f.text_field :why_i_would_make_a_good_owner %>
+          </div>
+          
+          <%= f.submit 'Submit Application' %>
+          
+        <% end %>
+    <% end %>
+      
     
+  <% end %>
+  
+  
 </section>
