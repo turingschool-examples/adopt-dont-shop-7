@@ -3,3 +3,12 @@
     <h3><%= shelter.name %></h3>
   </div>
 <% end %>
+
+<section class="pending-app">
+  <h3>Shelters with Pending Applications</h3>
+  <% @shel_pends.each do |shel_pend| %>
+    <div id="shel_pend-<%= shel_pend.id %>">
+      <h3><%= shel_pend.name %></h3>
+    </div>
+  <% end %>
+</section>
