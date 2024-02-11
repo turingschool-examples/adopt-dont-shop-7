@@ -4,9 +4,4 @@ class Shelter < ApplicationRecord
   validates :city, presence: true
 
   has_many :pets, dependent: :destroy
-
-  def self.order_by_reverse_alpha
-    require 'pry'; binding.pry
-    order(created_at: :desc)
-  end
 end

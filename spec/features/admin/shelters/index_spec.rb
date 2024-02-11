@@ -12,7 +12,7 @@ RSpec.describe 'Admin Shelters Index Page', type: :feature do
       # As a visitor
       # When I visit the admin shelter index ('/admin/shelters')
       visit "/admin/shelters"
-      save_and_open_page
+      
       # Then I see all Shelters in the system listed in reverse alphabetical order by name
       expect("Denver shelter").to appear_before("Aurora shelter")
     end
