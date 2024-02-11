@@ -20,6 +20,14 @@ RSpec.describe Shelter, type: :model do
   let!(:pet_2) {shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)}
   let!(:pet_3) {shelter_3.pets.create!(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)}
   let!(:pet_4) {shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)}
+  let!(:pet_5) {shelter_2.pets.create!(adoptable: true, age: 2, breed: "dalmatian", name: "Pongo")}
+  let!(:pet_6) {shelter_3.pets.create!(adoptable: true, age: 1, breed: "dalmatian", name: "Pongo II")}
+
+  let!(:application_1) {Application.create!(name: "Sally", street_address: "112 W 9th St.", city: "Kansas City", state: "MO", zip_code: "64105", description: "I love animals. Please let me have one.", status: "pending")}
+  let!(:application_2) {Application.create!(name: "Marcus", street_address: "100 Hennepin Ave.", city: "Minneapolis", state: "MN", zip_code: "55401", description: "Dogs are the best. Please let me have one.", status: "pending")}
+
+  let!(:application_pet_1) {ApplicationPet.create!(pet: pet_1, application: application_1)}
+  let!(:application_pet_2) {ApplicationPet.create!(pet: pet_5, application: application_2)}
 
   describe "class methods" do
     describe "#search" do
@@ -40,8 +48,12 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    it "orders shelters by reverse alphabetical names" do
+    it "#order_by_reverse_alphabetical" do
       expect(Shelter.order_by_reverse_alphabetical).to eq([shelter_2, shelter_3, shelter_1])
+    end
+
+    it "#have_pending_applications" do
+      expect(Shelter.have_pending_applications).to eq([shelter_1, shelter_2])
     end
   end
 
