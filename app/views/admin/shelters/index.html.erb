@@ -1,0 +1,17 @@
+<h1 id="shelters">All Shelters</h1>
+
+<% @shelters.each do |shelter| %>
+  <div id="shelter-<%= shelter.id %>">
+    <h3><%= shelter.name %></h3>
+    <p>Created at: <%= shelter.created_at %></p>
+    <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
+    <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+  </div>
+<% end %>
+
+<h2 id="pending_apps">Shelters with Pending Applications</h2>
+<%@shelters_pending.each do |shelter| %>
+  <ul>
+    <li><%= shelter %></li>
+  </ul>
+<% end %>
