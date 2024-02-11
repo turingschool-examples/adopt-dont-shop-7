@@ -14,4 +14,15 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of(:zip_code) }
     it { should  validate_presence_of(:description) }
   end
+
+  describe "instance methods" do
+    let!(:application_1) {Application.create!(name: "Sally", street_address: "112 W 9th St.", city: "Kansas City", state: "MO", zip_code: "64105", description: "I love animals. Please let me have one.")}
+
+    it "submit reason for adoption" do
+      expect(application_1.status).to eq("in_progress")
+
+      application_1.submit_reason_for_adoption("the best reason")
+      expect(application_1.status).to eq("pending")
+    end
+  end
 end
