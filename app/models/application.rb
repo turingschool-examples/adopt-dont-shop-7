@@ -3,7 +3,7 @@ class Application < ApplicationRecord
   validates :street_address, presence: true
   validates :city, presence: true
   validates :state, presence: true
-  validates :zip_code, presence: true
+  validates :zip_code, presence: true, numericality: true
   validates :description, presence: true
 
   enum status: {
@@ -17,7 +17,7 @@ class Application < ApplicationRecord
 
   def submit_reason_for_adoption(reason)
     self.reason_for_adoption = reason
-    self.status = "pending"
+    self.status = 1
     self.save!
   end
 end
