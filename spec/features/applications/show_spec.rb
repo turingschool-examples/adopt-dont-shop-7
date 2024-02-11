@@ -7,6 +7,9 @@ RSpec.describe 'Applications Show Page', type: :feature do
       @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
       @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
       @pet_3 = Pet.create!(adoptable: true, age: 2, breed: "dalmatian", name: "Rocky", shelter_id: @shelter.id)
+      @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "corgi", name: "fluffy", shelter_id: @shelter.id)
+      @pet_5 = Pet.create!(adoptable: true, age: 8, breed: "bernese mountain", name: "Mr. fluff", shelter_id: @shelter.id)
+      @pet_6 = Pet.create!(adoptable: true, age: 7, breed: "persian", name: "FLUFF", shelter_id: @shelter.id)
       @application_1 = Application.create!(name: "Selena", street_address: "123 Street", city: "City", state: "State", zip_code: "8888", adopting_reason: "Love for cats, no job", status:"Pending")
       @application_2 = Application.create!(name: "Laura", street_address: "58 Street", city: "City", state: "State", zip_code: "5555", adopting_reason: "Need company", status:"Rejected")
       @application_3 = Application.create!(name: "Isaac", street_address: "456 Street", city: "City", state: "State", zip_code: "8878", adopting_reason: "Lots of love to give", status:"Accepted")
@@ -96,7 +99,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
     it 'displays a section to submit my application' do 
      
     # When I visit an application's show page
-      visit "/applications/#{@application_4}"
+      visit "/applications/#{@application_4.id}"
     # And I have added one or more pets to the application
 
       ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_4.id)
@@ -142,16 +145,16 @@ RSpec.describe 'Applications Show Page', type: :feature do
     end
 
 
-    # User story As a visitor
+    # User story #8 As a visitor
     # Partial Matches for Pet Names
-    it 'displays any pet whose name PARTIALLY matches my search'
+    it 'displays any pet whose name PARTIALLY matches my search'do
 
     # When I visit an application show page
-      visit "/applications/#{@application_1}"
+      visit "/applications/#{@application_1.id}"
 
     # And I search for Pets by name
     # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
-      fill_in "pet_name_search", with: "fluff"
+      fill_in(:add_pet_name, with: "fluff")
       click_button("Submit")
 
     # Then I see any pet whose name PARTIALLY matches my search
