@@ -85,10 +85,97 @@ RSpec.describe 'Applications Show Page', type: :feature do
       within '.pets_in_application' do
         within "#pet-#{@pet_3.id}" do
           # And I see the Pet I want to adopt listed on this application
-          save_and_open_page
           expect(page).to have_content(@pet_3.name)
         end
       end
+    end
+
+    
+    #User Story# As a visitor
+    # Submit an Application
+    it 'displays a section to submit my application' do 
+     
+    # When I visit an application's show page
+      visit "/applications/#{@application_4}"
+    # And I have added one or more pets to the application
+
+      ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_4.id)
+      ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application_4.id)
+      ApplicationPet.create!(pet_id: @pet_3.id, application_id: @application_4.id)
+
+    # Then I see a section to submit my application
+      expect(page).to have_content("Submit My Application")
+
+    # And in that section I see an input to enter why I would make a good owner for these pet(s)
+      expect(page).to have_field("Reason for adoption")
+
+    # When I fill in that input
+      fill_in(:adopting_reason, with: "I love animals")
+
+    # And I click a button to submit this application
+      click_button("Submit")
+
+    # Then I am taken back to the application's show page
+      expect(current_path).to eq("/applications/#{@application_4}")
+
+    # And I see an indicator that the application is "Pending"
+      expect(page).to have_content("Pending")
+
+    # And I see all the pets that I want to adopt
+      expect(page).to have_content("#{@pet_1.name}")
+      expect(page).to have_content("#{@pet_2.name}")
+      expect(page).to have_content("#{@pet_3.name}")
+
+    # And I do not see a section to add more pets to this application
+      expect(page).to not_have_content("Add a Pet to this Application")
+    end 
+
+    #User story As a visitor
+    # No Pets on an Application
+    it 'doesnt show a section to submit an application' do
+
+    # When I visit an application's show page
+      visit "/applications/#{@application_1}"
+    # And I have not added any pets to the application
+    # Then I do not see a section to submit my application
+      expect(page).to_not have_button("Submit Application")
+    end
+
+
+    # User story As a visitor
+    # Partial Matches for Pet Names
+    it 'displays any pet whose name PARTIALLY matches my search'
+
+    # When I visit an application show page
+      visit "/applications/#{@application_1}"
+
+    # And I search for Pets by name
+    # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+      fill_in "pet_name_search", with: "fluff"
+      click_button("Submit")
+
+    # Then I see any pet whose name PARTIALLY matches my search
+      expect(page).to have_content("fluffy")
+      expect(page).to have_content("fluff")
+      expect(page).to have_content("mr. fluff")
+    end
+
+    #Case Insensitive Matches for Pet Names
+    # User story As a visitor
+    it 'makes search case insensitive' do 
+
+    # When I visit an application show page
+      visit "/applications/#{@application_1}"
+
+    # And I search for Pets by name
+    # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+      fill_in "pet_name_search", with: "fluff"
+      click_button("Submit")
+
+    # Then my search is case insensitive
+      expect(page).to have_content("Fluffy")
+      expect(page).to have_content("FLUFF")
+      expect(page).to have_content("Mr. FlUfF")
     end
   end
 end
