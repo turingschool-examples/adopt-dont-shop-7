@@ -15,7 +15,6 @@
         </ul>
         <% if pet.adoptable %>
             <%= form_with url: "/admin/applications/#{@application.id}", method: :patch do |form| %>
-                <%= form.hidden_field :approve_pet, value: pet.id  %>
                 <%= form.submit "Approve" %>
             <% end %>
         <% else %>

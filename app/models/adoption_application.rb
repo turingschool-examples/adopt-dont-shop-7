@@ -9,15 +9,12 @@ class AdoptionApplication < ApplicationRecord
       self.pets << pet
    end
 
+   
    #change adoptable? field on pet and application status
    def approve_pet
-      @application = AdoptionApplication.find(params[:id])
-      
-      @application.pets.each do |pet|
-         pet.update(adoptable: false)
+      self.pets.each do |pet|
+         pet.update
       end
-
-      @application.update(status: "Approved")
       redirect_to "/admin/applications/#{@application.id}"
    end
 end
