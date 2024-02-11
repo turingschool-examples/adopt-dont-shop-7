@@ -43,7 +43,8 @@ RSpec.describe "Application New Page" do
           click_on "Create Application"
 
           expect(current_path).to eq("/applications/new")
-          expect(page).to have_content("Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank")
+          save_and_open_page
+          expect(page).to have_content("Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number, Description can't be blank")
           expect(page).to have_button("Create Application")
         end
       end
