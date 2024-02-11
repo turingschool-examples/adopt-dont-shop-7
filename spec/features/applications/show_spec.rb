@@ -127,7 +127,7 @@ RSpec.describe "Application Show Page" do
           fill_in "pet_name", with: "Rover"
           click_on "Search"
           fill_in "application_reason_for_adoption", with: "I have a big backyard"
-          click_on "Submit application"
+          click_on "Submit Application"
 
           expect(current_path).to eq("/applications/#{application_1.id}")
           expect(page).to have_content("pending")
@@ -135,6 +135,15 @@ RSpec.describe "Application Show Page" do
           expect(page).not_to have_content("Add a Pet to this Application")
           expect(page).not_to have_content("Why would you make a good owner for these pet(s)")
         end
+      end
+    end
+
+    describe "User Story 7" do
+      it "no option to submit application without a pet selected" do
+        application_3 = Application.create!(name: "Francis", street_address: "600 N 1st Ave", city: "Minneapolis", state: "MN", zip_code: "55403", description: "I want a cat named Taco")
+
+        visit "/applications/#{application_3.id}"
+        expect(page).to_not have_button("Submit Application")
       end
     end
   end
