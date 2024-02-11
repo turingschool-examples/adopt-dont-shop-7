@@ -16,6 +16,14 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
+  def self.order_by_reverse_alphabetical
+    # SQL only
+  end
+
+  def self.have_pending_applications
+    # Active Record
+  end
+
   def pet_count
     pets.count
   end
