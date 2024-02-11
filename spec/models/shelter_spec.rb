@@ -21,6 +21,12 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+    
+    @app_1 = Application.create!(name: "Jack", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 0)
+    @app_2 = Application.create!(name: "Jim", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 1)
+    
+    PetApp.create!(application_id: @app_1.id, pet_id: @pet_1.id)
+    PetApp.create!(application_id: @app_2.id, pet_id: @pet_3.id)
   end
 
   describe "class methods" do
@@ -45,6 +51,12 @@ RSpec.describe Shelter, type: :model do
     describe "#reverse_alpha" do 
       it "orders names by revrse alphabetical order" do 
         expect(Shelter.reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#only_pending_apps" do 
+      it "shows apps with a status of 'Pending'" do 
+        expect(Shelter.only_pending_apps).to eq([@shelter_3])
       end
     end
   end
