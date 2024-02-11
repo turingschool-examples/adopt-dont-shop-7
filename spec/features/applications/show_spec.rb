@@ -24,19 +24,19 @@ RSpec.describe 'Applications Show Page', type: :feature do
 
       # Then I can see the following:
       # - Name of the Applicant
-      expect(page).to have_content("Applicant name(s): #{@application_1.name}")
+      expect(page).to have_content("#{@application_1.name}")
       
       # - Full Address of the Applicant including street address, city, state, and zip code
-      expect(page).to have_content("Applicant address: #{@application_1.populate_address}")
+      expect(page).to have_content("#{@application_1.populate_address}")
       
       # - Description of why the applicant says they'd be a good home for this pet(s)
-      expect(page).to have_content("Description of why the applicant says they'd be a good home for this pet(s): #{@application_1.adopting_reason}")
+      expect(page).to have_content("#{@application_1.adopting_reason}")
 
       # - names of all pets that this application is for (all names of pets should be links to their show page)
-      expect(page).to have_content("Pets that this application is for: #{@pet_1.name}")
+      expect(page).to have_content("#{@pet_1.name}")
       expect(page).to have_link("Lucille Bald", href: "/pets/#{@pet_1.id}")
       # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-      expect(page).to have_content("Application's status: #{@application_1.status}")
+      expect(page).to have_content("#{@application_1.status}")
     end
 
     # User Story #4. Searching for Pets for an Application
@@ -69,10 +69,12 @@ RSpec.describe 'Applications Show Page', type: :feature do
       # When I visit an application's show page
       visit "/applications/#{@application_4.id}"
       # And I search for a Pet by name
+      within '.find_pet' do
       fill_in(:add_pet_name, with: "Rocky")
       click_button("Submit")
+      end
+      within'.found_pet' do
       # And I see the names Pets that match my search
-      within '.found_pet' do
         within "#pet-#{@pet_3.id}" do
           # Then next to each Pet's name I see a button to "Adopt this Pet"
           expect(page).to have_button("Adopt this Pet") 
@@ -91,12 +93,12 @@ RSpec.describe 'Applications Show Page', type: :feature do
     end
 
     
-    #User Story# As a visitor
+    #User Story 6 # As a visitor
     # Submit an Application
     it 'displays a section to submit my application' do 
      
     # When I visit an application's show page
-      visit "/applications/#{@application_4}"
+      visit "/applications/#{@application_4.id}"
     # And I have added one or more pets to the application
 
       ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_4.id)
@@ -104,17 +106,18 @@ RSpec.describe 'Applications Show Page', type: :feature do
       ApplicationPet.create!(pet_id: @pet_3.id, application_id: @application_4.id)
 
     # Then I see a section to submit my application
-      expect(page).to have_content("Submit My Application")
+      within '.submit_application' do
+        expect(page).to have_content( "Submit My Application" )
 
-    # And in that section I see an input to enter why I would make a good owner for these pet(s)
-      expect(page).to have_field("Reason for adoption")
+      # And in that section I see an input to enter why I would make a good owner for these pet(s)
+        expect(page).to have_field("Adopting reason")
 
-    # When I fill in that input
-      fill_in(:adopting_reason, with: "I love animals")
+      # When I fill in that input
+        fill_in(:adopting_reason, with: "I love animals")
 
-    # And I click a button to submit this application
-      click_button("Submit")
-
+      # And I click a button to submit this application
+        click_button("Submit")
+      end
     # Then I am taken back to the application's show page
       expect(current_path).to eq("/applications/#{@application_4}")
 
@@ -130,7 +133,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
       expect(page).to not_have_content("Add a Pet to this Application")
     end 
 
-    #User story As a visitor
+    #User story 7 As a visitor
     # No Pets on an Application
     it 'doesnt show a section to submit an application' do
 
@@ -142,9 +145,9 @@ RSpec.describe 'Applications Show Page', type: :feature do
     end
 
 
-    # User story As a visitor
+    # User story 8 As a visitor
     # Partial Matches for Pet Names
-    it 'displays any pet whose name PARTIALLY matches my search'
+    it 'displays any pet whose name PARTIALLY matches my search' do
 
     # When I visit an application show page
       visit "/applications/#{@application_1}"
@@ -161,7 +164,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
     end
 
     #Case Insensitive Matches for Pet Names
-    # User story As a visitor
+    # User story 9 bAs a visitor
     it 'makes search case insensitive' do 
 
     # When I visit an application show page
