@@ -163,5 +163,19 @@ RSpec.describe "Application Show Page" do
         expect(page).to_not have_content(pet_1.name)
       end
     end
+
+    describe "User Story 9" do
+      it "pet name search is case insensitive for matches" do
+        application_3 = Application.create!(name: "Francis", street_address: "600 N 1st Ave", city: "Minneapolis", state: "MN", zip_code: "55403", description: "I want a cat named Taco")
+        
+        visit "/applications/#{application_3.id}"
+        fill_in "pet_name", with: "POngO"
+        click_on "Search"
+
+        expect(page).to have_content(pet_2.name)
+        expect(page).to have_content(pet_3.name)
+        expect(page).to_not have_content(pet_1.name)
+      end
+    end
   end
 end
