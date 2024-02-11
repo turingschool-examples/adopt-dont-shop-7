@@ -1,6 +1,6 @@
 class Application < ApplicationRecord
-    has_many :pets 
-    
+    has_many :pet_applications
+    has_many :pets, through: :pet_applications
     def status
         # @status = status
         # if status = "In Progress"
