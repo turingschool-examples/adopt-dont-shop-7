@@ -16,5 +16,9 @@ RSpec.describe 'Admin Application Show Page', type: :feature do
       PetApp.create!(application_id: @app_1.id, pet_id: @pet_1.id)
       PetApp.create!(application_id: @app_2.id, pet_id: @pet_3.id)
     end
+
+    xit "" do 
+
+    end
   end
 end 
