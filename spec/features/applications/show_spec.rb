@@ -10,7 +10,7 @@ RSpec.describe "Application Show Page" do
   let!(:pet_3) {shelter_1.pets.create!(adoptable: true, age: 1, breed: "dalmatian", name: "Pongo II")}
 
   let!(:application_pet_1) {ApplicationPet.create!(pet: pet_1, application: application_1)}
-  let!(:application_pet_2) {ApplicationPet.create!(pet: pet_2, application: application_2)}
+  let!(:application_pet_1) {ApplicationPet.create!(pet: pet_1, application: application_1)}
   let!(:application_pet_3) {ApplicationPet.create!(pet: pet_3, application: application_2)}
 
   before do 
