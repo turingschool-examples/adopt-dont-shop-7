@@ -8,14 +8,29 @@ class ApplicationsController < ApplicationController
 
   end
 
-  def create 
-    application = Application.create(application_params)
-    redirect_to "/applications/#{application.id}"
+#   def create 
+#     application = Application.create(application_params)
+#     redirect_to "/applications/#{application.id}"
+#   end
+# end
+
+  def create
+    application = Application.new(application_params)
+
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      flash[:error] = "Fill in the blanks"
+      redirect_to "/applications/new"
+    end
+  
   end
-end
 
-private
 
-def application_params
-  params.permit(:name, :street_address, :city, :state, :zipcode, :description, :application_status)
+  private
+
+  def application_params
+    params.permit(:name, :street_address, :city, :state, :zipcode, :description, :application_status)
+  end
+
 end
