@@ -27,7 +27,7 @@ RSpec.describe 'Admin Shelters Index Page' do
     pet_1 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Bare-y Manilow")
     pet_2 = shelter_2.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster")
     pet_3 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "domestic shorthair", name: "Sylvester")
-    pet_4 = shelter_1.pets.create!(adoptable: true, age: 1, breed: "orange tabby shorthair", name: "Lasagna")
+    pet_4 = shelter_3.pets.create!(adoptable: true, age: 1, breed: "orange tabby shorthair", name: "Lasagna")
 
     application_1 = Application.create!(name: "Test 1", street_address: "123 street", city: "denver", state: "co", zip_code: 80023, endorsement: "Still the raddest", status: "Pending")
     application_2 = Application.create!(name: "Test 2", street_address: "12323 street", city: "lakewood", state: "ca", zip_code: 80023, endorsement: "Still the raddest", status: "Pending")
@@ -36,6 +36,7 @@ RSpec.describe 'Admin Shelters Index Page' do
     application_pet_2 = ApplicationPet.create!(application_id: application_1.id, pet_id: pet_2.id)
 
     visit "/admin/shelters"
+    save_and_open_page
 
     within"#pending_apps" do
       expect(page).to have_content("Shelters with Pending Applications")
