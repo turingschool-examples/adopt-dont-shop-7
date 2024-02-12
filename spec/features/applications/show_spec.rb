@@ -56,9 +56,8 @@ RSpec.describe "Application Show Page" do
     expect(current_path).to eq("/applications/#{@application_2.id}")
     expect(page).to have_content("Scooby")
   end
-end
 
-# 5. Add a Pet to an Application
+  # 5. Add a Pet to an Application
 
 # As a visitor
 # When I visit an application's show page
@@ -81,6 +80,7 @@ it "I see a button to add a pet to the application" do
 
   click_button("Adopt this pet")
 
-  expect(path.current_path).to eq("/applications/#{@application_2.id}")
+  expect(current_path).to eq("/applications/#{@application_2.id}")
   expect(page).to have_content("Scooby")
+  end
 end
