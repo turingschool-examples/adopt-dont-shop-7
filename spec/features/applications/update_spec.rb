@@ -1,7 +1,6 @@
 require 'rails_helper'
 # 3. Starting an Application, Form not Completed
 
-
 RSpec.describe "applications update" do
     it 'redirects to the new applications page if form is not completed after clicking submit' do
         # When I visit the new application page
