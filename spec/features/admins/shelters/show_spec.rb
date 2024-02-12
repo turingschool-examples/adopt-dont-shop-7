@@ -31,4 +31,15 @@ RSpec.describe "Admins Shelter Show" do
       expect(page).to have_content("Location: Aurora, CO")
     end
   end
+
+  describe "User Story 23 - Average Pet Age" do
+    it "has a section for stats that include the average of adoptable pets" do
+      average_age = @shelter_1.pets.sum(:age).to_f/@shelter_1.pets.size.to_f.round
+
+      expect(page).to have_content("Shelter Statistics")
+      expect(page).to have_content("Average age of adoptable pets: #{average_age}")
+    end
+  end
+
+  describe
 end

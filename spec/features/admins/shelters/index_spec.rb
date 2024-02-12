@@ -68,6 +68,7 @@ RSpec.describe "Admins Shelter Index" do
   end
 
   describe "User Story 21 - Admin Shelters Show Page Links" do
+    # Question: Is there a way to do this without having two instance variables in the index controller?
     it "has a working link for every shelter name" do
       shelters = Shelter.all
       shelters.each do |shelter|

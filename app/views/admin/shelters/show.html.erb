@@ -1,2 +1,5 @@
-<h1><%= @shelter.name %></h1>
-<p>Location: <%= @shelter.city %></p>
+<h1>Shelter: <%= @shelter.name_and_address[:name]%></h1>
+<h3>Location: <%= @shelter.name_and_address[:city] %></p>
+
+<h3>Shelter Statistics:</h2>
+<p>Average age of adoptable pets: <%= @shelter.average_age_of_adoptable_pets %> </p>

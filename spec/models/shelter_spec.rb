@@ -80,14 +80,6 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.pending_applications).to eq ([@shelter_1, @shelter_3])
       end
     end
-
-    describe ".name_and_address" do
-      it "returns the Shelters with their name and full address" do
-        shelter = Shelter.name_and_address(@shelter_1.id)
-        expect(shelter).not_to respond_to(:rank)
-        expect(shelter).not_to respond_to(:foster_program)
-      end
-    end
   end
 
   describe "instance methods" do
@@ -112,6 +104,21 @@ RSpec.describe Shelter, type: :model do
     describe "#shelter_pets_filtered_by_age" do
       it "filters the shelter pets based on given params" do
         expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([@pet_4])
+      end
+    end
+
+    describe "#average_age_of_adoptable_pets" do
+      it "returns the average age of adoptable pets for a shelter" do
+        average_age = @shelter_1.pets.sum(:age).to_f/@shelter_1.pets.size.to_f.round
+        expect(@shelter_1.average_age_of_adoptable_pets.to_f).to eq(average_age)
+      end
+    end
+
+    describe "#name_and_address" do
+      it "returns the Shelters with their name and full address" do
+        shelter = Shelter.name_and_address(@shelter_1.id)
+        expect(shelter).not_to respond_to(:rank)
+        expect(shelter).not_to respond_to(:foster_program)
       end
     end
   end
