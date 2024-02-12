@@ -24,12 +24,14 @@
 </section>
 
 <section class="found_pet">
+<% unless defined? @pet_added %>
 	<% @pets.each do |pet|%>
 	<div id="pet-<%= pet.id %>">
 		<li><%= pet.name %></li>
 		<%= button_to "Adopt this Pet", "/applications/#{@application.id}?pet_id=#{pet.id}", method: :post, local: true%>
 	</div>
 	<% end %>
+<% end %>
 </section>
 
 <section class="submit_application">
