@@ -7,7 +7,7 @@ RSpec.describe Shelter, type: :model do
     it "should destroy associated pets when shelter is destroyed" do
       @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
       @pet_1 = @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
-          
+
       expect{@shelter_1.destroy}.to change{Pet.count}.by(-1)
     end
   end
@@ -45,19 +45,19 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe "#order_by_recently_created" do
+    describe ".order_by_recently_created" do
       it "returns shelters with the most recently created first" do
         expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
       end
     end
 
-    describe "#order_by_number_of_pets" do
+    describe ".order_by_number_of_pets" do
       it "orders the shelters by number of pets they have, descending" do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
 
-    describe "#order_by_reverse_alphabetically" do
+    describe ".order_by_reverse_alphabetically" do
       it "returns all Shelters listed in reverse alphabetical order by name" do
         @turing = Shelter.create(foster_program: true, name: "Turing", city: "Backend", rank: 3)
         @fsa = Shelter.create(foster_program: true, name: "Fullstack Academy", city: "Backend", rank: 3)
@@ -75,9 +75,17 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe "#pending_applications" do
+    describe ".pending_applications" do
       it "returns a list of shelters that have pending applications" do
         expect(Shelter.pending_applications).to eq ([@shelter_1, @shelter_3])
+      end
+    end
+
+    describe ".name_and_address" do
+      it "returns the Shelters with their name and full address" do
+        shelter = Shelter.name_and_address(@shelter_1.id)
+        expect(shelter).not_to respond_to(:rank)
+        expect(shelter).not_to respond_to(:foster_program)
       end
     end
   end
