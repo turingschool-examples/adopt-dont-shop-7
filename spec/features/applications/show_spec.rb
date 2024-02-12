@@ -14,6 +14,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
       @pet_7 = Pet.create!(adoptable: true, age: 5, breed: "persian", name: "Fluffy", shelter_id: @shelter.id)
       @pet_8 = Pet.create!(adoptable: true, age: 4, breed: "persian", name: "Mr. FlUfF", shelter_id: @shelter.id)
 
+
       @application_1 = Application.create!(name: "Selena", street_address: "123 Street", city: "City", state: "State", zip_code: "8888", adopting_reason: "Love for cats, no job", status:"Pending")
       @application_2 = Application.create!(name: "Laura", street_address: "58 Street", city: "City", state: "State", zip_code: "5555", adopting_reason: "Need company", status:"Rejected")
       @application_3 = Application.create!(name: "Isaac", street_address: "456 Street", city: "City", state: "State", zip_code: "8878", adopting_reason: "Lots of love to give", status:"Accepted")
@@ -177,12 +178,13 @@ RSpec.describe 'Applications Show Page', type: :feature do
     # Partial Matches for Pet Names
     it 'displays any pet whose name PARTIALLY matches my search' do
 
+
     # When I visit an application show page
       visit "/applications/#{@application_1.id}"
 
     # And I search for Pets by name
     # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
-  
+
     within ".find_pet" do
       fill_in :add_pet_name, with: "fluff"
       click_button("Submit")
