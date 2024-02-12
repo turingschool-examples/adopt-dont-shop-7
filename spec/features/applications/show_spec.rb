@@ -49,5 +49,24 @@ RSpec.describe "Application show", type: :feature do
             expect(page).to have_link(@pet_1.name, :href=>"/pets/#{@pet_1.id}")
             expect(page).to have_link(@pet_2.name, :href=>"/pets/#{@pet_2.id}")
         end
+
+            # 4. Searching for Pets for an Application
+
+        xit 'adds a section called add a pet to this application where user can search for pets by name' do
+            PetApplication.create!(application_id: @application_1.id, pet_id: @pet_1.id)
+            PetApplication.create!(application_id: @application_1.id, pet_id: @pet_2.id)
+            
+            # When I visit an application's show page
+            visit "/applications/#{@application_1.id}"
+        end
+            # And that application has not been submitted,
+            # Then I see a section on the page to "Add a Pet to this Application"
+            # In that section I see an input where I can search for Pets by name
+            # When I fill in this field with a Pet's name
+            # And I click submit,
+            # Then I am taken back to the application show page
+            # And under the search bar I see any Pet whose name matches my search
+
+        
     end
 end
