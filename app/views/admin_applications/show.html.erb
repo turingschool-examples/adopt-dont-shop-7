@@ -1,0 +1,8 @@
+<h2>Applicant: <%= @application.name %></h2>
+<% @application.find_pets.each do |pet| %>
+  <div id="<%= pet.id %>">
+    <%= pet.name %>
+    <%= button_to "Approve Application", "/application_pets/:id/edit/approve", method: :patch %>
+    <%= button_to "Reject Application", "/application_pets/:id/edit/reject", method: :patch %>
+    </div>
+<% end %>
