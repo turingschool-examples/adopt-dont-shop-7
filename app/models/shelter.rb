@@ -35,4 +35,17 @@ class Shelter < ApplicationRecord
   def self.reverse_order
     find_by_sql("SELECT * FROM shelters ORDER BY shelters.name desc;")
   end
+
+  def self.shelters_pending_applications
+    find_by_sql(
+  "SELECT 
+    shelters.name 
+  FROM 
+    shelters
+    JOIN pets ON shelters.id = pets.shelter_id
+    JOIN application_pets ON pets.id = application_pets.pet_id
+    JOIN applications ON application_pets.application_id = applications.id
+  WHERE 
+    applications.status = 'Pending';")
+  end
 end
