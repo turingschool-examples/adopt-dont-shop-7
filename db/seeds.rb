@@ -16,4 +16,8 @@
 @app_2 = Application.create!(name: "Jim", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 1)
 
 PetApp.create!(application_id: @app_1.id, pet_id: @pet_1.id)
+PetApp.create!(application_id: @app_1.id, pet_id: @pet_2.id)
+PetApp.create!(application_id: @app_1.id, pet_id: @pet_3.id)
+PetApp.create!(application_id: @app_2.id, pet_id: @pet_1.id)
+PetApp.create!(application_id: @app_2.id, pet_id: @pet_2.id)
 PetApp.create!(application_id: @app_2.id, pet_id: @pet_3.id)
