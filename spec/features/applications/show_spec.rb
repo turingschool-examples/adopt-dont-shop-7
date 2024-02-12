@@ -11,8 +11,9 @@ RSpec.describe "Application Show Page" do
     
   end
 
+  #User Story 1
   it "Show's a specific applicant's details" do
-    #User Story 1
+    
 
     visit "/applications/#{@application_1.id}"
     
@@ -37,6 +38,7 @@ RSpec.describe "Application Show Page" do
   
   end
   
+  #User Story 4
   it "searches pets for pets in a not submitted application" do
     visit "/applications/#{@application_2.id}"
     expect(page).to have_content(@application_2.name)
@@ -54,4 +56,31 @@ RSpec.describe "Application Show Page" do
     expect(current_path).to eq("/applications/#{@application_2.id}")
     expect(page).to have_content("Scooby")
   end
+end
+
+# 5. Add a Pet to an Application
+
+# As a visitor
+# When I visit an application's show page
+# And I search for a Pet by name
+# And I see the names Pets that match my search
+# Then next to each Pet's name I see a button to "Adopt this Pet"
+# When I click one of these buttons
+# Then I am taken back to the application show page
+# And I see the Pet I want to adopt listed on this application
+
+it "I see a button to add a pet to the application" do
+
+  visit "/applications/#{@application_2.id}"
+
+  expect(page).to have_content("add a pet to this Application")
+
+  fill_in :name_pet, with: "Scooby"
+  click_on "Submit"
+
+
+  click_button("Adopt this pet")
+
+  expect(path.current_path).to eq("/applications/#{@application_2.id}")
+  expect(page).to have_content("Scooby")
 end
