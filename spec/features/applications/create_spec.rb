@@ -11,6 +11,7 @@ RSpec.describe "create application" do
         click_on("Start an Application")
         # Then I am taken to the new application page where I see a form
         expect(current_path).to eq("/applications/new")
+        expect(page).to have_content("New Application")
         expect(find("form")).to have_content("Name")
         expect(find("form")).to have_content("Street address")
         expect(find("form")).to have_content("City")
@@ -47,6 +48,24 @@ RSpec.describe "create application" do
         expect(page).to have_content(application.description)
         # And I see an indicator that this application is "In Progress"
         expect(page).to have_content("In Progress")
+    end
+
+
+    it "re_renders the application form if given invalid data" do
+        # 3. 
+        # When I visit the new application page
+        visit "/applications/new"
+        # And I fail to fill in any of the form fields
+        fill_in "Name", with: "Lance"
+        # And I click submit
+        #save_and_open_page
+        click_button "submit"
+        # Then I am taken back to the new applications page
+        expect(page).to have_current_path("/applications/new")
+        # And I see a message that I must fill in those fields.
+        
+        expect(page).to have_content("Error: Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Description can't be blank") 
+        
     end
     
 end
