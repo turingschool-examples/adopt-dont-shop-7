@@ -65,7 +65,7 @@
  
     <% if @application.pets.present? %>
       <% if @application.status == "In Progress" %>
-          <%= form_with(url: "/applications/#{@application.id}", method: :get ) do |f| %>
+          <%= form_with(url: "/applications/#{@application.id}?why_i_would_make_a_good_owner=true", method: :patch ) do |f| %>
             <div>
               <%= f.label :why_i_would_make_a_good_owner, "why I would make a good owner for the pet(s)?" %>
               <%= f.text_field :why_i_would_make_a_good_owner %>

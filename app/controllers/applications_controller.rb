@@ -9,11 +9,20 @@ class ApplicationsController < ApplicationController
             @pets = Pet.search(params[:pet_name])
         end
 
-        if params[:why_i_would_make_a_good_owner].present?
-            @application.change_application_status("Pending")
-        end
 
          
+    end
+
+    def update
+        @application = Application.find(params[:id])
+
+        if params[:why_i_would_make_a_good_owner].present?
+            @application.update(status: "Pending")
+        end
+
+        redirect_to "/applications/#{@application.id}"
+
+
     end
 
     def new 

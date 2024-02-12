@@ -10,8 +10,8 @@ class Application < ApplicationRecord
     validates :description, presence: true
     # require 'pry'; binding.pry
     
-    def change_application_status(new_status)
-        self.update(status: new_status)
-    end
+    # def change_application_status(new_status)
+    #     self.update(status: new_status)
+    # end
    
 end

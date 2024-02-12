@@ -111,11 +111,11 @@ RSpec.describe 'Application show' do
           expect(page).to have_content("why I would make a good owner for the pet(s)?")
           
           expect(page).to have_field("why I would make a good owner for the pet(s)?")
-          
           fill_in :why_i_would_make_a_good_owner, with: "Great with pets"
           
           click_on("Submit Application")
         end 
+        # save_and_open_page
 
         expect(current_path).to eq("/applications/#{applicant.id}")
         # save_and_open_page
@@ -179,7 +179,7 @@ RSpec.describe 'Application show' do
 
         click_on("Search")
 
-        save_and_open_page
+        # save_and_open_page
        
         #DO I need a within block here too?
         expect(page).to have_content('Scooby')
