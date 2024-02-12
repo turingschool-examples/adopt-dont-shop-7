@@ -15,17 +15,19 @@ Rails.application.routes.draw do
   patch "/pets/:id", to: "pets#update"
   delete "/pets/:id", to: "pets#destroy"
 
-  # get "/applications/new", to: "applications#new"
-  # post "/applications", to: "applications#create"
-  # get "/applications/:id", to: "applications#show"
-  # patch "applications/:id", to: "applications#update"
-
   get "/applications/new", to: "applications#new"
-  post "/applications", to: "applications#create", as: :applications
-  get "/applications/:id/pets/new", to: "application_pets#new"
+  post "/applications", to: "applications#create"
+  # patch "/applications/application_pets", to: "application_pets#update"
+  get "/applications/:id", to: "applications#show"
   post "/applications/:id/pets", to: "application_pets#create"
-  get "/applications/:id", to: "applications#show", as: :application
-  patch "/applications/:id", to: "applications#update"
+  patch "applications/:id", to: "applications#update"
+
+  # get "/applications/new", to: "applications#new"
+  # post "/applications", to: "applications#create", as: :applications
+  # get "/applications/:id/pets/new", to: "application_pets#new"
+  # post "/applications/:id/pets", to: "application_pets#create"
+  # get "/applications/:id", to: "applications#show", as: :application
+  # patch "/applications/:id", to: "applications#update"
 
   get "/veterinary_offices", to: "veterinary_offices#index"
   get "/veterinary_offices/new", to: "veterinary_offices#new"
