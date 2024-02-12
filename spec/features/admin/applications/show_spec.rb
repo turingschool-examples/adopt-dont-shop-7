@@ -85,5 +85,14 @@ RSpec.describe 'Admin Application Show Page', type: :feature do
         expect(page).to have_button("reject")
       end
     end
+
+    #15. All Pets Accepted on an Application
+    it '' do 
+      # As a visitor
+      # When I visit an admin application show page
+      # And I approve all pets for an application
+      # Then I am taken back to the admin application show page
+      # And I see the application's status has changed to "Approved"
+    end 
   end
 end 
