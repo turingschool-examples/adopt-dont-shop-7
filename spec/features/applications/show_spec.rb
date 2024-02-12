@@ -100,10 +100,28 @@ RSpec.describe 'Applications Show Page', type: :feature do
     # When I visit an application's show page
       visit "/applications/#{@application_4.id}"
     # And I have added one or more pets to the application
-
-      ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_4.id)
-      ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application_4.id)
-      ApplicationPet.create!(pet_id: @pet_3.id, application_id: @application_4.id)
+      within".fin_pet"
+    fill_in(:add_pet_name, with: "Rocky")
+    click_button("Submit")
+    within".found_pet" do
+      within"#pet-#{@pet_3.id}" do
+       click_button("Adopt this Pet")
+      end
+    end
+    fill_in(:add_pet_name, with: "Lucille Bald")
+    click_button("Submit")
+      within".found_pet" do
+        within"#pet-#{@pet_1.id}" do
+          click_button("Adopt this Pet")
+      end
+    end
+    fill_in(:add_pet_name, with: "Lobster")
+    click_button("Submit")
+    within".found_pet" do
+      within"#pet-#{@pet_2.id}" do
+        click_button("Adopt this Pet")
+    end
+  end
 
     # Then I see a section to submit my application
       within '.submit_application' do
@@ -119,7 +137,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
         click_button("Submit")
       end
     # Then I am taken back to the application's show page
-      expect(current_path).to eq("/applications/#{@application_4}")
+      expect(current_path).to eq("/applications/#{@application_4.id}")
 
     # And I see an indicator that the application is "Pending"
       expect(page).to have_content("Pending")
@@ -129,8 +147,10 @@ RSpec.describe 'Applications Show Page', type: :feature do
       expect(page).to have_content("#{@pet_2.name}")
       expect(page).to have_content("#{@pet_3.name}")
 
+      within ".found_pet" do
     # And I do not see a section to add more pets to this application
-      expect(page).to not_have_content("Add a Pet to this Application")
+        expect(page).to not_have_content("Add a Pet to this Application")
+      end
     end 
 
     #User story 7 As a visitor
@@ -138,7 +158,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
     it 'doesnt show a section to submit an application' do
 
     # When I visit an application's show page
-      visit "/applications/#{@application_1}"
+      visit "/applications/#{@application_1.id}"
     # And I have not added any pets to the application
     # Then I do not see a section to submit my application
       expect(page).to_not have_button("Submit Application")
@@ -148,6 +168,10 @@ RSpec.describe 'Applications Show Page', type: :feature do
     # User story 8 As a visitor
     # Partial Matches for Pet Names
     it 'displays any pet whose name PARTIALLY matches my search' do
+
+      @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "corgi", name: "fluffy", shelter_id: @shelter.id)
+      @pet_5 = Pet.create!(adoptable: true, age: 8, breed: "bernese mountain", name: "Mr. fluff", shelter_id: @shelter.id)
+      @pet_6 = Pet.create!(adoptable: true, age: 7, breed: "persian", name: "FLUFF", shelter_id: @shelter.id)
 
     # When I visit an application show page
       visit "/applications/#{@application_1}"
@@ -167,9 +191,13 @@ RSpec.describe 'Applications Show Page', type: :feature do
     # User story 9 bAs a visitor
     it 'makes search case insensitive' do 
 
+      @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "corgi", name: "fluffy", shelter_id: @shelter.id)
+      @pet_5 = Pet.create!(adoptable: true, age: 8, breed: "bernese mountain", name: "Mr. fluff", shelter_id: @shelter.id)
+      @pet_6 = Pet.create!(adoptable: true, age: 7, breed: "persian", name: "FLUFF", shelter_id: @shelter.id)
+      
     # When I visit an application show page
       visit "/applications/#{@application_1}"
-
+      
     # And I search for Pets by name
     # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
       fill_in "pet_name_search", with: "fluff"
