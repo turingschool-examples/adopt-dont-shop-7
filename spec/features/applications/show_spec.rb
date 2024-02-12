@@ -47,11 +47,11 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@application_2.zipcode)
     expect(page).to have_content("In Progress")
     expect(page).to have_content("add a pet to this Application")
-    
 
+    fill_in :name_pet, with: "Scooby"
     click_on "Submit"
 
     expect(current_path).to eq("/applications/#{@application_2.id}")
-
+    expect(page).to have_content("Scooby")
   end
 end

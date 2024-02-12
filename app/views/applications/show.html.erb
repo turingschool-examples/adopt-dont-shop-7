@@ -31,5 +31,16 @@
 <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %>
+<%end%>
+<%= form_with url: "/applications/#{@application.id}", method: :get do |form|%>
+  <%= form.label :name_pet, "add a pet to this Application:" %>
+  <%= form.text_field :name_pet %>
+  <%= form.submit "Submit" %>
+<% end %><br>
 
+<% if @pets %>
+  Search Result:
+  <% @pets.each do |pet| %>
+  <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+  <%end%>
 <%end%>
