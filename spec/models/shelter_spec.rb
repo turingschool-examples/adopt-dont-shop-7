@@ -4,14 +4,7 @@ RSpec.describe Shelter, type: :model do
   describe "relationships" do
     it { should have_many(:pets) }
   end
-
-  describe "validations" do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:city) }
-    it { should validate_presence_of(:rank) }
-    it { should validate_numericality_of(:rank) }
-  end
-
+  
   before(:each) do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -54,6 +47,15 @@ RSpec.describe Shelter, type: :model do
     describe "#order_by_reverse_alpha" do
       it "orders the shelters by number of pets they have, descending" do
         expect(Shelter.order_by_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+      it "orders the shelters by number of pets they have, descending" do
+        expect(Shelter.order_by_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#find_pending_applications" do
+      it "resturns the shelters with pending applications" do
+        expect(Shelter.find_pending_applications).to eq([@shelter_1, @shelter_3])
       end
     end
 

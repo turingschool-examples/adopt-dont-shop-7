@@ -35,6 +35,7 @@ RSpec.describe 'Admin Shelters Index Page', type: :feature do
       expect("Fancy pets of Colorado").to appear_before("Aurora shelter")
     end
 
+
     # User Story # 11. Shelters with Pending Applications
     it "displays the Shelters with Pending Applications section and list" do
       # As a visitor
