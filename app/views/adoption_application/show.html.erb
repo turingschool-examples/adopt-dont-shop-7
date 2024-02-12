@@ -1,37 +1,42 @@
 <h1>Adoption Application</h1>
 
  <h2>Name: <%= @adoption_app.name %></h2>
-  <p>Street Address: <%= @adoption_app.street_address %></p>
-  <p>City: <%= @adoption_app.city %></p>
-  <p>State: <%= @adoption_app.state %></p>
-  <p>Zip Code: <%= @adoption_app.zip_code %></p>  
-  <p>Why I am applying: <br/><%= @adoption_app.description %></p>
-  <p>Status: <%= @adoption_app.status %></p>
 
-  <h3>Pets Applied For: <h3>
-  <ul>
-      <% @adoption_app.pets.each do |pet| %>
-        <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
-      <% end %>
-  </ul>
+<h3>Street Address: <%= @adoption_app.street_address %></h3>
+<h3>City: <%= @adoption_app.city %></h3>
+<h3>State: <%= @adoption_app.state %></h3>
+<h3>Zip Code: <%= @adoption_app.zip_code %></h3>  
+<h3>Why I am a good fit: <br/><%= @adoption_app.description %></h3>
+<h3>Status: <%= @adoption_app.status %></h3>
 
-<% if @adoption_app.pets.present? %>
-  <% if @adoption_app.status == "In Progress" %>
-    <%= form_with url: "/applications/#{@adoption_app.id}", method: :get, local: true do |form| %>
-      <h3><%= form.label :ownership_description, "Why would you be a good owner to the pet(s)?" %></h3>
-      <%= form.text_area :ownership_description %><br>
-      <%= form.submit "Submit Application" %>
+<h3>Pets Applied For: <h3>
+<ul>
+    <% @adoption_app.pets.each do |pet| %>
+      <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
     <% end %>
+</ul>
+  
+<%# this section below looks for pets, and the application status for in progress. %>  
+<%# after the application is submitted, the status change so it won't be shown anymore. %>  
+
+<% if @adoption_app.pets.present? && @adoption_app.status == "In Progress" %>
+  <%= form_with url: "/applications/#{@adoption_app.id}", method: :get, local: :true do |form| %>
+    <h4><%= form.label :ownership_description, "Why would you be a good owner to the pet(s)?" %></h4>
+    <%= form.text_area :ownership_description %>
+    <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>
 
+<%# We don't want to add pets after the application is submited so we need to make sure it's in progress before displaying add pets %>  
+
+
 <% if @adoption_app.status == "In Progress" %>
   <h3>Add Pets to this Application:</h3>
-  <%= form_with url: "/applications/#{@adoption_app.id}?search", method: :get do |form| %>
-    <%= form.label :search, "Search Pet by Name: " %>
-    <%= text_field_tag(:search, params[:search]) %>
-    <%= form.submit "Search" %>
-  <% end %>
+    <%= form_with url: "/applications/#{@adoption_app.id}?search", method: :get do |form| %>
+      <%= form.label :search, "Search Pet by Name: " %>
+      <%= text_field_tag(:search, params[:search]) %>
+      <%= form.submit "Search" %>
+    <% end %>
 
   <h3> Adoptable Pets: </h3>
   <% if @pets.nil? %>
@@ -47,7 +52,8 @@
           </ul>
           <%= form_with url: "/applications/#{@adoption_app.id}", method: :get do |form| %>
             <%= form.hidden_field :add_pet, value: pet.id  %>
-            <%= form.submit "Adopt this Pet" %>
+            <%= form.submit "Adopt #{pet.name}" %>
+
           <% end %>
       <% end %>
     </ol>
