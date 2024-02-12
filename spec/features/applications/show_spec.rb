@@ -4,9 +4,16 @@ RSpec.describe 'Applications Show Page', type: :feature do
   describe 'As a visitor' do
     before do
       @shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+
       @pet_1 = Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald", shelter_id: @shelter.id)
       @pet_2 = Pet.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster", shelter_id: @shelter.id)
       @pet_3 = Pet.create!(adoptable: true, age: 2, breed: "dalmatian", name: "Rocky", shelter_id: @shelter.id)
+      @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "corgi", name: "fluffy", shelter_id: @shelter.id)
+      @pet_5 = Pet.create!(adoptable: true, age: 8, breed: "bernese mountain", name: "Mr. fluff", shelter_id: @shelter.id)
+      @pet_6 = Pet.create!(adoptable: true, age: 7, breed: "persian", name: "FLUFF", shelter_id: @shelter.id)
+      @pet_7 = Pet.create!(adoptable: true, age: 5, breed: "persian", name: "Fluffy", shelter_id: @shelter.id)
+      @pet_8 = Pet.create!(adoptable: true, age: 4, breed: "persian", name: "Mr. FlUfF", shelter_id: @shelter.id)
+
       @application_1 = Application.create!(name: "Selena", street_address: "123 Street", city: "City", state: "State", zip_code: "8888", adopting_reason: "Love for cats, no job", status:"Pending")
       @application_2 = Application.create!(name: "Laura", street_address: "58 Street", city: "City", state: "State", zip_code: "5555", adopting_reason: "Need company", status:"Rejected")
       @application_3 = Application.create!(name: "Isaac", street_address: "456 Street", city: "City", state: "State", zip_code: "8878", adopting_reason: "Lots of love to give", status:"Accepted")
@@ -100,23 +107,24 @@ RSpec.describe 'Applications Show Page', type: :feature do
     # When I visit an application's show page
       visit "/applications/#{@application_4.id}"
     # And I have added one or more pets to the application
-      within".fin_pet"
-    fill_in(:add_pet_name, with: "Rocky")
-    click_button("Submit")
+    #   within".find_pet" do 
+    # fill_in(:add_pet_name, with: "Rocky")
+    # click_button("Submit")
+    #   end
     within".found_pet" do
       within"#pet-#{@pet_3.id}" do
        click_button("Adopt this Pet")
       end
     end
-    fill_in(:add_pet_name, with: "Lucille Bald")
-    click_button("Submit")
+    # fill_in(:add_pet_name, with: "Lucille Bald")
+    # click_button("Submit")
       within".found_pet" do
         within"#pet-#{@pet_1.id}" do
           click_button("Adopt this Pet")
       end
     end
-    fill_in(:add_pet_name, with: "Lobster")
-    click_button("Submit")
+    # fill_in(:add_pet_name, with: "Lobster")
+    # click_button("Submit")
     within".found_pet" do
       within"#pet-#{@pet_2.id}" do
         click_button("Adopt this Pet")
@@ -149,7 +157,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
 
       within ".found_pet" do
     # And I do not see a section to add more pets to this application
-        expect(page).to not_have_content("Add a Pet to this Application")
+        expect(page).to_not have_content("Add a Pet to this Application")
       end
     end 
 
@@ -169,44 +177,43 @@ RSpec.describe 'Applications Show Page', type: :feature do
     # Partial Matches for Pet Names
     it 'displays any pet whose name PARTIALLY matches my search' do
 
-      @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "corgi", name: "fluffy", shelter_id: @shelter.id)
-      @pet_5 = Pet.create!(adoptable: true, age: 8, breed: "bernese mountain", name: "Mr. fluff", shelter_id: @shelter.id)
-      @pet_6 = Pet.create!(adoptable: true, age: 7, breed: "persian", name: "FLUFF", shelter_id: @shelter.id)
-
     # When I visit an application show page
-      visit "/applications/#{@application_1}"
+      visit "/applications/#{@application_1.id}"
 
     # And I search for Pets by name
     # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
-      fill_in "pet_name_search", with: "fluff"
+  
+    within ".find_pet" do
+      fill_in :add_pet_name, with: "fluff"
       click_button("Submit")
-
-    # Then I see any pet whose name PARTIALLY matches my search
-      expect(page).to have_content("fluffy")
-      expect(page).to have_content("fluff")
-      expect(page).to have_content("mr. fluff")
     end
-
+    within ".found_pet" do 
+    # Then I see any pet whose name PARTIALLY matches my search
+        expect(page).to have_content("fluffy")
+        expect(page).to have_content("fluff")
+        expect(page).to have_content("Mr. fluff")
+      end
+    end
     #Case Insensitive Matches for Pet Names
-    # User story 9 bAs a visitor
+    # User story 9 As a visitor
     it 'makes search case insensitive' do 
-
-      @pet_4 = Pet.create!(adoptable: true, age: 1, breed: "corgi", name: "fluffy", shelter_id: @shelter.id)
-      @pet_5 = Pet.create!(adoptable: true, age: 8, breed: "bernese mountain", name: "Mr. fluff", shelter_id: @shelter.id)
-      @pet_6 = Pet.create!(adoptable: true, age: 7, breed: "persian", name: "FLUFF", shelter_id: @shelter.id)
       
+
     # When I visit an application show page
-      visit "/applications/#{@application_1}"
+      visit "/applications/#{@application_1.id}"
       
     # And I search for Pets by name
     # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
-      fill_in "pet_name_search", with: "fluff"
-      click_button("Submit")
-
+     within ".find_pet" do 
+      fill_in :add_pet_name, with: "fluff"
+        click_button("Submit")
+     end
+    within ".found_pet" do
     # Then my search is case insensitive
-      expect(page).to have_content("Fluffy")
-      expect(page).to have_content("FLUFF")
-      expect(page).to have_content("Mr. FlUfF")
+        expect(page).to have_content("Fluffy")
+        expect(page).to have_content("FLUFF")
+        expect(page).to have_content("Mr. FlUfF")
+      end
     end
   end
 end
