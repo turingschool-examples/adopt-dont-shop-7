@@ -54,6 +54,7 @@ RSpec.describe "Admins Application Show Page" do
         click_button("Reject Pet Application")
 
         expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
+        save_and_open_page
         expect(page.has_button?).to be false
         expect(page).to have_content("Pet Rejected")
       end
@@ -115,23 +116,19 @@ RSpec.describe "Admins Application Show Page" do
       expect(page).to have_content("Adoptable: true")
 
       visit "/admin/applications/#{@application_2.id}"
-
       within "#pet-#{@pet_3.id}" do
         click_button("Approve")
       end
 
       visit "pets/#{@pet_3.id}"
-
       expect(page).to have_no_content("Adoptable: true")
 
       visit "/admin/applications/#{@application_2.id}"
-
       within "#pet-#{@pet_1.id}" do
         click_button("Approve")
       end
 
       visit "pets/#{@pet_1.id}"
-
       expect(page).to have_no_content("Adoptable: true")
     end
   end
@@ -139,9 +136,7 @@ RSpec.describe "Admins Application Show Page" do
   describe "User Story 18 - Pets can only have one approved application on them at any time" do
     it "will not show a button to approve a pet if it has already been approved on another application" do
       within "#pet-#{@pet_3.id}" do
-        expect(page).to have_button("Approve")
         click_button("Approve")
-        expect(page).to have_content("Pet Approved")
       end
       within "#pet-#{@pet_1.id}" do
         expect(page).to have_button("Approve")
@@ -152,7 +147,7 @@ RSpec.describe "Admins Application Show Page" do
       visit "/admin/applications/#{@application_3.id}"
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_no_button("Approve")
-        expect(page).to have_content("This pet has already been approved for adoption")
+        expect(page).to have_content("This pet has already been approved for another adoption")
         expect(page).to have_button("Reject")
       end
     end

@@ -36,9 +36,6 @@ class ApplicationsController < ApplicationController
       :state,
       :zipcode,
       :description,
-      :good_owner_comments,
       :status)
-      # params[:status] = params[:status].to_i
-      # params
   end
 end

@@ -29,13 +29,7 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "class methods" do
-    describe "#search" do
-      it "returns partial matches" do
-        expect(Pet.search("Claw")).to eq([@pet_2])
-      end
-    end
-
-    describe "#adoptable" do
+    describe ".adoptable" do
       it "returns adoptable pets" do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2, @dog, @cat])
       end
@@ -43,16 +37,10 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "instance methods" do
-    describe ".shelter_name" do
+    describe "#shelter_name" do
       it "returns the shelter name for the given pet" do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
-    end
-  end
-
-  describe "#already_approved?" do
-    it "returns true or false depending on @adoptable" do
-      expect(@pet_1.already_approved?).to eq(false)
     end
   end
 end

@@ -16,7 +16,7 @@
     <%= render "add_a_pet" %>
   <% elsif @application.status == "pending" %>
     <%= render "pets_applied_for" %>
-    <p>Why <%= @application.name %> would make a good owner: <%= @application.good_owner_comments %></p>
+    <p>Why <%= @application.name %> would make a good owner: <%= @application.description %></p>
   <% else %>
     <%= render "pets_applied_for" %>
   <% end %>

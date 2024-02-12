@@ -12,12 +12,4 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
-
-  def application_pet_approved(id)
-    ApplicationPet.where(pet_id: self.id, application_id: id).pluck(:application_approved).first
-  end
-
-  def already_approved?
-    adoptable ? false : true
-  end
 end

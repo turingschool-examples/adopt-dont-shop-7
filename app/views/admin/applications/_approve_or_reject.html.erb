@@ -1,0 +1,6 @@
+<%= form_with url: path, method: :patch, data: { turbo: false } do |f| %>
+<%= hidden_field_tag :application_reviewed, true %>
+<%= hidden_field_tag :application_approved, app_approved %>
+<%= hidden_field_tag :application_id, app_id %>
+<%= f.submit button%>
+<% end %>

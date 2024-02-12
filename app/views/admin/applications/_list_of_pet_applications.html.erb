@@ -3,23 +3,31 @@
     <div id="pet-<%= pet_application.pet.id %>">
       <h3>Application ID: <%= pet_application.id %></h3>
       <p>Pet Name: <%= pet_application.pet.name %></p>
-      <% if !pet_application.application_reviewed %>
-        <%= form_with url: update_application_pets_path(pet_application.id), method: :patch do |f| %>
-        <%= hidden_field_tag :application_approved, true %>
-        <%= hidden_field_tag :application_reviewed, true %>
-        <%= hidden_field_tag :application_id, @application.id %>
-        <%= f.submit "Approve Pet Application" %>
-        <% end %><br>
-        <%= form_with url: update_application_pets_path(pet_application.id), method: :patch do |f| %>
-        <%= hidden_field_tag :application_reviewed, true %>
-        <%= hidden_field_tag :application_approved, false %>
-        <%= hidden_field_tag :application_id, @application.id %>
-        <%= f.submit "Reject Pet Application" %>
-        <% end %><br>
-      <% elsif pet_application.application_approved? %>
-        <p>Pet Approved</p>
-      <% else %>
+      <% if !pet_application.application_reviewed && pet_application.pet_adopted? %>
+        <p>This pet has already been approved for another adoption</p>
+        <%= render partial: "approve_or_reject", locals: {
+                                                          path: update_application_pets_path(pet_application.id),
+                                                          app_id: @application.id,
+                                                          app_approved: false,
+                                                          button: "Reject Pet Application"
+        }%>  <br>
+      <% elsif !pet_application.application_reviewed %>
+        <%= render partial: "approve_or_reject", locals: {
+                                                          path: update_application_pets_path(pet_application.id),
+                                                          app_id: @application.id,
+                                                          app_approved: true,
+                                                          button: "Approve Pet Application"
+        }%>  <br>
+          <%= render partial: "approve_or_reject", locals: {
+                                                            path: update_application_pets_path(pet_application.id),
+                                                            app_id: @application.id,
+                                                            app_approved: false,
+                                                            button: "Reject Pet Application"
+        }%> <br>
+      <% elsif !pet_application.application_approved? %>
         <p>Pet Rejected</p>
+      <% else %>
+        <p>Pet Approved</p>
       <% end %>
     </div>
   <% end %>
