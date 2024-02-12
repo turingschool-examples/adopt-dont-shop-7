@@ -126,5 +126,22 @@ RSpec.describe 'Application show' do
     end
   end
 
+  describe 'US 7' do
+    describe 'No pets on an application' do
+      it 'does not show a section to submit my application' do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+        pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{applicant.id}"
+        
+        within ".nopets" do 
+          expect(page).to_not have_content('why I would make a good owner for these pet(s)')
+        end
+        
+      end
+    end
+  end
+
     
 end
