@@ -4,7 +4,6 @@ class Pet < ApplicationRecord
   belongs_to :shelter
   has_many :pet_applications
   has_many :applications, through: :pet_applications
-  # belongs_to :applicant
 
   def shelter_name
     shelter.name

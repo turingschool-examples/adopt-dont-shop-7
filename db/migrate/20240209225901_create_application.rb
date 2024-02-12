@@ -7,7 +7,7 @@ class CreateApplication < ActiveRecord::Migration[7.1]
       t.string :state
       t.string :zip_code
       t.string :description
-      t.string :status
+      t.string :status 
 
       t.timestamps
     end
