@@ -18,7 +18,7 @@ class AdoptionApplicationController < ApplicationController
       # If we fill out ownership description, we automatically change the status
       if params[:ownership_description].present?
          @adoption_app.change_app_status("Pending")
-
+         @adoption_app.add_ownership_description_to_app(params[:ownership_description])
       end
    end
 

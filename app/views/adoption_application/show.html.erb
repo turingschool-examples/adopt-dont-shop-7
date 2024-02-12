@@ -7,6 +7,9 @@
 <h3>State: <%= @adoption_app.state %></h3>
 <h3>Zip Code: <%= @adoption_app.zip_code %></h3>  
 <h3>Why I am a good fit: <br/><%= @adoption_app.description %></h3>
+<% if @adoption_app.status == "Pending" %>
+  <h3>Why I would be a good owner? <%= @adoption_app.ownership_description %></h3>
+<% end %>
 <h3>Status: <%= @adoption_app.status %></h3>
 
 <h3>Pets Applied For: <h3>

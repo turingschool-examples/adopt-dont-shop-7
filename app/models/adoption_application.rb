@@ -17,6 +17,10 @@ class AdoptionApplication < ApplicationRecord
       self.update(status: new_status)
    end
 
+   def add_ownership_description_to_app(description)
+      self.update(ownership_description: description)
+   end
+
    # I commented this out because we are trying to not change the pet status for now
    
    #change adoptable? field on pet and application status
