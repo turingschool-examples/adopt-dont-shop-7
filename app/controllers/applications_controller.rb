@@ -1,11 +1,11 @@
 class ApplicationsController < ApplicationController
-    def index
-        @applications = Application.all
-    end
-
     def show
         @application = Application.find(params[:id])
-      
+        if params[:search].present?
+            @search_results = Pet.search(params[:search])
+        else
+            @search_results = []
+        end
     end
 
     def new

@@ -5,6 +5,20 @@
 <h3> State: <%= @application.state %></h3>
 <h3> Zip Code: <%= @application.zip_code %></h3>
 <h3> Description why you should have a dog: <%= @application.description %></h3>
+<h3> Add a Pet to this Application </h3>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+  <%= f.label :search, "Search for pets by name" %>
+  <%= f.text_field :search %>
+  <%= f.submit "submit" %>
+<% end %>
+<% if @search_results.any? %>
+  <h3> Search Results: </h3>
+  <ul>
+    <% @search_results.each do |pet| %>
+      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+    <% end %>
+  </ul>
+  <% end %>
 <h3> Pet(s) applied for: </h3>
      <% @application.pets.each do |pet| %>
        <p> <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>

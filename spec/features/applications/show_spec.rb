@@ -51,22 +51,26 @@ RSpec.describe "Application show", type: :feature do
         end
 
             # 4. Searching for Pets for an Application
-
-        xit 'adds a section called add a pet to this application where user can search for pets by name' do
-            PetApplication.create!(application_id: @application_1.id, pet_id: @pet_1.id)
-            PetApplication.create!(application_id: @application_1.id, pet_id: @pet_2.id)
-            
+        it 'adds a section called add a pet the application show page where user can search for pets by name' do
+            # PetApplication.create!(application_id: @application_1.id, pet_id: @pet_1.id)
+            # PetApplication.create!(application_id: @application_1.id, pet_id: @pet_2.id)
             # When I visit an application's show page
             visit "/applications/#{@application_1.id}"
-        end
             # And that application has not been submitted,
+            expect(page).to have_content("In Progress")
             # Then I see a section on the page to "Add a Pet to this Application"
+            expect(page).to have_content("Add a Pet to this Application")
             # In that section I see an input where I can search for Pets by name
+            expect(find("form")).to have_content("Search for pets by name")
             # When I fill in this field with a Pet's name
+            fill_in :search, with: "Lobster"
             # And I click submit,
+            click_button "submit"
             # Then I am taken back to the application show page
+            expect(current_path).to eq("/applications/#{@application_1.id}")
             # And under the search bar I see any Pet whose name matches my search
-
-        
+            expect(page).to have_content("Lobster")
+            expect(page).to_not have_content("Lucille Bald")
+        end
     end
 end
