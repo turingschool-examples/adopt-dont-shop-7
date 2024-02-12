@@ -42,5 +42,6 @@
   Search Result:
   <% @pets.each do |pet| %>
   <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+  <%= button_to "Adopt this pet", "/applications/#{@application.id}/pets", method: :post, params: { pet_id: pet.id} %>
   <%end%>
 <%end%>
