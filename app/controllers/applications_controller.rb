@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
     
     def show
+        # require 'pry'; binding.pry
         @application = Application.find(params[:id])
         # require 'pry'; binding.pry
 
@@ -8,7 +9,20 @@ class ApplicationsController < ApplicationController
             @pets = Pet.search(params[:pet_name])
         end
 
+
          
+    end
+
+    def update
+        @application = Application.find(params[:id])
+
+        if params[:why_i_would_make_a_good_owner].present?
+            @application.update(status: "Pending")
+        end
+
+        redirect_to "/applications/#{@application.id}"
+
+
     end
 
     def new 

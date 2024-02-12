@@ -97,5 +97,97 @@ RSpec.describe 'Application show' do
     end
   end
 
+  describe '#US 6' do
+    describe 'submit an Application' do
+      it " has a section why I would make a good owner for these pet(s)" do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+        pet = applicant.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+        
+        visit "/applications/#{applicant.id}"
+
+        expect(page).to have_content('In Progress')
+        within ".why_I_would_make_a_good_owner" do 
+          expect(page).to have_content("why I would make a good owner for the pet(s)?")
+          
+          expect(page).to have_field("why I would make a good owner for the pet(s)?")
+          fill_in :why_i_would_make_a_good_owner, with: "Great with pets"
+          
+          click_on("Submit Application")
+        end 
+        # save_and_open_page
+
+        expect(current_path).to eq("/applications/#{applicant.id}")
+        # save_and_open_page
+        expect(page).to have_content('Pending')
+
+        expect(page).to_not have_content('why I would make a good owner for these pet(s)')
+      end
+    end
+  end
+
+  describe 'US 7' do
+    describe 'No pets on an application' do
+      it 'does not show a section to submit my application' do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+        pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{applicant.id}"
+        
+        within ".nopets" do 
+          expect(page).to_not have_content('why I would make a good owner for these pet(s)')
+        end
+        
+      end
+    end
+  end
+
+  describe 'US 8 ' do
+    describe 'partial matches for pets' do
+      it 'displays the pet I want even though its searched PARTIALLY' do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+        pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{applicant.id}"
+
+        fill_in :pet_name, with: "Scoob"
+
+        click_on("Search")
+
+        # save_and_open_page
+       
+        #DO I need a within block here?
+        expect(page).to have_content('Scooby')
+        
+
+      end
+    end
+  end
+
+  describe 'US 9 ' do
+    describe 'Case Insensitive Matches for Pet Names' do
+      it 'displays the pet I want even though its incase sensitive search' do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+        pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{applicant.id}"
+
+        fill_in :pet_name, with: "sCoOb"
+
+        click_on("Search")
+
+        # save_and_open_page
+       
+        #DO I need a within block here too?
+        expect(page).to have_content('Scooby')
+        
+
+      end
+    end
+  end
+
     
 end

@@ -11,9 +11,13 @@
 <section class="adoptpet">
 
   <h1>Application Pets</h1>
+    
+      
   <% @application.pets.each do |pet| %>
     <%= pet.name%> 
+    
   <% end %>
+    
 
 </section>
 
@@ -36,10 +40,14 @@
 
     </div>
   <% end %>
-    
+    <section class="us8">
+      
+    </section>
   <% if @pets != nil  %>  
     <% @pets.each do |pet| %>
+      
       <%= pet.name%>
+      
 
       <%= form_with(url:"/applications/#{@application.id}/pets", method: :post ) do |f| %>
         <div>
@@ -48,8 +56,27 @@
         </div>
       <% end %>
 
-    
     <% end %>
   <% end %>
-    
+</section>
+
+<section class="why_I_would_make_a_good_owner">
+  <section class="nopets">
+ 
+    <% if @application.pets.present? %>
+      <% if @application.status == "In Progress" %>
+          <%= form_with(url: "/applications/#{@application.id}?why_i_would_make_a_good_owner=true", method: :patch ) do |f| %>
+            <div>
+              <%= f.label :why_i_would_make_a_good_owner, "why I would make a good owner for the pet(s)?" %>
+              <%= f.text_field :why_i_would_make_a_good_owner %>
+            </div>
+            
+            <%= f.submit 'Submit Application' %>
+            
+          <% end %>
+      <% end %>
+      
+    <% end %>
+  
+  </section>
 </section>
