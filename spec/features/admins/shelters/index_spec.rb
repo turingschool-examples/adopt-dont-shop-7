@@ -60,10 +60,20 @@ RSpec.describe "Admins Shelter Index" do
 
   describe "User Story 20 - Pending Applications Listed Alphabetically" do
     it "pending applications are listed alphabetically" do
-      save_and_open_page
       within "#pending-applications" do
         expect("Aurora shelter").to appear_before("Fancy pets of Colorado")
         expect("Fancy pets of Colorado").to appear_before("Rithm")
+      end
+    end
+  end
+
+  describe "User Story 21 - Admin Shelters Show Page Links" do
+    it "has a working link for every shelter name" do
+      shelters = Shelter.all
+      shelters.each do |shelter|
+        within "#shelter-#{shelter.id}" do
+          expect(page).to have_link(shelter.name)
+        end
       end
     end
   end

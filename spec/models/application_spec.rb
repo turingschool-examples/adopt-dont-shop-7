@@ -70,4 +70,8 @@ RSpec.describe Application, type: :model do
       expect(@application_2.added_pets?).to eq false
     end
   end
+
+  describe "status_pending?" do
+    
+  end
 end
