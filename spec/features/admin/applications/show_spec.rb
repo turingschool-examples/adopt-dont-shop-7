@@ -38,5 +38,27 @@ RSpec.describe 'Admin Application Show Page', type: :feature do
         expect(page).to have_content("Status: Accepted")
       end
     end
+
+    # 13. Rejecting a Pet for Adoption
+    it "it can reject individual pets for addoption" do 
+      # When I visit an admin application show page ('/admin/applications/:id')
+      visit "/admin/applications/#{@app_2.id}"
+    
+      within "#app-status-#{@app_2.id}" do 
+        # For every pet that the application is for, I see a button to reject the application for that specific pet
+        expect(page).to have_button("reject")
+        # When I click that button
+        click_button("reject")
+      end
+      # Then I'm taken back to the admin application show page
+      expect(current_path).to eq("/admin/applications/#{@app_2.id}")
+
+      within "#app-status-#{@app_2.id}" do 
+        # And next to the pet that I rejected, I do not see a button to approve or reject this pet
+        expect(page).to_not have_content("reject")
+        # And instead I see an indicator next to the pet that they have been rejected
+        expect(page).to have_content("Status: Rejected")
+      end 
+    end
   end
 end 
