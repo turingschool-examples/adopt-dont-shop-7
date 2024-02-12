@@ -11,9 +11,13 @@
 <section class="adoptpet">
 
   <h1>Application Pets</h1>
+    
+      
   <% @application.pets.each do |pet| %>
     <%= pet.name%> 
+    
   <% end %>
+    
 
 </section>
 
@@ -36,10 +40,14 @@
 
     </div>
   <% end %>
-    
+    <section class="us8">
+      
+    </section>
   <% if @pets != nil  %>  
     <% @pets.each do |pet| %>
+      
       <%= pet.name%>
+      
 
       <%= form_with(url:"/applications/#{@application.id}/pets", method: :post ) do |f| %>
         <div>
