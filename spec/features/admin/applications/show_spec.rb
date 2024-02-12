@@ -64,12 +64,20 @@ RSpec.describe "Admin Application Show Page" do
           expect(page).to have_content(pet_1.name)
           expect(page).to have_content(pet_2.name)
 
+          click_on "Approve", match: :first
+          click_on "Approve"
+
+          expect(current_path).to eq("/admin/applications/#{application_1.id}")
+          expect(page).not_to have_button("Approve")
+          expect(page).to have_content("Approved", count: 2)
+          expect(page).to have_content(pet_1.name)
+          expect(page).to have_content(pet_2.name)
+
           visit "/admin/applications/#{application_2.id}"
           expect(page).to have_button("Reject", count: 2)
           expect(page).to have_button("Approve", count: 2)
           expect(page).to have_content(pet_1.name)
           expect(page).to have_content(pet_2.name)
-
         end
       end
     end
