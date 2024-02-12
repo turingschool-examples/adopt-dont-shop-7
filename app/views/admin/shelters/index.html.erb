@@ -1,8 +1,19 @@
 <h3> Shelters Admin Index Page </h3>
 
+<h1> List of All Shelters in Reverse Alphabetical Order </h1>
 <div id="reverse_alpha_shelters">
 <ul><% @admin_shelters.each do |shelter| %>
-    <li><%= shelter.name %></li>
+    <li>Name: <%= shelter.name %></li>
+    <li>Foster program? <%= shelter.foster_program %></li>
+    <li>City: <%= shelter.city %></li>
+    <li>Rank:<%= shelter.rank %></li>
     <% end %>
 </ul>
+</div>
+
+<div id="shelters_pending_apps">
+<h1> All Shelters With "Pending" Applications </h1>
+<ul><% @shelters_with_pending_apps.each do |shelter| %>
+        <li>Name: <%= shelter %></li>
+    <% end %>
 </div>

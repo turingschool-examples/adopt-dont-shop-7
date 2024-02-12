@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.describe Shelter, type: :model do
   describe "relationships" do
     it { should have_many(:pets) }
+    # # US 11
+    # it { should have_many(:adoption_applications).through(:pets) }
+    # it { should have_many(:adoption_application_pets).through(:adoption_application_pets) }
   end
 
   describe "validations" do
@@ -71,6 +74,19 @@ RSpec.describe Shelter, type: :model do
     describe "#reverse_alphabetical_order" do
       it "returns the shelters in reverse alphabetical order" do
         expect(Shelter.reverse_alphabetical_order).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#sort_by_pending" do
+      it "returns the name of the shelters with pending applications" do
+        shelter_1 = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        shelter_2 = Shelter.create(name: "Blah Shelter", city: "City CA", foster_program: true, rank: 4)
+        pet_1 = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter_1.id)
+        pet_2 = Pet.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter_2.id)
+        application_1 = pet_1.adoption_applications.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", status: "Pending")
+        application_2 = pet_2.adoption_applications.create!(name: "Amy", street_address: "32 Central St", city: "Denver", state: "CO", zip_code: 80305, description: "I make a lot of money", status: "In Progress")
+        
+        expect(Shelter.sort_by_pending).to eq(["Mystery Building"])
       end
     end
   end

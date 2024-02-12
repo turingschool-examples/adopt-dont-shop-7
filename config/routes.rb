@@ -38,12 +38,13 @@ Rails.application.routes.draw do
   get "/veterinary_offices/:veterinary_office_id/veterinarians/new", to: "veterinarians#new"
   post "/veterinary_offices/:veterinary_office_id/veterinarians", to: "veterinarians#create"
 
-  get "/applications", to: "adoption_application#index"
   get "/applications/new", to: "adoption_application#new"
-  post "/applications", to: "adoption_application#create"
   get "/applications/:id", to: "adoption_application#show"
+  post "/applications", to: "adoption_application#create"
 
   get "/admin/shelters", to: "admin/shelters#index"
+
+  get "/admin/applications/:id", to: "admin/adoption_applications#show"
 end
 
 

@@ -29,7 +29,7 @@ RSpec.describe "the adoption application create page", type: :feature do
             expect(page).to have_content("City:")
             expect(page).to have_content("State:")
             expect(page).to have_content("Zip Code:")
-            expect(page).to have_content("Description of why you are a good owner:")
+            expect(page).to have_content("Why you want to adopt?")
         end
 
         # And I click submit
@@ -84,7 +84,7 @@ RSpec.describe "the adoption application create page", type: :feature do
 
             click_button "Submit"
 
-            expect(page).to have_content("Application incomplete. Please fill out all fields.")
+            expect(page).to have_content("Error: City can't be blank")
         end
     end
 end

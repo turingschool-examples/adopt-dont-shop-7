@@ -180,7 +180,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
-[ ] done - Mel
+[x] done - Mel
 
 For this story, you should fully leverage ActiveRecord methods in your query.
 
@@ -213,12 +213,11 @@ And instead I see an indicator next to the pet that they have been approved
 ```
 
 ```
-[ ] done
+[ ] done - test done in spec/features/admin/applications/show_spec
 
 13. Rejecting a Pet for Adoption
 
-As a visitor
-When I visit an admin application show page ('/admin/applications/:id')
+
 For every pet that the application is for, I see a button to reject the application for that specific pet
 When I click that button
 Then I'm taken back to the admin application show page
