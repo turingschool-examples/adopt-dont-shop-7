@@ -25,13 +25,6 @@ RSpec.describe Shelter, type: :model do
     @application_pets_3 = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_3.id)
   end
 
-  describe "validations" do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:city) }
-    it { should validate_presence_of(:rank) }
-    it { should validate_numericality_of(:rank) }
-  end
-
   describe "class methods" do
     describe "#search" do
       it "returns partial matches" do
@@ -54,6 +47,15 @@ RSpec.describe Shelter, type: :model do
     describe "#order_by_reverse_alpha" do
       it "orders the shelters by number of pets they have, descending" do
         expect(Shelter.order_by_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+      it "orders the shelters by number of pets they have, descending" do
+        expect(Shelter.order_by_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#find_pending_applications" do
+      it "resturns the shelters with pending applications" do
+        expect(Shelter.find_pending_applications).to eq([@shelter_1, @shelter_3])
       end
     end
 

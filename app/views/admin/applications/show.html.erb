@@ -1,0 +1,11 @@
+<h1>Admin Applications</h1>
+<h3> <%= @application.name%>'s Application</h3>
+
+<section class="pets">
+  <% @application.pets.each do |pet|%>
+  <div id="pet-<%= pet.id %>">
+    <li><%= pet.name %></li>
+    <%= button_to "Approve Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}", method: :post, local: true%>
+  </div>
+  <% end %>
+</section>
