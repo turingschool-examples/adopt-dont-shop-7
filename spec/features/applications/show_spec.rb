@@ -145,7 +145,7 @@ RSpec.describe 'Application show' do
 
   describe 'US 8 ' do
     describe 'partial matches for pets' do
-      it 'displays pets whose name PARTIALLY matches my search' do
+      it 'displays the pet I want even though its searched PARTIALLY' do
         shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
         applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
         pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
@@ -156,9 +156,32 @@ RSpec.describe 'Application show' do
 
         click_on("Search")
 
-        save_and_open_page
+        # save_and_open_page
        
         #DO I need a within block here?
+        expect(page).to have_content('Scooby')
+        
+
+      end
+    end
+  end
+
+  describe 'US 9 ' do
+    describe 'Case Insensitive Matches for Pet Names' do
+      it 'displays the pet I want even though its incase sensitive search' do
+        shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
+        applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
+        pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+
+        visit "/applications/#{applicant.id}"
+
+        fill_in :pet_name, with: "sCoOb"
+
+        click_on("Search")
+
+        save_and_open_page
+       
+        #DO I need a within block here too?
         expect(page).to have_content('Scooby')
         
 
