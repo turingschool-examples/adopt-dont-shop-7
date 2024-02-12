@@ -1,5 +1,5 @@
 class Admin::ApplicationsController < ApplicationController
-  def index
-    @apps = Application.all
+  def show
+    @app = Application.find(params[:id])
   end
 end
