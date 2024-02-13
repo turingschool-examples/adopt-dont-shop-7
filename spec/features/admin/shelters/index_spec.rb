@@ -36,7 +36,6 @@ RSpec.describe 'Admin Shelters Index Page' do
     application_pet_2 = ApplicationPet.create!(application_id: application_1.id, pet_id: pet_2.id)
 
     visit "/admin/shelters"
-    save_and_open_page
 
     within"#pending_apps" do
       expect(page).to have_content("Shelters with Pending Applications")
