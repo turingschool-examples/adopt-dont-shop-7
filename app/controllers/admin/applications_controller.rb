@@ -5,7 +5,6 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def update
-    require 'pry'; binding.pry
     render :show
   end
 end

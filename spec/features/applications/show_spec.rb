@@ -15,7 +15,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
       @pet_8 = Pet.create!(adoptable: true, age: 4, breed: "persian", name: "Mr. FlUfF", shelter_id: @shelter.id)
 
 
-      @application_1 = Application.create!(name: "Selena", street_address: "123 Street", city: "City", state: "State", zip_code: "8888", adopting_reason: "Love for cats, no job", status:"Pending")
+      @application_1 = Application.create!(name: "Selena", street_address: "123 Street", city: "City", state: "State", zip_code: "8888", adopting_reason: "Love for cats, no job", status:"In Progress")
       @application_2 = Application.create!(name: "Laura", street_address: "58 Street", city: "City", state: "State", zip_code: "5555", adopting_reason: "Need company", status:"Rejected")
       @application_3 = Application.create!(name: "Isaac", street_address: "456 Street", city: "City", state: "State", zip_code: "8878", adopting_reason: "Lots of love to give", status:"Accepted")
       @application_4 = Application.create!(name: "Mark", street_address: "889 Folsom Ave", city: "Denver", state: "CO", zip_code: "80024", adopting_reason: "Lonely", status:"In Progress")
@@ -163,8 +163,7 @@ RSpec.describe 'Applications Show Page', type: :feature do
     it 'doesnt show a section to submit an application' do
 
       # When I visit an application's show page
-      visit "/applications/#{@application_1.id}"
-      
+      visit "/applications/#{@application_4.id}"
       # And I have not added any pets to the application
       within '.pets_in_application' do
         expect(page).to_not have_content("Rocky")

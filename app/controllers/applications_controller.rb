@@ -8,7 +8,6 @@ class ApplicationsController < ApplicationController
     @pets = Pet.search(params[:add_pet_name]) 
     @pet_added = params[:adopt] == 'true'
     @app_submitted = @application.status != "In Progress" 
-    #require 'pry'; binding.pry
   end
 
   def new
@@ -27,8 +26,11 @@ class ApplicationsController < ApplicationController
   end
 
   def update 
-    Application.find(params[:id]).update(adopting_reason:params[:adopting_reason])
-    Application.find(params[:id]).update(status: "Pending")
+    Application.find(params[:id]).update(
+      adopting_reason:params[:adopting_reason],
+      status: "Pending"
+      )
+    
     redirect_to "/applications/#{params[:id]}"
   end
 
