@@ -1,7 +1,17 @@
 <h1>Shelter: <%= @shelter.name_and_address[:name]%></h1>
 <h3>Location: <%= @shelter.name_and_address[:city] %></p>
 
-<h3>Shelter Statistics:</h2>
-<p>Average age of adoptable pets: <%= @shelter.average_age_of_adoptable_pets %> </p>
-<p>Pets available for adoption: <%= @shelter.number_of_adoptable_pets %></p>
-<p>Pets that have been adopted: <%= @shelter.number_of_pets_adopted %></p>
+<di id="shelter-statistics">
+  <h3>Shelter Statistics:</h2>
+    <p>Average age of adoptable pets: <%= @shelter.average_age_of_adoptable_pets %> </p>
+    <p>Pets available for adoption: <%= @shelter.number_of_adoptable_pets %></p>
+    <p>Pets that have been adopted: <%= @shelter.number_of_pets_adopted %></p>
+</div>
+
+
+<div id="action-required">
+  <h3>Action Required</h3>
+  <% @shelter.pending_pets.each do |pet| %>
+    <p><%= pet.name %></p>
+  <% end %>
+</div>

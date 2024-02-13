@@ -20,7 +20,7 @@ RSpec.describe "Admins Shelter Show" do
     @application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: 1)
     @application_3 = Application.create!(name: "Jerry", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: 1)
 
-    @application_pet_1 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_1.id)
+    @application_pet_1 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_4.id)
     @application_pet_2 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_3.id)
 
     visit show_admin_shelters_path(@shelter_1)
@@ -54,6 +54,15 @@ RSpec.describe "Admins Shelter Show" do
       visit show_admin_shelters_path(@shelter_1)
 
       expect(page).to have_content("Pets that have been adopted: 3")
+    end
+  end
+
+  describe "User Story 25 -  Action Required" do
+    it "displays a section for Pets that have pending applications" do
+      expect(page).to have_content("Action Required")
+      within "#action-required" do
+        expect(page).to have_content("Ann")
+      end
     end
   end
 end

@@ -54,7 +54,6 @@ RSpec.describe "Admins Application Show Page" do
         click_button("Reject Pet Application")
 
         expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
-        save_and_open_page
         expect(page.has_button?).to be false
         expect(page).to have_content("Pet Rejected")
       end

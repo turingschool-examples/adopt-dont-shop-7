@@ -54,12 +54,19 @@ class Shelter < ApplicationRecord
   end
 
   def number_of_pets_adopted
-    self.pets.joins(:application_pets)
-            .where("application_pets.application_approved = ?", true)
-            .count
+    self.pets
+        .joins(:application_pets)
+        .where("application_pets.application_approved = ?", true)
+        .count
   end
 
   def number_of_adoptable_pets
     self.adoptable_pets.count
+  end
+
+  def pending_pets
+    self.pets
+        .joins(:application_pets)
+        .where("application_pets.application_approved = ?", false)
   end
 end
