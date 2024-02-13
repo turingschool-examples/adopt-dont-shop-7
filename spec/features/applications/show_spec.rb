@@ -156,7 +156,6 @@ RSpec.describe 'Applications Show Page', type: :feature do
       end
 
       # And I do not see a section to add more pets to this application
-      save_and_open_page
       expect(page).to_not have_content("Add a Pet to this Application")
     end 
 
