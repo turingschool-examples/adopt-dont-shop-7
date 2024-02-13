@@ -4,6 +4,8 @@ class Shelter < ApplicationRecord
   validates :city, presence: true
 
   has_many :pets, dependent: :destroy
+  has_many :application_pets, through: :pets, dependent: :destroy
+  has_many :applications, through: :application_pets, source: :application, dependent: :destroy
 
   def self.order_by_recently_created
     order(created_at: :desc)
@@ -21,10 +23,10 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_applications
-    Shelter.joins(pets: :applications)
-          .where("applications.status = ?", "Pending")
-          .order(:name)
-          .distinct
+    Shelter.joins(:applications)
+            .where("applications.status = ?", 1)
+            .order(:name)
+            .distinct
   end
 
   def name_and_address

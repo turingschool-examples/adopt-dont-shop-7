@@ -39,28 +39,29 @@ RSpec.describe Application, type: :model do
 
   describe "#all_pets_approved" do
     it "returns true, false, or nil depending on the approval status of all pets on a given application" do
-      expect(@application_1.all_pets_approved).to eq(nil)
+      @application_pet_1.update!(application_approved: true, application_reviewed: true)
+      @application_pet_2.update!(application_approved: false, application_reviewed: true)
 
-      @application_pet_1.update!(application_approved: true)
-      @application_pet_2.update!(application_approved: false)
+      expect(@application_1.all_pets_approved?).to eq(false)
 
-      expect(@application_1.all_pets_approved).to eq(false)
+      @application_pet_1.update!(application_approved: true, application_reviewed: true)
+      @application_pet_2.update!(application_approved: true, application_reviewed: true)
 
-      @application_pet_1.update!(application_approved: true)
-      @application_pet_2.update!(application_approved: true)
-
-      expect(@application_1.all_pets_approved).to eq(true)
+      expect(@application_1.all_pets_approved?).to eq(true)
     end
   end
 
-  describe "#status_of_application_pet" do
-    it "returns the statuses of application pets for a given application" do
-      expect(@application_1.status_of_application_pet).to eq([nil, nil])
+  describe "#all_applications_reviewed?" do
+    it "returns true when all pet applications are reviewed" do
+      @application_pet_1.update!(application_approved: false, application_reviewed: false)
+      @application_pet_2.update!(application_approved: false, application_reviewed: true)
 
-      @application_pet_1.update!(application_approved: true)
-      @application_pet_2.update!(application_approved: false)
+      expect(@application_1.all_applications_reviewed?).to eq(false)
 
-      expect(@application_1.status_of_application_pet).to eq([true, false])
+      @application_pet_1.update!(application_approved: true, application_reviewed: true)
+      @application_pet_2.update!(application_approved: true, application_reviewed: true)
+
+      expect(@application_1.all_applications_reviewed?).to eq(true)
     end
   end
 

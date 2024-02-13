@@ -2,25 +2,22 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.new(application_params)
-    @application.update(status: "In Progress")
+    @application.update(status: 1)
     if @application.save
       redirect_to "/applications/#{@application.id}"
     else
       flash[:notice] = "Error: Application not created: Required information missing."
-      redirect_to new_application_path
+      redirect_to new_applications_path
     end
   end
 
   def update
     application = Application.find(params[:id])
     if params[:good_owner_comments].present?
-      application.update(
-        good_owner_comments: params[:good_owner_comments],
-        status: "Pending"
-      )
-    end
+      application.update(application_params)
 
-    redirect_to show_application_path
+      redirect_to show_applications_path(application)
+    end
   end
 
   def show
@@ -39,6 +36,6 @@ class ApplicationsController < ApplicationController
       :state,
       :zipcode,
       :description,
-      :good_owner_comments)
+      :status)
   end
 end

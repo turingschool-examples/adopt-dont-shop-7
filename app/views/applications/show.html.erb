@@ -1,59 +1,28 @@
 <h1><%= @application.name %>'s Application</h1>
-<p>Address: <%= @application.full_address %></p>
-<p>Description of why I would make a good home: <%= @application.description %></p>
-<p>Application Status: <%= @application.status %></p>
+<div class="show-page-information">
+  <ul>
+    <li>Address: <%= @application.full_address %></li>
+    <li>Application Description: <%= @application.description %></li>
+    <li>Application Status: <%= @application.status %></li>
+  </ul>
+</div>
 
-<h2>Pets Applied For: </h2>
-<% @application.pets.each do |pet| %>
-<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-<% end %>
-
-<% if @application.status == "In Progress" && @application.added_pets? %>
-
-  <h2>Add a Pet to this Application</h2>
-  <%= form_with url: show_application_path, method: :get do |f| %>
-    <%= f.label :pet_name, 'Search for Pets by name:' %>
-    <%= f.text_field :pet_name %>
-    <%= f.submit "Submit" %>
+<div class="page-filter">
+  <% if @application.status == "in_progress" && @application.added_pets? %>
+    <%= render "pets_applied_for" %>
+    <%= render "add_a_pet" %>
+    <%= render "submit_application" %>
+  <% elsif @application.status == "in_progress" %>
+    <%= render "add_a_pet" %>
+  <% elsif @application.status == "pending" %>
+    <%= render "pets_applied_for" %>
+    <p>Why <%= @application.name %> would make a good owner: <%= @application.description %></p>
+  <% else %>
+    <%= render "pets_applied_for" %>
   <% end %>
+</div>
 
-  <% if params[:pet_name].present? %>
-    <% @pets.each do |pet| %>
-    <ul>
-      <li><%= pet.name %> <%= button_to "Adopt this pet", create_application_pets_path, method: :patch, params: {'pet_id' => pet.id, 'application_id' => params[:id], 'submit_app' => 'yes'} %></li>
-    </ul>
-    <% end %>
-  <% end %>
 
-  <section id="submit-application">
-    <h2>Submit Application</h2>
-    <%= form_with url: update_application_path, method: :patch, data: { turbo: false } do |f| %>
-    <%= f.label :good_owner_comments, "Why I would make a good owner: " %>
-    <%= f.text_field :good_owner_comments %>
-    <%= f.submit "Submit Application" %>
-  </section>
-  <% end %>
 
-<% elsif @application.status == "Pending" %>
 
-  <p>Why I would make a good owner: <%= @application.good_owner_comments %></p>
-  
-<% else %>
 
-  <section id="add-pet">
-    <h2>Add a Pet to this Application</h2>
-    <%= form_with url: show_application_path, method: :get, data: { turbo: false } do |f| %>
-      <%= f.label :pet_name, "Search for Pets by name: " %>
-      <%= f.text_field :pet_name %>
-      <%= f.submit "Submit" %>
-  </section>
-  <% end %>
-
-  <% if params[:pet_name].present? %>
-    <% @pets.each do |pet| %>
-    <ul>
-      <li><%= pet.name %> <%= button_to "Adopt this pet", create_application_pets_path, method: :patch, params: {'pet_id' => pet.id, 'application_id' => params[:id], 'submit_app' => 'yes'} %></li>
-    </ul>
-    <% end %>
-  <% end %>
-<% end %> 

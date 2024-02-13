@@ -9,19 +9,32 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  <nav>
+    <ul>
+      <li>
+        <%= link_to "Pets", "/pets" %>
+      </li>
+      <li>
+        <%= link_to "Shelters", "/shelters" %>
+      </li>
+      <li>
+        <%= link_to "Veterinarians", "/veterinarians" %>
+      </li>
+      <li>
+       <%= link_to "Veterinary Offices", "/veterinary_offices" %>
+      </li>
+      <li>
+        <%= link_to 'Applications', applications_path, data: { turbo_method: :get } %>
+      </li>
+    </ul>
 
+  </nav>
   <body>
   <% flash.each do |type, msg| %>
     <div>
       <%= msg %>
     </div>
   <% end %>
-    <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
-      <p><%= link_to "Veterinarians", "/veterinarians" %></p>
-      <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
-    </section>
     <%= yield %>
   </body>
 </html>

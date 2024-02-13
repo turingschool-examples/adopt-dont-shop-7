@@ -29,21 +29,19 @@ RSpec.describe "Admins Shelter Index" do
     visit "/admin/shelters"
   end
 
-  it "lists shelters in reverse alphabetical order by name" do
-    # User Story 10
-    expect("Turing").to appear_before("Rithm School")
-    expect("Rithm School").to appear_before("Hack Reactor")
-    expect("Hack Reactor").to appear_before("Fullstack Academy")
-    expect("Fullstack Academy").to appear_before("Codesmith")
+  describe "User Story 10 - Admin Shelters" do
+    it "lists shelters in reverse alphabetical order by name" do
+      expect("Turing").to appear_before("Rithm School")
+      expect("Rithm School").to appear_before("Hack Reactor")
+      expect("Hack Reactor").to appear_before("Fullstack Academy")
+      expect("Fullstack Academy").to appear_before("Codesmith")
+    end
   end
 
-  describe "Shelters with Pending Applications" do
-    # User Story 11
-    it "has its own section on the page" do
+  describe "User Story 11 - Shelters with Pending Applications" do
+    it "displays Shelters with Pending Applications" do
       expect(page).to have_content("Shelters with Pending Applications")
-    end
 
-    it "has a list of every shelter with a pending application" do
       within "#pending-#{@shelter_1.id}" do
         expect(page).to have_content("Fancy pets of Colorado")
       end
@@ -52,6 +50,8 @@ RSpec.describe "Admins Shelter Index" do
         expect(page).to have_content("Aurora shelter")
       end
 
+      within "#pending-#{@shelter_3.id}" do
+        expect(page).to have_content("Fancy Pets of Colorado")
       within "#pending-#{@rithm.id}" do
         expect(page).to have_content("Rithm School")
       end

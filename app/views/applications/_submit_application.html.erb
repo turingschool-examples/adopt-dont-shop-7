@@ -1,0 +1,9 @@
+<div id="submit-application">
+  <h2>Submit Application</h2>
+  <%= form_with url: update_applications_path, method: :patch, data: { turbo: false } do |f| %>
+  <%= f.label :good_owner_comments, "Why #{@application.name} would make a good owner: " %>
+  <%= f.text_field :good_owner_comments %>
+  <%= hidden_field_tag :status, "pending" %>
+  <%= f.submit "Submit Application" %>
+  <% end %>
+</div>

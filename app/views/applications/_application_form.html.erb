@@ -1,0 +1,21 @@
+<%= form_with url: path, method: method, data: { turbo: false } do |f| %>
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name %></br>
+
+  <%= f.label :street_address, "Street Address" %>
+  <%= f.text_field :street_address %></br>
+
+  <%= f.label :city, "City" %>
+  <%= f.text_field :city %></br>
+
+  <%= f.label :state, "State" %>
+  <%= f.text_field :state %></br>
+
+  <%= f.label :zipcode, "Zipcode" %>
+  <%= f.text_field :zipcode %></br>
+
+  <%= f.label :description, "Description of why I would make a good home" %>
+  <%= f.text_field :description %></br>
+
+  <%= f.submit button_text %>
+<% end %>
