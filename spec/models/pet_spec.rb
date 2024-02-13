@@ -17,6 +17,30 @@ RSpec.describe Pet, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 3, adoptable: false)
     @applicant1 = Application.create(name:"Tom Brady",street_address: "123 MVP drive", city: "Goat city", state: "CO", zip_code: 67878, description: "I'm the GOAT " )
+
+  end
+
+  describe '#status' do
+    it 'returns the status of of a pet on an application' do
+      ApplicationPet.create!(pet: @pet_2, application: @applicant1, status:"Approved")
+      ApplicationPet.create!(pet: @pet_1, application: @applicant1, status:"Rejected")
+      ApplicationPet.create!(pet: @pet_3, application: @applicant1)
+      expect(@pet_2.status(@applicant1)).to eq("Approved")
+      expect(@pet_3.status(@applicant1)).to eq(nil)
+      expect(@pet_1.status(@applicant1)).to eq("Rejected")
+    end
+  end
+
+  describe '#choice_made' do
+    it 'checks if pet is rejected or approved on an application' do
+      ApplicationPet.create!(pet: @pet_2, application: @applicant1, status:"Approved")
+      ApplicationPet.create!(pet: @pet_1, application: @applicant1, status:"Rejected")
+      ApplicationPet.create!(pet: @pet_3, application: @applicant1)
+      
+      expect(@pet_2.choice_made(@applicant1)).to eq(true)
+      expect(@pet_1.choice_made(@applicant1)).to eq(true)
+      expect(@pet_3.choice_made(@applicant1)).to eq(false)
+    end
   end
 
   describe "class methods" do
@@ -48,4 +72,5 @@ RSpec.describe Pet, type: :model do
     
     end
   end
+
 end
