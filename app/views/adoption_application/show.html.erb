@@ -18,9 +18,6 @@
       <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
     <% end %>
 </ul>
-  
-<%# this section below looks for pets, and the application status for in progress. %>  
-<%# after the application is submitted, the status change so it won't be shown anymore. %>  
 
 <% if @adoption_app.pets.present? && @adoption_app.status == "In Progress" %>
   <%= form_with url: "/applications/#{@adoption_app.id}", method: :get, local: :true do |form| %>
@@ -29,9 +26,6 @@
     <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>
-
-<%# We don't want to add pets after the application is submited so we need to make sure it's in progress before displaying add pets %>  
-
 
 <% if @adoption_app.status == "In Progress" %>
   <h3>Add Pets to this Application:</h3>
@@ -47,6 +41,7 @@
   <% else %> 
     <ol>
       <% @pets.each do |pet| %>
+      <div id="pet-<%= pet.id %>">
         <li><%= pet.name %></li>
           <ul>
             <li>Breed: <%= pet.breed %></li>
@@ -59,6 +54,7 @@
 
           <% end %>
       <% end %>
+      </div>
     </ol>
   <% end %>
 <% end %>

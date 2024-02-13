@@ -56,16 +56,21 @@ RSpec.describe 'Adoption Application Show page', type: :feature do
       fill_in "search", with: "Sc"
       click_on "Search"
 
-      expect(page).to have_content(pet_1.name)
-      expect(page).to have_content(pet_1.breed)
-      expect(page).to have_content(pet_1.age)
-      expect(page).to have_content(pet_1.adoptable)
-      expect(page).to have_content(pet_2.name)
-      expect(page).to have_content(pet_2.breed)
-      expect(page).to have_content(pet_2.age)
-      expect(page).to have_content(pet_2.adoptable)
-
-      expect(page).to have_button("#{pet_1.name}")
+      within "#pet-#{pet_1.id}" do
+         expect(page).to have_content(pet_1.name)
+         expect(page).to have_content(pet_1.breed)
+         expect(page).to have_content(pet_1.age)
+         expect(page).to have_content(pet_1.adoptable)
+         expect(page).to have_button("#{pet_1.name}")
+      end
+      
+      within "#pet-#{pet_2.id}" do
+         expect(page).to have_content(pet_2.name)
+         expect(page).to have_content(pet_2.breed)
+         expect(page).to have_content(pet_2.age)
+         expect(page).to have_content(pet_2.adoptable)
+         expect(page).to have_button("#{pet_2.name}")
+      end
    end
 
    
@@ -84,16 +89,21 @@ RSpec.describe 'Adoption Application Show page', type: :feature do
       fill_in "search", with: "sc"
       click_on "Search"
 
-      expect(page).to have_content(pet_1.name)
-      expect(page).to have_content(pet_1.breed)
-      expect(page).to have_content(pet_1.age)
-      expect(page).to have_content(pet_1.adoptable)
-      expect(page).to have_content(pet_2.name)
-      expect(page).to have_content(pet_2.breed)
-      expect(page).to have_content(pet_2.age)
-      expect(page).to have_content(pet_2.adoptable)
-
-      expect(page).to have_button("#{pet_1.name}")
+      within "#pet-#{pet_1.id}" do
+         expect(page).to have_content(pet_1.name)
+         expect(page).to have_content(pet_1.breed)
+         expect(page).to have_content(pet_1.age)
+         expect(page).to have_content(pet_1.adoptable)
+         expect(page).to have_button("#{pet_1.name}")
+      end
+      
+      within "#pet-#{pet_2.id}" do
+         expect(page).to have_content(pet_2.name)
+         expect(page).to have_content(pet_2.breed)
+         expect(page).to have_content(pet_2.age)
+         expect(page).to have_content(pet_2.adoptable)
+         expect(page).to have_button("#{pet_2.name}")
+      end
    end
 
    it 'is has partial matches' do
@@ -110,16 +120,21 @@ RSpec.describe 'Adoption Application Show page', type: :feature do
       fill_in "search", with: "sc"
       click_on "Search"
 
-      expect(page).to have_content(pet_1.name)
-      expect(page).to have_content(pet_1.breed)
-      expect(page).to have_content(pet_1.age)
-      expect(page).to have_content(pet_1.adoptable)
-      expect(page).to have_content(pet_2.name)
-      expect(page).to have_content(pet_2.breed)
-      expect(page).to have_content(pet_2.age)
-      expect(page).to have_content(pet_2.adoptable)
-
-      expect(page).to have_button("Adopt #{pet_1.name}")
+      within "#pet-#{pet_1.id}" do
+         expect(page).to have_content(pet_1.name)
+         expect(page).to have_content(pet_1.breed)
+         expect(page).to have_content(pet_1.age)
+         expect(page).to have_content(pet_1.adoptable)
+         expect(page).to have_button("#{pet_1.name}")
+      end
+      
+      within "#pet-#{pet_2.id}" do
+         expect(page).to have_content(pet_2.name)
+         expect(page).to have_content(pet_2.breed)
+         expect(page).to have_content(pet_2.age)
+         expect(page).to have_content(pet_2.adoptable)
+         expect(page).to have_button("#{pet_2.name}")
+      end
    end
 
    it 'display a button to adopt the pet under each pet' do
@@ -133,7 +148,15 @@ RSpec.describe 'Adoption Application Show page', type: :feature do
       fill_in "search", with: "scooby"
       click_button "Search"
 
-      expect(page).to have_button("Adopt Scooby")
+      within "#pet-#{pet_1.id}" do
+         expect(page).to have_content(pet_1.name)
+         expect(page).to have_content(pet_1.breed)
+         expect(page).to have_content(pet_1.age)
+         expect(page).to have_content(pet_1.adoptable)
+         expect(page).to have_button("#{pet_1.name}")
+         expect(page).to have_button("Adopt Scooby")
+      end
+      
    end
 
    it 'shows added pets to adoption application' do
