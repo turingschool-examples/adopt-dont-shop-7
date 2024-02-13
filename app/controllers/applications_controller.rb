@@ -1,12 +1,13 @@
 class ApplicationsController < ApplicationController
   def index
-    @num_of_applications = Application.all.num_of_applications
+    @applications = Application.all
   end
 
   def show
     @application = Application.find(params[:id])
     @pets = Pet.search(params[:add_pet_name]) 
-    
+    @pet_added = params[:adopt] == 'true'
+    @app_submitted = @application.status != "In Progress" 
   end
 
   def new
@@ -25,7 +26,11 @@ class ApplicationsController < ApplicationController
   end
 
   def update 
-    Application.find(params[:id]).update(adopting_reason:params[:adopting_reason])
+    Application.find(params[:id]).update(
+      adopting_reason:params[:adopting_reason],
+      status: "Pending"
+      )
+    
     redirect_to "/applications/#{params[:id]}"
   end
 

@@ -5,3 +5,26 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+@shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+@shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
+@shelter_3 = Shelter.create(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
+
+@pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
+@pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+@pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
+@pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+
+@application_1 = Application.create!(name: "Selena", street_address: "123 Street", city: "City", state: "State", zip_code: "8888", adopting_reason: "Love for cats, no job", status:"Pending")
+@application_2 = Application.create!(name: "Laura", street_address: "58 Street", city: "City", state: "State", zip_code: "5555", adopting_reason: "Need company", status:"Rejected")
+@application_3 = Application.create!(name: "Isaac", street_address: "456 Street", city: "City", state: "State", zip_code: "8878", adopting_reason: "Lots of love to give", status:"Accepted")
+@application_4 = Application.create!(name: "Mark", street_address: "889 Folsom Ave", city: "Denver", state: "CO", zip_code: "80024", adopting_reason: "Lonely", status:"Pending")
+
+@application_pets_1 = ApplicationPet.create!(pet_id: @pet_3.id, application_id: @application_1.id)
+@application_pets_2 = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_4.id)
+@application_pets_3 = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_3.id)
+
+@vet_office = VeterinaryOffice.create(name: "Best Vets", boarding_services: true, max_patient_capacity: 20)
+@vet_1 = @vet_office.veterinarians.create(name: "Taylor", review_rating: 10, on_call: true)
+@vet_2 = @vet_office.veterinarians.create(name: "Tanya", review_rating: 9, on_call: true)
+@vet_3 = @vet_office.veterinarians.create(name: "Jim", review_rating: 8, on_call: true)
+@not_on_call_vet = @vet_office.veterinarians.create(name: "Sam", review_rating: 10, on_call: false)

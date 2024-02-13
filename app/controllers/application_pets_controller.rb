@@ -5,6 +5,6 @@ class ApplicationPetsController < ApplicationController
       application_id: params[:id]
       )
       
-    redirect_to "/applications/#{params[:id]}"
+    redirect_to "/applications/#{params[:id]}?adopt=true"
   end
 end
