@@ -14,7 +14,8 @@ class ApplicationsController < ApplicationController
     if new_app.save
       redirect_to "/applications/#{new_app.id}"
     else 
-      flash[:notice] = "Missing required inputs"
+      # require 'pry'; binding.pry
+      flash[:notice] = new_app.errors.full_messages.to_sentence
       redirect_to "/applications/new"
     end 
   end
