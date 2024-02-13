@@ -25,8 +25,6 @@
         <%= "#{pet.name} already rejected!" %>
     <% else %>
         <%= form_with url: "/admin/applications/#{@adoption_app.id}", method: :get do |form| %>
-            <%# refer to link [hidden-field](https://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-hidden_field) %>
-            <%# refer to link [hidden-field-tag](https://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-hidden_field_tag)%>
             <%= form.hidden_field :approved_pet, value: pet.id %>
             <%= form.submit "Approve" %>
         <% end %>
@@ -38,8 +36,6 @@
     </div> 
 <% end %>
 </ul>
-
-<%# We don't want to add pets after the application is submited so we need to make sure it's in progress before displaying add pets %>  
 
 <% if @adoption_app.status == "In Progress" %>
     <h3>Add Pets to this Application:</h3>

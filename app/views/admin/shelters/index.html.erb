@@ -3,11 +3,13 @@
 <h1> List of All Shelters in Reverse Alphabetical Order </h1>
 <div id="reverse_alpha_shelters">
 <ul><% @admin_shelters.each do |shelter| %>
+<div id="shelter-<%= shelter.id %>">
     <li>Name: <%= shelter.name %></li>
     <li>Foster program? <%= shelter.foster_program %></li>
     <li>City: <%= shelter.city %></li>
     <li>Rank:<%= shelter.rank %></li>
     <% end %>
+</div>
 </ul>
 </div>
 

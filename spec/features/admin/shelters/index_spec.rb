@@ -11,13 +11,24 @@ RSpec.describe "AdminShelters", type: :feature do
 
             visit '/admin/shelters'
 
-            expect(page).to have_content(shelter_1.name)
-            expect(page).to have_content(shelter_2.name)
-            expect(page).to have_content(shelter_3.name)
-            expect(page).to have_content(shelter_3.city)
-            expect(page).to have_content(shelter_1.city)
-            expect(page).to have_content(shelter_2.rank)
-            expect(page).to have_content(shelter_3.foster_program)
+            within "#shelter-#{shelter_1.id}" do
+                expect(page).to have_content(shelter_1.name)
+                expect(page).to have_content(shelter_1.city)
+                expect(page).to have_content(shelter_1.rank)
+            end
+            
+            within "#shelter-#{shelter_2.id}" do
+                expect(page).to have_content(shelter_2.name)
+                expect(page).to have_content(shelter_2.city)
+                expect(page).to have_content(shelter_2.rank)
+            end
+            
+            within "#shelter-#{shelter_3.id}" do
+                expect(page).to have_content(shelter_3.name)
+                expect(page).to have_content(shelter_3.city)
+                expect(page).to have_content(shelter_3.rank)
+                expect(page).to have_content(shelter_3.foster_program)
+            end
         end
 
         # User Story 10

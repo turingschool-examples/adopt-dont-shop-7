@@ -71,8 +71,6 @@ RSpec.describe 'Admin Applications Show Page' do
             expect(page).to have_content("#{pet_1.name} already approved!")
         end
 
-        # next to the pet approved, no button to approve
-        # indicator next to the pet that they have been approved
         it 'displays updated approval for pet' do
             shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
             pet_1 = shelter.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
@@ -82,10 +80,9 @@ RSpec.describe 'Admin Applications Show Page' do
             visit "/admin/applications/#{application_1.id}"
 
             expect(page).to have_button("Approve")
-            # save_and_open_page
 
             click_on "Approve"
-            # save_and_open_page
+
             expect(page).to have_content("#{pet_1.name} already approved!")
             expect(page).not_to have_button("Approve")
         end
@@ -123,8 +120,6 @@ RSpec.describe 'Admin Applications Show Page' do
             expect(page).to have_content("#{pet_1.name} already rejected!")
         end
 
-        # next to the pet rejected, no button to approve or reject
-        # indicator next to the pet that they have been approved
         it 'displays updated reject for pet' do
             shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
             pet_1 = shelter.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
@@ -134,7 +129,6 @@ RSpec.describe 'Admin Applications Show Page' do
             visit "/admin/applications/#{application_1.id}"
 
             expect(page).to have_button("Reject")
-            # save_and_open_page
 
             click_on "Reject"
 
@@ -188,12 +182,13 @@ RSpec.describe 'Admin Applications Show Page' do
             expect(page).to have_content(pet_1.breed)
             expect(page).to have_content(pet_1.age)
             expect(page).to have_content(pet_1.adoptable)
+            expect(page).to have_button("Adopt #{pet_1.name}")
+
             expect(page).to have_content(pet_2.name)
             expect(page).to have_content(pet_2.breed)
             expect(page).to have_content(pet_2.age)
             expect(page).to have_content(pet_2.adoptable)
-
-            expect(page).to have_button("Adopt #{pet_1.name}")
+            expect(page).to have_button("Adopt #{pet_2.name}")
         end
 
         it 'display a button to adopt the pet under each pet' do
