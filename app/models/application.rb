@@ -17,7 +17,9 @@ class Application < ApplicationRecord
 
   def submit_reason_for_adoption(reason)
     self.reason_for_adoption = reason
-    self.status = 1
+    self.status = "pending"
     self.save!
   end
+
+
 end

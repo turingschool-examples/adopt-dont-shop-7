@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Admin Shelters Index Page" do
   let!(:shelter_1) {Shelter.create!(foster_program: true, name: "Adopters Unite", city: "Minneapolis", rank: 1 ) }
-  let!(:shelter_2) {Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)}
+  let!(:shelter_2) {Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9) }
   let!(:shelter_3) {Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)}
 
   let!(:application_1) {Application.create!(name: "Sally", street_address: "112 W 9th St.", city: "Kansas City", state: "MO", zip_code: "64105", description: "I love animals. Please let me have one.", status: "pending")}
