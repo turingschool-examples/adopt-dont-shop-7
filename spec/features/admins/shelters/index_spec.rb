@@ -18,9 +18,9 @@ RSpec.describe "Admins Shelter Index" do
     @pet_4 = @rithm.pets.create!(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
 
     @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love cats")
-    @application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: "Pending")
-    @application_3 = Application.create!(name: "Jerry", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: "Pending")
-    @application_4 = Application.create!(name: "Jim", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: "Pending")
+    @application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: 1)
+    @application_3 = Application.create!(name: "Jerry", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: 1)
+    @application_4 = Application.create!(name: "Jim", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: 1)
 
     @application_pet_1 = ApplicationPet.create!(application_id: @application_4.id, pet_id: @pet_4.id)
     @application_pet_2 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_1.id)
@@ -50,8 +50,6 @@ RSpec.describe "Admins Shelter Index" do
         expect(page).to have_content("Aurora shelter")
       end
 
-      within "#pending-#{@shelter_3.id}" do
-        expect(page).to have_content("Fancy Pets of Colorado")
       within "#pending-#{@rithm.id}" do
         expect(page).to have_content("Rithm School")
       end

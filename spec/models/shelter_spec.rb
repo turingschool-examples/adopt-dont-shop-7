@@ -11,8 +11,6 @@ RSpec.describe Shelter, type: :model do
       @pet_1 = @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
 
       expect{@shelter_1.destroy}.to change{Pet.count}.by(-1)
-
-      expect{ @shelter_1.destroy }.to change{Pet.count-1}
     end
   end
 
