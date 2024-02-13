@@ -8,7 +8,7 @@ RSpec.describe "Application Show Page" do
 
     @application_pet_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id, pet_reason: "N/A")
     @application_2 = Application.create!(name: "test", street_address: "test James St", city: "ena", state: "az", zipcode: "52332", description: "I love2 pets!",application_status: "In Progress")
-    
+    @application_3 = Application.create!(name: "Faisal", street_address: "12907 conquistador", city: "Spring Hill", state: "FL", zipcode: "34610", description: "I love pets")
   end
 
   #User Story 1
@@ -103,4 +103,14 @@ RSpec.describe "Application Show Page" do
     expect(current_path).to eq("/applications/#{@application_1.id}")
     expect(page).to have_content("Pending")
   end
+
+  # user story #7
+
+  # it 'has no option to sumbit a pet to the application if it is not selected' do
+  #   visit "/applications/#{@application_3.id}"
+  #   expect(page).to_not have_button("Submit Application")
+
+  #   visit "/applications/#{@application_1.id}"
+  #   expect(page).to have_button("Submit Application")
+  # end
 end

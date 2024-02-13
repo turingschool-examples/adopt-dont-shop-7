@@ -32,6 +32,8 @@
   <%= link_to pet.name, "/pets/#{pet.id}" %>
 <% end %>
 <%end%>
+
+<% if @application.application_status == "In Progress"%>
 <%= form_with url: "/applications/#{@application.id}", method: :get do |form|%>
   <%= form.label :name_pet, "add a pet to this Application:" %>
   <%= form.text_field :name_pet %>
@@ -44,11 +46,15 @@
   <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
   <%= button_to "Adopt this pet", "/applications/#{@application.id}/pets", method: :post, params: { pet_id: pet.id} %>
   <%end%>
-<%end%><br>
+  <%end%><br>
+<%end%>
 
 
-<%= form_with url: "/applications/#{@application.id}", method: :patch do |form|%>
-  <%= form.label :app_pet_reason, "Why would you make a good owner for these pets?" %>
-  <%= form.text_field :app_pet_reason %>
-  <%= form.submit "Submit Application" %>
+<% if @application.application_pets.any? %>
+  <%= form_with url: "/applications/#{@application.id}", method: :patch do |form|%>
+    <%= form.label :app_pet_reason, "Why would you make a good owner for these pets?" %>
+    <%= form.text_field :app_pet_reason %>
+    <%= form.submit "Submit Application" %>
+  <% end %>
 <% end %>
+
