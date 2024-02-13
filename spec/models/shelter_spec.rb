@@ -48,17 +48,17 @@ RSpec.describe Shelter, type: :model do
         aurora_shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         rgv_bunshelter = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
 
-        applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: "91010", description: "Because ")
-        martin = Application.create!(name: "Martin", street_address: "134 Huski Lane", city: "Chicago", state: "Ilinois", zip_code: 60609, description: "I love dogs")
-        odell = Application.create!(name: "Odell", street_address: "145 Dog Lane", city: "Denver", state: "CO", zip_code: 60655, description: "Hi!")
+        applicant = Application.create(name: "Shaggy", street_address: "123 Mystery Lane", city: "Irvine", state: "CA", zip_code: 91010, description: "Because ", status: "Pending")
+        martin = Application.create!(name: "Martin", street_address: "134 Huski Lane", city: "Chicago", state: "Ilinois", zip_code: 60609, description: "I love dogs", status: "Pending")
+        odell = Application.create!(name: "Odell", street_address: "145 Dog Lane", city: "Denver", state: "CO", zip_code: 60655, description: "Hi!", status: "Pending")
 
         pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
         bull_dog = Pet.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true, shelter_id: aurora_shelter.id)
 
         app1_pet = ApplicationPet.create!(pet_id: pet.id, application_id: applicant.id)
         app2_pet = ApplicationPet.create!(pet_id: bull_dog.id, application_id: martin.id)
-        
-        expect(Shelter.shelters_pending_applications).to eq([@shelter, @aurora_shelter])
+        # require 'pry'; binding.pry
+        expect(Shelter.shelters_pending_applications).to eq([shelter.name, aurora_shelter.name])
       end
     end
   end
