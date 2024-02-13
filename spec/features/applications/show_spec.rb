@@ -188,6 +188,4 @@ RSpec.describe 'Application show' do
       end
     end
   end
-
-    
 end
