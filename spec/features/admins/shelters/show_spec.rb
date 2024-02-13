@@ -34,12 +34,26 @@ RSpec.describe "Admins Shelter Show" do
 
   describe "User Story 23 - Average Pet Age" do
     it "has a section for stats that include the average of adoptable pets" do
-      average_age = @shelter_1.pets.sum(:age).to_f/@shelter_1.pets.size.to_f.round
 
       expect(page).to have_content("Shelter Statistics")
-      expect(page).to have_content("Average age of adoptable pets: #{average_age}")
+      expect(page).to have_content("Average age of adoptable pets: 4")
+    end
+  end
+  describe "User Story 23 -  Count of Adoptable Pets" do
+    it "shows many pets are available" do
+      expect(page).to have_content("Pets available for adoption: 2")
     end
   end
 
-  describe
+  describe "User Story 24 - Count of Pets that have been Adopted" do
+    it "shows how many pets have been adopted" do
+      application_pet_3 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_2.id, application_approved: true)
+      application_pet_4 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_4.id, application_approved: true)
+      application_pet_4 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_4.id, application_approved: true)
+
+      visit show_admin_shelters_path(@shelter_1)
+
+      expect(page).to have_content("Pets that have been adopted: 3")
+    end
+  end
 end

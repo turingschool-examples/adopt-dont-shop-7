@@ -25,17 +25,17 @@ RSpec.describe Shelter, type: :model do
     @shelter_3 = Shelter.create!(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
 
 
-    @pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
-    @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
-    @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
-    @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+    @pet_1 = @shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
+    @pet_2 = @shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+    @pet_3 = @shelter_3.pets.create!(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
+    @pet_4 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
 
-    @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love cats")
-    @application_2 = Application.create(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: "Pending")
-    @application_3 = Application.create(name: "Jerry", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: "Pending")
+    @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love cats")
+    @application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: "Pending")
+    @application_3 = Application.create!(name: "Jerry", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: "Pending")
 
-    @application_pet_1 = ApplicationPet.create(application_id: @application_2.id, pet_id: @pet_1.id)
-    @application_pet_2 = ApplicationPet.create(application_id: @application_3.id, pet_id: @pet_3.id)
+    @application_pet_1 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_1.id)
+    @application_pet_2 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_3.id)
   end
 
   describe "class methods" do
@@ -109,16 +109,29 @@ RSpec.describe Shelter, type: :model do
 
     describe "#average_age_of_adoptable_pets" do
       it "returns the average age of adoptable pets for a shelter" do
-        average_age = @shelter_1.pets.sum(:age).to_f/@shelter_1.pets.size.to_f.round
-        expect(@shelter_1.average_age_of_adoptable_pets.to_f).to eq(average_age)
+        expect(@shelter_1.average_age_of_adoptable_pets.to_f).to eq(4)
       end
     end
 
     describe "#name_and_address" do
       it "returns the Shelters with their name and full address" do
-        shelter = Shelter.name_and_address(@shelter_1.id)
-        expect(shelter).not_to respond_to(:rank)
-        expect(shelter).not_to respond_to(:foster_program)
+        expect(@shelter_1.name_and_address).not_to respond_to(:rank)
+        expect(@shelter_1.name_and_address).not_to respond_to(:foster_program)
+      end
+    end
+
+    describe "#number_of_pets_adopted" do
+      it "returns the number of Pets adopted for a Shelter" do
+        application_pet_3 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_2.id, application_approved: true)
+        application_pet_4 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @pet_4.id, application_approved: true)
+
+        expect(@shelter_1.number_of_pets_adopted).to eq(2)
+      end
+    end
+
+    describe "#number_of_availables_adopted" do
+      it "returns the number of Pets available for a Shelter" do
+        expect(@shelter_1.number_of_adoptable_pets).to eq(2)
       end
     end
   end
