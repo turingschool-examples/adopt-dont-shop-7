@@ -10,7 +10,6 @@ RSpec.describe 'Admin Applications Show Page' do
 
         visit "/admin/applications/#{application.id}"
 
-        # Added more stuff to the test and to the page
         expect(page).to have_content("Scrappy")
         expect(page).to have_content(application.name)
         expect(page).to have_content(application.street_address)
@@ -37,20 +36,27 @@ RSpec.describe 'Admin Applications Show Page' do
         # For every pet that the application is for, I see a button to approve the application for that specific pet
         it 'has a button to approve pets' do
             shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
-            pet_1 = shelter.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
             application_1 = AdoptionApplication.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", status: "Pending")
-            application_1.add_pet_to_app(pet_1.id)
+            pet_1 = application_1.pets.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+            pet_2 = application_1.pets.create!(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
+ 
 
             visit "/admin/applications/#{application_1.id}"
 
-            expect(page).to have_content(pet_1.name)
-            expect(page).to have_button("Approve")
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_content(pet_1.name)
+                expect(page).to have_button("Approve")  
+            end
+            
+            within "#pet-#{pet_2.id}" do
+                expect(page).to have_content(pet_2.name)
+                expect(page).to have_button("Approve")  
+            end
         end
 
         it 'button click redirects to admin application show page' do
             shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
             pet_1 = shelter.pets.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
-            # pet_2 = shelter.pets.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
             application_1 = AdoptionApplication.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs", status: "Pending")
             application_1.add_pet_to_app(pet_1.id)
             

@@ -11,17 +11,14 @@
 
 <h3>Pets applied for: </h3>
 <ul>
-<% @adoption_app.pets.each do |pet| %>
+<% @app_pets.each do |pet| %>
+    <div id="pet-<%= pet.id %>">
     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
     <ul>
         <li>Breed: <%= pet.breed %></li>
         <li>Age: <%= pet.age %></li>
         <li>Adoptable: <%= pet.adoptable %></li>
-    </ul>
-    
-    <%# instead of checking if the pet is adoptable we give the adoption application pet a status that %>
-    <%# we can change and not affect the pets for other adoption applications %>
-
+    </ul>   
     <% if AdoptionApplicationPet.where(pet_id: pet.id,adoption_application_id: @adoption_app.id).first.status == "Approved" %>
         <%= "#{pet.name} already approved!" %>
     <% elsif AdoptionApplicationPet.where(pet_id: pet.id,adoption_application_id: @adoption_app.id).first.status == "Rejected"  %>
@@ -38,6 +35,7 @@
             <%= form.submit "Reject" %>
         <% end %>
     <% end %>
+    </div> 
 <% end %>
 </ul>
 
