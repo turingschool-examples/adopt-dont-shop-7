@@ -48,6 +48,7 @@ RSpec.describe "Application show", type: :feature do
             visit "/applications/#{@application_1.id}"
             expect(page).to have_link(@pet_1.name, :href=>"/pets/#{@pet_1.id}")
             expect(page).to have_link(@pet_2.name, :href=>"/pets/#{@pet_2.id}")
+
         end
 
             # 4. Searching for Pets for an Application
@@ -74,3 +75,4 @@ RSpec.describe "Application show", type: :feature do
         end
     end
 end
+
