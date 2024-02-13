@@ -2,7 +2,7 @@ class Admin::AdoptionApplicationsController < ApplicationController
 
     def show
         @adoption_app = AdoptionApplication.find(params[:id])
-        
+        @app_pets = @adoption_app.pets
         @pets = Pet.search(params[:search])
 
         # Admin can add pet to the application as well

@@ -2,7 +2,9 @@ class AdoptionApplicationPet < ApplicationRecord
    belongs_to :adoption_application
    belongs_to :pet 
 
-   # this change the adoption app pet status so we don't have to change the pet adoptable status and be within user story 14
+   validates :adoption_application_id, presence: true
+   validates :pet_id, presence: true
+   
    def change_app_pet_status(new_status)
       self.update_column(:status, new_status)
    end

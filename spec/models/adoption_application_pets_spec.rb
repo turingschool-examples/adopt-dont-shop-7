@@ -6,6 +6,11 @@ RSpec.describe AdoptionApplicationPet, type: :model do
       it {should belong_to :pet}
    end
 
+   describe 'validations' do
+      it { should validate_presence_of :adoption_application_id }
+      it { should validate_presence_of :pet_id }
+   end
+
    describe '#change_app_pet_status' do
       it 'changes the adoption application pet status' do
          # setup
