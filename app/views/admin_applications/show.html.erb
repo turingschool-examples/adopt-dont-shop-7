@@ -1,8 +1,16 @@
 <h2>Applicant: <%= @application.name %></h2>
 <% @application.find_pets.each do |pet| %>
   <div id="<%= pet.id %>">
-    <%= pet.name %>
-    <%= button_to "Approve Application", "/application_pets/:id/edit/approve", method: :patch %>
-    <%= button_to "Reject Application", "/application_pets/:id/edit/reject", method: :patch %>
-    </div>
+    <% if pet.find_application_pets(@application.id).status == "Pending" %>
+      <%= pet.name %>
+      <%= button_to "Approve Application", "/admin/applications/#{@application.id}/application_pets/#{pet.find_application_pets(@application.id).id}?status=approve", method: :patch %>
+      <%= button_to "Reject Application", "/admin/applications/#{@application.id}/application_pets/#{pet.find_application_pets(@application.id).id}?status=reject", method: :patch %>
+    <% elsif pet.find_application_pets(@application.id).status == "Approved" %>
+      <%= pet.name %>  
+      <p>Application Approved</p>
+    <% elsif pet.find_application_pets(@application.id).status == "Rejected" %>
+      <%= pet.name %>  
+      <p>Application Rejected</p>    
+    <% end %>
+  </div>
 <% end %>

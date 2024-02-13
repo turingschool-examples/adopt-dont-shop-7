@@ -14,6 +14,6 @@ class Pet < ApplicationRecord
   end
 
   def find_application_pets(application_id)
-    ApplicationPet.where("application_pets.application_id = #{application_id} AND application_pets.pet_id = #{self.id}").pluck(:id).first
+    ApplicationPet.where("application_pets.application_id = #{application_id} AND application_pets.pet_id = #{self.id}").first
   end
 end

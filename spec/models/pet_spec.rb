@@ -50,7 +50,7 @@ RSpec.describe Pet, type: :model do
         application_pet_1 = ApplicationPet.create!(application_id: application_1.id, pet_id: pet_1.id)
         application_pet_2 = ApplicationPet.create!(application_id: application_2.id, pet_id: pet_1.id)
 
-        expect(pet_1.find_application_pets(application_2.id)).to eq(application_pet_2.id)
+        expect(pet_1.find_application_pets(application_2.id)).to eq(application_pet_2)
       end
     end
   end
