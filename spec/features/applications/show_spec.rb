@@ -152,7 +152,7 @@ RSpec.describe 'Application show' do
 
         visit "/applications/#{applicant.id}"
 
-        fill_in :pet_name, with: "Scoob"
+        fill_in :pet_name, with: "coo"
 
         click_on("Search")
 
