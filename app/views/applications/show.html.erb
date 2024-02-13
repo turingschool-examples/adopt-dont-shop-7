@@ -13,33 +13,37 @@
 	<% end %>
 </section>
 
-<section class="find_pet">
-	<h4>Add a Pet to this Application</h4>
-	<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-	<%= f.label :add_pet_name %>
-  <%= f.text_field :add_pet_name %>
+<% unless @app_submitted %>
+  <section class="find_pet">
+      <h4>Add a Pet to this Application</h4>
+        <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+        
+        <%= f.label :add_pet_name %>
+        <%= f.text_field :add_pet_name %>
 
-  <%= f.submit "Submit"%>
-	<% end %>
-</section>
+        <%= f.submit "Submit"%>
+      <% end %>
+  </section>
 
-<section class="found_pet">
-<% unless defined? @pet_added %>
-	<% @pets.each do |pet|%>
-	<div id="pet-<%= pet.id %>">
-		<li><%= pet.name %></li>
-		<%= button_to "Adopt this Pet", "/applications/#{@application.id}?pet_id=#{pet.id}", method: :post, local: true%>
-	</div>
-	<% end %>
+  <section class="found_pet">
+    <% @pets.each do |pet|%>
+      <div id="pet-<%= pet.id %>">
+        <li><%= pet.name %></li>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}?pet_id=#{pet.id}", method: :post, local: true%>
+      </div>
+    <% end %>
+  </section>
 <% end %>
-</section>
 
 <section class="submit_application">
-	<h4>Submit My Application</h4>
-	<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-	<%= f.label :adopting_reason %>
-  <%= f.text_field :adopting_reason %>
+  <% unless !@pet_added || @app_submitted %>
+    <h4>Submit My Application</h4>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      
+      <%= f.label :adopting_reason %>
+      <%= f.text_field :adopting_reason %>
 
-  <%= f.submit "Submit"%>
-	<% end %>
+      <%= f.submit "Submit"%>
+    <% end %>
+  <% end %>
 </section>

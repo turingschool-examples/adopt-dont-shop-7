@@ -5,7 +5,7 @@
   <% @application.pets.each do |pet|%>
   <div id="pet-<%= pet.id %>">
     <li><%= pet.name %></li>
-    <%= button_to "Approve Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}", method: :post, local: true%>
+    <%= button_to "Approve Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}?approve", method: :patch, local: true%>
   </div>
   <% end %>
 </section>
