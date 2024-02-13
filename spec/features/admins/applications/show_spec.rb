@@ -151,5 +151,4 @@ RSpec.describe "Admins Application Show Page" do
       end
     end
   end
-
 end

@@ -65,4 +65,16 @@ RSpec.describe "Admins Shelter Show" do
       end
     end
   end
+
+  describe "User Story 26 - Action Required Links to Application Show Page" do
+    it "has a link next to each pet's name" do
+      @shelter_1.pending_pets.each do |pet|
+        within "#action-required-#{pet.id}" do
+          expect(page).to have_link("Take Action")
+          click_link("Take Action")
+        end
+        expect(page.current_path).to eq(show_admin_applications_path(@shelter_1.application_id_for_pet(pet.id)))
+      end
+    end
+  end
 end

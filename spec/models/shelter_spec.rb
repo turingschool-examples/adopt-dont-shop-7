@@ -143,6 +143,13 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.pending_pets).to eq([@pet_1, @pet_4])
       end
     end
+
+    describe "#application_id_for_pet" do
+      it "returns the application id for the pet associated with the shelter" do
+        expect(@shelter_1.application_id_for_pet(@pet_1.id)).to eq(@application_2.id)
+        expect(@shelter_3.application_id_for_pet(@pet_3.id)).to eq(@application_3.id)
+      end
+    end
   end
 
 end

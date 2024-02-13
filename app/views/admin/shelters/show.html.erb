@@ -12,6 +12,6 @@
 <div id="action-required">
   <h3>Action Required</h3>
   <% @shelter.pending_pets.each do |pet| %>
-    <p><%= pet.name %></p>
+    <p id="action-required-<%= pet.id %>"><%= pet.name %> - <%= link_to 'Take Action', show_admin_applications_path(id: @shelter.application_id_for_pet(pet.id)), data: { turbo_method: :get } %></p>
   <% end %>
 </div>

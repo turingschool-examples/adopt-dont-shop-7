@@ -69,4 +69,8 @@ class Shelter < ApplicationRecord
         .joins(:application_pets)
         .where("application_pets.application_approved = ?", false)
   end
+
+  def application_id_for_pet(pet_id)
+    self.applications.joins(:pets).where("pets.id = ?", pet_id).pluck(:id).first
+  end
 end
