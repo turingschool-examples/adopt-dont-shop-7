@@ -5,6 +5,7 @@ RSpec.describe "Application Show Page" do
     @application_1 = Application.create!(name: "Luis Aparicio", street_address: "7511 James St", city: "Menasha", state: "WI", zipcode: "54952", description: "I love pets!", application_status: "In Progress")
     @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @pet_1 = Pet.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: @shelter_1.id)
+    @pet_2 = Pet.create!(name: "mr. Alex", age: 2, breed: "Great Dane", adoptable: true, shelter_id: @shelter_1.id)
 
     @application_pet_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @pet_1.id, pet_reason: "N/A")
     @application_2 = Application.create!(name: "test", street_address: "test James St", city: "ena", state: "az", zipcode: "52332", description: "I love2 pets!",application_status: "In Progress")
@@ -106,11 +107,41 @@ RSpec.describe "Application Show Page" do
 
   # user story #7
 
-  # it 'has no option to sumbit a pet to the application if it is not selected' do
-  #   visit "/applications/#{@application_3.id}"
-  #   expect(page).to_not have_button("Submit Application")
+  it 'has no option to sumbit a pet to the application if it is not selected' do
+    visit "/applications/#{@application_3.id}"
+    expect(page).to_not have_button("Submit Application")
 
-  #   visit "/applications/#{@application_1.id}"
-  #   expect(page).to have_button("Submit Application")
-  # end
+    visit "/applications/#{@application_1.id}"
+    expect(page).to have_button("Submit Application")
+  end
+
+  # user story #8
+  it "I see a button to add a pet to the application" do
+
+    visit "/applications/#{@application_2.id}"
+
+    expect(page).to have_content("add a pet to this Application")
+
+    fill_in :name_pet, with: "Scoo"
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+    expect(page).to have_content("Scooby")
+  end 
+
+  # user story #9
+  it "I see a button to add a pet to the application" do
+
+    visit "/applications/#{@application_2.id}"
+
+    expect(page).to have_content("add a pet to this Application")
+
+    fill_in :name_pet, with: "alex"
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+    expect(page).to have_content("mr. Alex")
+  end 
 end

@@ -3,9 +3,16 @@ class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     if params[:name_pet].present?
-      @pets = Pet.search(params[:name_pet])
+      @pets = Pet.where("LOWER(name) LIKE ?", "%#{params[:name_pet].downcase}%")
     end
   end
+  
+  # def show
+  #   @application = Application.find(params[:id])
+  #   if params[:name_pet].present?
+  #     @pets = Pet.search(params[:name_pet])
+  #   end
+  # end
   def new
     
   end
