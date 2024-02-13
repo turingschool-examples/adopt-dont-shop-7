@@ -74,6 +74,8 @@ RSpec.describe "Admins Shelter Show" do
           click_link("Take Action")
         end
         expect(page.current_path).to eq(show_admin_applications_path(@shelter_1.application_id_for_pet(pet.id)))
+        expect(page).to have_button("Approve Pet Application")
+        expect(page).to have_button("Reject Pet Application")
       end
     end
   end
