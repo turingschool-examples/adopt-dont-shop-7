@@ -8,13 +8,13 @@
 </div>
 
 <div class="page-filter">
-  <% if @application.status == "in_progress" && @application.added_pets? %>
+  <% if @application.status == "In Progress" && @application.added_pets? %>
     <%= render "pets_applied_for" %>
     <%= render "add_a_pet" %>
     <%= render "submit_application" %>
-  <% elsif @application.status == "in_progress" %>
+  <% elsif @application.status == "In Progress" %>
     <%= render "add_a_pet" %>
-  <% elsif @application.status == "pending" %>
+  <% elsif @application.status == "Pending" %>
     <%= render "pets_applied_for" %>
     <p>Why <%= @application.name %> would make a good owner: <%= @application.description %></p>
   <% else %>

@@ -2,7 +2,7 @@
 <% if @application.all_pets_approved? && @application.all_applications_reviewed? %>
   <%= render "list_of_pet_applications" %>
 <% elsif @application.all_applications_reviewed? && !@application.all_pets_approved? %>
-Application for <%= @application.name %> has been rejected
+  Application for <%= @application.name %> has been rejected
 <% else %>
   <%= render "list_of_pet_applications" %>
 <% end %>

@@ -1,6 +1,11 @@
 class ApplicationPet < ApplicationRecord
   validates :application_id, presence: true
   validates :pet_id, presence: true
+  validates :application_approved, inclusion: [true, false]
+  validates :application_approved, exclusion: [nil]
+  validates :application_reviewed, inclusion: [true, false]
+  validates :application_reviewed, exclusion: [nil]
+
 
   belongs_to :application
   belongs_to :pet

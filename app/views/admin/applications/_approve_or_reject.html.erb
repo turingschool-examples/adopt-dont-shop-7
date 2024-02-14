@@ -1,4 +1,6 @@
-<%= form_with url: path, method: :patch, data: { turbo: false } do |f| %>
+<$# locals: (pet_application_id:, app_approved:, app_id:, button:) -%>
+
+<%= form_with url: update_application_pets_path(pet_application_id), method: :patch, data: { turbo: false } do |f| %>
   <%= hidden_field_tag :application_reviewed, true %>
   <%= hidden_field_tag :application_approved, app_approved %>
   <%= hidden_field_tag :application_id, app_id %>

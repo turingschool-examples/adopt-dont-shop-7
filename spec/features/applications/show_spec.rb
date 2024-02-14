@@ -24,7 +24,7 @@ RSpec.describe "Application Show Page" do
 
       expect(page).to have_content("John's Application")
       expect(page).to have_content("Address: 1234 ABC Lane Turing, Backend 54321")
-      expect(page).to have_content("Application Status: in_progress")
+      expect(page).to have_content("Application Status: In Progress")
       expect(page).to have_content("Application Description: I love animals")
       expect(page).to have_link("#{@dog.name}")
       expect(page).to have_link("#{@cat.name}")
@@ -33,7 +33,7 @@ RSpec.describe "Application Show Page" do
 
   describe "User Story 4 - Searching for Pets for an Application" do
     it "has a search bar" do
-      expect(page).to have_content("in_progress")
+      expect(page).to have_content("In Progress")
       expect(page).to have_content("Add a Pet to this Application")
       expect(page).to have_field(:pet_name)
 
@@ -73,7 +73,7 @@ RSpec.describe "Application Show Page" do
 
       click_button("Submit Application")
       expect(current_path).to eq("/applications/#{@application_1.id}")
-      expect(page).to have_content("pending")
+      expect(page).to have_content("Pending")
       expect(page).to have_content("Dog")
       expect(page).to have_content("Cat")
       expect(page).to have_no_content("Add a Pet to this Application")

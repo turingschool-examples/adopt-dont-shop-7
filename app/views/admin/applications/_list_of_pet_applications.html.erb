@@ -1,3 +1,5 @@
+<$# locals: () -%>
+
 <div id="list-of-pet-applications">
   <% @application.application_pets.each do |pet_application| %>
     <div id="pet-<%= pet_application.pet.id %>">
@@ -6,20 +8,20 @@
       <% if !pet_application.application_reviewed && pet_application.pet_adopted? %>
         <p>This pet has already been approved for another adoption</p>
         <%= render partial: "approve_or_reject", locals: {
-                                                          path: update_application_pets_path(pet_application.id),
+                                                          pet_application_id: pet_application.id,
                                                           app_id: @application.id,
                                                           app_approved: false,
                                                           button: "Reject Pet Application"
         }%>  <br>
       <% elsif !pet_application.application_reviewed %>
         <%= render partial: "approve_or_reject", locals: {
-                                                          path: update_application_pets_path(pet_application.id),
+                                                          pet_application_id: pet_application.id,
                                                           app_id: @application.id,
                                                           app_approved: true,
                                                           button: "Approve Pet Application"
         }%>  <br>
           <%= render partial: "approve_or_reject", locals: {
-                                                            path: update_application_pets_path(pet_application.id),
+                                                            pet_application_id: pet_application.id,
                                                             app_id: @application.id,
                                                             app_approved: false,
                                                             button: "Reject Pet Application"

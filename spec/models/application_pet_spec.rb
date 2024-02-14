@@ -9,6 +9,10 @@ RSpec.describe ApplicationPet, type: :model do
   describe "validations" do
     it {should validate_presence_of :application_id}
     it {should validate_presence_of :pet_id}
+    it {should validate_inclusion_of(:application_approved).in_array([true, false])}
+    it {should validate_exclusion_of(:application_approved).in_array([nil])}
+    it {should validate_inclusion_of(:application_reviewed).in_array([true, false])}
+    it {should validate_exclusion_of(:application_reviewed).in_array([nil])}
   end
 
   before(:each) do
