@@ -32,6 +32,7 @@ RSpec.describe "new application page" do
       expect(page).to have_content("Backend")
       expect(page).to have_content("54321")
       expect(page).to have_content("I love animals")
+      expect(page).to have_content("In Progress")
     end
   end
 

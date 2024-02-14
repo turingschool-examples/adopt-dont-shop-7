@@ -1,21 +1,21 @@
 <%= form_with url: path, method: method, data: { turbo: false } do |f| %>
-  <%= f.label :name, "Name" %>
-  <%= f.text_field :name %></br>
+  <%= f.label :name, "Name:" %>
+  <%= f.text_field :name %><p>
 
   <%= f.label :street_address, "Street Address:" %>
-  <%= f.text_field :street_address %></br>
+  <%= f.text_field :street_address %><p>
 
   <%= f.label :city, "City:" %>
-  <%= f.text_field :city %></br>
+  <%= f.text_field :city %><p>
 
   <%= f.label :state, "State:" %>
-  <%= f.text_field :state %></br>
+  <%= f.text_field :state %><p>
 
   <%= f.label :zipcode, "Zipcode:" %>
-  <%= f.text_field :zipcode %></br>
+  <%= f.text_field :zipcode %><p>
 
   <%= f.label :description, "Why I would make a good home:" %>
-  <%= f.text_area :description %></br>
+  <%= f.text_area :description %><p>
 
   <%= f.submit button_text %>
 <% end %>
