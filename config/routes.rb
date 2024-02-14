@@ -50,5 +50,4 @@ Rails.application.routes.draw do
 
   post "/admin/applications/:id/pets/:pet_id/approve", to: "admin/application_pets#approve"
   post "/admin/applications/:id/pets/:pet_id/reject", to: "admin/application_pets#reject"
-
 end
