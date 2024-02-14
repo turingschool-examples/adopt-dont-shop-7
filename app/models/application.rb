@@ -11,3 +11,4 @@ class Application < ApplicationRecord
 	has_many :pet_apps, dependent: :destroy
 	has_many :pets, through: :pet_apps
 end
+
