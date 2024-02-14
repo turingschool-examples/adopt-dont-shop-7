@@ -5,15 +5,6 @@ class Admin::AdoptionApplicationsController < ApplicationController
         @app_pets = @adoption_app.pets
         @pets = Pet.search(params[:search])
 
-        if params[:added_pet].present?
-            pet_id = params[:added_pet]
-            @adoption_app.add_pet_to_app(pet_id)
-        end
-
-        if params[:ownership_description].present?
-            @adoption_app.change_app_status("Pending")
-        end
-
         if params[:approved_pet].present?
             pet_id = params[:approved_pet]
             AdoptionApplicationPet.change_status_to_approved(@adoption_app.id, pet_id)

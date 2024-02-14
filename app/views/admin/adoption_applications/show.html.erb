@@ -36,36 +36,3 @@
     </div> 
 <% end %>
 </ul>
-
-<div id="pet_search">
-<% if @adoption_app.status == "In Progress" %>
-    <h3>Add Pets to this Application:</h3>
-    <%= form_with url: "/applications/#{@adoption_app.id}?search", method: :get do |form| %>
-        <%= form.label :search, "Search Pet by Name: " %>
-        <%= text_field_tag(:search, params[:search]) %>
-        <%= form.submit "Search" %>
-    <% end %>
-
-    <h3> Adoptable Pets: </h3>
-    <% if @pets.nil? %>
-        <p>No pets found</p>
-    <% else %> 
-        <ol>
-            <% @pets.each do |pet| %>
-            <div id="adoptable-pet-<%= pet.id %>">
-                <li><%= pet.name %></li>
-                <ul>
-                <li>Breed: <%= pet.breed %></li>
-                <li>Age: <%= pet.age %></li>
-                <li>Adoptable: <%= pet.adoptable %></li>
-                </ul>
-                <%= form_with url: "/applications/#{@adoption_app.id}", method: :get do |form| %>
-                <%= form.hidden_field :add_pet, value: pet.id  %>
-                <%= form.submit "Adopt this Pet" %>
-                <% end %>
-            </div>
-            <% end %>
-        </ol>
-    <% end %>
-<% end %>
-</div>

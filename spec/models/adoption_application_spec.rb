@@ -36,6 +36,7 @@ RSpec.describe AdoptionApplication, type: :model do
          pet_2 = Pet.create(name: "Scrappy", age: 1, breed: "Pit Mix", adoptable: true, shelter_id: shelter.id)
          application = AdoptionApplication.create!(name: "Mel", street_address: "23 Main St", city: "Denver", state: "CO", zip_code: 80303, description: "I have a fenced backyard and love dogs")
 
+
          expect(application.status).to eq("In Progress")
 
          application.change_app_status("Pending")
