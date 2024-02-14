@@ -41,7 +41,7 @@ RSpec.describe Pet, type: :model do
       end
     end
 
-    describe "#find_application_pets(application_id)" do
+    describe "#find_application_pet(application_id)" do
       it "can find the application pets record for itself and the passed in application id" do
         shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
