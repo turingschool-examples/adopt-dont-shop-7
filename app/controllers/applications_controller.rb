@@ -23,10 +23,14 @@ class ApplicationsController < ApplicationController
 
   def update
     application = Application.find(params[:id])
-    application.update(application_status: "Pending")
-    applicationpet = application.application_pets
-    applicationpet.update(pet_reason: (params[:app_pet_reason]))
-    
+    application.pending
+    # application.update(application_status: "Pending")
+    applicationpets = application.application_pets
+    applicationpets.each do |applicationpet|
+        applicationpet.pet_reason(params[:app_pet_reason])
+    end
+    # applicationpet.update(pet_reason: (params[:app_pet_reason]))
+    # applicationpet.pet_reason(params[:app_pet_reason])
     redirect_to "/applications/#{application.id}"
   end
 

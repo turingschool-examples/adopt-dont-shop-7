@@ -11,6 +11,12 @@ class Application < ApplicationRecord
     # validates :application_status, presence: true
 
 
+    def pending
+      update(application_status: "Pending")
+    end
+
+  
+
 end
 
 

@@ -5,11 +5,16 @@ class ApplicationPet < ApplicationRecord
 
   def approve
     update(pet_adoptable: "approve")
-end
+  end
 
-def reject
+  def reject
     update(pet_adoptable: "reject")
-end
+  end
+
+  def pet_reason(reason)
+    update(pet_reason: (reason))
+  end
+
 
 end
 
