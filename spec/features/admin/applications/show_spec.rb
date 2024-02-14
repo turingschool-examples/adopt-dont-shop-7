@@ -32,7 +32,25 @@ RSpec.describe "Admins Shelter Index" do
     click_button("Approve")
 
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-    expect(page).to have_content("Pet Approved")
+    expect(page).to have_content("Approved")
+    expect(page).to have_content("Lucille Bald")
+    expect(page).to_not have_button("Approve")
+
+
+  end
+  # User Story 13
+  it "has a button to approve an application for a specific pet" do
+    visit "/admin/applications/#{@application_4.id}"
+
+    expect(page).to have_content("Lucille Bald")
+    expect(page).to have_button("Reject")
+    click_button("Reject")
+
+    expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+    expect(page).to have_content("Rejected")
+    expect(page).to have_content("Lucille Bald")
+    expect(page).to_not have_button("Reject")
+
   end
 end
 
