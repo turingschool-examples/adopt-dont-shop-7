@@ -10,12 +10,12 @@ RSpec.describe "new application page" do
     it "has a form to create an application" do
       visit "/applications/new"
 
-      expect(page).to have_content("Name")
-      expect(page).to have_content("Street Address")
-      expect(page).to have_content("City")
-      expect(page).to have_content("State")
-      expect(page).to have_content("Zipcode")
-      expect(page).to have_content("Description")
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Street Address")
+      expect(page).to have_field("City")
+      expect(page).to have_field("State")
+      expect(page).to have_field("Zipcode")
+      expect(page).to have_field("Why I would make a good home")
       expect(page).to have_button("Submit")
 
       fill_in("name", with: "John")
