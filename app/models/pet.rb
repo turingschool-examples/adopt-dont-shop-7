@@ -19,13 +19,13 @@ class Pet < ApplicationRecord
     Pet.where("name ILIKE ?", "%#{pet}%")
   end
 
-  def choice_made(application)
-    ApplicationPet.find_by(pet: self, application: application).status?
-  end
+  # def choice_made(application)
+  #   ApplicationPet.find_by(pet: self, application: application).status?
+  # end
 
-  def status(application)
-    ApplicationPet.find_by(pet: self, application: application).status
-  end
+  # def status(application)
+  #   ApplicationPet.find_by(pet: self, application: application).status
+  # end
 
 
 end
