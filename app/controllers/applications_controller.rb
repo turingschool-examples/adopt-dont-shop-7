@@ -34,6 +34,11 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{params[:id]}"
   end
 
+  def destroy
+    Application.find(params[:id]).destroy
+    redirect_to "/applications"
+  end
+
   private
     def applications_params
       params.permit( :name, :street_address, :city, 

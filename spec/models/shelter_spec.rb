@@ -4,6 +4,13 @@ RSpec.describe Shelter, type: :model do
   describe "relationships" do
     it { should have_many(:pets) }
   end
+
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:rank) }
+    it { should validate_numericality_of(:rank) }
+    it { should validate_presence_of(:city) }
+  end
   
   before(:each) do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)

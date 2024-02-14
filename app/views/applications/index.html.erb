@@ -1,3 +1,14 @@
 <h1>Applications</h1>
 
-<p>Applications total: <%= @applications.num_of_applications %></p>
+<p>Applications total: <%= @applications.num_of_applications %></p><br>
+<% @applications.each do |application| %>
+  <div id=  "application-<%= application.id %>" >
+    <h3><%= application.name %></h3>
+    Address: <%= application.populate_address %><br>
+    Adopting Reason(s): <%= application.adopting_reason %><br>
+    Status: <%= application.status %><br>
+    <%= link_to "Edit #{application.name}", "/applications/#{application.id}", method: :patch %><br>
+    <%= link_to "Delete application", "/applications/#{application.id}", method: :delete %><br>
+  </div>
+<% end %>
+<%= link_to "New Application", "/applications/new" %>
