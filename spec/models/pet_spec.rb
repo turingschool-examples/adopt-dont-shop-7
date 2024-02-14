@@ -20,29 +20,6 @@ RSpec.describe Pet, type: :model do
 
   end
 
-  describe '#status' do
-    xit 'returns the status of of a pet on an application' do
-      ApplicationPet.create!(pet: @pet_2, application: @applicant1, status:"Approved")
-      ApplicationPet.create!(pet: @pet_1, application: @applicant1, status:"Rejected")
-      ApplicationPet.create!(pet: @pet_3, application: @applicant1)
-      expect(@pet_2.status(@applicant1)).to eq("Approved")
-      expect(@pet_3.status(@applicant1)).to eq(nil)
-      expect(@pet_1.status(@applicant1)).to eq("Rejected")
-    end
-  end
-
-  describe '#choice_made' do
-    xit 'checks if pet is rejected or approved on an application' do
-      ApplicationPet.create!(pet: @pet_2, application: @applicant1, status:"Approved")
-      ApplicationPet.create!(pet: @pet_1, application: @applicant1, status:"Rejected")
-      ApplicationPet.create!(pet: @pet_3, application: @applicant1)
-      
-      expect(@pet_2.choice_made(@applicant1)).to eq(true)
-      expect(@pet_1.choice_made(@applicant1)).to eq(true)
-      expect(@pet_3.choice_made(@applicant1)).to eq(false)
-    end
-  end
-
   describe "class methods" do
     describe "#search" do
       it "returns partial matches" do
