@@ -5,17 +5,6 @@ class Admin::AdoptionApplicationsController < ApplicationController
         @app_pets = @adoption_app.pets
         @pets = Pet.search(params[:search])
 
-        # Admin can add pet to the application as well
-        if params[:added_pet].present?
-            pet_id = params[:added_pet]
-            @adoption_app.add_pet_to_app(pet_id)
-        end
-
-        # Automatically changes the status if ownership description is filled in
-        if params[:ownership_description].present?
-            @adoption_app.change_app_status("Pending")
-        end
-
         # We want to change the application status rather than if the pet is adoptable, user story 14 requires pet to be still visible
         if params[:approved_pet].present?
             pet_id = params[:approved_pet]
