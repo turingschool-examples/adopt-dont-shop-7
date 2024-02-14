@@ -42,7 +42,7 @@ RSpec.describe Pet, type: :model do
     end
 
     describe "#find_application_pet(application_id)" do
-      it "can find the application pets record for itself and the passed in application id" do
+      it "can find the application pet record for itself and the passed in application id" do
         shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
         pet_1 = shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
         application_1 = Application.create!(name: "Test 1", street_address: "123 street", city: "denver", state: "co", zip_code: 80023, endorsement: "Still the raddest", status: "Pending")
@@ -50,7 +50,7 @@ RSpec.describe Pet, type: :model do
         application_pet_1 = ApplicationPet.create!(application_id: application_1.id, pet_id: pet_1.id)
         application_pet_2 = ApplicationPet.create!(application_id: application_2.id, pet_id: pet_1.id)
 
-        expect(pet_1.find_application_pets(application_2.id)).to eq(application_pet_2)
+        expect(pet_1.find_application_pet(application_2.id)).to eq(application_pet_2)
       end
     end
   end
