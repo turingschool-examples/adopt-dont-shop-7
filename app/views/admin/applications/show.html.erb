@@ -1,5 +1,6 @@
 <h1><%= @application.name %>'s Application Page</h1>
 <% if @application.all_pets_approved? && @application.all_applications_reviewed? %>
+  <h2>Application Status: <%= @application.status %></h2>
   <%= render "list_of_pet_applications" %>
 <% elsif @application.all_applications_reviewed? && !@application.all_pets_approved? %>
   Application for <%= @application.name %> has been rejected

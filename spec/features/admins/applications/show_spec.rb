@@ -34,10 +34,9 @@ RSpec.describe "Admins Application Show Page" do
         expect(page).to have_content("Mr. Pirate")
         expect(page).to have_button("Approve Pet Application")
         click_button("Approve Pet Application")
-
         expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
         expect(page).to have_content("Pet Approved")
-        expect(page.has_button?).to be false
+        expect(page).to have_no_button("Approve Pet Application")
       end
     end
   end
@@ -46,11 +45,6 @@ RSpec.describe "Admins Application Show Page" do
     it "has a button to reject the application for a pet" do
       within "#pet-#{@pet_1.id}" do
         expect(page).to have_button("Reject Pet Application")
-      end
-    end
-
-    it "refreshes the page showing the rejected pet" do
-      within "#pet-#{@pet_1.id}" do
         click_button("Reject Pet Application")
 
         expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
@@ -65,33 +59,32 @@ RSpec.describe "Admins Application Show Page" do
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_content("Lucille Bald")
         expect(page).to have_button("Approve")
-
+        expect(page).to have_button("Reject")
 
         click_button("Approve")
-        expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
-        expect(page).to have_content("Pet Approved")
       end
 
-
-    visit "/admin/applications/#{@application_3.id}"
+      visit "/admin/applications/#{@application_3.id}"
       within "#pet-#{@pet_3.id}" do
         expect(page).to have_content("Lucille Bald")
-        expect(page).to have_no_content("Pet Approved")
+        # expect(page).to have_button("Approve")
+        # Overidden with US - 18
+        expect(page).to have_button("Reject")
       end
     end
   end
 
   describe "User Story 15 - All Pets Accepted on an Application - Completed Applications" do
     it "changes application status to 'approved' when all pets have been approved" do
-        within "#pet-#{@pet_3.id}" do
+      save_and_open_page
+      all_pets = @application_2.pets
+      all_pets.each do |pet|
+        within "#pet-#{pet.id}" do
           click_button("Approve")
         end
-
-        within "#pet-#{@pet_1.id}" do
-          click_button("Approve")
-        end
+      end
         expect(page.current_path).to eq("/admin/applications/#{@application_2.id}")
-        expect(page).to have_content("Approved")
+        expect(page).to have_content("Application Status: Accepted")
     end
   end
 

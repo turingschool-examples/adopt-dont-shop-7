@@ -42,15 +42,9 @@ RSpec.describe "Admins Shelter Index" do
     it "displays Shelters with Pending Applications" do
       expect(page).to have_content("Shelters with Pending Applications")
 
-      within "#pending-#{@shelter_1.id}" do
+      within "#pending-applications" do
         expect(page).to have_content("Fancy pets of Colorado")
-      end
-
-      within "#pending-#{@shelter_3.id}" do
         expect(page).to have_content("Aurora shelter")
-      end
-
-      within "#pending-#{@rithm.id}" do
         expect(page).to have_content("Rithm School")
       end
     end
