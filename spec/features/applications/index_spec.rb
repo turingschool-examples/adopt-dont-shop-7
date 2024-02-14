@@ -86,7 +86,7 @@ RSpec.describe "application" do
 
   it "displays a link to delete each application" do
     visit "/applications"
-    save_and_open_page
+
     within "#application-#{@application_1.id}" do
 
       click_link("Delete application")
