@@ -76,7 +76,6 @@ RSpec.describe "Admins Application Show Page" do
 
   describe "User Story 15 - All Pets Accepted on an Application - Completed Applications" do
     it "changes application status to 'approved' when all pets have been approved" do
-      save_and_open_page
       all_pets = @application_2.pets
       all_pets.each do |pet|
         within "#pet-#{pet.id}" do

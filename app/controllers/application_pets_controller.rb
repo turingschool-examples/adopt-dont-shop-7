@@ -9,12 +9,7 @@ class ApplicationPetsController < ApplicationController
   def update
     application_pet = ApplicationPet.find(params[:id])
     application_pet.update(application_pet_params)
-    if params[:application_approved]
-      pet = Pet.find(application_pet.pet_id)
-      pet.update(adoptable: false)
-      application = Application.find(params[:application_id])
-      application.update(status: 2)
-    end
+
 
     redirect_to show_admin_applications_path(params[:application_id])
   end

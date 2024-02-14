@@ -43,4 +43,30 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
   end
+
+  describe "callbacks" do
+    describe "#update_pet" do
+      it "updates the pet's adoptable attribute to false when ApplicationPet is approved" do
+        new_app = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_2.id)
+
+        expect(@pet_2.adoptable?).to eq(true)
+
+        new_app.update!(application_approved: true)
+
+        expect(new_app.pet.adoptable?).to eq(false)
+      end
+    end
+
+    describe "#update_application" do
+      it "updates the applications's statis to 'Accepted' when ApplicationPet is approved" do
+        new_app = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_2.id)
+
+        expect(new_app.application.status).to eq("Pending")
+
+        new_app.update!(application_approved: true)
+
+        expect(new_app.application.status).to eq("Accepted")
+      end
+    end
+  end
 end
