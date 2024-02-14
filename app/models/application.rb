@@ -17,4 +17,8 @@ class Application < ApplicationRecord
     "#{street_address}, #{city}, #{state}, #{zip_code}"
   end
 
+  # def approved_for_pet?(pet)
+  #   require 'pry'; binding.pry
+  #   application_pets.find(pet_id: pet).status == "Approved"
+  # end
 end

@@ -29,7 +29,7 @@ RSpec.describe 'Admin Applications Show Page', type: :feature do
     # As a visitor
     # When I visit an admin application show page ('/admin/applications/:id')
     visit "/admin/applications/#{@application_4.id}"
-    
+
     # For every pet that the application is for, I see a button to approve the application for that specific pet
     within '.pets' do
       within "#pet-#{@pet_2.id}" do
@@ -39,7 +39,7 @@ RSpec.describe 'Admin Applications Show Page', type: :feature do
     end
     # Then I'm taken back to the admin application show page
     expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-    
+
     within"#pet-#{@pet_2.id}" do
       # And next to the pet that I approved, I do not see a button to approve this pet
       expect(page).to_not have_button("Approve Application for #{@pet_2.name}")
