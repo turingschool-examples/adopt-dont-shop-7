@@ -1,4 +1,4 @@
-<h2>Applicant: <%= @application.name %></h2>
+<%= render "applications/applicant_info" %>
 <% @application.find_pets.each do |pet| %>
   <div id="<%= pet.id %>">
     <% if pet.find_application_pets(@application.id).status == "Pending" %>

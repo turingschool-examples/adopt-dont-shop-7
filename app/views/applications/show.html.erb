@@ -1,6 +1,4 @@
-<h3><%= @application.name %></h3>
-<h4><%= @application.street_address %>, <%= @application.city  %>, <%= @application.state %>, <%= @application.zip_code %></h4>
-<p><%= @application.endorsement %></p>
+<%= render "applicant_info" %>
 
 <h3>Pets on Application:</h3>
 <% @application.find_pets.each do |pet| %>
