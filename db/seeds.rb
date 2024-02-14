@@ -10,6 +10,7 @@ ApplicationPet.destroy_all
 Pet.destroy_all
 Veterinarian.destroy_all
 Shelter.destroy_all
+VeterinaryOffice.destroy_all
 Application.destroy_all
 
 application = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
