@@ -12,6 +12,7 @@ class ApplicationPet < ApplicationRecord
 
   after_update :update_pet
   after_update :update_application
+
   def pet_adopted?
     pet = Pet.find(self[:pet_id])
     !pet.adoptable?

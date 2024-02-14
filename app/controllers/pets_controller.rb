@@ -1,10 +1,6 @@
 class PetsController < ApplicationController
   def index
-    if params[:search].present?
-      @pets = Pet.search(params[:search])
-    else
-      @pets = Pet.adoptable
-    end
+    index_filter
   end
 
   def show
@@ -16,13 +12,7 @@ class PetsController < ApplicationController
   end
 
   def create
-    pet = Pet.new(pet_params)
-    if pet.save
-      redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
-    else
-      redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
-      flash[:alert] = "Error: #{error_message(pet.errors)}"
-    end
+    create_filter
   end
 
   def edit
@@ -30,13 +20,7 @@ class PetsController < ApplicationController
   end
 
   def update
-    pet = Pet.find(params[:id])
-    if pet.update(pet_params)
-      redirect_to "/pets/#{pet.id}"
-    else
-      redirect_to "/pets/#{pet.id}/edit"
-      flash[:alert] = "Error: #{error_message(pet.errors)}"
-    end
+    update_filter
   end
 
   def destroy
@@ -48,5 +32,33 @@ class PetsController < ApplicationController
 
   def pet_params
     params.permit(:id, :name, :age, :breed, :adoptable, :shelter_id)
+  end
+
+  def index_filter
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    else
+      @pets = Pet.adoptable
+    end
+  end
+
+  def update_filter
+    pet = Pet.find(params[:id])
+    if pet.update(pet_params)
+      redirect_to "/pets/#{pet.id}"
+    else
+      redirect_to "/pets/#{pet.id}/edit"
+      flash[:alert] = "Error: #{error_message(pet.errors)}"
+    end
+  end
+
+  def create_filter
+    pet = Pet.new(pet_params)
+    if pet.save
+      redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
+    else
+      redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
+      flash[:alert] = "Error: #{error_message(pet.errors)}"
+    end
   end
 end

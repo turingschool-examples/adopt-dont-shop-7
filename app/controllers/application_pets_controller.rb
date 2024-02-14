@@ -10,7 +10,6 @@ class ApplicationPetsController < ApplicationController
     application_pet = ApplicationPet.find(params[:id])
     application_pet.update(application_pet_params)
 
-
     redirect_to show_admin_applications_path(params[:application_id])
   end
 

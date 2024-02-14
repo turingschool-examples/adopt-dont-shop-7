@@ -1,24 +1,10 @@
 class SheltersController < ApplicationController
   def index
-    if params[:sort].present? && params[:sort] == "pet_count"
-      @shelters = Shelter.order_by_number_of_pets
-    elsif params[:search].present?
-      @shelters = Shelter.search(params[:search])
-    else
-      @shelters = Shelter.order_by_recently_created
-    end
+    index_filter
   end
 
   def pets
-    @shelter = Shelter.find(params[:shelter_id])
-
-    if params[:sort] == "alphabetical"
-      @shelter_pets = @shelter.alphabetical_pets
-    elsif params[:age]
-      @shelter_pets = @shelter.shelter_pets_filtered_by_age(params[:age])
-    else
-      @shelter_pets = @shelter.adoptable_pets
-    end
+    pets_filter
   end
 
   def show
@@ -29,14 +15,7 @@ class SheltersController < ApplicationController
   end
 
   def create
-    shelter = Shelter.new(shelter_params)
-
-    if shelter.save
-      redirect_to "/shelters"
-    else
-      redirect_to "/shelters/new"
-      flash[:alert] = "Error: #{error_message(shelter.errors)}"
-    end
+    create_filter
   end
 
   def edit
@@ -44,13 +23,7 @@ class SheltersController < ApplicationController
   end
 
   def update
-    shelter = Shelter.find(shelter_params[:id])
-    if shelter.update(shelter_params)
-      redirect_to "/shelters"
-    else
-      redirect_to "/shelters/#{shelter.id}/edit"
-      flash[:alert] = "Error: #{error_message(shelter.errors)}"
-    end
+    update_filter
   end
 
   def destroy
@@ -63,5 +36,48 @@ class SheltersController < ApplicationController
 
   def shelter_params
     params.permit(:id, :name, :city, :foster_program, :rank)
+  end
+
+  def index_filter
+    if params[:sort].present? && params[:sort] == "pet_count"
+      @shelters = Shelter.order_by_number_of_pets
+    elsif params[:search].present?
+      @shelters = Shelter.search(params[:search])
+    else
+      @shelters = Shelter.order_by_recently_created
+    end
+  end
+
+  def pets_filter
+    @shelter = Shelter.find(params[:shelter_id])
+
+    if params[:sort] == "alphabetical"
+      @shelter_pets = @shelter.alphabetical_pets
+    elsif params[:age]
+      @shelter_pets = @shelter.shelter_pets_filtered_by_age(params[:age])
+    else
+      @shelter_pets = @shelter.adoptable_pets
+    end
+  end
+
+  def create_filter
+    shelter = Shelter.new(shelter_params)
+
+    if shelter.save
+      redirect_to "/shelters"
+    else
+      redirect_to "/shelters/new"
+      flash[:alert] = "Error: #{error_message(shelter.errors)}"
+    end
+  end
+
+  def update_filter
+    shelter = Shelter.find(shelter_params[:id])
+    if shelter.update(shelter_params)
+      redirect_to "/shelters"
+    else
+      redirect_to "/shelters/#{shelter.id}/edit"
+      flash[:alert] = "Error: #{error_message(shelter.errors)}"
+    end
   end
 end
