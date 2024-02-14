@@ -14,7 +14,7 @@ class AdoptionApplication < ApplicationRecord
       self.pets << pet
    end
 
-   # admin
+   # admin 
    def change_app_status(new_status)
       self.update(status: new_status)
    end

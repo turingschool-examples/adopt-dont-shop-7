@@ -62,13 +62,15 @@ RSpec.describe 'Admin Applications Show Page' do
             
             visit "/admin/applications/#{application_1.id}"
 
-            expect(page).to have_button("Approve")
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_button("Approve")
 
-            click_on "Approve"
+                click_on "Approve"
 
-            expect(current_path).to eq("/admin/applications/#{application_1.id}")
-            expect(page).not_to have_button("Approve")
-            expect(page).to have_content("#{pet_1.name} already approved!")
+                expect(current_path).to eq("/admin/applications/#{application_1.id}")
+                expect(page).not_to have_button("Approve")
+                expect(page).to have_content("#{pet_1.name} already approved!")
+            end
         end
 
         it 'displays updated approval for pet' do
@@ -79,12 +81,13 @@ RSpec.describe 'Admin Applications Show Page' do
 
             visit "/admin/applications/#{application_1.id}"
 
-            expect(page).to have_button("Approve")
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_button("Approve")
 
-            click_on "Approve"
-
-            expect(page).to have_content("#{pet_1.name} already approved!")
-            expect(page).not_to have_button("Approve")
+                click_on "Approve"
+                expect(page).to have_content("#{pet_1.name} already approved!")
+                expect(page).not_to have_button("Approve")
+            end
         end
     end
 
@@ -98,8 +101,10 @@ RSpec.describe 'Admin Applications Show Page' do
 
             visit "/admin/applications/#{application_1.id}"
 
-            expect(page).to have_content(pet_1.name)
-            expect(page).to have_button("Reject")
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_content(pet_1.name)
+                expect(page).to have_button("Reject")
+            end
         end
 
         it 'button click redirects to admin application show page' do
@@ -111,13 +116,15 @@ RSpec.describe 'Admin Applications Show Page' do
             
             visit "/admin/applications/#{application_1.id}"
 
-            expect(page).to have_button("Reject")
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_button("Reject")
 
-            click_on "Reject"
+                click_on "Reject"
 
-            expect(current_path).to eq("/admin/applications/#{application_1.id}")
-            expect(page).not_to have_button("Reject")
-            expect(page).to have_content("#{pet_1.name} already rejected!")
+                expect(current_path).to eq("/admin/applications/#{application_1.id}")
+                expect(page).not_to have_button("Reject")
+                expect(page).to have_content("#{pet_1.name} already rejected!")
+            end
         end
 
         it 'displays updated reject for pet' do
@@ -128,12 +135,15 @@ RSpec.describe 'Admin Applications Show Page' do
 
             visit "/admin/applications/#{application_1.id}"
 
-            expect(page).to have_button("Reject")
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_button("Reject")
 
-            click_on "Reject"
+                click_on "Reject"
 
-            expect(page).to have_content(pet_1.adoptable)
-            expect(page).not_to have_button("Reject")
+                expect(current_path).to eq("/admin/applications/#{application_1.id}")
+                expect(page).not_to have_button("Reject")
+                expect(page).to have_content("#{pet_1.name} already rejected!")
+            end
         end
     end
     
@@ -146,22 +156,28 @@ RSpec.describe 'Admin Applications Show Page' do
 
             visit "/admin/applications/#{application.id}"
 
-            expect(page).to have_content("Add Pets to this Application")
-            expect(page).to have_content("Search Pet by Name")
+            within "#pet_search" do
+                expect(page).to have_content("Add Pets to this Application")
+                expect(page).to have_content("Search Pet by Name")
 
-            fill_in "search", with: "Sc"
-            click_on "Search"
+                fill_in "search", with: "Sc"
+                click_on "Search"
+            end
 
-            expect(page).to have_content(pet_1.name)
-            expect(page).to have_content(pet_1.breed)
-            expect(page).to have_content(pet_1.age)
-            expect(page).to have_content(pet_1.adoptable)
-            expect(page).to have_content(pet_2.name)
-            expect(page).to have_content(pet_2.breed)
-            expect(page).to have_content(pet_2.age)
-            expect(page).to have_content(pet_2.adoptable)
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_content(pet_1.name)
+                expect(page).to have_content(pet_1.breed)
+                expect(page).to have_content(pet_1.age)
+                expect(page).to have_content(pet_1.adoptable)
+                expect(page).to have_button("#{pet_1.name}")
+            end
 
-            expect(page).to have_button("#{pet_1.name}")
+            within "#pet-#{pet_2.id}" do
+                expect(page).to have_content(pet_2.name)
+                expect(page).to have_content(pet_2.breed)
+                expect(page).to have_content(pet_2.age)
+                expect(page).to have_content(pet_2.adoptable)
+            end
         end
 
         it 'is has partial matches' do
@@ -172,23 +188,29 @@ RSpec.describe 'Admin Applications Show Page' do
 
             visit "/admin/applications/#{application.id}"
 
-            expect(page).to have_content("Add Pets to this Application")
-            expect(page).to have_content("Search Pet by Name")
+            within "#pet_search" do
+                expect(page).to have_content("Add Pets to this Application")
+                expect(page).to have_content("Search Pet by Name")
 
-            fill_in "search", with: "sc"
-            click_on "Search"
+                fill_in "search", with: "Sc"
+                click_on "Search"
+            end
 
-            expect(page).to have_content(pet_1.name)
-            expect(page).to have_content(pet_1.breed)
-            expect(page).to have_content(pet_1.age)
-            expect(page).to have_content(pet_1.adoptable)
-            expect(page).to have_button("Adopt #{pet_1.name}")
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_content(pet_1.name)
+                expect(page).to have_content(pet_1.breed)
+                expect(page).to have_content(pet_1.age)
+                expect(page).to have_content(pet_1.adoptable)
+                expect(page).to have_button("Adopt #{pet_1.name}")
+            end
 
-            expect(page).to have_content(pet_2.name)
-            expect(page).to have_content(pet_2.breed)
-            expect(page).to have_content(pet_2.age)
-            expect(page).to have_content(pet_2.adoptable)
-            expect(page).to have_button("Adopt #{pet_2.name}")
+            within "#pet-#{pet_2.id}" do
+                expect(page).to have_content(pet_2.name)
+                expect(page).to have_content(pet_2.breed)
+                expect(page).to have_content(pet_2.age)
+                expect(page).to have_content(pet_2.adoptable)
+                expect(page).to have_button("Adopt #{pet_2.name}")
+            end
         end
 
         it 'display a button to adopt the pet under each pet' do
@@ -199,10 +221,26 @@ RSpec.describe 'Admin Applications Show Page' do
 
             visit "/admin/applications/#{application.id}"
 
-            fill_in "search", with: "scooby"
-            click_button "Search"
+            within "#pet_search" do
+                fill_in "search", with: "Sc"
+                click_on "Search"
+            end
 
-            expect(page).to have_button("Adopt Scooby")
+            within "#pet-#{pet_1.id}" do
+                expect(page).to have_content(pet_1.name)
+                expect(page).to have_content(pet_1.breed)
+                expect(page).to have_content(pet_1.age)
+                expect(page).to have_content(pet_1.adoptable)
+                expect(page).to have_button("Adopt #{pet_1.name}")
+            end
+
+            within "#pet-#{pet_2.id}" do
+                expect(page).to have_content(pet_2.name)
+                expect(page).to have_content(pet_2.breed)
+                expect(page).to have_content(pet_2.age)
+                expect(page).to have_content(pet_2.adoptable)
+                expect(page).to have_button("Adopt #{pet_2.name}")
+            end
         end
 
         it 'shows added pets to adoption application' do
@@ -219,7 +257,7 @@ RSpec.describe 'Admin Applications Show Page' do
             click_button "Adopt Scooby"
             
             fill_in "search", with: "a"
-
+            
             expect(page).to have_content(pet_1.name)
         end
     end
