@@ -21,16 +21,4 @@ class Application < ApplicationRecord
     status == "In Progress"
   end
 
-  def pending?
-    status == "Pending"
-  end
-
-  def approved?
-    status == "Approved"
-  end
-
-  def rejected?
-    status == "Rejected"
-  end
-  
 end
