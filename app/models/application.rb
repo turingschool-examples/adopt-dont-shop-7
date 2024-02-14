@@ -16,5 +16,4 @@ class Application < ApplicationRecord
   def populate_address
     "#{street_address}, #{city}, #{state}, #{zip_code}"
   end
-
 end

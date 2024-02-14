@@ -1,11 +1,20 @@
 <h1>Admin Applications</h1>
-<h3> <%= @application.name%>'s Application</h3>
+<h3> <%= @application.name %>'s Application</h3>
 
 <section class="pets">
   <% @application.pets.each do |pet|%>
-  <div id="pet-<%= pet.id %>">
-    <li><%= pet.name %></li>
-    <%= button_to "Approve Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}?approve", method: :patch, local: true%>
-  </div>
+    <div id="pet-<%= pet.id %>">
+      <li><%= pet.name %></li>
+      <% if !@application_pet || @application_pet.pet_id != pet.id %>
+        <%= button_to "Approve Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}&approve=true", method: :patch, local: true%>
+        <%= button_to "Reject Application", "/admin/applications/#{@application.id}?pet_id=#{pet.id}&reject=true", method: :patch, local: true%>
+      <% end %>
+
+      <% if @result && @application_pet && @application_pet.pet_id == pet.id %>
+        <p>Application approved for <%= pet.name %></p>
+      <% elsif !@result && @application_pet && @application_pet.pet_id == pet.id %>
+        <p>Application rejected for <%= pet.name %></p>
+      <% end %>
+    </div>
   <% end %>
 </section>
