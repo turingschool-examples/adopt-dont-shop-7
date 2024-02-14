@@ -1,12 +1,12 @@
 
 
-<%= @application.name%>
-<%= @application.street_address%>
-<%= @application.city%>
-<%= @application.state%>
-<%= @application.zip_code%>
-<%= @application.description%>
-<%= @application.status%>
+<h1>Applicant's Name: <%= @application.name%></h1>
+<p> Street Address: <%= @application.street_address%></p>
+<p>City: <%= @application.city%></p>
+<p>State: <%= @application.state%></p>
+<p>Zip Code: <%= @application.zip_code%></p>
+<p>Description: <%= @application.description%></p>
+<p>Status: <%= @application.status%></p>
 
 
 <% @application.application_pets.each do |app_pet| %>

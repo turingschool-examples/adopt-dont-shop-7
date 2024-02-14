@@ -28,6 +28,22 @@ RSpec.describe "application new" do
         expect(page).to have_content("In Progress")
 
       end
+
+      it 'only validates applications with zipcodes as integers' do
+        visit "/applications/new"
+
+        fill_in :name, with: "Bob"
+        fill_in :street_address, with: "3455 DR"
+        fill_in :city, with: "LA"
+        fill_in :state, with: "Cali"
+        fill_in :zip_code, with: "trle"
+        fill_in :description, with: "I'm here"
+
+        click_on("Submit")
+        # save_and_open_page 
+
+        expect(page).to have_content('All fields must be filled in')
+      end
     end
   end
 
