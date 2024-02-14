@@ -23,23 +23,16 @@ RSpec.describe "Admins Shelter Index" do
   
   end
 
-  #User Story 10
-  it "Displays all Shelters in the system listed in reverse alphabetical order by name" do
-    visit "/admin/shelters"
+  # User Story 12
+  it "has a button to approve an application for a specific pet" do
+    visit "/admin/applications/#{@application_4.id}"
 
-    within "#reverse_alphabetical_order" do
-      expect("RGV animal shelter").to appear_before("Fancy pets of Colorado")
-      expect("Fancy pets of Colorado").to appear_before("Aurora shelter")
-    end
-  end 
+    expect(page).to have_content("Lucille Bald")
+    expect(page).to have_button("Approve")
+    click_button("Approve")
 
-  # User Story 11
-  it "lists of every shelter with a pending application" do
-    visit "/admin/shelters"
-    within("#applications_pending") do
-      expect(page).to have_content("Aurora shelter")
-      expect(page).to have_content("Fancy pets of Colorado")
-      expect(page).to_not have_content("RGV animal shelter")
-    end 
+    expect(current_path).to eq("/admin/applications/#{@application_4.id}")
+    expect(page).to have_content("Pet Approved")
   end
 end
+

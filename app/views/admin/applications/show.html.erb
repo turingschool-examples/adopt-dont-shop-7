@@ -1,0 +1,14 @@
+<h3>Applications Pending Approval:</h3>
+
+<% @application.pets.each do |pet| %>
+    <div id="pet-<%= pet.id %>">
+      <li><%= pet.name %></li>
+        <ul>
+        <% if @application.application_pets.where(pet.id == application_pets.pet_id) %>
+          <%= form_with url: "admin/applications/#{@application.id}", method: :patch, local: true do |form| %>
+          <%= form.hidden_field :pet_id, value: pet.id %>
+          <%= form.submit "Approve #{pet.name}" %>
+          <%= form.submit "Reject #{pet.name}" %>
+          <% end %>
+        <% end %>
+<% end %>
