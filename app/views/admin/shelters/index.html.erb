@@ -1,8 +1,16 @@
-<% @shelters.each do |shelter| %>
-  <div id="shelter-<%= shelter.id %>">
-    <h3><%= shelter.name %></h3>
-  </div>
+<h1> List of shelters in reverse alphabetical order </h1>
+<div id="reverse_alphabetical_order">
+<ul><% @shelters.each do |shelter| %>
+  <li>Name: <%= shelter.name %></li>
 <% end %>
-      
+</ul>
+
+
+<div id="applications_pending">
+<h2>Shelters with Pending Applications</h2>
+<ul><% @shelters_pending_applications.each do |shelter| %>
+      <li>Name: <%= shelter %></li>
+    <% end %>
+</div>
 
 

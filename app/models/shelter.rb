@@ -26,7 +26,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_applications
-    Shelter.joins(:applications).where("applications.application_status = ?", "Pending").distinct.pluck(:name)
+    Shelter.joins(:applications).where(applications: { application_status: "Pending" }).pluck(:name)
   end
 
   def adoptable_pets
