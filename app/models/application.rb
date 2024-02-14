@@ -21,4 +21,5 @@ class Application < ApplicationRecord
     status == "In Progress"
   end
 
+  
 end
