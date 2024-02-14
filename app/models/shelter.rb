@@ -8,14 +8,14 @@ class Shelter < ApplicationRecord
   has_many :applications, through: :application_pets, source: :application, dependent: :destroy
 
   def self.order_by_recently_created
-    order(created_at: :desc)
+    Shelter.order(created_at: :desc)
   end
 
   def self.order_by_number_of_pets
-    select("shelters.*, count(pets.id) AS pets_count")
-      .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
-      .group("shelters.id")
-      .order("pets_count DESC")
+    Shelter.select("shelters.*, count(pets.id) AS pets_count")
+            .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
+            .group("shelters.id")
+            .order("pets_count DESC")
   end
 
   def self.order_by_reverse_alphabetically
@@ -71,6 +71,10 @@ class Shelter < ApplicationRecord
   end
 
   def application_id_for_pet(pet_id)
-    self.applications.joins(:pets).where("pets.id = ?", pet_id).pluck(:id).first
+    self.applications
+        .joins(:pets)
+        .where("pets.id = ?", pet_id)
+        .pluck(:id)
+        .first
   end
 end
