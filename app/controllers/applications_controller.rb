@@ -1,9 +1,9 @@
 class ApplicationsController < ApplicationController
 
   def create
-    @application = Application.new(application_params)
-    if @application.save
-      redirect_to "/applications/#{@application.id}"
+    application = Application.new(application_params)
+    if application.save
+      redirect_to show_applications_path(application.id)
     else
       flash[:notice] = "Error: Application not created: Required information missing."
       redirect_to new_applications_path
@@ -21,8 +21,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    if params[:pet_name].present?
-        @pets = Pet.search(params[:pet_name])
+    if params[:pet_name]
+      @pets = Pet.search(params[:pet_name])
+      flash[:notice] = "No pet matching the name \"#{params[:pet_name]}\" found. Try another name:"
     end
   end
 

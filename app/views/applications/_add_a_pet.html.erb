@@ -6,7 +6,9 @@
   <%= f.submit "Submit" %>
   <% end %>
 </div>
+
 <% if params[:pet_name].present? %>
+  <%= render partial: "shared/forms/flash_message" %>
   <div id="search-results">
     <% @pets.each do |pet| %>
       <ul>
@@ -14,4 +16,4 @@
       </ul>
     <% end %>
   </div>
-  <% end %>
+<% end %>

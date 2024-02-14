@@ -30,11 +30,11 @@
 
   </nav>
   <body>
-  <% flash.each do |type, msg| %>
-    <div>
-      <%= msg %>
-    </div>
-  <% end %>
-    <%= yield %>
+    <% if !params[:pet_name] %>
+      <%= render partial: "shared/forms/flash_message" %>
+      <%= yield %>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
