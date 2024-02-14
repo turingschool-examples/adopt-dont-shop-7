@@ -106,21 +106,33 @@ RSpec.describe "Admins Application Show Page" do
       visit "pets/#{@pet_3.id}"
       expect(page).to have_content("Adoptable: true")
 
-      visit "/admin/applications/#{@application_2.id}"
-      within "#pet-#{@pet_3.id}" do
-        click_button("Approve")
+      @application_2.pets.each do |pet|
+        visit "/admin/applications/#{@application_2.id}"
+        within "#pet-#{pet.id}" do
+          click_button("Approve Pet Application")
+        end
+        visit "pets/#{pet.id}"
+        expect(page).to have_no_content("Adoptable: true")
+
+        visit "pets/#{pet.id}"
+        expect(page).to have_no_content("Adoptable: true")
+      end
+    end
+
+    it "will not change the status to adoptable: true when only one pet is approved" do
+      within "#pet-#{@pet_1.id}" do
+        click_button("Approve Pet Application")
       end
 
-      visit "pets/#{@pet_3.id}"
-      expect(page).to have_no_content("Adoptable: true")
-
-      visit "/admin/applications/#{@application_2.id}"
-      within "#pet-#{@pet_1.id}" do
-        click_button("Approve")
+      within "#pet-#{@pet_3.id}" do
+        click_button("Reject Pet Application")
       end
 
       visit "pets/#{@pet_1.id}"
-      expect(page).to have_no_content("Adoptable: true")
+      expect(page).to have_content("Adoptable: true")
+
+      visit "pets/#{@pet_3.id}"
+      expect(page).to have_content("Adoptable: true")
     end
   end
 

@@ -5,12 +5,13 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
+Application.destroy_all
 @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love cats")
 @application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: 1)
 @application_3 = Application.create!(name: "Jerry", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love hamsters", status: 1)
 @application_4 = Application.create!(name: "Jim", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals")
 
+Shelter.destroy_all
 @shelter = Shelter.create!(foster_program: true, name: "Turing", city: "Backend", rank: 3)
 @fsa = Shelter.create!(foster_program: true, name: "Fullstack Academy", city: "Backend", rank: 3)
 @codesmith = Shelter.create!(foster_program: true, name: "Codesmith", city: "Backend", rank: 3)
@@ -20,6 +21,7 @@
 @shelter_2 = Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
 @shelter_3 = Shelter.create!(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)
 
+Pet.destroy_all
 @dog = @shelter.pets.create!(adoptable: true, age: 4, breed: "Golden Retriever", name: "Dog")
 @cat = @shelter.pets.create!(adoptable: true, age: 1, breed: "Tabby", name: "Cat")
 @hamster = @shelter.pets.create!(adoptable: true, age: 1, breed: "Tabby", name: "Hamster")
@@ -28,7 +30,7 @@
 @pet_3 = @shelter_3.pets.create!(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
 @pet_4 = @shelter_1.pets.create!(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
 
-
+ApplicationPet.destroy_all
 @application_pet_1 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @dog.id)
 @application_pet_2 = ApplicationPet.create!(application_id: @application_1.id, pet_id: @cat.id)
 @application_pet_3 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @dog.id)
