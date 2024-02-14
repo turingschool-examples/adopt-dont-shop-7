@@ -17,4 +17,8 @@ class Application < ApplicationRecord
     find_pets.count > 0
   end
 
+  def in_progress?
+    status == "In Progress"
+  end
+
 end

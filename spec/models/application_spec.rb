@@ -41,5 +41,17 @@ RSpec.describe Application do
         expect(application.has_pets?).to be true
       end
     end
+
+    describe '#in_progress?' do
+      it 'returns true if an applications status in progress' do
+        application_1 = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
+
+        expect(application_1.in_progress?).to be true
+
+        application_2 = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner", status: "Pending")
+
+        expect(application_2.in_progress?).to be false
+      end
+    end
   end
 end
