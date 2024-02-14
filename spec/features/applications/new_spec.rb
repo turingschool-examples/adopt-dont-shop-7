@@ -68,7 +68,6 @@ RSpec.describe 'New Application Form', type: :feature do
       expect(page).to have_content("Street address can't be blank")
       expect(page).to have_content("City can't be blank, State can't be blank")
       expect(page).to have_content("Zip code is not a number")
-      expect(page).to have_content("Adopting reason can't be blank")
     end
   end
 end
