@@ -20,7 +20,7 @@ class AdoptionApplicationController < ApplicationController
    end
 
    def create      
-      adoption_app = AdoptionApplication.create(adoption_app_params)
+      adoption_app = AdoptionApplication.new(adoption_app_params)
       if adoption_app.save 
          redirect_to "/applications/#{adoption_app.id}"
       else
