@@ -58,11 +58,11 @@ RSpec.describe Application do
       it 'returns true if an applications status is pending' do
         application_1 = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
 
-        expect(application_1.in_progress?).to be false
+        expect(application_1.pending?).to be false
 
         application_2 = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner", status: "Pending")
 
-        expect(application_2.in_progress?).to be true
+        expect(application_2.pending?).to be true
       end
     end
 
@@ -70,11 +70,11 @@ RSpec.describe Application do
       it 'returns true if an applications status is approved' do
         application_1 = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
 
-        expect(application_1.in_progress?).to be false
+        expect(application_1.approved?).to be false
 
         application_2 = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner", status: "Approved")
 
-        expect(application_2.in_progress?).to be true
+        expect(application_2.approved?).to be true
       end
     end
 
@@ -82,11 +82,11 @@ RSpec.describe Application do
       it 'returns true if an applications status is rejected' do
         application_1 = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner")
 
-        expect(application_1.in_progress?).to be false
+        expect(application_1.rejected?).to be false
 
         application_2 = Application.create!(name: "Test Name", street_address: "Test address", city: "Nowhereville", state: "Colorado", zip_code: "00000", endorsement: "I am the best pet owner", status: "Rejected")
 
-        expect(application_2.in_progress?).to be true
+        expect(application_2.rejected?).to be true
       end
     end
   end
