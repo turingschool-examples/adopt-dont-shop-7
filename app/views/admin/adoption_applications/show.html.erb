@@ -36,15 +36,3 @@
     </div> 
 <% end %>
 </ul>
-
-<% if @adoption_app.status == "In Progress" %>
-    <h3>Add Pets to this Application:</h3>
-    <%= form_with url: "/applications/#{@adoption_app.id}?search", method: :get do |form| %>
-        <%= form.label :search, "Search Pet by Name: " %>
-        <%= text_field_tag(:search, params[:search]) %>
-        <%= form.submit "Search" %>
-    <% end %>
-
-
-<% end %>
-
