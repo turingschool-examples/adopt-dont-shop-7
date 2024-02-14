@@ -8,20 +8,8 @@ class Application < ApplicationRecord
     validates :state, presence: true 
     validates :zipcode, presence: true 
     validates :description, presence: true
-    # validates :application_status, presence: true
 
-
-    def pending
-      update(application_status: "Pending")
-    end
-
-  
-
+  def pending
+    update(application_status: "Pending")
+  end
 end
-
-
-
-
-
-# length: { is: 2 }
-# length: { is: 5 }, numericality: { only_integer: true }

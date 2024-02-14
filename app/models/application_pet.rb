@@ -11,7 +11,7 @@ class ApplicationPet < ApplicationRecord
     update(pet_adoptable: "reject")
   end
 
-  def pet_reason(reason)
+  def change_reason(reason)
     update(pet_reason: (reason))
   end
 

@@ -26,8 +26,11 @@ class ApplicationsController < ApplicationController
     application.pending
     # application.update(application_status: "Pending")
     applicationpets = application.application_pets
+
     applicationpets.each do |applicationpet|
-        applicationpet.pet_reason(params[:app_pet_reason])
+      if applicationpet.pet_reason == "N/A"
+        applicationpet.change_reason(params[:app_pet_reason])
+      end
     end
     # applicationpet.update(pet_reason: (params[:app_pet_reason]))
     # applicationpet.pet_reason(params[:app_pet_reason])

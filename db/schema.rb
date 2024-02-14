@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_183627) do
     t.bigint "application_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "pet_reason"
+    t.string "pet_reason", default: "N/A"
     t.string "pet_adoptable", default: "N/A"
     t.index ["application_id"], name: "index_application_pets_on_application_id"
     t.index ["pet_id"], name: "index_application_pets_on_pet_id"
