@@ -4,7 +4,7 @@ RSpec.describe 'Admin Application Show Page', type: :feature do
   describe 'As a visitor' do
     before(:each) do
       @shel_1 = Shelter.create!(name: "Dog's Home", city: "Gustine", foster_program: true, rank: 1)
-      @shel_2 = Shelter.create!(name: "Cat's Home", city: "Gustine", foster_program: true, rank: 1)
+      @shel_2 = Shelter.create!(name: "Cat's Home", city: "Austin", foster_program: true, rank: 1)
 
       @pet_1 = @shel_1.pets.create!(name: "Cito", age: 4, breed: "Lab", adoptable: true)
       @pet_2 = @shel_1.pets.create!(name: "Charmander", age: 4, breed: "fire", adoptable: true)
@@ -86,13 +86,16 @@ RSpec.describe 'Admin Application Show Page', type: :feature do
       end
     end
 
-    #15. All Pets Accepted on an Application
-    it '' do 
-      # As a visitor
-      # When I visit an admin application show page
-      # And I approve all pets for an application
-      # Then I am taken back to the admin application show page
-      # And I see the application's status has changed to "Approved"
-    end 
+    # SQL Only Story
+    # 19. Admin Shelters Show Page
+   it "has the full address" do 
+    # For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
+    # When I visit an admin shelter show page
+    visit "/admin/shelters/#{@shel_1.id}"
+    # Then I see that shelter's name and full address
+    expect(page).to have_content(@shel_1.name)
+    expect(page).to have_content(@shel_1.city)
+    # NOTE: Your query should only return the necessary data to complete the story
+   end
   end
 end 
