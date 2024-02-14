@@ -6,14 +6,18 @@ class Admin::ApplicationsController < ApplicationController
 
   def update
     @application = Application.find(params[:id])
-    @application.update(status: "Approved")
     
-    @application_pet = ApplicationPet.where(
+    if params[:approve]
+      @application.update(status: "Approved") 
+    elsif params[:reject]
+      @application.update(status: "Rejected") 
+    end
+    
+    @application_pet = ApplicationPet.find_by(
       application_id: params[:id], 
       pet_id: params[:pet_id]
-      ).first
-      
-    @application_pet.status_update
+      )
+    @result = @application_pet&.status_update
     
     render :show
   end
