@@ -31,7 +31,7 @@
       <h3><%= pet.name %></h3>
       <p>Age: <%= pet.age %></p>
       <p>Breed: <%= pet.breed %></p>
-      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}/new", method: :post %>
+      <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %>
     <% end %>
   <% end %>
 <% end %>
