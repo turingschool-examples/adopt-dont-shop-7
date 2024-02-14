@@ -48,6 +48,6 @@ Rails.application.routes.draw do
   get "/admin/shelters", to: "admin/shelters#index"
   get "/admin/applications/:id", to: "admin/applications#show"
 
-  post "/admin/applications/:id/pets/:pet_id/approve", to: "admin/application_pets#approve"
-  post "/admin/applications/:id/pets/:pet_id/reject", to: "admin/application_pets#reject"
+  post "/admin/applications/:id/pets/:pet_id/approve", to: "admin/approvals#create"
+  post "/admin/applications/:id/pets/:pet_id/reject", to: "admin/rejections#create"
 end
