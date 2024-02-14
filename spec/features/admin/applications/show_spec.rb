@@ -20,6 +20,7 @@ RSpec.describe 'Admin Applications Show Page', type: :feature do
     @application_4 = Application.create!(name: "Mark", street_address: "889 Folsom Ave", city: "Denver", state: "CO", zip_code: "80024", adopting_reason: "Lonely", status:"Pending")
     
     @application_pets_1 = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application_4.id)
+    @application_pets_4 = ApplicationPet.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     @application_pets_2 = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_4.id)
     @application_pets_3 = ApplicationPet.create!(pet_id: @pet_2.id, application_id: @application_3.id)
   end
@@ -57,13 +58,12 @@ RSpec.describe 'Admin Applications Show Page', type: :feature do
     # For every pet that the application is for, I see a button to reject the application for that specific pet
     within '.pets' do
       within "#pet-#{@pet_1.id}" do
-      # When I click that button
-      click_button("Reject Application")
+        # When I click that button
+        click_button("Reject Application")
+      end
     end
-  end
-  # Then I'm taken back to the admin application show page
-  expect(current_path).to eq("/admin/applications/#{@application_4.id}")
-  save_and_open_page
+    # Then I'm taken back to the admin application show page
+    expect(current_path).to eq("/admin/applications/#{@application_4.id}")
 
     within"#pet-#{@pet_1.id}" do
       # And next to the pet that I rejected, I do not see a button to approve or reject this pet
@@ -72,6 +72,36 @@ RSpec.describe 'Admin Applications Show Page', type: :feature do
       
       # And instead I see an indicator next to the pet that they have been rejected
       expect(page).to have_content("Application rejected for #{@pet_1.name}")
+    end
+  end
+
+
+  #User Story 14.Approved/Rejected Pets on one Application do not affect other Applications
+  it "allows pets to be in different applications and even when approved, keep being shown in admin application show page" do
+    # As a visitor
+    # When there are two applications in the system for the same pet
+    # When I visit the admin application show page for one of the applications
+    visit "/admin/applications/#{@application_1.id}"
+    
+    # And I approve or reject the pet for that application
+    within '.pets' do
+      within "#pet-#{@pet_1.id}" do
+        click_button("Approve Application")
+      end
+    end
+    # When I visit the other application's admin show page
+    visit "/admin/applications/#{@application_4.id}"
+
+    # Then I do not see that the pet has been accepted or rejected for that application
+    within '.pets' do
+      within "#pet-#{@pet_1.id}" do
+        expect(page).to_not have_content("Application rejected for #{@pet_1.name}")
+        expect(page).to_not have_content("Application approved for #{@pet_1.name}")
+
+      # And instead I see buttons to approve or reject the pet for this specific application
+        expect(page).to have_button("Approve Application")
+        expect(page).to have_button("Reject Application")
+      end
     end
   end
  end
