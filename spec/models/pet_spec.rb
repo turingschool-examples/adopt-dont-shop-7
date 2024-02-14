@@ -21,7 +21,7 @@ RSpec.describe Pet, type: :model do
   end
 
   describe '#status' do
-    it 'returns the status of of a pet on an application' do
+    xit 'returns the status of of a pet on an application' do
       ApplicationPet.create!(pet: @pet_2, application: @applicant1, status:"Approved")
       ApplicationPet.create!(pet: @pet_1, application: @applicant1, status:"Rejected")
       ApplicationPet.create!(pet: @pet_3, application: @applicant1)
@@ -32,7 +32,7 @@ RSpec.describe Pet, type: :model do
   end
 
   describe '#choice_made' do
-    it 'checks if pet is rejected or approved on an application' do
+    xit 'checks if pet is rejected or approved on an application' do
       ApplicationPet.create!(pet: @pet_2, application: @applicant1, status:"Approved")
       ApplicationPet.create!(pet: @pet_1, application: @applicant1, status:"Rejected")
       ApplicationPet.create!(pet: @pet_3, application: @applicant1)

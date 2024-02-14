@@ -9,24 +9,19 @@
 <%= @application.status%>
 
 
+<% @application.application_pets.each do |app_pet| %>
+<section id="Pet-<%= app_pet.pet_id %>">
+<%= app_pet.pet.name%>
 
-<% @application.pets.each do|pet|%>
-  <section id="Pet-<%= pet.id %>">
-    
-  
-    <%= pet.name%>
-    
-    <% if pet.choice_made(@application) %>
-      <%= pet.status(@application)%>
+<% if !app_pet.status.nil? %>
+  <p><%= app_pet.status %></p>
+<% else%>
+   <%= button_to "Approve #{app_pet.pet.name}", "/admin/applications/#{@application.id}/pets/#{app_pet.pet_id}?status=Approved", method: :patch %>
+    <%= button_to "Reject #{app_pet.pet.name}", "/admin/applications/#{@application.id}/pets/#{app_pet.pet_id}?status=Rejected", method: :patch %>
+<% end %>
 
-    <% else %>
-    
-      <%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}?status=Approved", method: :patch %>
-      <%= button_to "Reject #{pet.name}", "/admin/applications/#{@application.id}/pets/#{pet.id}?status=Rejected", method: :patch %>
-
-    <% end %>
-  </section>
-   
 <%end%>
+</section>
+
 
 
