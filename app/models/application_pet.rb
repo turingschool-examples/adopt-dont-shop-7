@@ -21,10 +21,21 @@ class ApplicationPet < ApplicationRecord
   private
 
   def update_pet
-    pet.update!(adoptable: false) if application_approved
+    if application_approved && application.all_pets_approved?
+      application.pets.each do |pet|
+        pet.update!(adoptable: false)
+      end
+    end
   end
 
   def update_application
     application.update!(status: 2) if application_approved
   end
+
+  # def self.all_pets_approved?(application_id)
+  #   ApplicationPet.joins(:pet)
+  #                 .where(application_id: application_id)
+  #                 .pluck('MIN (application_approved)')
+  #                 .first
+  # end
 end

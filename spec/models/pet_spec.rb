@@ -34,6 +34,21 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2, @dog, @cat])
       end
     end
+
+    describe ".check_pet_applications" do
+      it "returns true if all pets on an application have been approved" do
+
+        expect(Pet.check_pet_applications).to eq([false, false])
+
+        @application_pet_2.update_attribute(:application_approved, true)
+
+        expect(Pet.check_pet_applications).to eq([false, true])
+
+        @application_pet_1.update_attribute(:application_approved, true)
+
+        expect(Pet.check_pet_applications).to eq([true, true])
+      end
+    end
   end
 
   describe "instance methods" do

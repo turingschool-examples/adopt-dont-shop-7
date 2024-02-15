@@ -111,6 +111,8 @@ RSpec.describe "Admins Application Show Page" do
         within "#pet-#{pet.id}" do
           click_button("Approve Pet Application")
         end
+      end
+      @application_2.pets.each do |pet|
         visit "pets/#{pet.id}"
         expect(page).to have_no_content("Adoptable: true")
 
@@ -138,17 +140,20 @@ RSpec.describe "Admins Application Show Page" do
 
   describe "User Story 18 - Pets can only have one approved application on them at any time" do
     it "will not show a button to approve a pet if it has already been approved on another application" do
-      within "#pet-#{@pet_3.id}" do
-        click_button("Approve")
-      end
-      within "#pet-#{@pet_1.id}" do
-        expect(page).to have_button("Approve")
-      end
-      visit "/pets/#{@pet_3.id}"
-      expect(page).to have_content("Adoptable: false")
+      shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
-      visit "/admin/applications/#{@application_3.id}"
-      within "#pet-#{@pet_3.id}" do
+      pet_1 = shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: false)
+      pet_2 = shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: false)
+
+      application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love cats")
+      application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: 1)
+
+      application_pet_1 = ApplicationPet.create!(application_id: application_2.id, pet_id: pet_1.id, application_approved: true, application_reviewed: true)
+      application_pet_2 = ApplicationPet.create!(application_id: application_2.id, pet_id: pet_2.id, application_approved: true, application_reviewed: true)
+      application_pet_3 = ApplicationPet.create!(application_id: application_1.id, pet_id: pet_1.id, application_approved: false, application_reviewed: false)
+
+      visit show_admin_applications_path(application_1)
+      within "#pet-#{pet_1.id}" do
         expect(page).to have_no_button("Approve")
         expect(page).to have_content("This pet has already been approved for another adoption")
         expect(page).to have_button("Reject")

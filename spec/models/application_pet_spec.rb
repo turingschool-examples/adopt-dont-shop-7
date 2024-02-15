@@ -46,14 +46,26 @@ RSpec.describe ApplicationPet, type: :model do
 
   describe "callbacks" do
     describe "#update_pet" do
-      it "updates the pet's adoptable attribute to false when ApplicationPet is approved" do
-        new_app = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_2.id)
+      it "updates the pet's adoptable attribute to false when ApplicationPet is approved AND ALL PETs are approved" do
+        shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
 
-        expect(@pet_2.adoptable?).to eq(true)
+        pet_1 = shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+        pet_2 = shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+
+        application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: 1)
+
+        new_app = ApplicationPet.create!(application_id: application_2.id, pet_id: pet_2.id)
+        application_pet_1 = ApplicationPet.create!(application_id: application_2.id, pet_id: pet_1.id)
+
+        expect(pet_2.adoptable?).to eq(true)
+
+        application_pet_1.update!(application_approved: true)
+
+        expect(Pet.find(new_app.pet.id).adoptable?).to eq(true)
 
         new_app.update!(application_approved: true)
 
-        expect(new_app.pet.adoptable?).to eq(false)
+        expect(Pet.find(new_app.pet.id).adoptable?).to eq(false)
       end
     end
 
