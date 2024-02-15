@@ -11,15 +11,16 @@
             <ul>
                 <li id="pet_name_<%=application_pet.pet_id%>">
                     <%= link_to "#{application_pet.pet.name}", "/pets/#{application_pet.pet_id}" %>
-        
-                    <%if application_pet.pet_status == "pending"%>
-                        <%= button_to "Approve", "/admin/applications/#{@application.id}/pets/#{application_pet.pet_id}/approve", method: :post %>
-                        <%= button_to "Reject", "/admin/applications/#{@application.id}/pets/#{application_pet.pet_id}/reject", method: :post %>
-                    <%elsif application_pet.pet_status == "approved"%>
-                        <%="Approved"%>
-                    <%else%>
-                        <%="Rejected"%>
-                    <%end%>
+                    <% if application_pet.pet_status == "approved" %>
+                        Approved
+                    <% elsif application_pet.pet.is_approved? %>
+                        This pet has been approved for adoption <%= button_to "Reject", "/admin/applications/#{@application.id}/pets/#{application_pet.pet_id}/reject", method: :post %>
+                    <% elsif application_pet.pet_status == "pending" %>
+                            <%= button_to "Approve", "/admin/applications/#{@application.id}/pets/#{application_pet.pet_id}/approve", method: :post %>
+                            <%= button_to "Reject", "/admin/applications/#{@application.id}/pets/#{application_pet.pet_id}/reject", method: :post %>
+                    <% elsif application_pet.pet_status == "rejected" %>
+                        Rejected
+                    <% end %>
                 </li>
             </ul>
         <%end%>
