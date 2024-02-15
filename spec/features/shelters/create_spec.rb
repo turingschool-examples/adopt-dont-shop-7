@@ -1,10 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "shelter creation" do
+  before do
+    visit "/shelters/new"
+  end
+
   describe "the shelter new" do
     it "renders the new form" do
-      visit "/shelters/new"
-
       expect(page).to have_content("New Shelter")
       expect(find("form")).to have_content("Name")
       expect(find("form")).to have_content("City")
@@ -16,8 +18,6 @@ RSpec.describe "shelter creation" do
   describe "the shelter create" do
     context "given valid data" do
       it "creates the shelter" do
-        visit "/shelters/new"
-
         fill_in "Name", with: "Houston Shelter"
         fill_in "City", with: "Houston"
         check "Foster program"
@@ -31,9 +31,7 @@ RSpec.describe "shelter creation" do
 
     context "given invalid data" do
       it "re-renders the new form" do
-        visit "/shelters/new"
         click_button "Save"
-
         fill_in "City", with: "Houston"
 
         expect(page).to have_content("Error: Name can't be blank, Rank can't be blank, Rank is not a number")

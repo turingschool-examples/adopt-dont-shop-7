@@ -1,0 +1,18 @@
+<h1>All Shelters</h1>
+
+  <%= render "shelters/shelter_list" %>
+
+<h2>Shelters with Pending Applications</h2>
+<div id="pending_apps">
+  <%@shelters_pending.each do |shelter| %>
+    <ul>
+      <li><%= shelter %></li>
+    </ul>
+  <% end %>
+</div>
+
+    let!(:) {}
+
+    before do
+      visit 
+    end
