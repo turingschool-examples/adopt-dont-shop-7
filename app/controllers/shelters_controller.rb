@@ -25,8 +25,7 @@ class SheltersController < ApplicationController
     @shelter = Shelter.find(params[:id])
   end
 
-  def new
-  end
+  def new; end
 
   def create
     shelter = Shelter.new(shelter_params)
