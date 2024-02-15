@@ -6,19 +6,18 @@ class Application < ApplicationRecord
   validates :zip_code, presence: true, numericality: true
   validates :description, presence: true
 
+  has_many  :application_pets
+  has_many  :pets, through: :application_pets
+
   enum status: {
     in_progress: 0,
     pending: 1,
     approved: 2,
     rejected: 3
   }
-  has_many  :application_pets
-  has_many  :pets, through: :application_pets
 
   def submit_reason_for_adoption(reason)
-    self.reason_for_adoption = reason
-    self.status = "pending"
-    self.save!
+    self.update(reason_for_adoption: reason, status: "pending")
   end
 
   def can_approve?
