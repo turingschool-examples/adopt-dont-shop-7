@@ -1,15 +1,6 @@
 <h1>All Shelters</h1>
 
-<div id="shelters">
-  <% @shelters.each do |shelter| %>
-    <div id="shelter-<%= shelter.id %>">
-      <h3><%= shelter.name %></h3>
-      <p>Created at: <%= shelter.created_at %></p>
-      <%= link_to "Update #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
-      <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
-    </div>
-  <% end %>
-</div>
+  <%= render "shelters/shelter_list" %>
 
 <h2>Shelters with Pending Applications</h2>
 <div id="pending_apps">
@@ -19,3 +10,9 @@
     </ul>
   <% end %>
 </div>
+
+    let!(:) {}
+
+    before do
+      visit 
+    end

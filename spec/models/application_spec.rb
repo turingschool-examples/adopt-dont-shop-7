@@ -31,6 +31,7 @@ RSpec.describe Application, type: :model do
       expect(application_1.status).to eq("in_progress")
 
       application_1.submit_reason_for_adoption("the best reason")
+
       expect(application_1.status).to eq("pending")
     end
   end
@@ -39,12 +40,14 @@ RSpec.describe Application, type: :model do
     it "returns true if all pet_status are 'approved'" do
       application_pet_1.approve
       application_pet_2.approve
+
       expect(application_1.can_approve?).to eq(true)
     end
 
     it "returns false if all pet_status are 'approved'" do
       application_pet_1.approve
       application_pet_2.reject
+
       expect(application_1.can_approve?).to eq(false)
     end
   end
@@ -64,6 +67,7 @@ RSpec.describe Application, type: :model do
     it "returns true if any of the pet_status are 'rejected'" do
       application_pet_1.approve
       application_pet_2.reject
+
       expect(application_1.can_reject?).to eq(true)
     end
   end
@@ -71,6 +75,7 @@ RSpec.describe Application, type: :model do
   describe "#reject" do
     it "changes the application status to 'rejected'" do
       application_1.reject
+      
       expect(application_1.status).to eq("rejected")
     end
   end

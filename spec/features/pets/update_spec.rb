@@ -1,12 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "the veterinarian update" do
-  it "shows the veterinarian edit form" do
-    shelter = Shelter.create(name: "Hollywood shelter", city: "Irvine, CA", foster_program: false, rank: 7)
-    pet = Pet.create(adoptable: true, age: 1, breed: "sphynx", name: "George Hairlesson", shelter_id: shelter.id)
+  let!(:shelter) {Shelter.create!(name: "Hollywood shelter", city: "Irvine, CA", foster_program: false, rank: 7)}
+  let!(:pet) {Pet.create!(adoptable: true, age: 1, breed: "sphynx", name: "George Hairlesson", shelter_id: shelter.id)}
 
+  before do
     visit "/pets/#{pet.id}/edit"
+  end
 
+  it "shows the veterinarian edit form" do
     expect(find("form")).to have_content("Name")
     expect(find("form")).to have_content("Breed")
     expect(find("form")).to have_content("Adoptable")
@@ -15,11 +17,6 @@ RSpec.describe "the veterinarian update" do
 
   context "given valid data" do
     it "submits the edit form and updates the veterinarian" do
-      shelter = Shelter.create(name: "Heavenly pets", city: "Aurora, CO", foster_program: true, rank: 7)
-      pet = Pet.create(adoptable: true, age: 3, breed: "GSD", name: "Charlie", shelter_id: shelter.id)
-
-      visit "/pets/#{pet.id}/edit"
-
       fill_in "Name", with: "Itchy"
       uncheck "Adoptable"
       fill_in "Age", with: 1
@@ -33,11 +30,6 @@ RSpec.describe "the veterinarian update" do
 
   context "given invalid data" do
     it "re-renders the edit form" do
-      shelter = Shelter.create(name: "Heavenly pets", city: "Aurora, CO", foster_program: false, rank: 7)
-      pet = Pet.create(adoptable: false, age: 3, breed: "Whippet", name: "Annabelle", shelter_id: shelter.id)
-
-      visit "/pets/#{pet.id}/edit"
-
       fill_in "Name", with: ""
       click_button "Save"
 

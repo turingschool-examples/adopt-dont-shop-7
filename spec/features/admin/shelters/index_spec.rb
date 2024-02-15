@@ -22,7 +22,6 @@ RSpec.describe "Admin Shelters Index Page" do
   describe "As a Visitor" do
     describe "User Story 10" do
       it "lists all shelters names in reverse alphabetical order" do
-        save_and_open_page
         expect(shelter_3.name).to appear_before(shelter_2.name)
         expect(shelter_2.name).to appear_before(shelter_1.name)
       end

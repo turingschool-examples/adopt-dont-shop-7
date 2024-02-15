@@ -1,6 +1,7 @@
 class Pet < ApplicationRecord
   validates :name, presence: true
   validates :age, presence: true, numericality: true
+  
   belongs_to :shelter
   has_many  :application_pets
   has_many  :applications, through: :application_pets
@@ -17,9 +18,6 @@ class Pet < ApplicationRecord
     where("name ILIKE ?", "%#{name}%" )
   end
 
-  # def not_adoptable!
-  #   update!(adoptable: false)
-  # end
   def is_approved?
     application_pets.where(pet_status: "approved").any?
   end

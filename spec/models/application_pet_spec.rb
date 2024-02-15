@@ -20,6 +20,7 @@ RSpec.describe ApplicationPet, type: :model do
     it "updates pet_status to 'approved'" do
       application_pet_1.approve
       application_pet_2.approve
+
       expect(application_pet_1.pet_status).to eq("approved")
       expect(application_1.status).to eq("approved")
     end
@@ -29,6 +30,7 @@ RSpec.describe ApplicationPet, type: :model do
     it "updates pet_status to 'rejected'" do
       application_pet_1.reject
       application_pet_2.approve
+      
       expect(application_pet_1.pet_status).to eq("rejected")
       expect(application_pet_2.pet_status).to eq("approved")
       expect(application_1.status).to eq("rejected")
