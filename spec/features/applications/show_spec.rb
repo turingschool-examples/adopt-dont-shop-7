@@ -4,14 +4,14 @@ require 'rails_helper'
 RSpec.describe "Application show", type: :feature do
     describe 'application show' do
         
-        before(:each) do
-            @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
-            @pet_1 = @shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
-            @pet_2 = @shelter_1.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster")
-            @application_1 = Application.create!(name: "Lance", street_address: "123 sesame street", city: "Brooklyn", state: "New York", zip_code: "10012", description: "I like dogs", status: "In Progress")
-            @application_2 = Application.create!(name: "Nico", street_address: "125 sesame way", city: "Miami", state: "Florida", zip_code: "63016", description: "I have an unlimited supply of poop bags", status: "In Progress")
-            # PetApplication.create!(applications_id: @application_1.id, pets_id: @pet_1.id)
-        end
+    before(:each) do
+        @shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+        @pet_1 = @shelter_1.pets.create!(adoptable: true, age: 1, breed: "sphynx", name: "Lucille Bald")
+        @pet_2 = @shelter_1.pets.create!(adoptable: true, age: 3, breed: "doberman", name: "Lobster")
+        @application_1 = Application.create!(name: "Lance", street_address: "123 sesame street", city: "Brooklyn", state: "New York", zip_code: "10012", description: "I like dogs", status: "In Progress")
+        @application_2 = Application.create!(name: "Nico", street_address: "125 sesame way", city: "Miami", state: "Florida", zip_code: "63016", description: "I have an unlimited supply of poop bags", status: "In Progress")
+        # PetApplication.create!(applications_id: @application_1.id, pets_id: @pet_1.id)
+    end     
         
         it 'shows the name of the applicant and attributes' do
             
@@ -44,7 +44,7 @@ RSpec.describe "Application show", type: :feature do
             # - names of all pets that this application is for (all names of pets should be links to their show page)
             PetApplication.create!(application_id: @application_1.id, pet_id: @pet_1.id)
             PetApplication.create!(application_id: @application_1.id, pet_id: @pet_2.id)
-          
+        
             visit "/applications/#{@application_1.id}"
             expect(page).to have_link(@pet_1.name, :href=>"/pets/#{@pet_1.id}")
             expect(page).to have_link(@pet_2.name, :href=>"/pets/#{@pet_2.id}")
@@ -72,6 +72,28 @@ RSpec.describe "Application show", type: :feature do
             # And under the search bar I see any Pet whose name matches my search
             expect(page).to have_content("Lobster")
             expect(page).to_not have_content("Lucille Bald")
+        end
+
+            # 5. Add a Pet to an Application
+        it "Add a Pet to an Application" do
+            
+            # As a visitor
+            # When I visit an application's show page
+            visit "/applications/#{@application_1.id}"
+            # And I search for a Pet by name
+            fill_in "Search for pets by name", with: "Lucille Bald"
+            click_on("submit")
+            # And I see the names Pets that match my search
+            expect(page).to have_content("Lucille Bald")
+            # Then next to each Pet's name I see a button to "Adopt this Pet"
+            expect(page).to have_button("Adopt this Pet")
+            # When I click one of these buttons
+            click_button("Adopt this Pet")
+            # Then I am taken back to the application show page
+            expect(current_path).to eq("/applications/#{@application_1.id}")
+            # And I see the Pet I want to adopt listed on this application
+            expect(page).to have_content("Lucille Bald")
+
         end
     end
 end

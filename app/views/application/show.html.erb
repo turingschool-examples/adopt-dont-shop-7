@@ -15,6 +15,8 @@
   <h3> Search Results: </h3>
   <ul>
     <% @search_results.each do |pet| %>
+      <li><%= "#{pet.name}" %></li>
+      <li><%= button_to 'Adopt this Pet', "/pets/#{pet.id}", method: :get %></li>
       <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
     <% end %>
   </ul>
