@@ -33,3 +33,15 @@ In this project, students will build upon the code in this repo to create a Pet 
 ## Check In
 
 This project will have one Check In. During your Check In, you should be prepared to review your database schema for the many to many relationship, your deployment to the internet, and your GitHub Projects board.
+
+## Schema
+
+![Adopt Don't Shop](https://github.com/BarryA/adopt-dont-shop/assets/1475122/b43c3b1e-f64e-421c-83cd-74e8785a8565)
+
+## DTR
+
+[DTR](https://docs.google.com/document/d/10oKfpSdV2j1JkaNdpe_ZRF17aG6E1szgekfNW758ZfE/edit?usp=sharing)
+
+## Project Board
+
+[GitHub Project Board](https://github.com/users/BarryA/projects/2)

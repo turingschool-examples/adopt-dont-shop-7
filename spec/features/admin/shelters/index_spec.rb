@@ -1,17 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Shelter, type: :model do
-  describe "relationships" do
-    it { should have_many(:pets) }
-  end
-
-  describe "validations" do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:city) }
-    it { should validate_presence_of(:rank) }
-    it { should validate_numericality_of(:rank) }
-  end
-
+RSpec.describe "Admins Shelter Index" do
   before(:each) do
     @shelter_1 = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)
@@ -34,57 +23,23 @@ RSpec.describe Shelter, type: :model do
   
   end
 
-  describe "class methods" do
-    describe "#search" do
-      it "returns partial matches" do
-        expect(Shelter.search("Fancy")).to eq([@shelter_3])
-      end
-    end
+  #User Story 10
+  it "Displays all Shelters in the system listed in reverse alphabetical order by name" do
+    visit "/admin/shelters"
 
-    describe "#order_by_recently_created" do
-      it "returns shelters with the most recently created first" do
-        expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
-      end
+    within "#reverse_alphabetical_order" do
+      expect("RGV animal shelter").to appear_before("Fancy pets of Colorado")
+      expect("Fancy pets of Colorado").to appear_before("Aurora shelter")
     end
+  end 
 
-    describe "#order_by_number_of_pets" do
-      it "orders the shelters by number of pets they have, descending" do
-        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
-      end
-    end
-
-    it "#reverse_alphabetical_order" do
-      expect(Shelter.reverse_alphabetical_order).to eq([@shelter_2, @shelter_3, @shelter_1])
-    end
-
-    it "#pending_applications" do
-      expect(Shelter.pending_applications).to eq([@shelter_3.name, @shelter_1.name])
-    end
-  end
-
-  describe "instance methods" do
-    describe ".adoptable_pets" do
-      it "only returns pets that are adoptable" do
-        expect(@shelter_1.adoptable_pets).to eq([@pet_2, @pet_4])
-      end
-    end
-
-    describe ".alphabetical_pets" do
-      it "returns pets associated with the given shelter in alphabetical name order" do
-        expect(@shelter_1.alphabetical_pets).to eq([@pet_4, @pet_2])
-      end
-    end
-
-    describe ".shelter_pets_filtered_by_age" do
-      it "filters the shelter pets based on given params" do
-        expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([@pet_4])
-      end
-    end
-
-    describe ".pet_count" do
-      it "returns the number of pets at the given shelter" do
-        expect(@shelter_1.pet_count).to eq(3)
-      end
-    end
+  # User Story 11
+  it "lists of every shelter with a pending application" do
+    visit "/admin/shelters"
+    within("#applications_pending") do
+      expect(page).to have_content("Aurora shelter")
+      expect(page).to have_content("Fancy pets of Colorado")
+      expect(page).to_not have_content("RGV animal shelter")
+    end 
   end
 end
