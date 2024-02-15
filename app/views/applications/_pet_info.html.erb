@@ -2,8 +2,8 @@
   <div id="<%= pet.id %>">
     <% if pet.find_application_pet(@application.id).status == "Pending" && local_assigns[:admin] %>
       <%= pet.name %>
-      <%= button_to "Approve Application", "/admin/applications/#{@application.id}/application_pets/#{pet.find_application_pets(@application.id).id}?status=approve", method: :patch %>
-      <%= button_to "Reject Application", "/admin/applications/#{@application.id}/application_pets/#{pet.find_application_pets(@application.id).id}?status=reject", method: :patch %>
+      <%= button_to "Approve Application", "/admin/applications/#{@application.id}/application_pets/#{pet.find_application_pet(@application.id).id}?status=approve", method: :patch %>
+      <%= button_to "Reject Application", "/admin/applications/#{@application.id}/application_pets/#{pet.find_application_pet(@application.id).id}?status=reject", method: :patch %>
     <% elsif pet.find_application_pet(@application.id).status == "Approved" && local_assigns[:admin] %>
       <%= pet.name %>  
       <p>Application Approved</p>
