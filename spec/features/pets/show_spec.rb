@@ -1,12 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "the shelter show" do
-  it "shows the shelter and all it's attributes" do
-    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
-    pet = Pet.create(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
+  let!(:shelter) {Shelter.create!(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)}
+  let!(:pet) {Pet.create!(name: "Scooby", age: 2, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)}
 
+  before do
     visit "/pets/#{pet.id}"
+  end
 
+  it "shows the shelter and all it's attributes" do
     expect(page).to have_content(pet.name)
     expect(page).to have_content(pet.age)
     expect(page).to have_content(pet.adoptable)
@@ -15,11 +17,6 @@ RSpec.describe "the shelter show" do
   end
 
   it "allows the user to delete a pet" do
-    shelter = Shelter.create(name: "Mystery Building", city: "Irvine CA", foster_program: false, rank: 9)
-    pet = Pet.create(name: "Scrappy", age: 1, breed: "Great Dane", adoptable: true, shelter_id: shelter.id)
-
-    visit "/pets/#{pet.id}"
-
     click_on("Delete #{pet.name}")
 
     expect(page).to have_current_path("/pets")
