@@ -49,6 +49,16 @@ RSpec.describe "Application Show Page" do
       expect(page.current_path).to eq(show_applications_path(@application_1))
       expect(page).to have_content("No pet matching the name \"mamster\" found. Try another name:")
     end
+
+    it "will only display the error message once" do
+      visit "/applications/#{@application_1.id}?pet_name=sdfsdfdsf&commit=Submit"
+      expect(page).to have_content("No pet matching the name \"sdfsdfdsf\" found. Try another name:")
+
+      fill_in(:pet_name, with: "Hamster")
+      click_button("Submit")
+
+      expect(page).to have_no_content("No pet matching the name \"sdfsdfdsf\" found. Try another name:")
+    end
   end
 
   describe "User Story 5 - Add a Pet to this Application" do

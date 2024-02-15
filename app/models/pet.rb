@@ -11,10 +11,6 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
-  # def self.adoptable
-  #   where(adoptable: true)
-  # end
-
   def self.check_pet_applications
     Pet.joins(:application_pets).pluck(:application_approved)
   end

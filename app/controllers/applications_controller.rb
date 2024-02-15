@@ -47,7 +47,9 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:pet_name]
       @pets = Pet.search(params[:pet_name])
-      flash[:notice] = "No pet matching the name \"#{params[:pet_name]}\" found. Try another name:"
+      if @pets == []
+          flash.now[:notice] = "No pet matching the name \"#{params[:pet_name]}\" found. Try another name:"
+      end
     end
   end
 end

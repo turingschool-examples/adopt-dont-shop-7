@@ -60,6 +60,7 @@ RSpec.describe "Admins Shelter Show" do
   describe "User Story 25 -  Action Required" do
     it "displays a section for Pets that have pending applications" do
       expect(page).to have_content("Action Required")
+      save_and_open_page
       within "#action-required" do
         expect(page).to have_content("Ann")
       end

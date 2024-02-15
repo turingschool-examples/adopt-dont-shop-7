@@ -18,13 +18,12 @@ Use these guides:
 
 Heroku: https://devcenter.heroku.com/articles/getting-started-with-rails7
 Render: https://backend.turing.edu/module2/misc/deploying_with_render
-
 Continuous Integration / Deployment is not allowed for this project.
 ```
 
 ## Apply for Pet(s)
 
-Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
+Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applica◊tions.
 
 ```
 [X] done
