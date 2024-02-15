@@ -1,17 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Shelter, type: :model do
-  describe "relationships" do
-    it { should have_many(:pets) }
-  end
-
-  describe "validations" do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:city) }
-    it { should validate_presence_of(:rank) }
-    it { should validate_numericality_of(:rank) }
-  end
-
   let!(:shelter_1) {Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)}
   let!(:shelter_2) {Shelter.create!(name: "RGV animal shelter", city: "Harlingen, TX", foster_program: false, rank: 5)}
   let!(:shelter_3) {Shelter.create!(name: "Fancy pets of Colorado", city: "Denver, CO", foster_program: true, rank: 10)}
@@ -28,6 +17,17 @@ RSpec.describe Shelter, type: :model do
 
   let!(:application_pet_1) {ApplicationPet.create!(pet: pet_1, application: application_1)}
   let!(:application_pet_2) {ApplicationPet.create!(pet: pet_5, application: application_2)}
+
+  describe "relationships" do
+    it { should have_many(:pets) }
+  end
+
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:rank) }
+    it { should validate_numericality_of(:rank) }
+  end
 
   describe "class methods" do
     describe "#search" do
