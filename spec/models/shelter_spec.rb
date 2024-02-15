@@ -21,6 +21,12 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+    
+    @app_1 = Application.create!(name: "Jack", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 0)
+    @app_2 = Application.create!(name: "Jim", street_address: "123", city: "Det", state: "MI", zip: "12345", description: "I love dogs", status: 1)
+    
+    PetApp.create!(application_id: @app_1.id, pet_id: @pet_1.id)
+    PetApp.create!(application_id: @app_2.id, pet_id: @pet_3.id)
   end
 
   describe "class methods" do
@@ -41,6 +47,18 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe "#reverse_alpha" do 
+      it "orders names by revrse alphabetical order" do 
+        expect(Shelter.reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#only_pending_apps" do 
+      it "shows apps with a status of 'Pending'" do 
+        expect(Shelter.only_pending_apps).to eq([@shelter_3])
+      end
+    end
   end
 
   describe "instance methods" do
@@ -59,12 +77,14 @@ RSpec.describe Shelter, type: :model do
     describe ".shelter_pets_filtered_by_age" do
       it "filters the shelter pets based on given params" do
         expect(@shelter_1.shelter_pets_filtered_by_age(5)).to eq([@pet_4])
+        expect(@shelter_1.shelter_pets_filtered_by_age(3)).to eq([@pet_2, @pet_4])
       end
     end
 
     describe ".pet_count" do
       it "returns the number of pets at the given shelter" do
         expect(@shelter_1.pet_count).to eq(3)
+        expect(@shelter_2.pet_count).to eq(0)
       end
     end
   end
