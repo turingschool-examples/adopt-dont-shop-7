@@ -82,6 +82,7 @@ RSpec.describe "the veterinary offices veterinarians index" do
     expect(@vet_3.name).to appear_before(@vet_4.name)
 
     expect(page).to have_link("Sort alphabetically")
+    
     click_on("Sort alphabetically")
 
     expect(@vet_4.name).to appear_before(@vet_3.name)

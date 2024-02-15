@@ -32,8 +32,8 @@ RSpec.describe "shelter creation" do
     context "given invalid data" do
       it "re-renders the new form" do
         visit "/shelters/new"
+        
         click_button "Save"
-
         fill_in "City", with: "Houston"
 
         expect(page).to have_content("Error: Name can't be blank, Rank can't be blank, Rank is not a number")

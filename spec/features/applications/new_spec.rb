@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Application New Page" do
   describe "as a visitor" do
-    let!(:application_1) {Application.create(name: "Francis", street_address: "600 N 1st Ave", city: "Minneapolis", state: "MN", zip_code: "55403", description: "I want a cat named Taco")}
+    let!(:application_1) {Application.create!(name: "Francis", street_address: "600 N 1st Ave", city: "Minneapolis", state: "MN", zip_code: "55403", description: "I want a cat named Taco")}
 
     before do
       visit "/applications/new"
@@ -29,7 +29,6 @@ RSpec.describe "Application New Page" do
         click_on "Create Application"
 
         expect(current_path).to eq("/applications/#{Application.last.id}")
-        save_and_open_page
         expect(page).to have_content(application_1.name)
         expect(page).to have_content(application_1.street_address)
         expect(page).to have_content(application_1.description)
@@ -43,7 +42,6 @@ RSpec.describe "Application New Page" do
           click_on "Create Application"
 
           expect(current_path).to eq("/applications/new")
-          save_and_open_page
           expect(page).to have_content("Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number, Description can't be blank")
           expect(page).to have_button("Create Application")
         end

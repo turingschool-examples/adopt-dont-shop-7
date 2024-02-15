@@ -68,6 +68,7 @@ RSpec.describe "the veterinary offices index" do
     end
 
     click_on("Update #{@vet_office_1.name}")
+
     expect(page).to have_current_path("/veterinary_offices/#{@vet_office_1.id}/edit")
   end
 
@@ -87,6 +88,7 @@ RSpec.describe "the veterinary offices index" do
     end
 
     click_on("Delete #{@vet_office_1.name}")
+    
     expect(page).to have_current_path("/veterinary_offices")
     expect(page).to_not have_content(@vet_office_1.name)
   end

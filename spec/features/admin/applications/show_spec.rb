@@ -13,6 +13,7 @@ RSpec.describe "Admin Application Show Page" do
   let!(:application_pet_2) {ApplicationPet.create!(pet: pet_2, application: application_1, pet_status: "pending")}
   let!(:application_pet_3) {ApplicationPet.create!(pet: pet_1, application: application_2, pet_status: "pending")}
   let!(:application_pet_4) {ApplicationPet.create!(pet: pet_2, application: application_2, pet_status: "pending")}
+
   describe "As a visitor" do
     describe "User Story 12" do
       describe "When I visit an admin application show page" do
@@ -39,9 +40,11 @@ RSpec.describe "Admin Application Show Page" do
       describe "When I visit an admin application show page" do
         it "sees a button to reject each pet in the application, after I click on the button, I'm taken back to the admin application show page and see 'Rejected' next to that pet" do
           visit "/admin/applications/#{application_1.id}"
+
           expect(page).to have_button("Reject", count: 2)
           expect(page).to have_content(pet_1.name)
           expect(page).to have_content(pet_2.name)
+
           click_on "Reject", match: :first
           click_on "Reject"
 
@@ -65,7 +68,6 @@ RSpec.describe "Admin Application Show Page" do
           expect(page).to have_content(pet_2.name)
 
           click_on "Approve", match: :first
-          # click_on "Reject"
 
           expect(current_path).to eq("/admin/applications/#{application_1.id}")
           expect(page).to have_button("Approve")
@@ -74,6 +76,7 @@ RSpec.describe "Admin Application Show Page" do
           expect(page).to have_content(pet_2.name)
 
           visit "/admin/applications/#{application_2.id}"
+          
           expect(page).to have_button("Reject", count: 2)
           expect(page).to have_button("Approve", count: 1)
           expect(page).to have_content(pet_1.name)

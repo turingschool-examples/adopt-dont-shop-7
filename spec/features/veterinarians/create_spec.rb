@@ -25,6 +25,7 @@ RSpec.describe "veterinarian creation" do
         fill_in "Review rating", with: 10
         check "On call"
         click_button "Save"
+
         expect(page).to have_current_path(
           "/veterinary_offices/#{@vet_office.id}/veterinarians"
         )
@@ -37,6 +38,7 @@ RSpec.describe "veterinarian creation" do
         visit "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
 
         click_button "Save"
+        
         expect(page).to have_current_path(
           "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
         )

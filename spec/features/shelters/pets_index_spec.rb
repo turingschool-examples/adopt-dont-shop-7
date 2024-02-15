@@ -31,7 +31,9 @@ RSpec.describe "the shelters pets index" do
     visit "/shelters/#{@shelter.id}/pets"
 
     expect(page).to have_link("Create a Pet")
+
     click_on("Create a Pet")
+
     expect(page).to have_current_path("/shelters/#{@shelter.id}/pets/new")
   end
 
@@ -70,6 +72,7 @@ RSpec.describe "the shelters pets index" do
 
     find("#age option[value='3']").select_option
     click_button("Filter")
+
     expect(page).to have_content(@pet_2.name)
     expect(page).to_not have_content(@pet_1.name)
     expect(page).to_not have_content(@pet_3.name)
@@ -82,6 +85,7 @@ RSpec.describe "the shelters pets index" do
     expect(@pet_2.name).to appear_before(@pet_4.name)
 
     expect(page).to have_link("Sort alphabetically")
+    
     click_on("Sort alphabetically")
 
     expect(@pet_1.name).to appear_before(@pet_4.name)

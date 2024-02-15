@@ -37,6 +37,7 @@ RSpec.describe "the vet office show" do
     visit "/veterinary_offices/#{vet_office.id}"
 
     expect(page).to have_link("All veterinarians at #{vet_office.name}")
+    
     click_link("All veterinarians at #{vet_office.name}")
 
     expect(page).to have_current_path("/veterinary_offices/#{vet_office.id}/veterinarians")
