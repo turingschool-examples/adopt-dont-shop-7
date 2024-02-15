@@ -70,11 +70,20 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     describe "#update_application" do
-      it "updates the applications's statis to 'Accepted' when ApplicationPet is approved" do
-        new_app = ApplicationPet.create!(application_id: @application_2.id, pet_id: @pet_2.id)
+      it "updates the applications's status to 'Accepted' when ApplicationPet and all pets are approved" do
+        shelter_1 = Shelter.create!(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+
+        pet_1 = shelter_1.pets.create!(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+        pet_2 = shelter_1.pets.create!(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+
+        application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: 1)
+
+        new_app = ApplicationPet.create!(application_id: application_2.id, pet_id: pet_2.id)
+        application_pet_1 = ApplicationPet.create!(application_id: application_2.id, pet_id: pet_1.id)
 
         expect(new_app.application.status).to eq("Pending")
 
+        application_pet_1.update!(application_approved: true)
         new_app.update!(application_approved: true)
 
         expect(new_app.application.status).to eq("Accepted")

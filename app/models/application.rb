@@ -26,4 +26,11 @@ class Application < ApplicationRecord
     !self.application_pets.pluck(:application_reviewed).include?(false)
   end
 
+  def number_of_pets
+    self.pets.count
+  end
+
+  def yes_or_no(true_or_false)
+    true_or_false ? "Yes" : "No"
+  end
 end

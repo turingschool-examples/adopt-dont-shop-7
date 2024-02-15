@@ -1,0 +1,14 @@
+<h1>All Applications</h1>
+<% @applications.each do |application| %>
+  <div id="application-<%= application.id %>">
+    <h3><%= application.name %>'s Application</h3>
+    <ul>
+      <li>Number of pets applied for: <%= application.number_of_pets %></li>
+      <li>Have all applications been reviewed? <%= application.yes_or_no(application.all_applications_reviewed?) %></li>
+      <li>Have all pets been approved? <%= application.yes_or_no(application.all_pets_approved?) %></li>
+      <li>Application status: <%= application.status %></li>
+    </ul>
+    <%= button_to "View Application", show_applications_path(application.id), method: :get %>
+    <%= button_to "Edit Application", show_admin_applications_path(application.id), method: :get %>
+  </div>
+<% end %>

@@ -29,7 +29,7 @@ class ApplicationPet < ApplicationRecord
   end
 
   def update_application
-    application.update!(status: 2) if application_approved
+    application.update!(status: 2) if application_approved && application.all_pets_approved?
   end
 
   # def self.all_pets_approved?(application_id)
