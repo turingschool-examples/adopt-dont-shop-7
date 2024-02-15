@@ -1,0 +1,39 @@
+<h1>Admin Application Show Page</h1>
+<p>Application ID: <%= @adoption_app.id %></p>
+<p>Name: <%= @adoption_app.name %></p>
+<p>Street Address: <%= @adoption_app.street_address %></p>
+<p>City: <%= @adoption_app.city %></p>
+<p>State: <%= @adoption_app.state %></p>
+<p>Zip Code: <%= @adoption_app.zip_code %></p>
+<p>Why they want to adopt: <%= @adoption_app.description %></p>
+<p>Why they would be good owners: <%= @adoption_app.ownership_description %></p>
+<p>Status: <%= @adoption_app.status %></p>
+
+
+<h3>Pets applied for: </h3>
+<ul>
+<% @app_pets.each do |pet| %>
+    <div id="pet-<%= pet.id %>">
+    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+    <ul>
+        <li>Breed: <%= pet.breed %></li>
+        <li>Age: <%= pet.age %></li>
+        <li>Adoptable: <%= pet.adoptable %></li>
+    </ul>   
+    <% if AdoptionApplicationPet.where(pet_id: pet.id,adoption_application_id: @adoption_app.id).first.status == "Approved" %>
+        <%= "#{pet.name} already approved!" %>
+    <% elsif AdoptionApplicationPet.where(pet_id: pet.id,adoption_application_id: @adoption_app.id).first.status == "Rejected"  %>
+        <%= "#{pet.name} already rejected!" %>
+    <% else %>
+        <%= form_with url: "/admin/applications/#{@adoption_app.id}", method: :get do |form| %>
+            <%= form.hidden_field :approved_pet, value: pet.id %>
+            <%= form.submit "Approve" %>
+        <% end %>
+        <%= form_with url: "/admin/applications/#{@adoption_app.id}", method: :get do |form| %>
+            <%= form.hidden_field :rejected_pet, value: pet.id %>
+            <%= form.submit "Reject" %>
+        <% end %>
+    <% end %>
+    </div> 
+<% end %>
+</ul>

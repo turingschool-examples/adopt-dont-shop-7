@@ -27,7 +27,7 @@ Continuous Integration / Deployment is not allowed for this project.
 Visitors to the site will be able to create applications to adopt pets. An application has many pets. Pets can have many applications.
 
 ```
-[ ] done
+[X] done
 
 1. Application Show Page
 
@@ -42,7 +42,7 @@ Then I can see the following:
 ```
 
 ```
-[ ] done
+[X] done
 
 2. Starting an Application
 
@@ -65,7 +65,7 @@ And I see an indicator that this application is "In Progress"
 ```
 
 ```
-[ ] done
+[X] done
 
 3. Starting an Application, Form not Completed
 
@@ -78,7 +78,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+[X] done
 
 4. Searching for Pets for an Application
 
@@ -94,7 +94,7 @@ And under the search bar I see any Pet whose name matches my search
 ```
 
 ```
-[ ] done
+[X] done
 
 5. Add a Pet to an Application
 
@@ -109,7 +109,7 @@ And I see the Pet I want to adopt listed on this application
 ```
 
 ```
-[ ] done
+[X] done - Igor
 
 6. Submit an Application
 
@@ -127,7 +127,7 @@ And I do not see a section to add more pets to this application
 ```
 
 ```
-[ ] done
+[X] done - Igor
 
 7. No Pets on an Application
 
@@ -142,7 +142,7 @@ Then I do not see a section to submit my application
 These stories emphasize key database concepts.
 
 ```
-[ ] done
+[X] done
 
 8. Partial Matches for Pet Names
 
@@ -150,11 +150,11 @@ As a visitor
 When I visit an application show page
 And I search for Pets by name
 Then I see any pet whose name PARTIALLY matches my search
-For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"d
 ```
 
 ```
-[ ] done
+[X] done - Mel
 
 9. Case Insensitive Matches for Pet Names
 
@@ -166,13 +166,13 @@ For example, if I search for "fluff", my search would match pets with names "Flu
 ```
 
 ```
-[ ] done
+[X] done - Mel 
 
 SQL Only Story
 
 For this story, you should write your queries in raw sql. You can use the ActiveRecord find_by_sql method to execute raw sql queries: https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql
 
-10. Admin Shelters Index
+10. Admin Shelters Index - Mel
 
 As a visitor
 When I visit the admin shelter index ('/admin/shelters')
@@ -180,7 +180,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
-[ ] done
+[x] done - Mel
 
 For this story, you should fully leverage ActiveRecord methods in your query.
 
@@ -213,12 +213,11 @@ And instead I see an indicator next to the pet that they have been approved
 ```
 
 ```
-[ ] done
+[ ] done - test done in spec/features/admin/applications/show_spec
 
 13. Rejecting a Pet for Adoption
 
-As a visitor
-When I visit an admin application show page ('/admin/applications/:id')
+
 For every pet that the application is for, I see a button to reject the application for that specific pet
 When I click that button
 Then I'm taken back to the admin application show page

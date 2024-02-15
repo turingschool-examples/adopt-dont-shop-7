@@ -1,0 +1,8 @@
+<h1>Create a New Application</h1>
+
+<p>Please fill out the following information:</p>
+<%= render partial: 'form', locals: { 
+                                      path: "/applications", 
+                                      method: :post, 
+                                      button_text: "Submit"
+} %>  
