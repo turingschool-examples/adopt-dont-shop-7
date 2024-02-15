@@ -25,12 +25,8 @@ class Application < ApplicationRecord
   end
 
   def approve
-    # if can_approve?
       self.approved!
-      # make pets not adoptable
-      # pets.each { |pet| pet.not_adoptable! }
        pets.update_all(adoptable: false)
-    # end
   end
 
   def can_reject?
@@ -38,8 +34,6 @@ class Application < ApplicationRecord
   end
 
   def reject
-    # if can_reject?
       self.rejected!
-    # end
   end
 end
