@@ -16,4 +16,11 @@ class Pet < ApplicationRecord
   def self.search(name)
     where("name ILIKE ?", "%#{name}%" )
   end
+
+  # def not_adoptable!
+  #   update!(adoptable: false)
+  # end
+  def is_approved?
+    application_pets.where(pet_status: "approved").any?
+  end
 end

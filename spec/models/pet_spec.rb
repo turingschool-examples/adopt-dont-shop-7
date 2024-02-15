@@ -41,4 +41,19 @@ RSpec.describe Pet, type: :model do
       end
     end
   end
+
+  describe "#is_approved?" do
+    it "returns true if there are any 'approved' pet status" do
+      application_1 = Application.create!(name: "Sally", street_address: "112 W 9th St.", city: "Kansas City", state: "MO", zip_code: "64105", description: "I love animals. Please let me have one.", status: "pending")
+
+      pet_1 = @shelter_1.pets.create(name: "Mr. Pirate", breed: "tuxedo shorthair", age: 5, adoptable: true)
+      pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
+
+      application_pet_1 = ApplicationPet.create!(pet: pet_1, application: application_1, pet_status: "approved")
+      application_pet_2 = ApplicationPet.create!(pet: pet_2, application: application_1)
+
+      expect(pet_1.is_approved?).to eq(true)
+      expect(pet_2.is_approved?).to eq(false)
+    end
+  end
 end
