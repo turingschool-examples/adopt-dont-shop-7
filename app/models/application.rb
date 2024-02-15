@@ -26,7 +26,7 @@ class Application < ApplicationRecord
 
   def approve
       self.approved!
-       pets.update_all(adoptable: false)
+      pets.update_all(adoptable: false)
   end
 
   def can_reject?
@@ -34,6 +34,6 @@ class Application < ApplicationRecord
   end
 
   def reject
-      self.rejected!
+    self.rejected!
   end
 end

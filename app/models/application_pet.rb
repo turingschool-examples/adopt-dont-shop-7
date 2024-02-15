@@ -9,16 +9,12 @@ class ApplicationPet < ApplicationRecord
   }
 
   def approve
-    self.pet_status = "approved"
-    self.save!
+    self.update(pet_status: "approved")
     application.approve if application.can_approve?
   end
 
   def reject
-    self.pet_status = "rejected"
-    self.save!
+    self.update(pet_status: "rejected")
     application.reject if application.can_reject?
   end
-
-
 end
