@@ -37,11 +37,15 @@ RSpec.describe "Admin Applications Index Page" do
           expect(page).to have_button("Edit Application")
         end
 
-        within "#application-#{@application_1.id}" do
-          expect(page).to have_content("Number of pets applied for: 0")
-          expect(page).to have_content("Have all applications been reviewed? Yes")
-          expect(page).to have_content("Have all pets been approved? Yes")
-          expect(page).to have_content("Application status: In Progress")
+        within "#application-#{@application_2.id}" do
+          expect(page).to have_content("Number of pets applied for: 2")
+          expect(page).to have_content("Application status: Pending")
+
+          within "#application-pet-#{@application_pet_1.id}" do
+            expect(page).to have_content("Pet Application ID: #{@application_pet_1.id}")
+            expect(page).to have_content("Application reviewed? No")
+            expect(page).to have_content("Application approved? No")
+          end
         end
       end
     end

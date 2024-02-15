@@ -29,8 +29,4 @@ class Application < ApplicationRecord
   def number_of_pets
     self.pets.count
   end
-
-  def yes_or_no(true_or_false)
-    true_or_false ? "Yes" : "No"
-  end
 end

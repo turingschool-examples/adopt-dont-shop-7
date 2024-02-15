@@ -4,8 +4,16 @@
     <h3><%= application.name %>'s Application</h3>
     <ul>
       <li>Number of pets applied for: <%= application.number_of_pets %></li>
-      <li>Have all applications been reviewed? <%= application.yes_or_no(application.all_applications_reviewed?) %></li>
-      <li>Have all pets been approved? <%= application.yes_or_no(application.all_pets_approved?) %></li>
+      <% if application.number_of_pets > 0 %>
+        <% application.application_pets.each do |application_pet| %>
+          <ul id="application-pet-<%= application_pet.id %>">
+            <li>Pet Application ID: <%= application_pet.id %></li>
+            <li>Application reviewed? <%= application_pet.yes_or_no(application_pet.application_reviewed) %></li>
+            <li>Application approved? <%= application_pet.yes_or_no(application_pet.application_approved) %></li>
+          </ul>
+          <br>
+        <% end %>
+      <% end %>
       <li>Application status: <%= application.status %></li>
     </ul>
     <%= button_to "View Application", show_applications_path(application.id), method: :get %>

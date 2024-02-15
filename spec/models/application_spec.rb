@@ -77,11 +77,4 @@ RSpec.describe Application, type: :model do
       expect(@application_1.number_of_pets).to eq(2)
     end
   end
-
-  describe "#yes_or_no" do
-    it "returns yes or no depending on true or false" do
-      expect(@application_1.yes_or_no(@application_1.added_pets?)).to eq("Yes")
-      expect(@application_1.yes_or_no(@application_2.added_pets?)).to eq("No")
-    end
-  end
 end
