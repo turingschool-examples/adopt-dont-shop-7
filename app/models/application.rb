@@ -6,8 +6,8 @@ class Application < ApplicationRecord
   validates :zipcode, presence: true, numericality: true
   validates :description, presence: true
 
-  has_many :application_pets
-  has_many :pets, through: :application_pets
+  has_many :application_pets, dependent: :destroy
+  has_many :pets, through: :application_pets, dependent: :destroy
 
   enum status: { "In Progress" => 0, "Pending" => 1, "Accepted" => 2, "Rejected" => 3 }
   def full_address
