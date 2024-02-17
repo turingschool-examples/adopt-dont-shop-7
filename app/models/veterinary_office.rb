@@ -15,6 +15,14 @@ class VeterinaryOffice < ApplicationRecord
       .order("vets_count DESC")
   end
 
+  def self.generate_fake_data
+    VeterinaryOffice.create!(
+      boarding_services: Faker::Boolean.boolean,
+      max_patient_capacity: Faker::Number.within(range: 5..20),
+      name: Faker::Company.name
+    )
+  end
+
   def vet_count
     veterinarians.count
   end

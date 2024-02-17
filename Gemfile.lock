@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: b0ab11d93dd09c513a1009a28325ff6efdddf9a2
+  branch: main
+  specs:
+    faker (3.2.3)
+      i18n (>= 1.8.11, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -110,8 +118,6 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
-    faker (3.2.3)
-      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -285,7 +291,7 @@ DEPENDENCIES
   capybara
   debug
   factory_bot_rails
-  faker
+  faker!
   importmap-rails
   jbuilder
   launchy

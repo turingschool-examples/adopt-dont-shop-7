@@ -3,8 +3,12 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   movies = Movie.create([{ name: "Star Wars",, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+require 'factory_bot_rails'
+require 'faker'
+
 Application.destroy_all
 @application_1 = Application.create!(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love cats")
 @application_2 = Application.create!(name: "Jake", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love dogs", status: 1)
@@ -37,3 +41,22 @@ ApplicationPet.destroy_all
 @application_pet_4 = ApplicationPet.create!(application_id: @application_2.id, pet_id: @dog.id)
 @application_pet_5 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @hamster.id)
 @application_pet_6 = ApplicationPet.create!(application_id: @application_3.id, pet_id: @cat.id)
+
+VeterinaryOffice.destroy_all
+5.times do
+  vet_office =  VeterinaryOffice.create!(
+    boarding_services: Faker::Boolean.boolean,
+    max_patient_capacity: Faker::Number.within(range: 5..20),
+    name: Faker::Company.name
+  )
+end
+
+Veterinarian.destroy_all
+20.times do
+  vet = Veterinarian.create!(
+    on_call: Faker::Boolean.boolean,
+    review_rating: Faker::Number.within(range: 1..5),
+    name: Faker::Name.name,
+    veterinary_office_id: VeterinaryOffice.all.sample.id
+  )
+end

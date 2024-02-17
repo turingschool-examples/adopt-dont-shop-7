@@ -10,4 +10,13 @@ class Veterinarian < ApplicationRecord
   def self.on_call
     where(on_call: true)
   end
+
+  def self.generate_fake_data
+    Veterinarian.create!(
+      on_call: Faker::Boolean.boolean,
+      review_rating: Faker::Number.within(range: 1..5),
+      name: Faker::Name.name,
+      veterinary_office_id: VeterinarianOffice.all.sample
+    )
+  end
 end
