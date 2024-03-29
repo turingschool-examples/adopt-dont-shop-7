@@ -39,7 +39,7 @@ RSpec.describe "the application new" do
     fill_in "Description", with: "I have windows"
 
     click_button "Submit"
-    
+
     expect(page).to have_content("Jerry springfield")
     expect(page).to have_content("235 overthere ln")
     expect(page).to have_content("Las Vegas")
@@ -59,7 +59,18 @@ RSpec.describe "the application new" do
     fill_in "Description", with: "I have windows"
 
     click_button "Submit"
-    
+
     expect(page).to have_content("In Progress")
+  end
+
+  it "displays an error message" do
+    visit "/applications/new"
+
+    fill_in "Description", with: ""
+
+    click_button "Submit"
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("error:Name can't be blank, Description can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank")
   end
 end
