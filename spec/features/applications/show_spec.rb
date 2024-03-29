@@ -9,7 +9,7 @@ RSpec.describe "the application show" do
       street_address: '1234 Sesame Street',
       city: 'New York City',
       state: 'NY',
-      zip_code: 00001
+      zip_code: 10001
       )
 
     visit "/applications/#{application.id}"
