@@ -6,7 +6,6 @@ class ApplicationsController < ApplicationController
     else
       @search_results = []
     end
-  
   end
 
   def new; end
