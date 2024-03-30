@@ -78,7 +78,6 @@ RSpec.describe "the application show" do
 
     visit "/applications/#{application.id}"
 
-    
     fill_in(:search, with: "Lucille Bald")
     click_button("Search")
     
@@ -91,5 +90,73 @@ RSpec.describe "the application show" do
     within "#application_pets" do 
       expect(page).to have_content("Lucille Bald")
     end
+  end
+
+  it 'Submits an application with the chosen pets and changes its status to pending' do
+    application = Application.create!(
+      name: 'Lance Bass',
+      description: 'I love animals.',
+      street_address: '1234 Sesame Street',
+      city: 'New York City',
+      state: 'NY',
+      zip_code: 10001,
+      status: "In Progress"
+    )
+
+    shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+
+    pet_1 = Pet.create!(
+      adoptable: true,
+      age: 1,
+      breed: "sphynx",
+      name: "Lucille Bald",
+      shelter_id: shelter.id
+    )
+    pet_2 = Pet.create!(
+      adoptable: true,
+      age: 3,
+      breed: "doberman",
+      name: "Lobster",
+      shelter_id: shelter.id
+      )
+    pet_3 = Pet.create!(
+      adoptable: false,
+      age: 2,
+      breed: "saint bernard",
+      name: "Beethoven",
+      shelter_id: shelter.id
+      )
+
+    visit "/applications/#{application.id}"
+
+    fill_in(:search, with: "Lucille Bald")
+    click_button("Search")
+
+    click_button("Adopt this pet")
+
+    fill_in(:search, with: "Lobster")
+    click_button("Search")
+
+    click_button("Adopt this pet")
+
+    within "#submit_application" do
+      expect(page).to have_field("Description")
+
+      fill_in("Description", with: "I love the name Lobster!")
+
+      expect(page).to have_button("Submit")
+      click_button("Submit")
+    end
+
+    expect(current_path).to eq("/applications/#{application.id}")
+
+    expect(page).to have_content("Status: Pending")
+
+    within "#application_pets" do
+      expect(page).to have_content("Lucille Bald")
+      expect(page).to have_content("Lobster")
+    end
+
+    expect(page).to_not have_field("Search")
   end
 end
