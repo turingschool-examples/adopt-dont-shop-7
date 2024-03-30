@@ -1,5 +1,18 @@
 <h1><%= @application.name %></h1>
 
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label :search, "Search for pets" %>
+  <%= form.text_field :search %>
+  <%= form.submit "Submit" %>
+<% end %>
+<% if @search_results.any? %>
+  <ul>
+  <% @search_results.each do |pet| %>
+    <li><%= pet.name %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 Status: <%= @application.status %>
 <br>Description: <%= @application.description %>
 <br>Full Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
