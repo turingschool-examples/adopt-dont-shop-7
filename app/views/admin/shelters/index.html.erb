@@ -1,0 +1,8 @@
+<h1>Admin All Shelters</h1>
+
+<% @shelters.each do |shelter| %>
+  <h3><%= shelter.name %></h3>
+  <p><%= shelter.city %></p>
+  <p><%= shelter.rank %></p>
+  <p><%= shelter.foster_program %></p>
+<% end %>

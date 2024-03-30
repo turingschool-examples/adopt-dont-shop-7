@@ -42,7 +42,7 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    describe ".sort_reverse_alphabetically" do
+    describe "#sort_reverse_alphabetically" do
       it "returns the shelters sorted Z-A by name" do
         expect(Shelter.sort_reverse_alphabetically).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
