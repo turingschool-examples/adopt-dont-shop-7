@@ -43,7 +43,7 @@ RSpec.describe "The Admin Application Show Page" do
     )
   end
 
-  it "has a reject pet button" do
+  it "can reject a pet appliction" do
     visit "/admin/applications/#{@application.id}"
 
     expect(page).to have_content("Lobster")
