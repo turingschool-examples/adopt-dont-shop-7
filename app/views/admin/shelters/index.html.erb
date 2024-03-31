@@ -1,8 +1,16 @@
 <h1>Admin All Shelters</h1>
+<section id="pending_shelters">
+  <h3>Shelters With Pending Applications</h3>
+  <% @shelters.pending_shelters.each do |shelter| %>
+    <p><%= shelter.name %></p>
+  <% end %>
+</section>
 
-<% @shelters.each do |shelter| %>
-  <h3><%= shelter.name %></h3>
-  <p><%= shelter.city %></p>
-  <p><%= shelter.rank %></p>
-  <p><%= shelter.foster_program %></p>
-<% end %>
+<section id="all_shelters">
+  <% @shelters.sort_reverse_alphabetically.each do |shelter| %>
+    <h3><%= shelter.name %></h3>
+    <p><%= shelter.city %></p>
+    <p><%= shelter.rank %></p>
+    <p><%= shelter.foster_program %></p>
+  <% end %>
+</section>
