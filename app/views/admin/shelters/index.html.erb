@@ -8,9 +8,11 @@
 
 <section id="all_shelters">
   <% @shelters.sort_reverse_alphabetically.each do |shelter| %>
-    <h3><%= shelter.name %></h3>
-    <p><%= shelter.city %></p>
-    <p><%= shelter.rank %></p>
-    <p><%= shelter.foster_program %></p>
+    <div class="shelter_info">
+      <h3><%= shelter.name %></h3>
+      <p><%= shelter.city %></p>
+      <p><%= shelter.rank %></p>
+      <p><%= shelter.foster_program %></p>
+    </div>
   <% end %>
 </section>

@@ -1,15 +1,90 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+  /*
+  * This is a manifest file that'll be compiled into application.css, which will include all the files
+  * listed below.
+  *
+  * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+  * vendor/assets/stylesheets directory can be referenced here using a relative path.
+  *
+  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+  * compiled file so the styles you add here take precedence over styles defined in any other CSS
+  * files in this directory. Styles in this file should be added after the last require_* statement.
+  * It is generally better to create a new file per style scope.
+  *
+  *= require_tree .
+  *= require_self
+  */
+
+  html {
+    background-color: rgba(86, 165, 214, 0.5);
+    margin: 0;
+    padding: 0;
+    height: 100%
+  }
+
+  body {
+    box-sizing: border-box;
+    background-color: white;
+    border-left: 3px black solid;
+    border-right: 3px black solid;
+    margin: 0px auto;
+    min-height: 100%;
+    max-width: 1024px;
+  }
+
+  .content {
+    padding: 0 30px;
+  }
+
+  nav {
+    background-color: rgb(22, 22, 76);
+    box-sizing: border-box;
+    max-width: 1024px;
+    border-bottom: 3px solid black;
+    margin: 0px auto;
+  }
+
+  nav ul {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    height: 50px;
+  }
+
+  nav li {
+    display: inline;
+    border-right: 1px solid rgb(243, 243, 243);
+    float: left;
+    align-content: center;
+    margin: 0 auto;
+    height: 50px;
+    max-width: 10%;
+  }
+
+  nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 auto;
+  }
+
+  nav li:hover {
+    background-color: black;
+  }
+
+  nav a:active {
+    background-color: black;
+  }
+
+  div.search_form {
+    float: right;
+  }
+
+  .pet_info {
+    margin-bottom: 100px;
+  }
+
+  .shelter_info {
+    margin-bottom: 100px;
+  }

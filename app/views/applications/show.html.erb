@@ -1,5 +1,15 @@
 <h1><%= @application.name %></h1>
 
+Status: <%= @application.status %>
+<br>Description: <%= @application.description %>
+<br>Full Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
+<h3>Pets:</h3>
+<div id="application_pets">
+  <% @application.pets.each do |pet| %>
+    <p><%=pet.name%> </p>
+  <% end %>
+</div>
+
 <!-- Possibly make model method for Application in_progress? -->
 <% if @application.status == "In Progress" %>
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
@@ -22,16 +32,6 @@
     </ul>
   <% end %>
 <% end %>
-
-Status: <%= @application.status %>
-<br>Description: <%= @application.description %>
-<br>Full Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
-<h3>Pets:</h3>
-<div id="application_pets">
-  <% @application.pets.each do |pet| %>
-    <p> <%=pet.name%> </p>
-  <% end %>
-</div>
 
 <% if @application.pets.any? %>
   <section id="submit_application">
