@@ -98,4 +98,38 @@ RSpec.describe "The Admin Application Show Page" do
       end
     end
   end
+
+  describe "User Story 14" do
+    it "Approved/Rejected Pets on one Application do not affect other Applications" do
+      application_2 = Application.create!(
+        name: 'Billy Bob',
+        description: 'I am cool.',
+        street_address: '8943 jose way',
+        city: 'LA',
+        state: 'CA',
+        zip_code: 11903,
+        status: "Pending",
+        pets: [@pet_2, @pet_3]
+      )
+    
+      visit "/admin/applications/#{@application.id}"
+
+      within "#pet_#{@pet_2.id}_buttons" do 
+        expect(page).to have_button("Reject")
+        click_on "Reject"
+
+        expect(page).to_not have_button("Approve")
+        expect(page).to_not have_button("Reject")
+        expect(page).to have_content("Rejected")
+      end
+
+      visit "/admin/applications/#{application_2.id}"
+
+      within "#pet_#{@pet_2.id}_buttons" do
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+        expect(page).to_not have_content("Rejected")
+      end
+    end
+  end
 end
