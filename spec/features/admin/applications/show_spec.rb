@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "The Admin Application Show Page" do
- describe "User Story 13" do
   before(:each) do
     @shelter = Shelter.create(
       name: "Aurora shelter", 
@@ -9,7 +8,7 @@ RSpec.describe "The Admin Application Show Page" do
       foster_program: false, 
       rank: 9
     )
-
+      
     @pet_1 = Pet.create!(
       adoptable: true,
       age: 1,
@@ -31,7 +30,7 @@ RSpec.describe "The Admin Application Show Page" do
       name: "Beethoven",
       shelter_id: @shelter.id
     )
-
+            
     @application = Application.create!(
       name: 'Jared Wlrd',
       description: 'I want more furry friends.',
@@ -43,32 +42,60 @@ RSpec.describe "The Admin Application Show Page" do
       pets: [@pet_2, @pet_3]
     )
   end
+            
+  describe "User Story 13" do
+    it "can reject a pet appliction" do
+      visit "/admin/applications/#{@application.id}"
 
-  it "can reject a pet appliction" do
-    visit "/admin/applications/#{@application.id}"
+      expect(page).to have_content("Lobster")
+      expect(page).to have_content("Beethoven")
 
-    expect(page).to have_content("Lobster")
-    expect(page).to have_content("Beethoven")
+      expect(page).to have_content("Pending")
+      within "#pet_#{@pet_2.id}_buttons" do 
+        expect(page).to have_button("Reject")
+        click_on "Reject"
+      end
+      expect(current_path).to eq("/admin/applications/#{@application.id}")
 
-    expect(page).to have_content("Pending")
-    within "#pet_#{@pet_2.id}_buttons" do 
-      expect(page).to have_button("Reject")
-      click_on "Reject"
+      within "#pet_#{@pet_2.id}_buttons" do 
+        expect(page).to_not have_button("Approve")
+        expect(page).to_not have_button("Reject")
+        expect(page).to have_content("Rejected")
+      end
+
+      within "#pet_#{@pet_3.id}_buttons" do 
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+        expect(page).to_not have_content("Rejected")
+      end
     end
-    expect(current_path).to eq("/admin/applications/#{@application.id}")
-
-    within "#pet_#{@pet_2.id}_buttons" do 
-      expect(page).to_not have_button("Approve")
-      expect(page).to_not have_button("Reject")
-      expect(page).to have_content("Rejected")
-    end
-
-    within "#pet_#{@pet_3.id}_buttons" do 
-      expect(page).to have_button("Approve")
-      expect(page).to have_button("Reject")
-      expect(page).to_not have_content("Rejected")
-    end
-    save_and_open_page
   end
- end
+
+  describe "User Story 12" do
+    it "can approve a pet appliction" do
+      visit "/admin/applications/#{@application.id}"
+
+      expect(page).to have_content("Lobster")
+      expect(page).to have_content("Beethoven")
+
+      expect(page).to have_content("Pending")
+      within "#pet_#{@pet_2.id}_buttons" do 
+        expect(page).to have_button("Approve")
+        click_on "Approve"
+      end
+      expect(current_path).to eq("/admin/applications/#{@application.id}")
+
+      within "#pet_#{@pet_2.id}_buttons" do 
+        expect(page).to_not have_button("Approve")
+        expect(page).to_not have_button("Reject")
+        expect(page).to have_content("Approved")
+      end
+
+      within "#pet_#{@pet_3.id}_buttons" do 
+        expect(page).to have_button("Approve")
+        expect(page).to have_button("Reject")
+        expect(page).to_not have_content("Approved")
+      end
+    end
+  end
 end
