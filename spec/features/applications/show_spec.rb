@@ -73,11 +73,13 @@ RSpec.describe "the application show" do
 
     visit "/applications/#{application.id}"
 
-    expect(page).to have_field("Search")
-
-    fill_in(:search, with: "Lucille Bald")
-    click_button("Search")
-
+    within "#add_pets" do
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_field("Search")
+  
+      fill_in(:search, with: "Lucille Bald")
+      click_button("Search")
+    end
     expect(current_path).to eq("/applications/#{application.id}")
 
     expect(page).to have_content("Lucille Bald")
