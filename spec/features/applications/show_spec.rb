@@ -169,6 +169,7 @@ RSpec.describe "the application show" do
     click_button("Adopt this pet")
 
     within "#submit_application" do
+      expect(page).to have_content("Why I Would Make A Good Owner")
       expect(page).to have_field("Description")
 
       fill_in("Description", with: "I love the name Lobster!")
