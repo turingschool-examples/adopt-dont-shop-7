@@ -8,7 +8,7 @@ RSpec.describe "The Admin Application Show Page" do
       foster_program: false, 
       rank: 9
     )
-      
+
     @pet_1 = Pet.create!(
       adoptable: true,
       age: 1,
@@ -30,7 +30,7 @@ RSpec.describe "The Admin Application Show Page" do
       name: "Beethoven",
       shelter_id: @shelter.id
     )
-            
+
     @application = Application.create!(
       name: 'Jared Wlrd',
       description: 'I want more furry friends.',
@@ -42,7 +42,7 @@ RSpec.describe "The Admin Application Show Page" do
       pets: [@pet_2, @pet_3]
     )
   end
-            
+
   describe "User Story 13" do
     it "can reject a pet appliction" do
       visit "/admin/applications/#{@application.id}"
@@ -55,6 +55,7 @@ RSpec.describe "The Admin Application Show Page" do
         expect(page).to have_button("Reject")
         click_on "Reject"
       end
+
       expect(current_path).to eq("/admin/applications/#{@application.id}")
 
       within "#pet_#{@pet_2.id}_buttons" do 
@@ -83,6 +84,7 @@ RSpec.describe "The Admin Application Show Page" do
         expect(page).to have_button("Approve")
         click_on "Approve"
       end
+
       expect(current_path).to eq("/admin/applications/#{@application.id}")
 
       within "#pet_#{@pet_2.id}_buttons" do 
@@ -111,7 +113,7 @@ RSpec.describe "The Admin Application Show Page" do
         status: "Pending",
         pets: [@pet_2, @pet_3]
       )
-    
+
       visit "/admin/applications/#{@application.id}"
 
       within "#pet_#{@pet_2.id}_buttons" do 
