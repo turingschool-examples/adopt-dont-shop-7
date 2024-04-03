@@ -6,7 +6,7 @@ Status: <%= @application.status %>
 <h3>Pets:</h3>
 <div id="application_pets">
   <% @application.pets.each do |pet| %>
-    <p><%=pet.name%> </p>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
   <% end %>
 </div>
 
