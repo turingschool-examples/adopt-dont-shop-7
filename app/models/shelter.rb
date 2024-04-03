@@ -38,6 +38,9 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_shelters
-    joins(:applications).select('applications.status', 'shelters.*').where("applications.status = ?", "Pending").distinct
+    joins(:applications)
+    .select('applications.status', 'shelters.*')
+    .where("applications.status = ?", "Pending")
+    .distinct
   end
 end
