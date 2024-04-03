@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  def welcome
-  end
+  def welcome; end
 
   private
 
@@ -8,4 +7,3 @@ class ApplicationController < ActionController::Base
       errors.full_messages.join(', ')
     end
 end
-

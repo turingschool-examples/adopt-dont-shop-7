@@ -7,20 +7,20 @@ Applicant Name: <%= @application.name %>
 
 <br>Pets applied for:
 <% @pet_applications.each do |pet_app| %>
-  <div id="pet_<%= pet_app.pet.id %>_buttons">
+  <div id="pet_<%= pet_app.pet_id %>_buttons">
     <p><%= pet_app.pet.name %> <%= pet_app.status %></p>
     <% if pet_app.status.nil? %>
       <%=form_with url:"/admin/pet_applications/#{pet_app.id}", method: :patch, local: true do |f| %>
         <%= f.hidden_field :status, value: "Approved" %>
         <%= f.hidden_field :application_id, value: pet_app.application_id %>
-    
+
         <%= f.submit "Approve" %> 
       <% end %>
 
       <%=form_with url:"/admin/pet_applications/#{pet_app.id}", method: :patch, local: true do |f| %>
         <%= f.hidden_field :status, value: "Rejected" %>
         <%= f.hidden_field :application_id, value: pet_app.application_id %>
-    
+
         <%= f.submit "Reject" %> 
       <% end %>
     <% end %>

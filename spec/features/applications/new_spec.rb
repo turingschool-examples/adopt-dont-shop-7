@@ -25,6 +25,7 @@ RSpec.describe "the application new" do
     have_button "Submit"
     click_button "Submit"
     new_application = Application.last
+
     expect(current_path).to eq("/applications/#{new_application.id}")
   end
 
