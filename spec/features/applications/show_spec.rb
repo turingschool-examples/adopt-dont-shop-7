@@ -10,8 +10,24 @@ RSpec.describe "the application show" do
       state: 'NY',
       zip_code: 10001,
       status: "Pending"
-      )
+    )
 
+    shelter = Shelter.create(name: "Aurora shelter", city: "Aurora, CO", foster_program: false, rank: 9)
+
+    pet_1 = application.pets.create!(
+      adoptable: true,
+      age: 1,
+      breed: "sphynx",
+      name: "Lucille Bald",
+      shelter_id: shelter.id
+    )
+    pet_2 = application.pets.create!(
+      adoptable: true,
+      age: 3,
+      breed: "doberman",
+      name: "Lobster",
+      shelter_id: shelter.id
+    )
     visit "/applications/#{application.id}"
 
     expect(page).to have_content(application.name)
@@ -21,6 +37,17 @@ RSpec.describe "the application show" do
     expect(page).to have_content(application.city)
     expect(page).to have_content(application.state)
     expect(page).to have_content(application.zip_code)
+    
+    within "#application_pets" do
+      expect(page).to have_content("Lucille Bald")
+      expect(page).to have_content("Lobster")
+
+      expect(page).to have_link("Lucille Bald")
+      expect(page).to have_link("Lobster")
+
+      click_on "Lucille Bald"
+    end
+    expect(current_path).to eq("/pets/#{pet_1.id}")
   end
 
   it 'can search for pets on an application show page if that application has not been submitted' do
@@ -46,11 +73,13 @@ RSpec.describe "the application show" do
 
     visit "/applications/#{application.id}"
 
-    expect(page).to have_field("Search")
-
-    fill_in(:search, with: "Lucille Bald")
-    click_button("Search")
-
+    within "#add_pets" do
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_field("Search")
+  
+      fill_in(:search, with: "Lucille Bald")
+      click_button("Search")
+    end
     expect(current_path).to eq("/applications/#{application.id}")
 
     expect(page).to have_content("Lucille Bald")
@@ -140,6 +169,7 @@ RSpec.describe "the application show" do
     click_button("Adopt this pet")
 
     within "#submit_application" do
+      expect(page).to have_content("Why I Would Make A Good Owner")
       expect(page).to have_field("Description")
 
       fill_in("Description", with: "I love the name Lobster!")
