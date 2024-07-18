@@ -1,0 +1,46 @@
+<h1>Applicant Name: <%= @application.name %></h1>
+<h3>Street Address: <%= @application.street_address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zip Code: <%= @application.zip_code %></h3>
+<h3>Description: <%= @application.description %></h3>
+<h3>Status: <%= @application.status %></h3>
+
+<section id="pets_on_application">
+<% @application.pets.each do |pet| %>
+  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+<% end %>
+</section>
+
+<section id="add_pets">
+<% if @application.status == "In Progress" %>
+  <h1>Add a Pet to This Application </h1>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= label_tag :search_by_name, "Search for a pet by name" %>
+      <%= text_field_tag :search_by_name, params[:search_by_name] %>
+      <%= hidden_field_tag :application_id, @application.id %>
+      <%= submit_tag "Submit" %>
+    <% end %>
+<% end %>
+</section>
+
+<section id="search_results">
+<% if @pets.present? %>
+  <h2>Matching Pets:</h2>
+  <% @pets.each do |pet| %>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+    <p><%= button_to "Adopt This Pet", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %></p>
+  <% end %>
+<% end %>
+</section>
+
+<section id="submit_application">
+<% if @application.status == "In Progress" && @application.has_pets? %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <h2>Submit Application</h2>
+      <p> Why I Would Make A Good Owner For These Pets </p>
+      <%= f.text_area :why_good_owner %>
+      <%= submit_tag "Submit" %>
+    <% end %>
+<% end %>
+</section>

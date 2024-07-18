@@ -1,0 +1,23 @@
+<h1>Applicant Name: <%= @application.name %></h1>
+<h3>Street Address: <%= @application.street_address %></h3>
+<h3>City: <%= @application.city %></h3>
+<h3>State: <%= @application.state %></h3>
+<h3>Zip Code: <%= @application.zip_code %></h3>
+<h3>Description: <%= @application.description %></h3>
+<h3>Status: <%= @application.status %></h3>
+
+<section id="pets_on_application">
+<% @pet_applications.each do |pet_app| %>
+  <section id= "pet-<%= pet_app.pet.id %>">
+  <p><%= link_to "#{pet_app.pet.name}", "/pets/#{pet_app.pet.id}" %></p>
+    <% if pet_app.status == "Pending" %>
+      <%= button_to "Approve This Pet", "/admin/applications/#{pet_app.application.id}/pets/#{pet_app.pet.id}", method: :patch, data: {turbo: false}, params: {status: 'Approved'} %>
+      <%= button_to "Reject This Pet", "/admin/applications/#{pet_app.application.id}/pets/#{pet_app.pet.id}", method: :patch, data: {turbo: false}, params: {status: 'Rejected'} %>
+    <% elsif pet_app.status == "Approved" %>
+      <%= "Approved!" %>
+    <% elsif pet_app.status == "Rejected" %>
+      <%= "Rejected!" %>
+    <% end %>
+  </section>
+<% end %>
+</section>
