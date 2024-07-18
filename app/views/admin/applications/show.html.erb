@@ -1,0 +1,16 @@
+<%= render partial: 'admin/view_label', locals: {view_type: "Admin"} %>
+<h1> <%= @application.id %> Show Page </h1>
+
+<div id="enable-disable-application">
+  <% @application.pet_applications.each do |pet_application| %>
+    <div id="pet-application-<%=pet_application.id%>-<%=pet_application.pet.id%>">
+      <%= pet_application.pet.name %>
+      <% if pet_application.pet_app_status == "Pending" %>
+        <%= button_to "Accept Pet", "/admin/applications/#{@application.id}", method: :patch, params: {pet_app_status: "Accepted", pet_application_id: pet_application.id } %>
+        <%= button_to "Reject Pet", "/admin/applications/#{@application.id}", method: :patch, params: {pet_app_status: "Rejected", pet_application_id: pet_application.id } %>
+      <% else %>
+        <%= pet_application.pet_app_status %> 
+      <% end %> 
+    </div>
+  <% end %>
+</div>

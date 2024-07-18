@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe Pet, type: :model do
   describe "relationships" do
     it { should belong_to(:shelter) }
+    it { should have_many(:pet_applications)}
+    it { should have_many(:applications).through(:pet_applications)}
   end
 
   describe "validations" do
@@ -28,6 +30,20 @@ RSpec.describe Pet, type: :model do
     describe "#adoptable" do
       it "returns adoptable pets" do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
+      end
+    end
+
+    describe "#self_find_by_name" do
+      it "returns the pet that matches the name" do
+        expect(Pet.find_pet_by_name("Mr. Pirate")).to eq([@pet_1])
+        expect(Pet.find_pet_by_name("Pirate")).to eq([@pet_1])
+        expect(Pet.find_pet_by_name("Mr.")).to eq([@pet_1])
+      end
+
+      it 'returns the pet that matches the name case-insensitive' do
+        expect(Pet.find_pet_by_name('mr. pirate')).to eq([@pet_1])
+        expect(Pet.find_pet_by_name('MR. PIRATE')).to eq([@pet_1])
+        expect(Pet.find_pet_by_name('Mr. pirate')).to eq([@pet_1])
       end
     end
   end

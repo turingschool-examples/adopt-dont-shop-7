@@ -1,0 +1,52 @@
+<%= render partial: 'view_label', locals: {view_type: "User"} %>
+
+<h1> Applicant: <%= @application.name %></h1>
+<p> Address: <%= @application.street_address %>, <%= @application.city %>, <%= @application.state %>, <%= @application.zip_code %> </p>
+<p> Description: <%= @application.description %></p>
+<div id="pets-on-application">
+  <p> Pets:
+    <% @application.pets.each do |pet| %>
+      <%= pet.name %>
+      <br>
+    <% end %> 
+  </p>
+</div>  
+<p> Status: <%= @application.status %></p>
+
+<% if @application.status == "In Progress" %>
+  <div id="add-pet-section">
+    <h2> Add a Pet to this Application </h2>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+      <h3> <%= form.label :name %> </h3> 
+      <%= form.text_field :name %>
+      <h4> <%= form.submit "Search for Pet" %> </h4>
+    <% end %>
+
+    <% if params[:name] %>
+      <% @pets.each do |pet| %>
+        <div id="pet-<%=pet.id%>">
+          <p> <%= pet.name %> <%= button_to "Adopt this Pet", "/applications/#{@application.id}/pets", method: :post, params: {pet_id: pet.id } %> </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div id="submit-application">
+    <% if @application.pets.count > 0 %>
+      <h3> Why I would make a good owner: </h3>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, params: {id: @application.id, status: "Pending"}, local: true do |form| %>
+        <%= form.label :description %>
+        <%= form.text_field :description %>
+        <% if @application.pets.count != 0 %>
+          <%= form.submit "Submit Application" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+
+
+
+
+

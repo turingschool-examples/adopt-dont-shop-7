@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Shelter, type: :model do
   describe "relationships" do
     it { should have_many(:pets) }
+    it { should have_many(:applications).through(:pets) }
   end
 
   describe "validations" do
@@ -21,6 +22,16 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: "Clawdia", breed: "shorthair", age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: "Lucille Bald", breed: "sphynx", age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: "Ann", breed: "ragdoll", age: 5, adoptable: true)
+
+    @application1 = Application.create!(name: "Joe Baeza", street_address: "12345 Joe Street", city: "Irvine", state: "CA", zip_code: "54321",
+                                        description: "I like Clawdia so I want to adopt them.", status: "In Progress")
+    @application2 = Application.create!(name: "Billy Bob", street_address: "56789 The Bob Street", city: "Boulder", state: "CO", zip_code: "09876",
+                                        description: "I'll go for Mr. Pirate since that name sounds sick.", status: "Pending")
+    @application3 = Application.create!(name: "The Guy", street_address: "111111 The Guy Avenue", city: "Seattle", state: "WA", zip_code: "29212",
+                                        description: "Lucille Bald looks like a sphynx and I think I am a sphynx kind of guy.", status: "Pending")
+    @pet_application1 = PetApplication.create!(application: @application1, pet: @pet_2)
+    @pet_application2 = PetApplication.create!(application: @application2, pet: @pet_1)
+    @pet_application3 = PetApplication.create!(application: @application3, pet: @pet_3)
   end
 
   describe "class methods" do
@@ -39,6 +50,18 @@ RSpec.describe Shelter, type: :model do
     describe "#order_by_number_of_pets" do
       it "orders the shelters by number of pets they have, descending" do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
+
+    describe "#sql_reverse_alphabetical_shelters" do
+      it "returns all shelters in reverse alphabetical order" do
+        expect(Shelter.sql_reverse_alphabetical_shelters).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe "#shelters_pending_applications" do
+      it "returns all shelters with pending applications" do
+        expect(Shelter.shelters_pending_applications).to eq([@shelter_1, @shelter_3])
       end
     end
   end
