@@ -1,3 +1,33 @@
+# PRESENTATION CHECKLIST
+
+- Choose screen recording option (Huddle, Zoom, Loom?)
+    - Will upload to either Google Drive or Youtube
+    - Include link in Submission
+
+Regarding Presentation Feedback
+ - Questions for instructors about project?:
+    - 
+    - 
+- Specific Desired Feedback?
+    - 
+    -
+
+- Select User Stories to Present:
+    - Lito:  User Story 1?
+    - Tyler: User Story 3?
+
+For each story:
+
+- Demonstrate the user story on your deployment site (Render or Heroku, or localhost if the feature is not functional in Production)
+
+- Describe and show how you came up with the solution to this user story, including your tests & code that makes those tests pass
+
+- Discuss and/or show any stumbling blocks you encountered along the way, and talk about what you/your team did to solve them.
+
+- In your presentation, please also include any questions or areas of your code where you would like to receive instructor feedback.
+
+****************************************************************************
+
 # Adopt, don't Shop
 
 This is a paired project used in Turing School's Backend Program Module 2.
@@ -33,3 +63,7 @@ In this project, students will build upon the code in this repo to create a Pet 
 ## Check In
 
 This project will have one Check In. During your Check In, you should be prepared to review your database schema for the many to many relationship, your deployment to the internet, and your GitHub Projects board.
+
+
+## DB Design
+![alt text](image.png)
